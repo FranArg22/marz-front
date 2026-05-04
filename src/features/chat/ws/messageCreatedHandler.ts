@@ -29,7 +29,7 @@ export function handleMessageCreated(
           type: 'system_event',
           text_content: null,
           event_type: payload.event_type,
-          payload: payload.payload,
+          payload: (payload.payload ?? null) as Record<string, unknown> | null,
           created_at: payload.created_at,
           read_by_self: payload.author_account_id === currentAccountId,
         }
@@ -38,7 +38,7 @@ export function handleMessageCreated(
           conversation_id: payload.conversation_id,
           author_account_id: payload.author_account_id,
           type: 'text',
-          text_content: payload.text_content,
+          text_content: payload.text,
           event_type: null,
           payload: null,
           created_at: payload.created_at,
@@ -46,9 +46,29 @@ export function handleMessageCreated(
         }
 
   queryClient.setQueryData<MessagesInfiniteData>(messagesKey, (old) => {
-    if (!old || old.pages.length === 0) return old
+    // No cache yet (counterpart had timeline open with zero messages) or the
+    // first page hasn't been materialized: seed a fresh first page so the
+    // incoming message renders immediately instead of waiting for a refetch.
+    if (!old || old.pages.length === 0) {
+      return {
+        pages: [
+          {
+            data: {
+              data: [confirmedMessage],
+              next_before_cursor: null,
+              has_more: false,
+            },
+            status: 200,
+          },
+        ],
+        pageParams: [undefined],
+      }
+    }
 
-    const clientMessageId = payload.client_message_id
+    // client_message_id only exists on text payloads (server echoes the id
+    // the client sent on POST so the optimistic insert can be reconciled).
+    const clientMessageId =
+      payload.type === 'text' ? payload.client_message_id : null
     if (clientMessageId) {
       const found = old.pages.some((page) =>
         page.data.data.some((msg) => msg.id === clientMessageId),

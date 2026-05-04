@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 
 import { ConversationRailItem } from './ConversationRailItem'
-import type { ConversationListItem } from './types'
+import type { ConversationListItem } from '#/shared/api/generated/model'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(

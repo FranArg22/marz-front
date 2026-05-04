@@ -1,0 +1,792 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Marz Test API",
+    "version": "0.1.0",
+    "description": "Test-only contract for E2E fixtures. All endpoints require `X-Test-Secret`\nand are gated by `TEST_API_ENABLED=true`. Never available in production.\n\nConsumed by marz-front E2E suite via a separate Orval generation target so\nthe production client stays free of test-only types.\n"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local"
+    }
+  ],
+  "paths": {
+    "/v1/test/accounts": {
+      "post": {
+        "operationId": "createTestAccount",
+        "tags": ["test"],
+        "description": "Creates a test account or returns an existing one matched by clerk_user_id.\n\nEmail is UNIQUE. If the email already belongs to another `is_test=true`\naccount (zombie from a prior run that crashed before cleanup), the\nzombie is hard-deleted and the slot is reused with the new\nclerk_user_id. If the email belongs to a non-test account the request\nis rejected with 500 (production data is never touched).\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: create_test_account_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/accounts:purge": {
+      "post": {
+        "operationId": "purgeTestAccounts",
+        "tags": ["test"],
+        "description": "Hard-deletes every is_test account whose email matches the SQL LIKE\npattern (and cascades to chat / identity dependents per the per-account\npath). Always scoped to is_test=true, so production rows are never\ntouched.\n\nThe pattern must contain at least one SQL wildcard (`%` or `_`) to\nprevent accidental scope blow-up. Returns the number of accounts\ndeleted. Use this as an escape hatch when zombies from prior runs\nblock fresh fixtures.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurgeTestAccountsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurgeTestAccountsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_email_like.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: purge_failed. Cause is included in `message` for /v1/test/* endpoints.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/accounts/{clerk_user_id}/onboarding": {
+      "post": {
+        "operationId": "setTestOnboardingState",
+        "tags": ["test"],
+        "description": "Forces a test account into a specific onboarding state.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "clerk_user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetTestOnboardingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_status, invalid_kind.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: account_not_found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: set_onboarding_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/accounts/{clerk_user_id}/onboard-full": {
+      "post": {
+        "operationId": "onboardTestAccountFull",
+        "tags": ["test"],
+        "description": "Marks the account as fully onboarded for the requested kind AND seeds\nthe side effects production onboarding would create:\n\n- kind=brand → creates an `identity_brand_workspaces` row + an owner\n  `identity_brand_memberships` row.\n- kind=creator → creates an `identity_creator_profiles` row with\n  minimum valid content (niches=[\"general\"], empty content_types and\n  best_videos).\n\nIdempotent: re-running on an already-onboarded test account does not\nduplicate workspaces or profiles.\n\nUse this endpoint when the test needs an account ready for chat,\noffers, etc. Use the simpler `/onboarding` endpoint when the test\nneeds to assert behavior at a specific onboarding state.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "clerk_user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardTestAccountFullRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_kind, invalid_clerk_user_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: account_not_found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: onboard_full_failed, set_onboarding_failed, get_account_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/conversations": {
+      "post": {
+        "operationId": "createTestConversation",
+        "tags": ["test"],
+        "description": "Creates (or returns existing) chat conversation for the brand↔creator pair.\nBypasses the production trigger flow (invite/application acceptance).\nOptionally seeds deterministic text messages for history/scroll tests.\n\nIdempotent: if a conversation already exists for the pair it is returned.\nSeed messages, when requested, are appended on top of any existing ones.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestConversationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTestConversationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_payload, same_account, seed_messages_count_too_large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: account_not_found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: not_onboarded, wrong_kind.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: seed_conversation_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/accounts/{clerk_user_id}": {
+      "delete": {
+        "operationId": "deleteTestAccount",
+        "tags": ["test"],
+        "description": "Hard-deletes a test account and cascades to brand_workspace_memberships,\nbrand_workspaces (when the account was the last member), creator_profiles,\nchat conversations, and chat messages owned by the account.\n\nIdempotent: returns 204 even when the account does not exist.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "clerk_user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: delete_test_account_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message"],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "object",
+                "required": ["field", "reason"],
+                "properties": {
+                  "field": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AccountKind": {
+        "type": "string",
+        "enum": ["brand", "creator"]
+      },
+      "OnboardingStatus": {
+        "type": "string",
+        "enum": ["kind_pending", "onboarding_pending", "onboarded"]
+      },
+      "CreateTestAccountRequest": {
+        "type": "object",
+        "required": ["clerk_user_id", "email", "full_name"],
+        "properties": {
+          "clerk_user_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "full_name": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "PurgeTestAccountsRequest": {
+        "type": "object",
+        "required": ["email_like"],
+        "properties": {
+          "email_like": {
+            "type": "string",
+            "minLength": 1,
+            "description": "SQL LIKE pattern matched against `identity_accounts.email`. Must\ncontain at least one wildcard (`%` or `_`). Examples:\n`e2e.%`, `%@e2e.test`, `brand_run42_%@example.com`.\n"
+          }
+        }
+      },
+      "PurgeTestAccountsResponse": {
+        "type": "object",
+        "required": ["deleted"],
+        "properties": {
+          "deleted": {
+            "type": "integer",
+            "description": "Number of test accounts removed."
+          }
+        }
+      },
+      "OnboardTestAccountFullRequest": {
+        "type": "object",
+        "required": ["kind"],
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/AccountKind"
+          }
+        }
+      },
+      "SeedMessagesInput": {
+        "type": "object",
+        "required": ["count"],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 500,
+            "description": "Number of text messages to seed. Hard cap is 500."
+          },
+          "alternating_authors": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, message at index 0 is authored by the brand, index 1 by\nthe creator, alternating from there.\n"
+          },
+          "mark_read_for": {
+            "type": "string",
+            "enum": ["brand", "creator", "both", "none"],
+            "default": "none",
+            "description": "Which side(s) should have read receipts inserted for the seeded\nmessages. A reader never marks their own messages as read.\n"
+          }
+        }
+      },
+      "CreateTestConversationRequest": {
+        "type": "object",
+        "required": ["brand_clerk_user_id", "creator_clerk_user_id"],
+        "properties": {
+          "brand_clerk_user_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "creator_clerk_user_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "seed_messages": {
+            "$ref": "#/components/schemas/SeedMessagesInput"
+          }
+        }
+      },
+      "CreateTestConversationResponse": {
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "brand_account_id",
+          "creator_account_id",
+          "brand_workspace_id"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "SetTestOnboardingRequest": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/OnboardingStatus"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/AccountKind"
+          }
+        }
+      },
+      "CreatorProfile": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 2000,
+            "nullable": true
+          },
+          "tier": {
+            "type": "string",
+            "nullable": true
+          },
+          "niches": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "content_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 200,
+            "nullable": true
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "experience_level": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "whatsapp_e164": {
+            "type": "string",
+            "nullable": true
+          },
+          "referral_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "best_videos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "onboarded_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "BrandWorkspaceSummary": {
+        "type": "object",
+        "required": ["id", "name", "plan"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "plan": {
+            "type": "string"
+          }
+        }
+      },
+      "MeResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "created_at",
+          "redirect_to",
+          "onboarding_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/AccountKind",
+            "nullable": true
+          },
+          "full_name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "redirect_to": {
+            "type": "string",
+            "nullable": true
+          },
+          "onboarding_status": {
+            "$ref": "#/components/schemas/OnboardingStatus"
+          },
+          "creator_profile": {
+            "$ref": "#/components/schemas/CreatorProfile",
+            "nullable": true
+          },
+          "brand_workspace": {
+            "$ref": "#/components/schemas/BrandWorkspaceSummary",
+            "nullable": true
+          }
+        }
+      }
+    }
+  }
+}

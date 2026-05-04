@@ -567,6 +567,1531 @@
         }
       }
     },
+    "/v1/conversations": {
+      "get": {
+        "operationId": "listConversations",
+        "tags": ["chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["all", "unread", "needs_reply"],
+              "default": "all"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            }
+          },
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "description": "Active brand workspace ID. Required for brand accounts (returns 422\nbrand_workspace_required if missing or malformed). Ignored for creator\naccounts but clients should always send it for consistency.\n",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: campaign_filter_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/conversations/{conversation_id}": {
+      "get": {
+        "operationId": "getConversation",
+        "tags": ["chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_conversation. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/conversations/{conversation_id}/messages": {
+      "post": {
+        "operationId": "sendMessage",
+        "tags": ["chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageSendRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_conversation. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: conversation.counterpart_inactive. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.text_empty, validation.text_too_long, validation.invalid_client_message_id. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests. Possible codes: rate_limit.exceeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer"
+                },
+                "description": "Seconds until the rate limit resets."
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listMessages",
+        "tags": ["chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "before_cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_conversation. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_query. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/conversations/{conversation_id}/read": {
+      "post": {
+        "operationId": "markRead",
+        "tags": ["chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarkReadResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_conversation. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers": {
+      "post": {
+        "operationId": "createSingleOffer",
+        "tags": ["offers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Optional UUID v4 idempotency key."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOfferRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK. Returned when Idempotency-Key replays an existing offer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDTO"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_idempotency_key. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, forbidden_workspace. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: campaign_not_found, conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: campaign_not_active. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation_error, invalid_amount. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/{id}": {
+      "get": {
+        "operationId": "getOffer",
+        "tags": ["offers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: offer_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/{id}/accept": {
+      "post": {
+        "operationId": "acceptOffer",
+        "tags": ["offers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_not_recipient. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: offer_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: offer_not_actionable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/{id}/reject": {
+      "post": {
+        "operationId": "rejectOffer",
+        "tags": ["offers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_not_recipient. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: offer_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: offer_not_actionable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/conversations/{conversation_id}/offers": {
+      "get": {
+        "operationId": "getConversationOffers",
+        "tags": ["offers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationOffersResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: conversation_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_query. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deliverables/{id}/draft-uploads": {
+      "post": {
+        "operationId": "requestDraftUpload",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "traceparent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestDraftUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDraftUploadResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deliverables/{id}/draft-uploads/{intent_id}/complete": {
+      "post": {
+        "operationId": "completeDraftUpload",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "intent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "traceparent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteDraftUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deliverables/{id}/draft-uploads/{intent_id}": {
+      "delete": {
+        "operationId": "cancelDraftUpload",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "intent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deliverables/{id}/approve": {
+      "post": {
+        "operationId": "approveDraft",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApproveDraftResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deliverables/{id}/drafts": {
+      "get": {
+        "operationId": "listDrafts",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListDraftsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/conversations/{id}/deliverables": {
+      "get": {
+        "operationId": "getConversationDeliverables",
+        "tags": ["deliverables"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationDeliverablesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/campaigns/brief-builder/init": {
       "post": {
         "operationId": "initBriefBuilder",
@@ -928,212 +2453,6 @@
           }
         }
       }
-    },
-    "/v1/test/accounts": {
-      "post": {
-        "operationId": "createTestAccount",
-        "tags": ["test"],
-        "description": "Test-only. Creates a test account or returns an existing one.\nRequires `X-Test-Secret` header. Never available in production.\n",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "X-Test-Secret",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTestAccountRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MeResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_body. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: test_secret_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: create_test_account_failed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/test/accounts/{clerk_user_id}/onboarding": {
-      "post": {
-        "operationId": "setTestOnboardingState",
-        "tags": ["test"],
-        "description": "Test-only. Forces a test account into a specific onboarding state.\nRequires `X-Test-Secret` header. Never available in production.\n",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "X-Test-Secret",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "clerk_user_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetTestOnboardingRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MeResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_body, invalid_status, invalid_kind. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: test_secret_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: account_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: set_onboarding_failed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/test/accounts/{clerk_user_id}": {
-      "delete": {
-        "operationId": "deleteTestAccount",
-        "tags": ["test"],
-        "description": "Test-only. Soft-deletes a test account.\nRequires `X-Test-Secret` header. Never available in production.\n",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "X-Test-Secret",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "clerk_user_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: test_secret_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: delete_test_account_failed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -1332,6 +2651,37 @@
           "creator_profile": {
             "$ref": "#/components/schemas/CreatorProfile",
             "nullable": true
+          },
+          "brand_workspace": {
+            "$ref": "#/components/schemas/BrandWorkspaceSummary",
+            "nullable": true
+          }
+        }
+      },
+      "BrandWorkspaceSummary": {
+        "type": "object",
+        "description": "Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated /v1/brand-workspaces endpoint will replace this embedding.\n",
+        "required": ["id", "name", "plan"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "website_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "plan": {
+            "type": "string"
           }
         }
       },
@@ -1788,6 +3138,595 @@
           }
         }
       },
+      "RequestDraftUploadRequest": {
+        "type": "object",
+        "required": ["filename", "size_bytes", "content_type"],
+        "properties": {
+          "filename": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "size_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 2147483648
+          },
+          "content_type": {
+            "type": "string",
+            "enum": ["video/mp4", "video/quicktime", "video/webm"]
+          }
+        }
+      },
+      "RequestDraftUploadResponse": {
+        "type": "object",
+        "required": [
+          "intent_id",
+          "upload_url",
+          "s3_key",
+          "headers",
+          "expires_at"
+        ],
+        "properties": {
+          "intent_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "upload_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "s3_key": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CompleteDraftUploadRequest": {
+        "type": "object",
+        "properties": {
+          "duration_sec": {
+            "type": "integer",
+            "minimum": 0,
+            "nullable": true
+          },
+          "thumbnail_s3_key": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "DraftDTO": {
+        "type": "object",
+        "required": [
+          "id",
+          "deliverable_id",
+          "version",
+          "s3_key",
+          "playback_url",
+          "playback_url_expires_at",
+          "original_filename",
+          "file_size_bytes",
+          "submitted_by_account_id",
+          "submitted_at",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "s3_key": {
+            "type": "string"
+          },
+          "playback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "playback_url_expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "original_filename": {
+            "type": "string"
+          },
+          "file_size_bytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "duration_sec": {
+            "type": "integer",
+            "nullable": true
+          },
+          "mime_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "submitted_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": ["submitted", "approved"]
+          }
+        }
+      },
+      "DeliverableDTO": {
+        "type": "object",
+        "required": [
+          "id",
+          "offer_id",
+          "platform",
+          "format",
+          "status",
+          "current_version",
+          "current_draft",
+          "drafts_count",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offer_stage_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["youtube", "instagram", "tiktok", "x", "twitch"]
+          },
+          "format": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "draft_submitted",
+              "changes_requested",
+              "draft_approved",
+              "link_submitted",
+              "link_approved",
+              "completed"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "current_version": {
+            "type": "integer",
+            "nullable": true
+          },
+          "current_draft": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DraftDTO"
+              }
+            ]
+          },
+          "drafts_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OfferStageRefDTO": {
+        "type": "object",
+        "required": ["id", "position", "name", "status", "deliverable_ids"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "position": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": ["locked", "open", "approved"]
+          },
+          "deliverable_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "ApproveDraftResponse": {
+        "type": "object",
+        "required": ["deliverable", "draft"],
+        "properties": {
+          "deliverable": {
+            "$ref": "#/components/schemas/DeliverableDTO"
+          },
+          "draft": {
+            "$ref": "#/components/schemas/DraftDTO"
+          }
+        }
+      },
+      "ListDraftsResponse": {
+        "type": "object",
+        "required": ["drafts"],
+        "properties": {
+          "drafts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DraftDTO"
+            }
+          }
+        }
+      },
+      "ConversationDeliverablesResponse": {
+        "type": "object",
+        "required": ["offer_id", "offer_type", "deliverables", "stages"],
+        "properties": {
+          "offer_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "offer_type": {
+            "type": "string",
+            "enum": ["single", "bundle", "multistage"],
+            "nullable": true
+          },
+          "deliverables": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliverableDTO"
+            }
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OfferStageRefDTO"
+            }
+          }
+        }
+      },
+      "DraftSubmittedSnapshot": {
+        "type": "object",
+        "required": [
+          "event_type",
+          "deliverable_id",
+          "deliverable_platform",
+          "deliverable_format",
+          "draft_id",
+          "version",
+          "original_filename",
+          "submitted_at",
+          "submitted_by_account_id",
+          "playback_url",
+          "playback_url_expires_at"
+        ],
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": ["DraftSubmitted"]
+          },
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable_platform": {
+            "type": "string"
+          },
+          "deliverable_format": {
+            "type": "string"
+          },
+          "deliverable_offer_stage_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "original_filename": {
+            "type": "string"
+          },
+          "file_size_bytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "duration_sec": {
+            "type": "integer",
+            "nullable": true
+          },
+          "mime_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "playback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "playback_url_expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submitted_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DraftApprovedSnapshot": {
+        "type": "object",
+        "required": [
+          "event_type",
+          "deliverable_id",
+          "deliverable_platform",
+          "deliverable_format",
+          "draft_id",
+          "version",
+          "approved_at",
+          "approved_by_account_id"
+        ],
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": ["DraftApproved"]
+          },
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable_platform": {
+            "type": "string"
+          },
+          "deliverable_format": {
+            "type": "string"
+          },
+          "deliverable_offer_stage_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "approved_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DraftSubmittedWSPayload": {
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "deliverable_id",
+          "draft_id",
+          "version",
+          "message_id",
+          "snapshot"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "message_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/DraftSubmittedSnapshot"
+          }
+        }
+      },
+      "DraftApprovedWSPayload": {
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "deliverable_id",
+          "draft_id",
+          "version",
+          "message_id",
+          "snapshot"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "message_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/DraftApprovedSnapshot"
+          }
+        }
+      },
+      "DeliverableChangedWSPayload": {
+        "type": "object",
+        "required": ["conversation_id", "deliverable"],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deliverable": {
+            "$ref": "#/components/schemas/DeliverableDTO"
+          }
+        }
+      },
+      "StageApprovedWSPayload": {
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "offer_id",
+          "stage_id",
+          "position",
+          "total_stages",
+          "approved_at"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "stage_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "position": {
+            "type": "integer"
+          },
+          "total_stages": {
+            "type": "integer"
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DomainEventEnvelope": {
+        "type": "object",
+        "required": ["type", "schema_version", "data"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "draft.submitted",
+              "draft.approved",
+              "deliverable.changed",
+              "stage.approved"
+            ]
+          },
+          "schema_version": {
+            "type": "string",
+            "enum": ["v1"]
+          },
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DraftSubmittedWSPayload"
+              },
+              {
+                "$ref": "#/components/schemas/DraftApprovedWSPayload"
+              },
+              {
+                "$ref": "#/components/schemas/DeliverableChangedWSPayload"
+              },
+              {
+                "$ref": "#/components/schemas/StageApprovedWSPayload"
+              }
+            ]
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "required": ["error"],
@@ -1801,6 +3740,18 @@
               },
               "message": {
                 "type": "string"
+              },
+              "details": {
+                "type": "object",
+                "required": ["field", "reason"],
+                "properties": {
+                  "field": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
@@ -2046,6 +3997,104 @@
           }
         }
       },
+      "ConversationListResponse": {
+        "type": "object",
+        "required": ["items", "total_visible"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConversationListItem"
+            }
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true
+          },
+          "total_visible": {
+            "type": "integer"
+          }
+        }
+      },
+      "ConversationListItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "counterpart",
+          "last_activity_at",
+          "last_message_preview",
+          "unread_count",
+          "needs_reply",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "counterpart": {
+            "$ref": "#/components/schemas/ConversationCounterpart"
+          },
+          "last_activity_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_message_preview": {
+            "$ref": "#/components/schemas/ConversationLastMessagePreview"
+          },
+          "unread_count": {
+            "type": "integer"
+          },
+          "needs_reply": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ConversationCounterpart": {
+        "type": "object",
+        "required": ["kind", "id", "display_name"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["brand_workspace", "creator_profile"]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ConversationLastMessagePreview": {
+        "type": "object",
+        "required": ["kind", "text", "author_is_self"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["text", "system_event", "attachment", "empty"]
+          },
+          "text": {
+            "type": "string"
+          },
+          "author_is_self": {
+            "type": "boolean"
+          }
+        }
+      },
       "CampaignBriefResponse": {
         "type": "object",
         "required": [
@@ -2154,33 +4203,1020 @@
           }
         }
       },
-      "CreateTestAccountRequest": {
+      "MessageSendRequest": {
         "type": "object",
-        "required": ["clerk_user_id", "email", "full_name"],
+        "required": ["text", "client_message_id"],
         "properties": {
-          "clerk_user_id": {
+          "text": {
             "type": "string",
-            "minLength": 1
+            "maxLength": 4096
           },
-          "email": {
+          "client_message_id": {
             "type": "string",
-            "format": "email"
-          },
-          "full_name": {
-            "type": "string",
-            "minLength": 1
+            "format": "uuid"
           }
         }
       },
-      "SetTestOnboardingRequest": {
+      "MessageResponse": {
         "type": "object",
-        "required": ["status"],
+        "required": [
+          "id",
+          "conversation_id",
+          "author_account_id",
+          "text",
+          "created_at",
+          "idempotent_replay"
+        ],
         "properties": {
-          "status": {
-            "$ref": "#/components/schemas/OnboardingStatus"
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "author_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "text": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idempotent_replay": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MessageListItem": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TextMessageListItem"
+          },
+          {
+            "$ref": "#/components/schemas/SystemEventMessageListItem"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "text": "#/components/schemas/TextMessageListItem",
+            "system_event": "#/components/schemas/SystemEventMessageListItem"
+          }
+        }
+      },
+      "TextMessageListItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "author_account_id",
+          "text",
+          "created_at",
+          "read_by_self"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text"]
+          },
+          "author_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "text": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "read_by_self": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SystemEventMessageListItem": {
+        "type": "object",
+        "required": ["id", "type", "event_type", "created_at", "read_by_self"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["system_event"]
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Domain event identifier (e.g. offer.sent, draft.submitted, stage.opened)."
+          },
+          "payload": {
+            "description": "Self-contained snapshot of the event at emission time. Shape depends on event_type.",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "read_by_self": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MessageListResponse": {
+        "type": "object",
+        "required": ["items", "has_more"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageListItem"
+            }
+          },
+          "next_before_cursor": {
+            "type": "string",
+            "nullable": true
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MarkReadResponse": {
+        "type": "object",
+        "required": ["marked_count"],
+        "properties": {
+          "marked_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "CreateOfferRequest": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateSingleOfferRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CreateBundleOfferRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CreateMultiStageOfferRequest"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "single": "#/components/schemas/CreateSingleOfferRequest",
+            "bundle": "#/components/schemas/CreateBundleOfferRequest",
+            "multistage": "#/components/schemas/CreateMultiStageOfferRequest"
+          }
+        }
+      },
+      "CreateSingleOfferRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "campaign_id",
+          "conversation_id",
+          "amount",
+          "deadline",
+          "description",
+          "deliverable"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["single"]
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "Ignored when sent; currency is inherited from the campaign."
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "speed_bonus": {
+            "$ref": "#/components/schemas/OfferSpeedBonus"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "deliverable": {
+            "$ref": "#/components/schemas/OfferDeliverableDTO"
+          }
+        }
+      },
+      "CreateBundleOfferRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "campaign_id",
+          "conversation_id",
+          "amount",
+          "deadline",
+          "description",
+          "deliverables"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["bundle"]
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "Ignored when sent; currency is inherited from the campaign."
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "speed_bonus": {
+            "$ref": "#/components/schemas/OfferSpeedBonus"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "deliverable": {
+            "$ref": "#/components/schemas/OfferDeliverableDTO",
+            "description": "Optional summary deliverable; defaults to the first deliverable when omitted."
+          },
+          "deliverables": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/components/schemas/OfferBundleDeliverableDTO"
+            }
+          }
+        }
+      },
+      "CreateMultiStageOfferRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "campaign_id",
+          "conversation_id",
+          "description",
+          "deliverable",
+          "stages"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["multistage"]
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "Ignored when sent; currency is inherited from the campaign."
+          },
+          "speed_bonus": {
+            "$ref": "#/components/schemas/OfferSpeedBonus",
+            "nullable": true,
+            "description": "Must be null or omitted for multistage offers."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "deliverable": {
+            "$ref": "#/components/schemas/OfferDeliverableDTO"
+          },
+          "stages": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/components/schemas/OfferStageDTO"
+            }
+          }
+        }
+      },
+      "OfferDeliverableDTO": {
+        "type": "object",
+        "required": ["platform", "format"],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "format": {
+            "type": "string",
+            "maxLength": 50
+          }
+        }
+      },
+      "OfferBundleDeliverableDTO": {
+        "type": "object",
+        "required": ["position", "platform", "format", "quantity"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "platform": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "format": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          }
+        }
+      },
+      "OfferStageDTO": {
+        "type": "object",
+        "required": ["position", "name", "description", "deadline", "amount"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["locked", "open", "approved"],
+            "readOnly": true
+          },
+          "opened_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true
+          }
+        }
+      },
+      "OfferSpeedBonus": {
+        "type": "object",
+        "required": ["early_deadline", "bonus_amount"],
+        "properties": {
+          "early_deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bonus_amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "Ignored when sent; currency is inherited from the campaign."
+          }
+        }
+      },
+      "OfferSnapshot": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OfferSnapshotSingle"
+          },
+          {
+            "$ref": "#/components/schemas/OfferSnapshotBundle"
+          },
+          {
+            "$ref": "#/components/schemas/OfferSnapshotMultiStage"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "single": "#/components/schemas/OfferSnapshotSingle",
+            "bundle": "#/components/schemas/OfferSnapshotBundle",
+            "multistage": "#/components/schemas/OfferSnapshotMultiStage"
+          }
+        }
+      },
+      "OfferSnapshotBase": {
+        "type": "object",
+        "required": [
+          "id",
+          "campaign_id",
+          "brand_workspace_id",
+          "creator_account_id",
+          "created_by_account_id",
+          "type",
+          "status",
+          "amount",
+          "currency",
+          "deadline",
+          "expires_at",
+          "description",
+          "deliverable",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["single", "bundle", "multistage"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["sent", "accepted", "rejected", "expired"]
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "speed_bonus": {
+            "$ref": "#/components/schemas/OfferSpeedBonus",
+            "nullable": true
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deliverable": {
+            "$ref": "#/components/schemas/OfferDeliverableDTO"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sent_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "OfferSnapshotSingle": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OfferSnapshotBase"
+          },
+          {
+            "type": "object",
+            "required": ["type", "deliverables", "stages"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["single"]
+              },
+              "deliverables": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferBundleDeliverableDTO"
+                }
+              },
+              "stages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferStageDTO"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "OfferSnapshotBundle": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OfferSnapshotBase"
+          },
+          {
+            "type": "object",
+            "required": ["type", "deliverables", "stages"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["bundle"]
+              },
+              "deliverables": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "$ref": "#/components/schemas/OfferBundleDeliverableDTO"
+                }
+              },
+              "stages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferStageDTO"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "OfferSnapshotMultiStage": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OfferSnapshotBase"
+          },
+          {
+            "type": "object",
+            "required": ["type", "deliverables", "stages"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["multistage"]
+              },
+              "deliverables": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferBundleDeliverableDTO"
+                }
+              },
+              "stages": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "$ref": "#/components/schemas/OfferStageDTO"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "OfferAcceptedSnap": {
+        "type": "object",
+        "required": ["accepted_at", "accepted_by_account_id"],
+        "properties": {
+          "accepted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "accepted_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "OfferRejectedSnap": {
+        "type": "object",
+        "required": ["rejected_at", "rejected_by_account_id"],
+        "properties": {
+          "rejected_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rejected_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "OfferExpiredSnap": {
+        "type": "object",
+        "required": ["expired_at"],
+        "properties": {
+          "expired_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OfferDTO": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OfferSnapshotBase"
+          },
+          {
+            "type": "object",
+            "required": ["deliverables", "stages"],
+            "properties": {
+              "deliverables": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferBundleDeliverableDTO"
+                }
+              },
+              "stages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OfferStageDTO"
+                }
+              },
+              "accepted": {
+                "$ref": "#/components/schemas/OfferAcceptedSnap"
+              },
+              "rejected": {
+                "$ref": "#/components/schemas/OfferRejectedSnap"
+              },
+              "expired": {
+                "$ref": "#/components/schemas/OfferExpiredSnap"
+              }
+            }
+          }
+        ]
+      },
+      "ArchivedOfferItem": {
+        "type": "object",
+        "required": ["type", "offer"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["single", "bundle", "multistage"]
+          },
+          "offer": {
+            "$ref": "#/components/schemas/OfferDTO"
+          }
+        }
+      },
+      "StageOpenedSnap": {
+        "type": "object",
+        "required": ["offer_id", "stage", "offer"],
+        "properties": {
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/OfferStageDTO"
+          },
+          "prev_stage_position": {
+            "type": "integer",
+            "nullable": true
+          },
+          "offer": {
+            "$ref": "#/components/schemas/OfferSnapshotMultiStage"
+          }
+        }
+      },
+      "ChatMessageCreatedEvent": {
+        "type": "object",
+        "required": ["event_type"],
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "OfferSent",
+              "OfferAccepted",
+              "OfferRejected",
+              "OfferExpired",
+              "StageOpened",
+              "StageApproved"
+            ]
+          }
+        }
+      },
+      "ConversationOffersResponse": {
+        "type": "object",
+        "required": ["current", "archive", "has_more"],
+        "properties": {
+          "current": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OfferDTO"
+              }
+            ]
+          },
+          "archive": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArchivedOfferItem"
+            }
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PresenceState": {
+        "type": "string",
+        "enum": ["online", "offline", "disconnected"]
+      },
+      "ConversationDetailCounterpart": {
+        "type": "object",
+        "required": ["kind", "id", "display_name", "is_active"],
+        "properties": {
           "kind": {
-            "$ref": "#/components/schemas/AccountKind"
+            "type": "string",
+            "enum": ["brand_workspace", "creator_profile"]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ConversationDetail": {
+        "type": "object",
+        "required": ["id", "counterpart", "presence", "can_send", "created_at"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "counterpart": {
+            "$ref": "#/components/schemas/ConversationDetailCounterpart"
+          },
+          "presence": {
+            "type": "object",
+            "required": ["state"],
+            "properties": {
+              "state": {
+                "$ref": "#/components/schemas/PresenceState"
+              },
+              "last_seen_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              }
+            }
+          },
+          "can_send": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WSEventEnvelope": {
+        "type": "object",
+        "required": ["event_type", "payload"],
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "description": "Identifier of the event. Acts as the discriminator across all WS event types."
+          },
+          "schema_version": {
+            "type": "string",
+            "description": "Optional payload schema version. Defaults to \"v1\" when absent."
+          },
+          "payload": {
+            "description": "Event-specific payload. Shape determined by event_type."
+          }
+        }
+      },
+      "WSEventMessageCreated": {
+        "description": "Emitted on the WS channel when a chat message is created. The payload is\ndiscriminated by `type` and is shape-compatible with TextMessageListItem /\nSystemEventMessageListItem from GET /v1/conversations/{id}/messages, plus\n`conversation_id` and `client_message_id` (text only).\n",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WSEventEnvelope"
+          },
+          {
+            "type": "object",
+            "required": ["event_type", "payload"],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "enum": ["message.created"]
+              },
+              "payload": {
+                "$ref": "#/components/schemas/WSMessageCreatedPayload"
+              }
+            }
+          }
+        ]
+      },
+      "WSMessageCreatedPayload": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/WSMessageCreatedTextPayload"
+          },
+          {
+            "$ref": "#/components/schemas/WSMessageCreatedSystemEventPayload"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "text": "#/components/schemas/WSMessageCreatedTextPayload",
+            "system_event": "#/components/schemas/WSMessageCreatedSystemEventPayload"
+          }
+        }
+      },
+      "WSMessageCreatedTextPayload": {
+        "type": "object",
+        "required": [
+          "id",
+          "conversation_id",
+          "type",
+          "author_account_id",
+          "text",
+          "created_at",
+          "client_message_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text"]
+          },
+          "author_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "text": {
+            "type": "string",
+            "description": "Full message text (not truncated)."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "client_message_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Echo of the client_message_id supplied on POST /v1/conversations/{id}/messages.\nUsed by the client to reconcile optimistic inserts with the server-confirmed\nmessage in the timeline.\n"
+          }
+        }
+      },
+      "WSMessageCreatedSystemEventPayload": {
+        "type": "object",
+        "required": [
+          "id",
+          "conversation_id",
+          "type",
+          "author_account_id",
+          "text",
+          "created_at",
+          "event_type",
+          "payload"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["system_event"]
+          },
+          "author_account_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Zero UUID — system events have no human author."
+          },
+          "text": {
+            "type": "string",
+            "description": "Human-readable label of the event (e.g. \"Offer accepted\")."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Domain event identifier (e.g. offer.accepted, stage.opened, draft.submitted)."
+          },
+          "payload": {
+            "description": "Self-contained snapshot of the domain event at emission time. Shape depends on event_type.",
+            "nullable": true
           }
         }
       }

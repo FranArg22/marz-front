@@ -31,6 +31,19 @@ export function setAuthTokenProvider(provider: AuthTokenProvider) {
   authProvider = provider
 }
 
+type BrandWorkspaceIdProvider = () => string | null
+
+let brandWorkspaceIdProvider: BrandWorkspaceIdProvider = () => null
+
+// Sets the resolver for the active brand workspace ID. The mutator injects
+// the value as `X-Brand-Workspace-Id` on every request — backend requires it
+// for brand accounts (422 brand_workspace_required) and ignores it for creator.
+export function setBrandWorkspaceIdProvider(
+  provider: BrandWorkspaceIdProvider,
+) {
+  brandWorkspaceIdProvider = provider
+}
+
 export async function customFetch<T>(
   url: string,
   options?: RequestInit,
@@ -65,12 +78,18 @@ async function doFetch(
     ? {}
     : { 'Content-Type': 'application/json' }
 
+  const workspaceId = brandWorkspaceIdProvider()
+  const workspaceHeaders: Record<string, string> = workspaceId
+    ? { 'X-Brand-Workspace-Id': workspaceId }
+    : {}
+
   return fetch(url, {
     ...options,
     headers: {
       Accept: 'application/json',
       ...contentHeaders,
       ...authHeaders,
+      ...workspaceHeaders,
       ...options?.headers,
     },
   })

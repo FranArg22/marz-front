@@ -18,12 +18,16 @@ import {
 
 import type { DomainEventEnvelope, EventHandler } from './events'
 import type {
+  ChangesRequestedWSPayload,
   DraftApprovedWSPayload,
   DraftSubmittedWSPayload,
   DeliverableChangedWSPayload,
   StageApprovedWSPayload,
   StageOpenedWSPayload,
 } from './types'
+
+const getChangeRequestsQueryKey = (deliverableId: string) =>
+  ['change-requests', deliverableId] as const
 
 interface SystemEventMessage {
   id: string
@@ -106,6 +110,34 @@ export function createWsHandlers(
       })
       void queryClient.invalidateQueries({
         queryKey: getMessagesQueryKey(payload.conversation_id),
+      })
+    },
+
+    'changes.requested': (envelope) => {
+      const payload = (
+        envelope as DomainEventEnvelope<ChangesRequestedWSPayload>
+      ).payload
+
+      insertSystemEventMessage(queryClient, {
+        id: payload.message_id,
+        conversation_id: payload.conversation_id,
+        author_account_id: envelope.actor_account_id ?? null,
+        type: 'system_event',
+        text_content: null,
+        event_type: 'ChangesRequested',
+        payload: { snapshot: payload.snapshot },
+        created_at: envelope.occurred_at,
+        read_by_self: false,
+      })
+
+      void queryClient.invalidateQueries({
+        queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getMessagesQueryKey(payload.conversation_id),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getChangeRequestsQueryKey(payload.deliverable_id),
       })
     },
 

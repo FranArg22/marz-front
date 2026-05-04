@@ -11,6 +11,10 @@ type AnalyticsEvent =
   | 'sign_in_succeeded'
   | 'sign_out'
   | 'onboarding_redirect_enforced'
+  | 'workspace_opened'
+  | 'conversation_rail_search'
+  | 'conversation_filter_changed'
+  | 'conversation_campaign_filter_changed'
 
 interface TrackedEvent {
   event: AnalyticsEvent

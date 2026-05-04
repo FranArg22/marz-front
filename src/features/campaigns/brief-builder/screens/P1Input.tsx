@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useStore } from '@tanstack/react-form'
+import { useBrandSession } from '#/features/identity/session/BrandSessionContext'
 import { useAppForm } from '#/shared/ui/form'
 import { WizardSectionTitle } from '#/shared/ui/wizard'
 import { useBriefBuilderStore } from '../store'
@@ -15,6 +16,8 @@ import { useProcessBrief, isProcessConflict } from '../hooks/useProcessBrief'
 export function P1Input() {
   const store = useBriefBuilderStore()
   const [submitError, setSubmitError] = useState<string | null>(null)
+
+  const { brandWorkspace } = useBrandSession()
 
   const initMutation = useInitBriefBuilder()
   const processMutation = useProcessBrief()
@@ -67,8 +70,7 @@ export function P1Input() {
 
       try {
         const result = await initMutation.mutateAsync({
-          // TODO(fn-B.x): obtener brandWorkspaceId del auth context / sesión activa
-          brandWorkspaceId: 'default' as string,
+          brandWorkspaceId: brandWorkspace.id,
           websiteUrl,
           descriptionText,
           pdfFile,
@@ -97,7 +99,7 @@ export function P1Input() {
         setSubmitError(message)
         return false
       }
-    }, [form, initMutation, processMutation]),
+    }, [form, initMutation, processMutation, brandWorkspace.id]),
   )
 
   const hasInput =
@@ -108,8 +110,8 @@ export function P1Input() {
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <WizardSectionTitle
-        title="Contanos sobre tu marca"
-        subtitle="Ingresá la web de tu marca, describí tu producto o subí un PDF para generar el brief."
+        title="Contanos sobre tu producto"
+        subtitle="Ingresá la web del producto, describí qué hace o subí un PDF para generar el brief."
       />
       <div className="flex w-full max-w-[440px] flex-col gap-6">
         <form.AppField
@@ -117,12 +119,27 @@ export function P1Input() {
           validators={{ onBlur: websiteUrlFieldSchema }}
         >
           {(field) => (
-            <field.TextField
-              label="Sitio web de la marca"
-              hint="Opcional si completás la descripción o subís un PDF."
-              placeholder="https://mimarca.com"
-              maxLength={500}
-            />
+            <div className="flex flex-col gap-2">
+              <field.TextField
+                label="Sitio web del producto"
+                placeholder="https://miproducto.com"
+                maxLength={500}
+              />
+              {brandWorkspace.website_url && (
+                <button
+                  type="button"
+                  className="self-start text-[length:var(--font-size-xs)] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                  onClick={() => {
+                    form.setFieldValue(
+                      'websiteUrl',
+                      brandWorkspace.website_url ?? '',
+                    )
+                  }}
+                >
+                  Usar el de la marca
+                </button>
+              )}
+            </div>
           )}
         </form.AppField>
         <form.AppField name="descriptionText">

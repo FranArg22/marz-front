@@ -92,11 +92,11 @@ describe('useChatWsListeners', () => {
 
     const payload: MessageCreatedPayload = {
       id: 'msg-1',
-      client_message_id: null,
+      client_message_id: '',
       conversation_id: CONVERSATION_ID,
       author_account_id: 'acc-1',
       type: 'text',
-      text_content: 'Hello',
+      text: 'Hello',
       created_at: '2026-04-27T10:00:00Z',
     }
 
@@ -237,11 +237,11 @@ describe('useChatWsListeners', () => {
 
     const payload: MessageCreatedPayload = {
       id: 'msg-99',
-      client_message_id: null,
+      client_message_id: '',
       conversation_id: OTHER_CONVERSATION_ID,
       author_account_id: 'acc-1',
       type: 'text',
-      text_content: 'Wrong conversation',
+      text: 'Wrong conversation',
       created_at: '2026-04-27T10:00:00Z',
     }
 

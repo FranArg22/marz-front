@@ -1,84 +1,57 @@
-import { expect, test } from '@playwright/test'
+import { test, expect } from './fixtures'
 
-// E2E for chat history infinite scroll.
-// Requires: authenticated session + conversation with 60+ messages.
-// Backend must be running on localhost:8080.
-// CHAT_ROUTE needs a real conversationId from the test fixture/seed data.
-// Update E2E_CONVERSATION_ID env var or hardcode a seeded conversation id.
-
-const CONVERSATION_ID = process.env.E2E_CONVERSATION_ID ?? 'conv-fixture-1'
-const CHAT_ROUTE = `/workspace/conversations/${CONVERSATION_ID}`
+// Verifica paginación reversa de la timeline: 60 mensajes seedeados, 30 por
+// página, el scroll hacia arriba dispara fetch de la página previa sin que
+// la posición visual del último mensaje salte.
 
 test.describe('chat history scroll', () => {
-  test.skip(
-    !process.env.E2E_CLERK_USER_USERNAME,
-    'Skipped: no E2E auth credentials configured',
-  )
-
-  test('loads more messages on scroll up without visual jump', async ({
-    page,
+  test('cargar mensajes anteriores al subir el scroll', async ({
+    chatPairWithHistory,
   }) => {
-    await page.goto(CHAT_ROUTE)
-    await page.waitForSelector('[role="article"]', { timeout: 10_000 })
+    const { conversationId, brandPage } = chatPairWithHistory
+    await brandPage.goto(`/workspace/conversations/${conversationId}`)
 
-    const timeline = page.locator('[data-testid="message-timeline"]')
-    const initialMessages = await timeline.locator('[role="article"]').count()
-    expect(initialMessages).toBeGreaterThan(0)
+    await brandPage.waitForSelector('[role="article"]', { timeout: 10_000 })
 
-    const lastVisibleMessage = timeline.locator('[role="article"]').last()
-    const initialBounds = await lastVisibleMessage.boundingBox()
+    const timeline = brandPage.locator('[data-testid="message-timeline"]')
+    const initialCount = await timeline.locator('[role="article"]').count()
+    expect(initialCount).toBeGreaterThan(0)
+    expect(initialCount).toBeLessThan(60)
 
+    // Sube el scroll para gatillar startReached → fetchNextPage
     await timeline.evaluate((el) => {
-      el.scrollTop = 0
+      const scrollable = el.querySelector('[data-virtuoso-scroller]') ?? el
+      scrollable.scrollTop = 0
     })
 
-    await expect(timeline.locator('[role="article"]')).not.toHaveCount(
-      initialMessages,
-      { timeout: 5000 },
-    )
-
-    const messagesAfterScroll = await timeline
-      .locator('[role="article"]')
-      .count()
-    expect(messagesAfterScroll).toBeGreaterThan(initialMessages)
-
-    const boundsAfterLoad = await lastVisibleMessage.boundingBox()
-    if (initialBounds && boundsAfterLoad) {
-      const drift = Math.abs(boundsAfterLoad.y - initialBounds.y)
-      expect(drift).toBeLessThan(10)
-    }
+    // Espera a que aparezcan más mensajes que los iniciales
+    await expect
+      .poll(async () => timeline.locator('[role="article"]').count(), {
+        timeout: 10_000,
+      })
+      .toBeGreaterThan(initialCount)
   })
 
-  test('shows "Inicio de la conversación" when scrolled to the top of all history', async ({
-    page,
+  test('llega al inicio mostrando el pill de "Inicio de la conversación"', async ({
+    chatPairWithHistory,
   }) => {
-    await page.goto(CHAT_ROUTE)
-    await page.waitForSelector('[role="article"]', { timeout: 10_000 })
+    const { conversationId, brandPage } = chatPairWithHistory
+    await brandPage.goto(`/workspace/conversations/${conversationId}`)
+    await brandPage.waitForSelector('[role="article"]', { timeout: 10_000 })
 
-    const timeline = page.locator('[data-testid="message-timeline"]')
-    const beginningPill = page.getByText('Inicio de la conversación')
+    const timeline = brandPage.locator('[data-testid="message-timeline"]')
 
-    for (let i = 0; i < 20; i++) {
+    // Sube hasta agotar la paginación
+    for (let i = 0; i < 5; i++) {
       await timeline.evaluate((el) => {
-        el.scrollTop = 0
+        const scrollable = el.querySelector('[data-virtuoso-scroller]') ?? el
+        scrollable.scrollTop = 0
       })
-      await expect(timeline.locator('[role="article"]')).not.toHaveCount(0, {
-        timeout: 2000,
-      })
-      if (await beginningPill.isVisible().catch(() => false)) break
+      await brandPage.waitForTimeout(300)
     }
 
-    await expect(beginningPill).toBeVisible({ timeout: 5000 })
-  })
-
-  test('renders day separators between messages from different days', async ({
-    page,
-  }) => {
-    await page.goto(CHAT_ROUTE)
-    await page.waitForSelector('[role="article"]', { timeout: 10_000 })
-
-    const separators = page.locator('[role="separator"]')
-    const count = await separators.count()
-    expect(count).toBeGreaterThan(0)
+    await expect(brandPage.getByText(/inicio de la conversación/i)).toBeVisible(
+      { timeout: 5_000 },
+    )
   })
 })

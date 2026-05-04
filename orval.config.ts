@@ -36,4 +36,23 @@ export default defineConfig({
       clean: true,
     },
   },
+  marzTest: {
+    input: {
+      target: './openapi/test-spec.json',
+    },
+    output: {
+      mode: 'tags-split',
+      target: './src/shared/api/test-generated/endpoints.ts',
+      schemas: './src/shared/api/test-generated/model',
+      client: 'fetch',
+      httpClient: 'fetch',
+      clean: true,
+      override: {
+        mutator: {
+          path: './src/shared/api/test-mutator.ts',
+          name: 'testFetch',
+        },
+      },
+    },
+  },
 })

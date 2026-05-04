@@ -5,10 +5,11 @@ import type { InfiniteData } from '@tanstack/react-query'
 import { useWebSocket } from '#/shared/ws/useWebSocket'
 import type { DomainEventEnvelope, EventHandler } from '#/shared/ws/events'
 
-import type { ConversationListResponse } from './types'
+import type { ConversationListResponse } from '#/shared/api/generated/model'
 import type { ConversationActivityPayload } from './conversationRailPatcher'
 import { applyActivityUpdate } from './conversationRailPatcher'
-import { CONVERSATIONS_QUERY_KEY } from './useConversationsQuery'
+
+const CONVERSATIONS_QUERY_KEY = 'conversations'
 
 interface UseWorkspaceRailSubscriptionOptions {
   enabled?: boolean

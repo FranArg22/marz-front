@@ -49,10 +49,12 @@ interface CreateOfferResponse {
   status: number
 }
 
-// RAFITA:BLOCKER: Backend dev (localhost:8080) still does not expose the extended OpenAPI spec (B.5).
-// `pnpm api:sync` ran clean on 2026-04-28 but the spec contains no offer endpoints or polymorphic types
-// (CreateOfferRequest, OfferDTO, OfferSnapshot, StageOpenedSnap are absent).
-// Coordinate with backend to merge the extended contract before regenerating the Orval client.
+// CLOSER:DRIFT: backend now exposes CreateSingleOfferRequest with required fields
+// `description` (≤5000) and nested `deliverable: OfferDeliverableDTO`. Local body shape
+// is a subset and predates that contract. Migrating requires a UI field for description
+// and a conscious mapping from the flat form to the nested DTO; left as-is to avoid
+// inventing product copy. Generated hook lives at
+// `src/shared/api/generated/offers/offers.ts:useCreateSingleOffer`.
 export function useCreateSingleOffer() {
   return useMutation<CreateOfferResponse, Error, CreateSingleOfferRequest>({
     mutationFn: (data) =>

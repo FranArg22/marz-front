@@ -9,6 +9,7 @@ import type {
 import { createWsHandlers } from './handlers'
 import type { DomainEventEnvelope } from './events'
 import type {
+  ChangesRequestedWSPayload,
   DraftSubmittedWSPayload,
   DraftApprovedWSPayload,
   DeliverableChangedWSPayload,
@@ -495,6 +496,104 @@ describe('createWsHandlers', () => {
       handlers['stage.opened']!(envelope)
 
       expect(mockTrackMultistageStageUnlocked).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('changes.requested', () => {
+    it('invalidates deliverables, messages and change-requests query keys', () => {
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+      const payload: ChangesRequestedWSPayload = {
+        conversation_id: 'conv-1',
+        deliverable_id: 'del-1',
+        draft_id: 'draft-1',
+        version: 1,
+        message_id: 'msg-cr-1',
+        snapshot: {
+          event_type: 'ChangesRequested',
+          deliverable_id: 'del-1',
+          deliverable_platform: 'youtube',
+          deliverable_format: 'video',
+          deliverable_offer_stage_id: null,
+          draft_id: 'draft-1',
+          draft_version: 1,
+          draft_thumbnail_url: null,
+          categories: ['audio'],
+          notes: null,
+          requested_at: new Date().toISOString(),
+          requested_by_account_id: 'brand-1',
+        },
+      }
+      const envelope = makeEnvelope('changes.requested', payload)
+
+      handlers['changes.requested']!(envelope)
+
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['conversation-deliverables', 'conv-1'],
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['conversation-messages', 'conv-1'],
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['change-requests', 'del-1'],
+      })
+    })
+
+    it('inserts ChangesRequested system event into messages cache', () => {
+      const occurredAt = new Date().toISOString()
+      queryClient.setQueryData(['conversation-messages', 'conv-1'], {
+        pages: [
+          {
+            data: { data: [], next_before_cursor: null, has_more: false },
+            status: 200,
+          },
+        ],
+        pageParams: [undefined],
+      })
+
+      const payload: ChangesRequestedWSPayload = {
+        conversation_id: 'conv-1',
+        deliverable_id: 'del-1',
+        draft_id: 'draft-1',
+        version: 1,
+        message_id: 'msg-cr-1',
+        snapshot: {
+          event_type: 'ChangesRequested',
+          deliverable_id: 'del-1',
+          deliverable_platform: 'youtube',
+          deliverable_format: 'video',
+          deliverable_offer_stage_id: null,
+          draft_id: 'draft-1',
+          draft_version: 1,
+          draft_thumbnail_url: null,
+          categories: ['audio', 'pacing'],
+          notes: 'Try a tighter cut',
+          requested_at: occurredAt,
+          requested_by_account_id: 'brand-1',
+        },
+      }
+      const envelope = {
+        ...makeEnvelope('changes.requested', payload),
+        actor_account_id: 'brand-1',
+        occurred_at: occurredAt,
+      }
+
+      handlers['changes.requested']!(envelope)
+
+      const cache = queryClient.getQueryData<{
+        pages: Array<{
+          data: {
+            data: Array<{
+              id: string
+              event_type: string | null
+              payload: Record<string, unknown> | null
+            }>
+          }
+        }>
+      }>(['conversation-messages', 'conv-1'])
+      const inserted = cache?.pages[0]?.data.data[0]
+      expect(inserted?.id).toBe('msg-cr-1')
+      expect(inserted?.event_type).toBe('ChangesRequested')
+      expect(inserted?.payload).toEqual({ snapshot: payload.snapshot })
     })
   })
 

@@ -1,32 +1,9 @@
+import type { WSMessageCreatedPayload } from '#/shared/api/generated/model'
 import type { DomainEventEnvelope } from './events'
 
-interface MessageCreatedTextPayload {
-  id: string
-  client_message_id: string | null
-  conversation_id: string
-  author_account_id: string
-  type: 'text'
-  text_content: string
-  event_type?: never
-  payload?: never
-  created_at: string
-}
-
-interface MessageCreatedSystemEventPayload {
-  id: string
-  client_message_id: null
-  conversation_id: string
-  author_account_id: string
-  type: 'system_event'
-  text_content: null
-  event_type: string
-  payload: Record<string, unknown>
-  created_at: string
-}
-
-export type MessageCreatedPayload =
-  | MessageCreatedTextPayload
-  | MessageCreatedSystemEventPayload
+// Discriminated union over `type` ('text' | 'system_event'); system events
+// carry `event_type` plus a self-contained snapshot in `payload`.
+export type MessageCreatedPayload = WSMessageCreatedPayload
 
 export interface MessageReadBatchPayload {
   conversation_id: string

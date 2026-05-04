@@ -4,7 +4,7 @@ import type {
   ConversationLastMessagePreview,
   ConversationListItem,
   ConversationListResponse,
-} from './types'
+} from '#/shared/api/generated/model'
 
 export interface ConversationActivityPayload {
   conversation_id: string
@@ -29,7 +29,7 @@ export function applyActivityUpdate(
 
   for (let pi = 0; pi < data.pages.length; pi++) {
     const page = data.pages[pi]!
-    const items = page.data.data
+    const items = page.data.items
     for (let ii = 0; ii < items.length; ii++) {
       if (items[ii]!.id === payload.conversation_id) {
         found = items[ii]!
@@ -54,23 +54,23 @@ export function applyActivityUpdate(
 
   const newPages = data.pages.map((page, pi) => {
     if (pi === 0 && foundPageIndex === 0) {
-      const newItems = [...page.data.data]
+      const newItems = [...page.data.items]
       newItems.splice(foundItemIndex, 1)
       newItems.unshift(updatedItem)
-      return { ...page, data: { ...page.data, data: newItems } }
+      return { ...page, data: { ...page.data, items: newItems } }
     }
 
     if (pi === 0 && foundPageIndex !== 0) {
       return {
         ...page,
-        data: { ...page.data, data: [updatedItem, ...page.data.data] },
+        data: { ...page.data, items: [updatedItem, ...page.data.items] },
       }
     }
 
     if (pi === foundPageIndex && foundPageIndex !== 0) {
-      const newItems = [...page.data.data]
+      const newItems = [...page.data.items]
       newItems.splice(foundItemIndex, 1)
-      return { ...page, data: { ...page.data, data: newItems } }
+      return { ...page, data: { ...page.data, items: newItems } }
     }
 
     return page

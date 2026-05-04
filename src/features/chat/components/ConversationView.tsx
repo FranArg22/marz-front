@@ -166,7 +166,7 @@ export function ConversationView({
         onSendOffer={onSendOffer}
       />
 
-      <div className="relative flex-1 overflow-hidden">
+      <div className="relative flex flex-1 flex-col overflow-hidden">
         <MessageTimeline
           conversationId={conversationId}
           currentAccountId={currentAccountId}

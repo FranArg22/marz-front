@@ -5,7 +5,10 @@ import type { InfiniteData } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
 import { createElement } from 'react'
 
-import type { ConversationListResponse, ConversationListItem } from './types'
+import type {
+  ConversationListResponse,
+  ConversationListItem,
+} from '#/shared/api/generated/model'
 import type { ConversationActivityPayload } from './conversationRailPatcher'
 import { useWorkspaceRailSubscription } from './useWorkspaceRailSubscription'
 
@@ -56,7 +59,7 @@ function makeInfiniteData(
   return {
     pages: [
       {
-        data: { data: items, next_cursor: null, total_visible: items.length },
+        data: { items, next_cursor: null, total_visible: items.length },
       },
     ],
     pageParams: [undefined],
@@ -140,9 +143,9 @@ describe('useWorkspaceRailSubscription', () => {
       { filter: 'all' },
     ])
 
-    expect(updated!.pages[0]!.data.data[0]!.id).toBe('conv-1')
-    expect(updated!.pages[0]!.data.data[0]!.unread_count).toBe(3)
-    expect(updated!.pages[0]!.data.data[0]!.last_message_preview.text).toBe(
+    expect(updated!.pages[0]!.data.items[0]!.id).toBe('conv-1')
+    expect(updated!.pages[0]!.data.items[0]!.unread_count).toBe(3)
+    expect(updated!.pages[0]!.data.items[0]!.last_message_preview.text).toBe(
       'New message',
     )
   })

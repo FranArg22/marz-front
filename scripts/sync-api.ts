@@ -19,31 +19,69 @@ try {
   // no .env.local, continue
 }
 
-const specPath = resolve(root, 'openapi/spec.json')
-
 const apiUrl = process.env.API_URL ?? process.env.VITE_API_URL
 if (!apiUrl) {
   console.error('API_URL (or VITE_API_URL) env var is required')
   process.exit(1)
 }
 
-const specPathSegment = process.env.OPENAPI_PATH ?? '/openapi.yaml'
-const specUrl = `${apiUrl.replace(/\/$/, '')}${specPathSegment}`
+const baseUrl = apiUrl.replace(/\/$/, '')
+const prodSpecPath = resolve(root, 'openapi/spec.json')
+const testSpecPath = resolve(root, 'openapi/test-spec.json')
 
-console.log(`[sync-api] fetching ${specUrl}`)
-const res = await fetch(specUrl)
-if (!res.ok) {
-  console.error(`[sync-api] fetch failed: ${res.status} ${res.statusText}`)
-  process.exit(1)
+const prodSpecPathSegment = process.env.OPENAPI_PATH ?? '/openapi.yaml'
+const testSpecPathSegment =
+  process.env.TEST_OPENAPI_PATH ?? '/test-openapi.yaml'
+
+async function fetchSpec(url: string): Promise<unknown | null> {
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return null
+    const text = await res.text()
+    const contentType = res.headers.get('content-type') ?? ''
+    return contentType.includes('json') ? JSON.parse(text) : parseYaml(text)
+  } catch {
+    return null
+  }
 }
 
-const text = await res.text()
-const contentType = res.headers.get('content-type') ?? ''
-const spec = contentType.includes('json') ? JSON.parse(text) : parseYaml(text)
-await mkdir(dirname(specPath), { recursive: true })
-await writeFile(specPath, JSON.stringify(spec, null, 2))
-console.log(`[sync-api] spec written to ${specPath}`)
+const prodSpecUrl = `${baseUrl}${prodSpecPathSegment}`
+console.log(`[sync-api] fetching prod spec: ${prodSpecUrl}`)
+const prodSpec = await fetchSpec(prodSpecUrl)
+if (!prodSpec) {
+  console.error(`[sync-api] prod spec fetch failed at ${prodSpecUrl}`)
+  process.exit(1)
+}
+await mkdir(dirname(prodSpecPath), { recursive: true })
+await writeFile(prodSpecPath, JSON.stringify(prodSpec, null, 2))
+console.log(`[sync-api] prod spec written to ${prodSpecPath}`)
+
+const testSpecUrl = `${baseUrl}${testSpecPathSegment}`
+console.log(`[sync-api] fetching test spec: ${testSpecUrl}`)
+const testSpec = await fetchSpec(testSpecUrl)
+let testAvailable = false
+if (testSpec) {
+  await writeFile(testSpecPath, JSON.stringify(testSpec, null, 2))
+  console.log(`[sync-api] test spec written to ${testSpecPath}`)
+  testAvailable = true
+} else {
+  console.warn(
+    `[sync-api] test spec unavailable at ${testSpecUrl} — skipping test client generation`,
+  )
+}
 
 console.log('[sync-api] running orval')
-execSync('pnpm orval', { cwd: root, stdio: 'inherit' })
+const orvalCmd = testAvailable
+  ? 'pnpm orval'
+  : 'pnpm orval --project marz --project marzZod'
+execSync(orvalCmd, { cwd: root, stdio: 'inherit' })
+
+console.log('[sync-api] formatting generated files')
+const formatTargets = testAvailable
+  ? 'src/shared/api/generated src/shared/api/test-generated'
+  : 'src/shared/api/generated'
+execSync(`pnpm prettier --write ${formatTargets}`, {
+  cwd: root,
+  stdio: 'inherit',
+})
 console.log('[sync-api] done')

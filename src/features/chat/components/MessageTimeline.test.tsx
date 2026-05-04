@@ -5,10 +5,7 @@ import React from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import type {
-  ConversationDetailResponse,
-  MessagesResponse,
-} from '#/features/chat/types'
+import type { MessagesResponse } from '#/features/chat/types'
 
 import { MessageBubble } from './MessageBubble'
 import { MessageTimeline } from './MessageTimeline'
@@ -67,21 +64,31 @@ function Wrapper({ children }: { children: ReactNode }) {
 function buildMessagesResponse(
   messages: Partial<MessagesResponse['data'][number]>[],
   nextCursor: string | null = null,
-): { data: MessagesResponse; status: number } {
+) {
+  // Mocks the raw Orval response shape: { data: MessageListResponse }.
+  // The flattening is done inside fetchMessages — tests assert post-mapping.
   return {
     data: {
-      data: messages.map((m, i) => ({
-        id: m.id ?? `msg-${i}`,
-        conversation_id: 'conv-1',
-        author_account_id: m.author_account_id ?? 'acc-other',
-        type: m.type ?? 'text',
-        text_content: m.text_content ?? `Message ${i}`,
-        event_type: null,
-        payload: null,
-        created_at: m.created_at ?? '2026-04-27T12:00:00Z',
-        read_by_self: false,
-        ...m,
-      })),
+      items: messages.map((m, i) => {
+        if (m.type === 'system_event') {
+          return {
+            id: m.id ?? `msg-${i}`,
+            type: 'system_event' as const,
+            event_type: m.event_type ?? 'unknown',
+            payload: m.payload ?? null,
+            created_at: m.created_at ?? '2026-04-27T12:00:00Z',
+            read_by_self: false,
+          }
+        }
+        return {
+          id: m.id ?? `msg-${i}`,
+          type: 'text' as const,
+          author_account_id: m.author_account_id ?? 'acc-other',
+          text: m.text_content ?? `Message ${i}`,
+          created_at: m.created_at ?? '2026-04-27T12:00:00Z',
+          read_by_self: false,
+        }
+      }),
       next_before_cursor: nextCursor,
       has_more: nextCursor !== null,
     },
@@ -89,33 +96,28 @@ function buildMessagesResponse(
   }
 }
 
-const CONVERSATION_DETAIL_RESPONSE: {
-  data: ConversationDetailResponse
-  status: number
-} = {
+const CONVERSATION_DETAIL_RESPONSE = {
+  // Raw Orval response: { data: ConversationDetail }.
   data: {
-    data: {
-      id: 'conv-1',
-      counterpart: {
-        kind: 'creator_profile',
-        id: 'cp-1',
-        display_name: 'María García',
-        avatar_url: null,
-        handle: 'maria',
-        is_active: true,
-      },
-      presence: { state: 'online', last_seen_at: null },
-      can_send: true,
-      created_at: '2026-04-01T00:00:00Z',
+    id: 'conv-1',
+    counterpart: {
+      kind: 'creator_profile',
+      id: 'cp-1',
+      display_name: 'María García',
+      avatar_url: null,
+      handle: 'maria',
+      is_active: true,
     },
+    presence: { state: 'online', last_seen_at: null },
+    can_send: true,
+    created_at: '2026-04-01T00:00:00Z',
   },
   status: 200,
 }
 
-function mockFetchWithMessages(messagesResponse: {
-  data: MessagesResponse
-  status: number
-}) {
+function mockFetchWithMessages(
+  messagesResponse: ReturnType<typeof buildMessagesResponse>,
+) {
   mockCustomFetch.mockImplementation((url: string) => {
     if (url.includes('/conversations/') && !url.includes('/messages')) {
       return Promise.resolve(CONVERSATION_DETAIL_RESPONSE)

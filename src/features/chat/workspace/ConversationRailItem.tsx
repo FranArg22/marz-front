@@ -4,7 +4,7 @@ import { ChatRailItem } from '#/features/chat/components/ChatRailItem'
 import { usePresence } from '#/features/chat/stores/presenceStore'
 
 import { formatRelativeTime } from './formatRelativeTime'
-import type { ConversationListItem } from './types'
+import type { ConversationListItem } from '#/shared/api/generated/model'
 
 interface ConversationRailItemProps {
   conversation: ConversationListItem

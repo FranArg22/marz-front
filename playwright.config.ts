@@ -10,6 +10,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  // chatPair fixture creates 2 Clerk users + 2 backend accounts + 2 onboards
+  // + conversation + 2 sign-ins. Default 30s is too tight when Clerk is slow.
+  timeout: 60_000,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: BASE_URL,

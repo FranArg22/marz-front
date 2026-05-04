@@ -31,11 +31,14 @@ export function AppI18nProvider({
   initialMessages,
   children,
 }: AppI18nProviderProps) {
-  useState(() => {
-    if (i18n.locale !== initialLocale) {
-      activateCatalog(initialLocale, initialMessages)
-    }
-  })
+  // Activate synchronously during render so child components calling t``
+  // never see an empty catalog. useState's initializer fires once but a
+  // streaming SSR boundary can re-render the provider before children
+  // hydrate, leaving them without a locale. Re-activating here is a no-op
+  // when the catalog is already loaded.
+  if (i18n.locale !== initialLocale) {
+    activateCatalog(initialLocale, initialMessages)
+  }
 
   const [locale, setLocaleState] = useState<Locale>(initialLocale)
 

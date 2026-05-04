@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { t } from '@lingui/core/macro'
 
+import { CampaignFilterSelect } from './CampaignFilterSelect'
 import { ConversationFilterTabs } from './ConversationFilterTabs'
 import { ConversationRailEmpty } from './ConversationRailEmpty'
 import { ConversationRailItem } from './ConversationRailItem'
@@ -13,12 +14,14 @@ import type {
 
 interface ConversationRailProps {
   search: BrandWorkspaceSearch | CreatorWorkspaceSearch
+  sessionKind?: 'brand' | 'creator'
   activeConversationId?: string
   onSelectConversation?: (conversationId: string) => void
 }
 
 export function ConversationRail({
   search,
+  sessionKind,
   activeConversationId,
   onSelectConversation,
 }: ConversationRailProps) {
@@ -60,10 +63,16 @@ export function ConversationRail({
     return () => observer.disconnect()
   }, [handleIntersect])
 
+  const conversations = data?.pages.flatMap((page) => page.data.items) ?? []
+  const hasResults = conversations.length > 0
+
   const railHeader = (
     <div className="flex flex-col gap-2 border-b border-border p-3">
-      <ConversationSearchInput value={search.search} />
+      <ConversationSearchInput value={search.search} hasResults={hasResults} />
       <ConversationFilterTabs value={search.filter} />
+      {sessionKind === 'brand' && 'campaign_id' in search ? (
+        <CampaignFilterSelect value={search.campaign_id} />
+      ) : null}
     </div>
   )
 
@@ -95,8 +104,6 @@ export function ConversationRail({
       </>
     )
   }
-
-  const conversations = data?.pages.flatMap((page) => page.data.data) ?? []
 
   if (conversations.length === 0) {
     const hasSearch = search.search !== undefined && search.search !== ''

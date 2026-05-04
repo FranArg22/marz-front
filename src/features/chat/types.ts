@@ -1,29 +1,20 @@
-export interface ConversationDetailCounterpart {
-  kind: 'brand_workspace' | 'creator_profile'
-  id: string
-  display_name: string
-  avatar_url: string | null
-  handle: string | null
-  is_active: boolean
-}
+import type { ConversationDetail } from '#/shared/api/generated/model'
 
-export interface ConversationPresence {
-  state: 'online' | 'offline' | 'disconnected'
-  last_seen_at: string | null
-}
-
-export interface ConversationDetail {
-  id: string
-  counterpart: ConversationDetailCounterpart
-  presence: ConversationPresence
-  can_send: boolean
-  created_at: string
-}
+// Re-export generated detail types so call sites import a single source.
+export type {
+  ConversationDetail,
+  ConversationDetailCounterpart,
+  ConversationDetailPresence as ConversationPresence,
+} from '#/shared/api/generated/model'
 
 export interface ConversationDetailResponse {
   data: ConversationDetail
 }
 
+// Flat shape used by timeline/cache code. Bridges the discriminated
+// `TextMessageListItem | SystemEventMessageListItem` returned by the API.
+// Conversions live in `chat/queries.ts` (read path) and
+// `chat/mutations/useSendMessageMutation.ts` (write path).
 export interface MessageItem {
   id: string
   conversation_id: string

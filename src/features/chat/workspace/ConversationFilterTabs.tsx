@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
+import { trackConversationFilterChanged } from './analytics'
 import type { BrandWorkspaceSearch } from './workspaceSearchSchema'
 
 type FilterValue = BrandWorkspaceSearch['filter']
@@ -20,7 +21,10 @@ export function ConversationFilterTabs({ value }: ConversationFilterTabsProps) {
 
   function handleSelect(filter: FilterValue) {
     if (filter === value) return
+    trackConversationFilterChanged({ filter })
     void navigate({
+      to: '.',
+      unsafeRelative: 'path',
       search: (prev) => ({
         ...prev,
         filter: filter === 'all' ? undefined : filter,

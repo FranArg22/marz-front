@@ -3,7 +3,9 @@ import type { InfiniteData } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { t } from '@lingui/core/macro'
 
-import { customFetch, ApiError } from '#/shared/api/mutator'
+import { sendMessage } from '#/shared/api/generated/chat/chat'
+import type { MessageResponse } from '#/shared/api/generated/model'
+import { ApiError } from '#/shared/api/mutator'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import type { MessageItem, MessagesResponse } from '#/features/chat/types'
 import { trackChatEvent, toLengthBucket } from '#/features/chat/analytics/track'
@@ -16,14 +18,6 @@ export interface SendMessageVariables {
   clientMessageId: string
   text: string
   currentAccountId: string
-}
-
-interface SendMessageResponse {
-  data: {
-    data: MessageItem
-    idempotent_replay: boolean
-  }
-  status: number
 }
 
 type MessagesInfiniteData = InfiniteData<
@@ -51,11 +45,42 @@ export function createPendingMessage(
   }
 }
 
+function fromMessageResponse(response: MessageResponse): MessageItem {
+  return {
+    id: response.id,
+    conversation_id: response.conversation_id,
+    author_account_id: response.author_account_id,
+    type: 'text',
+    text_content: response.text,
+    event_type: null,
+    payload: null,
+    created_at: response.created_at,
+    read_by_self: true,
+  }
+}
+
 function appendMessageToCache(
   cache: MessagesInfiniteData | undefined,
   message: MessageItem,
-): MessagesInfiniteData | undefined {
-  if (!cache || cache.pages.length === 0) return cache
+): MessagesInfiniteData {
+  // Seed a fresh first page when the cache is missing or empty so the
+  // optimistic insert renders immediately on conversations that had zero
+  // messages before this send.
+  if (!cache || cache.pages.length === 0) {
+    return {
+      pages: [
+        {
+          data: {
+            data: [message],
+            next_before_cursor: null,
+            has_more: false,
+          },
+          status: 200,
+        },
+      ],
+      pageParams: [undefined],
+    }
+  }
 
   const pages = [...cache.pages]
   const firstPage = pages[0]!
@@ -76,19 +101,13 @@ export function useSendMessageMutation(conversationId: string) {
 
   return useMutation({
     mutationFn: async ({ clientMessageId, text }: SendMessageVariables) => {
-      const response = await customFetch<SendMessageResponse>(
-        `/api/v1/conversations/${encodeURIComponent(conversationId)}/messages`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            client_message_id: clientMessageId,
-            text_content: text,
-          }),
-        },
-      )
+      const response = (await sendMessage(conversationId, {
+        client_message_id: clientMessageId,
+        text,
+      })) as { data: MessageResponse }
 
       return {
-        message: response.data.data,
+        message: fromMessageResponse(response.data),
         clientMessageId,
         idempotentReplay: response.data.idempotent_replay,
       }

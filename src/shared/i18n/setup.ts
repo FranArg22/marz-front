@@ -5,6 +5,14 @@ import type { Locale } from './config'
 
 type Messages = Record<string, string>
 
+// Activate an empty catalog at module init so any t`` call before the real
+// catalog loads returns the source string instead of throwing the
+// "translation function without setting a locale" error. The real catalog
+// is loaded by AppI18nProvider / __root beforeLoad and replaces this.
+if (!i18n.locale) {
+  i18n.loadAndActivate({ locale: DEFAULT_LOCALE, messages: {} })
+}
+
 const loaders: Record<Locale, () => Promise<{ messages: Messages }>> = {
   es: () => import('./locales/es/messages.po'),
   en: () => import('./locales/en/messages.po'),

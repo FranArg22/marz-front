@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import type { InfiniteData } from '@tanstack/react-query'
 
-import type { ConversationListItem, ConversationListResponse } from './types'
+import type {
+  ConversationListItem,
+  ConversationListResponse,
+} from '#/shared/api/generated/model'
 import type { ConversationActivityPayload } from './conversationRailPatcher'
 import { applyActivityUpdate } from './conversationRailPatcher'
 
@@ -40,7 +43,7 @@ function makeSinglePageData(
   return {
     pages: [
       {
-        data: { data: items, next_cursor: null, total_visible: items.length },
+        data: { items, next_cursor: null, total_visible: items.length },
       },
     ],
     pageParams: [undefined],
@@ -53,7 +56,7 @@ function makeMultiPageData(
   return {
     pages: pages.map((items, i) => ({
       data: {
-        data: items,
+        items,
         next_cursor: i < pages.length - 1 ? `cursor-${i + 1}` : null,
         total_visible: items.length,
       },
@@ -88,7 +91,7 @@ describe('applyActivityUpdate', () => {
     ])
 
     const result = applyActivityUpdate(data, makePayload())
-    const items = result.pages[0]!.data.data
+    const items = result.pages[0]!.data.items
 
     expect(items[0]!.id).toBe('conv-1')
     expect(items[0]!.last_activity_at).toBe('2026-04-24T18:00:00Z')
@@ -109,11 +112,11 @@ describe('applyActivityUpdate', () => {
       makePayload({ conversation_id: 'conv-2' }),
     )
 
-    const firstPage = result.pages[0]!.data.data
+    const firstPage = result.pages[0]!.data.items
     expect(firstPage[0]!.id).toBe('conv-2')
     expect(firstPage.length).toBe(3)
 
-    const secondPage = result.pages[1]!.data.data
+    const secondPage = result.pages[1]!.data.items
     expect(secondPage.length).toBe(1)
     expect(secondPage[0]!.id).toBe('conv-3')
   })
@@ -150,7 +153,7 @@ describe('applyActivityUpdate', () => {
       }),
     )
 
-    const items = result.pages[0]!.data.data
+    const items = result.pages[0]!.data.items
     expect(items[0]!.id).toBe('conv-1')
     expect(items[0]!.unread_count).toBe(5)
   })
@@ -165,7 +168,7 @@ describe('applyActivityUpdate', () => {
       makePayload({ unread_count_delta: 2 }),
     )
 
-    expect(result.pages[0]!.data.data[0]!.unread_count).toBe(5)
+    expect(result.pages[0]!.data.items[0]!.unread_count).toBe(5)
   })
 
   it('handles item already at top of first page', () => {
@@ -175,7 +178,7 @@ describe('applyActivityUpdate', () => {
     ])
 
     const result = applyActivityUpdate(data, makePayload())
-    const items = result.pages[0]!.data.data
+    const items = result.pages[0]!.data.items
 
     expect(items[0]!.id).toBe('conv-1')
     expect(items[0]!.unread_count).toBe(1)

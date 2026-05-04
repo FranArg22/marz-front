@@ -4,7 +4,10 @@ import type { ReactNode } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { ConversationRail } from './ConversationRail'
-import type { ConversationListItem, ConversationListResponse } from './types'
+import type {
+  ConversationListItem,
+  ConversationListResponse,
+} from '#/shared/api/generated/model'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -52,7 +55,7 @@ function makeResponse(
 ): { data: ConversationListResponse; status: number } {
   return {
     data: {
-      data: items,
+      items,
       next_cursor: nextCursor,
       total_visible: items.length,
     },

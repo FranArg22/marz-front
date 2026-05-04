@@ -1,28 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { t } from '@lingui/core/macro'
-import { customFetch, ApiError } from '#/shared/api/mutator'
+
+import { acceptOffer, rejectOffer } from '#/shared/api/generated/offers/offers'
+import type {
+  acceptOfferResponse,
+  rejectOfferResponse,
+} from '#/shared/api/generated/offers/offers'
+import { ApiError } from '#/shared/api/mutator'
+import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 
 import { trackOfferEvent } from '../analytics'
 import type { OfferType } from '../analytics'
-
-interface AcceptOfferResponse {
-  data: {
-    id: string
-    status: 'accepted'
-    accepted_at: string
-  }
-  status: number
-}
-
-interface RejectOfferResponse {
-  data: {
-    id: string
-    status: 'rejected'
-    rejected_at: string
-  }
-  status: number
-}
 
 interface AcceptVariables {
   offerId: string
@@ -45,24 +34,17 @@ function timeToResponseSeconds(sentAt: string): number {
   return Math.floor((Date.now() - new Date(sentAt).getTime()) / 1000)
 }
 
-// RAFITA:BLOCKER: Orval hooks `useAcceptOffer` / `useRejectOffer` not yet generated.
-// Replace with Orval-generated hooks after `pnpm api:sync`.
-// WS event deduplication is handled by the shared/ws/ layer, not this hook.
 export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
   const queryClient = useQueryClient()
-
-  const offersQueryKey = ['conversations', conversationId, 'offers'] as const
+  const offersQueryKey = getConversationOffersQueryKey(conversationId)
 
   const acceptMutation = useMutation<
-    AcceptOfferResponse,
+    acceptOfferResponse,
     Error,
     AcceptVariables,
     { snapshot: unknown }
   >({
-    mutationFn: ({ offerId }) =>
-      customFetch<AcceptOfferResponse>(`/v1/offers/${offerId}/accept`, {
-        method: 'POST',
-      }),
+    mutationFn: ({ offerId }) => acceptOffer(offerId),
     onMutate: async ({ offerId }) => {
       await queryClient.cancelQueries({ queryKey: offersQueryKey })
       const snapshot = queryClient.getQueryData(offersQueryKey)
@@ -80,7 +62,6 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
         offer_type: variables.offerType,
         time_to_response_seconds: timeToResponseSeconds(variables.sentAt),
       })
-      queryClient.invalidateQueries({ queryKey: offersQueryKey })
     },
     onError: (error, _vars, context) => {
       if (context?.snapshot !== undefined) {
@@ -88,24 +69,24 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
       }
       if (error instanceof ApiError && error.status === 409) {
         toast.error(t`Offer expired`)
-        queryClient.invalidateQueries({ queryKey: offersQueryKey })
+        void queryClient.invalidateQueries({ queryKey: offersQueryKey })
         return
       }
       toast.error(t`Something went wrong. Try again.`)
     },
+    onSettled: () => {
+      void queryClient.invalidateQueries({ queryKey: offersQueryKey })
+    },
   })
 
   const rejectMutation = useMutation<
-    RejectOfferResponse,
+    rejectOfferResponse,
     Error,
     RejectVariables,
     { snapshot: unknown }
   >({
     mutationFn: ({ offerId, reason }) =>
-      customFetch<RejectOfferResponse>(`/v1/offers/${offerId}/reject`, {
-        method: 'POST',
-        body: reason ? JSON.stringify({ reason }) : undefined,
-      }),
+      rejectOffer(offerId, reason ? { reason } : {}),
     onMutate: async ({ offerId }) => {
       await queryClient.cancelQueries({ queryKey: offersQueryKey })
       const snapshot = queryClient.getQueryData(offersQueryKey)
@@ -123,7 +104,6 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
         offer_type: variables.offerType,
         time_to_response_seconds: timeToResponseSeconds(variables.sentAt),
       })
-      queryClient.invalidateQueries({ queryKey: offersQueryKey })
     },
     onError: (error, _vars, context) => {
       if (context?.snapshot !== undefined) {
@@ -131,10 +111,13 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
       }
       if (error instanceof ApiError && error.status === 409) {
         toast.error(t`Offer is no longer actionable`)
-        queryClient.invalidateQueries({ queryKey: offersQueryKey })
+        void queryClient.invalidateQueries({ queryKey: offersQueryKey })
         return
       }
       toast.error(t`Something went wrong. Try again.`)
+    },
+    onSettled: () => {
+      void queryClient.invalidateQueries({ queryKey: offersQueryKey })
     },
   })
 

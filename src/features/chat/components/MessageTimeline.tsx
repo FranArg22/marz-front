@@ -50,6 +50,9 @@ interface MessageTimelineProps {
   timelineRef?: React.Ref<MessageTimelineHandle>
 }
 
+// Large constant so prepending older messages can decrement firstItemIndex
+// without going negative — Virtuoso uses this to anchor scroll position when
+// new pages load at the top of the list.
 const START_INDEX = 1_000_000
 
 export function MessageTimeline({
@@ -247,7 +250,10 @@ export function MessageTimeline({
 
   if (timelineItems.length === 0) {
     return (
-      <div className="flex flex-1 items-center justify-center">
+      <div
+        className="flex flex-1 items-center justify-center"
+        data-testid="message-timeline"
+      >
         <p className="text-sm text-muted-foreground">
           {t`No hay mensajes todavía`}
         </p>
@@ -256,12 +262,18 @@ export function MessageTimeline({
   }
 
   return (
-    <div className="flex-1 overflow-hidden" data-testid="message-timeline">
+    <div
+      className="flex-1 overflow-hidden"
+      style={{ minHeight: 0 }}
+      data-testid="message-timeline"
+    >
       <Virtuoso
         ref={virtuosoRef}
+        key={conversationId}
+        style={{ height: '100%' }}
         data={timelineItems}
         firstItemIndex={firstItemIndex}
-        initialTopMostItemIndex={timelineItems.length - 1}
+        initialTopMostItemIndex={Math.max(0, timelineItems.length - 1)}
         startReached={handleStartReached}
         followOutput="smooth"
         atBottomStateChange={onAtBottomStateChange}

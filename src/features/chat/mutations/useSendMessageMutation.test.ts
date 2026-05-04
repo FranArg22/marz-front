@@ -49,13 +49,27 @@ describe('appendMessageToCache', () => {
 
     const result = appendMessageToCache(cache, newMsg)
 
-    expect(result?.pages[0]?.data.data).toHaveLength(2)
-    expect(result?.pages[0]?.data.data[0]?.id).toBe('msg-2')
-    expect(result?.pages[0]?.data.data[1]?.id).toBe('msg-1')
+    expect(result.pages[0]?.data.data).toHaveLength(2)
+    expect(result.pages[0]?.data.data[0]?.id).toBe('msg-2')
+    expect(result.pages[0]?.data.data[1]?.id).toBe('msg-1')
   })
 
-  it('returns undefined cache as-is', () => {
-    expect(appendMessageToCache(undefined, makeMessage())).toBeUndefined()
+  it('seeds a fresh first page when cache is undefined', () => {
+    const msg = makeMessage()
+    const result = appendMessageToCache(undefined, msg)
+    expect(result.pages).toHaveLength(1)
+    expect(result.pages[0]?.data.data).toEqual([msg])
+    expect(result.pages[0]?.data.has_more).toBe(false)
+  })
+
+  it('seeds a fresh first page when cache has zero pages', () => {
+    const msg = makeMessage()
+    const empty = { pages: [], pageParams: [] } as Parameters<
+      typeof appendMessageToCache
+    >[0]
+    const result = appendMessageToCache(empty, msg)
+    expect(result.pages).toHaveLength(1)
+    expect(result.pages[0]?.data.data).toEqual([msg])
   })
 })
 

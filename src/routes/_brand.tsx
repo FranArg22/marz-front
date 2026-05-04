@@ -6,6 +6,7 @@ import type { meResponse } from '#/shared/api/generated/accounts/accounts'
 import { getServerMe } from '#/shared/auth/getServerMe'
 import type { ServerMeBody } from '#/shared/auth/getServerMe'
 import { BrandShell } from '../features/identity/components/BrandShell'
+import { BrandSessionProvider } from '../features/identity/session/BrandSessionContext'
 
 const STALE_TIME = 30_000
 
@@ -69,8 +70,10 @@ export const Route = createFileRoute('/_brand')({
 
 function BrandLayout() {
   return (
-    <BrandShell>
-      <Outlet />
-    </BrandShell>
+    <BrandSessionProvider>
+      <BrandShell>
+        <Outlet />
+      </BrandShell>
+    </BrandSessionProvider>
   )
 }

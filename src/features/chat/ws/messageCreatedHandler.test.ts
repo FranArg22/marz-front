@@ -21,20 +21,20 @@ const CONVERSATION_ID = 'conv-1'
 function makeTextPayload(
   overrides: Partial<{
     id: string
-    client_message_id: string | null
+    client_message_id: string
     conversation_id: string
     author_account_id: string
-    text_content: string
+    text: string
     created_at: string
   }> = {},
 ): MessageCreatedPayload {
   return {
     id: 'server-msg-1',
-    client_message_id: null,
+    client_message_id: '',
     conversation_id: CONVERSATION_ID,
     author_account_id: 'acc-other',
     type: 'text' as const,
-    text_content: 'hi there',
+    text: 'hi there',
     created_at: '2026-04-01T00:00:00Z',
     ...overrides,
   }
@@ -69,11 +69,10 @@ function makeSystemEventEnvelope(overrides: {
     occurred_at: '2026-04-01T00:00:00Z',
     payload: {
       id: overrides.id ?? 'sys-msg-1',
-      client_message_id: null,
       conversation_id: CONVERSATION_ID,
       author_account_id: overrides.author_account_id ?? 'acc-brand',
       type: 'system_event' as const,
-      text_content: null,
+      text: 'System event label',
       event_type: overrides.event_type,
       payload: overrides.payload,
       created_at: '2026-04-01T00:00:00Z',
@@ -128,7 +127,7 @@ describe('handleMessageCreated', () => {
         id: 'server-msg-1',
         client_message_id: 'client-id-1',
         author_account_id: 'acc-1',
-        text_content: 'hello',
+        text: 'hello',
       }),
       'acc-1',
     )

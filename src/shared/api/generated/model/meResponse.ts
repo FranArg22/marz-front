@@ -8,6 +8,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import type { AccountKind } from './accountKind'
+import type { BrandWorkspaceSummary } from './brandWorkspaceSummary'
 import type { CreatorProfile } from './creatorProfile'
 import type { OnboardingStatus } from './onboardingStatus'
 
@@ -24,4 +25,5 @@ export interface MeResponse {
   redirect_to: string | null
   onboarding_status: OnboardingStatus
   creator_profile?: CreatorProfile | null
+  brand_workspace?: BrandWorkspaceSummary | null
 }

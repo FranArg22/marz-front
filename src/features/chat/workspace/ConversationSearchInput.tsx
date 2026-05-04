@@ -3,6 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { Search, X } from 'lucide-react'
 
+import { trackConversationRailSearch } from './analytics'
 import { useDebounce } from './useDebounce'
 
 const MAX_SEARCH_LENGTH = 80
@@ -10,10 +11,12 @@ const DEBOUNCE_MS = 200
 
 interface ConversationSearchInputProps {
   value?: string
+  hasResults?: boolean
 }
 
 export function ConversationSearchInput({
   value,
+  hasResults,
 }: ConversationSearchInputProps) {
   const navigate = useNavigate({ from: '/workspace' })
   const [localValue, setLocalValue] = useState(value ?? '')
@@ -31,14 +34,26 @@ export function ConversationSearchInput({
     }
     const trimmed = debouncedValue.trim()
     const searchParam = trimmed || undefined
+    if (trimmed.length > 0) {
+      trackConversationRailSearch({
+        has_results: hasResults ?? false,
+        query_length: trimmed.length,
+      })
+    }
+    // unsafeRelative: 'path' resolves the navigation against the current
+    // location instead of `from: '/workspace'`. Without this, typing in the
+    // rail's search box while inside /workspace/conversations/$id would
+    // bounce the user back to /workspace.
     void navigate({
+      to: '.',
+      unsafeRelative: 'path',
       search: (prev) => ({
         ...prev,
         search: searchParam,
       }),
       replace: true,
     })
-  }, [debouncedValue, navigate])
+  }, [debouncedValue, hasResults, navigate])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const next = event.target.value.slice(0, MAX_SEARCH_LENGTH)

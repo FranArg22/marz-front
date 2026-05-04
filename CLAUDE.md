@@ -1,228 +1,74 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-## Qué es este repo
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-Frontend de Marz. El workspace raíz está en `../` con `CLAUDE.md` propio — leé ese primero para entender el contexto del producto, bounded contexts, glosario, pipeline rafita. Este doc cubre solo lo específico del repo.
+## 1. Think Before Coding
 
-## Stack
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-- **TanStack Start** — SSR sobre Node, `:3000`. Corre detrás de nginx en producción (ver `marz-docs/architecture/infrastructure.md`).
-- **TanStack Router** — file-based en `src/routes/`, type-safe, search params con Zod.
-- **TanStack Query** + `react-router-ssr-query` — cache de servidor/cliente unificada.
-- **TanStack Form** — forms type-safe.
-- **shadcn/ui** — primitives en `src/components/ui/`. Estilo alineado al `.pen`.
-- **Tailwind v4** — `@theme inline` en `src/styles.css` expone tokens como utilities.
-- **Zustand** — estado cliente global (auth snapshot, workspace activo).
-- **Orval** + **React Query** + **Zod** — cliente API tipado generado desde el OpenAPI de `marz-api`.
-- **Vitest + Testing Library**, **Playwright** (pendiente).
+Before implementing:
 
-Node 22+. pnpm 10. Ambos pineados en `package.json`.
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-## Layout del source
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
 
 ```
-src/
-  routes/
-    __root.tsx            # layout raíz: HTML shell, devtools, theme init script
-    index.tsx             # redirige por kind: brand → /campaigns, creator → /offers
-    login.tsx             # ruta pública
-    health.tsx            # healthcheck SSR (ruta /health)
-    _brand.tsx            # pathless: guard kind=brand + BrandShell
-    _brand/*.tsx          # rutas de brand (campaigns, chat, payments...)
-    _creator.tsx          # pathless: guard kind=creator + CreatorShell
-    _creator/*.tsx        # rutas de creator (offers, deliverables, earnings...)
-  features/               # un folder por bounded context — espeja marz-docs/architecture/bounded-contexts.md
-    identity/             # login, workspace switcher, account kind, shells
-    campaigns/
-    discovery/
-    offers/
-    chat/
-    deliverables/
-    payments/
-    notifications/
-  shared/
-    api/
-      mutator.ts          # custom fetch que Orval usa (auth, errors, params)
-      generated/          # output de Orval — COMMITTEADO (ver "Cliente API")
-    ws/                   # useWebSocket + tipos DomainEventEnvelope
-    auth/                 # getSession stub + tipos de Session/AccountKind
-    ui/                   # moléculas/organismos reusables (no primitives shadcn)
-    hooks/
-  components/
-    ui/                   # primitives shadcn (NO editar sin criterio, regenerables)
-    ThemeToggle.tsx
-  integrations/tanstack-query/   # scaffold del add-on tanstack-query
-  env.ts                  # @t3-oss/env-core: VITE_API_URL, VITE_WS_URL, VITE_APP_TITLE
-  router.tsx              # createRouter + SSR query integration
-  routeTree.gen.ts        # auto-generado, no editar
-  styles.css              # tokens del .pen + Tailwind @theme + Geist
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
 ```
 
-**Reglas de organización:**
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-- **Nada de dominio en `shared/`**. Si un componente sabe qué es una Offer o un Deliverable, va en `features/<contexto>/`. Si solo sabe de primitives UI o HTTP, va en `shared/`.
-- **Rutas = composición.** Los archivos en `src/routes/` no definen componentes nuevos, instancian organismos de `features/*/components/`.
-- **Un contexto no importa de otro**. Si `offers` necesita algo de `chat`, se mueve a `shared/` o se expone por events. Espejo de la regla del backend.
+---
 
-## Dos shells: brand vs creator
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
-Un `Account` es `brand` o `creator`, nunca ambos (ver glosario + `architecture/bounded-contexts.md §Identity`). El router refleja esto con dos pathless routes:
+---
 
-- `_brand.tsx` → `beforeLoad` chequea `session.kind === 'brand'`, redirige a `/login` o `/` si no.
-- `_creator.tsx` → idem para creator.
-
-Cada grupo monta su `Shell` (`BrandShell`, `CreatorShell` en `features/identity/components/`). Los shells son organismos distintos porque son **productos conceptualmente distintos** — brand tiene workspace switcher y items Campaigns/Influencers/Payments, creator no tiene switcher y tiene Offers/Deliverables/Earnings. No son "sidebar con otros items", son dos layouts.
-
-Cuando agregues una ruta nueva:
-
-- Pertenece a brand → `src/routes/_brand/<nombre>.tsx`
-- Pertenece a creator → `src/routes/_creator/<nombre>.tsx`
-- Es pública (login, signup) → `src/routes/<nombre>.tsx` en la raíz
-
-## Cliente API (Orval)
-
-Fuente de verdad: `marz-api/openapi.yaml` (o `/openapi.json` servido por el backend de dev).
-
-Flujo:
-
-```bash
-pnpm api:sync          # fetch spec de dev + regenera endpoints + schemas Zod
-pnpm api:generate      # regenera desde openapi/spec.json local (sin refetch)
-```
-
-`orval.config.ts` emite dos outputs:
-
-- **`src/shared/api/generated/endpoints.ts`** (+ `model/`) — hooks de React Query por tag: `useGetCampaigns`, `useCreateCampaignMutation`, etc. Usa `mutator.ts` como fetcher.
-- **`src/shared/api/generated/zod/`** — schemas Zod para validar requests/responses.
-
-**Committeamos `src/shared/api/generated/` y `openapi/spec.json`.** Razones:
-
-1. Reproducibilidad: el tag del front apunta a un spec fijo, independiente de cambios en dev.
-2. Desacople de deploys: front puede mergear aunque dev esté caído.
-3. Diff review: el PR muestra cambios de contrato en texto plano antes de que entren.
-
-`.gitattributes` marca los generados como `linguist-generated=true` para que GitHub colapse los diffs.
-
-**Cuándo regenerar:**
-
-- Siempre después de que el backend mergea un cambio de contrato (`pnpm api:sync` → commit).
-- Antes de abrir un PR si la feature depende de endpoints nuevos.
-
-El `mutator.ts` centraliza: auth token via provider (`setAuthTokenProvider`), AbortSignal, serialización JSON/FormData, errores tipados con `ApiError`.
-
-## WebSocket
-
-`src/shared/ws/useWebSocket.ts` — hook que conecta a `VITE_WS_URL` y dispatchea `DomainEventEnvelope<T>` por `event_type`.
-
-Contrato del envelope: matches `shared.domain_events` del backend (`marz-docs/architecture/event-catalog.md`). Payloads de `system_event` son **snapshots autocontenidos** — el frontend renderiza cards desde el payload, nunca re-fetchea el aggregate original.
-
-Estado actual: el hook existe pero `enabled: false` por default. Cuando se enchufe al backend, se prenderá desde el provider raíz. Si necesitás reconexión con backoff, cambiá a `partysocket` manteniendo la misma API del hook.
-
-## Tokens y tema
-
-`src/styles.css` tiene los tokens del `.pen` (light + dark) mapeados a naming shadcn (`--background`, `--primary`, `--radius`, etc.). Tailwind v4 los expone como utilities via `@theme inline`.
-
-**Nunca hardcodear colores, radios, fuentes o spacing.** Usá utilities (`bg-background`, `text-foreground`, `rounded-lg`) o variables CSS (`var(--primary)`).
-
-Dark mode: clase `.dark` en `<html>`. Toggle en `components/ThemeToggle.tsx` persiste en localStorage con mode `auto|light|dark`. Hay un script inline en `__root.tsx` que resuelve el tema antes de hidratación para evitar flash.
-
-Cuando cambien los tokens en `marz-design/marzv2.pen`, hay que replicar acá. No hay export automático todavía.
-
-## Path aliases
-
-- `#/*` → `src/*` (configurado en `package.json` imports + tsconfig)
-- `@/*` → `src/*` (tsconfig paths, usado por shadcn `components.json`)
-
-Preferí `#/*` en código nuevo. shadcn primitives usan `@/*` porque su CLI lo genera así.
-
-## Healthcheck
-
-Ruta `/health` SSR devuelve `{status, uptime_sec}`. Dockerfile la usa en `HEALTHCHECK`. Cuando la infra de nginx/ALB lo pida como JSON pelado, hay que convertirla a raw server route (no UI route).
-
-## Infra local
-
-- `Dockerfile` multi-stage (deps → build → runner Node 22 alpine).
-- `docker-compose.yml` expone `:3000` con env vars del `.env.local`.
-- Sin CI todavía (no hay remote). Dejar listo cuando haya repo en GitHub.
-
-## Convenciones de código
-
-- **TypeScript estricto.** `noUncheckedIndexedAccess` activo — indexar un `Record` devuelve `T | undefined`. Usá guards explícitos, no `?.` inventados.
-- **ESLint manda.** `@typescript-eslint/no-unnecessary-condition` está prendido. Si el lint dice que un chequeo es redundante, probablemente lo es.
-- **Server functions vs client.** Las rutas con data fetching usan `createServerFn` cuando el dato es del server. React Query (via Orval) maneja todo lo que sea client-cached.
-- **Forms**: TanStack Form + Zod schemas generados por Orval. No `react-hook-form`.
-- **Estado**: servidor primero (React Query). Client state solo cuando es genuinamente efímero (UI, toggles, selección) → Zustand o `useState`.
-
-## Gotchas
-
-- `routeTree.gen.ts` se genera en build/dev. Si `pnpm typecheck` rompe con "Cannot find module './routeTree.gen'" después de un clone limpio, correr `pnpm build` o `pnpm dev` una vez.
-- Tailwind v4 usa `@import 'tailwindcss'` en CSS, no directives `@tailwind`. El `@theme inline` expone variables CSS como utilities sin rebuild.
-- shadcn primitives en `src/components/ui/*` son regenerables — si querés un cambio global, no editá el primitive, hacé un wrapper en `shared/ui/`.
-
-<!-- BEGIN FLOW-NEXT -->
-
-## Flow-Next
-
-This project uses Flow-Next for task tracking. Use `.flow/bin/flowctl` instead of markdown TODOs or TodoWrite.
-
-**Quick commands:**
-
-```bash
-.flow/bin/flowctl list                # List all epics + tasks
-.flow/bin/flowctl epics               # List all epics
-.flow/bin/flowctl tasks --epic fn-N   # List tasks for epic
-.flow/bin/flowctl ready --epic fn-N   # What's ready
-.flow/bin/flowctl show fn-N.M         # View task
-.flow/bin/flowctl start fn-N.M        # Claim task
-.flow/bin/flowctl done fn-N.M --summary-file s.md --evidence-json e.json
-```
-
-**Creating a spec** ("create a spec", "spec out X", "write a spec for X"):
-
-A spec = an epic. Create one directly — do NOT use `/flow-next:plan` (that breaks specs into tasks).
-
-```bash
-.flow/bin/flowctl epic create --title "Short title" --json
-.flow/bin/flowctl epic set-plan <epic-id> --file - --json <<'EOF'
-# Title
-
-## Goal & Context
-Why this exists, what problem it solves.
-
-## Architecture & Data Models
-System design, data flow, key components.
-
-## API Contracts
-Endpoints, interfaces, input/output shapes.
-
-## Edge Cases & Constraints
-Failure modes, limits, performance requirements.
-
-## Acceptance Criteria
-- [ ] Testable criterion 1
-- [ ] Testable criterion 2
-
-## Boundaries
-What's explicitly out of scope.
-
-## Decision Context
-Why this approach over alternatives.
-EOF
-```
-
-After creating a spec, choose next step:
-
-- `/flow-next:plan <epic-id>` — research + break into tasks
-- `/flow-next:interview <epic-id>` — deep Q&A to refine the spec
-
-**Rules:**
-
-- Use `.flow/bin/flowctl` for ALL task tracking
-- Do NOT create markdown TODOs or use TodoWrite
-- Re-anchor (re-read spec + status) before every task
-
-**More info:** `.flow/bin/flowctl --help` or read `.flow/usage.md`
-
-<!-- END FLOW-NEXT -->
+El knowledge del proyecto está en `profiles/knowledge/knowledge.md`.

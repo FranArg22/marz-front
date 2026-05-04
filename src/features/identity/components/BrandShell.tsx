@@ -11,7 +11,7 @@ export function BrandShell({ children }: { children: ReactNode }) {
           <SignOutButton />
         </div>
       </aside>
-      <main className="flex-1 min-w-0 overflow-auto">{children}</main>
+      <main className="flex-1 min-w-0 overflow-hidden">{children}</main>
     </div>
   )
 }

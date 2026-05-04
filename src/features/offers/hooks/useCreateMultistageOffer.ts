@@ -42,10 +42,9 @@ interface CreateOfferResponse {
   status: number
 }
 
-// RAFITA:BLOCKER: Backend dev (localhost:8080) still does not expose the extended OpenAPI spec (B.5).
-// `pnpm api:sync` ran clean on 2026-04-28 but the spec contains no offer endpoints or polymorphic types
-// (CreateOfferRequest, OfferDTO, OfferSnapshot, StageOpenedSnap are absent).
-// Coordinate with backend to merge the extended contract before regenerating the Orval client.
+// CLOSER:DRIFT: backend `CreateMultiStageOfferRequest` requires `description`,
+// a top-level `deliverable: OfferDeliverableDTO`, and stages with `position`. Stage
+// `name`/`description`/`deadline`/`amount` already match. Migration tracked.
 export function useCreateMultistageOffer() {
   return useMutation<CreateOfferResponse, Error, CreateMultistageOfferRequest>({
     mutationFn: (data) =>

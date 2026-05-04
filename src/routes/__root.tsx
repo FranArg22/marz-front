@@ -13,6 +13,7 @@ import { Toaster } from '#/components/ui/sonner'
 
 import appCss from '../styles.css?url'
 
+import { useBrandWorkspaceProvider } from '#/features/identity/hooks/useBrandWorkspaceProvider'
 import { useClerkTokenProvider } from '#/features/identity/hooks/useClerkTokenProvider'
 import { MobileRedirectGuard } from '#/features/identity/onboarding/components/MobileRedirectGuard'
 import { installBeforeUnloadListener } from '#/shared/analytics/beforeunload'
@@ -55,6 +56,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function ClerkTokenBridge() {
   useClerkTokenProvider()
+  useBrandWorkspaceProvider()
   return null
 }
 

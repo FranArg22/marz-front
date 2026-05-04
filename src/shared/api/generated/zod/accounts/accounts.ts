@@ -65,6 +65,18 @@ export const MeResponse = zod.object({
       onboarded_at: zod.iso.datetime({}).nullish(),
     })
     .nullish(),
+  brand_workspace: zod
+    .object({
+      id: zod.uuid(),
+      name: zod.string(),
+      logo_url: zod.url().nullish(),
+      website_url: zod.url().nullish(),
+      plan: zod.string(),
+    })
+    .nullish()
+    .describe(
+      'Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n',
+    ),
 })
 
 export const SelectKindBody = zod.object({
@@ -132,4 +144,16 @@ export const SelectKindResponse = zod.object({
       onboarded_at: zod.iso.datetime({}).nullish(),
     })
     .nullish(),
+  brand_workspace: zod
+    .object({
+      id: zod.uuid(),
+      name: zod.string(),
+      logo_url: zod.url().nullish(),
+      website_url: zod.url().nullish(),
+      plan: zod.string(),
+    })
+    .nullish()
+    .describe(
+      'Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n',
+    ),
 })

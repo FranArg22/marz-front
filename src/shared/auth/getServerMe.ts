@@ -3,6 +3,14 @@ import { auth } from '@clerk/tanstack-react-start/server'
 
 import { env } from '#/env'
 
+export interface ServerMeBrandWorkspace {
+  id: string
+  name: string
+  logo_url: string | null
+  website_url: string | null
+  plan: string
+}
+
 export interface ServerMeBody {
   id: string
   email: string
@@ -12,6 +20,7 @@ export interface ServerMeBody {
   created_at: string
   redirect_to: string | null
   onboarding_status: string
+  brand_workspace: ServerMeBrandWorkspace | null
 }
 
 export interface ServerMeOk {
@@ -59,6 +68,7 @@ export const getServerMe = createServerFn({ method: 'GET' }).handler(
     }
 
     const raw = (await res.json()) as ServerMeBody
+    const workspace = raw.brand_workspace
     return {
       ok: true,
       body: {
@@ -70,6 +80,15 @@ export const getServerMe = createServerFn({ method: 'GET' }).handler(
         created_at: raw.created_at,
         redirect_to: raw.redirect_to ?? null,
         onboarding_status: raw.onboarding_status,
+        brand_workspace: workspace
+          ? {
+              id: workspace.id,
+              name: workspace.name,
+              logo_url: workspace.logo_url ?? null,
+              website_url: workspace.website_url ?? null,
+              plan: workspace.plan,
+            }
+          : null,
       },
     }
   },
