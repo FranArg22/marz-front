@@ -88,6 +88,15 @@ export interface ChangesRequestedSnapshot {
   requested_by_account_id: string
 }
 
+export interface PaymentMarkedSnapshot {
+  event_type: 'PaymentMarked'
+  deliverable_id: string
+  amount: string
+  currency: string
+  deliverable_display_label: string
+  declared_at: string
+}
+
 export interface DraftSubmittedWSPayload {
   conversation_id: string
   deliverable_id: string

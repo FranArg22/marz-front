@@ -17,8 +17,10 @@ export function handleMessageCreated(
   queryClient: QueryClient,
   envelope: DomainEventEnvelope<MessageCreatedPayload>,
   currentAccountId: string,
+  activeConversationId?: string,
 ) {
   const { payload } = envelope
+
   const messagesKey = getMessagesQueryKey(payload.conversation_id)
 
   const confirmedMessage: MessageItem =
@@ -93,6 +95,32 @@ export function handleMessageCreated(
   ) {
     queryClient.invalidateQueries({
       queryKey: getConversationOffersQueryKey(payload.conversation_id),
+    })
+  }
+
+  if (
+    payload.type === 'system_event' &&
+    payload.event_type === 'PaymentMarked' &&
+    (activeConversationId === undefined ||
+      payload.conversation_id === activeConversationId)
+  ) {
+    const systemEventPayload = toMessagePayload(payload.payload)
+    const snapshot =
+      (systemEventPayload?.['snapshot'] as
+        | Record<string, unknown>
+        | undefined) ?? systemEventPayload
+    const deliverableId = snapshot?.['deliverable_id']
+
+    if (typeof deliverableId === 'string') {
+      queryClient.invalidateQueries({
+        queryKey: ['deliverables', deliverableId],
+      })
+    }
+    queryClient.invalidateQueries({
+      queryKey: ['conversations', payload.conversation_id, 'messages'],
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['conversations', payload.conversation_id, 'context-panel'],
     })
   }
 }

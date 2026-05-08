@@ -79,7 +79,12 @@ export function ConversationView({
 
   const onMessageCreated = useCallback(
     (envelope: Parameters<typeof handleMessageCreated>[1]) => {
-      handleMessageCreated(queryClient, envelope, currentAccountId)
+      handleMessageCreated(
+        queryClient,
+        envelope,
+        currentAccountId,
+        conversationId,
+      )
       handleIncomingMessage(envelope.payload.author_account_id)
       clearTyping(conversationId, envelope.payload.author_account_id)
 

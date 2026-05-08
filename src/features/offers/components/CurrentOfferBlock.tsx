@@ -3,8 +3,8 @@ import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 import type { ConversationOfferDTO } from '#/features/offers/hooks/useConversationOffers'
+import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
 import {
-  formatOfferAmount,
   formatOfferDeadline,
   formatOfferPlatform,
 } from '#/features/offers/utils/formatOffer'

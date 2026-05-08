@@ -281,6 +281,104 @@ describe('handleMessageCreated', () => {
     expect(invalidateSpy).not.toHaveBeenCalled()
   })
 
+  it('invalidates payment-related queries for PaymentMarked system events', () => {
+    seedCache(queryClient, [])
+    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+
+    handleMessageCreated(
+      queryClient,
+      makeSystemEventEnvelope({
+        event_type: 'PaymentMarked',
+        payload: {
+          snapshot: {
+            event_type: 'PaymentMarked',
+            deliverable_id: 'del-1',
+            amount: '4575.00',
+            currency: 'USD',
+            deliverable_display_label: 'YouTube Video',
+            declared_at: '2026-05-08T12:00:00Z',
+          },
+        },
+      }),
+      'acc-1',
+      CONVERSATION_ID,
+    )
+
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: ['deliverables', 'del-1'],
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: ['conversations', CONVERSATION_ID, 'messages'],
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: ['conversations', CONVERSATION_ID, 'context-panel'],
+    })
+  })
+
+  it('does not invalidate payment queries for PaymentMarked from another active conversation', () => {
+    seedCache(queryClient, [])
+    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+
+    handleMessageCreated(
+      queryClient,
+      makeSystemEventEnvelope({
+        event_type: 'PaymentMarked',
+        payload: {
+          snapshot: {
+            event_type: 'PaymentMarked',
+            deliverable_id: 'del-1',
+            amount: '4575.00',
+            currency: 'USD',
+            deliverable_display_label: 'YouTube Video',
+            declared_at: '2026-05-08T12:00:00Z',
+          },
+        },
+      }),
+      'acc-1',
+      'conv-other',
+    )
+
+    expect(invalidateSpy).not.toHaveBeenCalled()
+
+    const key = getMessagesQueryKey(CONVERSATION_ID)
+    const cache = queryClient.getQueryData<MessagesInfiniteData>(key)
+    expect(cache?.pages[0]?.data.data).toHaveLength(1)
+    expect(cache?.pages[0]?.data.data[0]?.event_type).toBe('PaymentMarked')
+  })
+
+  it('invalidates PaymentMarked conversation queries when deliverable_id is missing', () => {
+    seedCache(queryClient, [])
+    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+
+    handleMessageCreated(
+      queryClient,
+      makeSystemEventEnvelope({
+        event_type: 'PaymentMarked',
+        payload: {
+          snapshot: {
+            event_type: 'PaymentMarked',
+            amount: '4575.00',
+            currency: 'USD',
+            deliverable_display_label: 'YouTube Video',
+            declared_at: '2026-05-08T12:00:00Z',
+          },
+        },
+      }),
+      'acc-1',
+      CONVERSATION_ID,
+    )
+
+    expect(invalidateSpy).not.toHaveBeenCalledWith({
+      queryKey: ['deliverables', expect.any(String)],
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: ['conversations', CONVERSATION_ID, 'messages'],
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: ['conversations', CONVERSATION_ID, 'context-panel'],
+    })
+  })
+
   it('does not duplicate system_event message if already exists', () => {
     seedCache(queryClient, [
       {

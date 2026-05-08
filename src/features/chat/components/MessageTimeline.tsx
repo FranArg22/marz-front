@@ -27,6 +27,7 @@ import { stageOpenedSnapSchema } from '#/features/offers/schemas'
 import { DraftSubmittedCard } from '#/features/deliverables/components/DraftSubmittedCard'
 import { DraftApprovedCard } from '#/features/deliverables/components/DraftApprovedCard'
 import { RequestChangesCard } from '#/features/deliverables/components/RequestChangesCard'
+import { PaymentMarkedCard } from './systemEvents/PaymentMarkedCard'
 
 import { DaySeparator } from './DaySeparator'
 import { EventBubble } from './EventBubble'
@@ -168,6 +169,15 @@ export function MessageTimeline({
                 conversationDetail?.counterpart.display_name ?? ''
               }
               sessionKind={sessionKind}
+            />
+          )
+        }
+
+        if (message.event_type === 'PaymentMarked') {
+          return (
+            <PaymentMarkedCard
+              message={message}
+              viewer={{ kind: sessionKind }}
             />
           )
         }
