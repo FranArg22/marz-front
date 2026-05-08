@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:26:59.263609Z",
+  "depends_on": ["fn-18-campaign-configuration-wizard-feat-019.6"],
+  "epic": "fn-18-campaign-configuration-wizard-feat-019",
+  "id": "fn-18-campaign-configuration-wizard-feat-019.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-18-campaign-configuration-wizard-feat-019.8.md",
+  "status": "todo",
+  "title": "WS reconciliation + analytics",
+  "updated_at": "2026-05-08T01:29:54.665802Z"
+}

@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:43:05.860628Z",
+  "depends_on": ["fn-9-feat-009-link-submit-approve-frontend.2"],
+  "epic": "fn-9-feat-009-link-submit-approve-frontend",
+  "id": "fn-9-feat-009-link-submit-approve-frontend.3",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-9-feat-009-link-submit-approve-frontend.3.md",
+  "status": "todo",
+  "title": "SubmitLinkSidesheet (creator)",
+  "updated_at": "2026-05-08T00:44:32.220238Z"
+}

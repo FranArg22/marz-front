@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:17:49.452831Z",
+  "depends_on": [],
+  "epic": "fn-16-feat-017-creator-campaign-board-frontend",
+  "id": "fn-16-feat-017-creator-campaign-board-frontend.1",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-16-feat-017-creator-campaign-board-frontend.1.md",
+  "status": "todo",
+  "title": "Route + generated API types + search schema",
+  "updated_at": "2026-05-08T01:18:15.125704Z"
+}

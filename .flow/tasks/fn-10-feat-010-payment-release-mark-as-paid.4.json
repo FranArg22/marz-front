@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:49:01.392519Z",
+  "depends_on": [
+    "fn-10-feat-010-payment-release-mark-as-paid.1",
+    "fn-10-feat-010-payment-release-mark-as-paid.3"
+  ],
+  "epic": "fn-10-feat-010-payment-release-mark-as-paid",
+  "id": "fn-10-feat-010-payment-release-mark-as-paid.4",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-10-feat-010-payment-release-mark-as-paid.4.md",
+  "status": "todo",
+  "title": "F.4 \u2014 MarkAsPaidSidesheet + ConfirmDialog + analytics + mutation",
+  "updated_at": "2026-05-08T00:51:18.156319Z"
+}

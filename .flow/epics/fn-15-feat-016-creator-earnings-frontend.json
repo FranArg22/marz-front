@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-15-feat-016-creator-earnings-frontend",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T01:12:55.099431Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-15-feat-016-creator-earnings-frontend",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-15-feat-016-creator-earnings-frontend.md",
+  "status": "open",
+  "title": "FEAT-016 Creator earnings frontend",
+  "updated_at": "2026-05-08T01:13:48.288122Z"
+}

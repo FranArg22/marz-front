@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:43:06.768879Z",
+  "depends_on": ["fn-9-feat-009-link-submit-approve-frontend.7"],
+  "epic": "fn-9-feat-009-link-submit-approve-frontend",
+  "id": "fn-9-feat-009-link-submit-approve-frontend.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-9-feat-009-link-submit-approve-frontend.8.md",
+  "status": "todo",
+  "title": "Multistage \u2014 habilitaci\u00f3n condicional de Submit link",
+  "updated_at": "2026-05-08T00:46:07.433284Z"
+}

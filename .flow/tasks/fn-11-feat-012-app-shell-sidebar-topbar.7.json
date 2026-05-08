@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:53:48.261116Z",
+  "depends_on": ["fn-11-feat-012-app-shell-sidebar-topbar.4"],
+  "epic": "fn-11-feat-012-app-shell-sidebar-topbar",
+  "id": "fn-11-feat-012-app-shell-sidebar-topbar.7",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-11-feat-012-app-shell-sidebar-topbar.7.md",
+  "status": "todo",
+  "title": "Integrar topbar contextual en rutas existentes (F.7)",
+  "updated_at": "2026-05-08T00:56:48.350320Z"
+}

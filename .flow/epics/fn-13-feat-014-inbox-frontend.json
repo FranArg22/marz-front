@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-13-feat-014-inbox-frontend",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T01:03:18.522354Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": ["fn-11-feat-012-app-shell-sidebar-topbar"],
+  "id": "fn-13-feat-014-inbox-frontend",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-13-feat-014-inbox-frontend.md",
+  "status": "open",
+  "title": "FEAT-014 Inbox frontend",
+  "updated_at": "2026-05-08T01:04:21.586849Z"
+}

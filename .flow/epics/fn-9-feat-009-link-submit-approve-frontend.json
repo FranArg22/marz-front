@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-9-feat-009-link-submit-approve-frontend",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T00:41:39.212277Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-9-feat-009-link-submit-approve-frontend",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-9-feat-009-link-submit-approve-frontend.md",
+  "status": "open",
+  "title": "FEAT-009: Link Submit & Approve \u2014 Frontend",
+  "updated_at": "2026-05-08T00:42:46.575189Z"
+}

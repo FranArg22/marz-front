@@ -1,0 +1,18 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:13:58.440004Z",
+  "depends_on": [
+    "fn-15-feat-016-creator-earnings-frontend.3",
+    "fn-15-feat-016-creator-earnings-frontend.4",
+    "fn-15-feat-016-creator-earnings-frontend.5"
+  ],
+  "epic": "fn-15-feat-016-creator-earnings-frontend",
+  "id": "fn-15-feat-016-creator-earnings-frontend.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-15-feat-016-creator-earnings-frontend.6.md",
+  "status": "todo",
+  "title": "Analytics events",
+  "updated_at": "2026-05-08T01:15:37.659145Z"
+}

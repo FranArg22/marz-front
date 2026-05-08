@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:23:02.773870Z",
+  "depends_on": ["fn-17-feat-018-brand-payments-spending.4"],
+  "epic": "fn-17-feat-018-brand-payments-spending",
+  "id": "fn-17-feat-018-brand-payments-spending.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-17-feat-018-brand-payments-spending.6.md",
+  "status": "todo",
+  "title": "Navegaci\u00f3n a conversation con highlightPaymentId",
+  "updated_at": "2026-05-08T01:24:52.773160Z"
+}

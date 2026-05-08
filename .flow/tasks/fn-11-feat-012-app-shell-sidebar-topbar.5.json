@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:53:47.915464Z",
+  "depends_on": ["fn-11-feat-012-app-shell-sidebar-topbar.4"],
+  "epic": "fn-11-feat-012-app-shell-sidebar-topbar",
+  "id": "fn-11-feat-012-app-shell-sidebar-topbar.5",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-11-feat-012-app-shell-sidebar-topbar.5.md",
+  "status": "todo",
+  "title": "Enforzar separaci\u00f3n brand/creator y home can\u00f3nica (F.5)",
+  "updated_at": "2026-05-08T00:56:06.427258Z"
+}

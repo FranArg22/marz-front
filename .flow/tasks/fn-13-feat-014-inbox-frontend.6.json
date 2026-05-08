@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:04:30.854151Z",
+  "depends_on": ["fn-13-feat-014-inbox-frontend.5"],
+  "epic": "fn-13-feat-014-inbox-frontend",
+  "id": "fn-13-feat-014-inbox-frontend.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-13-feat-014-inbox-frontend.6.md",
+  "status": "todo",
+  "title": "Navegaci\u00f3n a flujos completos + analytics",
+  "updated_at": "2026-05-08T01:06:28.546997Z"
+}

@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-16-feat-017-creator-campaign-board-frontend",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T01:16:46.961346Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-16-feat-017-creator-campaign-board-frontend",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-16-feat-017-creator-campaign-board-frontend.md",
+  "status": "open",
+  "title": "FEAT-017 Creator campaign board (frontend)",
+  "updated_at": "2026-05-08T01:17:39.388136Z"
+}

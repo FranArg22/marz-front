@@ -1,0 +1,21 @@
+{
+  "branch_name": "fn-14-feat-015-creator-invitations-inbox",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T01:07:43.301590Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [
+    "fn-11-feat-012-app-shell-sidebar-topbar",
+    "fn-12-feat-013-campaign-detail-brand"
+  ],
+  "id": "fn-14-feat-015-creator-invitations-inbox",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-14-feat-015-creator-invitations-inbox.md",
+  "status": "open",
+  "title": "FEAT-015 Creator Invitations Inbox + Detail (Frontend)",
+  "updated_at": "2026-05-08T01:08:49.672717Z"
+}

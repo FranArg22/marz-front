@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-11-feat-012-app-shell-sidebar-topbar",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T00:52:31.100762Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-11-feat-012-app-shell-sidebar-topbar",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-11-feat-012-app-shell-sidebar-topbar.md",
+  "status": "open",
+  "title": "FEAT-012 App Shell \u00b7 Sidebar & Topbar",
+  "updated_at": "2026-05-08T00:53:36.298819Z"
+}

@@ -1,0 +1,19 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:59:34.737208Z",
+  "depends_on": [
+    "fn-12-feat-013-campaign-detail-brand.3",
+    "fn-12-feat-013-campaign-detail-brand.5",
+    "fn-12-feat-013-campaign-detail-brand.6",
+    "fn-12-feat-013-campaign-detail-brand.7"
+  ],
+  "epic": "fn-12-feat-013-campaign-detail-brand",
+  "id": "fn-12-feat-013-campaign-detail-brand.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-12-feat-013-campaign-detail-brand.8.md",
+  "status": "todo",
+  "title": "WS subscription topic campaign:{id} + tracking analytics",
+  "updated_at": "2026-05-08T01:02:11.948507Z"
+}

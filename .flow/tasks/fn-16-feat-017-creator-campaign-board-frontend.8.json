@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:17:50.811346Z",
+  "depends_on": [
+    "fn-16-feat-017-creator-campaign-board-frontend.6",
+    "fn-16-feat-017-creator-campaign-board-frontend.7"
+  ],
+  "epic": "fn-16-feat-017-creator-campaign-board-frontend",
+  "id": "fn-16-feat-017-creator-campaign-board-frontend.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-16-feat-017-creator-campaign-board-frontend.8.md",
+  "status": "todo",
+  "title": "E2E desktop + multi-tab refresh",
+  "updated_at": "2026-05-08T01:20:13.095243Z"
+}

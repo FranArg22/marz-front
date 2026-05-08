@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:43:06.224314Z",
+  "depends_on": ["fn-9-feat-009-link-submit-approve-frontend.4"],
+  "epic": "fn-9-feat-009-link-submit-approve-frontend",
+  "id": "fn-9-feat-009-link-submit-approve-frontend.5",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-9-feat-009-link-submit-approve-frontend.5.md",
+  "status": "todo",
+  "title": "Wiring acciones: approve + request changes",
+  "updated_at": "2026-05-08T00:45:14.734398Z"
+}

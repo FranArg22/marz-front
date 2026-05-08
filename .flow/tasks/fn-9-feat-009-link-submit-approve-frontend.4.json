@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:43:06.041746Z",
+  "depends_on": ["fn-9-feat-009-link-submit-approve-frontend.2"],
+  "epic": "fn-9-feat-009-link-submit-approve-frontend",
+  "id": "fn-9-feat-009-link-submit-approve-frontend.4",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-9-feat-009-link-submit-approve-frontend.4.md",
+  "status": "todo",
+  "title": "Cards: LinkSubmitted, LinkApproved, LinkChangesRequested",
+  "updated_at": "2026-05-08T00:44:32.400585Z"
+}

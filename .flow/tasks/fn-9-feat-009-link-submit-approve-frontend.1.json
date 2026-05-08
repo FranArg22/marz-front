@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:43:05.500297Z",
+  "depends_on": [],
+  "epic": "fn-9-feat-009-link-submit-approve-frontend",
+  "id": "fn-9-feat-009-link-submit-approve-frontend.1",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-9-feat-009-link-submit-approve-frontend.1.md",
+  "status": "todo",
+  "title": "Sync OpenAPI + tipos generados (Orval)",
+  "updated_at": "2026-05-08T00:43:37.973354Z"
+}

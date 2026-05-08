@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:13:57.660078Z",
+  "depends_on": ["fn-15-feat-016-creator-earnings-frontend.1"],
+  "epic": "fn-15-feat-016-creator-earnings-frontend",
+  "id": "fn-15-feat-016-creator-earnings-frontend.2",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-15-feat-016-creator-earnings-frontend.2.md",
+  "status": "todo",
+  "title": "Data hooks + URL state",
+  "updated_at": "2026-05-08T01:14:37.554487Z"
+}

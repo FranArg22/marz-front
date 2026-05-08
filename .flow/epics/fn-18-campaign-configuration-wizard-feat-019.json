@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-18-campaign-configuration-wizard-feat-019",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-08T01:25:53.343300Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-18-campaign-configuration-wizard-feat-019",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-18-campaign-configuration-wizard-feat-019.md",
+  "status": "open",
+  "title": "Campaign Configuration Wizard (FEAT-019)",
+  "updated_at": "2026-05-08T01:26:48.241613Z"
+}

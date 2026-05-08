@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:13:57.470117Z",
+  "depends_on": [],
+  "epic": "fn-15-feat-016-creator-earnings-frontend",
+  "id": "fn-15-feat-016-creator-earnings-frontend.1",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-15-feat-016-creator-earnings-frontend.1.md",
+  "status": "todo",
+  "title": "API sync + creator route shell",
+  "updated_at": "2026-05-08T01:14:26.254216Z"
+}

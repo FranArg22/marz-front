@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T01:08:58.074611Z",
+  "depends_on": ["fn-14-feat-015-creator-invitations-inbox.5"],
+  "epic": "fn-14-feat-015-creator-invitations-inbox",
+  "id": "fn-14-feat-015-creator-invitations-inbox.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-14-feat-015-creator-invitations-inbox.6.md",
+  "status": "todo",
+  "title": "Analytics + polish + tests + regression",
+  "updated_at": "2026-05-08T01:12:00.478459Z"
+}

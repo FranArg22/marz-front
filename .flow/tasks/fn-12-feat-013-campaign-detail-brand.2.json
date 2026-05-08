@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:59:33.672010Z",
+  "depends_on": ["fn-12-feat-013-campaign-detail-brand.1"],
+  "epic": "fn-12-feat-013-campaign-detail-brand",
+  "id": "fn-12-feat-013-campaign-detail-brand.2",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-12-feat-013-campaign-detail-brand.2.md",
+  "status": "todo",
+  "title": "Route shell _brand/campaigns.$campaignId + header + tabs",
+  "updated_at": "2026-05-08T01:02:09.836167Z"
+}

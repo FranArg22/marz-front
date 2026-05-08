@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-08T00:53:48.436087Z",
+  "depends_on": [
+    "fn-11-feat-012-app-shell-sidebar-topbar.6",
+    "fn-11-feat-012-app-shell-sidebar-topbar.7"
+  ],
+  "epic": "fn-11-feat-012-app-shell-sidebar-topbar",
+  "id": "fn-11-feat-012-app-shell-sidebar-topbar.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-11-feat-012-app-shell-sidebar-topbar.8.md",
+  "status": "todo",
+  "title": "Accesibilidad y verificaci\u00f3n visual end-to-end (F.8)",
+  "updated_at": "2026-05-08T00:57:14.264406Z"
+}
