@@ -65,7 +65,7 @@ function toFlatMessage(
     type: 'system_event',
     text_content: null,
     event_type: item.event_type,
-    payload: (item.payload ?? null) as Record<string, unknown> | null,
+    payload: item.payload ?? null,
     created_at: item.created_at,
     read_by_self: item.read_by_self,
   }

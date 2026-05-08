@@ -29,7 +29,7 @@ export function handleMessageCreated(
           type: 'system_event',
           text_content: null,
           event_type: payload.event_type,
-          payload: (payload.payload ?? null) as Record<string, unknown> | null,
+          payload: payload.payload ?? null,
           created_at: payload.created_at,
           read_by_self: payload.author_account_id === currentAccountId,
         }
