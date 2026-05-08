@@ -181,16 +181,78 @@ export class TestUser {
 interface ChatPair {
   conversationId: string
   brandWorkspaceId: string
+  deliverableId?: string
   brand: TestUser
   creator: TestUser
   brandPage: Page
   creatorPage: Page
 }
 
+type CompletedDeliverableSeedMessagesInput = SeedMessagesInput & {
+  offer_status: 'accepted'
+  deliverable_status: 'completed'
+  offer: {
+    type: 'single'
+    status: 'accepted'
+    amount: string
+    currency: string
+    deadline: string
+    deliverables: Array<{
+      platform: 'youtube'
+      format: 'yt_long'
+      status: 'completed'
+    }>
+  }
+}
+
+interface ConversationDeliverablesResponseBody {
+  data?: {
+    deliverables?: Array<{
+      id?: string
+      status?: string
+    }>
+  }
+}
+
+async function getCompletedDeliverableId(
+  page: Page,
+  conversationId: string,
+  brandWorkspaceId: string,
+): Promise<string> {
+  const response = await page.request.get(
+    `/v1/conversations/${conversationId}/deliverables`,
+    {
+      headers: {
+        'X-Brand-Workspace-Id': brandWorkspaceId,
+      },
+    },
+  )
+
+  if (!response.ok()) {
+    throw new Error(
+      `Failed to load seeded deliverables: ${response.status()} ${await response.text()}`,
+    )
+  }
+
+  const body = (await response.json()) as ConversationDeliverablesResponseBody
+  const deliverable = body.data?.deliverables?.find(
+    (item) => item.status === 'completed',
+  )
+
+  if (!deliverable?.id) {
+    throw new Error(
+      'Completed deliverable fixture did not create a deliverable',
+    )
+  }
+
+  return deliverable.id
+}
+
 async function createChatPair(
   browser: Browser,
   workerIndex: number,
   seedMessages?: SeedMessagesInput,
+  options?: { requireCompletedDeliverable?: boolean },
 ): Promise<{ pair: ChatPair; cleanup: () => Promise<void> }> {
   const brand = new TestUser(
     `e2e_brand_${workerIndex}`,
@@ -245,9 +307,27 @@ async function createChatPair(
     throw err
   }
 
+  let deliverableId: string | undefined
+  try {
+    deliverableId = options?.requireCompletedDeliverable
+      ? await getCompletedDeliverableId(
+          brandPage,
+          conversation.conversation_id,
+          conversation.brand_workspace_id,
+        )
+      : undefined
+  } catch (err) {
+    await brandCtx.close()
+    await creatorCtx.close()
+    await brand.delete().catch(() => {})
+    await creator.delete().catch(() => {})
+    throw err
+  }
+
   const pair: ChatPair = {
     conversationId: conversation.conversation_id,
     brandWorkspaceId: conversation.brand_workspace_id,
+    deliverableId,
     brand,
     creator,
     brandPage,
@@ -272,6 +352,7 @@ export const test = base.extend<{
   onboardedCreatorUser: TestUser
   chatPair: ChatPair
   chatPairWithHistory: ChatPair
+  chatPairWithCompletedDeliverable: ChatPair
 }>({
   // eslint-disable-next-line no-empty-pattern
   testUser: async ({}, use, testInfo) => {
@@ -328,6 +409,38 @@ export const test = base.extend<{
         count: 60,
         alternating_authors: true,
       },
+    )
+    await use(pair)
+    await cleanup()
+  },
+
+  chatPairWithCompletedDeliverable: async ({ browser }, use, testInfo) => {
+    const seedMessages: CompletedDeliverableSeedMessagesInput = {
+      count: 2,
+      alternating_authors: true,
+      mark_read_for: 'both',
+      offer_status: 'accepted',
+      deliverable_status: 'completed',
+      offer: {
+        type: 'single',
+        status: 'accepted',
+        amount: '10.00',
+        currency: 'USD',
+        deadline: '2026-12-31',
+        deliverables: [
+          {
+            platform: 'youtube',
+            format: 'yt_long',
+            status: 'completed',
+          },
+        ],
+      },
+    }
+    const { pair, cleanup } = await createChatPair(
+      browser,
+      testInfo.workerIndex,
+      seedMessages,
+      { requireCompletedDeliverable: true },
     )
     await use(pair)
     await cleanup()
