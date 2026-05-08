@@ -13,6 +13,8 @@ import { t } from '@lingui/core/macro'
 import { Badge } from '#/components/ui/badge'
 import { cn } from '#/lib/utils'
 import type { DeliverableDTO, StageStatus } from '#/features/deliverables/types'
+import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
+import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { DraftVersionList } from './DraftVersionList'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
 
@@ -35,14 +37,18 @@ export interface DeliverableListItemProps {
   deliverable: DeliverableDTO
   stageStatus?: StageStatus
   sessionKind: 'brand' | 'creator'
+  viewerRole?: MarkAsPaidViewer['role']
   onUploadDraft: (deliverableId: string) => void
+  onMarkAsPaid?: (deliverableId: string) => void
 }
 
 export function DeliverableListItem({
   deliverable,
   stageStatus,
   sessionKind,
+  viewerRole,
   onUploadDraft,
+  onMarkAsPaid,
 }: DeliverableListItemProps) {
   const PlatformIcon = platformIcon[deliverable.platform] ?? Film
   const isLocked = stageStatus === 'locked'
@@ -72,6 +78,15 @@ export function DeliverableListItem({
 
   const handleUploadClick = () => {
     onUploadDraft(deliverable.id)
+  }
+
+  const canMarkAsPaid = canMarkDeliverableAsPaid({
+    viewer: { kind: sessionKind, role: viewerRole },
+    deliverableStatus: deliverable.status,
+  })
+
+  const handleMarkAsPaidClick = () => {
+    onMarkAsPaid?.(deliverable.id)
   }
 
   return (
@@ -137,6 +152,14 @@ export function DeliverableListItem({
           <Lock className="size-3.5" />
           {t`Upload draft`}
         </div>
+      ) : canMarkAsPaid ? (
+        <button
+          type="button"
+          onClick={handleMarkAsPaidClick}
+          className="mt-2.5 flex w-full items-center justify-center rounded-full border border-border bg-background py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+        >
+          {t`Mark as paid`}
+        </button>
       ) : null}
     </div>
   )

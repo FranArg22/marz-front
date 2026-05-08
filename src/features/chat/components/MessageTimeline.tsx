@@ -28,11 +28,13 @@ import { DraftSubmittedCard } from '#/features/deliverables/components/DraftSubm
 import { DraftApprovedCard } from '#/features/deliverables/components/DraftApprovedCard'
 import { RequestChangesCard } from '#/features/deliverables/components/RequestChangesCard'
 import { PaymentMarkedCard } from './systemEvents/PaymentMarkedCard'
+import { LinkApprovedCard } from './systemEvents/LinkApprovedCard'
 
 import { DaySeparator } from './DaySeparator'
 import { EventBubble } from './EventBubble'
 import type { EventSeverity } from './EventBubble'
 import { MessageBubble } from './MessageBubble'
+import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 
 // react-virtuoso chosen over @tanstack/react-virtual: built-in reverse list mode,
 // automatic scroll anchoring on prepend, and firstItemIndex shifting — all critical
@@ -47,6 +49,8 @@ interface MessageTimelineProps {
   conversationId: string
   currentAccountId: string
   sessionKind: 'brand' | 'creator' | undefined
+  viewerRole?: MarkAsPaidViewerRole
+  onMarkAsPaid?: (deliverableId: string) => void
   onAtBottomStateChange?: (atBottom: boolean) => void
   timelineRef?: React.Ref<MessageTimelineHandle>
 }
@@ -60,6 +64,8 @@ export function MessageTimeline({
   conversationId,
   currentAccountId,
   sessionKind,
+  viewerRole,
+  onMarkAsPaid,
   onAtBottomStateChange,
   timelineRef,
 }: MessageTimelineProps) {
@@ -182,6 +188,20 @@ export function MessageTimeline({
           )
         }
 
+        if (message.event_type === 'LinkApproved') {
+          return (
+            <LinkApprovedCard
+              message={message}
+              conversationId={conversationId}
+              viewer={{
+                kind: sessionKind,
+                role: viewerRole,
+              }}
+              onMarkAsPaid={onMarkAsPaid}
+            />
+          )
+        }
+
         if (message.event_type === 'StageOpened') {
           const rawPayload = message.payload ?? {}
           const snapshot =
@@ -254,7 +274,9 @@ export function MessageTimeline({
       currentAccountId,
       conversationDetail?.counterpart.display_name,
       conversationId,
+      onMarkAsPaid,
       sessionKind,
+      viewerRole,
     ],
   )
 

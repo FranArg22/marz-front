@@ -24,21 +24,26 @@ import { MessageComposer } from './MessageComposer'
 import { NewMessagesPill } from './NewMessagesPill'
 import { TypingIndicator } from './TypingIndicator'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
+import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 
 interface ConversationViewProps {
   conversationId: string
   currentAccountId: string
   sessionKind: 'brand' | 'creator' | undefined
+  viewerRole?: MarkAsPaidViewerRole
   canSendOffer?: CanSendOfferMeta
   onSendOffer?: () => void
+  onMarkAsPaid?: (deliverableId: string) => void
 }
 
 export function ConversationView({
   conversationId,
   currentAccountId,
   sessionKind,
+  viewerRole,
   canSendOffer,
   onSendOffer,
+  onMarkAsPaid,
 }: ConversationViewProps) {
   const queryClient = useQueryClient()
   const detailQuery = useConversationDetailQuery(conversationId)
@@ -177,6 +182,8 @@ export function ConversationView({
           conversationId={conversationId}
           currentAccountId={currentAccountId}
           sessionKind={sessionKind}
+          viewerRole={viewerRole}
+          onMarkAsPaid={onMarkAsPaid}
           onAtBottomStateChange={onAtBottomStateChange}
           timelineRef={timelineRef}
         />

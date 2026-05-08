@@ -5,9 +5,9 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 import type { DomainEventEnvelope } from '#/shared/ws/events'
 import type { MessageCreatedPayload } from '#/shared/ws/types'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
-import type { MessagesResponse } from '#/features/chat/types'
-
+import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
+import type { MessagesResponse } from '#/features/chat/types'
 
 import { handleMessageCreated } from './messageCreatedHandler'
 
@@ -311,7 +311,10 @@ describe('handleMessageCreated', () => {
       queryKey: ['conversations', CONVERSATION_ID, 'messages'],
     })
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: ['conversations', CONVERSATION_ID, 'context-panel'],
+      queryKey: getConversationDeliverablesQueryKey(CONVERSATION_ID),
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: getConversationOffersQueryKey(CONVERSATION_ID),
     })
   })
 
@@ -375,7 +378,10 @@ describe('handleMessageCreated', () => {
       queryKey: ['conversations', CONVERSATION_ID, 'messages'],
     })
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: ['conversations', CONVERSATION_ID, 'context-panel'],
+      queryKey: getConversationDeliverablesQueryKey(CONVERSATION_ID),
+    })
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: getConversationOffersQueryKey(CONVERSATION_ID),
     })
   })
 

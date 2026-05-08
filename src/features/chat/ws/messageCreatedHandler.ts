@@ -4,6 +4,7 @@ import type { DomainEventEnvelope } from '#/shared/ws/events'
 import type { MessageCreatedPayload } from '#/shared/ws/types'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
+import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 import { OFFER_EVENT_TYPES } from '#/shared/offers/constants'
 import type { MessageItem, MessagesResponse } from '#/features/chat/types'
 import { toMessagePayload } from '#/features/chat/utils/messagePayload'
@@ -120,7 +121,10 @@ export function handleMessageCreated(
       queryKey: ['conversations', payload.conversation_id, 'messages'],
     })
     queryClient.invalidateQueries({
-      queryKey: ['conversations', payload.conversation_id, 'context-panel'],
+      queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+    })
+    queryClient.invalidateQueries({
+      queryKey: getConversationOffersQueryKey(payload.conversation_id),
     })
   }
 }
