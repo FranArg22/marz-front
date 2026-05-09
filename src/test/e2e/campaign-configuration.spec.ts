@@ -94,6 +94,75 @@ function makeConfiguration(state: {
 }
 
 test.describe('Campaign configuration wizard', () => {
+  test('retoma desde lista una campaña draft con configuración pendiente', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await page.route('**/v1/campaigns?**', (route) =>
+      route.fulfill({
+        json: {
+          data: [
+            {
+              id: campaignId,
+              name: 'Summer Glow 2026',
+              status: 'draft',
+              deadline: '2026-06-30T00:00:00Z',
+              platforms: ['YouTube', 'Instagram'],
+              creators_count: 0,
+              budget_total_usd: '42000',
+              videos_done: 0,
+              videos_total: 0,
+              configuration_complete: false,
+              configuration_current_step: 'targeting',
+            },
+          ],
+          status: 200,
+        },
+      }),
+    )
+    await page.route(`**/v1/campaigns/${campaignId}/configuration`, (route) =>
+      route.fulfill({
+        json: makeConfiguration({
+          currentStep: 'targeting',
+          completedSteps: ['content_type', 'pricing_model'],
+          configurationComplete: false,
+          configurationVersion: 3,
+          status: 'draft',
+          contentType: 'ugc_videos',
+          pricingModel: 'per_views',
+          operationalTargeting: {
+            countries: ['AR'],
+            tiers: ['emergent'],
+            follower_min: null,
+            follower_max: null,
+            genders: [],
+            age_min: null,
+            age_max: null,
+            interests: [],
+            content_languages: ['es'],
+            source: 'brief_prefill',
+            adjusted_from_brief: false,
+          },
+          bonusConfig: {
+            enabled: false,
+            speed_bonus: { enabled: false, windows: [] },
+            performance_bonus: { enabled: false, milestones: [] },
+          },
+        }),
+      }),
+    )
+
+    await onboardedBrandUser.signIn(page)
+    await page.goto('/campaigns')
+
+    await expect(page.getByText('Configuración pendiente')).toBeVisible()
+    await page.getByText('Retomar configuración').click()
+
+    await expect(page).toHaveURL(
+      new RegExp(`/campaigns/${campaignId}/configuration/targeting$`),
+    )
+  })
+
   test('completa content type y pricing model preservando selección tras reload', async ({
     page,
     onboardedBrandUser,

@@ -5,7 +5,7 @@ import { z } from 'zod'
 import customFetch, { ApiError } from '#/shared/api/mutator'
 import type { BonusConfigValues, OperationalTargetingValues } from './schemas'
 
-const CampaignConfigurationStepSchema = z.enum([
+export const CampaignConfigurationStepSchema = z.enum([
   'content_type',
   'pricing_model',
   'targeting',

@@ -48,9 +48,8 @@ Full design system: `src/styles.css`.
 - [ ] E2E: dejar wizard a la mitad, ir a lista, ver badge, click, retomar en step correcto.
 
 ## Done summary
-
-_Pending implementation._
-
+Fix aplicado correctamente: isConfigurationPending requiere !!configurationCurrentStep, eliminando el estado inconsistente badge-visible/navegación-incorrecta. Test nuevo cubre el edge case. Todos los acceptance criteria tienen cobertura.
 ## Evidence
-
-_Pending implementation._
+- Commits:
+- Tests:
+- PRs:
