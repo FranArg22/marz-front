@@ -29,7 +29,7 @@ describe('campaign detail search schema', () => {
         tab: 'discovery',
         section: 'matches',
         q: 'aria',
-        status: 'pending',
+        status: 'active',
         platform: 'instagram',
         sort: 'score',
       }),
@@ -37,9 +37,23 @@ describe('campaign detail search schema', () => {
       tab: 'discovery',
       section: 'matches',
       q: 'aria',
-      status: 'pending',
+      status: 'active',
       platform: 'instagram',
       sort: 'score',
+    })
+  })
+
+  it('drops invalid creator filter values', () => {
+    expect(
+      campaignDetailSearchSchema.parse({
+        tab: 'creators',
+        status: 'pending',
+        platform: 'threads',
+      }),
+    ).toMatchObject({
+      tab: 'creators',
+      status: undefined,
+      platform: undefined,
     })
   })
 

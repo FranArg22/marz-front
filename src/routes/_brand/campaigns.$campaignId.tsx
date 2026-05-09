@@ -3,6 +3,10 @@ import { z } from 'zod'
 
 import { CampaignDetailPage } from '#/features/campaigns/detail/CampaignDetailPage'
 import { campaignDetailQueryOptions } from '#/features/campaigns/detail/useCampaignDetailQuery'
+import {
+  ListCampaignParticipantsPlatform,
+  ListCampaignParticipantsStatus,
+} from '#/shared/api/generated/model'
 
 const campaignDetailTabSchema = z
   .enum(['overview', 'discovery', 'creators', 'videos', 'analytics'])
@@ -14,12 +18,22 @@ const campaignDetailSectionSchema = z
   .default('matches')
   .catch('matches')
 
+const campaignParticipantsStatusSchema = z
+  .enum(ListCampaignParticipantsStatus)
+  .optional()
+  .catch(undefined)
+
+const campaignParticipantsPlatformSchema = z
+  .enum(ListCampaignParticipantsPlatform)
+  .optional()
+  .catch(undefined)
+
 export const campaignDetailSearchSchema = z.object({
   tab: campaignDetailTabSchema,
   section: campaignDetailSectionSchema,
   q: z.string().optional().catch(undefined),
-  status: z.string().optional().catch(undefined),
-  platform: z.string().optional().catch(undefined),
+  status: campaignParticipantsStatusSchema,
+  platform: campaignParticipantsPlatformSchema,
   sort: z.string().optional().catch(undefined),
 })
 

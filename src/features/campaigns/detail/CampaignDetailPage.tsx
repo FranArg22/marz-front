@@ -5,7 +5,11 @@ import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
 import { DiscoveryTab } from '#/features/discovery/campaign-detail/DiscoveryTab'
-import type { CampaignPlanCapabilities } from '#/shared/api/generated/model'
+import type {
+  CampaignPlanCapabilities,
+  ListCampaignParticipantsPlatform,
+  ListCampaignParticipantsStatus,
+} from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 
 import {
@@ -16,14 +20,15 @@ import {
 import { CampaignDetailTabs } from './CampaignDetailTabs'
 import type { CampaignDetailTabId } from './CampaignDetailTabs'
 import { OverviewTab } from './OverviewTab'
+import { CreatorsTab } from './creators/CreatorsTab'
 import { useCampaignDetailQuery } from './useCampaignDetailQuery'
 
 export interface CampaignDetailSearch {
   tab: CampaignDetailTabId
   section: 'matches' | 'applications' | 'active' | 'invited'
   q?: string
-  status?: string
-  platform?: string
+  status?: ListCampaignParticipantsStatus
+  platform?: ListCampaignParticipantsPlatform
   sort?: string
 }
 
@@ -168,6 +173,20 @@ function CampaignDetailBody({
         campaignId={campaignId}
         planCapabilities={planCapabilities}
         search={search}
+      />
+    )
+  }
+
+  if (tab === 'creators') {
+    return (
+      <CreatorsTab
+        campaignId={campaignId}
+        planCapabilities={planCapabilities}
+        search={{
+          search: search.q,
+          status: search.status,
+          platform: search.platform,
+        }}
       />
     )
   }
