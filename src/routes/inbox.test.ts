@@ -64,6 +64,20 @@ describe('/inbox route', () => {
     )
   })
 
+  it('redirects to /auth when kind is invalid', async () => {
+    mockServerMeResult = {
+      ok: true,
+      body: {
+        id: 'acct_invalid_kind',
+        kind: 'admin',
+        onboarding_status: 'onboarded',
+        redirect_to: null,
+      },
+    }
+
+    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/auth' }))
+  })
+
   it('returns brand AppShell context for an onboarded brand session', async () => {
     mockServerMeResult = {
       ok: true,
