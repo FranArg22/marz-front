@@ -37,16 +37,50 @@ vi.mock('./CampaignBriefSheet', () => ({
   CampaignBriefSheet: ({
     campaignId,
     onOpenChange,
+    onApply,
   }: {
     campaignId: string | null
     onOpenChange: (open: boolean) => void
+    onApply: (card: CreatorCampaignBoardCard) => void
   }) =>
     campaignId ? (
       <div role="dialog" aria-label="Brief de campaña">
         <p>{campaignId}</p>
+        <button
+          type="button"
+          onClick={() =>
+            onApply({
+              campaign_id: campaignId,
+              campaign: { name: 'Brief campaign' },
+              application: {
+                status: 'none',
+                application_id: null,
+                submitted_at: null,
+                can_apply: true,
+              },
+            } as unknown as CreatorCampaignBoardCard)
+          }
+        >
+          Postularme desde brief
+        </button>
         <button type="button" onClick={() => onOpenChange(false)}>
           Cerrar
         </button>
+      </div>
+    ) : null,
+}))
+
+vi.mock('./ApplicationDialog', () => ({
+  ApplicationDialog: ({
+    open,
+    campaignName,
+  }: {
+    open: boolean
+    campaignName?: string
+  }) =>
+    open ? (
+      <div role="dialog" aria-label="Postularme">
+        {campaignName}
       </div>
     ) : null,
 }))
@@ -203,7 +237,7 @@ describe('CampaignBoardPage', () => {
     expect(screen.getByRole('button', { name: 'Postularme' })).toBeEnabled()
   })
 
-  it('renders disabled primary action when application cannot be created', () => {
+  it('renders submitted state with a link to view the application', () => {
     mockBoardQuery({
       data: makeBoardResponse([
         makeCard({
@@ -220,9 +254,23 @@ describe('CampaignBoardPage', () => {
 
     renderCampaignBoardPage()
 
+    expect(screen.getByText('Postulación enviada')).toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: 'Postulación enviada' }),
-    ).toBeDisabled()
+      screen.getByRole('button', { name: 'Ver postulación' }),
+    ).toBeEnabled()
+  })
+
+  it('opens the application dialog from a campaign card', async () => {
+    const user = userEvent.setup()
+    mockBoardQuery({ data: makeBoardResponse(), isSuccess: true })
+
+    renderCampaignBoardPage()
+
+    await user.click(screen.getByRole('button', { name: 'Postularme' }))
+
+    expect(
+      screen.getByRole('dialog', { name: 'Postularme' }),
+    ).toHaveTextContent('Lanzamiento auriculares M-Pro 2')
   })
 
   it('opens the brief sheet from a campaign card', async () => {

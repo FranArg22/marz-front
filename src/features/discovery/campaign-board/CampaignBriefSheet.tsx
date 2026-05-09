@@ -9,6 +9,7 @@ import {
   SheetTitle,
 } from '#/components/ui/sheet'
 import { ApiError } from '#/shared/api/mutator'
+import type { CreatorCampaignBoardCard } from '#/shared/api/generated/model'
 
 import { CampaignBriefContent } from './CampaignBriefContent'
 import { useCampaignBoardDetailQuery } from './hooks/useCampaignBoardDetailQuery'
@@ -16,6 +17,7 @@ import { useCampaignBoardDetailQuery } from './hooks/useCampaignBoardDetailQuery
 interface CampaignBriefSheetProps {
   campaignId: string | null
   onOpenChange: (open: boolean) => void
+  onApply: (card: CreatorCampaignBoardCard) => void
 }
 
 function detailErrorMessage(error: Error) {
@@ -99,6 +101,7 @@ function DetailErrorState({
 export function CampaignBriefSheet({
   campaignId,
   onOpenChange,
+  onApply,
 }: CampaignBriefSheetProps) {
   const isOpen = campaignId !== null
   const detailQuery = useCampaignBoardDetailQuery(campaignId ?? '', {
@@ -129,14 +132,31 @@ export function CampaignBriefSheet({
         ) : null}
 
         {detailQuery.isSuccess ? (
-          <div className="flex-1 overflow-y-auto p-6">
-            <CampaignBriefContent
-              card={detailQuery.data.card}
-              brief={detailQuery.data.brief}
-              targeting={detailQuery.data.targeting}
-              commercial={detailQuery.data.commercial}
-            />
-          </div>
+          <>
+            <div className="flex-1 overflow-y-auto p-6">
+              <CampaignBriefContent
+                card={detailQuery.data.card}
+                brief={detailQuery.data.brief}
+                targeting={detailQuery.data.targeting}
+                commercial={detailQuery.data.commercial}
+              />
+            </div>
+            <div className="flex items-center justify-end gap-3 border-t border-border p-6">
+              <Button
+                type="button"
+                className="rounded-xl"
+                disabled={
+                  !detailQuery.data.card.application.can_apply ||
+                  detailQuery.data.card.application.status !== 'none'
+                }
+                onClick={() => onApply(detailQuery.data.card)}
+              >
+                {detailQuery.data.card.application.status === 'submitted'
+                  ? t`Postulación enviada`
+                  : t`Postularme`}
+              </Button>
+            </div>
+          </>
         ) : null}
       </SheetContent>
     </Sheet>

@@ -11,6 +11,7 @@ import { MatchScoreBadge } from './MatchScoreBadge'
 interface CampaignBoardCardProps {
   card: CreatorCampaignBoardCard
   onViewBrief: (campaignId: string) => void
+  onApply: (card: CreatorCampaignBoardCard) => void
 }
 
 type SnapshotRecord = Record<string, unknown>
@@ -139,6 +140,7 @@ function getApplicationPrimaryLabel(card: CreatorCampaignBoardCard) {
 export function CampaignBoardCard({
   card,
   onViewBrief,
+  onApply,
 }: CampaignBoardCardProps) {
   const brandName = getSnapshotString(card.brand, 'name') ?? t`Marca`
   const brandInitials =
@@ -267,17 +269,43 @@ export function CampaignBoardCard({
             >
               {t`Ver brief`}
             </Button>
-            <Button
-              type="button"
-              size="sm"
-              className={cn(
-                'rounded-xl',
-                !card.application.can_apply && 'px-3',
-              )}
-              disabled={!card.application.can_apply}
-            >
-              {getApplicationPrimaryLabel(card)}
-            </Button>
+            {card.application.status === 'submitted' ? (
+              <div className="flex items-center gap-2">
+                <Badge
+                  variant="secondary"
+                  className="rounded-full px-3 py-1 text-xs"
+                >
+                  {t`Postulación enviada`}
+                </Badge>
+                <Button
+                  type="button"
+                  variant="link"
+                  size="sm"
+                  className="h-8 px-0"
+                  onClick={() => onViewBrief(card.campaign_id)}
+                >
+                  {t`Ver postulación`}
+                </Button>
+              </div>
+            ) : (
+              <Button
+                type="button"
+                size="sm"
+                className={cn(
+                  'rounded-xl',
+                  (!card.application.can_apply ||
+                    card.application.status !== 'none') &&
+                    'px-3',
+                )}
+                disabled={
+                  !card.application.can_apply ||
+                  card.application.status !== 'none'
+                }
+                onClick={() => onApply(card)}
+              >
+                {getApplicationPrimaryLabel(card)}
+              </Button>
+            )}
           </div>
         </div>
       </div>

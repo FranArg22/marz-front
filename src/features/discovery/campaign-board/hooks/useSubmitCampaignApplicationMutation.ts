@@ -12,6 +12,7 @@ import type {
 } from '#/shared/api/generated/model'
 
 import { campaignBoardDetailQueryKey } from './useCampaignBoardDetailQuery'
+import { generateIdempotencyKey } from '../utils/idempotencyKey'
 
 export interface SubmitCampaignApplicationVariables {
   campaignId: string
@@ -130,7 +131,8 @@ export function useSubmitCampaignApplicationMutation(
     mutationFn: async (
       variables,
     ): Promise<SubmitCampaignApplicationMutationResult> => {
-      const idempotencyKey = variables.idempotencyKey ?? crypto.randomUUID()
+      const idempotencyKey =
+        variables.idempotencyKey ?? generateIdempotencyKey()
       const data = await submitCampaignApplication({
         data: {
           campaignId: variables.campaignId,

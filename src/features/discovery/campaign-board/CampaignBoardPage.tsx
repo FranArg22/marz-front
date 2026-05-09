@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
+import type { CreatorCampaignBoardCard } from '#/shared/api/generated/model'
 
+import { ApplicationDialog } from './ApplicationDialog'
 import { CampaignBoardFilters } from './CampaignBoardFilters'
 import { CampaignBriefSheet } from './CampaignBriefSheet'
 import {
@@ -21,6 +23,8 @@ export function CampaignBoardPage() {
   const [selectedBriefCampaignId, setSelectedBriefCampaignId] = useState<
     string | null
   >(null)
+  const [applicationCard, setApplicationCard] =
+    useState<CreatorCampaignBoardCard | null>(null)
 
   return (
     <main className="min-h-full bg-background">
@@ -65,14 +69,29 @@ export function CampaignBoardPage() {
           <CampaignBoardGrid
             cards={cards}
             onViewBrief={setSelectedBriefCampaignId}
+            onApply={setApplicationCard}
           />
         ) : null}
       </div>
       <CampaignBriefSheet
         campaignId={selectedBriefCampaignId}
+        onApply={setApplicationCard}
         onOpenChange={(open) => {
           if (!open) setSelectedBriefCampaignId(null)
         }}
+      />
+      <ApplicationDialog
+        open={applicationCard !== null}
+        campaignId={applicationCard?.campaign_id ?? null}
+        campaignName={
+          typeof applicationCard?.campaign.name === 'string'
+            ? applicationCard.campaign.name
+            : undefined
+        }
+        onOpenChange={(open) => {
+          if (!open) setApplicationCard(null)
+        }}
+        onViewApplication={setSelectedBriefCampaignId}
       />
     </main>
   )

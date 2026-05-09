@@ -128,7 +128,11 @@ describe('CampaignBriefSheet', () => {
     mockDetailQuery({})
 
     const { rerender } = render(
-      <CampaignBriefSheet campaignId={null} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={null}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(mockUseCampaignBoardDetailQuery).toHaveBeenLastCalledWith('', {
@@ -137,7 +141,11 @@ describe('CampaignBriefSheet', () => {
     })
 
     rerender(
-      <CampaignBriefSheet campaignId={campaignId} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(mockUseCampaignBoardDetailQuery).toHaveBeenLastCalledWith(
@@ -149,14 +157,18 @@ describe('CampaignBriefSheet', () => {
     )
   })
 
-  it('renders loaded brief content without application actions', () => {
+  it('renders loaded brief content with an application CTA', () => {
     mockDetailQuery({
       data: makeDetailResponse(),
       isSuccess: true,
     })
 
     render(
-      <CampaignBriefSheet campaignId={campaignId} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(
@@ -164,11 +176,29 @@ describe('CampaignBriefSheet', () => {
     ).toBeInTheDocument()
     expect(screen.getByText('Brief completo')).toBeInTheDocument()
     expect(screen.getByText('Mensaje principal')).toBeInTheDocument()
-    expect(
-      screen.queryByRole('button', {
-        name: /postularme|aceptar|declinar|invitar/i,
-      }),
-    ).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Postularme' })).toBeEnabled()
+  })
+
+  it('opens the application dialog from the sheet CTA', async () => {
+    const user = userEvent.setup()
+    const onApply = vi.fn()
+    const response = makeDetailResponse()
+    mockDetailQuery({
+      data: response,
+      isSuccess: true,
+    })
+
+    render(
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={onApply}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Postularme' }))
+
+    expect(onApply).toHaveBeenCalledWith(response.card)
   })
 
   it('allows closing the not-found state', async () => {
@@ -183,6 +213,7 @@ describe('CampaignBriefSheet', () => {
       <CampaignBriefSheet
         campaignId={campaignId}
         onOpenChange={onOpenChange}
+        onApply={vi.fn()}
       />,
     )
 
@@ -200,7 +231,11 @@ describe('CampaignBriefSheet', () => {
     })
 
     render(
-      <CampaignBriefSheet campaignId={campaignId} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(screen.getByText('Campaña no disponible')).toBeInTheDocument()
@@ -213,7 +248,11 @@ describe('CampaignBriefSheet', () => {
     })
 
     const { container } = render(
-      <CampaignBriefSheet campaignId={campaignId} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(await axe(container)).toHaveNoViolations()
@@ -225,7 +264,11 @@ describe('CampaignBriefSheet', () => {
     })
 
     const { container } = render(
-      <CampaignBriefSheet campaignId={campaignId} onOpenChange={vi.fn()} />,
+      <CampaignBriefSheet
+        campaignId={campaignId}
+        onOpenChange={vi.fn()}
+        onApply={vi.fn()}
+      />,
     )
 
     expect(
