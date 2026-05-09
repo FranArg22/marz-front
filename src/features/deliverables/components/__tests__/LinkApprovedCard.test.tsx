@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { LinkApprovedCard } from '../LinkApprovedCard'
-import type { DraftTimelineMessage, DeliverableStatus  } from '../../types'
+import type { DraftTimelineMessage, DeliverableStatus } from '../../types'
 
 const mockUseGetConversationDeliverablesQuery = vi.fn()
 
