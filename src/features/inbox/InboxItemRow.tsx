@@ -9,6 +9,7 @@ import { ApiError } from '#/shared/api/mutator'
 
 import type { InboxItem } from './api/inbox'
 import { useMarkInboxItemReadMutation } from './hooks/useMarkInboxItemReadMutation'
+import { InboxInlineActionPopover } from './InboxInlineActionPopover'
 
 interface InboxItemRowProps {
   item: InboxItem
@@ -92,6 +93,11 @@ export function InboxItemRow({ item }: InboxItemRowProps) {
             {item.preview}
           </p>
         </div>
+
+        <InboxInlineActionPopover
+          itemId={item.id}
+          inlineActions={item.inline_actions}
+        />
 
         <Button
           type="button"
