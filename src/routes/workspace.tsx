@@ -81,7 +81,7 @@ export const Route = createFileRoute('/workspace')({
 
 function WorkspaceRoute() {
   const search = Route.useSearch()
-  const { sessionKind } = Route.useRouteContext()
+  const { accountId, sessionKind } = Route.useRouteContext()
   const navigate = useNavigate()
 
   const { conversationId: activeConversationId } = useParams({
@@ -105,7 +105,7 @@ function WorkspaceRoute() {
   const Shell = sessionKind === 'brand' ? BrandShell : CreatorShell
 
   return (
-    <Shell>
+    <Shell accountId={accountId}>
       <WorkspaceLayout
         sessionKind={sessionKind}
         rail={
