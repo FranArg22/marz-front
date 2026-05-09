@@ -16,10 +16,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#/components/ui/dialog'
+import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 
 import { useSendOfferSheetStore } from '../store/sendOfferSheetStore'
 import type { OfferType } from '../store/sendOfferSheetStore'
-import { useActiveCampaigns } from '../hooks/useActiveCampaigns'
 import { OfferTypeChooser } from './OfferTypeChooser'
 import { SingleEditor } from './SingleEditor'
 import { BundleEditor } from './BundleEditor'

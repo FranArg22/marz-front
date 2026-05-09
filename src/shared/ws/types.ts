@@ -3,7 +3,11 @@ import type {
   DeliverableDTO,
   PublishedLink,
 } from '#/features/deliverables/types'
-import type { DomainEventEnvelope } from './events'
+import type {
+  CampaignConfigurationActivatedPayload,
+  CampaignConfigurationUpdatedPayload,
+  DomainEventEnvelope,
+} from './events'
 
 // Discriminated union over `type` ('text' | 'system_event'); system events
 // carry `event_type` plus a self-contained snapshot in `payload`.
@@ -244,4 +248,10 @@ export type DomainWsEvent =
     })
   | (DomainEventEnvelope<StageOpenedWSPayload> & {
       event_type: 'stage.opened'
+    })
+  | (DomainEventEnvelope<CampaignConfigurationUpdatedPayload> & {
+      event_type: 'campaign.configuration.updated'
+    })
+  | (DomainEventEnvelope<CampaignConfigurationActivatedPayload> & {
+      event_type: 'campaign.configuration.activated'
     })

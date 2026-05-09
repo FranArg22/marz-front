@@ -14,17 +14,25 @@ interface ListCampaignsResponse {
   status: number
 }
 
+const DEFAULT_BRAND_WORKSPACE_ID = 'default'
+
+export function getActiveCampaignsQueryKey(
+  brandWorkspaceId = DEFAULT_BRAND_WORKSPACE_ID,
+) {
+  return [
+    '/v1/campaigns',
+    { status: 'active', brand_workspace_id: brandWorkspaceId },
+  ] as const
+}
+
 // RAFITA:BLOCKER: Orval hook `useListCampaigns` not yet generated (backend hasn't deployed campaigns endpoints).
 // This is a manual stub that hits the expected endpoint. Replace with Orval-generated hook after `pnpm api:sync`.
 // RAFITA:BLOCKER: brandWorkspaceId hardcoded to 'default' — no workspace store exposed by Identity yet.
 // When Identity exposes the active workspace via session/store, replace 'default' with the real id.
 export function useActiveCampaigns() {
-  const brandWorkspaceId = 'default'
+  const brandWorkspaceId = DEFAULT_BRAND_WORKSPACE_ID
   return useQuery<ActiveCampaign[]>({
-    queryKey: [
-      '/v1/campaigns',
-      { status: 'active', brand_workspace_id: brandWorkspaceId },
-    ],
+    queryKey: getActiveCampaignsQueryKey(brandWorkspaceId),
     queryFn: async () => {
       const response = await customFetch<ListCampaignsResponse>(
         `/v1/campaigns?status=active&brand_workspace_id=${encodeURIComponent(brandWorkspaceId)}`,

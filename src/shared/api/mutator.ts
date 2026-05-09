@@ -12,6 +12,7 @@ export class ApiError extends Error {
     public code: string,
     public override message: string,
     public details?: ApiErrorBody['details'],
+    public body?: unknown,
   ) {
     super(`API ${status}: ${message}`)
     this.name = 'ApiError'
@@ -52,13 +53,56 @@ export async function customFetch<T>(
   const fullUrl = `${base}${url}`
 
   const token = await authProvider?.getToken()
-  const res = await doFetch(fullUrl, token ?? null, options)
+  const idempotencyKey = getConfigurationMutationIdempotencyKey(url, options)
+  const res = await doFetch(fullUrl, token ?? null, options, idempotencyKey)
 
   if (res.status === 401) {
-    return handleUnauthorized<T>(res, fullUrl, options)
+    return handleUnauthorized<T>(res, fullUrl, options, idempotencyKey)
   }
 
   return handleResponse<T>(res)
+}
+
+function getConfigurationMutationIdempotencyKey(
+  url: string,
+  options?: RequestInit,
+): string | null {
+  if (hasRequestHeader(options?.headers, 'Idempotency-Key')) return null
+
+  const method = options?.method?.toUpperCase() ?? 'GET'
+  const isPatchConfigurationStep =
+    method === 'PATCH' &&
+    /^\/v1\/campaigns\/[^/]+\/configuration\/(content_type|pricing_model|targeting|bonus)(?:[?#].*)?$/.test(
+      url,
+    )
+  const isActivateConfiguration =
+    method === 'POST' &&
+    /^\/v1\/campaigns\/[^/]+\/configuration\/activate(?:[?#].*)?$/.test(url)
+
+  if (!isPatchConfigurationStep && !isActivateConfiguration) return null
+
+  // Configuration mutations must use retry: 0 at the TanStack Query layer.
+  // The mutator can only keep this key stable for fetch-level retries, such as
+  // the 401 refresh path; a new customFetch invocation is a new logical request.
+  return crypto.randomUUID()
+}
+
+function hasRequestHeader(headers: HeadersInit | undefined, name: string) {
+  if (!headers) return false
+
+  const normalizedName = name.toLowerCase()
+
+  if (headers instanceof Headers) {
+    return headers.has(name)
+  }
+
+  if (Array.isArray(headers)) {
+    return headers.some(([key]) => key.toLowerCase() === normalizedName)
+  }
+
+  return Object.keys(headers).some(
+    (key) => key.toLowerCase() === normalizedName,
+  )
 }
 
 function isFormData(body: unknown): body is FormData {
@@ -69,6 +113,7 @@ async function doFetch(
   url: string,
   token: string | null,
   options?: RequestInit,
+  idempotencyKey?: string | null,
 ): Promise<Response> {
   const authHeaders: Record<string, string> = token
     ? { Authorization: `Bearer ${token}` }
@@ -83,6 +128,10 @@ async function doFetch(
     ? { 'X-Brand-Workspace-Id': workspaceId }
     : {}
 
+  const idempotencyHeaders: Record<string, string> = idempotencyKey
+    ? { 'Idempotency-Key': idempotencyKey }
+    : {}
+
   return fetch(url, {
     ...options,
     headers: {
@@ -91,6 +140,7 @@ async function doFetch(
       ...authHeaders,
       ...workspaceHeaders,
       ...options?.headers,
+      ...idempotencyHeaders,
     },
   })
 }
@@ -99,6 +149,7 @@ async function handleUnauthorized<T>(
   res: Response,
   url: string,
   options?: RequestInit,
+  idempotencyKey?: string | null,
 ): Promise<T> {
   const body = await parseErrorBody(res)
   const code = body?.code ?? ''
@@ -109,6 +160,7 @@ async function handleUnauthorized<T>(
       body?.code ?? 'unauthorized',
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
@@ -118,6 +170,7 @@ async function handleUnauthorized<T>(
       code,
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
@@ -131,10 +184,11 @@ async function handleUnauthorized<T>(
       code,
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
-  const retryRes = await doFetch(url, newToken, options)
+  const retryRes = await doFetch(url, newToken, options, idempotencyKey)
 
   if (retryRes.status === 401) {
     await authProvider.signOut()
@@ -145,6 +199,7 @@ async function handleUnauthorized<T>(
       retryBody?.code ?? code,
       retryBody?.message ?? res.statusText,
       retryBody?.details,
+      retryBody,
     )
   }
 
@@ -161,6 +216,7 @@ async function handleResponse<T>(res: Response): Promise<T> {
       body?.code ?? 'unknown',
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 

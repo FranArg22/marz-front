@@ -153,6 +153,20 @@ describe('customFetch', () => {
     expect(apiError.details?.field_errors?.email).toEqual(['invalid format'])
   })
 
+  it('GET configuration → sends workspace header without idempotency key', async () => {
+    setBrandWorkspaceIdProvider(() => 'workspace-1')
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(jsonResponse(200, { ok: true }))
+
+    await customFetch('/v1/campaigns/campaign-1/configuration')
+
+    const [, init] = fetchSpy.mock.calls[0]!
+    const headers = init?.headers as Record<string, string>
+    expect(headers).toHaveProperty('X-Brand-Workspace-Id', 'workspace-1')
+    expect(headers).not.toHaveProperty('Idempotency-Key')
+  })
+
   it('injects brand workspace and preserves caller idempotency headers', async () => {
     const fetchSpy = vi
       .spyOn(globalThis, 'fetch')
@@ -173,6 +187,114 @@ describe('customFetch', () => {
       'X-Brand-Workspace-Id': 'brand-workspace-1',
       'Idempotency-Key': 'mutation-key-1',
     })
+  })
+
+  it('PATCH configuration step → sends workspace and generated idempotency headers', async () => {
+    setBrandWorkspaceIdProvider(() => 'workspace-1')
+    const randomUUIDSpy = vi
+      .spyOn(crypto, 'randomUUID')
+      .mockReturnValue('00000000-0000-4000-8000-000000000001')
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(jsonResponse(200, { ok: true }))
+
+    await customFetch('/v1/campaigns/campaign-1/configuration/targeting', {
+      method: 'PATCH',
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+
+    const [, init] = fetchSpy.mock.calls[0]!
+    const headers = init?.headers as Record<string, string>
+    expect(headers).toHaveProperty('X-Brand-Workspace-Id', 'workspace-1')
+    expect(headers).toHaveProperty(
+      'Idempotency-Key',
+      '00000000-0000-4000-8000-000000000001',
+    )
+    expect(randomUUIDSpy).toHaveBeenCalledOnce()
+  })
+
+  it('POST configuration activate → keeps the same idempotency key across auth retry', async () => {
+    setBrandWorkspaceIdProvider(() => 'workspace-1')
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue(
+      '00000000-0000-4000-8000-000000000002',
+    )
+    const fetchSpy = vi.spyOn(globalThis, 'fetch')
+    fetchSpy
+      .mockResolvedValueOnce(
+        jsonResponse(401, { code: 'token_expired', message: 'Token expired' }),
+      )
+      .mockResolvedValueOnce(jsonResponse(200, { ok: true }))
+
+    await customFetch('/v1/campaigns/campaign-1/configuration/activate', {
+      method: 'POST',
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+
+    const [, firstInit] = fetchSpy.mock.calls[0]!
+    const [, retryInit] = fetchSpy.mock.calls[1]!
+    const firstHeaders = firstInit?.headers as Record<string, string>
+    const retryHeaders = retryInit?.headers as Record<string, string>
+    expect(firstHeaders).toHaveProperty(
+      'Idempotency-Key',
+      '00000000-0000-4000-8000-000000000002',
+    )
+    expect(retryHeaders).toHaveProperty(
+      'Idempotency-Key',
+      '00000000-0000-4000-8000-000000000002',
+    )
+    expect(retryHeaders).toHaveProperty('X-Brand-Workspace-Id', 'workspace-1')
+  })
+
+  it('POST configuration activate → respects an explicit idempotency key', async () => {
+    const randomUUIDSpy = vi.spyOn(crypto, 'randomUUID')
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(jsonResponse(200, { ok: true }))
+
+    await customFetch('/v1/campaigns/campaign-1/configuration/activate', {
+      method: 'POST',
+      headers: { 'Idempotency-Key': 'explicit-key' },
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+
+    const [, init] = fetchSpy.mock.calls[0]!
+    const headers = init?.headers as Record<string, string>
+    expect(headers).toHaveProperty('Idempotency-Key', 'explicit-key')
+    expect(randomUUIDSpy).not.toHaveBeenCalled()
+  })
+
+  it('configuration mutation retries by calling customFetch again use a new idempotency key', async () => {
+    setBrandWorkspaceIdProvider(() => 'workspace-1')
+    const randomUUIDSpy = vi
+      .spyOn(crypto, 'randomUUID')
+      .mockReturnValueOnce('00000000-0000-4000-8000-000000000003')
+      .mockReturnValueOnce('00000000-0000-4000-8000-000000000004')
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation(() =>
+        Promise.resolve(jsonResponse(200, { ok: true })),
+      )
+
+    await customFetch('/v1/campaigns/campaign-1/configuration/bonus', {
+      method: 'PATCH',
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+    await customFetch('/v1/campaigns/campaign-1/configuration/bonus', {
+      method: 'PATCH',
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+
+    const [, firstInit] = fetchSpy.mock.calls[0]!
+    const [, secondInit] = fetchSpy.mock.calls[1]!
+    const firstHeaders = firstInit?.headers as Record<string, string>
+    const secondHeaders = secondInit?.headers as Record<string, string>
+    expect(firstHeaders['Idempotency-Key']).toBe(
+      '00000000-0000-4000-8000-000000000003',
+    )
+    expect(secondHeaders['Idempotency-Key']).toBe(
+      '00000000-0000-4000-8000-000000000004',
+    )
+    expect(randomUUIDSpy).toHaveBeenCalledTimes(2)
   })
 
   it('422 → throw ApiError with details', async () => {

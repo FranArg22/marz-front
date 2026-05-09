@@ -5,11 +5,11 @@ import { toast } from 'sonner'
 import { Plus } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 import { useAppForm, applyBackendFieldErrors } from '#/shared/ui/form'
 import { ApiError } from '#/shared/api/mutator'
 
 import { useSendOfferSheetStore } from '../store/sendOfferSheetStore'
-import { useActiveCampaigns } from '../hooks/useActiveCampaigns'
 import { useCreateBundleOffer } from '../hooks/useCreateBundleOffer'
 import { todayString } from '../utils/dateUtils'
 import { BonusTermsFields, BonusWindowRow } from './BonusTermsFields'

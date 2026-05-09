@@ -55,9 +55,8 @@ Full design system: `src/styles.css`.
 - [ ] Validación visual desktop dark ≥95% match contra `C3Bh8V`.
 
 ## Done summary
-
-_Pending implementation._
-
+BC violation corregida: useActiveCampaigns movido a shared/api/, todos los consumidores actualizados, imports en ReviewStep desde shared. Sin problemas nuevos.
 ## Evidence
-
-_Pending implementation._
+- Commits:
+- Tests:
+- PRs:

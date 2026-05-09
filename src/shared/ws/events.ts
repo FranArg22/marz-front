@@ -18,3 +18,42 @@ export interface DomainEventEnvelope<TPayload = unknown> {
 }
 
 export type EventHandler<T = unknown> = (event: DomainEventEnvelope<T>) => void
+
+export interface CampaignConfigurationUpdatedPayload {
+  event: 'campaign.configuration.updated'
+  campaign_id: string
+  brand_workspace_id: string
+  changed_step: 'content_type' | 'pricing_model' | 'targeting' | 'bonus'
+  current_step:
+    | 'content_type'
+    | 'pricing_model'
+    | 'targeting'
+    | 'bonus'
+    | 'review'
+  completed_steps: Array<
+    'content_type' | 'pricing_model' | 'targeting' | 'bonus' | 'review'
+  >
+  configuration_version: number
+  updated_at: string
+}
+
+export interface CampaignConfigurationActivatedPayload {
+  event: 'campaign.configuration.activated'
+  campaign_id: string
+  brand_workspace_id: string
+  status: 'active'
+  configuration_version: number
+  activated_at: string
+  plan_allows_campaign_board: boolean
+  plan_allows_automatic_matching: boolean
+}
+
+export type CampaignConfigurationUpdatedEvent =
+  DomainEventEnvelope<CampaignConfigurationUpdatedPayload> & {
+    event_type: 'campaign.configuration.updated'
+  }
+
+export type CampaignConfigurationActivatedEvent =
+  DomainEventEnvelope<CampaignConfigurationActivatedPayload> & {
+    event_type: 'campaign.configuration.activated'
+  }

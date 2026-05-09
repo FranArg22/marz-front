@@ -39,6 +39,12 @@ export const campaignDetailSearchSchema = z.object({
   sort: z.string().optional().catch(undefined),
 })
 
+const CHILD_ROUTE_IDS = new Set([
+  '/_brand/campaigns/$campaignId/brief',
+  '/_brand/campaigns/$campaignId/configuration',
+  '/_brand/campaigns/$campaignId/configuration/$step',
+])
+
 export const Route = createFileRoute('/_brand/campaigns/$campaignId')({
   validateSearch: (search) => campaignDetailSearchSchema.parse(search),
   loader: ({ context, params }) => {
@@ -55,7 +61,7 @@ function CampaignDetailRoute() {
   const { campaignId } = Route.useParams()
   const search = Route.useSearch()
 
-  if (lastMatch?.routeId === '/_brand/campaigns/$campaignId/brief') {
+  if (lastMatch && CHILD_ROUTE_IDS.has(lastMatch.routeId)) {
     return <Outlet />
   }
 
