@@ -25,6 +25,15 @@ vi.mock('../hooks/useProcessBrief', async (importOriginal) => {
   }
 })
 
+vi.mock('#/features/identity/session/BrandSessionContext', () => ({
+  useBrandSession: () => ({
+    brandWorkspace: {
+      id: 'brand-workspace-1',
+      website_url: 'https://brand.example',
+    },
+  }),
+}))
+
 const mockInitMutateAsync = vi.fn()
 const mockProcessMutateAsync = vi.fn()
 
