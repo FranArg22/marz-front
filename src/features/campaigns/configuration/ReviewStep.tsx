@@ -18,6 +18,7 @@ import { getActiveCampaignsQueryKey } from '#/shared/api/activeCampaigns'
 import { ApiError } from '#/shared/api/mutator'
 import { CREATOR_TIER_OPTIONS } from './components/TierMultiSelect'
 import { ReviewBlock, ReviewBlockAction } from './components/ReviewBlock'
+import { trackCampaignConfigurationActivated } from './analytics'
 import {
   campaignConfigurationQueryKey,
   isCampaignConfigurationStep,
@@ -145,6 +146,7 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
       },
       {
         onSuccess: () => {
+          trackCampaignConfigurationActivated(config)
           const activeCampaignsQueryKey = getActiveCampaignsQueryKey()
 
           void queryClient.invalidateQueries({

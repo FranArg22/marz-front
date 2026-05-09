@@ -10,6 +10,7 @@ import { Button } from '#/components/ui/button'
 import { ApiError } from '#/shared/api/mutator'
 import { FieldRow, firstErrorMessage, useAppForm } from '#/shared/ui/form'
 import { ConfigurationFooter } from './ConfigurationFooter'
+import { trackCampaignConfigurationStepCompleted } from './analytics'
 import { CountryMultiSelect } from './components/CountryMultiSelect'
 import { InterestsInput } from './components/InterestsInput'
 import { TierMultiSelect } from './components/TierMultiSelect'
@@ -134,6 +135,12 @@ export function TargetingStep({ campaignId, config }: TargetingStepProps) {
         },
         {
           onSuccess: (response) => {
+            trackCampaignConfigurationStepCompleted({
+              campaignId,
+              step: 'targeting',
+              previousConfig: config,
+              nextConfig: response,
+            })
             queryClient.setQueryData(
               campaignConfigurationQueryKey(campaignId),
               response,

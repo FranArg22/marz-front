@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
 import { ConfigurationFooter } from './ConfigurationFooter'
+import { trackCampaignConfigurationStepCompleted } from './analytics'
 import {
   campaignConfigurationQueryKey,
   useUpdatePricingModelMutation,
@@ -78,6 +79,12 @@ export function PricingModelStep({
       },
       {
         onSuccess: (response) => {
+          trackCampaignConfigurationStepCompleted({
+            campaignId,
+            step: 'pricing_model',
+            previousConfig: config,
+            nextConfig: response,
+          })
           queryClient.setQueryData(
             campaignConfigurationQueryKey(campaignId),
             response,

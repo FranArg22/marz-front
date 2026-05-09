@@ -15,6 +15,10 @@ type AnalyticsEvent =
   | 'conversation_rail_search'
   | 'conversation_filter_changed'
   | 'conversation_campaign_filter_changed'
+  | 'campaign_configuration_started'
+  | 'campaign_configuration_step_completed'
+  | 'campaign_configuration_activated'
+  | 'campaign_configuration_abandoned'
 
 interface TrackedEvent {
   event: AnalyticsEvent

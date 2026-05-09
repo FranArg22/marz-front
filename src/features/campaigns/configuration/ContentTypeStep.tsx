@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
 import { ConfigurationFooter } from './ConfigurationFooter'
+import { trackCampaignConfigurationStepCompleted } from './analytics'
 import {
   campaignConfigurationQueryKey,
   useUpdateContentTypeMutation,
@@ -59,6 +60,12 @@ export function ContentTypeStep({ campaignId, config }: ContentTypeStepProps) {
       },
       {
         onSuccess: (response) => {
+          trackCampaignConfigurationStepCompleted({
+            campaignId,
+            step: 'content_type',
+            previousConfig: config,
+            nextConfig: response,
+          })
           queryClient.setQueryData(
             campaignConfigurationQueryKey(campaignId),
             response,

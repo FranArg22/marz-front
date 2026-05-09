@@ -13,6 +13,7 @@ import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
 import { FieldRow, firstErrorMessage, useAppForm } from '#/shared/ui/form'
 import { ConfigurationFooter } from './ConfigurationFooter'
+import { trackCampaignConfigurationStepCompleted } from './analytics'
 import { PerformanceBonusRow } from './components/PerformanceBonusRow'
 import { SpeedBonusRow } from './components/SpeedBonusRow'
 import {
@@ -171,6 +172,12 @@ export function BonusStep({ campaignId, config }: BonusStepProps) {
         },
         {
           onSuccess: (response) => {
+            trackCampaignConfigurationStepCompleted({
+              campaignId,
+              step: 'bonus',
+              previousConfig: config,
+              nextConfig: response,
+            })
             queryClient.setQueryData(
               campaignConfigurationQueryKey(campaignId),
               response,

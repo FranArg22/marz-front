@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link, Outlet, useParams } from '@tanstack/react-router'
 import { ArrowLeft, Check, Circle, CircleDot } from 'lucide-react'
 import { t } from '@lingui/core/macro'
@@ -15,6 +16,11 @@ import {
   useCampaignConfigurationQuery,
 } from './hooks'
 import type { CampaignConfiguration, CampaignConfigurationStep } from './hooks'
+import {
+  trackCampaignConfigurationAbandoned,
+  trackCampaignConfigurationStarted,
+} from './analytics'
+import { useConfigurationWebSocket } from './useConfigurationWebSocket'
 
 function getStepCopy(): Record<
   CampaignConfigurationStep,
@@ -71,6 +77,8 @@ export function CampaignConfigurationWizard({
   const params: { step?: string } = useParams({ strict: false })
   const configQuery = useCampaignConfigurationQuery(campaignId)
   const activeConfig = configQuery.data ?? config
+  const activeConfigRef = useRef(activeConfig)
+  const abandonedTrackedRef = useRef(false)
   const routeStep = params.step
   const displayStep =
     routeStep && isCampaignConfigurationStep(routeStep)
@@ -81,6 +89,37 @@ export function CampaignConfigurationWizard({
   const safeActiveStepIndex = Math.max(activeStepIndex, 0)
   const activeStep = CAMPAIGN_CONFIGURATION_STEPS[safeActiveStepIndex]!
   const activeCopy = stepCopy[activeStep]
+
+  useConfigurationWebSocket(campaignId)
+
+  useEffect(() => {
+    activeConfigRef.current = activeConfig
+  }, [activeConfig])
+
+  useEffect(() => {
+    trackCampaignConfigurationStarted(campaignId)
+  }, [campaignId])
+
+  useEffect(() => {
+    abandonedTrackedRef.current = false
+
+    function trackAbandonedOnce() {
+      if (abandonedTrackedRef.current) return
+
+      const latestConfig = activeConfigRef.current
+      if (latestConfig.configuration_complete) return
+
+      abandonedTrackedRef.current = true
+      trackCampaignConfigurationAbandoned(latestConfig)
+    }
+
+    window.addEventListener('beforeunload', trackAbandonedOnce)
+
+    return () => {
+      window.removeEventListener('beforeunload', trackAbandonedOnce)
+      trackAbandonedOnce()
+    }
+  }, [campaignId])
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-background">
