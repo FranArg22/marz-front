@@ -7,6 +7,7 @@ import {
   Megaphone,
   MessageSquare,
   Users,
+  Wallet,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -31,6 +32,7 @@ const iconByName: Record<string, LucideIcon> = {
   megaphone: Megaphone,
   'message-square': MessageSquare,
   users: Users,
+  wallet: Wallet,
 }
 
 const DISABLED_TOOLTIP_LABEL = 'Próximamente'

@@ -34,8 +34,32 @@ function renderSidebar(
     component: () => null,
   })
 
+  const paymentsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/payments',
+    component: () => null,
+  })
+
+  const offersRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/offers',
+    component: () => null,
+  })
+
+  const earningsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/earnings',
+    component: () => null,
+  })
+
   const router = createRouter({
-    routeTree: rootRoute.addChildren([workspaceRoute, inboxRoute]),
+    routeTree: rootRoute.addChildren([
+      workspaceRoute,
+      inboxRoute,
+      paymentsRoute,
+      offersRoute,
+      earningsRoute,
+    ]),
     history: createMemoryHistory({ initialEntries: [pathname] }),
   })
 
@@ -88,6 +112,24 @@ describe('AppSidebar', () => {
     expect(inboxLink).toHaveAttribute('aria-current', 'page')
   })
 
+  it('renders payments for brand only and marks it active by pathname', async () => {
+    const { unmount } = renderSidebar('/payments', 'brand')
+
+    const paymentsLink = await screen.findByRole('link', {
+      name: 'Payments & Spending',
+    })
+
+    expect(paymentsLink).toHaveAttribute('href', '/payments')
+    expect(paymentsLink).toHaveAttribute('aria-current', 'page')
+
+    unmount()
+    renderSidebar('/workspace', 'creator')
+
+    expect(
+      screen.queryByRole('link', { name: 'Payments & Spending' }),
+    ).not.toBeInTheDocument()
+  })
+
   it('shows the enabled item label tooltip on hover and focus', async () => {
     const user = userEvent.setup()
     const { unmount } = renderSidebar('/workspace')
@@ -136,13 +178,14 @@ describe('AppSidebar', () => {
       'Home',
       'Workspace',
       'Inbox',
+      'Payments & Spending',
       'Campaigns',
       'Creators',
       'Analytics',
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox/.test(name) ? 'link' : 'button',
+          /Workspace|Inbox|Payments & Spending/.test(name) ? 'link' : 'button',
           {
             name,
           },
@@ -155,16 +198,28 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'creator')
     const creatorSidebar = await screen.findByTestId('app-sidebar')
 
-    for (const name of ['Home', 'Workspace', 'Inbox', 'Analytics']) {
+    for (const name of [
+      'Home',
+      'Workspace',
+      'Inbox',
+      'Offers',
+      'Earnings',
+      'Analytics',
+    ]) {
       expect(
         within(creatorSidebar).getByRole(
-          /Workspace|Inbox/.test(name) ? 'link' : 'button',
+          /Workspace|Inbox|Offers|Earnings/.test(name) ? 'link' : 'button',
           { name },
         ),
       ).toBeInTheDocument()
     }
     expect(
       within(creatorSidebar).queryByRole('button', { name: 'Creators' }),
+    ).not.toBeInTheDocument()
+    expect(
+      within(creatorSidebar).queryByRole('link', {
+        name: 'Payments & Spending',
+      }),
     ).not.toBeInTheDocument()
     expect(creatorSidebar).toHaveTextContent('')
   })
