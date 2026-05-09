@@ -1,4 +1,4 @@
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import customFetch, { ApiError } from '#/shared/api/mutator'
@@ -114,6 +114,20 @@ export type CampaignConfigurationStep =
 export type CampaignConfiguration = z.infer<
   typeof CampaignConfigurationResponseSchema
 >
+export type CampaignContentType = z.infer<typeof CampaignContentTypeSchema>
+export type CampaignPricingModel = z.infer<typeof CampaignPricingModelSchema>
+
+interface UpdateContentTypeParams {
+  campaignId: string
+  content_type: CampaignContentType
+  configuration_version: number
+}
+
+interface UpdatePricingModelParams {
+  campaignId: string
+  pricing_model: CampaignPricingModel
+  configuration_version: number
+}
 
 export function isCampaignConfigurationStep(
   value: string,
@@ -144,4 +158,44 @@ export function campaignConfigurationQueryOptions(campaignId: string) {
 
 export function useCampaignConfigurationQuery(campaignId: string) {
   return useQuery(campaignConfigurationQueryOptions(campaignId))
+}
+
+export function useUpdateContentTypeMutation() {
+  return useMutation({
+    mutationFn: async ({
+      campaignId,
+      content_type,
+      configuration_version,
+    }: UpdateContentTypeParams): Promise<CampaignConfiguration> => {
+      const response = await customFetch<ApiResponse<unknown>>(
+        `/v1/campaigns/${campaignId}/configuration/content_type`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({ content_type, configuration_version }),
+        },
+      )
+      return CampaignConfigurationResponseSchema.parse(response.data)
+    },
+    retry: false,
+  })
+}
+
+export function useUpdatePricingModelMutation() {
+  return useMutation({
+    mutationFn: async ({
+      campaignId,
+      pricing_model,
+      configuration_version,
+    }: UpdatePricingModelParams): Promise<CampaignConfiguration> => {
+      const response = await customFetch<ApiResponse<unknown>>(
+        `/v1/campaigns/${campaignId}/configuration/pricing_model`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({ pricing_model, configuration_version }),
+        },
+      )
+      return CampaignConfigurationResponseSchema.parse(response.data)
+    },
+    retry: false,
+  })
 }

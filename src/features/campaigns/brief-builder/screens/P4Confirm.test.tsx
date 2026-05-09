@@ -13,6 +13,7 @@ const mockRouter = {
 }
 
 vi.mock('@tanstack/react-router', () => ({
+  useNavigate: () => mockNavigate,
   useRouter: () => mockRouter,
 }))
 
@@ -131,6 +132,24 @@ describe('P4Confirm', () => {
     expect(params.idempotencyKey).toMatch(
       /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/,
     )
+  })
+
+  it('redirects to campaign configuration after creating the campaign', async () => {
+    useBriefBuilderStore.setState({ briefDraft: makeDraft() })
+    renderP4()
+
+    const [, options] = mockMutate.mock.calls[0] as [
+      { brandWorkspaceId: string; idempotencyKey: string; draft: BriefDraft },
+      { onSuccess: (data: { campaign_id: string }) => void },
+    ]
+    options.onSuccess({ campaign_id: 'camp-123' })
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith({
+        to: '/campaigns/$campaignId/configuration',
+        params: { campaignId: 'camp-123' },
+      })
+    })
   })
 
   it('shows spinner when pending', () => {

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import {
   ConfigurationStepper,
@@ -110,11 +111,17 @@ describe('ConfigurationStepper', () => {
 
 describe('CampaignConfigurationStepSlot', () => {
   it('renders the placeholder with campaign configuration', () => {
+    const queryClient = new QueryClient({
+      defaultOptions: {
+        queries: { retry: false },
+        mutations: { retry: false },
+      },
+    })
+
     render(
-      <CampaignConfigurationStepSlot
-        config={makeConfig()}
-        step="content_type"
-      />,
+      <QueryClientProvider client={queryClient}>
+        <CampaignConfigurationStepSlot config={makeConfig()} step="targeting" />
+      </QueryClientProvider>,
     )
 
     expect(screen.getByRole('heading', { name: /TODO step/i })).toBeVisible()

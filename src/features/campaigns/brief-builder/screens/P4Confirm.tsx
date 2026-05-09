@@ -52,6 +52,10 @@ export function P4Confirm() {
       {
         onSuccess: (data) => {
           store.setField('campaignId', data.campaign_id)
+          void router.navigate({
+            to: '/campaigns/$campaignId/configuration',
+            params: { campaignId: data.campaign_id },
+          })
         },
         onError: (error) => {
           const fieldErrors = getCreateCampaignFieldErrors(error)

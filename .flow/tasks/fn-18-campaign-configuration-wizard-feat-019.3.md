@@ -55,9 +55,8 @@ Full design system: `src/styles.css`.
 - [ ] BriefBuilderWizard tras confirmar brief redirige a `/campaigns/$id/configuration`.
 
 ## Done summary
-
-_Pending implementation._
-
+Mock de useRouter corregido, `from` removido de interface y route component. Lógica de steps, mutations, tests unitarios y E2E correctos. Sin dead code, sin any, sin tokens hardcodeados.
 ## Evidence
-
-_Pending implementation._
+- Commits:
+- Tests:
+- PRs:

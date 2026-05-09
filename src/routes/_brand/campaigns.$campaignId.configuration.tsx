@@ -120,14 +120,7 @@ export const Route = createFileRoute(
 
 function CampaignConfigurationRoute() {
   const { campaignId } = Route.useParams()
-  const search = Route.useSearch()
   const config = Route.useLoaderData()
 
-  return (
-    <CampaignConfigurationWizard
-      campaignId={campaignId}
-      config={config}
-      from={search.from}
-    />
-  )
+  return <CampaignConfigurationWizard campaignId={campaignId} config={config} />
 }

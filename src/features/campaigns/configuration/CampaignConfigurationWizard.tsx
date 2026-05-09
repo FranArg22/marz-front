@@ -1,17 +1,16 @@
-import { Link, Outlet, useNavigate } from '@tanstack/react-router'
-import {
-  ArrowLeft,
-  ArrowRight,
-  Check,
-  Circle,
-  CircleDot,
-  Loader2,
-} from 'lucide-react'
+import { Link, Outlet, useParams } from '@tanstack/react-router'
+import { ArrowLeft, Check, Circle, CircleDot, Loader2 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
-import { CAMPAIGN_CONFIGURATION_STEPS } from './hooks'
+import { ContentTypeStep } from './ContentTypeStep'
+import { PricingModelStep } from './PricingModelStep'
+import {
+  CAMPAIGN_CONFIGURATION_STEPS,
+  isCampaignConfigurationStep,
+  useCampaignConfigurationQuery,
+} from './hooks'
 import type { CampaignConfiguration, CampaignConfigurationStep } from './hooks'
 
 function getStepCopy(): Record<
@@ -60,57 +59,25 @@ function getStepCopy(): Record<
 interface CampaignConfigurationWizardProps {
   campaignId: string
   config: CampaignConfiguration
-  from?: 'brief-builder' | 'campaign-list'
 }
 
 export function CampaignConfigurationWizard({
   campaignId,
   config,
-  from,
 }: CampaignConfigurationWizardProps) {
-  const navigate = useNavigate()
-  const activeStepIndex = CAMPAIGN_CONFIGURATION_STEPS.indexOf(
-    config.current_step,
-  )
+  const params: { step?: string } = useParams({ strict: false })
+  const configQuery = useCampaignConfigurationQuery(campaignId)
+  const activeConfig = configQuery.data ?? config
+  const routeStep = params.step
+  const displayStep =
+    routeStep && isCampaignConfigurationStep(routeStep)
+      ? routeStep
+      : activeConfig.current_step
+  const activeStepIndex = CAMPAIGN_CONFIGURATION_STEPS.indexOf(displayStep)
   const stepCopy = getStepCopy()
   const safeActiveStepIndex = Math.max(activeStepIndex, 0)
   const activeStep = CAMPAIGN_CONFIGURATION_STEPS[safeActiveStepIndex]!
   const activeCopy = stepCopy[activeStep]
-  const previousStep = CAMPAIGN_CONFIGURATION_STEPS[safeActiveStepIndex - 1]
-  const nextStep = CAMPAIGN_CONFIGURATION_STEPS[safeActiveStepIndex + 1]
-  const backLabel =
-    from === 'brief-builder' ? t`Volver al brief` : t`Volver a campañas`
-
-  const goToStep = (step: CampaignConfigurationStep) => {
-    void navigate({
-      to: '/campaigns/$campaignId/configuration/$step',
-      params: { campaignId, step },
-      search: from ? { from } : {},
-    })
-  }
-
-  const handleBack = () => {
-    if (previousStep) {
-      goToStep(previousStep)
-      return
-    }
-
-    if (from === 'brief-builder') {
-      void navigate({
-        to: '/campaigns/$campaignId/brief',
-        params: { campaignId },
-      })
-      return
-    }
-
-    void navigate({ to: '/campaigns' })
-  }
-
-  const handleNext = () => {
-    if (nextStep) {
-      goToStep(nextStep)
-    }
-  }
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-background">
@@ -126,7 +93,7 @@ export function CampaignConfigurationWizard({
           {t`Configurar campaña`}
         </p>
         <div className="ml-auto rounded-full bg-muted px-3 py-1 font-mono text-xs text-muted-foreground">
-          {t`Versión ${config.configuration_version}`}
+          {t`Versión ${activeConfig.configuration_version}`}
         </div>
       </header>
 
@@ -146,36 +113,14 @@ export function CampaignConfigurationWizard({
                 {t`Paso ${safeActiveStepIndex + 1} de ${CAMPAIGN_CONFIGURATION_STEPS.length}`}
               </p>
             </div>
-            <ConfigurationStepper config={config} />
+            <ConfigurationStepper config={activeConfig} />
           </section>
 
-          <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+          <section className="flex min-h-80 flex-col justify-center">
             <Outlet />
           </section>
         </div>
       </main>
-
-      <footer className="shrink-0 border-t border-border bg-background px-8 py-4">
-        <div className="mx-auto flex w-full max-w-6xl items-center gap-3">
-          <Button
-            variant="outline"
-            className="rounded-full"
-            onClick={handleBack}
-          >
-            <ArrowLeft className="size-4" />
-            {backLabel}
-          </Button>
-          <div className="flex-1" />
-          <Button
-            className="rounded-full"
-            onClick={handleNext}
-            disabled={!nextStep}
-          >
-            {nextStep ? t`Continuar` : t`Activar campaña`}
-            <ArrowRight className="size-4" />
-          </Button>
-        </div>
-      </footer>
     </div>
   )
 }
@@ -266,6 +211,27 @@ export function CampaignConfigurationStepSlot({
   config,
   step,
 }: CampaignConfigurationStepSlotProps) {
+  const configQuery = useCampaignConfigurationQuery(config.campaign_id)
+  const activeConfig = configQuery.data ?? config
+
+  if (step === 'content_type') {
+    return (
+      <ContentTypeStep
+        campaignId={activeConfig.campaign_id}
+        config={activeConfig}
+      />
+    )
+  }
+
+  if (step === 'pricing_model') {
+    return (
+      <PricingModelStep
+        campaignId={activeConfig.campaign_id}
+        config={activeConfig}
+      />
+    )
+  }
+
   const stepCopy = getStepCopy()
   const copy = stepCopy[step]
 
