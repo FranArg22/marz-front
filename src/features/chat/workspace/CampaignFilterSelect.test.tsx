@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import { createElement } from 'react'
 
 import { CampaignFilterSelect } from './CampaignFilterSelect'
-import * as activeCampaignsModule from '#/features/offers/hooks/useActiveCampaigns'
+import * as activeCampaignsModule from '#/shared/api/activeCampaigns'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(

@@ -1,5 +1,5 @@
 import { Link, Outlet, useParams } from '@tanstack/react-router'
-import { ArrowLeft, Check, Circle, CircleDot, Loader2 } from 'lucide-react'
+import { ArrowLeft, Check, Circle, CircleDot } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
@@ -7,6 +7,7 @@ import { cn } from '#/lib/utils'
 import { BonusStep } from './BonusStep'
 import { ContentTypeStep } from './ContentTypeStep'
 import { PricingModelStep } from './PricingModelStep'
+import { ReviewStep } from './ReviewStep'
 import { TargetingStep } from './TargetingStep'
 import {
   CAMPAIGN_CONFIGURATION_STEPS,
@@ -249,22 +250,7 @@ export function CampaignConfigurationStepSlot({
     )
   }
 
-  const stepCopy = getStepCopy()
-  const copy = stepCopy[step]
-
   return (
-    <div className="flex min-h-80 flex-col items-center justify-center gap-4 text-center">
-      <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Loader2 className="size-5" aria-hidden="true" />
-      </div>
-      <div className="max-w-md">
-        <h2 className="text-lg font-semibold text-foreground">
-          {t`TODO step ${copy.todoLabel}`}
-        </h2>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          {t`Este slot ya recibe la configuración de la campaña ${config.campaign_id} y queda listo para implementar el formulario real.`}
-        </p>
-      </div>
-    </div>
+    <ReviewStep campaignId={activeConfig.campaign_id} config={activeConfig} />
   )
 }

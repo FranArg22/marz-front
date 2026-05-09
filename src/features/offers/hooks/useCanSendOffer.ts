@@ -1,7 +1,6 @@
 import { useMe } from '#/shared/api/generated/accounts/accounts'
+import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
-
-import { useActiveCampaigns } from './useActiveCampaigns'
 
 export function useCanSendOffer({
   conversationId: _conversationId,

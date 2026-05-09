@@ -48,7 +48,9 @@ type BonusConfig = {
 function makeConfiguration(state: {
   currentStep: ConfigurationStep
   completedSteps: ConfigurationStep[]
+  configurationComplete: boolean
   configurationVersion: number
+  status: 'draft' | 'active'
   contentType: 'influencer_posts' | 'ugc_videos' | null
   pricingModel: 'fixed_per_video' | 'per_views' | null
   operationalTargeting: OperationalTargeting
@@ -57,12 +59,12 @@ function makeConfiguration(state: {
   return {
     campaign_id: campaignId,
     brand_workspace_id: brandWorkspaceId,
-    status: 'draft',
+    status: state.status,
     editable: true,
     block_reason: null,
     current_step: state.currentStep,
     completed_steps: state.completedSteps,
-    configuration_complete: false,
+    configuration_complete: state.configurationComplete,
     configuration_version: state.configurationVersion,
     content_type: state.contentType,
     pricing_model: state.pricingModel,
@@ -112,7 +114,9 @@ test.describe('Campaign configuration wizard', () => {
     const state = {
       currentStep: 'content_type' as ConfigurationStep,
       completedSteps: [] as ConfigurationStep[],
+      configurationComplete: false,
       configurationVersion: 1,
+      status: 'draft' as 'draft' | 'active',
       contentType: null as 'influencer_posts' | 'ugc_videos' | null,
       pricingModel: null as 'fixed_per_video' | 'per_views' | null,
       operationalTargeting: initialOperationalTargeting,
@@ -123,6 +127,12 @@ test.describe('Campaign configuration wizard', () => {
       } as BonusConfig,
     }
     let briefEndpointWasMutated = false
+    const activationReplay = {
+      key: null as string | null,
+      body: null as unknown,
+      responseBody: null as { campaign_id: string; status: 'active' } | null,
+      mutations: 0,
+    }
 
     await page.route(`**/v1/campaigns/${campaignId}/configuration`, (route) =>
       route.fulfill({ json: makeConfiguration(state) }),
@@ -160,6 +170,7 @@ test.describe('Campaign configuration wizard', () => {
         state.contentType = body.content_type
         state.currentStep = 'pricing_model'
         state.completedSteps = ['content_type']
+        state.configurationComplete = false
         state.configurationVersion = 2
         await route.fulfill({ json: makeConfiguration(state) })
       },
@@ -186,6 +197,7 @@ test.describe('Campaign configuration wizard', () => {
         }
         state.currentStep = 'bonus'
         state.completedSteps = ['content_type', 'pricing_model', 'targeting']
+        state.configurationComplete = false
         state.configurationVersion = 4
         await route.fulfill({ json: makeConfiguration(state) })
       },
@@ -204,6 +216,7 @@ test.describe('Campaign configuration wizard', () => {
         state.pricingModel = body.pricing_model
         state.currentStep = 'targeting'
         state.completedSteps = ['content_type', 'pricing_model']
+        state.configurationComplete = false
         state.configurationVersion = 3
         await route.fulfill({ json: makeConfiguration(state) })
       },
@@ -280,11 +293,57 @@ test.describe('Campaign configuration wizard', () => {
           'pricing_model',
           'targeting',
           'bonus',
+          'review',
         ]
+        state.configurationComplete = true
         state.configurationVersion = 5
         await route.fulfill({ json: makeConfiguration(state) })
       },
     )
+    await page.route(
+      `**/v1/campaigns/${campaignId}/configuration/activate`,
+      async (route) => {
+        const key = route.request().headers()['idempotency-key']
+        const body = route.request().postDataJSON() as {
+          configuration_version: number
+        }
+
+        expect(key).toMatch(
+          /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+        )
+        expect(body).toEqual({ configuration_version: 5 })
+
+        if (activationReplay.key === key) {
+          expect(body).toEqual(activationReplay.body)
+
+          await route.fulfill({
+            headers: { 'access-control-allow-origin': '*' },
+            json: activationReplay.responseBody,
+          })
+          return
+        } else {
+          activationReplay.key = key ?? null
+          activationReplay.body = body
+          activationReplay.mutations += 1
+          state.status = 'active'
+        }
+
+        activationReplay.responseBody = {
+          campaign_id: campaignId,
+          status: state.status,
+        }
+        await route.fulfill({
+          headers: { 'access-control-allow-origin': '*' },
+          json: activationReplay.responseBody,
+        })
+      },
+    )
+
+    await page.addInitScript(() => {
+      Object.defineProperty(crypto, 'randomUUID', {
+        value: () => '11111111-1111-4111-8111-111111111111',
+      })
+    })
 
     await onboardedBrandUser.signIn(page)
     await page.goto(`/campaigns/${campaignId}/configuration`)
@@ -372,5 +431,21 @@ test.describe('Campaign configuration wizard', () => {
       page.getByRole('button', { name: 'Consolidado' }),
     ).toHaveAttribute('aria-pressed', 'true')
     await expect(page.getByLabel('Seguidores mínimos')).toHaveValue('20000')
+
+    await page.goto(`/campaigns/${campaignId}/configuration/review`)
+    await page.getByRole('button', { name: 'Activar campaña' }).click()
+    await expect(page).toHaveURL(new RegExp(`/campaigns/${campaignId}$`))
+    expect(state.status).toBe('active')
+    if (activationReplay.key === null) {
+      throw new Error('Activation idempotency key was not captured')
+    }
+    const replayKey = activationReplay.key
+
+    await page.goto(`/campaigns/${campaignId}/configuration/review`)
+    await page.getByRole('button', { name: 'Activar campaña' }).click()
+    await expect(page).toHaveURL(new RegExp(`/campaigns/${campaignId}$`))
+    expect(activationReplay.key).toBe(replayKey)
+    expect(activationReplay.mutations).toBe(1)
+    expect(state.status).toBe('active')
   })
 })

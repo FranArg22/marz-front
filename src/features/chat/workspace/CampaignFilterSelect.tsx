@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
-import { useActiveCampaigns } from '#/features/offers/hooks/useActiveCampaigns'
+import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 
 import { trackConversationCampaignFilterChanged } from './analytics'
 

@@ -10,7 +10,7 @@ vi.mock('#/shared/api/generated/accounts/accounts', () => ({
   useMe: () => ({ data: mockMeData }),
 }))
 
-vi.mock('./useActiveCampaigns', () => ({
+vi.mock('#/shared/api/activeCampaigns', () => ({
   useActiveCampaigns: () => ({ data: mockCampaignsData }),
 }))
 

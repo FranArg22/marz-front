@@ -12,6 +12,7 @@ export class ApiError extends Error {
     public code: string,
     public override message: string,
     public details?: ApiErrorBody['details'],
+    public body?: unknown,
   ) {
     super(`API ${status}: ${message}`)
     this.name = 'ApiError'
@@ -66,6 +67,8 @@ function getConfigurationMutationIdempotencyKey(
   url: string,
   options?: RequestInit,
 ): string | null {
+  if (hasRequestHeader(options?.headers, 'Idempotency-Key')) return null
+
   const method = options?.method?.toUpperCase() ?? 'GET'
   const isPatchConfigurationStep =
     method === 'PATCH' &&
@@ -82,6 +85,24 @@ function getConfigurationMutationIdempotencyKey(
   // The mutator can only keep this key stable for fetch-level retries, such as
   // the 401 refresh path; a new customFetch invocation is a new logical request.
   return crypto.randomUUID()
+}
+
+function hasRequestHeader(headers: HeadersInit | undefined, name: string) {
+  if (!headers) return false
+
+  const normalizedName = name.toLowerCase()
+
+  if (headers instanceof Headers) {
+    return headers.has(name)
+  }
+
+  if (Array.isArray(headers)) {
+    return headers.some(([key]) => key.toLowerCase() === normalizedName)
+  }
+
+  return Object.keys(headers).some(
+    (key) => key.toLowerCase() === normalizedName,
+  )
 }
 
 function isFormData(body: unknown): body is FormData {
@@ -139,6 +160,7 @@ async function handleUnauthorized<T>(
       body?.code ?? 'unauthorized',
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
@@ -148,6 +170,7 @@ async function handleUnauthorized<T>(
       code,
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
@@ -161,6 +184,7 @@ async function handleUnauthorized<T>(
       code,
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 
@@ -175,6 +199,7 @@ async function handleUnauthorized<T>(
       retryBody?.code ?? code,
       retryBody?.message ?? res.statusText,
       retryBody?.details,
+      retryBody,
     )
   }
 
@@ -191,6 +216,7 @@ async function handleResponse<T>(res: Response): Promise<T> {
       body?.code ?? 'unknown',
       body?.message ?? res.statusText,
       body?.details,
+      body,
     )
   }
 

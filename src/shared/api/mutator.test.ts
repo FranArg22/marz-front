@@ -223,6 +223,24 @@ describe('customFetch', () => {
     expect(retryHeaders).toHaveProperty('X-Brand-Workspace-Id', 'workspace-1')
   })
 
+  it('POST configuration activate → respects an explicit idempotency key', async () => {
+    const randomUUIDSpy = vi.spyOn(crypto, 'randomUUID')
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(jsonResponse(200, { ok: true }))
+
+    await customFetch('/v1/campaigns/campaign-1/configuration/activate', {
+      method: 'POST',
+      headers: { 'Idempotency-Key': 'explicit-key' },
+      body: JSON.stringify({ configuration_version: 1 }),
+    })
+
+    const [, init] = fetchSpy.mock.calls[0]!
+    const headers = init?.headers as Record<string, string>
+    expect(headers).toHaveProperty('Idempotency-Key', 'explicit-key')
+    expect(randomUUIDSpy).not.toHaveBeenCalled()
+  })
+
   it('configuration mutation retries by calling customFetch again use a new idempotency key', async () => {
     setBrandWorkspaceIdProvider(() => 'workspace-1')
     const randomUUIDSpy = vi

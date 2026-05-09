@@ -24,7 +24,7 @@ vi.mock('../hooks/useCreateBundleOffer', () => ({
   }),
 }))
 
-vi.mock('../hooks/useActiveCampaigns', () => ({
+vi.mock('#/shared/api/activeCampaigns', () => ({
   useActiveCampaigns: () => ({
     data: [
       {

@@ -35,7 +35,7 @@ let mockCampaignsData = [
 ]
 let mockCampaignsLoading = false
 
-vi.mock('../hooks/useActiveCampaigns', () => ({
+vi.mock('#/shared/api/activeCampaigns', () => ({
   useActiveCampaigns: () => ({
     get data() {
       return mockCampaignsData

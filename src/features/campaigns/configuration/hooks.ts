@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 import { z } from 'zod'
 
@@ -142,6 +143,11 @@ interface UpdateCampaignBonusParams {
   configuration_version: number
 }
 
+interface ActivateCampaignConfigurationParams {
+  campaignId: string
+  configuration_version: number
+}
+
 export function isCampaignConfigurationStep(
   value: string,
 ): value is CampaignConfigurationStep {
@@ -256,5 +262,34 @@ export function useUpdateCampaignBonusMutation() {
       return CampaignConfigurationResponseSchema.parse(response.data)
     },
     retry: false,
+  })
+}
+
+export function useActivateCampaignConfigurationMutation() {
+  const idempotencyKeyRef = useRef<string | null>(null)
+
+  return useMutation({
+    mutationFn: async ({
+      campaignId,
+      configuration_version,
+    }: ActivateCampaignConfigurationParams): Promise<void> => {
+      idempotencyKeyRef.current ??= crypto.randomUUID()
+
+      await customFetch<ApiResponse<unknown>>(
+        `/v1/campaigns/${campaignId}/configuration/activate`,
+        {
+          method: 'POST',
+          headers: { 'Idempotency-Key': idempotencyKeyRef.current },
+          body: JSON.stringify({ configuration_version }),
+        },
+      )
+    },
+    onSettled: () => {
+      idempotencyKeyRef.current = null
+    },
+    retry: (failureCount, error) => {
+      if (error instanceof ApiError && error.status < 500) return false
+      return failureCount < 2
+    },
   })
 }

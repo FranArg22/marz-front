@@ -5,11 +5,11 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
+import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 import { useAppForm, applyBackendFieldErrors } from '#/shared/ui/form'
 import { ApiError } from '#/shared/api/mutator'
 
 import { useSendOfferSheetStore } from '../store/sendOfferSheetStore'
-import { useActiveCampaigns } from '../hooks/useActiveCampaigns'
 import { useCreateSingleOffer } from '../hooks/useCreateSingleOffer'
 import { todayString } from '../utils/dateUtils'
 import { SpeedBonusFields } from './SpeedBonusFields'
