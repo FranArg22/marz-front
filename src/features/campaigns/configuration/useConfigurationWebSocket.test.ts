@@ -204,13 +204,10 @@ describe('createCampaignConfigurationWsHandlers', () => {
     )
 
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: ['/v1/campaigns', { brand_workspace_id: 'default' }],
+      queryKey: ['/v1/campaigns'],
     })
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: [
-        '/v1/campaigns',
-        { status: 'active', brand_workspace_id: 'default' },
-      ],
+      queryKey: ['/v1/campaigns', { status: 'active' }],
     })
     expect(navigateToCampaign).toHaveBeenCalledOnce()
   })

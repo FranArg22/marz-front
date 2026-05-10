@@ -58,7 +58,7 @@ function mockSuggestion(reason: SpeedBonusReason = 'included') {
         data: {
           suggested_amount: '4575.00',
           currency: 'USD',
-          speed_bonus_reason: reason,
+          speed_bonus: { reason, includes: reason === 'included' },
         },
       }
     }
@@ -114,13 +114,13 @@ function getRequestBodies(eventName: string) {
       (
         body,
       ): body is {
-        event_name: string
-        payload: Record<string, unknown>
+        name: string
+        properties: Record<string, unknown>
       } =>
         typeof body === 'object' &&
         body !== null &&
-        'event_name' in body &&
-        body.event_name === eventName,
+        'name' in body &&
+        (body as { name: unknown }).name === eventName,
     )
 }
 
@@ -142,7 +142,8 @@ describe('MarkAsPaidSidesheet', () => {
     expect(screen.getByText(/includes the speed bonus/i)).toBeInTheDocument()
 
     expect(mockedCustomFetch).toHaveBeenCalledWith(
-      '/v1/deliverables/del-1/payment-suggestion',
+      '/api/v1/deliverables/del-1/payment-suggestion',
+      expect.objectContaining({ method: 'GET' }),
     )
     await waitFor(() => {
       expect(getRequestBodies('payment_mark_opened')).toHaveLength(1)
@@ -207,7 +208,7 @@ describe('MarkAsPaidSidesheet', () => {
     ).not.toBeInTheDocument()
     expect(
       mockedCustomFetch.mock.calls.some(([url]) =>
-        String(url).includes('/mark-as-paid'),
+        String(url).includes('/api/v1/deliverables/del-1/mark-as-paid'),
       ),
     ).toBe(false)
 
@@ -222,7 +223,7 @@ describe('MarkAsPaidSidesheet', () => {
 
     await waitFor(() => {
       expect(mockedCustomFetch).toHaveBeenCalledWith(
-        '/v1/deliverables/del-1/mark-as-paid',
+        '/api/v1/deliverables/del-1/mark-as-paid',
         expect.objectContaining({
           method: 'POST',
           body: JSON.stringify({ amount: '4575.00' }),
@@ -273,7 +274,7 @@ describe('MarkAsPaidSidesheet', () => {
     await waitFor(() => {
       expect(getRequestBodies('payment_mark_cancelled')).toEqual([
         expect.objectContaining({
-          payload: expect.objectContaining({ step: 'final_confirmation' }),
+          properties: expect.objectContaining({ step: 'final_confirmation' }),
         }),
       ])
     })
@@ -305,7 +306,7 @@ describe('MarkAsPaidSidesheet', () => {
           data: {
             suggested_amount: '4575.00',
             currency: 'USD',
-            speed_bonus_reason: 'included',
+            speed_bonus: { reason: 'included', includes: true },
           },
         }
       }
@@ -346,7 +347,7 @@ describe('MarkAsPaidSidesheet', () => {
           data: {
             suggested_amount: '4575.00',
             currency: 'USD',
-            speed_bonus_reason: 'included',
+            speed_bonus: { reason: 'included', includes: true },
           },
         }
       }

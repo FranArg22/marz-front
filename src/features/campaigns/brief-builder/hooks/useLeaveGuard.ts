@@ -33,7 +33,10 @@ export function useLeaveGuard() {
   }, [])
 
   const blocker = useBlocker({
-    shouldBlockFn: () => isDirty,
+    shouldBlockFn: ({ next }) => {
+      if (!isDirty) return false
+      return !next.pathname.startsWith('/campaigns/new')
+    },
     withResolver: true,
   })
 

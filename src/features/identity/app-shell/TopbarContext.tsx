@@ -6,13 +6,11 @@ import {
   useState,
 } from 'react'
 import type { ReactNode } from 'react'
+import type { LucideIcon } from 'lucide-react'
 
-export type TopbarConfig = {
-  back?: { label: string; onBack: () => void } | { to: string }
-  title?: ReactNode
-  progress?: ReactNode
-  actions?: ReactNode
-}
+export type TopbarBreadcrumbSegment = { icon?: LucideIcon; label: string }
+
+export type TopbarConfig = { breadcrumb: TopbarBreadcrumbSegment[] }
 
 type TopbarContextValue = {
   config: TopbarConfig | null

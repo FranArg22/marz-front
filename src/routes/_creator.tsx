@@ -56,6 +56,7 @@ export const Route = createFileRoute('/_creator')({
       throw redirect({ to: destination })
     }
 
+    // TODO: pass creator display_name once ServerMeBody exposes creator_profile
     return {
       accountId: me.id,
     }

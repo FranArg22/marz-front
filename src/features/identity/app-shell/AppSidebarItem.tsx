@@ -1,11 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import type { LucideIcon } from 'lucide-react'
+import { Tooltip as TooltipPrimitive } from 'radix-ui'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '#/components/ui/tooltip'
 import { cn } from '#/lib/utils'
 
 interface AppSidebarItemProps {
@@ -34,8 +30,8 @@ export function AppSidebarItem({
   )
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
+    <TooltipPrimitive.Root>
+      <TooltipPrimitive.Trigger asChild>
         {disabled || !href ? (
           <button
             type="button"
@@ -55,15 +51,17 @@ export function AppSidebarItem({
             <Icon aria-hidden="true" className="size-[22px]" />
           </Link>
         )}
-      </TooltipTrigger>
-      <TooltipContent
-        side="right"
-        sideOffset={10}
-        collisionPadding={8}
-        className="rounded-xl border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-md"
-      >
-        {tooltipLabel}
-      </TooltipContent>
-    </Tooltip>
+      </TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content
+          side="right"
+          sideOffset={10}
+          collisionPadding={8}
+          className="z-50 rounded-xl border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-950 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
+        >
+          {tooltipLabel}
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
+    </TooltipPrimitive.Root>
   )
 }

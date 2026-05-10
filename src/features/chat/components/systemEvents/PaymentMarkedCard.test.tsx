@@ -148,13 +148,16 @@ describe('PaymentMarkedCard', () => {
     FakeIntersectionObserver.instances[0]?.trigger(true)
 
     expect(mockCustomFetch).toHaveBeenCalledOnce()
-    expect(mockCustomFetch).toHaveBeenCalledWith('/v1/analytics/events', {
-      method: 'POST',
-      body: JSON.stringify({
-        event_name: 'payment_card_seen',
-        payload: { declared_payment_id: 'pay-1' },
+    expect(mockCustomFetch).toHaveBeenCalledWith(
+      '/api/v1/analytics/events',
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({
+          name: 'payment_card_seen',
+          properties: { declared_payment_id: 'pay-1' },
+        }),
       }),
-    })
+    )
   })
 
   it('does not track payment_card_seen for brand viewers', () => {

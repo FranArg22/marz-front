@@ -11,7 +11,6 @@ import {
   useInitBriefBuilder,
   getInitErrorMessage,
 } from '../hooks/useInitBriefBuilder'
-import { useProcessBrief, isProcessConflict } from '../hooks/useProcessBrief'
 
 export function P1Input() {
   const store = useBriefBuilderStore()
@@ -20,7 +19,6 @@ export function P1Input() {
   const { brandWorkspace } = useBrandSession()
 
   const initMutation = useInitBriefBuilder()
-  const processMutation = useProcessBrief()
 
   const form = useAppForm({
     defaultValues: {
@@ -80,26 +78,13 @@ export function P1Input() {
           .getState()
           .setField('processingToken', result.processing_token)
 
-        try {
-          await processMutation.mutateAsync(result.processing_token)
-        } catch (processError) {
-          if (isProcessConflict(processError)) {
-            setSubmitError(
-              'El análisis ya fue procesado, reintentá desde el inicio.',
-            )
-            useBriefBuilderStore.getState().reset()
-            return false
-          }
-          throw processError
-        }
-
         return true
       } catch (error) {
         const { message } = getInitErrorMessage(error)
         setSubmitError(message)
         return false
       }
-    }, [form, initMutation, processMutation, brandWorkspace.id]),
+    }, [form, initMutation, brandWorkspace.id]),
   )
 
   const hasInput =
@@ -117,6 +102,15 @@ export function P1Input() {
         <form.AppField
           name="websiteUrl"
           validators={{ onBlur: websiteUrlFieldSchema }}
+          listeners={{
+            onBlur: ({ value, fieldApi }) => {
+              const trimmed = value.trim()
+              if (!trimmed) return
+              if (/^https?:\/\//i.test(trimmed)) return
+              fieldApi.setValue(`https://${trimmed}`)
+              void fieldApi.validate('blur')
+            },
+          }}
         >
           {(field) => (
             <div className="flex flex-col gap-2">

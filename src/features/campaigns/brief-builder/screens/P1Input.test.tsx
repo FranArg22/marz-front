@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { ApiError } from '#/shared/api/mutator'
 import { useInitBriefBuilder } from '../hooks/useInitBriefBuilder'
-import { useProcessBrief } from '../hooks/useProcessBrief'
 import { P1Input } from './P1Input'
 import { useBriefBuilderStore } from '../store'
 import { renderWithValidation } from '../test-utils'
@@ -41,9 +40,16 @@ const mockBrandSession = vi.hoisted(
     }) satisfies BrandSession,
 )
 
-vi.mock('#/features/identity/session/BrandSessionContext', () => ({
-  useBrandSession: () => mockBrandSession,
-}))
+vi.mock(
+  '#/features/identity/session/BrandSessionContext',
+  async (importOriginal) => {
+    const actual = await importOriginal()
+    return {
+      ...(actual as Record<string, unknown>),
+      useBrandSession: () => mockBrandSession,
+    }
+  },
+)
 
 vi.mock('../hooks/useInitBriefBuilder', async (importOriginal) => {
   const actual = await importOriginal()
@@ -53,44 +59,7 @@ vi.mock('../hooks/useInitBriefBuilder', async (importOriginal) => {
   }
 })
 
-vi.mock('../hooks/useProcessBrief', async (importOriginal) => {
-  const actual = await importOriginal()
-  return {
-    ...(actual as Record<string, unknown>),
-    useProcessBrief: vi.fn(),
-  }
-})
-
-vi.mock('#/features/identity/session/BrandSessionContext', () => ({
-  useBrandSession: () => ({
-    account: {
-      id: 'account-1',
-      email: 'brand@example.com',
-      kind: 'brand',
-      full_name: 'Brand User',
-      created_at: '2026-01-01T00:00:00.000Z',
-      redirect_to: null,
-      onboarding_status: 'onboarded',
-      brand_workspace: {
-        id: 'workspace-1',
-        name: 'Brand Workspace',
-        logo_url: null,
-        website_url: 'https://brand.example.com',
-        plan: 'paid',
-      },
-    },
-    brandWorkspace: {
-      id: 'workspace-1',
-      name: 'Brand Workspace',
-      logo_url: null,
-      website_url: 'https://brand.example.com',
-      plan: 'paid',
-    },
-  }),
-}))
-
 const mockInitMutateAsync = vi.fn()
-const mockProcessMutateAsync = vi.fn()
 
 beforeEach(() => {
   useBriefBuilderStore.getState().reset()
@@ -98,9 +67,6 @@ beforeEach(() => {
   vi.mocked(useInitBriefBuilder).mockReturnValue({
     mutateAsync: mockInitMutateAsync,
   } as unknown as ReturnType<typeof useInitBriefBuilder>)
-  vi.mocked(useProcessBrief).mockReturnValue({
-    mutateAsync: mockProcessMutateAsync,
-  } as unknown as ReturnType<typeof useProcessBrief>)
 })
 
 function createPdfFile(name = 'test.pdf', size = 1024): File {
@@ -117,10 +83,13 @@ describe('P1Input', () => {
   })
 
   it('shows error for invalid URL on blur', async () => {
+    // The onBlur listener auto-prefixes `https://` if missing, so to exercise
+    // the validator we type something that already starts with `http` (so the
+    // listener leaves it alone) but is not a valid URL pattern.
     const user = userEvent.setup()
     renderWithValidation(<P1Input />)
     const urlInput = screen.getByLabelText(/sitio web/i)
-    await user.type(urlInput, 'not-a-url')
+    await user.type(urlInput, 'http://')
     await user.tab()
     expect(await screen.findByText(/url v.lida/i)).toBeInTheDocument()
   })
@@ -199,11 +168,10 @@ describe('P1Input', () => {
     })
   })
 
-  it('returns true and sets processingToken on successful submit', async () => {
+  it('returns true and sets processingToken on successful submit (no processBrief dispatch here)', async () => {
     mockInitMutateAsync.mockResolvedValueOnce({
       processing_token: 'tok-123',
     })
-    mockProcessMutateAsync.mockResolvedValueOnce({})
 
     const user = userEvent.setup()
     const { validatorRef } = renderWithValidation(<P1Input />)
@@ -221,7 +189,6 @@ describe('P1Input', () => {
         descriptionText: 'Mi marca vende cosas',
       }),
     )
-    expect(mockProcessMutateAsync).toHaveBeenCalledWith('tok-123')
     expect(useBriefBuilderStore.getState().processingToken).toBe('tok-123')
   })
 

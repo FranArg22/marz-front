@@ -35,6 +35,7 @@ vi.mock('@tanstack/react-router', () => ({
 
 vi.mock('#/shared/api/mutator', () => ({
   ApiError: TestApiError,
+  customFetch: (...args: unknown[]) => mockCustomFetch(...args),
   default: (...args: unknown[]) => mockCustomFetch(...args),
 }))
 
@@ -152,7 +153,7 @@ describe('ContentTypeStep', () => {
       content_type: 'ugc_videos',
       configuration_version: 4,
     })
-    mockCustomFetch.mockResolvedValue({ data: response })
+    mockCustomFetch.mockResolvedValue({ data: response, status: 200 })
     const { queryClient } = renderStep()
 
     await user.click(screen.getByRole('button', { name: /ugc videos/i }))
@@ -163,6 +164,7 @@ describe('ContentTypeStep', () => {
         `/v1/campaigns/${campaignId}/configuration/content_type`,
         {
           method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             content_type: 'ugc_videos',
             configuration_version: 3,

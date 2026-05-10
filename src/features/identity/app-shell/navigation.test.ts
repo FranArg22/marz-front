@@ -20,14 +20,15 @@ describe('shellNavigationConfig', () => {
       'home',
       'inbox',
       'workspace',
-      'payments',
       'campaigns',
+      'payments',
       'creators',
       'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
       'inbox',
       'workspace',
+      'campaigns',
       'payments',
     ])
   })
@@ -101,8 +102,13 @@ describe('resolveActiveSidebarItem', () => {
     )
   })
 
-  it('ignores disabled items when the path matches their future route', () => {
-    expect(resolveActiveSidebarItem(brandItems, '/campaigns/new')).toBeNull()
+  it('resolves campaigns for /campaigns descendants', () => {
+    expect(resolveActiveSidebarItem(brandItems, '/campaigns')?.id).toBe(
+      'campaigns',
+    )
+    expect(resolveActiveSidebarItem(brandItems, '/campaigns/new')?.id).toBe(
+      'campaigns',
+    )
   })
 
   it('returns null when no enabled item matches', () => {

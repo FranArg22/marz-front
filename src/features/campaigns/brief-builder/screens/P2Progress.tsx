@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AlertCircle } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
@@ -7,7 +7,7 @@ import { Button } from '#/components/ui/button'
 import { useBriefBuilderStore } from '../store'
 import { trackBriefBuilderStarted } from '../analytics/brief-builder-analytics'
 import { useBriefBuilderWS } from '../hooks/useBriefBuilderWS'
-import { useProcessBrief } from '../hooks/useProcessBrief'
+import { useProcessBrief, isProcessConflict } from '../hooks/useProcessBrief'
 import { BriefProcessingStep } from '../components/BriefProcessingStep'
 
 export function P2Progress() {
@@ -18,6 +18,8 @@ export function P2Progress() {
   const processBrief = useProcessBrief()
 
   const hasTrackedStarted = useRef(false)
+  const dispatchedTokenRef = useRef<string | null>(null)
+  const [dispatchError, setDispatchError] = useState<string | null>(null)
 
   useEffect(() => {
     if (processingToken && !hasTrackedStarted.current) {
@@ -31,6 +33,28 @@ export function P2Progress() {
   }, [processingToken])
 
   useEffect(() => {
+    if (!processingToken) return
+    if (!ws.subscribed) return
+    if (dispatchedTokenRef.current === processingToken) return
+
+    dispatchedTokenRef.current = processingToken
+    processBrief.mutate(processingToken, {
+      onError: (error) => {
+        if (isProcessConflict(error)) {
+          setDispatchError(
+            'El análisis ya fue procesado, reintentá desde el inicio.',
+          )
+          useBriefBuilderStore.getState().reset()
+          return
+        }
+        setDispatchError(
+          'No se pudo iniciar el análisis. Volvé a intentarlo desde el inicio.',
+        )
+      },
+    })
+  }, [processingToken, ws.subscribed, processBrief])
+
+  useEffect(() => {
     if (
       (ws.status === 'completed' || ws.status === 'partial') &&
       ws.briefDraft
@@ -39,6 +63,27 @@ export function P2Progress() {
       goTo(3)
     }
   }, [ws.status, ws.briefDraft, setField, goTo])
+
+  if (dispatchError) {
+    return (
+      <div className="flex w-full flex-col items-center gap-8" role="alert">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex size-12 items-center justify-center rounded-full bg-destructive/10">
+            <AlertCircle className="size-6 text-destructive" />
+          </div>
+          <WizardSectionTitle
+            title={t`Error en el análisis`}
+            subtitle={dispatchError}
+          />
+        </div>
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={() => goTo(1)}>
+            {t`Volver al formulario`}
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   if (ws.status === 'failed') {
     return (

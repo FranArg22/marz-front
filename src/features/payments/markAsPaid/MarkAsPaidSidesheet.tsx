@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 import { useStore } from '@tanstack/react-form'
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -14,7 +13,12 @@ import {
   SheetDescription,
   SheetTitle,
 } from '#/components/ui/sheet'
-import { ApiError, customFetch } from '#/shared/api/mutator'
+import { ApiError } from '#/shared/api/mutator'
+import {
+  useGetPaymentSuggestion,
+  useMarkDeliverableAsPaid,
+} from '#/shared/api/generated/payments/payments'
+import type { PaymentSuggestionSpeedBonusReason } from '#/shared/api/generated/model/paymentSuggestionSpeedBonusReason'
 import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
 import {
   applyBackendFieldErrors,
@@ -26,24 +30,6 @@ import {
 import { MarkAsPaidConfirmDialog } from './MarkAsPaidConfirmDialog'
 import { usePaymentAnalytics } from './usePaymentAnalytics'
 import type { MarkAsPaidStep } from './usePaymentAnalytics'
-
-type SpeedBonusReason =
-  | 'included'
-  | 'not_applied_deadline_missed'
-  | 'not_applicable_multistage'
-  | 'not_declared'
-  | 'prorated_bundle'
-
-interface PaymentSuggestion {
-  suggested_amount: string
-  currency?: string
-  speed_bonus_reason: SpeedBonusReason
-}
-
-interface ApiResponse<T> {
-  data: T
-  status: number
-}
 
 interface MarkAsPaidSidesheetProps {
   open: boolean
@@ -79,52 +65,8 @@ function createMarkAsPaidSchema() {
   })
 }
 
-function getPaymentSuggestionQueryKey(deliverableId: string | null) {
-  return ['payment-suggestion', deliverableId] as const
-}
-
-async function fetchPaymentSuggestion(
-  deliverableId: string,
-): Promise<PaymentSuggestion> {
-  const response = await customFetch<ApiResponse<PaymentSuggestion>>(
-    `/v1/deliverables/${encodeURIComponent(deliverableId)}/payment-suggestion`,
-  )
-  return response.data
-}
-
-function usePaymentSuggestion(deliverableId: string | null, open: boolean) {
-  return useQuery({
-    queryKey: getPaymentSuggestionQueryKey(deliverableId),
-    queryFn: () => fetchPaymentSuggestion(deliverableId ?? ''),
-    enabled: open && deliverableId != null,
-    retry: false,
-  })
-}
-
-interface MarkAsPaidBody {
-  amount: string
-}
-
-function useMarkDeliverableAsPaid(deliverableId: string | null) {
-  return useMutation({
-    mutationFn: (body: MarkAsPaidBody) => {
-      if (!deliverableId) {
-        throw new Error(t`Missing deliverable`)
-      }
-
-      return customFetch<ApiResponse<unknown>>(
-        `/v1/deliverables/${encodeURIComponent(deliverableId)}/mark-as-paid`,
-        {
-          method: 'POST',
-          body: JSON.stringify(body),
-        },
-      )
-    },
-  })
-}
-
-function getSpeedBonusNote(reason: SpeedBonusReason): string {
-  const notes: Record<SpeedBonusReason, string> = {
+function getSpeedBonusNote(reason: PaymentSuggestionSpeedBonusReason): string {
+  const notes: Record<PaymentSuggestionSpeedBonusReason, string> = {
     included: t`Includes the speed bonus for this deliverable.`,
     not_applied_deadline_missed: t`Speed bonus is not included because the deadline was missed.`,
     not_applicable_multistage: t`Speed bonus does not apply to multistage offers.`,
@@ -135,7 +77,7 @@ function getSpeedBonusNote(reason: SpeedBonusReason): string {
   return notes[reason]
 }
 
-function getLoadErrorMessage(error: Error | null): string {
+function getLoadErrorMessage(error: unknown): string {
   if (error instanceof ApiError) {
     if (error.status === 403)
       return t`Only the workspace owner can mark payments`
@@ -175,8 +117,10 @@ export function MarkAsPaidSidesheet({
   const suggestionAppliedRef = useRef<string | null>(null)
 
   const analytics = usePaymentAnalytics(deliverableId)
-  const suggestionQuery = usePaymentSuggestion(deliverableId, open)
-  const mutation = useMarkDeliverableAsPaid(deliverableId)
+  const suggestionQuery = useGetPaymentSuggestion(deliverableId ?? '', {
+    query: { enabled: open && deliverableId != null, retry: false },
+  })
+  const mutation = useMarkDeliverableAsPaid()
   const markAsPaidSchema = createMarkAsPaidSchema()
 
   const form = useAppForm({
@@ -188,8 +132,16 @@ export function MarkAsPaidSidesheet({
         return
       }
 
+      if (!deliverableId) {
+        toast.error(t`Something went wrong. Try again.`)
+        return
+      }
+
       try {
-        await mutation.mutateAsync({ amount: value.amount.trim() })
+        await mutation.mutateAsync({
+          deliverableId,
+          data: { amount: value.amount.trim() },
+        })
         closingAfterSuccessRef.current = true
         onOpenChange(false)
       } catch (error) {
@@ -214,7 +166,8 @@ export function MarkAsPaidSidesheet({
     },
   })
 
-  const suggestion = suggestionQuery.data
+  const suggestion =
+    suggestionQuery.data?.status === 200 ? suggestionQuery.data.data : null
   const currency = suggestion?.currency ?? 'USD'
   const amount = useStore(form.store, (state) => state.values.amount)
   const amountLabel = useMemo(
@@ -274,7 +227,7 @@ export function MarkAsPaidSidesheet({
   }
 
   const bonusNote = suggestion
-    ? getSpeedBonusNote(suggestion.speed_bonus_reason)
+    ? getSpeedBonusNote(suggestion.speed_bonus.reason)
     : null
 
   return (

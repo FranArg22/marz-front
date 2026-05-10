@@ -35,6 +35,7 @@ vi.mock('@tanstack/react-router', () => ({
 
 vi.mock('#/shared/api/mutator', () => ({
   ApiError: TestApiError,
+  customFetch: (...args: unknown[]) => mockCustomFetch(...args),
   default: (...args: unknown[]) => mockCustomFetch(...args),
 }))
 
@@ -152,7 +153,7 @@ describe('PricingModelStep', () => {
       pricing_model: 'per_views',
       configuration_version: 8,
     })
-    mockCustomFetch.mockResolvedValue({ data: response })
+    mockCustomFetch.mockResolvedValue({ data: response, status: 200 })
     const { queryClient } = renderStep()
 
     await user.click(screen.getByRole('button', { name: /per views/i }))
@@ -163,6 +164,7 @@ describe('PricingModelStep', () => {
         `/v1/campaigns/${campaignId}/configuration/pricing_model`,
         {
           method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             pricing_model: 'per_views',
             configuration_version: 7,

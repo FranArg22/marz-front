@@ -36,6 +36,7 @@ vi.mock('@tanstack/react-router', () => ({
 
 vi.mock('#/shared/api/mutator', () => ({
   ApiError: TestApiError,
+  customFetch: (...args: unknown[]) => mockCustomFetch(...args),
   default: (...args: unknown[]) => mockCustomFetch(...args),
 }))
 
@@ -217,7 +218,7 @@ describe('TargetingStep', () => {
         source: 'manual',
       }),
     })
-    mockCustomFetch.mockResolvedValue({ data: response })
+    mockCustomFetch.mockResolvedValue({ data: response, status: 200 })
     const { queryClient } = renderStep()
 
     await user.click(screen.getByRole('button', { name: 'Consolidado' }))
@@ -230,6 +231,7 @@ describe('TargetingStep', () => {
         `/v1/campaigns/${campaignId}/configuration/targeting`,
         {
           method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             operational_targeting: {
               tiers: ['emergent', 'consolidated'],

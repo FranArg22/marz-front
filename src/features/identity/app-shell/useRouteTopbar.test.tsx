@@ -7,12 +7,9 @@ import { useRouteTopbar } from './useRouteTopbar'
 
 function TopbarStateProbe() {
   const { config } = useTopbar()
+  const label = config?.breadcrumb[0]?.label ?? 'base'
 
-  return (
-    <output aria-label="topbar-state">
-      {config?.title ? config.title : 'base'}
-    </output>
-  )
+  return <output aria-label="topbar-state">{label}</output>
 }
 
 function RouteTopbarConsumer({ config }: { config: TopbarConfig }) {
@@ -32,7 +29,7 @@ describe('useRouteTopbar', () => {
     const { unmount } = render(
       <TopbarProvider>
         <TopbarStateProbe />
-        <RouteTopbarConsumer config={{ title: 'Brief' }} />
+        <RouteTopbarConsumer config={{ breadcrumb: [{ label: 'Brief' }] }} />
       </TopbarProvider>,
     )
 
@@ -47,7 +44,7 @@ describe('useRouteTopbar', () => {
     const { rerender } = render(
       <TopbarProvider>
         <TopbarStateProbe />
-        <RouteTopbarConsumer config={{ title: 'Brief' }} />
+        <RouteTopbarConsumer config={{ breadcrumb: [{ label: 'Brief' }] }} />
       </TopbarProvider>,
     )
 
@@ -67,8 +64,8 @@ describe('useRouteTopbar', () => {
   })
 
   it('resets between route components with different configs', async () => {
-    const firstConfig = { title: 'Primera ruta' }
-    const secondConfig = { title: 'Segunda ruta' }
+    const firstConfig = { breadcrumb: [{ label: 'Primera ruta' }] }
+    const secondConfig = { breadcrumb: [{ label: 'Segunda ruta' }] }
     const { rerender } = render(
       <TopbarProvider>
         <TopbarStateProbe />

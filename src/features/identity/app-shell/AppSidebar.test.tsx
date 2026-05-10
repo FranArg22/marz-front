@@ -185,14 +185,16 @@ describe('AppSidebar', () => {
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Payments & Spending/.test(name) ? 'link' : 'button',
+          /Workspace|Inbox|Payments & Spending|Campaigns/.test(name)
+            ? 'link'
+            : 'button',
           {
             name,
           },
         ),
       ).toBeInTheDocument()
     }
-    expect(brandSidebar).toHaveTextContent('')
+    expect(brandSidebar).toHaveTextContent('?')
 
     unmount()
     renderSidebar('/workspace', 'creator')
@@ -221,7 +223,7 @@ describe('AppSidebar', () => {
         name: 'Payments & Spending',
       }),
     ).not.toBeInTheDocument()
-    expect(creatorSidebar).toHaveTextContent('')
+    expect(creatorSidebar).toHaveTextContent('?')
   })
 
   it('uses the 72px sidebar rail width', async () => {

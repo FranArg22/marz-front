@@ -92,7 +92,7 @@ describe('LinkPreviewBlock', () => {
     expect(
       JSON.parse(String(vi.mocked(fetch).mock.calls[0]?.[1]?.body)),
     ).toEqual({
-      event_name: 'link_url_clicked',
+      name: 'link_url_clicked',
       occurred_at: expect.any(String),
       properties: {
         deliverable_id: 'del-1',

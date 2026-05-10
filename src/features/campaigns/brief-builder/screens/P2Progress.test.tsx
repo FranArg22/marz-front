@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ApiError } from '#/shared/api/mutator'
 import { P2Progress } from './P2Progress'
 import { useBriefBuilderStore } from '../store'
 import type { BriefDraft } from '../store'
@@ -19,19 +20,35 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
-const mockMutate = vi.fn()
+type MutateOptions = {
+  onError?: (error: unknown) => void
+  onSuccess?: () => void
+}
+const mockMutate = vi.fn(
+  (_token: string, _options?: MutateOptions): void => undefined,
+)
 let mockIsPending = false
+let mockMutateError: unknown = null
 
 vi.mock('../analytics/brief-builder-analytics', () => ({
   trackBriefBuilderStarted: vi.fn(),
 }))
 
-vi.mock('../hooks/useProcessBrief', () => ({
-  useProcessBrief: () => ({
-    mutate: mockMutate,
-    isPending: mockIsPending,
-  }),
-}))
+vi.mock('../hooks/useProcessBrief', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...(actual as Record<string, unknown>),
+    useProcessBrief: () => ({
+      mutate: (token: string, options?: MutateOptions) => {
+        mockMutate(token, options)
+        if (mockMutateError && options?.onError) {
+          options.onError(mockMutateError)
+        }
+      },
+      isPending: mockIsPending,
+    }),
+  }
+})
 
 const MOCK_DRAFT: BriefDraft = {
   campaign: {
@@ -97,6 +114,7 @@ let mockWSResult: {
   errorCode: string | null
   errorMessage: string | null
   retryable: boolean
+  subscribed: boolean
 }
 
 vi.mock('../hooks/useBriefBuilderWS', () => ({
@@ -129,6 +147,7 @@ beforeEach(() => {
   })
   mockMutate.mockClear()
   mockIsPending = false
+  mockMutateError = null
   mockWSResult = {
     steps: buildSteps({ 1: { status: 'active' } }),
     status: 'pending',
@@ -136,6 +155,7 @@ beforeEach(() => {
     errorCode: null,
     errorMessage: null,
     retryable: false,
+    subscribed: false,
   }
 })
 
@@ -239,7 +259,7 @@ describe('P2Progress', () => {
     }
     renderP2()
     await user.click(screen.getByRole('button', { name: /reintentar/i }))
-    expect(mockMutate).toHaveBeenCalledWith('tok-abc')
+    expect(mockMutate).toHaveBeenCalledWith('tok-abc', undefined)
   })
 
   it('navigates back to phase 1 on "Volver" click', async () => {
@@ -283,6 +303,53 @@ describe('P2Progress', () => {
   it('has no accessibility violations in progress state', async () => {
     const { container } = renderP2()
     expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('does not call processBrief.mutate while subscribed=false', () => {
+    mockWSResult = { ...mockWSResult, subscribed: false }
+    renderP2()
+    expect(mockMutate).not.toHaveBeenCalled()
+  })
+
+  it('calls processBrief.mutate exactly once when subscribed flips to true', async () => {
+    mockWSResult = { ...mockWSResult, subscribed: true }
+    const { rerender } = renderP2()
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalledTimes(1)
+    })
+    expect(mockMutate).toHaveBeenCalledWith('tok-abc', expect.any(Object))
+    rerender(
+      <QueryClientProvider
+        client={
+          new QueryClient({
+            defaultOptions: {
+              queries: { retry: false },
+              mutations: { retry: false },
+            },
+          })
+        }
+      >
+        <P2Progress />
+      </QueryClientProvider>,
+    )
+    expect(mockMutate).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows reset error and clears store on 409 conflict from processBrief', async () => {
+    mockWSResult = { ...mockWSResult, subscribed: true }
+    mockMutateError = new ApiError(409, 'already_processing', 'conflict')
+    renderP2()
+    expect(await screen.findByText(/ya fue procesado/i)).toBeInTheDocument()
+    expect(useBriefBuilderStore.getState().processingToken).toBeNull()
+  })
+
+  it('shows generic dispatch error on non-conflict failure from processBrief', async () => {
+    mockWSResult = { ...mockWSResult, subscribed: true }
+    mockMutateError = new ApiError(500, 'internal', 'boom')
+    renderP2()
+    expect(
+      await screen.findByText(/no se pudo iniciar el análisis/i),
+    ).toBeInTheDocument()
   })
 
   it('has no accessibility violations in failed state', async () => {

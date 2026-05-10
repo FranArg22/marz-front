@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 import { createFileRoute, useParams, useRouter } from '@tanstack/react-router'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 
 import { BriefBuilderWizard } from '#/features/campaigns/brief-builder/BriefBuilderWizard'
 import { useBriefBuilderStore } from '#/features/campaigns/brief-builder/store'
 import { Button } from '#/components/ui/button'
-import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import { WizardTopbar } from '#/shared/ui/wizard/WizardTopbar'
 import {
   PHASES,
   getPhaseIndex,
 } from '#/features/campaigns/brief-builder/phases'
-import { WizardProgress } from '#/shared/ui/wizard/WizardProgress'
 
 export const Route = createFileRoute('/_brand/campaigns/new')({
   // RAFITA:BLOCKER: ServerMeBody no expone membership.role todavia.
@@ -27,8 +26,6 @@ function CampaignsNewLayout() {
   const params = useParams({ strict: false })
   const phaseSlug = 'phase' in params ? params.phase : undefined
   const currentIndex = phaseSlug ? getPhaseIndex(phaseSlug) : -1
-  const percent =
-    currentIndex === -1 ? 0 : ((currentIndex + 1) / PHASES.length) * 100
   const stepLabel =
     currentIndex === -1
       ? undefined
@@ -39,38 +36,22 @@ function CampaignsNewLayout() {
     void router.navigate({ to: '/campaigns' })
   }, [router])
 
-  const topbarConfig = useMemo(
-    () => ({
-      title: 'Nueva campaña',
-      back: { to: '/campaigns' },
-      progress: stepLabel ? (
-        <div className="flex min-w-40 items-center gap-3">
-          <span className="text-xs font-medium text-muted-foreground">
-            {stepLabel}
-          </span>
-          <WizardProgress
-            percent={percent}
-            ariaLabel="Progreso del brief builder"
-            className="w-24"
-          />
-        </div>
-      ) : undefined,
-      actions: (
-        <Button type="button" variant="outline" size="sm" onClick={handleExit}>
-          Cancelar
-        </Button>
-      ),
-    }),
-    [handleExit, percent, stepLabel],
-  )
-
-  useRouteTopbar(topbarConfig)
-
   useEffect(() => {
     useBriefBuilderStore.persist.rehydrate()
   }, [])
 
-  return <BriefBuilderWizard />
+  return (
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
+      <WizardTopbar
+        stepLabel={stepLabel ?? 'Nueva campaña'}
+        onExit={handleExit}
+        exitLabel="Cancelar"
+      />
+      <main className="flex flex-1 flex-col overflow-hidden">
+        <BriefBuilderWizard />
+      </main>
+    </div>
+  )
 }
 
 function CampaignsNewPending() {

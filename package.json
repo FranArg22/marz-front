@@ -25,6 +25,7 @@
     "check": "prettier --check .",
     "api:sync": "tsx scripts/sync-api.ts",
     "api:generate": "orval",
+    "check:api-direct": "tsx scripts/check-direct-api-calls.ts",
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile",
     "prepare": "husky"

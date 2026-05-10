@@ -1,21 +1,14 @@
-import { customFetch } from '#/shared/api/mutator'
+import { ingestAnalyticsEvent } from '#/shared/api/generated/analytics/analytics'
+import { AnalyticsEventName } from '#/shared/api/generated/model'
 
 export interface PaymentCardSeenPayload {
   declared_payment_id: string
 }
 
-interface PaymentCardSeenAnalyticsEventRequest {
-  event_name: 'payment_card_seen'
-  payload: PaymentCardSeenPayload
-}
-
 export function trackCardSeen(payload: PaymentCardSeenPayload) {
-  void customFetch<{ status: number; data: unknown }>('/v1/analytics/events', {
-    method: 'POST',
-    body: JSON.stringify({
-      event_name: 'payment_card_seen',
-      payload,
-    } satisfies PaymentCardSeenAnalyticsEventRequest),
+  void ingestAnalyticsEvent({
+    name: AnalyticsEventName.payment_card_seen,
+    properties: payload as unknown as Record<string, unknown>,
   }).catch(() => {
     // Analytics is non-blocking for the payment flow.
   })

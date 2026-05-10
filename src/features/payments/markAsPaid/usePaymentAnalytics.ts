@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 
-import { customFetch } from '#/shared/api/mutator'
+import { useIngestAnalyticsEvent } from '#/shared/api/generated/analytics/analytics'
+import { AnalyticsEventName } from '#/shared/api/generated/model'
 
 export type MarkAsPaidStep = 'amount' | 'final_confirmation'
 
@@ -9,38 +10,26 @@ type PaymentAnalyticsEvent =
   | 'payment_mark_amount_overridden'
   | 'payment_mark_cancelled'
 
-interface PaymentAnalyticsPayload {
-  deliverable_id: string
-  step?: MarkAsPaidStep
-}
-
-interface PaymentFlowAnalyticsEventRequest {
-  event_name: PaymentAnalyticsEvent
-  payload: PaymentAnalyticsPayload
-}
-
 export function usePaymentAnalytics(deliverableId: string | null) {
+  const { mutateAsync } = useIngestAnalyticsEvent()
+
   const trackPaymentEvent = useCallback(
     (eventName: PaymentAnalyticsEvent, payload?: { step?: MarkAsPaidStep }) => {
       if (!deliverableId) return
 
-      void customFetch<{ status: number; data: unknown }>(
-        '/v1/analytics/events',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            event_name: eventName,
-            payload: {
-              deliverable_id: deliverableId,
-              ...(payload?.step ? { step: payload.step } : {}),
-            },
-          } satisfies PaymentFlowAnalyticsEventRequest),
+      void mutateAsync({
+        data: {
+          name: AnalyticsEventName[eventName],
+          properties: {
+            deliverable_id: deliverableId,
+            ...(payload?.step ? { step: payload.step } : {}),
+          },
         },
-      ).catch(() => {
+      }).catch(() => {
         // Analytics is non-blocking for the payment flow.
       })
     },
-    [deliverableId],
+    [deliverableId, mutateAsync],
   )
 
   return {

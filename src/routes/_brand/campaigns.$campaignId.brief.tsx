@@ -1,3 +1,4 @@
+import { Megaphone } from 'lucide-react'
 import { createFileRoute } from '@tanstack/react-router'
 import { CampaignBriefPage } from '#/features/campaigns/components/CampaignBriefPage'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
@@ -7,8 +8,10 @@ export const Route = createFileRoute('/_brand/campaigns/$campaignId/brief')({
 })
 
 const campaignBriefTopbarConfig = {
-  title: 'Resumen del brief',
-  back: { to: '/campaigns' },
+  breadcrumb: [
+    { icon: Megaphone, label: 'Campañas' },
+    { label: 'Resumen del brief' },
+  ],
 }
 
 function CampaignBriefRoute() {

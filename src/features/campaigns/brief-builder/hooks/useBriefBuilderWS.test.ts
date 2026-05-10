@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { renderHook, act } from '@testing-library/react'
+import { renderHook, act, waitFor } from '@testing-library/react'
 import type { DomainEventEnvelope } from '#/shared/ws/events'
+import { SubscribeError } from '#/shared/ws/useWebSocket'
 import type {
   BriefProcessingStepCompleted,
   BriefProcessingCompleted,
@@ -13,12 +14,27 @@ let capturedOptions: {
   handlers: Record<string, (envelope: DomainEventEnvelope) => void>
 }
 
-vi.mock('#/shared/ws/useWebSocket', () => ({
-  useWebSocket: (opts: typeof capturedOptions) => {
-    capturedOptions = opts
-    return { status: 'idle' as const, send: vi.fn() }
-  },
-}))
+let mockWsStatus: 'idle' | 'connecting' | 'open' | 'closed' = 'idle'
+let mockSubscribe: (
+  topic: string,
+  params: Record<string, unknown>,
+) => Promise<void> = () => Promise.resolve()
+
+vi.mock('#/shared/ws/useWebSocket', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...(actual as Record<string, unknown>),
+    useWebSocket: (opts: typeof capturedOptions) => {
+      capturedOptions = opts
+      return {
+        status: mockWsStatus,
+        send: vi.fn(),
+        subscribe: (topic: string, params: Record<string, unknown>) =>
+          mockSubscribe(topic, params),
+      }
+    },
+  }
+})
 
 // eslint-disable-next-line import/first
 import { useBriefBuilderWS } from './useBriefBuilderWS'
@@ -73,6 +89,8 @@ describe('useBriefBuilderWS', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     capturedOptions = undefined as any
+    mockWsStatus = 'idle'
+    mockSubscribe = () => Promise.resolve()
   })
 
   it('passes enabled=false when processingToken is null', () => {
@@ -285,5 +303,49 @@ describe('useBriefBuilderWS', () => {
       (s) => s.status === 'completed',
     )
     expect(allCompleted).toBe(true)
+  })
+
+  it('does not call subscribe while ws is not open', () => {
+    mockWsStatus = 'connecting'
+    const subscribeSpy = vi.fn(() => Promise.resolve())
+    mockSubscribe = subscribeSpy
+    const { result } = renderHook(() => useBriefBuilderWS(TOKEN))
+    expect(subscribeSpy).not.toHaveBeenCalled()
+    expect(result.current.subscribed).toBe(false)
+  })
+
+  it('calls subscribe with brief-builder topic + processing_token once ws is open', async () => {
+    mockWsStatus = 'open'
+    const subscribeSpy = vi.fn(() => Promise.resolve())
+    mockSubscribe = subscribeSpy
+    const { result } = renderHook(() => useBriefBuilderWS(TOKEN))
+    await waitFor(() => {
+      expect(result.current.subscribed).toBe(true)
+    })
+    expect(subscribeSpy).toHaveBeenCalledWith('brief-builder', {
+      processing_token: TOKEN,
+    })
+  })
+
+  it('marks status=failed with the server code when subscribe rejects', async () => {
+    mockWsStatus = 'open'
+    mockSubscribe = () => Promise.reject(new SubscribeError('token_not_found'))
+    const { result } = renderHook(() => useBriefBuilderWS(TOKEN))
+    await waitFor(() => {
+      expect(result.current.status).toBe('failed')
+    })
+    expect(result.current.errorCode).toBe('token_not_found')
+    expect(result.current.subscribed).toBe(false)
+    expect(result.current.retryable).toBe(false)
+  })
+
+  it('marks status=failed with timeout code when subscribe times out', async () => {
+    mockWsStatus = 'open'
+    mockSubscribe = () => Promise.reject(new SubscribeError('timeout'))
+    const { result } = renderHook(() => useBriefBuilderWS(TOKEN))
+    await waitFor(() => {
+      expect(result.current.errorCode).toBe('timeout')
+    })
+    expect(result.current.status).toBe('failed')
   })
 })

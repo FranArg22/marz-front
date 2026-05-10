@@ -293,7 +293,7 @@ describe('LinkSubmittedCard', () => {
     expect(
       JSON.parse(String(vi.mocked(fetch).mock.calls[0]?.[1]?.body)),
     ).toEqual({
-      event_name: 'link_card_seen',
+      name: 'link_card_seen',
       occurred_at: expect.any(String),
       properties: {
         deliverable_id: 'del-1',

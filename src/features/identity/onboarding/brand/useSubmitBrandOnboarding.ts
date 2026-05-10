@@ -36,13 +36,17 @@ export function useSubmitBrandOnboarding() {
 
   const submit = () => {
     const state = useBrandOnboardingStore.getState()
-    const {
-      currentStepIndex: _,
-      setField: _s,
-      goTo: _g,
-      reset,
-      ...fields
-    } = state
+    const { currentStepIndex: _, setField, goTo: _g, reset, ...fields } = state
+
+    if (
+      typeof fields.website_url === 'string' &&
+      fields.website_url.trim() &&
+      !/^https?:\/\//i.test(fields.website_url.trim())
+    ) {
+      const normalized = `https://${fields.website_url.trim()}`
+      setField('website_url', normalized)
+      fields.website_url = normalized
+    }
 
     const parsed = CompleteBrandOnboardingBody.safeParse(fields)
     if (!parsed.success) {

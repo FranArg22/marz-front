@@ -1,3 +1,4 @@
+import { BriefcaseBusiness } from 'lucide-react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
 
@@ -6,7 +7,7 @@ export const Route = createFileRoute('/_creator/offers')({
 })
 
 const offersTopbarConfig = {
-  title: 'Offers',
+  breadcrumb: [{ icon: BriefcaseBusiness, label: 'Offers' }],
 }
 
 function OffersPlaceholder() {

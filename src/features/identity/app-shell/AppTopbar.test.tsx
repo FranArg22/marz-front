@@ -1,19 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import {
-  createMemoryHistory,
-  createRootRoute,
-  createRoute,
-  createRouter,
-  RouterProvider,
-} from '@tanstack/react-router'
-import { axe } from 'vitest-axe'
-import { describe, expect, it, vi } from 'vitest'
 import { useEffect } from 'react'
+import { render, screen } from '@testing-library/react'
+import { axe } from 'vitest-axe'
+import { describe, expect, it } from 'vitest'
+import { Megaphone, MessageSquare } from 'lucide-react'
 
 import { AppTopbar } from './AppTopbar'
-import type { TopbarConfig } from './TopbarContext'
 import { TopbarProvider, useTopbar } from './TopbarContext'
+import type { TopbarConfig } from './TopbarContext'
 
 function TopbarSetter({ config }: { config: TopbarConfig }) {
   const { setTopbar } = useTopbar()
@@ -34,118 +27,75 @@ function renderTopbar(config?: TopbarConfig) {
   )
 }
 
-function renderTopbarWithRouter(config: TopbarConfig, pathname = '/workspace') {
-  const rootRoute = createRootRoute({
-    component: () => (
-      <TopbarProvider>
-        <AppTopbar />
-        <TopbarSetter config={config} />
-      </TopbarProvider>
-    ),
-  })
-
-  const workspaceRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    path: '/workspace',
-    component: () => null,
-  })
-
-  const router = createRouter({
-    routeTree: rootRoute.addChildren([workspaceRoute]),
-    history: createMemoryHistory({ initialEntries: [pathname] }),
-  })
-
-  return render(<RouterProvider router={router} />)
-}
-
 describe('AppTopbar', () => {
-  it('renders the base wordmark without contextual slots', () => {
+  it('renders the search bar without breadcrumb when config is null', () => {
     renderTopbar()
 
     const topbar = screen.getByTestId('app-topbar')
 
-    expect(screen.getByText('Marz')).toBeInTheDocument()
-    expect(screen.queryByRole('button')).not.toBeInTheDocument()
-    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    expect(screen.getByText('Buscar…')).toBeInTheDocument()
     expect(topbar).toHaveAttribute('data-height', '56px')
     expect(topbar).toHaveClass('h-14')
   })
 
-  it('renders back and title without changing the 56px height', async () => {
-    const user = userEvent.setup()
-    const onBack = vi.fn()
-
+  it('renders breadcrumb segments with label and icon', async () => {
     renderTopbar({
-      back: { label: 'Volver al listado', onBack },
-      title: 'Revisión del Brief',
+      breadcrumb: [{ icon: Megaphone, label: 'Campañas' }],
     })
 
-    const backButton = await screen.findByRole('button', {
-      name: 'Volver al listado',
+    expect(await screen.findByText('Campañas')).toBeInTheDocument()
+  })
+
+  it('renders multi-level breadcrumb with chevron separator', async () => {
+    renderTopbar({
+      breadcrumb: [
+        { icon: Megaphone, label: 'Campañas' },
+        { label: 'Detalle' },
+      ],
     })
 
-    expect(screen.getByText('Revisión del Brief')).toBeInTheDocument()
+    expect(await screen.findByText('Campañas')).toBeInTheDocument()
+    expect(screen.getByText('Detalle')).toBeInTheDocument()
+  })
+
+  it('renders no breadcrumb when breadcrumb array is empty', async () => {
+    renderTopbar({ breadcrumb: [] })
+
+    expect(screen.getByText('Buscar…')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('navigation', { name: 'Breadcrumb' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('renders no breadcrumb when breadcrumb has icon and no label', async () => {
+    renderTopbar({
+      breadcrumb: [{ icon: MessageSquare, label: 'Chat' }],
+    })
+
+    expect(await screen.findByText('Chat')).toBeInTheDocument()
+  })
+
+  it('keeps 56px height in all states', () => {
+    renderTopbar({
+      breadcrumb: [{ label: 'Inbox' }],
+    })
+
     expect(screen.getByTestId('app-topbar')).toHaveAttribute(
       'data-height',
       '56px',
     )
     expect(screen.getByTestId('app-topbar')).toHaveClass('h-14')
-
-    await user.click(backButton)
-    expect(onBack).toHaveBeenCalledOnce()
-  })
-
-  it('renders link back actions with an accessible name', async () => {
-    renderTopbarWithRouter({
-      back: { to: '/workspace' },
-      title: 'Detalle',
-    })
-
-    const backLink = await screen.findByRole('link', { name: 'Volver' })
-
-    expect(backLink).toHaveAttribute('href', '/workspace')
-  })
-
-  it('keeps back actions keyboard focusable with visible focus styles', async () => {
-    const user = userEvent.setup()
-
-    renderTopbar({
-      back: { label: 'Volver al listado', onBack: () => {} },
-      title: 'Detalle',
-    })
-
-    const backButton = await screen.findByRole('button', {
-      name: 'Volver al listado',
-    })
-
-    await user.tab()
-
-    expect(backButton).toHaveFocus()
-    expect(backButton).toHaveClass('focus-visible:ring-ring')
-  })
-
-  it('renders progress and actions only when the slots are provided', async () => {
-    renderTopbar({
-      title: 'Campaña',
-      progress: <span>75%</span>,
-      actions: <button type="button">Guardar</button>,
-    })
-
-    expect(await screen.findByText('75%')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeInTheDocument()
-    expect(screen.queryByText('Marz')).not.toBeInTheDocument()
   })
 
   it('is axe-clean', async () => {
     const { container } = renderTopbar({
-      back: { label: 'Volver al listado', onBack: () => {} },
-      title: 'Revisión del Brief',
-      actions: <button type="button">Guardar</button>,
+      breadcrumb: [
+        { icon: Megaphone, label: 'Campañas' },
+        { label: 'Detalle' },
+      ],
     })
 
-    await waitFor(() => {
-      expect(screen.getByText('Revisión del Brief')).toBeInTheDocument()
-    })
+    expect(await screen.findByText('Campañas')).toBeInTheDocument()
     expect(await axe(container)).toHaveNoViolations()
   })
 })

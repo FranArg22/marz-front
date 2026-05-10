@@ -10,6 +10,7 @@ interface AppShellProps {
   accountKind: AppShellAccountKind
   accountId: string
   pathname: string
+  workspaceName?: string
   children: ReactNode
 }
 
@@ -17,6 +18,7 @@ export function AppShell({
   accountKind,
   accountId,
   pathname,
+  workspaceName,
   children,
 }: AppShellProps) {
   return (
@@ -26,7 +28,11 @@ export function AppShell({
           data-testid="app-shell"
           className="flex h-dvh min-h-0 overflow-hidden bg-background text-foreground"
         >
-          <AppSidebar accountKind={accountKind} pathname={pathname} />
+          <AppSidebar
+            accountKind={accountKind}
+            pathname={pathname}
+            workspaceName={workspaceName}
+          />
           <div className="flex min-w-0 flex-1 flex-col">
             <AppTopbar />
             <main className="min-w-0 flex-1 overflow-hidden">{children}</main>

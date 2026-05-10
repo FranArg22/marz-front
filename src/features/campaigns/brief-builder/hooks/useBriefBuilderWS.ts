@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import type { DomainEventEnvelope, EventHandler } from '#/shared/ws/events'
-import { useWebSocket } from '#/shared/ws/useWebSocket'
+import { SubscribeError, useWebSocket } from '#/shared/ws/useWebSocket'
 import type { BriefDraft } from '#/features/campaigns/brief-builder/store'
 import type {
   BriefProcessingStepName,
@@ -53,6 +53,7 @@ interface BriefBuilderWSResult {
   errorCode: string | null
   errorMessage: string | null
   retryable: boolean
+  subscribed: boolean
 }
 
 export function useBriefBuilderWS(
@@ -64,9 +65,11 @@ export function useBriefBuilderWS(
   const [errorCode, setErrorCode] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [retryable, setRetryable] = useState(false)
+  const [subscribed, setSubscribed] = useState(false)
 
   const tokenRef = useRef(processingToken)
   tokenRef.current = processingToken
+  const subscribedTokenRef = useRef<string | null>(null)
 
   const handleStepCompleted: EventHandler = useCallback(
     (envelope: DomainEventEnvelope) => {
@@ -139,7 +142,7 @@ export function useBriefBuilderWS(
     [],
   )
 
-  useWebSocket({
+  const ws = useWebSocket({
     enabled: processingToken != null,
     handlers: {
       'brief.processing.step_completed': handleStepCompleted,
@@ -148,5 +151,62 @@ export function useBriefBuilderWS(
     },
   })
 
-  return { steps, status, briefDraft, errorCode, errorMessage, retryable }
+  useEffect(() => {
+    if (processingToken == null) {
+      subscribedTokenRef.current = null
+      setSubscribed(false)
+      return
+    }
+    if (ws.status !== 'open') return
+    if (subscribedTokenRef.current === processingToken) return
+
+    subscribedTokenRef.current = processingToken
+    let cancelled = false
+    ws.subscribe('brief-builder', { processing_token: processingToken })
+      .then(() => {
+        if (cancelled) return
+        if (tokenRef.current !== processingToken) return
+        setSubscribed(true)
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return
+        if (tokenRef.current !== processingToken) return
+        const code = err instanceof SubscribeError ? err.code : 'internal'
+        setStatus('failed')
+        setErrorCode(code)
+        setErrorMessage(getSubscribeErrorMessage(code))
+        setRetryable(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [ws, ws.status, processingToken])
+
+  return {
+    steps,
+    status,
+    briefDraft,
+    errorCode,
+    errorMessage,
+    retryable,
+    subscribed,
+  }
+}
+
+function getSubscribeErrorMessage(code: string): string {
+  switch (code) {
+    case 'token_not_found':
+      return 'El análisis no existe o expiró. Volvé al formulario.'
+    case 'ownership_error':
+      return 'No tenés permiso sobre este análisis.'
+    case 'invalid_payload':
+      return 'No se pudo iniciar la suscripción al análisis.'
+    case 'timeout':
+      return 'No se pudo conectar al análisis. Volvé a intentar.'
+    case 'disconnected':
+      return 'Se perdió la conexión con el servidor.'
+    default:
+      return 'Ocurrió un error al conectar con el servidor.'
+  }
 }

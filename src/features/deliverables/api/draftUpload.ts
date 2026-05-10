@@ -1,83 +1,85 @@
-import { useMutation } from '@tanstack/react-query'
-import { customFetch, ApiError } from '#/shared/api/mutator'
+import { ApiError } from '#/shared/api/mutator'
+import type { DraftDTO } from '#/shared/api/generated/model'
+import {
+  useRequestDraftUpload,
+  useCompleteDraftUpload,
+  useCancelDraftUpload,
+  useApproveDraft as useApproveDraftGenerated,
+} from '#/shared/api/generated/deliverables/deliverables'
+import type {
+  requestDraftUploadResponseSuccess,
+  completeDraftUploadResponseSuccess,
+  approveDraftResponseSuccess,
+  cancelDraftUploadResponseSuccess,
+} from '#/shared/api/generated/deliverables/deliverables'
 
-// RAFITA:BLOCKER: Backend dev (localhost:8080) does not yet expose deliverable/draft
-// endpoints in the OpenAPI spec. These hooks are manual stubs; replace with Orval
-// generated hooks once `pnpm api:sync` pulls the extended contract.
+export type Draft = DraftDTO
 
-export interface Draft {
-  id: string
-  deliverable_id: string
-  version: number
-  original_filename: string
-  file_size_bytes: number
-  duration_sec: number | null
-  mime_type: string | null
-  thumbnail_url: string | null
-  playback_url: string
-  playback_url_expires_at: string
-  submitted_at: string
-  submitted_by_account_id: string
-}
-
-export interface RequestDraftUploadResponse {
-  intent_id: string
-  upload_url: string
-  headers: Record<string, string>
-  expires_at: string
-}
-
-type ApiResponse<T> = { data: T; status: number }
+export type { RequestDraftUploadResponse } from '#/shared/api/generated/model'
 
 export interface CompleteDraftUploadBody {
   duration_sec?: number | null
 }
 
 export function useRequestDraftUploadMutation(deliverableId: string) {
-  return useMutation<ApiResponse<RequestDraftUploadResponse>, Error, void>({
-    mutationFn: () =>
-      customFetch<ApiResponse<RequestDraftUploadResponse>>(
-        `/v1/deliverables/${encodeURIComponent(deliverableId)}/drafts:request-upload`,
-        { method: 'POST' },
-      ),
-  })
+  const mutation = useRequestDraftUpload()
+  return {
+    ...mutation,
+    mutateAsync: (vars: {
+      filename: string
+      size_bytes: number
+      content_type: 'video/mp4' | 'video/quicktime' | 'video/webm'
+    }) =>
+      mutation.mutateAsync({
+        id: deliverableId,
+        data: {
+          filename: vars.filename,
+          size_bytes: vars.size_bytes,
+          content_type: vars.content_type,
+        },
+      }) as Promise<requestDraftUploadResponseSuccess>,
+  }
 }
 
 export function useCompleteDraftUploadMutation() {
-  return useMutation<
-    ApiResponse<Draft>,
-    Error,
-    { deliverableId: string; intentId: string; body: CompleteDraftUploadBody }
-  >({
-    mutationFn: ({ deliverableId, intentId, body }) =>
-      customFetch<ApiResponse<Draft>>(
-        `/v1/deliverables/${encodeURIComponent(deliverableId)}/drafts/${encodeURIComponent(intentId)}:complete`,
-        {
-          method: 'POST',
-          body: JSON.stringify(body),
-        },
-      ),
-  })
+  const mutation = useCompleteDraftUpload()
+  return {
+    ...mutation,
+    mutateAsync: (vars: {
+      deliverableId: string
+      intentId: string
+      body: CompleteDraftUploadBody
+    }) =>
+      mutation.mutateAsync({
+        id: vars.deliverableId,
+        intentId: vars.intentId,
+        data: { duration_sec: vars.body.duration_sec },
+      }) as Promise<completeDraftUploadResponseSuccess>,
+  }
 }
 
 export function useCancelDraftUploadMutation() {
-  return useMutation<void, Error, { deliverableId: string; intentId: string }>({
-    mutationFn: ({ deliverableId, intentId }) =>
-      customFetch<void>(
-        `/v1/deliverables/${encodeURIComponent(deliverableId)}/drafts/${encodeURIComponent(intentId)}`,
-        { method: 'DELETE' },
-      ),
-  })
+  const mutation = useCancelDraftUpload()
+  return {
+    ...mutation,
+    mutate: (vars: { deliverableId: string; intentId: string }) =>
+      mutation.mutate({ id: vars.deliverableId, intentId: vars.intentId }),
+  }
 }
 
 export function useApproveDraftMutation(deliverableId: string) {
-  return useMutation<ApiResponse<void>, Error, void>({
-    mutationFn: () =>
-      customFetch<ApiResponse<void>>(
-        `/v1/deliverables/${encodeURIComponent(deliverableId)}/approve`,
-        { method: 'POST' },
-      ),
-  })
+  const mutation = useApproveDraftGenerated()
+  return {
+    ...mutation,
+    mutate: (
+      _vars: void | undefined,
+      options?: Parameters<typeof mutation.mutate>[1],
+    ) => mutation.mutate({ id: deliverableId }, options),
+    mutateAsync: (_vars?: void) =>
+      mutation.mutateAsync({
+        id: deliverableId,
+      }) as Promise<approveDraftResponseSuccess>,
+  }
 }
 
 export type UploadErrorKind =
@@ -120,3 +122,5 @@ export function apiErrorToUploadError(error: unknown): UploadError {
 
   return { kind: 'server', message: 'Something went wrong. Try again.' }
 }
+
+export type { cancelDraftUploadResponseSuccess }

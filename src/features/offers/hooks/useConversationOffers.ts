@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { customFetch } from '#/shared/api/mutator'
+import { getConversationOffers } from '#/shared/api/generated/offers/offers'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import type { OfferBonusTerms } from '#/shared/api/generated/model'
 import type { OfferStatus } from '#/features/offers/types'
@@ -81,23 +81,18 @@ export interface ConversationOffersResponse {
   }
 }
 
-interface ApiResponse {
-  data: ConversationOffersResponse
-  status: number
-}
-
 async function fetchConversationOffers(
   conversationId: string,
   cursor?: string,
 ): Promise<ConversationOffersResponse> {
-  const params = new URLSearchParams()
-  if (cursor) {
-    params.set('cursor', cursor)
+  const response = await getConversationOffers(
+    conversationId,
+    cursor ? { cursor } : undefined,
+  )
+  if (response.status !== 200) {
+    throw new Error(`Unexpected status ${response.status}`)
   }
-  const qs = params.toString()
-  const url = `/v1/conversations/${encodeURIComponent(conversationId)}/offers${qs ? `?${qs}` : ''}`
-  const response = await customFetch<ApiResponse>(url)
-  return response.data
+  return response.data as unknown as ConversationOffersResponse
 }
 
 export function useConversationOffersPaginated(conversationId: string) {

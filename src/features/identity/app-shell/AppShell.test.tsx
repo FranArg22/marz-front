@@ -83,7 +83,7 @@ describe('AppShell', () => {
     expect(
       within(sidebar).getByRole('link', { name: 'Workspace' }),
     ).toBeInTheDocument()
-    expect(screen.getByTestId('app-topbar')).toHaveTextContent('Marz')
+    expect(screen.getByTestId('app-topbar')).toHaveTextContent('Buscar…')
     expect(screen.getByLabelText('shell context')).toHaveTextContent(
       'brand:acct_123',
     )

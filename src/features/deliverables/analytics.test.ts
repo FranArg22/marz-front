@@ -34,7 +34,7 @@ describe('deliverables link analytics', () => {
 
     expect(analyticsCalls()).toEqual([
       {
-        event_name: 'link_submit_opened',
+        name: 'link_submit_opened',
         occurred_at: expect.any(String),
         properties: {
           deliverable_id: 'del-1',
@@ -59,7 +59,7 @@ describe('deliverables link analytics', () => {
       await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
 
       expect(analyticsCalls()[0]).toEqual({
-        event_name: 'link_preview_resolved',
+        name: 'link_preview_resolved',
         occurred_at: expect.any(String),
         properties: {
           deliverable_id: 'del-1',
@@ -86,7 +86,7 @@ describe('deliverables link analytics', () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
 
     expect(analyticsCalls()[0]).toEqual({
-      event_name: 'link_card_seen',
+      name: 'link_card_seen',
       occurred_at: expect.any(String),
       properties: {
         deliverable_id: 'del-1',
@@ -108,7 +108,7 @@ describe('deliverables link analytics', () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
 
     expect(analyticsCalls()[0]).toEqual({
-      event_name: 'link_url_clicked',
+      name: 'link_url_clicked',
       occurred_at: expect.any(String),
       properties: {
         deliverable_id: 'del-1',

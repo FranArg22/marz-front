@@ -36,17 +36,16 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       href: '/workspace',
     },
     {
+      id: 'campaigns',
+      label: 'Campaigns',
+      icon: 'megaphone',
+      href: '/campaigns',
+    },
+    {
       id: 'payments',
       label: 'Payments & Spending',
       icon: 'wallet',
       href: '/payments',
-    },
-    {
-      id: 'campaigns',
-      label: 'Campaigns',
-      icon: 'megaphone',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
     },
     {
       id: 'creators',

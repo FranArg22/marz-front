@@ -4,6 +4,21 @@ import type { DomainEventEnvelope, EventHandler } from './events'
 
 type Status = 'idle' | 'connecting' | 'open' | 'closed'
 
+const SUBSCRIBE_TIMEOUT_MS = 5000
+
+export class SubscribeError extends Error {
+  constructor(public code: string) {
+    super(code)
+    this.name = 'SubscribeError'
+  }
+}
+
+interface PendingSubscribe {
+  resolve: () => void
+  reject: (err: SubscribeError) => void
+  timer: ReturnType<typeof setTimeout>
+}
+
 interface UseWebSocketOptions {
   /** Map of event_type → handler. Handlers see only matching events. */
   handlers?: Record<string, EventHandler>
@@ -28,6 +43,7 @@ export function useWebSocket({
   const { getToken } = useAuth()
   const [status, setStatus] = useState<Status>('idle')
   const socketRef = useRef<WebSocket | null>(null)
+  const pendingSubscribesRef = useRef<Map<string, PendingSubscribe>>(new Map())
   const handlersRef = useRef(handlers)
   handlersRef.current = handlers
   // Keep a ref to getToken so the connection effect doesn't depend on it
@@ -71,10 +87,40 @@ export function useWebSocket({
       ws.addEventListener('close', () => setStatus('closed'))
       ws.addEventListener('message', (event) => {
         try {
+          const raw = JSON.parse(event.data) as Record<string, unknown>
+
+          // Control frames for the subscribe protocol live alongside domain
+          // events. Resolve/reject the matching pending subscribe before
+          // falling through to the domain-event dispatcher.
+          const rawType = raw['type']
+          if (rawType === 'subscribed') {
+            const topic = raw['topic']
+            if (typeof topic === 'string') {
+              const pending = pendingSubscribesRef.current.get(topic)
+              if (pending) {
+                clearTimeout(pending.timer)
+                pendingSubscribesRef.current.delete(topic)
+                pending.resolve()
+              }
+            }
+            return
+          }
+          if (rawType === 'error') {
+            const code =
+              typeof raw['code'] === 'string' ? raw['code'] : 'internal'
+            // Errors don't carry a topic — fail every pending subscribe with
+            // the server code. In practice only one is in-flight at a time.
+            for (const [topic, pending] of pendingSubscribesRef.current) {
+              clearTimeout(pending.timer)
+              pendingSubscribesRef.current.delete(topic)
+              pending.reject(new SubscribeError(code))
+            }
+            return
+          }
+
           // Backend frames are `{ type, data, ... }`. The rest of the chat
           // pipeline expects `{ event_type, payload, ... }` (DomainEventEnvelope).
           // Normalize once here so handlers can stay shape-agnostic.
-          const raw = JSON.parse(event.data) as Record<string, unknown>
           const envelope = {
             ...raw,
             event_type: (raw['event_type'] ?? raw['type'] ?? raw['event']) as
@@ -95,6 +141,11 @@ export function useWebSocket({
       cancelled = true
       ws?.close()
       socketRef.current = null
+      for (const [, pending] of pendingSubscribesRef.current) {
+        clearTimeout(pending.timer)
+        pending.reject(new SubscribeError('disconnected'))
+      }
+      pendingSubscribesRef.current.clear()
     }
   }, [enabled])
 
@@ -107,5 +158,28 @@ export function useWebSocket({
     return true
   }, [])
 
-  return { status, send }
+  const subscribe = useCallback(
+    (topic: string, params: Record<string, unknown> = {}): Promise<void> => {
+      const ws = socketRef.current
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        return Promise.reject(new SubscribeError('not_connected'))
+      }
+      const pendings = pendingSubscribesRef.current
+      const existing = pendings.get(topic)
+      if (existing) {
+        return Promise.reject(new SubscribeError('already_subscribing'))
+      }
+      return new Promise<void>((resolve, reject) => {
+        const timer = setTimeout(() => {
+          pendings.delete(topic)
+          reject(new SubscribeError('timeout'))
+        }, SUBSCRIBE_TIMEOUT_MS)
+        pendings.set(topic, { resolve, reject, timer })
+        ws.send(JSON.stringify({ type: 'subscribe', topic, ...params }))
+      })
+    },
+    [],
+  )
+
+  return { status, send, subscribe }
 }

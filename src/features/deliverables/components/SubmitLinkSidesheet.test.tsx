@@ -141,7 +141,7 @@ describe('SubmitLinkSidesheet', () => {
 
     await waitFor(() => expect(analyticsRequests()).toHaveLength(1))
     expect(analyticsRequests()[0]).toMatchObject({
-      event_name: 'link_submit_opened',
+      name: 'link_submit_opened',
       properties: {
         deliverable_id: 'del-1',
         platform: 'youtube',
@@ -196,8 +196,8 @@ describe('SubmitLinkSidesheet', () => {
             (request) =>
               typeof request === 'object' &&
               request !== null &&
-              'event_name' in request &&
-              request.event_name === 'link_preview_resolved',
+              'name' in request &&
+              request.name === 'link_preview_resolved',
           ),
         ).toBe(true),
       )
@@ -205,11 +205,11 @@ describe('SubmitLinkSidesheet', () => {
         (request) =>
           typeof request === 'object' &&
           request !== null &&
-          'event_name' in request &&
-          request.event_name === 'link_preview_resolved',
+          'name' in request &&
+          request.name === 'link_preview_resolved',
       )
       expect(previewResolved).toMatchObject({
-        event_name: 'link_preview_resolved',
+        name: 'link_preview_resolved',
         properties: {
           deliverable_id: 'del-1',
           link_id: 'link-1',
@@ -247,8 +247,8 @@ describe('SubmitLinkSidesheet', () => {
         (request) =>
           typeof request === 'object' &&
           request !== null &&
-          'event_name' in request &&
-          request.event_name === 'link_preview_resolved',
+          'name' in request &&
+          request.name === 'link_preview_resolved',
       ),
     ).toBe(false)
   })

@@ -1,5 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
-import { customFetch } from '#/shared/api/mutator'
+import {
+  getListCampaignsQueryKey,
+  useListCampaigns,
+} from '#/shared/api/generated/campaigns/campaigns'
+import { CampaignConfigurationStatus } from '#/shared/api/generated/model'
 
 export interface ActiveCampaign {
   id: string
@@ -9,35 +12,30 @@ export interface ActiveCampaign {
   budget_remaining: string
 }
 
-interface ListCampaignsResponse {
-  data: ActiveCampaign[]
-  status: number
+export function getActiveCampaignsQueryKey() {
+  return getListCampaignsQueryKey({
+    status: CampaignConfigurationStatus.active,
+  })
 }
 
-const DEFAULT_BRAND_WORKSPACE_ID = 'default'
-
-export function getActiveCampaignsQueryKey(
-  brandWorkspaceId = DEFAULT_BRAND_WORKSPACE_ID,
-) {
-  return [
-    '/v1/campaigns',
-    { status: 'active', brand_workspace_id: brandWorkspaceId },
-  ] as const
-}
-
-// RAFITA:BLOCKER: Orval hook `useListCampaigns` not yet generated (backend hasn't deployed campaigns endpoints).
-// This is a manual stub that hits the expected endpoint. Replace with Orval-generated hook after `pnpm api:sync`.
 // RAFITA:BLOCKER: brandWorkspaceId hardcoded to 'default' — no workspace store exposed by Identity yet.
 // When Identity exposes the active workspace via session/store, replace 'default' with the real id.
 export function useActiveCampaigns() {
-  const brandWorkspaceId = DEFAULT_BRAND_WORKSPACE_ID
-  return useQuery<ActiveCampaign[]>({
-    queryKey: getActiveCampaignsQueryKey(brandWorkspaceId),
-    queryFn: async () => {
-      const response = await customFetch<ListCampaignsResponse>(
-        `/v1/campaigns?status=active&brand_workspace_id=${encodeURIComponent(brandWorkspaceId)}`,
-      )
-      return response.data
+  return useListCampaigns(
+    { status: CampaignConfigurationStatus.active },
+    {
+      query: {
+        select: (response): ActiveCampaign[] => {
+          if (response.status !== 200) return []
+          return response.data.data.map((item) => ({
+            id: item.campaign_id,
+            name: item.name,
+            status: 'active' as const,
+            budget_currency: item.budget.currency,
+            budget_remaining: item.budget.amount,
+          }))
+        },
+      },
     },
-  })
+  )
 }

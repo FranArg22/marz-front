@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro'
+import { Megaphone, Plus } from 'lucide-react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Plus } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { CampaignMiniCard } from '#/features/campaigns/components/CampaignMiniCard'
 import { useCampaignsList } from '#/features/campaigns/hooks/useCampaignsList'
@@ -11,15 +11,7 @@ export const Route = createFileRoute('/_brand/campaigns/')({
 })
 
 const campaignsTopbarConfig = {
-  title: 'Campaigns',
-  actions: (
-    <Button asChild>
-      <Link to="/campaigns/new">
-        <Plus className="size-4" />
-        Nueva campaña
-      </Link>
-    </Button>
-  ),
+  breadcrumb: [{ icon: Megaphone, label: 'Campañas' }],
 }
 
 function CampaignsPage() {

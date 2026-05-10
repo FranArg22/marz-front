@@ -206,7 +206,14 @@ export function useDraftUploadFlow(
       }
 
       try {
-        const response = await requestMutation.mutateAsync()
+        const response = await requestMutation.mutateAsync({
+          filename: file.name,
+          size_bytes: file.size,
+          content_type: file.type as
+            | 'video/mp4'
+            | 'video/quicktime'
+            | 'video/webm',
+        })
         intent = {
           intent_id: response.data.intent_id,
           upload_url: response.data.upload_url,

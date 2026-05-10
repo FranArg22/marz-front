@@ -1,9 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { customFetch } from '#/shared/api/mutator'
-import type {
-  CreateBundleOfferRequest as GeneratedCreateBundleOfferRequest,
-  OfferBonusTerms,
-} from '#/shared/api/generated/model'
+import type { CreateBundleOfferRequest as GeneratedCreateBundleOfferRequest } from '#/shared/api/generated/model'
+import { createSingleOffer } from '#/shared/api/generated/offers/offers'
 
 import {
   trackOfferEvent,
@@ -14,36 +11,9 @@ import {
 
 export type CreateBundleOfferRequest = GeneratedCreateBundleOfferRequest
 
-interface OfferDTO {
-  id: string
-  campaign_id: string
-  campaign_name: string
-  brand_workspace_id: string
-  creator_account_id: string
-  type: 'bundle'
-  status: 'sent' | 'accepted' | 'rejected' | 'expired'
-  total_amount: string
-  currency: string
-  deadline: string
-  bonus_terms: OfferBonusTerms | null
-  sent_at: string
-  expires_at: string
-  accepted_at: string | null
-  rejected_at: string | null
-}
-
-interface CreateOfferResponse {
-  data: OfferDTO
-  status: number
-}
-
 export function useCreateBundleOffer() {
-  return useMutation<CreateOfferResponse, Error, CreateBundleOfferRequest>({
-    mutationFn: (data) =>
-      customFetch<CreateOfferResponse>('/v1/offers', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
+  return useMutation({
+    mutationFn: (data: CreateBundleOfferRequest) => createSingleOffer(data),
     onSuccess: (_data, variables) => {
       const amount = parseFloat(variables.amount)
       const hasBonusTerms =
