@@ -2,7 +2,7 @@
 
 exports[`LinkApprovedCard > renders success fallback with a clickable URL 1`] = `
 <div
-  class="flex justify-center py-1"
+  class="flex flex-col items-center gap-2 py-1"
   data-testid="link-approved-card"
 >
   <span

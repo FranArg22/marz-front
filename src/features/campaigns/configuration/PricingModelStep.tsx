@@ -12,6 +12,7 @@ import { ConfigurationFooter } from './ConfigurationFooter'
 import { trackCampaignConfigurationStepCompleted } from './analytics'
 import {
   campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
   useUpdatePricingModelMutation,
 } from './hooks'
 import type { CampaignConfiguration, CampaignPricingModel } from './hooks'
@@ -65,6 +66,7 @@ export function PricingModelStep({
     void navigate({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'content_type' },
+      search: campaignDetailSearchDefaults,
     })
   }
 
@@ -92,6 +94,7 @@ export function PricingModelStep({
           void navigate({
             to: '/campaigns/$campaignId/configuration/$step',
             params: { campaignId, step: response.current_step },
+            search: campaignDetailSearchDefaults,
           })
         },
         onError: (error) => {

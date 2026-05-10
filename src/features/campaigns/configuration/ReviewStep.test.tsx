@@ -235,12 +235,14 @@ describe('ReviewStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'content_type' },
+      search: { tab: 'overview', section: 'matches' },
     })
 
     await user.click(screen.getByRole('button', { name: 'Ver brief' }))
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/brief',
       params: { campaignId },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 
@@ -267,6 +269,7 @@ describe('ReviewStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId',
       params: { campaignId },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 
@@ -312,6 +315,7 @@ describe('ReviewStep', () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         to: '/campaigns/$campaignId/configuration/$step',
         params: { campaignId, step: 'pricing_model' },
+        search: { tab: 'overview', section: 'matches' },
       })
     })
   })

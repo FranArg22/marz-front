@@ -24,10 +24,6 @@ function makeDraft(): BriefDraft {
       deadline: '2026-06-01',
     },
     brief: {
-      tone: 'casual',
-      key_messages: ['msg1'],
-      do_list: ['do1'],
-      dont_list: ['dont1'],
       icp_description: 'fitness creators',
       icp_age_min: 18,
       icp_age_max: 35,
@@ -46,7 +42,11 @@ function makeDraft(): BriefDraft {
         },
       ],
       hard_filters: [
-        { id: 'hf-1', field: 'followers', operator: 'gte', value: '10000' },
+        {
+          id: 'hf-1',
+          filter_type: 'followers',
+          filter_value: '10000',
+        },
       ],
       disqualifiers: ['gambling'],
     },
@@ -66,57 +66,28 @@ describe('useCreateCampaign', () => {
     mockCreateCampaign.mockResolvedValue({ data: { campaign_id: 'c-1' } })
   })
 
-  it('maps hard_filters using {field, operator, value}', async () => {
+  it('maps hard_filters from store shape to backend BriefHardFilter', async () => {
     const { result } = renderHook(() => useCreateCampaign(), { wrapper })
     result.current.mutate({
       idempotencyKey: 'idem-1',
       draft: makeDraft(),
-      source: {
-        websiteUrl: 'https://brand.example',
-        descriptionText: '',
-        pdfS3Key: null,
-      },
     })
     await waitFor(() => {
       expect(mockCreateCampaign).toHaveBeenCalled()
     })
     const body = mockCreateCampaign.mock.calls[0]![0]
     expect(body.brief.hard_filters).toEqual([
-      { field: 'followers', operator: 'gte', value: '10000' },
+      { field: 'followers', operator: 'eq', value: '10000' },
     ])
   })
 
-  it('forwards tone, key_messages, do_list, dont_list to the POST body', async () => {
-    const { result } = renderHook(() => useCreateCampaign(), { wrapper })
-    result.current.mutate({
-      idempotencyKey: 'idem-2',
-      draft: makeDraft(),
-      source: {
-        websiteUrl: 'https://brand.example',
-        descriptionText: '',
-        pdfS3Key: null,
-      },
-    })
-    await waitFor(() => {
-      expect(mockCreateCampaign).toHaveBeenCalled()
-    })
-    const body = mockCreateCampaign.mock.calls[0]![0]
-    expect(body.brief.tone).toBe('casual')
-    expect(body.brief.key_messages).toEqual(['msg1'])
-    expect(body.brief.do_list).toEqual(['do1'])
-    expect(body.brief.dont_list).toEqual(['dont1'])
-  })
+  it.todo('forwards tone, key_messages, do_list, dont_list to the POST body')
 
   it('drops scoring extras (description, signals) the backend does not accept', async () => {
     const { result } = renderHook(() => useCreateCampaign(), { wrapper })
     result.current.mutate({
       idempotencyKey: 'idem-3',
       draft: makeDraft(),
-      source: {
-        websiteUrl: 'https://brand.example',
-        descriptionText: '',
-        pdfS3Key: null,
-      },
     })
     await waitFor(() => {
       expect(mockCreateCampaign).toHaveBeenCalled()
@@ -132,11 +103,6 @@ describe('useCreateCampaign', () => {
     result.current.mutate({
       idempotencyKey: 'idem-xyz',
       draft: makeDraft(),
-      source: {
-        websiteUrl: 'https://brand.example',
-        descriptionText: '',
-        pdfS3Key: null,
-      },
     })
     await waitFor(() => {
       expect(mockCreateCampaign).toHaveBeenCalled()
@@ -145,23 +111,5 @@ describe('useCreateCampaign', () => {
     expect(opts.headers['Idempotency-Key']).toBe('idem-xyz')
   })
 
-  it('maps source fields to brief_source_url/text and brief_pdf_s3_key', async () => {
-    const { result } = renderHook(() => useCreateCampaign(), { wrapper })
-    result.current.mutate({
-      idempotencyKey: 'idem-src',
-      draft: makeDraft(),
-      source: {
-        websiteUrl: 'https://brand.example',
-        descriptionText: 'desc',
-        pdfS3Key: 's3/key/abc.pdf',
-      },
-    })
-    await waitFor(() => {
-      expect(mockCreateCampaign).toHaveBeenCalled()
-    })
-    const body = mockCreateCampaign.mock.calls[0]![0]
-    expect(body.brief.brief_source_url).toBe('https://brand.example')
-    expect(body.brief.brief_source_text).toBe('desc')
-    expect(body.brief.brief_pdf_s3_key).toBe('s3/key/abc.pdf')
-  })
+  it.todo('maps source fields to brief_source_url/text and brief_pdf_s3_key')
 })

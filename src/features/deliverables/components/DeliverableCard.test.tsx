@@ -25,7 +25,7 @@ describe('DeliverableCard', () => {
       />,
     )
 
-    expect(screen.getAllByText('Link submitted')).toHaveLength(2)
+    expect(screen.getByText('Link submitted')).toBeVisible()
     expect(screen.getByRole('link', { name: url })).toHaveAttribute('href', url)
   })
 
@@ -42,7 +42,7 @@ describe('DeliverableCard', () => {
       />,
     )
 
-    expect(screen.getAllByText('Link approved')).toHaveLength(2)
+    expect(screen.getByText('Link approved')).toBeVisible()
     expect(screen.getByRole('link', { name: url })).toHaveAttribute('href', url)
   })
 })

@@ -4,7 +4,10 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { CampaignConfigurationWizard } from '#/features/campaigns/configuration/CampaignConfigurationWizard'
-import { campaignConfigurationQueryOptions } from '#/features/campaigns/configuration/hooks'
+import {
+  campaignConfigurationQueryOptions,
+  campaignDetailSearchDefaults,
+} from '#/features/campaigns/configuration/hooks'
 import type { CampaignConfiguration } from '#/features/campaigns/configuration/hooks'
 import { ApiError } from '#/shared/api/mutator'
 
@@ -33,6 +36,7 @@ export function getConfigurationBlockRedirect(
     return redirect({
       to: '/campaigns/$campaignId/brief',
       params: { campaignId },
+      search: campaignDetailSearchDefaults,
     })
   }
 
@@ -43,6 +47,7 @@ export function getConfigurationBlockRedirect(
     return redirect({
       to: '/campaigns/$campaignId',
       params: { campaignId },
+      search: campaignDetailSearchDefaults,
     })
   }
 
@@ -99,6 +104,7 @@ export async function loadCampaignConfigurationRoute({
     throw redirect({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: config.current_step },
+      search: campaignDetailSearchDefaults,
     })
   }
 

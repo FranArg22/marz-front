@@ -164,7 +164,6 @@ describe('ContentTypeStep', () => {
         `/v1/campaigns/${campaignId}/configuration/content_type`,
         {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             content_type: 'ugc_videos',
             configuration_version: 3,
@@ -178,6 +177,7 @@ describe('ContentTypeStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'pricing_model' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 

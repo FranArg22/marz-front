@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import { Badge } from '#/components/ui/badge'
 import { ConfigurationPendingBadge } from '#/features/campaigns/configuration/components/ConfigurationPendingBadge'
+import { campaignDetailSearchDefaults } from '#/features/campaigns/configuration/hooks'
 import type { CampaignConfigurationStep } from '#/features/campaigns/configuration/hooks'
 
 interface CampaignMiniCardProps {
@@ -70,6 +71,7 @@ export function CampaignMiniCard({
       <Link
         to="/campaigns/$campaignId/configuration/$step"
         params={{ campaignId, step: configurationCurrentStep }}
+        search={campaignDetailSearchDefaults}
         className="block rounded-2xl outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50"
       >
         {card}
@@ -82,6 +84,7 @@ export function CampaignMiniCard({
       <Link
         to="/campaigns/$campaignId"
         params={{ campaignId }}
+        search={campaignDetailSearchDefaults}
         className="block rounded-2xl outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50"
       >
         {card}

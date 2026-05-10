@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { CampaignConfigurationStepSlot } from '#/features/campaigns/configuration/CampaignConfigurationWizard'
 import {
   campaignConfigurationQueryOptions,
+  campaignDetailSearchDefaults,
   isCampaignConfigurationStep,
 } from '#/features/campaigns/configuration/hooks'
 import type { CampaignConfiguration } from '#/features/campaigns/configuration/hooks'
@@ -33,6 +34,7 @@ export async function loadCampaignConfigurationStepRoute({
         campaignId,
         step: config.current_step,
       },
+      search: campaignDetailSearchDefaults,
     })
   }
 

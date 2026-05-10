@@ -16,6 +16,7 @@ import { InterestsInput } from './components/InterestsInput'
 import { TierMultiSelect } from './components/TierMultiSelect'
 import {
   campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
   useUpdateCampaignTargetingMutation,
 } from './hooks'
 import type { CampaignConfiguration } from './hooks'
@@ -148,6 +149,7 @@ export function TargetingStep({ campaignId, config }: TargetingStepProps) {
             void navigate({
               to: '/campaigns/$campaignId/configuration/$step',
               params: { campaignId, step: response.current_step },
+              search: campaignDetailSearchDefaults,
             })
           },
           onError: (error) => {
@@ -176,6 +178,7 @@ export function TargetingStep({ campaignId, config }: TargetingStepProps) {
     void navigate({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'pricing_model' },
+      search: campaignDetailSearchDefaults,
     })
   }
 

@@ -273,6 +273,7 @@ describe('BonusStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'review' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 
@@ -402,6 +403,7 @@ describe('BonusStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'review' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 

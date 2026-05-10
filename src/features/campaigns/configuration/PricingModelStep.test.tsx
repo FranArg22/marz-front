@@ -164,7 +164,6 @@ describe('PricingModelStep', () => {
         `/v1/campaigns/${campaignId}/configuration/pricing_model`,
         {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             pricing_model: 'per_views',
             configuration_version: 7,
@@ -178,6 +177,7 @@ describe('PricingModelStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'targeting' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 
@@ -199,6 +199,7 @@ describe('PricingModelStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'content_type' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 

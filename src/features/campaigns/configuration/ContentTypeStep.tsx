@@ -12,6 +12,7 @@ import { ConfigurationFooter } from './ConfigurationFooter'
 import { trackCampaignConfigurationStepCompleted } from './analytics'
 import {
   campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
   useUpdateContentTypeMutation,
 } from './hooks'
 import type { CampaignConfiguration, CampaignContentType } from './hooks'
@@ -73,6 +74,7 @@ export function ContentTypeStep({ campaignId, config }: ContentTypeStepProps) {
           void navigate({
             to: '/campaigns/$campaignId/configuration/$step',
             params: { campaignId, step: response.current_step },
+            search: campaignDetailSearchDefaults,
           })
         },
         onError: (error) => {

@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { DeliverableListItem } from './DeliverableListItem'
 import type { DeliverableDTO } from '#/features/deliverables/types'
@@ -40,15 +41,20 @@ function renderItem(
 ) {
   const onUploadDraft = vi.fn()
   const onMarkAsPaid = vi.fn()
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  })
   render(
-    <DeliverableListItem
-      deliverable={makeDeliverable()}
-      sessionKind="brand"
-      viewerRole="owner"
-      onUploadDraft={onUploadDraft}
-      onMarkAsPaid={onMarkAsPaid}
-      {...props}
-    />,
+    <QueryClientProvider client={queryClient}>
+      <DeliverableListItem
+        deliverable={makeDeliverable()}
+        sessionKind="brand"
+        viewerRole="owner"
+        onUploadDraft={onUploadDraft}
+        onMarkAsPaid={onMarkAsPaid}
+        {...props}
+      />
+    </QueryClientProvider>,
   )
   return { onUploadDraft, onMarkAsPaid }
 }

@@ -629,7 +629,7 @@ describe('DeliverableListPanel', () => {
 
     renderPanel()
 
-    expect(screen.getAllByText('Link submitted')).toHaveLength(2)
+    expect(screen.getByText('Link submitted')).toBeVisible()
     expect(screen.getByRole('link', { name: url })).toHaveAttribute('href', url)
   })
 

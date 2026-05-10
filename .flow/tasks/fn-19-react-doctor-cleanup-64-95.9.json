@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-10T23:27:47.290983Z",
+  "depends_on": [
+    "fn-19-react-doctor-cleanup-64-95.8"
+  ],
+  "epic": "fn-19-react-doctor-cleanup-64-95",
+  "id": "fn-19-react-doctor-cleanup-64-95.9",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-19-react-doctor-cleanup-64-95.9.md",
+  "status": "todo",
+  "title": "Dead code cleanup: ejecutar knip --fix + revisar types hu\u00e9rfanos",
+  "updated_at": "2026-05-10T23:32:16.850438Z"
+}

@@ -148,6 +148,7 @@ describe('P4Confirm', () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         to: '/campaigns/$campaignId/configuration',
         params: { campaignId: 'camp-123' },
+        search: { tab: 'overview', section: 'matches' },
       })
     })
   })

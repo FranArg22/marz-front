@@ -13,6 +13,16 @@ export const CampaignConfigurationStepSchema = z.enum([
   'review',
 ])
 
+// The parent route `/_brand/campaigns/$campaignId` declares a search schema
+// with required `tab`/`section` (defaulted via zod). TanStack Router's typed
+// Link/navigate APIs surface those as required even on child routes that
+// don't read them. Re-export the defaults so call sites keep one source of
+// truth instead of repeating the literals.
+export const campaignDetailSearchDefaults = {
+  tab: 'overview' as const,
+  section: 'matches' as const,
+}
+
 const CampaignConfigurationBlockReasonSchema = z.enum([
   'brief_not_confirmed',
   'already_active',

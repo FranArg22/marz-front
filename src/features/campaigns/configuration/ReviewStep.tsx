@@ -21,6 +21,7 @@ import { ReviewBlock, ReviewBlockAction } from './components/ReviewBlock'
 import { trackCampaignConfigurationActivated } from './analytics'
 import {
   campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
   isCampaignConfigurationStep,
   useActivateCampaignConfigurationMutation,
 } from './hooks'
@@ -132,6 +133,7 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
     void navigate({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step },
+      search: campaignDetailSearchDefaults,
     })
   }
 
@@ -160,6 +162,7 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
           void navigate({
             to: '/campaigns/$campaignId',
             params: { campaignId },
+            search: campaignDetailSearchDefaults,
           })
         },
         onError: (error) => {
@@ -267,6 +270,7 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
               void navigate({
                 to: '/campaigns/$campaignId/brief',
                 params: { campaignId },
+                search: campaignDetailSearchDefaults,
               })
             }
           >

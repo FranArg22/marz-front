@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-10T23:27:44.886909Z",
+  "depends_on": [],
+  "epic": "fn-19-react-doctor-cleanup-64-95",
+  "id": "fn-19-react-doctor-cleanup-64-95.1",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-19-react-doctor-cleanup-64-95.1.md",
+  "status": "todo",
+  "title": "Tooling baseline: knip config + react-doctor ignores + whitelist falsos positivos",
+  "updated_at": "2026-05-10T23:28:14.143092Z"
+}

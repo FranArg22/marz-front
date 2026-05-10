@@ -14,7 +14,10 @@ import type {
   EventHandler,
 } from '#/shared/ws/events'
 import type { CampaignConfiguration } from './hooks'
-import { campaignConfigurationQueryKey } from './hooks'
+import {
+  campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
+} from './hooks'
 
 interface CampaignConfigurationWsHandlersOptions {
   campaignId: string
@@ -85,6 +88,7 @@ export function useConfigurationWebSocket(campaignId: string) {
           void navigate({
             to: '/campaigns/$campaignId',
             params: { campaignId },
+            search: campaignDetailSearchDefaults,
           })
         },
       }),

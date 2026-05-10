@@ -231,7 +231,6 @@ describe('TargetingStep', () => {
         `/v1/campaigns/${campaignId}/configuration/targeting`,
         {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             operational_targeting: {
               tiers: ['emergent', 'consolidated'],
@@ -248,6 +247,7 @@ describe('TargetingStep', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'bonus' },
+      search: { tab: 'overview', section: 'matches' },
     })
   })
 

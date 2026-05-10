@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from '@tanstack/react-router'
+import { campaignDetailSearchDefaults } from '#/features/campaigns/configuration/hooks'
 import {
   Check,
   Loader2,
@@ -44,8 +45,6 @@ export function P4Confirm() {
 
     mutateRef.current(
       {
-        // TODO(fn-B.x): obtener brandWorkspaceId del auth context
-        brandWorkspaceId: 'default' as string,
         idempotencyKey: idempotencyKeyRef.current,
         draft,
       },
@@ -55,6 +54,7 @@ export function P4Confirm() {
           void router.navigate({
             to: '/campaigns/$campaignId/configuration',
             params: { campaignId: data.campaign_id },
+            search: campaignDetailSearchDefaults,
           })
         },
         onError: (error) => {
@@ -125,7 +125,6 @@ export function P4Confirm() {
             <Button
               onClick={() => {
                 mutation.mutate({
-                  brandWorkspaceId: 'default' as string,
                   idempotencyKey: idempotencyKeyRef.current,
                   draft,
                 })

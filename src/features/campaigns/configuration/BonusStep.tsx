@@ -18,6 +18,7 @@ import { PerformanceBonusRow } from './components/PerformanceBonusRow'
 import { SpeedBonusRow } from './components/SpeedBonusRow'
 import {
   campaignConfigurationQueryKey,
+  campaignDetailSearchDefaults,
   useUpdateCampaignBonusMutation,
 } from './hooks'
 import type { CampaignConfiguration } from './hooks'
@@ -191,6 +192,7 @@ export function BonusStep({ campaignId, config }: BonusStepProps) {
             void navigate({
               to: '/campaigns/$campaignId/configuration/$step',
               params: { campaignId, step: response.current_step },
+              search: campaignDetailSearchDefaults,
             })
           },
           onError: (error) => {
@@ -224,6 +226,7 @@ export function BonusStep({ campaignId, config }: BonusStepProps) {
     void navigate({
       to: '/campaigns/$campaignId/configuration/$step',
       params: { campaignId, step: 'targeting' },
+      search: campaignDetailSearchDefaults,
     })
   }
 
@@ -256,6 +259,7 @@ export function BonusStep({ campaignId, config }: BonusStepProps) {
       void navigate({
         to: '/campaigns/$campaignId/configuration/$step',
         params: { campaignId, step: 'review' },
+        search: campaignDetailSearchDefaults,
       })
       return
     }

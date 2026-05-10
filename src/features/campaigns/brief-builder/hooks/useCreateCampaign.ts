@@ -12,7 +12,6 @@ import { ApiError } from '#/shared/api/mutator'
 import type { BriefDraft, HardFilter, ScoringDimension } from '../store'
 
 interface CreateCampaignParams {
-  brandWorkspaceId: string
   idempotencyKey: string
   draft: BriefDraft
 }
@@ -55,9 +54,8 @@ function toApiBrief(draft: BriefDraft): CampaignBriefInput {
 export function useCreateCampaign() {
   return useMutation({
     mutationFn: async (params: CreateCampaignParams) => {
-      const { draft, brandWorkspaceId, idempotencyKey } = params
+      const { draft, idempotencyKey } = params
       const body: CreateCampaignRequest = {
-        brand_workspace_id: brandWorkspaceId,
         name: draft.campaign.name,
         objective: draft.campaign.objective as CreateCampaignRequestObjective,
         budget_amount: String(draft.campaign.budget_amount ?? ''),

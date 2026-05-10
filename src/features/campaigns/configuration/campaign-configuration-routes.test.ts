@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { redirect } from '@tanstack/react-router'
 
 import { ApiError } from '#/shared/api/mutator'
+import { campaignDetailSearchDefaults } from './hooks'
 import type { CampaignConfiguration } from './hooks'
 
 vi.mock('@lingui/core/macro', () => ({
@@ -128,6 +129,7 @@ describe('campaign configuration routes', () => {
       redirect({
         to: '/campaigns/$campaignId/configuration/$step',
         params: { campaignId, step: 'pricing_model' },
+        search: campaignDetailSearchDefaults,
       }),
     )
   })
@@ -148,6 +150,7 @@ describe('campaign configuration routes', () => {
       redirect({
         to: '/campaigns/$campaignId/brief',
         params: { campaignId },
+        search: campaignDetailSearchDefaults,
       }),
     )
   })
@@ -170,6 +173,7 @@ describe('campaign configuration routes', () => {
         redirect({
           to: '/campaigns/$campaignId',
           params: { campaignId },
+          search: campaignDetailSearchDefaults,
         }),
       )
     },
@@ -208,6 +212,7 @@ describe('campaign configuration routes', () => {
       redirect({
         to: '/campaigns/$campaignId/configuration/$step',
         params: { campaignId, step: 'pricing_model' },
+        search: campaignDetailSearchDefaults,
       }),
     )
   })
