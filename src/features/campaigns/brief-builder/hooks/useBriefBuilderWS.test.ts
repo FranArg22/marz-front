@@ -19,6 +19,7 @@ let mockSubscribe: (
   topic: string,
   params: Record<string, unknown>,
 ) => Promise<void> = () => Promise.resolve()
+let mockUnsubscribe: (topic: string) => boolean = () => true
 
 vi.mock('#/shared/ws/useWebSocket', async (importOriginal) => {
   const actual = await importOriginal()
@@ -31,6 +32,7 @@ vi.mock('#/shared/ws/useWebSocket', async (importOriginal) => {
         send: vi.fn(),
         subscribe: (topic: string, params: Record<string, unknown>) =>
           mockSubscribe(topic, params),
+        unsubscribe: (topic: string) => mockUnsubscribe(topic),
       }
     },
   }
@@ -91,6 +93,7 @@ describe('useBriefBuilderWS', () => {
     capturedOptions = undefined as any
     mockWsStatus = 'idle'
     mockSubscribe = () => Promise.resolve()
+    mockUnsubscribe = () => true
   })
 
   it('passes enabled=false when processingToken is null', () => {
@@ -334,6 +337,20 @@ describe('useBriefBuilderWS', () => {
     expect(subscribeSpy).toHaveBeenCalledWith('brief-builder', {
       processing_token: TOKEN,
     })
+  })
+
+  it('unsubscribes from brief-builder topic on cleanup', async () => {
+    mockWsStatus = 'open'
+    const unsubscribeSpy = vi.fn(() => true)
+    mockUnsubscribe = unsubscribeSpy
+    const { result, unmount } = renderHook(() => useBriefBuilderWS(TOKEN))
+
+    await waitFor(() => {
+      expect(result.current.subscribed).toBe(true)
+    })
+    unmount()
+
+    expect(unsubscribeSpy).toHaveBeenCalledWith('brief-builder')
   })
 
   it('marks status=failed with the server code when subscribe rejects', async () => {

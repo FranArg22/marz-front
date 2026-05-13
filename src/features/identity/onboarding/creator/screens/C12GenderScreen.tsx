@@ -43,6 +43,7 @@ export function C12GenderScreen() {
             label={o.label()}
             role="radio"
             selected={store.gender === o.value}
+            aria-checked={store.gender === o.value}
             onToggle={() => store.setField('gender', o.value)}
           />
         ))}

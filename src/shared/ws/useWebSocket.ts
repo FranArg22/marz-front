@@ -65,6 +65,58 @@ export function useWebSocket({
 
     let ws: WebSocket | null = null
     let cancelled = false
+    const handleOpen = () => setStatus('open')
+    const handleClose = () => setStatus('closed')
+    const handleMessage = (event: MessageEvent<string>) => {
+      try {
+        const raw = JSON.parse(event.data) as Record<string, unknown>
+
+        // Control frames for the subscribe protocol live alongside domain
+        // events. Resolve/reject the matching pending subscribe before
+        // falling through to the domain-event dispatcher.
+        const rawType = raw['type']
+        if (rawType === 'subscribed') {
+          const topic = raw['topic']
+          if (typeof topic === 'string') {
+            const pending = pendingSubscribesRef.current.get(topic)
+            if (pending) {
+              clearTimeout(pending.timer)
+              pendingSubscribesRef.current.delete(topic)
+              pending.resolve()
+            }
+          }
+          return
+        }
+        if (rawType === 'error') {
+          const code =
+            typeof raw['code'] === 'string' ? raw['code'] : 'internal'
+          // Errors don't carry a topic — fail every pending subscribe with
+          // the server code. In practice only one is in-flight at a time.
+          for (const [topic, pending] of pendingSubscribesRef.current) {
+            clearTimeout(pending.timer)
+            pendingSubscribesRef.current.delete(topic)
+            pending.reject(new SubscribeError(code))
+          }
+          return
+        }
+
+        // Backend frames are `{ type, data, ... }`. The rest of the chat
+        // pipeline expects `{ event_type, payload, ... }` (DomainEventEnvelope).
+        // Normalize once here so handlers can stay shape-agnostic.
+        const envelope = {
+          ...raw,
+          event_type: (raw['event_type'] ?? raw['type'] ?? raw['event']) as
+            | string
+            | undefined,
+          payload: raw['payload'] ?? raw['data'],
+        } as DomainEventEnvelope
+        if (!envelope.event_type) return
+        const handler = handlersRef.current[envelope.event_type]
+        if (handler) handler(envelope)
+      } catch (err) {
+        console.error('[ws] failed to parse message', err)
+      }
+    }
 
     setStatus('connecting')
     void (async () => {
@@ -83,62 +135,16 @@ export function useWebSocket({
       ws = new WebSocket(baseUrl, ['bearer', token])
       socketRef.current = ws
 
-      ws.addEventListener('open', () => setStatus('open'))
-      ws.addEventListener('close', () => setStatus('closed'))
-      ws.addEventListener('message', (event) => {
-        try {
-          const raw = JSON.parse(event.data) as Record<string, unknown>
-
-          // Control frames for the subscribe protocol live alongside domain
-          // events. Resolve/reject the matching pending subscribe before
-          // falling through to the domain-event dispatcher.
-          const rawType = raw['type']
-          if (rawType === 'subscribed') {
-            const topic = raw['topic']
-            if (typeof topic === 'string') {
-              const pending = pendingSubscribesRef.current.get(topic)
-              if (pending) {
-                clearTimeout(pending.timer)
-                pendingSubscribesRef.current.delete(topic)
-                pending.resolve()
-              }
-            }
-            return
-          }
-          if (rawType === 'error') {
-            const code =
-              typeof raw['code'] === 'string' ? raw['code'] : 'internal'
-            // Errors don't carry a topic — fail every pending subscribe with
-            // the server code. In practice only one is in-flight at a time.
-            for (const [topic, pending] of pendingSubscribesRef.current) {
-              clearTimeout(pending.timer)
-              pendingSubscribesRef.current.delete(topic)
-              pending.reject(new SubscribeError(code))
-            }
-            return
-          }
-
-          // Backend frames are `{ type, data, ... }`. The rest of the chat
-          // pipeline expects `{ event_type, payload, ... }` (DomainEventEnvelope).
-          // Normalize once here so handlers can stay shape-agnostic.
-          const envelope = {
-            ...raw,
-            event_type: (raw['event_type'] ?? raw['type'] ?? raw['event']) as
-              | string
-              | undefined,
-            payload: raw['payload'] ?? raw['data'],
-          } as DomainEventEnvelope
-          if (!envelope.event_type) return
-          const handler = handlersRef.current[envelope.event_type]
-          if (handler) handler(envelope)
-        } catch (err) {
-          console.error('[ws] failed to parse message', err)
-        }
-      })
+      ws.addEventListener('open', handleOpen)
+      ws.addEventListener('close', handleClose)
+      ws.addEventListener('message', handleMessage)
     })()
 
     return () => {
       cancelled = true
+      ws?.removeEventListener('open', handleOpen)
+      ws?.removeEventListener('close', handleClose)
+      ws?.removeEventListener('message', handleMessage)
       ws?.close()
       socketRef.current = null
       for (const [, pending] of pendingSubscribesRef.current) {
@@ -181,5 +187,10 @@ export function useWebSocket({
     [],
   )
 
-  return { status, send, subscribe }
+  const unsubscribe = useCallback(
+    (topic: string) => send({ type: 'unsubscribe', topic }),
+    [send],
+  )
+
+  return { status, send, subscribe, unsubscribe }
 }

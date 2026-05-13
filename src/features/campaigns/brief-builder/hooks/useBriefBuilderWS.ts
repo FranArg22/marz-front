@@ -142,7 +142,11 @@ export function useBriefBuilderWS(
     [],
   )
 
-  const ws = useWebSocket({
+  const {
+    status: wsStatus,
+    subscribe,
+    unsubscribe,
+  } = useWebSocket({
     enabled: processingToken != null,
     handlers: {
       'campaigns.brief.processing.step_completed': handleStepCompleted,
@@ -157,12 +161,12 @@ export function useBriefBuilderWS(
       setSubscribed(false)
       return
     }
-    if (ws.status !== 'open') return
+    if (wsStatus !== 'open') return
     if (subscribedTokenRef.current === processingToken) return
 
     subscribedTokenRef.current = processingToken
     let cancelled = false
-    ws.subscribe('brief-builder', { processing_token: processingToken })
+    void subscribe('brief-builder', { processing_token: processingToken })
       .then(() => {
         if (cancelled) return
         if (tokenRef.current !== processingToken) return
@@ -180,8 +184,10 @@ export function useBriefBuilderWS(
 
     return () => {
       cancelled = true
+      subscribedTokenRef.current = null
+      unsubscribe('brief-builder')
     }
-  }, [ws, ws.status, processingToken])
+  }, [wsStatus, processingToken, subscribe, unsubscribe])
 
   return {
     steps,
