@@ -45,6 +45,14 @@
           "src/features/earnings/hooks/useExportCreatorEarnings.ts"
         ],
         "rules": ["react-doctor/query-mutation-missing-invalidation"]
+      },
+      {
+        "files": ["src/routes/__root.tsx"],
+        "rules": ["react/no-danger"]
+      },
+      {
+        "files": ["src/components/ui/slider.tsx"],
+        "rules": ["react-doctor/no-array-index-as-key"]
       }
     ]
   }

@@ -602,7 +602,21 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
         title="Reusable components"
         subtitle="Organisms with product-domain knowledge. Each consumes tokens and molecules; domain data is mocked here for preview."
       />
+      <ChatShowcaseGroup />
+      <ShellShowcaseGroup />
+      <CampaignsShowcaseGroup />
+      <DeliverablesShowcaseGroup showcaseNowIso={showcaseNowIso} />
+      <PaymentsShowcaseGroup />
+      <OffersShowcaseGroup />
+      <IdentityShowcaseGroup />
+      <MobileSection />
+    </section>
+  )
+}
 
+function ChatShowcaseGroup() {
+  return (
+    <>
       <ShowcaseGroup title="Chat · event bubbles" context="features/chat">
         <div className="flex flex-wrap gap-3">
           <EventBubble severity="info" direction="out">
@@ -649,7 +663,13 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
           />
         </div>
       </ShowcaseGroup>
+    </>
+  )
+}
 
+function ShellShowcaseGroup() {
+  return (
+    <>
       <ShowcaseGroup title="Shell · sidebar" context="features/identity">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-1 rounded-lg border border-sidebar-border bg-sidebar p-2">
@@ -698,15 +718,13 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
           </IconButton>
         </div>
       </ShowcaseGroup>
+    </>
+  )
+}
 
-      <ShowcaseGroup title="Link item" context="features/deliverables">
-        <div className="max-w-lg space-y-2">
-          <LinkItem url="youtube.com/watch?v=abc123" status="pending" />
-          <LinkItem url="youtube.com/watch?v=def456" status="approved" />
-          <LinkItem url="youtube.com/watch?v=ghi789" status="rejected" />
-        </div>
-      </ShowcaseGroup>
-
+function CampaignsShowcaseGroup() {
+  return (
+    <>
       <ShowcaseGroup
         title="Campaign workspace tabs"
         context="features/campaigns"
@@ -722,6 +740,38 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
         />
       </ShowcaseGroup>
 
+      <ShowcaseGroup title="Campaign mini card" context="features/campaigns">
+        <div className="max-w-sm">
+          <CampaignMiniCard
+            name="Summer Glow 2026"
+            startDate="Jun 30"
+            status="active"
+            creators={6}
+            budget="$42k"
+            videos={{ done: 3, total: 8 }}
+            platforms={['YouTube', 'Instagram']}
+          />
+        </div>
+      </ShowcaseGroup>
+    </>
+  )
+}
+
+function DeliverablesShowcaseGroup({
+  showcaseNowIso,
+}: {
+  showcaseNowIso: string
+}) {
+  return (
+    <>
+      <ShowcaseGroup title="Link item" context="features/deliverables">
+        <div className="max-w-lg space-y-2">
+          <LinkItem url="youtube.com/watch?v=abc123" status="pending" />
+          <LinkItem url="youtube.com/watch?v=def456" status="approved" />
+          <LinkItem url="youtube.com/watch?v=ghi789" status="rejected" />
+        </div>
+      </ShowcaseGroup>
+
       <ShowcaseGroup
         title="Request changes modal"
         context="features/deliverables"
@@ -729,57 +779,87 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
         <RequestChangesModal title="YouTube Video · Luminal Studio" inline />
       </ShowcaseGroup>
 
-      <ShowcaseGroup
-        title="Offer card · received / sent"
-        context="features/offers"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <OfferCard
-            variant="received"
-            title="Q4 Echo Wireless Series"
-            budget="$4,500.00"
-            deadline="Oct 12"
-            platforms={[
-              { platform: 'youtube', label: '1× YouTube Video' },
-              { platform: 'instagram', label: 'IG Reels' },
-            ]}
-          />
-          <OfferCard
-            variant="sent"
-            title="Q4 Echo Wireless Series"
-            budget="$4,500.00"
-            deadline="Oct 12"
-            platforms={[
-              { platform: 'youtube', label: '1× YouTube Video' },
-              { platform: 'instagram', label: 'IG Reels' },
-            ]}
-          />
-        </div>
-      </ShowcaseGroup>
+      <DraftCardsShowcaseGroup showcaseNowIso={showcaseNowIso} />
+      <LinkSubmittedShowcaseGroup showcaseNowIso={showcaseNowIso} />
 
-      <ShowcaseGroup title="Offer card · collapsed" context="features/offers">
-        <div className="max-w-md space-y-2">
-          <OfferCardCollapsed offerId="OFR-2847" status="accepted" />
-          <OfferCardCollapsed offerId="OFR-2848" status="sent" />
-          <OfferCardCollapsed offerId="OFR-2849" status="rejected" />
-          <OfferCardCollapsed offerId="OFR-2850" status="negotiating" />
+      <ShowcaseGroup title="Deliverable card" context="features/deliverables">
+        <div className="grid gap-4 md:grid-cols-2">
+          <DeliverableCard
+            platform="youtube"
+            title="YouTube Video"
+            status="draft_submitted"
+            drafts={[
+              {
+                filename: 'draft_v1.mp4',
+                duration: '3:24',
+                status: 'changes_requested',
+              },
+              {
+                filename: 'draft_v2.mp4',
+                duration: '3:22',
+                status: 'in_review',
+              },
+            ]}
+          />
+          <DeliverableCard
+            platform="instagram"
+            title="IG Reel standalone"
+            status="pending"
+            drafts={[]}
+          />
         </div>
       </ShowcaseGroup>
 
       <ShowcaseGroup
-        title="Offer accepted · creator / brand"
-        context="features/offers"
+        title="Stage card · expanded / collapsed"
+        context="features/deliverables"
       >
-        <div className="grid gap-4 md:grid-cols-2">
-          <OfferAcceptedCard audience="creator" deadline="Oct 12" />
-          <OfferAcceptedCard
-            audience="brand"
-            creatorName="Luminal Studio"
+        <div className="space-y-3">
+          <StageCard
+            stageNumber={1}
+            name="Launch week"
             deadline="Oct 12"
+            status="active"
+          >
+            <DeliverableCard
+              platform="youtube"
+              title="YouTube Video"
+              status="draft_submitted"
+              drafts={[
+                {
+                  filename: 'draft_v1.mp4',
+                  duration: '3:24',
+                  status: 'changes_requested',
+                },
+                {
+                  filename: 'draft_v2.mp4',
+                  duration: '3:22',
+                  status: 'in_review',
+                },
+              ]}
+            />
+          </StageCard>
+          <StageCard
+            stageNumber={2}
+            name="Follow-up week"
+            deadline="Oct 20"
+            status="upcoming"
+          />
+          <StageCard
+            stageNumber={3}
+            name="Closing week"
+            deadline="Nov 5"
+            status="done"
           />
         </div>
       </ShowcaseGroup>
+    </>
+  )
+}
 
+function DraftCardsShowcaseGroup({ showcaseNowIso }: { showcaseNowIso: string }) {
+  return (
+    <>
       <ShowcaseGroup
         title="Draft submitted · creator / brand"
         context="features/deliverables"
@@ -919,7 +999,17 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
           />
         </div>
       </ShowcaseGroup>
+    </>
+  )
+}
 
+function LinkSubmittedShowcaseGroup({
+  showcaseNowIso,
+}: {
+  showcaseNowIso: string
+}) {
+  return (
+    <>
       <ShowcaseGroup
         title="Link submitted · creator / brand"
         context="features/deliverables"
@@ -1020,325 +1110,77 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
           />
         </div>
       </ShowcaseGroup>
+    </>
+  )
+}
 
+function PaymentsShowcaseGroup() {
+  return (
+    <ShowcaseGroup
+      title="Payment card · received / sent"
+      context="features/payments"
+    >
+      <div className="grid gap-4 md:grid-cols-2">
+        <PaymentCard audience="received" amount="$4,575.00" />
+        <PaymentCard audience="sent" amount="$4,575.00" />
+      </div>
+    </ShowcaseGroup>
+  )
+}
+
+function OffersShowcaseGroup() {
+  return (
+    <>
       <ShowcaseGroup
-        title="Payment card · received / sent"
-        context="features/payments"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <PaymentCard audience="received" amount="$4,575.00" />
-          <PaymentCard audience="sent" amount="$4,575.00" />
-        </div>
-      </ShowcaseGroup>
-
-      <ShowcaseGroup title="Deliverable card" context="features/deliverables">
-        <div className="grid gap-4 md:grid-cols-2">
-          <DeliverableCard
-            platform="youtube"
-            title="YouTube Video"
-            status="draft_submitted"
-            drafts={[
-              {
-                filename: 'draft_v1.mp4',
-                duration: '3:24',
-                status: 'changes_requested',
-              },
-              {
-                filename: 'draft_v2.mp4',
-                duration: '3:22',
-                status: 'in_review',
-              },
-            ]}
-          />
-          <DeliverableCard
-            platform="instagram"
-            title="IG Reel standalone"
-            status="pending"
-            drafts={[]}
-          />
-        </div>
-      </ShowcaseGroup>
-
-      <ShowcaseGroup
-        title="Stage card · expanded / collapsed"
-        context="features/deliverables"
-      >
-        <div className="space-y-3">
-          <StageCard
-            stageNumber={1}
-            name="Launch week"
-            deadline="Oct 12"
-            status="active"
-          >
-            <DeliverableCard
-              platform="youtube"
-              title="YouTube Video"
-              status="draft_submitted"
-              drafts={[
-                {
-                  filename: 'draft_v1.mp4',
-                  duration: '3:24',
-                  status: 'changes_requested',
-                },
-                {
-                  filename: 'draft_v2.mp4',
-                  duration: '3:22',
-                  status: 'in_review',
-                },
-              ]}
-            />
-          </StageCard>
-          <StageCard
-            stageNumber={2}
-            name="Follow-up week"
-            deadline="Oct 20"
-            status="upcoming"
-          />
-          <StageCard
-            stageNumber={3}
-            name="Closing week"
-            deadline="Nov 5"
-            status="done"
-          />
-        </div>
-      </ShowcaseGroup>
-
-      <ShowcaseGroup title="Brand header card" context="features/identity">
-        <BrandHeaderCard
-          name="Marz Brand"
-          meta="Consumer electronics · 85K followers"
-        />
-      </ShowcaseGroup>
-
-      <ShowcaseGroup
-        title="Creator header card · collapsed / expanded"
-        context="features/identity"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <CreatorHeaderCard
-            name="Luminal Studio"
-            handle="@luminalstudio"
-            collapsed
-          />
-          <CreatorHeaderCard
-            name="Luminal Studio"
-            handle="@luminalstudio"
-            stats={[
-              { label: 'Followers', value: '245K' },
-              { label: 'Eng.', value: '4.8%' },
-              { label: 'Collabs', value: '32' },
-            ]}
-          />
-        </div>
-      </ShowcaseGroup>
-
-      <ShowcaseGroup
-        title="Offer block · current offer"
+        title="Offer card · received / sent"
         context="features/offers"
       >
-        <div className="max-w-md">
-          <OfferBlock
-            title="Current Offer"
-            offerId="OFR-2847"
-            statusLabel="Accepted"
-            terms={[
-              { label: 'Budget', value: '$4,500.00' },
-              { label: 'Deadline', value: 'Oct 12, 2024' },
-              {
-                label: 'Speed bonus',
-                value: '+15% within 48h',
-                tone: 'accent',
-              },
+        <div className="grid gap-4 md:grid-cols-2">
+          <OfferCard
+            variant="received"
+            title="Q4 Echo Wireless Series"
+            budget="$4,500.00"
+            deadline="Oct 12"
+            platforms={[
+              { platform: 'youtube', label: '1× YouTube Video' },
+              { platform: 'instagram', label: 'IG Reels' },
             ]}
-            sectionLabel="Deliverables"
-          >
-            <DeliverableCard
-              platform="youtube"
-              title="YouTube Video"
-              status="draft_submitted"
-              drafts={[
-                {
-                  filename: 'draft_v1.mp4',
-                  duration: '3:24',
-                  status: 'changes_requested',
-                },
-                {
-                  filename: 'draft_v2.mp4',
-                  duration: '3:22',
-                  status: 'in_review',
-                },
-              ]}
-            />
-          </OfferBlock>
-        </div>
-      </ShowcaseGroup>
-
-      <ShowcaseGroup title="Archived offers list" context="features/offers">
-        <div className="max-w-md">
-          <ArchivedOffersList
-            offers={[
-              {
-                offerId: 'OFR-2801',
-                amount: '$2,800',
-                date: 'Sep 14, 2024',
-                status: 'paid',
-              },
-              {
-                offerId: 'OFR-2650',
-                amount: '$3,200',
-                date: 'Jul 02, 2024',
-                status: 'paid',
-              },
+          />
+          <OfferCard
+            variant="sent"
+            title="Q4 Echo Wireless Series"
+            budget="$4,500.00"
+            deadline="Oct 12"
+            platforms={[
+              { platform: 'youtube', label: '1× YouTube Video' },
+              { platform: 'instagram', label: 'IG Reels' },
             ]}
           />
         </div>
       </ShowcaseGroup>
 
       <ShowcaseGroup
-        title="Context panel · creator view (brand context)"
-        context="features/identity"
+        title="Offer card · collapsed"
+        context="features/offers"
       >
-        <ContextPanel
-          headerSlot={
-            <BrandHeaderCard
-              name="Marz Brand"
-              meta="Consumer electronics · 85K followers"
-            />
-          }
-          offerSlot={
-            <OfferBlock
-              title="Current Offer"
-              offerId="OFR-2847"
-              statusLabel="Accepted"
-              terms={[
-                { label: 'Budget', value: '$4,500.00' },
-                { label: 'Deadline', value: 'Oct 12, 2024' },
-                {
-                  label: 'Speed bonus',
-                  value: '+15% within 48h',
-                  tone: 'accent',
-                },
-              ]}
-              sectionLabel="Deliverables"
-            >
-              <DeliverableCard
-                platform="youtube"
-                title="YouTube Video"
-                status="draft_submitted"
-                drafts={[
-                  {
-                    filename: 'draft_v1.mp4',
-                    duration: '3:24',
-                    status: 'changes_requested',
-                  },
-                  {
-                    filename: 'draft_v2.mp4',
-                    duration: '3:22',
-                    status: 'in_review',
-                  },
-                ]}
-              />
-            </OfferBlock>
-          }
-          archiveSlot={
-            <ArchivedOffersList
-              offers={[
-                {
-                  offerId: 'OFR-2801',
-                  amount: '$2,800',
-                  date: 'Sep 14, 2024',
-                  status: 'paid',
-                },
-                {
-                  offerId: 'OFR-2650',
-                  amount: '$3,200',
-                  date: 'Jul 02, 2024',
-                  status: 'paid',
-                },
-              ]}
-            />
-          }
-        />
+        <div className="max-w-md space-y-2">
+          <OfferCardCollapsed offerId="OFR-2847" status="accepted" />
+          <OfferCardCollapsed offerId="OFR-2848" status="sent" />
+          <OfferCardCollapsed offerId="OFR-2849" status="rejected" />
+          <OfferCardCollapsed offerId="OFR-2850" status="negotiating" />
+        </div>
       </ShowcaseGroup>
 
       <ShowcaseGroup
-        title="Context panel · brand view (creator context, expanded)"
-        context="features/identity"
+        title="Offer accepted · creator / brand"
+        context="features/offers"
       >
-        <ContextPanel
-          headerSlot={
-            <CreatorHeaderCard
-              name="Luminal Studio"
-              handle="@luminalstudio"
-              stats={[
-                { label: 'Followers', value: '245K' },
-                { label: 'Eng.', value: '4.8%' },
-                { label: 'Collabs', value: '32' },
-              ]}
-            />
-          }
-          offerSlot={
-            <OfferBlock
-              title="Current Offer"
-              offerId="OFR-2847"
-              statusLabel="Accepted"
-              terms={[
-                { label: 'Budget', value: '$4,500.00' },
-                { label: 'Deadline', value: 'Oct 12, 2024' },
-                {
-                  label: 'Speed bonus',
-                  value: '+15% within 48h',
-                  tone: 'accent',
-                },
-              ]}
-              sectionLabel="Stages"
-            >
-              <StageCard
-                stageNumber={1}
-                name="Launch week"
-                deadline="Oct 5"
-                status="done"
-              />
-              <StageCard
-                stageNumber={2}
-                name="Follow-up week"
-                deadline="Oct 12"
-                status="active"
-              >
-                <DeliverableCard
-                  platform="youtube"
-                  title="YouTube Video"
-                  status="draft_submitted"
-                  drafts={[
-                    {
-                      filename: 'draft_v1.mp4',
-                      duration: '3:24',
-                      status: 'changes_requested',
-                    },
-                  ]}
-                />
-              </StageCard>
-              <StageCard
-                stageNumber={3}
-                name="Holiday content"
-                deadline="Dec 1"
-                status="upcoming"
-              />
-            </OfferBlock>
-          }
-        />
-      </ShowcaseGroup>
-
-      <ShowcaseGroup title="Campaign mini card" context="features/campaigns">
-        <div className="max-w-sm">
-          <CampaignMiniCard
-            name="Summer Glow 2026"
-            startDate="Jun 30"
-            status="active"
-            creators={6}
-            budget="$42k"
-            videos={{ done: 3, total: 8 }}
-            platforms={['YouTube', 'Instagram']}
+        <div className="grid gap-4 md:grid-cols-2">
+          <OfferAcceptedCard audience="creator" deadline="Oct 12" />
+          <OfferAcceptedCard
+            audience="brand"
+            creatorName="Luminal Studio"
+            deadline="Oct 12"
           />
         </div>
       </ShowcaseGroup>
@@ -1524,9 +1366,239 @@ function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
           </div>
         </SendOfferSidesheet>
       </ShowcaseGroup>
+    </>
+  )
+}
 
-      <MobileSection />
-    </section>
+function IdentityShowcaseGroup() {
+  return (
+    <>
+      <ShowcaseGroup title="Brand header card" context="features/identity">
+        <BrandHeaderCard
+          name="Marz Brand"
+          meta="Consumer electronics · 85K followers"
+        />
+      </ShowcaseGroup>
+
+      <ShowcaseGroup
+        title="Creator header card · collapsed / expanded"
+        context="features/identity"
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <CreatorHeaderCard
+            name="Luminal Studio"
+            handle="@luminalstudio"
+            collapsed
+          />
+          <CreatorHeaderCard
+            name="Luminal Studio"
+            handle="@luminalstudio"
+            stats={[
+              { label: 'Followers', value: '245K' },
+              { label: 'Eng.', value: '4.8%' },
+              { label: 'Collabs', value: '32' },
+            ]}
+          />
+        </div>
+      </ShowcaseGroup>
+
+      <ShowcaseGroup title="Archived offers list" context="features/offers">
+        <div className="max-w-md">
+          <ArchivedOffersList
+            offers={[
+              {
+                offerId: 'OFR-2801',
+                amount: '$2,800',
+                date: 'Sep 14, 2024',
+                status: 'paid',
+              },
+              {
+                offerId: 'OFR-2650',
+                amount: '$3,200',
+                date: 'Jul 02, 2024',
+                status: 'paid',
+              },
+            ]}
+          />
+        </div>
+      </ShowcaseGroup>
+
+      <ShowcaseGroup
+        title="Offer block · current offer"
+        context="features/offers"
+      >
+        <div className="max-w-md">
+          <OfferBlock
+            title="Current Offer"
+            offerId="OFR-2847"
+            statusLabel="Accepted"
+            terms={[
+              { label: 'Budget', value: '$4,500.00' },
+              { label: 'Deadline', value: 'Oct 12, 2024' },
+              {
+                label: 'Speed bonus',
+                value: '+15% within 48h',
+                tone: 'accent',
+              },
+            ]}
+            sectionLabel="Deliverables"
+          >
+            <DeliverableCard
+              platform="youtube"
+              title="YouTube Video"
+              status="draft_submitted"
+              drafts={[
+                {
+                  filename: 'draft_v1.mp4',
+                  duration: '3:24',
+                  status: 'changes_requested',
+                },
+                {
+                  filename: 'draft_v2.mp4',
+                  duration: '3:22',
+                  status: 'in_review',
+                },
+              ]}
+            />
+          </OfferBlock>
+        </div>
+      </ShowcaseGroup>
+
+      <ShowcaseGroup
+        title="Context panel · creator view (brand context)"
+        context="features/identity"
+      >
+        <ContextPanel
+          headerSlot={
+            <BrandHeaderCard
+              name="Marz Brand"
+              meta="Consumer electronics · 85K followers"
+            />
+          }
+          offerSlot={
+            <OfferBlock
+              title="Current Offer"
+              offerId="OFR-2847"
+              statusLabel="Accepted"
+              terms={[
+                { label: 'Budget', value: '$4,500.00' },
+                { label: 'Deadline', value: 'Oct 12, 2024' },
+                {
+                  label: 'Speed bonus',
+                  value: '+15% within 48h',
+                  tone: 'accent',
+                },
+              ]}
+              sectionLabel="Deliverables"
+            >
+              <DeliverableCard
+                platform="youtube"
+                title="YouTube Video"
+                status="draft_submitted"
+                drafts={[
+                  {
+                    filename: 'draft_v1.mp4',
+                    duration: '3:24',
+                    status: 'changes_requested',
+                  },
+                  {
+                    filename: 'draft_v2.mp4',
+                    duration: '3:22',
+                    status: 'in_review',
+                  },
+                ]}
+              />
+            </OfferBlock>
+          }
+          archiveSlot={
+            <ArchivedOffersList
+              offers={[
+                {
+                  offerId: 'OFR-2801',
+                  amount: '$2,800',
+                  date: 'Sep 14, 2024',
+                  status: 'paid',
+                },
+                {
+                  offerId: 'OFR-2650',
+                  amount: '$3,200',
+                  date: 'Jul 02, 2024',
+                  status: 'paid',
+                },
+              ]}
+            />
+          }
+        />
+      </ShowcaseGroup>
+
+      <ShowcaseGroup
+        title="Context panel · brand view (creator context, expanded)"
+        context="features/identity"
+      >
+        <ContextPanel
+          headerSlot={
+            <CreatorHeaderCard
+              name="Luminal Studio"
+              handle="@luminalstudio"
+              stats={[
+                { label: 'Followers', value: '245K' },
+                { label: 'Eng.', value: '4.8%' },
+                { label: 'Collabs', value: '32' },
+              ]}
+            />
+          }
+          offerSlot={
+            <OfferBlock
+              title="Current Offer"
+              offerId="OFR-2847"
+              statusLabel="Accepted"
+              terms={[
+                { label: 'Budget', value: '$4,500.00' },
+                { label: 'Deadline', value: 'Oct 12, 2024' },
+                {
+                  label: 'Speed bonus',
+                  value: '+15% within 48h',
+                  tone: 'accent',
+                },
+              ]}
+              sectionLabel="Stages"
+            >
+              <StageCard
+                stageNumber={1}
+                name="Launch week"
+                deadline="Oct 5"
+                status="done"
+              />
+              <StageCard
+                stageNumber={2}
+                name="Follow-up week"
+                deadline="Oct 12"
+                status="active"
+              >
+                <DeliverableCard
+                  platform="youtube"
+                  title="YouTube Video"
+                  status="draft_submitted"
+                  drafts={[
+                    {
+                      filename: 'draft_v1.mp4',
+                      duration: '3:24',
+                      status: 'changes_requested',
+                    },
+                  ]}
+                />
+              </StageCard>
+              <StageCard
+                stageNumber={3}
+                name="Holiday content"
+                deadline="Dec 1"
+                status="upcoming"
+              />
+            </OfferBlock>
+          }
+        />
+      </ShowcaseGroup>
+    </>
   )
 }
 
