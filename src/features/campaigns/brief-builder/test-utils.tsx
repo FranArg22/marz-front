@@ -38,11 +38,11 @@ export function renderWithValidation(ui: React.ReactElement) {
 
   const result = render(
     <QueryClientProvider client={queryClient}>
-      <BrandSessionContext.Provider value={brandSession}>
-        <WizardStepValidationContext.Provider value={{ validatorRef }}>
+      <BrandSessionContext value={brandSession}>
+        <WizardStepValidationContext value={{ validatorRef }}>
           {ui}
-        </WizardStepValidationContext.Provider>
-      </BrandSessionContext.Provider>
+        </WizardStepValidationContext>
+      </BrandSessionContext>
     </QueryClientProvider>,
   )
 

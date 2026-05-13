@@ -33,7 +33,7 @@ function Harness({
           <field.TextField label="Email" placeholder="tu@empresa.com" />
         )}
       </form.AppField>
-      <button type="submit">submit</button>
+      <button type="submit">Guardar email</button>
     </form>
   )
 }

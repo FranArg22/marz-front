@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
+import { createContext, use, useCallback, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -40,13 +34,11 @@ export function TopbarProvider({ children }: { children: ReactNode }) {
     [config, resetTopbar, setTopbar],
   )
 
-  return (
-    <TopbarContext.Provider value={value}>{children}</TopbarContext.Provider>
-  )
+  return <TopbarContext value={value}>{children}</TopbarContext>
 }
 
 export function useTopbar() {
-  const context = useContext(TopbarContext)
+  const context = use(TopbarContext)
 
   if (!context) {
     throw new Error('useTopbar must be used within a TopbarProvider')

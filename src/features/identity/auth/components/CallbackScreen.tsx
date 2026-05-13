@@ -65,7 +65,7 @@ export function CallbackScreen() {
   return (
     <div className="flex w-full max-w-[480px] flex-col items-center gap-7 rounded-2xl border border-border bg-card p-10">
       <div className="flex items-center gap-2.5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-foreground">
+        <div className="flex size-10 items-center justify-center rounded-[10px] bg-foreground">
           <svg width={24} height={24} viewBox="0 0 40 40" fill="none">
             <circle cx={8} cy={10} r={2.5} fill="var(--background)" />
             <circle cx={17.5} cy={10} r={2.5} fill="var(--background)" />
@@ -101,7 +101,7 @@ export function CallbackScreen() {
         </span>
       </div>
 
-      <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-primary/12">
+      <div className="flex size-[72px] items-center justify-center rounded-full bg-primary/12">
         <Loader2
           size={32}
           className="animate-spin text-primary"
@@ -113,7 +113,7 @@ export function CallbackScreen() {
         className="text-center text-sm leading-relaxed text-muted-foreground"
         aria-live="polite"
       >
-        Verificando tu link...
+        Verificando tu link…
       </p>
     </div>
   )

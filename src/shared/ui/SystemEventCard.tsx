@@ -1,6 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
-import { forwardRef } from 'react'
-import type { ReactNode } from 'react'
+import type { ReactNode, Ref } from 'react'
 
 import { cn } from '#/lib/utils'
 
@@ -52,51 +51,48 @@ interface SystemEventCardProps {
   side?: 'in' | 'out'
   children: ReactNode
   className?: string
+  ref?: Ref<HTMLDivElement>
 }
 
-export const SystemEventCard = forwardRef<HTMLDivElement, SystemEventCardProps>(
-  function SystemEventCardRoot(
-    {
-      tone,
-      kicker,
-      icon: Icon,
-      headerVariant = 'tint',
-      side,
-      children,
-      className,
-    },
-    ref,
-  ) {
-    const header =
-      headerVariant === 'solid' ? toneHeaderSolid[tone] : toneHeaderTint[tone]
-    const card = (
-      <div
-        ref={ref}
-        className={cn(
-          'w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card',
-          toneBorder[tone],
-          className,
-        )}
-      >
-        <div className={cn('flex items-center gap-2 px-4 py-2.5', header)}>
-          <Icon className="size-4" />
-          <span className="text-xs font-semibold uppercase tracking-widest">
-            {kicker}
-          </span>
-        </div>
-        <div className="p-4">{children}</div>
+export function SystemEventCard({
+  tone,
+  kicker,
+  icon: Icon,
+  headerVariant = 'tint',
+  side,
+  children,
+  className,
+  ref,
+}: SystemEventCardProps) {
+  const header =
+    headerVariant === 'solid' ? toneHeaderSolid[tone] : toneHeaderTint[tone]
+  const card = (
+    <div
+      ref={ref}
+      className={cn(
+        'w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card',
+        toneBorder[tone],
+        className,
+      )}
+    >
+      <div className={cn('flex items-center gap-2 px-4 py-2.5', header)}>
+        <Icon className="size-4" />
+        <span className="text-xs font-semibold uppercase tracking-widest">
+          {kicker}
+        </span>
       </div>
-    )
-    if (!side) return card
-    return (
-      <div
-        className={cn('flex', side === 'out' ? 'justify-end' : 'justify-start')}
-      >
-        {card}
-      </div>
-    )
-  },
-)
+      <div className="p-4">{children}</div>
+    </div>
+  )
+  if (!side) return card
+  return (
+    <div
+      className={cn('flex', side === 'out' ? 'justify-end' : 'justify-start')}
+    >
+      {card}
+    </div>
+  )
+}
 
 /** Key-value tile used inside cards (BUDGET, DEADLINE, etc). */
 export function StatTile({ label, value }: { label: string; value: string }) {

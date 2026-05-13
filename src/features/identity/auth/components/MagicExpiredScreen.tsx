@@ -17,7 +17,7 @@ export function MagicExpiredScreen() {
 
   return (
     <div className="flex w-full max-w-[480px] flex-col items-center gap-7 rounded-2xl border border-border bg-card p-10">
-      <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-destructive/12">
+      <div className="flex size-[72px] items-center justify-center rounded-full bg-destructive/12">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={32}

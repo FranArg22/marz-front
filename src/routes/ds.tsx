@@ -251,7 +251,7 @@ function DesignSystemPage() {
                 Marz · Design System
               </h1>
               <p className="text-sm text-muted-foreground">
-                Atoms · Molecules · Reusable components — synced with{' '}
+                Atoms · Molecules · Reusable components, synced with{' '}
                 <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
                   marz-design/marzv2.pen
                 </code>
@@ -293,7 +293,7 @@ function AtomsSection() {
     <section id="atoms" className="space-y-10">
       <SectionHeader
         title="Atoms"
-        subtitle="Design tokens pulled from the .pen. No markup — only primitive values."
+        subtitle="Design tokens pulled from the .pen. No markup, only primitive values."
       />
 
       {colorGroups.map((group) => (
@@ -311,7 +311,7 @@ function AtomsSection() {
           {radiusTokens.map(({ name, px }) => (
             <div key={name} className="flex flex-col items-center gap-2">
               <div
-                className="h-16 w-16 border border-border bg-muted"
+                className="size-16 border border-border bg-muted"
                 style={{ borderRadius: `var(--radius-${name})` }}
               />
               <div className="text-center">
@@ -342,7 +342,7 @@ function AtomsSection() {
         </div>
       </TokenGroup>
 
-      <TokenGroup title="Typography — font-size">
+      <TokenGroup title="Typography: font-size">
         <div className="space-y-3">
           {fontSizeTokens.map(({ name, px }) => (
             <div
@@ -363,7 +363,7 @@ function AtomsSection() {
         </div>
       </TokenGroup>
 
-      <TokenGroup title="Typography — font-weight">
+      <TokenGroup title="Typography: font-weight">
         <div className="space-y-2">
           {fontWeightTokens.map(({ name, value }) => (
             <div
@@ -426,7 +426,7 @@ function ColorSwatch({ token }: { token: string }) {
   return (
     <div className="flex items-center gap-3 rounded-md border border-border bg-card p-2.5">
       <div
-        className="h-10 w-10 shrink-0 rounded-md border border-border"
+        className="size-10 shrink-0 rounded-md border border-border"
         style={{ backgroundColor: `var(${varName})` }}
       />
       <div className="min-w-0">
@@ -437,7 +437,7 @@ function ColorSwatch({ token }: { token: string }) {
 }
 
 // -----------------------------------------------------------------------------
-// Molecules — shadcn primitives wired to our tokens
+// Molecules: shadcn primitives wired to our tokens
 // -----------------------------------------------------------------------------
 
 function MoleculesSection() {
@@ -480,11 +480,11 @@ function MoleculesSection() {
       <TokenGroup title="Avatars">
         <div className="flex items-end gap-3">
           {[
-            { size: 'h-6 w-6', label: 'XS' },
-            { size: 'h-8 w-8', label: 'SM' },
-            { size: 'h-10 w-10', label: 'MD' },
-            { size: 'h-12 w-12', label: 'LG' },
-            { size: 'h-16 w-16', label: 'XL' },
+            { size: 'size-6', label: 'XS' },
+            { size: 'size-8', label: 'SM' },
+            { size: 'size-10', label: 'MD' },
+            { size: 'size-12', label: 'LG' },
+            { size: 'size-16', label: 'XL' },
           ].map(({ size, label }) => (
             <div key={label} className="flex flex-col items-center gap-1.5">
               <Avatar className={size}>
@@ -514,7 +514,7 @@ function MoleculesSection() {
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="ds-textarea">Textarea</Label>
-            <Textarea id="ds-textarea" placeholder="Tell us more..." rows={3} />
+            <Textarea id="ds-textarea" placeholder="Tell us more…" rows={3} />
           </div>
         </div>
       </TokenGroup>
@@ -583,7 +583,7 @@ function MoleculesSection() {
 }
 
 // -----------------------------------------------------------------------------
-// Reusable — organisms with product domain. Rendered with mock data so the
+// Reusable: organisms with product domain. Rendered with mock data so the
 // implementation stays alive and visible. Not-yet-implemented ones appear as
 // a "pending" list at the bottom.
 // -----------------------------------------------------------------------------
@@ -617,10 +617,10 @@ function ReusableSection() {
             Awaiting review
           </EventBubble>
           <EventBubble severity="destructive" direction="out">
-            Draft rejected — changes requested
+            Draft rejected, changes requested
           </EventBubble>
           <EventBubble severity="destructive" direction="in">
-            Draft rejected — changes requested
+            Draft rejected, changes requested
           </EventBubble>
         </div>
       </ShowcaseGroup>
@@ -633,7 +633,7 @@ function ReusableSection() {
             online
             unread
           />
-          <ChatRailItem name="Nova Flux" preview="Got it — rendering now" />
+          <ChatRailItem name="Nova Flux" preview="Got it, rendering now" />
           <ChatRailItem
             name="Terra Collective"
             preview="Final cut attached ⬇"
@@ -1650,7 +1650,7 @@ function MobileSection() {
             version="v1"
           />
           <MobileRequestChangesCard
-            notes="Please re-shoot the opening 3 seconds — the lighting is too harsh and the product is cropped. Also lower the background music."
+            notes="Please re-shoot the opening 3 seconds; the lighting is too harsh and the product is cropped. Also lower the background music."
             signoff="Aurora Beauty · May 15"
           />
           <MobileLinkCard
