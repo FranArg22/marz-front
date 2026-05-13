@@ -148,6 +148,18 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
     })
     return map
   })
+  const handleAddStage = () => {
+    form.setFieldValue('stages', [
+      ...stages,
+      {
+        id: crypto.randomUUID(),
+        name: '',
+        description: '',
+        deadline: '',
+        amount: '',
+      },
+    ])
+  }
 
   return (
     <form
@@ -220,18 +232,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
             type="button"
             variant="outline"
             className="w-full"
-            onClick={() =>
-              form.setFieldValue('stages', [
-                ...stages,
-                {
-                  id: crypto.randomUUID(),
-                  name: '',
-                  description: '',
-                  deadline: '',
-                  amount: '',
-                },
-              ])
-            }
+            onClick={handleAddStage}
           >
             <Plus className="mr-2 size-4" />
             {t`Add stage`}

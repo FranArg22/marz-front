@@ -87,6 +87,7 @@ import {
 import { StageEditor } from '#/features/offers/components/StageEditor'
 import { SummaryTotalRow } from '#/features/offers/components/SummaryTotalRow'
 import { DarkTooltip } from '#/shared/ui/DarkTooltip'
+import { useClientNow } from '#/shared/hooks'
 import { IconButton } from '#/shared/ui/IconButton'
 import { PaymentCard } from '#/shared/ui/PaymentCard'
 import {
@@ -241,6 +242,12 @@ const iconSizeTokens = [
 // -----------------------------------------------------------------------------
 
 function DesignSystemPage() {
+  const clientNow = useClientNow()
+  const showcaseNowIso =
+    clientNow === null
+      ? '2026-04-27T12:00:00.000Z'
+      : new Date(clientNow).toISOString()
+
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background text-foreground">
@@ -277,7 +284,7 @@ function DesignSystemPage() {
         <main className="mx-auto max-w-6xl space-y-16 px-6 py-10">
           <AtomsSection />
           <MoleculesSection />
-          <ReusableSection />
+          <ReusableSection showcaseNowIso={showcaseNowIso} />
         </main>
       </div>
     </TooltipProvider>
@@ -588,7 +595,7 @@ function MoleculesSection() {
 // a "pending" list at the bottom.
 // -----------------------------------------------------------------------------
 
-function ReusableSection() {
+function ReusableSection({ showcaseNowIso }: { showcaseNowIso: string }) {
   return (
     <section id="reusable" className="space-y-12">
       <SectionHeader
@@ -798,12 +805,12 @@ function ReusableSection() {
                   mime_type: 'video/mp4',
                   thumbnail_url: null,
                   playback_url: 'https://example.com/video.mp4',
-                  playback_url_expires_at: new Date().toISOString(),
-                  submitted_at: new Date().toISOString(),
+                  playback_url_expires_at: showcaseNowIso,
+                  submitted_at: showcaseNowIso,
                   submitted_by_account_id: 'creator-1',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="creator-1"
             counterpartDisplayName="Brand Name"
@@ -830,12 +837,12 @@ function ReusableSection() {
                   mime_type: 'video/mp4',
                   thumbnail_url: null,
                   playback_url: 'https://example.com/video.mp4',
-                  playback_url_expires_at: new Date().toISOString(),
-                  submitted_at: new Date().toISOString(),
+                  playback_url_expires_at: showcaseNowIso,
+                  submitted_at: showcaseNowIso,
                   submitted_by_account_id: 'creator-1',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="brand-1"
             counterpartDisplayName="Creator Name"
@@ -870,12 +877,12 @@ function ReusableSection() {
                   mime_type: 'video/mp4',
                   thumbnail_url: null,
                   playback_url: 'https://example.com/reel.mp4',
-                  playback_url_expires_at: new Date().toISOString(),
-                  submitted_at: new Date().toISOString(),
+                  playback_url_expires_at: showcaseNowIso,
+                  submitted_at: showcaseNowIso,
                   submitted_by_account_id: 'creator-1',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="brand-1"
             counterpartDisplayName="Creator Name"
@@ -901,11 +908,11 @@ function ReusableSection() {
                   deliverable_offer_stage_id: null,
                   draft_id: 'draft-1',
                   version: 1,
-                  approved_at: new Date().toISOString(),
+                  approved_at: showcaseNowIso,
                   approved_by_account_id: 'brand-1',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="brand-1"
             counterpartDisplayName="Creator Name"
@@ -935,13 +942,13 @@ function ReusableSection() {
                     url: 'https://youtube.com/watch?v=xK93',
                     status: 'submitted',
                     preview: { outcome: 'url_only' },
-                    submitted_at: new Date().toISOString(),
+                    submitted_at: showcaseNowIso,
                     submitted_by_account_id: 'creator-1',
                   },
                   message: 'Just published! Sharing the link here.',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="creator-1"
             brandWorkspaceId="brand-ws-1"
@@ -964,7 +971,7 @@ function ReusableSection() {
                     url: 'https://youtube.com/watch?v=xK93',
                     status: 'submitted',
                     preview: { outcome: 'url_only' },
-                    submitted_at: new Date().toISOString(),
+                    submitted_at: showcaseNowIso,
                     submitted_by_account_id: 'creator-1',
                   },
                   message:
@@ -972,7 +979,7 @@ function ReusableSection() {
                   payout_amount_formatted: '$4,500.00',
                 },
               },
-              created_at: new Date().toISOString(),
+              created_at: showcaseNowIso,
             }}
             currentAccountId="brand-1"
             brandWorkspaceId="brand-ws-1"

@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 import type { ActiveCampaign } from '#/shared/api/activeCampaigns'
+import { useClientNow } from '#/shared/hooks'
 import { useAppForm, applyBackendFieldErrors } from '#/shared/ui/form'
 import { ApiError } from '#/shared/api/mutator'
 
@@ -82,6 +83,7 @@ interface BundleEditorProps {
 }
 
 export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
+  const clientNow = useClientNow()
   const { conversationId } = useSendOfferSheetStore()
   const campaignsQuery = useActiveCampaigns()
   const mutation = useCreateBundleOffer()
@@ -164,6 +166,8 @@ export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
   const parsedTotal = parseFloat(totalAmountValue) || 0
   const exceedsBudget =
     isFinite(budgetRemaining) && parsedTotal > budgetRemaining
+  const minimumDeadline =
+    clientNow === null ? undefined : todayString(clientNow)
 
   const campaignOptions = campaigns.map((c) => ({
     value: c.id,
@@ -226,169 +230,177 @@ export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
             <field.TextField
               label={t`Deadline`}
               type="date"
-              min={todayString()}
+              min={minimumDeadline}
             />
           )}
         </form.AppField>
 
         <div className="space-y-4">
           <form.AppField name="deliverables" mode="array">
-            {(field) => (
-              <div className="space-y-4">
-                {deliverables.map((item, index) => {
-                  const itemPlatform = item.platform
-                  return (
-                    <BundlePlatformRow
-                      key={item.id}
-                      platform={itemPlatform}
-                      index={index}
-                      onRemove={() => field.removeValue(index)}
-                    >
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <form.AppField
-                          name={`deliverables[${index}].platform`}
-                          listeners={{
-                            onChange: () => {
-                              form.setFieldValue(
-                                `deliverables[${index}].format`,
-                                '',
-                              )
-                            },
-                          }}
-                        >
-                          {(f) => (
-                            <f.SelectField
-                              label={t`Platform`}
-                              placeholder={t`Select a platform`}
-                              options={[...platformOptions]}
-                            />
-                          )}
-                        </form.AppField>
+            {(field) => {
+              const handleAddDeliverable = () => {
+                field.pushValue({
+                  id: crypto.randomUUID(),
+                  platform: '',
+                  format: '',
+                  quantity: 1,
+                  amount: '',
+                })
+              }
 
-                        <form.AppField
-                          key={`deliverables.${index}.format.${itemPlatform}`}
-                          name={`deliverables[${index}].format`}
-                        >
-                          {(f) => (
-                            <f.SelectField
-                              label={t`Format`}
-                              placeholder={t`Select a format`}
-                              options={
-                                itemPlatform
-                                  ? (formatOptionsByPlatform[itemPlatform] ??
-                                    [])
-                                  : []
-                              }
-                            />
-                          )}
-                        </form.AppField>
+              return (
+                <div className="space-y-4">
+                  {deliverables.map((item, index) => {
+                    const itemPlatform = item.platform
+                    return (
+                      <BundlePlatformRow
+                        key={item.id}
+                        platform={itemPlatform}
+                        index={index}
+                        onRemove={() => field.removeValue(index)}
+                      >
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <form.AppField
+                            name={`deliverables[${index}].platform`}
+                            listeners={{
+                              onChange: () => {
+                                form.setFieldValue(
+                                  `deliverables[${index}].format`,
+                                  '',
+                                )
+                              },
+                            }}
+                          >
+                            {(f) => (
+                              <f.SelectField
+                                label={t`Platform`}
+                                placeholder={t`Select a platform`}
+                                options={[...platformOptions]}
+                              />
+                            )}
+                          </form.AppField>
 
-                        <form.AppField name={`deliverables[${index}].quantity`}>
-                          {(f) => (
-                            <f.NumberField
-                              label={t`Quantity`}
-                              placeholder="1"
-                              min={1}
-                            />
-                          )}
-                        </form.AppField>
+                          <form.AppField
+                            key={`deliverables.${index}.format.${itemPlatform}`}
+                            name={`deliverables[${index}].format`}
+                          >
+                            {(f) => (
+                              <f.SelectField
+                                label={t`Format`}
+                                placeholder={t`Select a format`}
+                                options={
+                                  itemPlatform
+                                    ? (formatOptionsByPlatform[itemPlatform] ??
+                                      [])
+                                    : []
+                                }
+                              />
+                            )}
+                          </form.AppField>
 
-                        <form.AppField name={`deliverables[${index}].amount`}>
-                          {(f) => (
-                            <f.TextField
-                              label={t`Amount (${currency})`}
-                              placeholder="0.00"
-                              inputMode="decimal"
-                            />
-                          )}
-                        </form.AppField>
-                      </div>
-                    </BundlePlatformRow>
-                  )
-                })}
+                          <form.AppField
+                            name={`deliverables[${index}].quantity`}
+                          >
+                            {(f) => (
+                              <f.NumberField
+                                label={t`Quantity`}
+                                placeholder="1"
+                                min={1}
+                              />
+                            )}
+                          </form.AppField>
 
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full"
-                  onClick={() =>
-                    field.pushValue({
-                      id: crypto.randomUUID(),
-                      platform: '',
-                      format: '',
-                      quantity: 1,
-                      amount: '',
-                    })
-                  }
-                >
-                  <Plus className="mr-2 size-4" />
-                  {t`Add deliverable`}
-                </Button>
+                          <form.AppField name={`deliverables[${index}].amount`}>
+                            {(f) => (
+                              <f.TextField
+                                label={t`Amount (${currency})`}
+                                placeholder="0.00"
+                                inputMode="decimal"
+                              />
+                            )}
+                          </form.AppField>
+                        </div>
+                      </BundlePlatformRow>
+                    )
+                  })}
 
-                {field.state.meta.errors.length > 0 && (
-                  <p aria-live="polite" className="text-sm text-destructive">
-                    {
-                      (
-                        field.state.meta.errors[0] as
-                          | { message?: string }
-                          | undefined
-                      )?.message
-                    }
-                  </p>
-                )}
-              </div>
-            )}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={handleAddDeliverable}
+                  >
+                    <Plus className="mr-2 size-4" />
+                    {t`Add deliverable`}
+                  </Button>
+
+                  {field.state.meta.errors.length > 0 && (
+                    <p aria-live="polite" className="text-sm text-destructive">
+                      {
+                        (
+                          field.state.meta.errors[0] as
+                            | { message?: string }
+                            | undefined
+                        )?.message
+                      }
+                    </p>
+                  )}
+                </div>
+              )
+            }}
           </form.AppField>
         </div>
 
         <form.AppField name="bonus_terms.speed_bonus_windows" mode="array">
-          {(field) => (
-            <BonusTermsFields
-              onAdd={() =>
-                field.pushValue({
-                  id: crypto.randomUUID(),
-                  window_hours: 24,
-                  bonus_pct: '',
-                })
-              }
-            >
-              {bonusWindows.length === 0 ? (
-                <p className="rounded-xl border border-dashed border-border bg-background px-3 py-4 text-sm text-muted-foreground">
-                  {t`No speed bonus windows yet.`}
-                </p>
-              ) : null}
-              {bonusWindows.map((window, index) => (
-                <BonusWindowRow
-                  key={window.id}
-                  index={index}
-                  onRemove={() => field.removeValue(index)}
-                >
-                  <form.AppField
-                    name={`bonus_terms.speed_bonus_windows[${index}].window_hours`}
+          {(field) => {
+            const handleAddBonusWindow = () => {
+              field.pushValue({
+                id: crypto.randomUUID(),
+                window_hours: 24,
+                bonus_pct: '',
+              })
+            }
+
+            return (
+              <BonusTermsFields onAdd={handleAddBonusWindow}>
+                {bonusWindows.length === 0 ? (
+                  <p className="rounded-xl border border-dashed border-border bg-background px-3 py-4 text-sm text-muted-foreground">
+                    {t`No speed bonus windows yet.`}
+                  </p>
+                ) : null}
+                {bonusWindows.map((window, index) => (
+                  <BonusWindowRow
+                    key={window.id}
+                    index={index}
+                    onRemove={() => field.removeValue(index)}
                   >
-                    {(windowField) => (
-                      <windowField.NumberField
-                        label={t`Window hours`}
-                        min={1}
-                        placeholder="24"
-                      />
-                    )}
-                  </form.AppField>
-                  <form.AppField
-                    name={`bonus_terms.speed_bonus_windows[${index}].bonus_pct`}
-                  >
-                    {(bonusField) => (
-                      <bonusField.TextField
-                        label={t`Bonus percentage`}
-                        placeholder="25"
-                        inputMode="decimal"
-                      />
-                    )}
-                  </form.AppField>
-                </BonusWindowRow>
-              ))}
-            </BonusTermsFields>
-          )}
+                    <form.AppField
+                      name={`bonus_terms.speed_bonus_windows[${index}].window_hours`}
+                    >
+                      {(windowField) => (
+                        <windowField.NumberField
+                          label={t`Window hours`}
+                          min={1}
+                          placeholder="24"
+                        />
+                      )}
+                    </form.AppField>
+                    <form.AppField
+                      name={`bonus_terms.speed_bonus_windows[${index}].bonus_pct`}
+                    >
+                      {(bonusField) => (
+                        <bonusField.TextField
+                          label={t`Bonus percentage`}
+                          placeholder="25"
+                          inputMode="decimal"
+                        />
+                      )}
+                    </form.AppField>
+                  </BonusWindowRow>
+                ))}
+              </BonusTermsFields>
+            )
+          }}
         </form.AppField>
 
         <DeliverableSummaryRow

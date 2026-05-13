@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
+import { useClientNow } from '#/shared/hooks'
 import { useAppForm, applyBackendFieldErrors } from '#/shared/ui/form'
 import { ApiError } from '#/shared/api/mutator'
 
@@ -96,6 +97,7 @@ interface SingleEditorProps {
 }
 
 export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
+  const clientNow = useClientNow()
   const { conversationId } = useSendOfferSheetStore()
   const campaignsQuery = useActiveCampaigns()
   const mutation = useCreateSingleOffer()
@@ -188,6 +190,8 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
   const currentFormatOptions = selectedPlatform
     ? (formatOptionsByPlatform[selectedPlatform] ?? [])
     : []
+  const minimumDeadline =
+    clientNow === null ? undefined : todayString(clientNow)
 
   return (
     <form
@@ -272,59 +276,61 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
             <field.TextField
               label={t`Deadline`}
               type="date"
-              min={todayString()}
+              min={minimumDeadline}
             />
           )}
         </form.AppField>
 
         <form.AppField name="bonus_terms.speed_bonus_windows" mode="array">
-          {(field) => (
-            <BonusTermsFields
-              onAdd={() =>
-                field.pushValue({
-                  id: crypto.randomUUID(),
-                  window_hours: 24,
-                  bonus_pct: '',
-                })
-              }
-            >
-              {bonusWindows.length === 0 ? (
-                <p className="rounded-xl border border-dashed border-border bg-background px-3 py-4 text-sm text-muted-foreground">
-                  {t`No speed bonus windows yet.`}
-                </p>
-              ) : null}
-              {bonusWindows.map((window, index) => (
-                <BonusWindowRow
-                  key={window.id}
-                  index={index}
-                  onRemove={() => field.removeValue(index)}
-                >
-                  <form.AppField
-                    name={`bonus_terms.speed_bonus_windows[${index}].window_hours`}
+          {(field) => {
+            const handleAddBonusWindow = () => {
+              field.pushValue({
+                id: crypto.randomUUID(),
+                window_hours: 24,
+                bonus_pct: '',
+              })
+            }
+
+            return (
+              <BonusTermsFields onAdd={handleAddBonusWindow}>
+                {bonusWindows.length === 0 ? (
+                  <p className="rounded-xl border border-dashed border-border bg-background px-3 py-4 text-sm text-muted-foreground">
+                    {t`No speed bonus windows yet.`}
+                  </p>
+                ) : null}
+                {bonusWindows.map((window, index) => (
+                  <BonusWindowRow
+                    key={window.id}
+                    index={index}
+                    onRemove={() => field.removeValue(index)}
                   >
-                    {(windowField) => (
-                      <windowField.NumberField
-                        label={t`Window hours`}
-                        min={1}
-                        placeholder="24"
-                      />
-                    )}
-                  </form.AppField>
-                  <form.AppField
-                    name={`bonus_terms.speed_bonus_windows[${index}].bonus_pct`}
-                  >
-                    {(bonusField) => (
-                      <bonusField.TextField
-                        label={t`Bonus percentage`}
-                        placeholder="25"
-                        inputMode="decimal"
-                      />
-                    )}
-                  </form.AppField>
-                </BonusWindowRow>
-              ))}
-            </BonusTermsFields>
-          )}
+                    <form.AppField
+                      name={`bonus_terms.speed_bonus_windows[${index}].window_hours`}
+                    >
+                      {(windowField) => (
+                        <windowField.NumberField
+                          label={t`Window hours`}
+                          min={1}
+                          placeholder="24"
+                        />
+                      )}
+                    </form.AppField>
+                    <form.AppField
+                      name={`bonus_terms.speed_bonus_windows[${index}].bonus_pct`}
+                    >
+                      {(bonusField) => (
+                        <bonusField.TextField
+                          label={t`Bonus percentage`}
+                          placeholder="25"
+                          inputMode="decimal"
+                        />
+                      )}
+                    </form.AppField>
+                  </BonusWindowRow>
+                ))}
+              </BonusTermsFields>
+            )
+          }}
         </form.AppField>
 
         <DeliverableSummaryRow
