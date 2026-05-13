@@ -36,7 +36,13 @@ export function getRouter() {
     defaultNotFoundComponent: DefaultNotFound,
   })
 
-  setupRouterSsrQueryIntegration({ router, queryClient: context.queryClient })
+  setupRouterSsrQueryIntegration({
+    router,
+    // RAFITA:ANY: setupRouterSsrQueryIntegration expects the queryClient type from its own @tanstack/react-query dependency; context.queryClient is the app QueryClient instance, but pnpm can resolve these through different package instances.
+    queryClient: context.queryClient as unknown as Parameters<
+      typeof setupRouterSsrQueryIntegration
+    >[0]['queryClient'],
+  })
 
   return router
 }

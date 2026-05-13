@@ -120,7 +120,7 @@ function getRequestBodies(eventName: string) {
         typeof body === 'object' &&
         body !== null &&
         'name' in body &&
-        (body as { name: unknown }).name === eventName,
+        body.name === eventName,
     )
 }
 

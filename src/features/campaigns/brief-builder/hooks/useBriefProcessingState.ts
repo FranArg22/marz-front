@@ -51,7 +51,7 @@ export function useBriefProcessingState(
 
   if (query.data) {
     return {
-      state: query.data.state as BriefProcessingState,
+      state: query.data.state,
       data: query.data,
       isLoading: false,
     }

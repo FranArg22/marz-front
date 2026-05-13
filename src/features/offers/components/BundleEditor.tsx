@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
+import type { ActiveCampaign } from '#/shared/api/activeCampaigns'
 import { useAppForm, applyBackendFieldErrors } from '#/shared/ui/form'
 import { ApiError } from '#/shared/api/mutator'
 
@@ -85,7 +86,7 @@ export function BundleEditor({ onClose, onDirtyChange }: BundleEditorProps) {
   const mutation = useCreateBundleOffer()
   const [backendBanner, setBackendBanner] = useState<string | null>(null)
 
-  const campaigns = campaignsQuery.data ?? []
+  const campaigns: ActiveCampaign[] = campaignsQuery.data ?? []
 
   const platformOptions = getPlatformOptions()
   const formatOptionsByPlatform = getFormatOptionsByPlatform()
@@ -312,7 +313,7 @@ export function BundleEditor({ onClose, onDirtyChange }: BundleEditorProps) {
                   className="w-full"
                   onClick={() =>
                     field.pushValue({
-                      id: crypto.randomUUID() as string,
+                      id: crypto.randomUUID(),
                       platform: '',
                       format: '',
                       quantity: 1,

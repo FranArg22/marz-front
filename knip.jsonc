@@ -1,0 +1,56 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+
+  // App boot files and TanStack Router route modules are runtime roots.
+  "entry": [
+    "src/client.tsx",
+    "src/server.ts",
+    "src/router.tsx",
+    "src/routes/**/*.tsx",
+    "src/routeTree.gen.ts",
+    "src/styles.css",
+
+    // Vitest and Playwright files are independent roots in local tooling.
+    "src/**/*.test.{ts,tsx}",
+    "src/test/e2e/**/*.ts",
+
+    // Operational scripts and tool configs are invoked outside app imports.
+    "scripts/**/*.ts",
+    "eslint.config.js",
+    "prettier.config.js",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "orval.config.ts",
+    "lingui.config.ts",
+  ],
+
+  // Keep the analysis scoped to authored source and repository tooling.
+  "project": [
+    "src/**/*.{ts,tsx,css}",
+    "scripts/**/*.ts",
+    "eslint.config.js",
+    "prettier.config.js",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "orval.config.ts",
+    "lingui.config.ts",
+  ],
+
+  // Generated code is intentionally committed but should not create dead-code noise.
+  "ignore": ["src/shared/api/generated/**", "src/routeTree.gen.ts"],
+
+  // Generated Zod schemas use exported helper types with z.infer in the same file.
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true,
+  },
+
+  // These plugins are auto-detected from dependencies; true keeps the contract explicit.
+  "vite": true,
+  "vitest": true,
+  "playwright": true,
+  "tailwind": true,
+  "tanstack-router": true,
+}

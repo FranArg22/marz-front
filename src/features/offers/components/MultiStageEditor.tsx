@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
+import type { ActiveCampaign } from '#/shared/api/activeCampaigns'
 import {
   useAppForm,
   applyBackendFieldErrors,
@@ -52,7 +53,7 @@ export function MultiStageEditor({
   const mutation = useCreateMultistageOffer()
   const [backendBanner, setBackendBanner] = useState<string | null>(null)
 
-  const campaigns = campaignsQuery.data ?? []
+  const campaigns: ActiveCampaign[] = campaignsQuery.data ?? []
 
   const form = useAppForm({
     defaultValues,
@@ -143,7 +144,7 @@ export function MultiStageEditor({
         const match = key.match(/^stages\[(\d+)\]\.deadline$/)
         if (match) {
           const index = parseInt(match[1]!, 10)
-          const msg = firstErrorMessage(issues as ReadonlyArray<unknown>)
+          const msg = firstErrorMessage(issues)
           if (msg) map.set(index, msg)
         }
       })
@@ -226,7 +227,7 @@ export function MultiStageEditor({
               form.setFieldValue('stages', [
                 ...stages,
                 {
-                  id: crypto.randomUUID() as string,
+                  id: crypto.randomUUID(),
                   name: '',
                   description: '',
                   deadline: '',

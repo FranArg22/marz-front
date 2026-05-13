@@ -63,9 +63,7 @@ function FlatList({
             platform={offer.deliverable.platform}
             format={offer.deliverable.format}
             sessionKind={sessionKind}
-            offerStatus={
-              offer.status as 'sent' | 'accepted' | 'rejected' | 'expired'
-            }
+            offerStatus={offer.status}
           />
         ) : (
           deliverables.map((deliverable) => (
@@ -111,7 +109,7 @@ function MultistageList({
   const deliverableById = new Map(deliverables.map((d) => [d.id, d]))
 
   const [openMap, setOpenMap] = useState<boolean[]>(() =>
-    getDefaultExpanded(offerStages, offer.status as OfferStatus),
+    getDefaultExpanded(offerStages, offer.status),
   )
 
   if (offer.type !== 'multistage') return null

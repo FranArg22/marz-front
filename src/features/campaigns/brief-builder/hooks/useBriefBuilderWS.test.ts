@@ -129,7 +129,7 @@ describe('useBriefBuilderWS', () => {
             error_message: null,
             timestamp: new Date().toISOString(),
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -154,7 +154,7 @@ describe('useBriefBuilderWS', () => {
             error_message: 'Could not parse',
             timestamp: new Date().toISOString(),
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -180,7 +180,7 @@ describe('useBriefBuilderWS', () => {
             error_message: null,
             timestamp: new Date().toISOString(),
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -202,7 +202,7 @@ describe('useBriefBuilderWS', () => {
             fields_empty_count: 0,
             processing_sec: 12.5,
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -225,7 +225,7 @@ describe('useBriefBuilderWS', () => {
             fields_empty_count: 0,
             processing_sec: 12.5,
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -243,7 +243,7 @@ describe('useBriefBuilderWS', () => {
           error_code: 'ai_timeout',
           error_message: 'AI service timed out',
           retryable: true,
-        }) as DomainEventEnvelope,
+        }),
       )
     })
 
@@ -263,7 +263,7 @@ describe('useBriefBuilderWS', () => {
           error_code: 'unknown',
           error_message: 'Something broke',
           retryable: false,
-        }) as DomainEventEnvelope,
+        }),
       )
     })
 
@@ -288,7 +288,7 @@ describe('useBriefBuilderWS', () => {
             error_message: null,
             timestamp: new Date().toISOString(),
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 
@@ -304,7 +304,7 @@ describe('useBriefBuilderWS', () => {
             fields_empty_count: 0,
             processing_sec: 12.5,
           },
-        ) as DomainEventEnvelope,
+        ),
       )
     })
 

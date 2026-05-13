@@ -54,19 +54,34 @@ const uuidV4Pattern =
 
 const sendMessageMutate = vi.fn()
 
+type UseMeResult = ReturnType<typeof useMe>
+type SendMessageMutationResult = ReturnType<typeof useSendMessageMutation>
+
+function useMeResult(data: UseMeResult['data']): UseMeResult {
+  return { data } as UseMeResult
+}
+
+function sendMessageMutationResult(
+  result: Pick<SendMessageMutationResult, 'isPending' | 'mutate'>,
+): SendMessageMutationResult {
+  return result as SendMessageMutationResult
+}
+
 beforeEach(() => {
   vi.clearAllMocks()
   resetTrackedEvents()
-  vi.mocked(useMe).mockReturnValue({
-    data: {
+  vi.mocked(useMe).mockReturnValue(
+    useMeResult({
       data: { id: 'account-1' },
       status: 200,
-    },
-  } as unknown as ReturnType<typeof useMe>)
-  vi.mocked(useSendMessageMutation).mockReturnValue({
-    isPending: false,
-    mutate: sendMessageMutate,
-  } as unknown as ReturnType<typeof useSendMessageMutation>)
+    }),
+  )
+  vi.mocked(useSendMessageMutation).mockReturnValue(
+    sendMessageMutationResult({
+      isPending: false,
+      mutate: sendMessageMutate,
+    }),
+  )
 })
 
 describe('InboxInlineActionPopover', () => {

@@ -1,9 +1,5 @@
-import {
-  initializeFaro,
-  getWebInstrumentations
-  
-} from '@grafana/faro-web-sdk'
-import type {Faro} from '@grafana/faro-web-sdk';
+import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk'
+import type { Faro } from '@grafana/faro-web-sdk'
 import { TracingInstrumentation } from '@grafana/faro-web-tracing'
 
 let faroInstance: Faro | null = null
