@@ -13,18 +13,18 @@ const BUDGET_SNAPS = [
   MonthlyBudgetRange['50k_plus'],
 ] as const
 
-const BIG_NUMBERS: Record<(typeof BUDGET_SNAPS)[number], string> = {
-  under_10k: '10.000',
-  '10k_to_25k': '25.000',
-  '25k_to_50k': '50.000',
-  '50k_plus': '100.000+',
+const BIG_NUMBERS: Record<(typeof BUDGET_SNAPS)[number], () => string> = {
+  under_10k: () => t`10.000`,
+  '10k_to_25k': () => t`25.000`,
+  '25k_to_50k': () => t`50.000`,
+  '50k_plus': () => t`100.000+`,
 }
 
-const TICKS: { value: (typeof BUDGET_SNAPS)[number]; label: string }[] = [
-  { value: MonthlyBudgetRange.under_10k, label: '$10K' },
-  { value: MonthlyBudgetRange['10k_to_25k'], label: '$25K' },
-  { value: MonthlyBudgetRange['25k_to_50k'], label: '$50K' },
-  { value: MonthlyBudgetRange['50k_plus'], label: '$100K+' },
+const TICKS: { value: (typeof BUDGET_SNAPS)[number]; label: () => string }[] = [
+  { value: MonthlyBudgetRange.under_10k, label: () => t`$10K` },
+  { value: MonthlyBudgetRange['10k_to_25k'], label: () => t`$25K` },
+  { value: MonthlyBudgetRange['25k_to_50k'], label: () => t`$50K` },
+  { value: MonthlyBudgetRange['50k_plus'], label: () => t`$100K+` },
 ]
 
 const VERTICAL_HINTS: Partial<Record<Vertical, () => string>> = {
@@ -41,7 +41,7 @@ export function B6BudgetScreen() {
   const store = useBrandOnboardingStore()
   const currentIndex = getIndex(store.monthly_budget_range)
   const currentSnap = BUDGET_SNAPS[currentIndex]!
-  const bigNumber = BIG_NUMBERS[currentSnap]
+  const bigNumber = BIG_NUMBERS[currentSnap]()
 
   const hint =
     (store.vertical && VERTICAL_HINTS[store.vertical]?.()) ??
@@ -80,7 +80,7 @@ export function B6BudgetScreen() {
             if (val != null) {
               const budget = BUDGET_SNAPS[val]
               if (budget) {
-                store.setField('monthly_budget_range', budget)
+                store.setField('monthly_budget_range', budget)  
               }
             }
           }}
@@ -97,7 +97,7 @@ export function B6BudgetScreen() {
                   : 'font-normal text-muted-foreground',
               )}
             >
-              {tick.label}
+              {tick.label()}
             </span>
           ))}
         </div>

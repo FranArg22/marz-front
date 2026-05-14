@@ -17,14 +17,16 @@ import { todayString } from '../utils/dateUtils'
 import { deadlineToRFC3339 } from '../utils/formatOffer'
 import { BonusTermsFields, BonusWindowRow } from './BonusTermsFields'
 import { DeliverableSummaryRow } from './DeliverableSummaryRow'
-import { offerBonusTermsFormSchema } from '../schemas/bonusTerms'
+import { createOfferBonusTermsSchemas } from '../schemas/bonusTerms'
 import { sortBonusTerms } from '../utils/bonusTerms'
 
 function getPlatformOptions() {
   return [
+     
     { value: 'youtube', label: t`YouTube` },
     { value: 'instagram', label: t`Instagram` },
     { value: 'tiktok', label: t`TikTok` },
+     
   ] as const
 }
 
@@ -32,6 +34,7 @@ function getFormatOptionsByPlatform(): Record<
   string,
   Array<{ value: string; label: string }>
 > {
+   
   return {
     youtube: [
       { value: 'yt_long', label: t`Long Video` },
@@ -44,6 +47,7 @@ function getFormatOptionsByPlatform(): Record<
     ],
     tiktok: [{ value: 'tiktok_post', label: t`Post` }],
   }
+   
 }
 
 function createSendOfferSchemas() {
@@ -65,7 +69,7 @@ function createSendOfferSchemas() {
       .string()
       .min(1, t`Select a deadline`)
       .refine((v) => v > todayString(), t`Deadline must be a future date`),
-    bonus_terms: offerBonusTermsFormSchema,
+    bonus_terms: createOfferBonusTermsSchemas().offerBonusTermsFormSchema,
   })
   const sendOfferSubmitSchema = sendOfferBaseSchema
 
@@ -170,6 +174,7 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
     [campaigns, selectedCampaignId],
   )
 
+   
   const currency = selectedCampaign?.budget_currency ?? 'USD'
   const budgetRemaining = selectedCampaign
     ? parseFloat(selectedCampaign.budget_remaining)
@@ -179,6 +184,7 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
   const totalAmount = parsedAmount
   const exceedsBudget =
     isFinite(budgetRemaining) && parsedAmount > budgetRemaining
+  const budgetDisplay = `${currency} ${selectedCampaign?.budget_remaining ?? '0.00'}`
 
   const campaignOptions = campaigns.map((c) => ({
     value: c.id,
@@ -227,6 +233,7 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
           name="platform"
           listeners={{
             onChange: () => {
+               
               form.setFieldValue('format', '')
             },
           }}
@@ -262,7 +269,7 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
 
         {exceedsBudget ? (
           <p className="text-sm text-warning" aria-live="polite">
-            {t`This amount exceeds the campaign's remaining budget (${currency} ${selectedCampaign?.budget_remaining ?? '0.00'})`}
+            {t`This amount exceeds the campaign's remaining budget (${budgetDisplay})`}
           </p>
         ) : null}
 
@@ -333,6 +340,7 @@ export function SingleEditor({ onClose, dirtyRef }: SingleEditorProps) {
           label={t`Total`}
           amount={totalAmount > 0 ? totalAmount.toFixed(2) : '0.00'}
           currency={currency}
+           
           emphasis="strong"
         />
       </div>

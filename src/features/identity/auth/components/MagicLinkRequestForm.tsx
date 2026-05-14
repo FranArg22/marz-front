@@ -1,13 +1,15 @@
 import { z } from 'zod'
 import { useSignIn, useSignUp } from '@clerk/tanstack-react-start'
 import { useRouter } from '@tanstack/react-router'
+import { t } from '@lingui/core/macro'
 
 import { useAppForm } from '#/shared/ui/form'
 import { track } from '#/shared/analytics/track'
 
-const emailSchema = z.object({
-  email: z.string().email('Ingresá un email válido'),
-})
+const getEmailSchema = () =>
+  z.object({
+    email: z.string().email(t`Ingresá un email válido`),
+  })
 
 function clerkErrorCode(err: unknown): string | undefined {
   if (typeof err !== 'object' || err == null) return undefined
@@ -31,7 +33,9 @@ function clerkErrorMessage(err: unknown): string {
     nested?.longMessage ??
     nested?.message ??
     direct.message ??
-    (err instanceof Error ? err.message : 'Error inesperado. Intentá de nuevo.')
+    (err instanceof Error
+      ? err.message
+      : t`Error inesperado. Intentá de nuevo.`)
   )
 }
 
@@ -42,10 +46,10 @@ export function MagicLinkRequestForm() {
 
   const form = useAppForm({
     defaultValues: { email: '' },
-    validators: { onChange: emailSchema, onSubmit: emailSchema },
+    validators: { onChange: getEmailSchema(), onSubmit: getEmailSchema() },
     onSubmit: async ({ value, formApi }) => {
       const email = value.email.trim()
-      const verificationUrl = `${window.location.origin}/auth/callback`
+      const verificationUrl = `${window.location.origin}/auth/callback`  
 
       try {
         const signInCreate = await signIn.create({ identifier: email })
@@ -71,7 +75,7 @@ export function MagicLinkRequestForm() {
           if (sendLink.error) throw sendLink.error
         }
 
-        track('magic_link_requested', { email })
+        track('magic_link_requested', { email })  
 
         void router.navigate({
           to: '/auth/check-email',
@@ -79,6 +83,7 @@ export function MagicLinkRequestForm() {
         })
       } catch (err) {
         formApi.setFieldMeta('email', (prev) => ({
+           
           ...prev,
           errorMap: { ...prev.errorMap, onServer: clerkErrorMessage(err) },
           isTouched: true,
@@ -99,8 +104,8 @@ export function MagicLinkRequestForm() {
         {(field) => (
           <field.TextField
             type="email"
-            label="Email"
-            placeholder="tu@empresa.com"
+            label={t`Email`}
+            placeholder={t`tu@empresa.com`}
             autoComplete="email"
             className="h-11 rounded-xl border-border bg-input px-3.5 text-sm"
           />
@@ -109,8 +114,8 @@ export function MagicLinkRequestForm() {
 
       <form.AppForm>
         <form.SubmitButton
-          label="Continuar con email"
-          loadingLabel="Enviando…"
+          label={t`Continuar con email`}
+          loadingLabel={t`Enviando…`}
           className="h-12 rounded-xl text-sm font-semibold"
         />
       </form.AppForm>

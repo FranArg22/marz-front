@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useRef, useCallback } from 'react'
+import { t } from '@lingui/core/macro'
 import type { DomainEventEnvelope, EventHandler } from '#/shared/ws/events'
 import { SubscribeError, useWebSocket } from '#/shared/ws/useWebSocket'
 import type { BriefDraft } from '#/features/campaigns/brief-builder/store'
@@ -29,15 +30,18 @@ const STEP_NAMES: BriefProcessingStepName[] = [
   'generating_filters',
 ]
 
-const STEP_LABELS: Record<BriefProcessingStepName, string> = {
-  reading_website: 'Leyendo sitio web',
-  processing_description: 'Procesando descripción',
-  generating_icp: 'Generando ICP',
-  generating_scoring: 'Generando scoring',
-  generating_filters: 'Generando filtros',
+function getStepLabels(): Record<BriefProcessingStepName, string> {
+  return {
+    reading_website: t`Leyendo sitio web`,
+    processing_description: t`Procesando descripción`,
+    generating_icp: t`Generando ICP`,
+    generating_scoring: t`Generando scoring`,
+    generating_filters: t`Generando filtros`,
+  }
 }
 
 function buildInitialSteps(): ProcessingStep[] {
+  const STEP_LABELS = getStepLabels()
   return STEP_NAMES.map((name, i) => ({
     step: (i + 1) as 1 | 2 | 3 | 4 | 5,
     name,
@@ -279,16 +283,16 @@ function briefBuilderWSReducer(
 function getSubscribeErrorMessage(code: string): string {
   switch (code) {
     case 'token_not_found':
-      return 'El análisis no existe o expiró. Volvé al formulario.'
+      return t`El análisis no existe o expiró. Volvé al formulario.`
     case 'ownership_error':
-      return 'No tenés permiso sobre este análisis.'
+      return t`No tenés permiso sobre este análisis.`
     case 'invalid_payload':
-      return 'No se pudo iniciar la suscripción al análisis.'
+      return t`No se pudo iniciar la suscripción al análisis.`
     case 'timeout':
-      return 'No se pudo conectar al análisis. Volvé a intentar.'
+      return t`No se pudo conectar al análisis. Volvé a intentar.`
     case 'disconnected':
-      return 'Se perdió la conexión con el servidor.'
+      return t`Se perdió la conexión con el servidor.`
     default:
-      return 'Ocurrió un error al conectar con el servidor.'
+      return t`Ocurrió un error al conectar con el servidor.`
   }
 }

@@ -1,5 +1,6 @@
 import { Check, ChevronLeft, Info, Paperclip, Send } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { IconButton } from '#/shared/ui/IconButton'
@@ -81,7 +82,7 @@ export function MobileChatHeader({
 }: MobileChatHeaderProps) {
   return (
     <header className="flex items-center gap-3 border-b border-border p-3">
-      <IconButton shape="circle" aria-label="Back" onClick={onBack}>
+      <IconButton shape="circle" aria-label={t`Volver`} onClick={onBack}>
         <ChevronLeft />
       </IconButton>
       <Avatar className="size-10">
@@ -97,7 +98,7 @@ export function MobileChatHeader({
       </div>
       <IconButton
         shape="circle"
-        aria-label="Conversation info"
+        aria-label={t`Información de conversación`}
         onClick={onInfo}
       >
         <Info />
@@ -120,24 +121,29 @@ export function MobileComposer({
   onChange,
   onSend,
   onAttach,
-  placeholder = 'Message',
+  placeholder,
 }: MobileComposerProps) {
+  const resolvedPlaceholder = placeholder ?? t`Mensaje`
   return (
     <div className="flex items-center gap-2 border-t border-border bg-background p-3">
-      <IconButton shape="circle" aria-label="Attach file" onClick={onAttach}>
+      <IconButton
+        shape="circle"
+        aria-label={t`Adjuntar archivo`}
+        onClick={onAttach}
+      >
         <Paperclip />
       </IconButton>
       <input
         type="text"
         value={value}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         onChange={(e) => onChange?.(e.target.value)}
         className="flex-1 rounded-full bg-muted px-4 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
       />
       <IconButton
         variant="solid"
         shape="circle"
-        aria-label="Send message"
+        aria-label={t`Enviar mensaje`}
         onClick={onSend}
       >
         <Send />

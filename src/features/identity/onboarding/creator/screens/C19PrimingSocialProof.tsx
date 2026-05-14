@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 import { Quote } from 'lucide-react'
 
 export function C19PrimingSocialProof() {
@@ -26,11 +27,13 @@ export function C19PrimingSocialProof() {
             className="flex size-9 items-center justify-center rounded-full"
             style={{ backgroundColor: '#A855F7' }}
           >
-            <span className="text-[11px] font-bold text-white">VM</span>
+            <span className="text-[11px] font-bold text-white">
+              <Trans>VM</Trans>
+            </span>
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-semibold text-foreground">
-              Valentina Medina
+              <Trans>Valentina Medina</Trans>
             </span>
             <span className="text-[10px] text-muted-foreground">
               {t`@valenmed · 190K TikTok · 3 años en Marz`}
@@ -40,9 +43,9 @@ export function C19PrimingSocialProof() {
       </div>
 
       <div className="relative flex items-center gap-12">
-        <Stat value="2.340" label={t`creadores activos`} />
-        <Stat value="24h" label={t`payout promedio`} />
-        <Stat value="0%" label={t`take rate`} />
+        <Stat value={t`2.340`} label={t`creadores activos`} />
+        <Stat value={t`24h`} label={t`payout promedio`} />
+        <Stat value={t`0%`} label={t`take rate`} />
       </div>
     </div>
   )

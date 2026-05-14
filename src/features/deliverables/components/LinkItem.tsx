@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 
@@ -10,13 +11,14 @@ interface LinkItemProps {
 
 const badgeByStatus: Record<
   NonNullable<LinkItemProps['status']>,
-  { label: string; variant: 'default' | 'secondary' | 'destructive' }
+  { label: () => string; variant: 'default' | 'secondary' | 'destructive' }
 > = {
-  pending: { label: 'Pending', variant: 'default' },
-  approved: { label: 'Approved', variant: 'secondary' },
-  rejected: { label: 'Rejected', variant: 'destructive' },
+  pending: { label: () => t`Pending`, variant: 'default' },
+  approved: { label: () => t`Approved`, variant: 'secondary' },
+  rejected: { label: () => t`Rejected`, variant: 'destructive' },
 }
 
+ 
 export function LinkItem({ url, status = 'pending', href }: LinkItemProps) {
   const statusMeta = badgeByStatus[status]
   return (
@@ -30,7 +32,7 @@ export function LinkItem({ url, status = 'pending', href }: LinkItemProps) {
       >
         {url}
       </a>
-      <Badge variant={statusMeta.variant}>{statusMeta.label}</Badge>
+      <Badge variant={statusMeta.variant}>{statusMeta.label()}</Badge>
     </div>
   )
 }

@@ -14,6 +14,7 @@ import {
 import { FieldRow } from '#/shared/ui/form'
 import type { CreatorChannel, CreatorRateCard } from '../types'
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const PLATFORMS = [
   { value: 'instagram', label: 'Instagram' },
   { value: 'tiktok', label: 'TikTok' },
@@ -34,6 +35,7 @@ const FORMATS_BY_PLATFORM: Record<string, { value: string; label: string }[]> =
       { value: 'yt_podcast', label: 'Podcast' },
     ],
   }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 function emptyChannel(platform: string): CreatorChannel {
   return {
@@ -48,7 +50,7 @@ function emptyChannel(platform: string): CreatorChannel {
 }
 
 function emptyRateCard(format: string): CreatorRateCard {
-  return { format, rate_amount: '', rate_currency: 'USD' }
+  return { format, rate_amount: '', rate_currency: 'USD' }  
 }
 
 function hasAmount(rc: CreatorRateCard): boolean {
@@ -68,8 +70,9 @@ function buildSummary(
   if (cards.length === 1) {
     const rc = cards[0]!
     if (!hasAmount(rc)) {
+      const formatLabel = labelOf(rc.format)
       return {
-        text: t`A la tarifa ${labelOf(rc.format)} le falta monto`,
+        text: t`A la tarifa ${formatLabel} le falta monto`,
         missing: true,
       }
     }
@@ -91,7 +94,8 @@ function buildSummary(
       missing: true,
     }
   }
-  return { text: t`${cards.length} tarifas`, missing: false }
+  const cardCount = cards.length
+  return { text: t`${cardCount} tarifas`, missing: false }
 }
 
 interface ChannelHeaderProps {
@@ -295,7 +299,7 @@ function ChannelBody({
               {...aria}
               value={channel.external_handle}
               onChange={(e) => onUpdateHandle(e.target.value.replace(/@/g, ''))}
-              placeholder="tu_handle"
+              placeholder={t`tu_handle`}
               maxLength={200}
               className="pl-7"
               aria-invalid={channel.external_handle.trim() === '' || undefined}

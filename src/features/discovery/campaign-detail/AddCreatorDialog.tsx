@@ -27,15 +27,17 @@ interface AddCreatorDialogProps {
   allowsInPlatformInvites: boolean
 }
 
-const addCreatorSchema = z.object({
-  mode: z.enum(['email', 'in_platform']),
-  email: z.email(t`Ingresá un email válido`).or(z.literal('')),
-  // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
-  // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
-  creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
-})
+function buildAddCreatorSchema() {
+  return z.object({
+    mode: z.enum(['email', 'in_platform']),
+    email: z.email(t`Ingresá un email válido`).or(z.literal('')),
+    // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
+    // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
+    creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
+  })
+}
 
-type AddCreatorFormValues = z.infer<typeof addCreatorSchema>
+type AddCreatorFormValues = z.infer<ReturnType<typeof buildAddCreatorSchema>>
 
 const defaultValues: AddCreatorFormValues = {
   mode: 'email',
@@ -60,7 +62,7 @@ export function AddCreatorDialog({
   const form = useAppForm({
     defaultValues,
     validators: {
-      onChange: addCreatorSchema,
+      onChange: buildAddCreatorSchema(),
     },
     onSubmit: async ({ value }) => {
       const validationError = getAddCreatorValidationError(value)

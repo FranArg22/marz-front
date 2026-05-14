@@ -1,5 +1,7 @@
 import { ChevronDown, Instagram, Sparkles, Timer, Youtube } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
@@ -42,7 +44,7 @@ type OfferCardProps = OfferCardReceivedProps | OfferCardSentProps
 
 export function OfferCard(props: OfferCardProps) {
   const isReceived = props.variant === 'received'
-  const kicker = isReceived ? 'New campaign offer' : 'Offer sent'
+  const kicker = isReceived ? t`New campaign offer` : t`Offer sent`
   const icon = isReceived ? Sparkles : Timer
 
   return (
@@ -51,8 +53,8 @@ export function OfferCard(props: OfferCardProps) {
         <h3 className="text-lg font-semibold text-foreground">{props.title}</h3>
 
         <div className="flex gap-3">
-          <StatTile label="Budget" value={props.budget} />
-          <StatTile label="Deadline" value={props.deadline} />
+          <StatTile label={t`Budget`} value={props.budget} />
+          <StatTile label={t`Deadline`} value={props.deadline} />
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -73,20 +75,20 @@ export function OfferCard(props: OfferCardProps) {
         {isReceived ? (
           <div className="flex gap-2">
             <Button className="flex-1" onClick={props.onAccept}>
-              Accept Offer
+              <Trans>Accept Offer</Trans>
             </Button>
             <Button
               variant="outline"
               className="flex-1"
               onClick={props.onReject}
             >
-              Reject
+              <Trans>Reject</Trans>
             </Button>
           </div>
         ) : (
           <div className="flex items-center justify-center gap-2 rounded-full bg-muted px-4 py-3 text-sm text-muted-foreground">
             <Timer className="size-4" />
-            {props.statusLabel ?? 'Awaiting response'}
+            {props.statusLabel ?? t`Awaiting response`}
           </div>
         )}
       </div>
@@ -101,28 +103,30 @@ interface OfferCardCollapsedProps {
   onExpand?: () => void
 }
 
-const statusBadge: Record<
+function getStatusBadge(): Record<
   OfferCardCollapsedProps['status'],
   {
     label: string
     variant: 'default' | 'secondary' | 'destructive' | 'outline'
   }
-> = {
-  draft: { label: 'Draft', variant: 'outline' },
-  sent: { label: 'Sent', variant: 'secondary' },
-  accepted: { label: 'Accepted', variant: 'default' },
-  rejected: { label: 'Rejected', variant: 'destructive' },
-  expired: { label: 'Expired', variant: 'outline' },
-  negotiating: { label: 'Negotiating', variant: 'secondary' },
+> {
+  return {
+    draft: { label: t`Draft`, variant: 'outline' },
+    sent: { label: t`Sent`, variant: 'secondary' },
+    accepted: { label: t`Accepted`, variant: 'default' },
+    rejected: { label: t`Rejected`, variant: 'destructive' },
+    expired: { label: t`Expired`, variant: 'outline' },
+    negotiating: { label: t`Negotiating`, variant: 'secondary' },
+  }
 }
 
 export function OfferCardCollapsed({
   offerId,
   status,
-  label = 'Current Offer',
+  label = t`Current Offer`,
   onExpand,
 }: OfferCardCollapsedProps) {
-  const badge = statusBadge[status]
+  const badge = getStatusBadge()[status]
   return (
     <div className="flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2.5">
       <span className="text-sm font-semibold text-foreground">{label}</span>
@@ -134,8 +138,9 @@ export function OfferCardCollapsed({
       </Badge>
       <IconButton
         size="sm"
+         
         shape="circle"
-        aria-label="Expand offer"
+        aria-label={t`Expand offer`}
         onClick={onExpand}
       >
         <ChevronDown />

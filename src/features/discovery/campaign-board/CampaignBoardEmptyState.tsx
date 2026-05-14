@@ -9,37 +9,39 @@ interface CampaignBoardEmptyStateProps {
   onAction?: () => void
 }
 
-const emptyStateCopy = {
-  error: {
-    title: t`No pudimos cargar las campañas`,
-    description: t`Intentá actualizar el board. Si sigue fallando, probá de nuevo más tarde.`,
-    action: t`Actualizar`,
-  },
-  no_campaigns: {
-    title: t`Sin campañas por ahora`,
-    description: t`Todavía no hay campañas abiertas que matcheen con vos. Te avisamos cuando lleguen.`,
-    action: t`Editar mi perfil`,
-  },
-  no_filters: {
-    title: t`Sin resultados para esos filtros`,
-    description: t`Probá ajustar la búsqueda o limpiar filtros para volver a ver campañas disponibles.`,
-    action: t`Limpiar filtros`,
-  },
-  no_recommendations: {
-    title: t`Sin campañas recomendadas por ahora`,
-    description: t`No tenemos recomendaciones para vos en este momento. Sacá el filtro para ver todo el board.`,
-    action: t`Ver todo el board`,
-  },
-} satisfies Record<
+function getEmptyStateCopy(): Record<
   CampaignBoardEmptyStateType,
   { title: string; description: string; action: string }
->
+> {
+  return {
+    error: {
+      title: t`No pudimos cargar las campañas`,
+      description: t`Intentá actualizar el board. Si sigue fallando, probá de nuevo más tarde.`,
+      action: t`Actualizar`,
+    },
+    no_campaigns: {
+      title: t`Sin campañas por ahora`,
+      description: t`Todavía no hay campañas abiertas que matcheen con vos. Te avisamos cuando lleguen.`,
+      action: t`Editar mi perfil`,
+    },
+    no_filters: {
+      title: t`Sin resultados para esos filtros`,
+      description: t`Probá ajustar la búsqueda o limpiar filtros para volver a ver campañas disponibles.`,
+      action: t`Limpiar filtros`,
+    },
+    no_recommendations: {
+      title: t`Sin campañas recomendadas por ahora`,
+      description: t`No tenemos recomendaciones para vos en este momento. Sacá el filtro para ver todo el board.`,
+      action: t`Ver todo el board`,
+    },
+  }
+}
 
 export function CampaignBoardEmptyState({
   type,
   onAction,
 }: CampaignBoardEmptyStateProps) {
-  const copy = emptyStateCopy[type]
+  const copy = getEmptyStateCopy()[type]
   const isError = type === 'error'
 
   return (

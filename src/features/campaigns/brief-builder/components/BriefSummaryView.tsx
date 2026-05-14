@@ -1,16 +1,22 @@
+import { t } from '@lingui/core/macro'
+
 import type { BriefDraft } from '../store'
 
-const OBJECTIVE_LABELS: Record<string, string> = {
-  brand_awareness: 'Brand Awareness',
-  conversion: 'Conversión',
-  engagement: 'Engagement',
-  reach: 'Alcance',
+function getObjectiveLabels(): Record<string, string> {
+  return {
+    brand_awareness: t`Brand Awareness`,
+    conversion: t`Conversión`,
+    engagement: t`Engagement`,
+    reach: t`Alcance`,
+  }
 }
 
-const GENDER_LABELS: Record<string, string> = {
-  male: 'Masculino',
-  female: 'Femenino',
-  non_binary: 'No binario',
+function getGenderLabels(): Record<string, string> {
+  return {
+    male: t`Masculino`,
+    female: t`Femenino`,
+    non_binary: t`No binario`,
+  }
 }
 
 const PLATFORM_LABELS: Record<string, string> = {
@@ -30,46 +36,48 @@ interface SummarySection {
 
 function buildSections(draft: BriefDraft): SummarySection[] {
   const sections: SummarySection[] = []
+  const OBJECTIVE_LABELS = getObjectiveLabels()
+  const GENDER_LABELS = getGenderLabels()
 
   const campaignItems: { label: string; value: string }[] = []
   if (draft.campaign.name) {
-    campaignItems.push({ label: 'Nombre', value: draft.campaign.name })
+    campaignItems.push({ label: t`Nombre`, value: draft.campaign.name })
   }
   if (draft.campaign.objective) {
     campaignItems.push({
-      label: 'Objetivo',
+      label: t`Objetivo`,
       value:
         OBJECTIVE_LABELS[draft.campaign.objective] ?? draft.campaign.objective,
     })
   }
   if (draft.campaign.budget_amount) {
     campaignItems.push({
-      label: 'Presupuesto',
+      label: t`Presupuesto`,
       value: `${draft.campaign.budget_currency} ${String(draft.campaign.budget_amount)}`,
     })
   }
   if (draft.campaign.deadline) {
-    campaignItems.push({ label: 'Deadline', value: draft.campaign.deadline })
+    campaignItems.push({ label: t`Deadline`, value: draft.campaign.deadline })
   }
   if (campaignItems.length > 0) {
-    sections.push({ title: 'Campaña', items: campaignItems })
+    sections.push({ title: t`Campaña`, items: campaignItems })
   }
 
   const icpItems: { label: string; value: string }[] = []
   if (draft.brief.icp_description) {
-    icpItems.push({ label: 'Descripción', value: draft.brief.icp_description })
+    icpItems.push({ label: t`Descripción`, value: draft.brief.icp_description })
   }
   if (draft.brief.icp_age_min != null || draft.brief.icp_age_max != null) {
     const min = draft.brief.icp_age_min ?? '—'
     const max = draft.brief.icp_age_max ?? '—'
     icpItems.push({
-      label: 'Rango de edad',
+      label: t`Rango de edad`,
       value: `${String(min)} – ${String(max)}`,
     })
   }
   if (draft.brief.icp_genders.length > 0) {
     icpItems.push({
-      label: 'Géneros',
+      label: t`Géneros`,
       value: draft.brief.icp_genders
         .map((g) => GENDER_LABELS[g] ?? g)
         .join(', '),
@@ -77,13 +85,13 @@ function buildSections(draft: BriefDraft): SummarySection[] {
   }
   if (draft.brief.icp_countries.length > 0) {
     icpItems.push({
-      label: 'Países',
+      label: t`Países`,
       value: draft.brief.icp_countries.join(', '),
     })
   }
   if (draft.brief.icp_platforms.length > 0) {
     icpItems.push({
-      label: 'Plataformas',
+      label: t`Plataformas`,
       value: draft.brief.icp_platforms
         .map((p) => PLATFORM_LABELS[p] ?? p)
         .join(', '),
@@ -91,17 +99,17 @@ function buildSections(draft: BriefDraft): SummarySection[] {
   }
   if (draft.brief.icp_interests.length > 0) {
     icpItems.push({
-      label: 'Intereses',
+      label: t`Intereses`,
       value: draft.brief.icp_interests.join(', '),
     })
   }
   if (icpItems.length > 0) {
-    sections.push({ title: 'ICP', items: icpItems })
+    sections.push({ title: t`ICP`, items: icpItems })
   }
 
   if (draft.brief.scoring_dimensions.length > 0) {
     sections.push({
-      title: 'Scoring Dimensions',
+      title: t`Scoring Dimensions`,
       items: draft.brief.scoring_dimensions.map((d) => ({
         label: d.name,
         value: `${String(d.weight_pct)}% — ${d.description || '—'}`,
@@ -111,7 +119,7 @@ function buildSections(draft: BriefDraft): SummarySection[] {
 
   if (draft.brief.hard_filters.length > 0) {
     sections.push({
-      title: 'Hard Filters',
+      title: t`Hard Filters`,
       items: draft.brief.hard_filters.map((f) => ({
         label: f.filter_type,
         value: f.filter_value,
@@ -121,9 +129,9 @@ function buildSections(draft: BriefDraft): SummarySection[] {
 
   if (draft.brief.disqualifiers.length > 0) {
     sections.push({
-      title: 'Disqualifiers',
+      title: t`Disqualifiers`,
       items: draft.brief.disqualifiers.map((d) => ({
-        label: 'Disqualifier',
+        label: t`Disqualifier`,
         value: d,
       })),
     })
@@ -138,7 +146,7 @@ export function BriefSummaryView({ draft }: BriefSummaryViewProps) {
   if (sections.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
-        No hay datos disponibles en el brief.
+        {t`No hay datos disponibles en el brief.`}
       </p>
     )
   }

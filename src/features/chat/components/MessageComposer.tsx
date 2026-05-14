@@ -22,6 +22,7 @@ interface MessageComposerProps {
   currentAccountId: string
   canSend: boolean
   wsSend: (payload: unknown) => void
+  onSent?: () => void
 }
 
 export function MessageComposer({
@@ -29,6 +30,7 @@ export function MessageComposer({
   currentAccountId,
   canSend,
   wsSend,
+  onSent,
 }: MessageComposerProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const labelId = useId()
@@ -57,6 +59,7 @@ export function MessageComposer({
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto'
       }
+      onSent?.()
     },
   })
 

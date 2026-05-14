@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { Building2, User, Briefcase, Hourglass, ArrowRight } from 'lucide-react'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import {
   getMeQueryKey,
@@ -16,29 +18,30 @@ type CardKind = 'brand' | 'creator' | 'agency'
 const cards: Array<{
   kind: CardKind
   icon: typeof Building2
-  title: string
-  description: string
+  title: () => string
+  description: () => string
   disabled: boolean
 }> = [
   {
-    kind: 'brand',
+    kind: 'brand',  
     icon: Building2,
-    title: 'Soy una marca',
-    description: 'Quiero correr campañas con creadores.',
+    title: () => t`Soy una marca`,
+    description: () => t`Quiero correr campañas con creadores.`,
     disabled: false,
   },
   {
-    kind: 'creator',
+    kind: 'creator',  
     icon: User,
-    title: 'Soy creador',
-    description: 'Quiero recibir ofertas de marcas afines y cobrar rápido.',
+    title: () => t`Soy creador`,
+    description: () =>
+      t`Quiero recibir ofertas de marcas afines y cobrar rápido.`,
     disabled: false,
   },
   {
-    kind: 'agency',
+    kind: 'agency',  
     icon: Briefcase,
-    title: 'Soy una agencia',
-    description: 'Manejo campañas para varias marcas.',
+    title: () => t`Soy una agencia`,
+    description: () => t`Manejo campañas para varias marcas.`,
     disabled: true,
   },
 ]
@@ -60,13 +63,13 @@ export function KindSelector() {
       { data: { kind } },
       {
         onSuccess: async (response) => {
-          track('kind_selected', { kind })
+          track('kind_selected', { kind })  
 
           await queryClient.refetchQueries({
             queryKey: getMeQueryKey(),
           })
 
-          const fallback = `/onboarding/${kind}`
+          const fallback = `/onboarding/${kind}`  
           const destination =
             response.status === 200
               ? (response.data.redirect_to ?? fallback)
@@ -89,7 +92,7 @@ export function KindSelector() {
             return
           }
 
-          setError('Algo salió mal. Intentá de nuevo.')
+          setError(t`Algo salió mal. Intentá de nuevo.`)
         },
       },
     )
@@ -99,17 +102,19 @@ export function KindSelector() {
     <div className="flex w-full flex-col items-center gap-12">
       <div className="flex flex-col items-center gap-2.5">
         <h1 className="text-center text-[28px] font-semibold leading-tight tracking-tight text-foreground">
-          ¿Qué te trae por acá?
+          <Trans>¿Qué te trae por acá?</Trans>
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          Elegí tu rol. Vamos a personalizar la experiencia desde acá.
+          <Trans>
+            Elegí tu rol. Vamos a personalizar la experiencia desde acá.
+          </Trans>
         </p>
       </div>
 
       <div
         className="flex flex-wrap justify-center gap-5"
         role="group"
-        aria-label="Seleccioná tu rol"
+        aria-label={t`Seleccioná tu rol`}
       >
         {cards.map((card) => {
           const isSelected = selected === card.kind
@@ -156,14 +161,14 @@ export function KindSelector() {
                 {card.disabled && (
                   <span className="flex w-fit items-center gap-1.5 rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
                     <Hourglass size={12} />
-                    Próximamente
+                    <Trans>Próximamente</Trans>
                   </span>
                 )}
                 <span className="text-[15px] font-semibold text-foreground">
-                  {card.title}
+                  {card.title()}
                 </span>
                 <span className="text-xs leading-relaxed text-muted-foreground">
-                  {card.description}
+                  {card.description()}
                 </span>
               </div>
             </button>
@@ -183,7 +188,7 @@ export function KindSelector() {
         onClick={handleSubmit}
         className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground transition-opacity disabled:opacity-50"
       >
-        Continuar
+        <Trans>Continuar</Trans>
         <ArrowRight size={16} />
       </button>
     </div>

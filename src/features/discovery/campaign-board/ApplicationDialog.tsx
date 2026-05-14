@@ -21,16 +21,18 @@ import { applyBackendFieldErrors, useAppForm } from '#/shared/ui/form'
 import { useSubmitCampaignApplicationMutation } from './hooks/useSubmitCampaignApplicationMutation'
 import { generateIdempotencyKey } from '#/shared/api/idempotency'
 
-const applicationFormSchema = z.object({
-  message: z
-    .string()
-    .trim()
-    .min(1, t`Escribí un mensaje para postularte.`)
-    .max(
-      submitCreatorCampaignBoardApplicationBodyMessageMax,
-      t`El mensaje no puede superar los ${submitCreatorCampaignBoardApplicationBodyMessageMax} caracteres.`,
-    ),
-})
+function buildApplicationFormSchema() {
+  return z.object({
+    message: z
+      .string()
+      .trim()
+      .min(1, t`Escribí un mensaje para postularte.`)
+      .max(
+        submitCreatorCampaignBoardApplicationBodyMessageMax,
+        t`El mensaje no puede superar los ${submitCreatorCampaignBoardApplicationBodyMessageMax} caracteres.`,
+      ),
+  })
+}
 
 interface ApplicationDialogProps {
   open: boolean
@@ -64,7 +66,7 @@ export function ApplicationDialog({
   const form = useAppForm({
     defaultValues: { message: '' },
     validators: {
-      onChange: applicationFormSchema,
+      onChange: buildApplicationFormSchema(),
     },
     onSubmit: async ({ value }) => {
       if (!campaignId) return
@@ -114,7 +116,8 @@ export function ApplicationDialog({
   })
 
   const message = useStore(form.store, (state) => state.values.message)
-  const counterLabel = t`${message.length}/${submitCreatorCampaignBoardApplicationBodyMessageMax}`
+  const messageLength = message.length
+  const counterLabel = t`${messageLength}/${submitCreatorCampaignBoardApplicationBodyMessageMax}`
 
   useEffect(() => {
     if (!open) {

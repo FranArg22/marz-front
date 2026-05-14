@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro'
 import {
   Dialog,
   DialogContent,
@@ -23,18 +24,17 @@ export function LeaveConfirmDialog({
     <Dialog open={open} onOpenChange={(v) => !v && onCancel()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>¿Salir del brief builder?</DialogTitle>
+          <DialogTitle>{t`¿Salir del brief builder?`}</DialogTitle>
           <DialogDescription>
-            Vas a perder el progreso del brief. Esta acción no se puede
-            deshacer.
+            {t`Vas a perder el progreso del brief. Esta acción no se puede deshacer.`}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="outline" onClick={onCancel}>
-            Seguir editando
+            {t`Seguir editando`}
           </Button>
           <Button variant="destructive" onClick={onConfirm}>
-            Salir
+            {t`Salir`}
           </Button>
         </DialogFooter>
       </DialogContent>

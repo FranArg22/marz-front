@@ -47,6 +47,11 @@ export function useApproveLinkMutation() {
       void queryClient.invalidateQueries({
         queryKey: getDeliverableLinksQueryKey(variables.deliverableId),
       })
+      void queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) &&
+          query.queryKey[0] === 'conversation-deliverables',
+      })
     },
     onError: (_err, variables, context) => {
       if (context?.previous !== undefined) {

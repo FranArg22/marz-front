@@ -1,6 +1,8 @@
+ 
 import { useState } from 'react'
 import { Play } from 'lucide-react'
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
@@ -18,15 +20,15 @@ interface DraftVersionListProps {
 function getStatusMeta(status: 'approved' | 'changes_requested' | 'submitted') {
   const map: Record<typeof status, { label: string; className: string }> = {
     approved: {
-      label: t`Approved`,
+      label: t`Aprobado`,
       className: 'bg-success text-success-foreground',
     },
     changes_requested: {
-      label: t`Changes requested`,
+      label: t`Cambios solicitados`,
       className: 'bg-warning text-warning-foreground',
     },
     submitted: {
-      label: t`Submitted`,
+      label: t`Enviado`,
       className: 'bg-info text-info-foreground',
     },
   }
@@ -62,6 +64,7 @@ export function DraftVersionList({
         const isCurrent = draft.version === maxVersion
         const status = getDraftStatus(draft, changeRequestDraftIds)
         const meta = getStatusMeta(status)
+        const version = draft.version
 
         return (
           <div
@@ -71,11 +74,11 @@ export function DraftVersionList({
             className="flex items-center gap-2 rounded-md border border-border bg-background px-2.5 py-2"
           >
             <span className="text-xs font-medium text-foreground">
-              v{draft.version}
+              <Trans>v{version}</Trans>
             </span>
             {isCurrent && (
               <Badge className="rounded-full bg-accent text-accent-foreground text-[10px]">
-                {t`Current`}
+                {t`Actual`}
               </Badge>
             )}
             <Badge className={cn('rounded-full text-[10px]', meta.className)}>
@@ -86,7 +89,7 @@ export function DraftVersionList({
               variant="ghost"
               size="icon"
               className="size-7"
-              aria-label={t`Play draft v${draft.version}`}
+              aria-label={t`Play draft v${version}`}
               onClick={() => setPreviewDraft(draft)}
             >
               <Play className="size-4" />
@@ -95,31 +98,35 @@ export function DraftVersionList({
         )
       })}
 
-      {previewDraft && (
-        <Dialog
-          open
-          onOpenChange={(open) => {
-            if (!open) setPreviewDraft(null)
-          }}
-        >
-          <DialogContent
-            className="max-w-lg"
-            aria-labelledby="preview-draft-title"
-            aria-describedby={undefined}
-          >
-            <DialogTitle id="preview-draft-title" className="sr-only">
-              {t`Preview draft v${previewDraft.version}`}
-            </DialogTitle>
-            <InlineVideoPlayer
-              playbackUrl={previewDraft.playback_url}
-              thumbnailUrl={previewDraft.thumbnail_url ?? undefined}
-              durationSec={previewDraft.duration_sec ?? undefined}
-              deliverableId={deliverableId}
-              draftId={previewDraft.id}
-            />
-          </DialogContent>
-        </Dialog>
-      )}
+      {previewDraft &&
+        (() => {
+          const previewVersion = previewDraft.version
+          return (
+            <Dialog
+              open
+              onOpenChange={(open) => {
+                if (!open) setPreviewDraft(null)
+              }}
+            >
+              <DialogContent
+                className="max-w-lg"
+                aria-labelledby="preview-draft-title"
+                aria-describedby={undefined}
+              >
+                <DialogTitle id="preview-draft-title" className="sr-only">
+                  {t`Preview draft v${previewVersion}`}
+                </DialogTitle>
+                <InlineVideoPlayer
+                  playbackUrl={previewDraft.playback_url}
+                  thumbnailUrl={previewDraft.thumbnail_url ?? undefined}
+                  durationSec={previewDraft.duration_sec ?? undefined}
+                  deliverableId={deliverableId}
+                  draftId={previewDraft.id}
+                />
+              </DialogContent>
+            </Dialog>
+          )
+        })()}
     </div>
   )
 }

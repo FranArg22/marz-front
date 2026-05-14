@@ -161,13 +161,9 @@ describe('LinkApprovedCard', () => {
       [
         'brand member',
         { kind: 'brand' as const, role: 'member' as const },
-        false,
+        true,
       ],
-      [
-        'brand admin',
-        { kind: 'brand' as const, role: 'admin' as const },
-        false,
-      ],
+      ['brand admin', { kind: 'brand' as const, role: 'admin' as const }, true],
       ['creator', { kind: 'creator' as const, role: undefined }, false],
     ])(
       'shows Mark as paid for %s only when allowed',

@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro'
 import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/components'
 import { useCreatorOnboardingStore } from '../store'
 
+ 
 const NICHE_OPTIONS: { value: string; label: () => string }[] = [
   { value: 'fintech', label: () => t`Fintech` },
   { value: 'tech', label: () => t`Tech` },
@@ -19,6 +20,7 @@ const NICHE_OPTIONS: { value: string; label: () => string }[] = [
   { value: 'fashion', label: () => t`Moda` },
   { value: 'parenting', label: () => t`Parenting` },
 ]
+ 
 
 export function C5NichesScreen() {
   const store = useCreatorOnboardingStore()
@@ -27,11 +29,11 @@ export function C5NichesScreen() {
   const toggle = (value: string) => {
     if (selected.includes(value)) {
       store.setField(
-        'niches',
+        'niches',  
         selected.filter((v) => v !== value),
       )
     } else if (selected.length < 5) {
-      store.setField('niches', [...selected, value])
+      store.setField('niches', [...selected, value])  
     }
   }
 
@@ -56,7 +58,10 @@ export function C5NichesScreen() {
         ))}
       </div>
       <p className="text-xs text-muted-foreground" aria-live="polite">
-        {t`${selected.length} de 5 seleccionados`}
+        {(() => {
+          const n = selected.length
+          return t`${n} de 5 seleccionados`
+        })()}
       </p>
     </div>
   )

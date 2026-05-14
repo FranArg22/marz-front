@@ -265,20 +265,57 @@ function DeliverablesList({
   return (
     <div className="space-y-3">
       {deliverables.map((deliverable) => (
-        <div
-          key={deliverable.key}
-          className="rounded-2xl border border-border p-4"
-        >
-          <p className="text-sm font-semibold text-foreground">
-            {t`${deliverable.quantity}x ${formatLabel(deliverable.platform)} · ${formatLabel(deliverable.format)}`}
-          </p>
-          {deliverable.description ? (
-            <p className="mt-1 text-sm text-muted-foreground">
-              {deliverable.description}
-            </p>
-          ) : null}
-        </div>
+        <DeliverableItem key={deliverable.key} deliverable={deliverable} />
       ))}
+    </div>
+  )
+}
+
+function DeliverableItem({
+  deliverable,
+}: {
+  deliverable: DeliverableSnapshot
+}) {
+  const qty = deliverable.quantity
+  const platform = formatLabel(deliverable.platform)
+  const format = formatLabel(deliverable.format)
+
+  return (
+    <div className="rounded-2xl border border-border p-4">
+      <p className="text-sm font-semibold text-foreground">
+        {t`${qty}x ${platform} · ${format}`}
+      </p>
+      {deliverable.description ? (
+        <p className="mt-1 text-sm text-muted-foreground">
+          {deliverable.description}
+        </p>
+      ) : null}
+    </div>
+  )
+}
+
+function ScoringDimensionHeader({
+  dimension,
+}: {
+  dimension: ScoringDimensionSnapshot
+}) {
+  const weightPct = dimension.weight_pct
+
+  return (
+    <div className="flex items-start justify-between gap-3">
+      <div>
+        <p className="text-sm font-semibold text-foreground">
+          {dimension.name}
+        </p>
+        {dimension.description ? (
+          <p className="mt-1 text-sm text-muted-foreground">
+            {dimension.description}
+          </p>
+        ) : null}
+      </div>
+      <Badge variant="secondary" className="rounded-full">
+        {t`${weightPct}%`}
+      </Badge>
     </div>
   )
 }
@@ -297,21 +334,7 @@ function ScoringDimensionsList({
           key={dimension.name}
           className="space-y-3 rounded-2xl border border-border p-4"
         >
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                {dimension.name}
-              </p>
-              {dimension.description ? (
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {dimension.description}
-                </p>
-              ) : null}
-            </div>
-            <Badge variant="secondary" className="rounded-full">
-              {t`${dimension.weight_pct}%`}
-            </Badge>
-          </div>
+          <ScoringDimensionHeader dimension={dimension} />
           {dimension.positive_signals.length > 0 ? (
             <div>
               <p className="text-xs font-semibold text-muted-foreground">

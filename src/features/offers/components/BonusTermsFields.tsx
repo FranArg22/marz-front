@@ -46,18 +46,19 @@ export function BonusWindowRow({
   onRemove,
   children,
 }: BonusWindowRowProps) {
+  const windowNumber = index + 1
   return (
     <div className="rounded-xl border border-border bg-background p-3">
       <div className="mb-3 flex items-center justify-between gap-3">
         <span className="text-sm font-medium text-foreground">
-          {t`Window ${index + 1}`}
+          {t`Window ${windowNumber}`}
         </span>
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={onRemove}
-          aria-label={t`Remove window ${index + 1}`}
+          aria-label={t`Remove window ${windowNumber}`}
         >
           <Trash2 className="size-4" />
         </Button>

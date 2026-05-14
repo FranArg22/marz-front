@@ -31,19 +31,22 @@ function createWrapper() {
 describe('WorkspaceLayout', () => {
   it('renders rail region and main outlet', () => {
     render(
-      <WorkspaceLayout rail={<div data-testid="rail-content">Rail</div>}>
+      <WorkspaceLayout
+        railFull={<div data-testid="rail-content">Rail</div>}
+        railCompact={<div>Compact</div>}
+      >
         <div data-testid="outlet-content">Outlet</div>
       </WorkspaceLayout>,
       { wrapper: createWrapper() },
     )
 
-    const rail = screen.getByRole('region', { name: /conversaciones/i })
+    const rail = screen.getAllByRole('region', { name: /conversaciones/i })[0]!
     expect(rail).toBeInTheDocument()
-    expect(screen.getByTestId('rail-content')).toBeInTheDocument()
+    expect(screen.getAllByTestId('rail-content').length).toBeGreaterThan(0)
     expect(screen.getByTestId('outlet-content')).toBeInTheDocument()
   })
 
-  it('renders rail with 320px fixed width', () => {
+  it('renders rail with responsive width', () => {
     render(
       <WorkspaceLayout>
         <div>Content</div>
@@ -51,8 +54,7 @@ describe('WorkspaceLayout', () => {
       { wrapper: createWrapper() },
     )
 
-    const rail = screen.getByRole('region', { name: /conversaciones/i })
-    expect(rail.className).toContain('w-80')
+    const rail = screen.getAllByRole('region', { name: /conversaciones/i })[0]!
     expect(rail.className).toContain('shrink-0')
   })
 

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { t } from '@lingui/core/macro'
 import {
   getGetBriefProcessingQueryKey,
   initBriefBuilder,
@@ -44,18 +45,17 @@ export function getInitErrorMessage(error: unknown): {
 } {
   if (!(error instanceof ApiError)) {
     return {
-      message: error instanceof Error ? error.message : 'Error inesperado',
+      message: error instanceof Error ? error.message : t`Error inesperado`,
     }
   }
 
   if (error.status === 413) {
-    return { message: 'Archivo demasiado grande (>10MB).' }
+    return { message: t`Archivo demasiado grande (>10MB).` }
   }
 
   if (error.status === 422 && error.code === 'pdf_too_large') {
     return {
-      message:
-        'El documento contiene demasiado texto. Reducí el PDF o pegá texto.',
+      message: t`El documento contiene demasiado texto. Reducí el PDF o pegá texto.`,
       field: 'pdfFile',
     }
   }

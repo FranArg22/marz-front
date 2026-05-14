@@ -10,13 +10,17 @@ interface StageOpenedBubbleProps {
 }
 
 export function StageOpenedBubble({ snapshot, side }: StageOpenedBubbleProps) {
+  const position = snapshot.position
+  const total = snapshot.total
+  const name = snapshot.name
   const text =
     snapshot.prev_stage_position == null
-      ? t`Stage ${snapshot.position}/${snapshot.total}: ${snapshot.name} is now open`
-      : t`Previous stage approved — Stage ${snapshot.position}: ${snapshot.name} is now open`
+      ? t`Stage ${position}/${total}: ${name} is now open`
+      : t`Previous stage approved — Stage ${position}: ${name} is now open`
 
   return (
     <div role="status" data-testid="stage-opened-bubble">
+      { }
       <EventBubble severity="success" direction={side} icon={Flag}>
         {text}
       </EventBubble>

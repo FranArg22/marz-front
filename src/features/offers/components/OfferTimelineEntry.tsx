@@ -30,6 +30,7 @@ import { OfferAcceptedCardIn } from './OfferAcceptedCardIn'
 import { OfferRejectedBubble } from './OfferRejectedBubble'
 import { OfferExpiredBubble } from './OfferExpiredBubble'
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const EVENT_TYPE_MAP: Record<string, OfferEventType> = {
   OfferSent: 'OfferSent',
   OfferAccepted: 'OfferAccepted',
@@ -40,6 +41,7 @@ const EVENT_TYPE_MAP: Record<string, OfferEventType> = {
   offer_rejected: 'OfferRejected',
   offer_expired: 'OfferExpired',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 export interface OfferTimelineMessage {
   id: string
@@ -101,6 +103,7 @@ export function OfferTimelineEntry({
   // OfferSent lo emite el brand y OfferAccepted lo emite el creator. El
   // author_account_id puede apuntar a un actor de sistema, asi que derivamos
   // viewerSide del kind del viewer para esos eventos.
+   
   const viewerSide: ViewerSide =
     offerEvent === 'OfferSent'
       ? actorKind === 'brand'
@@ -119,10 +122,12 @@ export function OfferTimelineEntry({
     (rawPayload['snapshot'] as Record<string, unknown> | undefined) ??
     rawPayload
   const side = viewerSide === 'actor' ? 'out' : 'in'
+   
 
   switch (offerEvent) {
     case 'OfferSent': {
       // status real (current/archive) o fallback al snapshot
+       
       const effectiveStatus: OfferStatus = liveStatus ?? 'sent'
 
       const bundleParsed = offerSnapshotBundleSchema.safeParse(snapshot)

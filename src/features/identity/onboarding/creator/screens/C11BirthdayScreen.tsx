@@ -10,19 +10,19 @@ import {
 import { FieldRow } from '#/shared/ui/form'
 import { useCreatorOnboardingStore } from '../store'
 
-const MONTHS = [
-  'Enero',
-  'Febrero',
-  'Marzo',
-  'Abril',
-  'Mayo',
-  'Junio',
-  'Julio',
-  'Agosto',
-  'Septiembre',
-  'Octubre',
-  'Noviembre',
-  'Diciembre',
+const MONTHS = () => [
+  t`Enero`,
+  t`Febrero`,
+  t`Marzo`,
+  t`Abril`,
+  t`Mayo`,
+  t`Junio`,
+  t`Julio`,
+  t`Agosto`,
+  t`Septiembre`,
+  t`Octubre`,
+  t`Noviembre`,
+  t`Diciembre`,
 ]
 
 function parseBirthday(value: string | undefined) {
@@ -52,11 +52,11 @@ export function C11BirthdayScreen() {
         }
         if (next.year && next.month && next.day) {
           store.setField(
-            'birthday',
+            'birthday',  
             `${next.year}-${next.month.padStart(2, '0')}-${next.day.padStart(2, '0')}`,
           )
         } else {
-          store.setField('birthday', '')
+          store.setField('birthday', '')  
         }
         return next
       })
@@ -104,7 +104,7 @@ export function C11BirthdayScreen() {
                 <SelectValue placeholder="—" />
               </SelectTrigger>
               <SelectContent>
-                {MONTHS.map((name, i) => (
+                {MONTHS().map((name, i) => (
                   <SelectItem key={name} value={`${i + 1}`}>
                     {name}
                   </SelectItem>

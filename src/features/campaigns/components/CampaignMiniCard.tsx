@@ -22,14 +22,16 @@ interface CampaignMiniCardProps {
   configurationCurrentStep?: CampaignConfigurationStep | null
 }
 
-const statusMeta: Record<
+function getStatusMeta(): Record<
   CampaignMiniCardProps['status'],
   { label: string; variant: 'default' | 'secondary' | 'outline' }
-> = {
-  draft: { label: 'Draft', variant: 'outline' },
-  active: { label: 'Active', variant: 'default' },
-  paused: { label: 'Paused', variant: 'secondary' },
-  completed: { label: 'Completed', variant: 'secondary' },
+> {
+  return {
+    draft: { label: t`Draft`, variant: 'outline' },
+    active: { label: t`Active`, variant: 'default' },
+    paused: { label: t`Paused`, variant: 'secondary' },
+    completed: { label: t`Completed`, variant: 'secondary' },
+  }
 }
 
 export function CampaignMiniCard({
@@ -110,7 +112,7 @@ function CampaignMiniCardContent({
 > & {
   isConfigurationPending: boolean
 }) {
-  const badge = statusMeta[status]
+  const badge = getStatusMeta()[status]
   const pct =
     videos.total > 0 ? Math.round((videos.done / videos.total) * 100) : 0
 
@@ -134,10 +136,10 @@ function CampaignMiniCardContent({
       </header>
 
       <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
-        <Stat label="Creators" value={String(creators)} />
-        <Stat label="Budget" value={budget} />
+        <Stat label={t`Creators`} value={String(creators)} />
+        <Stat label={t`Budget`} value={budget} />
         <Stat
-          label="Videos"
+          label={t`Videos`}
           value={`${videos.done}/${videos.total}`}
           align="right"
         />
@@ -148,7 +150,7 @@ function CampaignMiniCardContent({
       </div>
 
       <footer className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-        <span>{pct}% complete</span>
+        <span>{t`${pct}% complete`}</span>
         <span>{platforms.join(' · ')}</span>
       </footer>
 

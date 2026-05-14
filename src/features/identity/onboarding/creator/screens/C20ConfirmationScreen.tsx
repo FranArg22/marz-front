@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 import {
   Check,
   ArrowRight,
@@ -13,65 +14,69 @@ import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
 import { COUNTRIES } from '../countries'
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const AVATAR_PREVIEW_KEY = 'marz-creator-onboarding-avatar-preview'
 
-const PLATFORM_LABELS: Record<string, string> = {
-  instagram: 'Instagram',
-  tiktok: 'TikTok',
-  youtube: 'YouTube',
+const PLATFORM_LABELS: Record<string, () => string> = {
+  instagram: () => 'Instagram',
+  tiktok: () => 'TikTok',
+  youtube: () => 'YouTube',
 }
 
-const FORMAT_LABELS: Record<string, string> = {
-  ig_reel: 'Reel',
-  ig_story: 'Story',
-  ig_post: 'Post',
-  tiktok_post: 'Post',
-  yt_short: 'Short',
-  yt_long: 'Video largo',
-  yt_podcast: 'Podcast',
+const FORMAT_LABELS: Record<string, () => string> = {
+  ig_reel: () => 'Reel',
+  ig_story: () => 'Story',
+  ig_post: () => 'Post',
+  tiktok_post: () => 'Post',
+  yt_short: () => 'Short',
+  yt_long: () => t`Video largo`,
+  yt_podcast: () => 'Podcast',
+}
+/* eslint-enable lingui/no-unlocalized-strings */
+
+const TIER_LABELS: Record<string, () => string> = {
+  emergent: () => t`Emergente`,
+  growing: () => t`Creciendo`,
+  consolidated: () => t`Consolidado`,
+  reference: () => t`Referente`,
+  massive: () => t`Masivo`,
+  celebrity: () => t`Celebridad`,
 }
 
-const TIER_LABELS: Record<string, string> = {
-  emergent: 'Emergente',
-  growing: 'Creciendo',
-  consolidated: 'Consolidado',
-  reference: 'Referente',
-  massive: 'Masivo',
-  celebrity: 'Celebridad',
+/* eslint-disable lingui/no-unlocalized-strings */
+const NICHE_LABELS: Record<string, () => string> = {
+  fintech: () => 'Fintech',
+  tech: () => 'Tech',
+  productivity: () => t`Productividad`,
+  fitness: () => 'Fitness',
+  beauty: () => t`Belleza`,
+  fashion: () => t`Moda`,
+  food: () => t`Comida`,
+  travel: () => t`Viajes`,
+  gaming: () => 'Gaming',
+  music: () => t`Música`,
+  lifestyle: () => 'Lifestyle',
+  business: () => t`Negocios`,
+  education: () => t`Educación`,
+  parenting: () => t`Maternidad`,
+  health: () => t`Salud`,
 }
 
-const NICHE_LABELS: Record<string, string> = {
-  fintech: 'Fintech',
-  tech: 'Tech',
-  productivity: 'Productividad',
-  fitness: 'Fitness',
-  beauty: 'Belleza',
-  fashion: 'Moda',
-  food: 'Comida',
-  travel: 'Viajes',
-  gaming: 'Gaming',
-  music: 'Música',
-  lifestyle: 'Lifestyle',
-  business: 'Negocios',
-  education: 'Educación',
-  parenting: 'Maternidad',
-  health: 'Salud',
+const CONTENT_TYPE_LABELS: Record<string, () => string> = {
+  unboxing: () => 'Unboxing',
+  reviews: () => 'Reviews',
+  video_ads: () => t`Video ads`,
+  humor_sketches: () => t`Humor / sketches`,
+  tutorials: () => t`Tutoriales`,
+  vlogs: () => 'Vlogs',
+  testimonials: () => t`Testimoniales`,
+  podcasts: () => 'Podcasts',
+  live: () => t`En vivo`,
 }
-
-const CONTENT_TYPE_LABELS: Record<string, string> = {
-  unboxing: 'Unboxing',
-  reviews: 'Reviews',
-  video_ads: 'Video ads',
-  humor_sketches: 'Humor / sketches',
-  tutorials: 'Tutoriales',
-  vlogs: 'Vlogs',
-  testimonials: 'Testimoniales',
-  podcasts: 'Podcasts',
-  live: 'En vivo',
-}
+/* eslint-enable lingui/no-unlocalized-strings */
 
 function PlatformIcon({ platform }: { platform: string }) {
-  const cls = 'size-4 text-foreground'
+  const cls = 'size-4 text-foreground' // eslint-disable-line lingui/no-unlocalized-strings
   if (platform === 'instagram') return <Instagram className={cls} />
   if (platform === 'youtube') return <Youtube className={cls} />
   if (platform === 'tiktok')
@@ -108,7 +113,7 @@ export function C20ConfirmationScreen() {
   }, [store.avatar_s3_key])
 
   const displayName = store.display_name?.trim() ?? ''
-  const firstName = displayName.split(/\s+/)[0] ?? t`Creator`
+  const firstName = displayName.split(/\s+/)[0] ?? t`Creador`
   const handle = store.handle ? `@${store.handle}` : ''
   const initials =
     displayName
@@ -117,7 +122,9 @@ export function C20ConfirmationScreen() {
       .map((n) => n[0]?.toUpperCase() ?? '')
       .join('') || firstName.slice(0, 2).toUpperCase()
 
-  const tierLabel = store.tier ? TIER_LABELS[store.tier] : undefined
+  const tierLabel = store.tier
+    ? (TIER_LABELS[store.tier]?.() ?? store.tier)
+    : undefined
   const niches = store.niches ?? []
   const contentTypes = store.content_types ?? []
   const channels = store.channels ?? []
@@ -150,7 +157,7 @@ export function C20ConfirmationScreen() {
           {avatarPreview ? (
             <img
               src={avatarPreview}
-              alt={displayName || t`Avatar`}
+              alt={displayName || t`Avatar del creador`}
               className="size-16 rounded-full object-cover ring-2 ring-primary/30"
             />
           ) : (
@@ -163,7 +170,7 @@ export function C20ConfirmationScreen() {
           <div className="flex min-w-0 flex-1 flex-col gap-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="truncate text-base font-bold text-foreground">
-                {displayName || t`Tu nombre`}
+                {displayName || <Trans>Tu nombre</Trans>}
               </span>
               {tierLabel && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-primary">
@@ -192,14 +199,14 @@ export function C20ConfirmationScreen() {
             {niches.length > 0 && (
               <Section title={t`Nichos`}>
                 {niches.map((n) => (
-                  <Chip key={n}>{NICHE_LABELS[n] ?? n}</Chip>
+                  <Chip key={n}>{NICHE_LABELS[n]?.() ?? n}</Chip>
                 ))}
               </Section>
             )}
             {contentTypes.length > 0 && (
               <Section title={t`Formatos`}>
                 {contentTypes.map((c) => (
-                  <Chip key={c}>{CONTENT_TYPE_LABELS[c] ?? c}</Chip>
+                  <Chip key={c}>{CONTENT_TYPE_LABELS[c]?.() ?? c}</Chip>
                 ))}
               </Section>
             )}
@@ -218,7 +225,7 @@ export function C20ConfirmationScreen() {
                     <div className="flex items-center gap-2">
                       <PlatformIcon platform={c.platform} />
                       <span className="text-[13px] font-medium text-foreground">
-                        {PLATFORM_LABELS[c.platform] ?? c.platform}
+                        {PLATFORM_LABELS[c.platform]?.() ?? c.platform}
                       </span>
                       {c.is_primary && (
                         <span className="rounded-full bg-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -241,11 +248,15 @@ export function C20ConfirmationScreen() {
                             className="rounded-md border border-border bg-background px-2 py-1 text-[11px] text-foreground"
                           >
                             <span className="text-muted-foreground">
-                              {FORMAT_LABELS[rc.format] ?? rc.format}
+                              {FORMAT_LABELS[rc.format]?.() ?? rc.format}
                             </span>
                             {valid && (
                               <span className="ml-1.5 font-semibold">
-                                {amount.toLocaleString('es-AR')}{' '}
+                                {
+                                  amount.toLocaleString(
+                                    'es-AR',
+                                  )  
+                                }{' '}
                                 {rc.rate_currency}
                               </span>
                             )}

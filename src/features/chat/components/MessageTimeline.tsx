@@ -1,12 +1,12 @@
 import {
   useCallback,
   useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
   useMemo,
   useRef,
-  useImperativeHandle,
 } from 'react'
-import type { VirtuosoHandle } from 'react-virtuoso'
-import { GroupedVirtuoso } from 'react-virtuoso'
+import { useVirtualizer } from '@tanstack/react-virtual'
 
 import {
   useConversationDetailQuery,
@@ -14,11 +14,10 @@ import {
 } from '#/features/chat/queries'
 import type { MessageItem } from '#/features/chat/types'
 import { trackChatEvent } from '#/features/chat/analytics/track'
+import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 
 import { groupByDayGrouped } from '../utils/groupByDay'
-
 import { DaySeparator } from './DaySeparator'
-import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 import {
   getPaymentMarkedDeclaredPaymentId,
   renderTimelineMessageContent,
@@ -45,10 +44,19 @@ interface MessageTimelineProps {
   highlightPaymentId?: string
 }
 
-// Large constant so prepending older messages can decrement firstItemIndex
-// without going negative — Virtuoso uses this to anchor scroll position when
-// new pages load at the top of the list.
-const START_INDEX = 1_000_000
+type Row =
+  | { kind: 'separator'; id: string; label: string }
+  | {
+      kind: 'message'
+      id: string
+      message: MessageItem
+      prev: MessageItem | undefined
+    }
+
+const AT_BOTTOM_THRESHOLD = 80
+const ESTIMATE_SIZE = 80
+const SAME_BURST_MS = 30_000
+const SAME_BLOCK_MS = 5 * 60_000
 
 export function MessageTimeline({
   conversationId,
@@ -61,8 +69,11 @@ export function MessageTimeline({
   timelineRef,
   highlightPaymentId,
 }: MessageTimelineProps) {
-  const virtuosoRef = useRef<VirtuosoHandle>(null)
-  const hasScrolledToHighlightRef = useRef(false)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const wasAtBottomRef = useRef(true)
+  const prevScrollHeightRef = useRef(0)
+  const prevFirstMessageIdRef = useRef<string | null>(null)
+  const lastNotifiedAtBottomRef = useRef(true)
 
   const { data: conversationDetail } =
     useConversationDetailQuery(conversationId)
@@ -71,7 +82,7 @@ export function MessageTimeline({
     useMessagesInfiniteQuery(conversationId)
 
   const allMessages = useMemo(() => {
-    if (!data?.pages) return []
+    if (!data?.pages) return [] as MessageItem[]
     const reversed: MessageItem[] = []
     for (let i = data.pages.length - 1; i >= 0; i--) {
       const page = data.pages[i]
@@ -85,25 +96,162 @@ export function MessageTimeline({
 
   const grouped = useMemo(() => groupByDayGrouped(allMessages), [allMessages])
 
-  const firstItemIndex = START_INDEX - grouped.messages.length
+  const rows = useMemo<Row[]>(() => {
+    const out: Row[] = []
+    let cursor = 0
+    for (let g = 0; g < grouped.groups.length; g++) {
+      const group = grouped.groups[g]!
+      const count = grouped.groupCounts[g] ?? 0
+      out.push({
+        kind: 'separator',
+        id: `sep:${group.date}`,
+        label: group.label,
+      })
+      for (let i = 0; i < count; i++) {
+        const msg = grouped.messages[cursor]
+        if (!msg) {
+          cursor++
+          continue
+        }
+        const prev = cursor > 0 ? grouped.messages[cursor - 1] : undefined
+        out.push({
+          kind: 'message',
+          id: `msg:${msg.id}`,
+          message: msg,
+          prev,
+        })
+        cursor++
+      }
+    }
+    return out
+  }, [grouped])
 
-  const hasReachedBeginning = !hasNextPage && (data?.pages.length ?? 0) > 0
-  const highlightedTimelineIndex = useMemo(() => {
+  const highlightedRowIndex = useMemo(() => {
     if (!highlightPaymentId) return -1
-    return grouped.messages.findIndex(
-      (m) =>
-        m.type === 'system_event' &&
-        m.event_type === 'PaymentMarked' &&
-        getPaymentMarkedDeclaredPaymentId(m.payload) === highlightPaymentId,
+    return rows.findIndex(
+      (r) =>
+        r.kind === 'message' &&
+        r.message.type === 'system_event' &&
+        r.message.event_type === 'PaymentMarked' &&
+        getPaymentMarkedDeclaredPaymentId(r.message.payload) ===
+          highlightPaymentId,
     )
-  }, [highlightPaymentId, grouped.messages])
+  }, [highlightPaymentId, rows])
+
   const shouldShowHighlightFallback =
     Boolean(highlightPaymentId) &&
     (data?.pages.length ?? 0) > 0 &&
-    highlightedTimelineIndex === -1
+    highlightedRowIndex === -1
 
+  const hasReachedBeginning = !hasNextPage && (data?.pages.length ?? 0) > 0
+
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => ESTIMATE_SIZE,
+    overscan: 8,
+    getItemKey: (i) => rows[i]?.id ?? i,
+  })
+
+  const totalSize = virtualizer.getTotalSize()
+
+  const checkAtBottom = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return true
+    const distance = el.scrollHeight - el.scrollTop - el.clientHeight
+    return distance <= AT_BOTTOM_THRESHOLD
+  }, [])
+
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = 'smooth') => {
+    const el = scrollRef.current
+    if (!el) return
+    el.scrollTo({ top: el.scrollHeight, behavior })
+  }, [])
+
+  useImperativeHandle(timelineRef, () => ({
+    scrollToBottom: () => scrollToBottom('smooth'),
+  }))
+
+  // Initial mount: jump to bottom instantly once we have rows.
+  const initialAnchoredRef = useRef(false)
+  useLayoutEffect(() => {
+    if (initialAnchoredRef.current) return
+    if (rows.length === 0) return
+    initialAnchoredRef.current = true
+    // Two passes: first sync, then after items measured.
+    scrollToBottom('auto')
+    requestAnimationFrame(() => scrollToBottom('auto'))
+    const t1 = setTimeout(() => scrollToBottom('auto'), 100)
+    const t2 = setTimeout(() => scrollToBottom('auto'), 350)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
+  }, [rows.length, scrollToBottom])
+
+  // Preserve scroll anchor when prepending older messages.
+  const firstMessageId =
+    grouped.messages.length > 0 ? grouped.messages[0]!.id : null
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const prevFirst = prevFirstMessageIdRef.current
+    if (prevFirst && firstMessageId && prevFirst !== firstMessageId) {
+      const newScrollHeight = el.scrollHeight
+      const delta = newScrollHeight - prevScrollHeightRef.current
+      if (delta > 0) {
+        el.scrollTop = el.scrollTop + delta
+      }
+    }
+    prevFirstMessageIdRef.current = firstMessageId
+    prevScrollHeightRef.current = el.scrollHeight
+  }, [firstMessageId, totalSize])
+
+  // Stick-to-bottom when new messages arrive at the tail and user was at bottom.
+  const prevLastMessageIdRef = useRef<string | null>(null)
+  const lastMessageId =
+    grouped.messages.length > 0
+      ? grouped.messages[grouped.messages.length - 1]!.id
+      : null
+  useLayoutEffect(() => {
+    const prev = prevLastMessageIdRef.current
+    prevLastMessageIdRef.current = lastMessageId
+    if (!prev) return
+    if (lastMessageId === prev) return
+    if (wasAtBottomRef.current) {
+      const el = scrollRef.current
+      if (el) {
+        requestAnimationFrame(() => {
+          el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
+        })
+      }
+    }
+  }, [lastMessageId])
+
+  // Track at-bottom + notify parent.
+  const onScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const atBottom = checkAtBottom()
+    wasAtBottomRef.current = atBottom
+    if (atBottom !== lastNotifiedAtBottomRef.current) {
+      lastNotifiedAtBottomRef.current = atBottom
+      onAtBottomStateChange?.(atBottom)
+    }
+    // Reverse infinite: trigger when near top.
+    if (el.scrollTop < 80 && hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage()
+    }
+  }, [
+    checkAtBottom,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    onAtBottomStateChange,
+  ])
+
+  // Track page count for analytics (parity with v1).
   const trackedPageCountRef = useRef(0)
-
   useEffect(() => {
     const pageCount = data?.pages.length ?? 0
     if (pageCount <= trackedPageCountRef.current) return
@@ -119,80 +267,28 @@ export function MessageTimeline({
     }
   }, [data?.pages, conversationId])
 
-  useImperativeHandle(timelineRef, () => ({
-    scrollToBottom: () => {
-      virtuosoRef.current?.scrollToIndex({
-        index: 'LAST',
-        behavior: 'smooth',
-      })
-    },
-  }))
-
+  // Scroll to highlight.
+  const hasScrolledToHighlightRef = useRef(false)
   useEffect(() => {
     hasScrolledToHighlightRef.current = false
   }, [highlightPaymentId])
-
   useEffect(() => {
-    if (highlightedTimelineIndex < 0) return
+    if (highlightedRowIndex < 0) return
     if (hasScrolledToHighlightRef.current) return
-
-    virtuosoRef.current?.scrollToIndex({
-      index: firstItemIndex + highlightedTimelineIndex,
+    virtualizer.scrollToIndex(highlightedRowIndex, {
       align: 'center',
       behavior: 'smooth',
     })
     hasScrolledToHighlightRef.current = true
-  }, [firstItemIndex, highlightedTimelineIndex])
+  }, [highlightedRowIndex, virtualizer])
 
-  const handleStartReached = useCallback(() => {
-    if (hasNextPage && !isFetchingNextPage) {
-      void fetchNextPage()
-    }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
-
-  const renderItem = useCallback(
-    (index: number, _groupIndex: number, message: MessageItem) => {
-      const localIndex = index - firstItemIndex
-      const prev = localIndex > 0 ? grouped.messages[localIndex - 1] : undefined
-      const spacingClass = getTimelineSpacingClass(prev, message)
-
-      const content = renderTimelineMessageContent({
-        message,
-        currentAccountId,
-        conversationId,
-        counterpartDisplayName:
-          conversationDetail?.counterpart.display_name ?? '',
-        highlightPaymentId,
-        onMarkAsPaid,
-        onUploadDraft,
-        sessionKind,
-        viewerRole,
-      })
-      if (content === null) return null
-
-      return (
-        <div data-message-id={message.id} className={`${spacingClass} px-4`}>
-          {content}
-        </div>
-      )
-    },
-    [
-      conversationDetail?.counterpart.display_name,
-      conversationId,
-      currentAccountId,
-      firstItemIndex,
-      grouped.messages,
-      highlightPaymentId,
-      onMarkAsPaid,
-      onUploadDraft,
-      sessionKind,
-      viewerRole,
-    ],
-  )
-
-  if (grouped.messages.length === 0) {
+  if (rows.length === 0) {
     return <EmptyMessageTimeline />
   }
+
+  const items = virtualizer.getVirtualItems()
+  const counterpartDisplayName =
+    conversationDetail?.counterpart.display_name ?? ''
 
   return (
     <div
@@ -201,55 +297,117 @@ export function MessageTimeline({
       data-testid="message-timeline"
     >
       {shouldShowHighlightFallback ? <PaymentHighlightFallback /> : null}
-      <GroupedVirtuoso
-        ref={virtuosoRef}
-        key={conversationId}
-        style={{ flex: 1, minHeight: 0 }}
-        data={grouped.messages}
-        groupCounts={grouped.groupCounts}
-        groupContent={(index) => (
-          <DaySeparator label={grouped.groups[index]?.label ?? ''} />
-        )}
-        firstItemIndex={firstItemIndex}
-        initialTopMostItemIndex={Math.max(0, grouped.messages.length - 1)}
-        startReached={handleStartReached}
-        followOutput={(isAtBottom) => (isAtBottom ? 'smooth' : false)}
-        atBottomStateChange={onAtBottomStateChange}
-        atBottomThreshold={0}
-        itemContent={renderItem}
-        components={{
-          Header: () =>
-            hasReachedBeginning ? <ConversationBeginningPill /> : null,
-          Group: ({ children, ...props }) => (
-            <div {...props} style={{ ...props.style, overflow: 'visible' }}>
-              {children}
-            </div>
-          ),
-        }}
-      />
+      <div
+        ref={scrollRef}
+        onScroll={onScroll}
+        className="flex-1 overflow-y-auto"
+        style={{ minHeight: 0 }}
+      >
+        {hasReachedBeginning ? <ConversationBeginningPill /> : null}
+        <div
+          style={{
+            height: `${totalSize}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {items.map((vi) => {
+            const row = rows[vi.index]
+            if (!row) return null
+            return (
+              <div
+                key={vi.key}
+                data-index={vi.index}
+                ref={virtualizer.measureElement}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  transform: `translateY(${vi.start}px)`,
+                }}
+              >
+                {row.kind === 'separator' ? (
+                  <DaySeparator label={row.label} />
+                ) : (
+                  <MessageRow
+                    row={row}
+                    currentAccountId={currentAccountId}
+                    conversationId={conversationId}
+                    counterpartDisplayName={counterpartDisplayName}
+                    highlightPaymentId={highlightPaymentId}
+                    onMarkAsPaid={onMarkAsPaid}
+                    onUploadDraft={onUploadDraft}
+                    sessionKind={sessionKind}
+                    viewerRole={viewerRole}
+                  />
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <div className="h-4" aria-hidden />
+      </div>
     </div>
   )
 }
-
-const SAME_BURST_MS = 30_000
-const SAME_BLOCK_MS = 5 * 60_000
 
 function getTimelineSpacingClass(
   prev: MessageItem | undefined,
   current: MessageItem,
 ): string {
   if (!prev) return ''
-
   const prevTime = new Date(prev.created_at).getTime()
   const currTime = new Date(current.created_at).getTime()
   if (Number.isNaN(prevTime) || Number.isNaN(currTime)) return 'mt-4'
-
   const delta = currTime - prevTime
   const sameAuthor =
     prev.author_account_id !== null &&
     prev.author_account_id === current.author_account_id
-
   if (delta <= SAME_BURST_MS && sameAuthor) return 'mt-0.5'
   if (delta <= SAME_BLOCK_MS) return 'mt-2'
   return 'mt-6'
+}
+
+interface MessageRowProps {
+  row: Extract<Row, { kind: 'message' }>
+  currentAccountId: string
+  conversationId: string
+  counterpartDisplayName: string
+  highlightPaymentId: string | undefined
+  onMarkAsPaid: ((deliverableId: string) => void) | undefined
+  onUploadDraft: ((deliverableId: string) => void) | undefined
+  sessionKind: 'brand' | 'creator' | undefined
+  viewerRole: MarkAsPaidViewerRole | undefined
+}
+
+function MessageRow({
+  row,
+  currentAccountId,
+  conversationId,
+  counterpartDisplayName,
+  highlightPaymentId,
+  onMarkAsPaid,
+  onUploadDraft,
+  sessionKind,
+  viewerRole,
+}: MessageRowProps) {
+  return (
+    <div
+      data-message-id={row.message.id}
+      className={`${getTimelineSpacingClass(row.prev, row.message)} px-4`}
+    >
+      {renderTimelineMessageContent({
+        message: row.message,
+        currentAccountId,
+        conversationId,
+        counterpartDisplayName,
+        highlightPaymentId,
+        onMarkAsPaid,
+        onUploadDraft,
+        sessionKind,
+        viewerRole,
+      })}
+    </div>
+  )
 }

@@ -84,6 +84,8 @@ function SectionButton({
   isLoading: boolean
   onClick: () => void
 }) {
+  const countValue = count ?? 0
+
   return (
     <button
       type="button"
@@ -105,9 +107,9 @@ function SectionButton({
             ? 'bg-background text-primary'
             : 'bg-muted text-muted-foreground',
         )}
-        aria-label={t`${label}: ${count ?? 0}`}
+        aria-label={t`${label}: ${countValue}`}
       >
-        {isLoading ? '...' : (count ?? 0)}
+        {isLoading ? '...' : countValue}
       </span>
       <span className="sr-only">{id}</span>
     </button>

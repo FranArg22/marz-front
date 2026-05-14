@@ -100,6 +100,7 @@ function MultistageList({
   // la misma cardinalidad. Cuando marz-api agregue `id` a OfferStageDTO, este
   // join se vuelve un Map<id, StageDTO> de 2 líneas.
   // RAFITA:BLOCKER currency no expuesto en OfferDTO — asumir USD hasta que backend lo agregue
+   
   const currency = 'USD'
   const offerStages = offer.type === 'multistage' ? offer.stages : []
   const stagesByIndex: (StageDTO | undefined)[] = offerStages.map(
@@ -122,12 +123,18 @@ function MultistageList({
       return out
     })
     if (next) {
-      trackOfferEvent('stage_expanded', {
-        actor_kind: actorKind,
-        offer_type: 'multistage',
-        stage_index: i,
-        surface: 'panel',
-      })
+      trackOfferEvent(
+         
+        'stage_expanded',
+        {
+          actor_kind: actorKind,
+           
+          offer_type: 'multistage',
+          stage_index: i,
+           
+          surface: 'panel',
+        },
+      )
     }
   }
 
@@ -182,13 +189,18 @@ interface StageGroupProps {
 
 type StageStatus = NonNullable<OfferStageDTO['status']>
 
-const stageBadge: Record<StageStatus, { label: string; className: string }> = {
-  locked: { label: t`Próximo`, className: 'bg-muted text-foreground' },
-  open: { label: t`Abierto`, className: 'bg-info text-info-foreground' },
-  approved: {
-    label: t`Listo`,
-    className: 'bg-success text-success-foreground',
-  },
+function getStageBadge(): Record<
+  StageStatus,
+  { label: string; className: string }
+> {
+  return {
+    locked: { label: t`Próximo`, className: 'bg-muted text-foreground' },
+    open: { label: t`Abierto`, className: 'bg-info text-info-foreground' },
+    approved: {
+      label: t`Listo`,
+      className: 'bg-success text-success-foreground',
+    },
+  }
 }
 
 function StageGroup({
@@ -203,9 +215,11 @@ function StageGroup({
   onMarkAsPaid,
   onSubmitLink,
 }: StageGroupProps) {
+   
   const stageStatus: StageStatus = stage.status ?? 'locked'
-  const badge = stageBadge[stageStatus]
+  const badge = getStageBadge()[stageStatus]
   const isLocked = stageStatus === 'locked'
+  const stageName = stage.name
 
   return (
     <div
@@ -218,7 +232,7 @@ function StageGroup({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        aria-label={t`Alternar etapa ${stage.name}`}
+        aria-label={t`Alternar etapa ${stageName}`}
         className="flex w-full items-center justify-between gap-2 p-3 text-left"
       >
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -277,6 +291,7 @@ function getDefaultExpanded(
 ): boolean[] {
   const expanded = stages.map(() => false)
   if (offerStatus === 'sent') {
+     
     const i = stages.findIndex((s) => (s.status ?? 'locked') !== 'approved')
     if (i !== -1) expanded[i] = true
   } else if (offerStatus === 'accepted') {

@@ -42,13 +42,13 @@ export function P2Progress() {
       onError: (error) => {
         if (isProcessConflict(error)) {
           setDispatchError(
-            'El análisis ya fue procesado, reintentá desde el inicio.',
+            t`El análisis ya fue procesado, reintentá desde el inicio.`,
           )
           useBriefBuilderStore.getState().reset()
           return
         }
         setDispatchError(
-          'No se pudo iniciar el análisis. Volvé a intentarlo desde el inicio.',
+          t`No se pudo iniciar el análisis. Volvé a intentarlo desde el inicio.`,
         )
       },
     })

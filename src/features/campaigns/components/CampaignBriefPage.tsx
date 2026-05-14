@@ -1,4 +1,6 @@
 import { Link } from '@tanstack/react-router'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 import { Button } from '#/components/ui/button'
 import { ApiError } from '#/shared/api/mutator'
 import { BriefSummaryView } from '../brief-builder/components/BriefSummaryView'
@@ -32,10 +34,12 @@ function BriefNotFound() {
   return (
     <div className="flex flex-col items-center gap-4 py-12">
       <p className="text-sm text-muted-foreground">
-        No se encontró el brief de esta campaña.
+        {t`No se encontró el brief de esta campaña.`}
       </p>
       <Button variant="outline" asChild>
-        <Link to="/campaigns">Volver a campañas</Link>
+        <Link to="/campaigns">
+          <Trans>Volver a campañas</Trans>
+        </Link>
       </Button>
     </div>
   )
@@ -58,13 +62,13 @@ export function CampaignBriefPage({ campaignId }: CampaignBriefPageProps) {
 
       {error && !isNotFound && (
         <p className="text-sm text-destructive">
-          Error al cargar el brief. Intentá de nuevo más tarde.
+          {t`Error al cargar el brief. Intentá de nuevo más tarde.`}
         </p>
       )}
 
       {data && (
         <section>
-          <h2 className="sr-only">Detalle</h2>
+          <h2 className="sr-only">{t`Detalle`}</h2>
           <BriefSummaryView draft={data.draft} />
         </section>
       )}

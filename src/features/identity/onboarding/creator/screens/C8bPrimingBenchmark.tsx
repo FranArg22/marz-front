@@ -14,7 +14,7 @@ export function C8bPrimingBenchmark() {
   const cards: StatCard[] = [
     {
       label: t`COBRO GARANTIZADO`,
-      value: '24h',
+      value: t`24h`,
       description: t`Pago después de aprobar el post. Sin perseguir pagos.`,
       highlighted: false,
     },
@@ -27,7 +27,7 @@ export function C8bPrimingBenchmark() {
     },
     {
       label: t`TIEMPO RECUPERADO`,
-      value: '+40hs',
+      value: t`+40hs`,
       unit: t`/ mes`,
       description: t`Solo recibís campañas que calzan con vos. Cero DMs cruzados.`,
       highlighted: false,

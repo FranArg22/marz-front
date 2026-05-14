@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { t } from '@lingui/core/macro'
 
 import { getMeQueryKey, useMe } from '#/shared/api/generated/accounts/accounts'
 import { useCompleteCreatorOnboarding } from '#/shared/api/generated/onboarding/onboarding'
@@ -13,6 +14,7 @@ import type { FieldErrors } from './store'
 import { useCreatorOnboardingStore } from './store'
 import { getStepIndex } from './steps'
 
+ 
 const FIELD_TO_STEP: Record<string, string> = {
   display_name: 'name-handle',
   handle: 'name-handle',
@@ -30,6 +32,7 @@ const FIELD_TO_STEP: Record<string, string> = {
   referral_text: 'referral',
   avatar_s3_key: 'avatar',
 }
+ 
 
 export function useSubmitCreatorOnboarding() {
   const navigate = useNavigate()
@@ -84,12 +87,12 @@ export function useSubmitCreatorOnboarding() {
         onSuccess: () => {
           reset()
           void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
-          track('onboarding_completed', { kind: 'creator' })
+          track('onboarding_completed', { kind: 'creator' })  
           void navigate({ to: '/offers' })
         },
         onError: (error) => {
           if (!(error instanceof ApiError)) {
-            toast.error('Ocurrió un error inesperado. Intentá de nuevo.')
+            toast.error(t`Ocurrió un error inesperado. Intentá de nuevo.`)
             return
           }
 
@@ -97,14 +100,14 @@ export function useSubmitCreatorOnboarding() {
             if (error.code === 'avatar_not_found') {
               const store = useCreatorOnboardingStore.getState()
               store.setFieldErrors({
-                avatar_s3_key: 'Subí la foto de nuevo',
+                avatar_s3_key: t`Subí la foto de nuevo`,
               })
-              const idx = getStepIndex('avatar')
+              const idx = getStepIndex('avatar')  
               if (idx >= 0) {
                 store.goTo(idx)
                 void navigate({
                   to: '/onboarding/creator/$step',
-                  params: { step: 'avatar' },
+                  params: { step: 'avatar' },  
                 })
               }
               return
@@ -142,14 +145,14 @@ export function useSubmitCreatorOnboarding() {
             if (error.code === 'handle_taken') {
               const store = useCreatorOnboardingStore.getState()
               store.setFieldErrors({
-                handle: error.message || 'Este handle ya está en uso',
+                handle: error.message || t`Este handle ya está en uso`,
               })
-              const idx = getStepIndex('name-handle')
+              const idx = getStepIndex('name-handle')  
               if (idx >= 0) {
                 store.goTo(idx)
                 void navigate({
                   to: '/onboarding/creator/$step',
-                  params: { step: 'name-handle' },
+                  params: { step: 'name-handle' },  
                 })
               }
               return
@@ -165,7 +168,7 @@ export function useSubmitCreatorOnboarding() {
             return
           }
 
-          toast.error('Ocurrió un error inesperado. Intentá de nuevo.')
+          toast.error(t`Ocurrió un error inesperado. Intentá de nuevo.`)
         },
       },
     )

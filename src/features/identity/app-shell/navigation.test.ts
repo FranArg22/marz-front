@@ -63,12 +63,10 @@ describe('shellNavigationConfig', () => {
     const brandPayments = brandItems.find((item) => item.id === 'payments')
     const creatorPayments = creatorItems.find((item) => item.id === 'payments')
 
-    expect(brandPayments).toEqual({
-      id: 'payments',
-      label: 'Payments & Spending',
-      icon: 'wallet',
-      href: '/payments',
-    })
+    expect(brandPayments?.id).toBe('payments')
+    expect(brandPayments?.icon).toBe('wallet')
+    expect(brandPayments?.href).toBe('/payments')
+    expect(brandPayments?.label()).toBe('Payments & Spending')
     expect(creatorPayments).toBeUndefined()
   })
 
@@ -80,7 +78,7 @@ describe('shellNavigationConfig', () => {
     expect(disabledItems.length).toBeGreaterThan(0)
     for (const item of disabledItems) {
       expect(item.href).toBeUndefined()
-      expect(item.disabledReason).toBe('Próximamente')
+      expect(item.disabledReason?.()).toBe('Próximamente')
     }
   })
 })
@@ -122,13 +120,13 @@ describe('resolveActiveSidebarItem', () => {
     const items: ShellNavigationItem[] = [
       {
         id: 'workspace',
-        label: 'Workspace',
+        label: () => 'Workspace',
         icon: 'message-square',
         href: '/workspace',
       },
       {
         id: 'conversation',
-        label: 'Conversation',
+        label: () => 'Conversation',
         icon: 'message-square',
         href: '/workspace/conversations',
       },

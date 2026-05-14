@@ -1,5 +1,7 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { Badge } from '#/components/ui/badge'
 import { IconButton } from '#/shared/ui/IconButton'
@@ -18,26 +20,32 @@ interface StageCardProps {
   children?: ReactNode
 }
 
+ 
 const statusMeta: Record<
   StageStatus,
   {
-    label: string
+    label: () => string
     variant: 'default' | 'secondary' | 'outline'
     kickerTone: string
   }
 > = {
   upcoming: {
-    label: 'Upcoming',
+    label: () => t`Upcoming`,
     variant: 'outline',
     kickerTone: 'text-muted-foreground',
   },
-  active: { label: 'Active', variant: 'secondary', kickerTone: 'text-primary' },
+  active: {
+    label: () => t`Active`,
+    variant: 'secondary',
+    kickerTone: 'text-primary',
+  },
   done: {
-    label: 'Done',
+    label: () => t`Done`,
     variant: 'default',
     kickerTone: 'text-muted-foreground',
   },
 }
+ 
 
 export function StageCard({
   stageNumber,
@@ -61,7 +69,7 @@ export function StageCard({
               meta.kickerTone,
             )}
           >
-            Stage {stageNumber}
+            <Trans>Stage {stageNumber}</Trans>
           </div>
           <div className="mt-0.5 text-base font-semibold text-foreground">
             {name}
@@ -70,15 +78,15 @@ export function StageCard({
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           {status !== 'active' ? (
             <Badge variant={meta.variant} className="rounded-full">
-              {meta.label}
+              {meta.label()}
             </Badge>
           ) : null}
           <span className="font-mono">{deadline}</span>
           {onToggle ? (
             <IconButton
               size="sm"
-              shape="circle"
-              aria-label="Toggle stage"
+              shape="circle"  
+              aria-label={t`Toggle stage`}
               onClick={onToggle}
             >
               {isCollapsed ? <ChevronDown /> : <ChevronUp />}

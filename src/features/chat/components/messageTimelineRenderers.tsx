@@ -248,9 +248,13 @@ type DeliverableSystemEventType =
 function parseDeliverableSystemEventType(
   eventType: string | null,
 ): DeliverableSystemEventType | null {
+  if (!eventType) return null
+  // Backend a veces emite 'DraftChangesRequested' como alias de 'ChangesRequested'.
+  const normalized =
+    eventType === 'DraftChangesRequested' ? 'ChangesRequested' : eventType
   const knownEventTypes: readonly string[] = DELIVERABLE_SYSTEM_EVENT_TYPES
-  return eventType && knownEventTypes.includes(eventType)
-    ? (eventType as DeliverableSystemEventType)
+  return knownEventTypes.includes(normalized)
+    ? (normalized as DeliverableSystemEventType)
     : null
 }
 

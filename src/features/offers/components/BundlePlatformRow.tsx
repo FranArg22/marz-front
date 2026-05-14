@@ -27,11 +27,14 @@ export function BundlePlatformRow({
   children,
 }: BundlePlatformRowProps) {
   const Icon = platformIcon[platform] ?? Music
+  const deliverableNumber = index !== undefined ? index + 1 : undefined
 
   return (
     <fieldset className="rounded-xl border border-border bg-background p-4">
       <legend className="sr-only">
-        {index !== undefined ? t`Deliverable ${index + 1}` : t`Deliverable`}
+        {deliverableNumber !== undefined
+          ? t`Deliverable ${deliverableNumber}`
+          : t`Deliverable`}
       </legend>
       <div className="flex items-start gap-3">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted">

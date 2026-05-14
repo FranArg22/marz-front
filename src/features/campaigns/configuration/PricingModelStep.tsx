@@ -17,35 +17,6 @@ import {
 } from './hooks'
 import type { CampaignConfiguration, CampaignPricingModel } from './hooks'
 
-const pricingModelOptions: Array<{
-  value: CampaignPricingModel
-  title: string
-  description: string
-  bullets: string[]
-  Icon: LucideIcon
-}> = [
-  {
-    value: 'fixed_per_video',
-    title: t`Fixed per video`,
-    description: t`Pagás un monto fijo por cada deliverable aprobado.`,
-    bullets: [
-      t`Ideal para presupuestos cerrados.`,
-      t`El creator sabe cuánto cobra por entrega.`,
-    ],
-    Icon: CircleDollarSign,
-  },
-  {
-    value: 'per_views',
-    title: t`Per views`,
-    description: t`Pagás en función de las vistas validadas que genere cada video.`,
-    bullets: [
-      t`Alinea inversión con performance real.`,
-      t`Útil para campañas de alcance.`,
-    ],
-    Icon: Eye,
-  },
-]
-
 interface PricingModelStepProps {
   campaignId: string
   config: CampaignConfiguration
@@ -55,12 +26,42 @@ export function PricingModelStep({
   campaignId,
   config,
 }: PricingModelStepProps) {
+  const pricingModelOptions: Array<{
+    value: CampaignPricingModel
+    title: string
+    description: string
+    bullets: string[]
+    Icon: LucideIcon
+  }> = [
+    {
+      value: 'fixed_per_video',
+      title: t`Fixed per video`,
+      description: t`Pagás un monto fijo por cada deliverable aprobado.`,
+      bullets: [
+        t`Ideal para presupuestos cerrados.`,
+        t`El creator sabe cuánto cobra por entrega.`,
+      ],
+      Icon: CircleDollarSign,
+    },
+    {
+      value: 'per_views',
+      title: t`Per views`,
+      description: t`Pagás en función de las vistas validadas que genere cada video.`,
+      bullets: [
+        t`Alinea inversión con performance real.`,
+        t`Útil para campañas de alcance.`,
+      ],
+      Icon: Eye,
+    },
+  ]
+
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const mutation = useUpdatePricingModelMutation()
   const initialPricingModel = useRef(config.pricing_model).current
-  const [selected, setSelected] =
-    useState<CampaignPricingModel | null>(initialPricingModel)
+  const [selected, setSelected] = useState<CampaignPricingModel | null>(
+    initialPricingModel,
+  )
 
   const handleBack = () => {
     void navigate({

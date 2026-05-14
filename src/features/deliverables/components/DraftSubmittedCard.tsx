@@ -1,3 +1,4 @@
+ 
 import { useEffect, useMemo, useRef } from 'react'
 import { Upload, Film, Timer } from 'lucide-react'
 import { t } from '@lingui/core/macro'
@@ -32,11 +33,19 @@ function extractSnapshot(
 }
 
 function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  if (bytes < 1024 * 1024 * 1024)
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`
+  if (bytes < 1024) {
+    return t`${bytes} B`
+  }
+  if (bytes < 1024 * 1024) {
+    const kb = (bytes / 1024).toFixed(1)
+    return t`${kb} KB`
+  }
+  if (bytes < 1024 * 1024 * 1024) {
+    const mb = (bytes / (1024 * 1024)).toFixed(1)
+    return t`${mb} MB`
+  }
+  const gb = (bytes / (1024 * 1024 * 1024)).toFixed(1)
+  return t`${gb} GB`
 }
 
 function formatDurationHHMMSS(seconds: number): string {
@@ -185,7 +194,11 @@ export function DraftSubmittedCard({
               <Timer className="size-4" />
               <span className="font-mono">{durationLabel}</span>
               <span className="text-muted-foreground">
-                · {t`v${snapshot.version}`}
+                ·{' '}
+                {(() => {
+                  const version = snapshot.version
+                  return t`v${version}`
+                })()}
               </span>
             </div>
           </div>
@@ -207,7 +220,7 @@ export function DraftSubmittedCard({
             />
           ) : null}
 
-          {isBrand && (
+          {isBrand && deliverableStatus === 'draft_submitted' && (
             <div className="flex gap-2">
               <div className="flex-1">
                 <ApproveDraftButton

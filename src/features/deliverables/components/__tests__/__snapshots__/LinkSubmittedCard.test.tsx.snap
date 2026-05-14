@@ -5,7 +5,7 @@ exports[`LinkSubmittedCard > hides link actions for brand admin viewers 1`] = `
   class="flex justify-start"
 >
   <div
-    class="w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
   >
     <div
       class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
@@ -113,7 +113,7 @@ exports[`LinkSubmittedCard > hides link actions for brand member viewers 1`] = `
   class="flex justify-start"
 >
   <div
-    class="w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
   >
     <div
       class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
@@ -221,7 +221,7 @@ exports[`LinkSubmittedCard > hides link actions for creator viewers 1`] = `
   class="flex justify-end"
 >
   <div
-    class="w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
   >
     <div
       class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
@@ -329,7 +329,7 @@ exports[`LinkSubmittedCard > shows link actions only for brand owners when the l
   class="flex justify-start"
 >
   <div
-    class="w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
   >
     <div
       class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"

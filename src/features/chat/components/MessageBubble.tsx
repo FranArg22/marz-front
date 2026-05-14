@@ -1,3 +1,5 @@
+import { t } from '@lingui/core/macro'
+
 import { cn } from '#/lib/utils'
 
 export type BubbleDirection = 'in' | 'out'
@@ -21,7 +23,7 @@ function buildAriaLabel(
 ): string {
   const time = formatTime(timestamp)
   const preview = text.length > 80 ? text.slice(0, 80) + '…' : text
-  return `${authorDisplayName} a las ${time}: ${preview}`
+  return t`${authorDisplayName} a las ${time}: ${preview}`
 }
 
 export function MessageBubble({

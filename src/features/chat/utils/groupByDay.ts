@@ -1,3 +1,5 @@
+import { t } from '@lingui/core/macro'
+
 import type { MessageItem } from '../types'
 
 export interface DaySeparatorItem {
@@ -13,37 +15,39 @@ export interface MessageTimelineItem {
 
 export type TimelineItem = DaySeparatorItem | MessageTimelineItem
 
-const MONTH_LABELS = [
-  'ene',
-  'feb',
-  'mar',
-  'abr',
-  'may',
-  'jun',
-  'jul',
-  'ago',
-  'sep',
-  'oct',
-  'nov',
-  'dic',
-] as const
+function getMonthLabels() {
+  return [
+    t`ene`,
+    t`feb`,
+    t`mar`,
+    t`abr`,
+    t`may`,
+    t`jun`,
+    t`jul`,
+    t`ago`,
+    t`sep`,
+    t`oct`,
+    t`nov`,
+    t`dic`,
+  ] as const
+}
 
 function formatDayLabel(date: Date, today: Date): string {
   const todayStr = toLocalDateString(today)
   const dateStr = toLocalDateString(date)
 
   if (dateStr === todayStr) {
-    return 'Hoy'
+    return t`Hoy`
   }
 
   const yesterday = new Date(today)
   yesterday.setDate(yesterday.getDate() - 1)
   if (dateStr === toLocalDateString(yesterday)) {
-    return 'Ayer'
+    return t`Ayer`
   }
 
   const day = date.getDate()
-  const month = MONTH_LABELS[date.getMonth()]
+  const month = getMonthLabels()[date.getMonth()]
   return `${day} ${month}`
 }
 

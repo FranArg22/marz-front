@@ -1,8 +1,8 @@
+/* eslint-disable lingui/no-unlocalized-strings */
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { AlertCircle } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
-import { cn } from '#/lib/utils'
 import { SystemEventCard } from '#/shared/ui/SystemEventCard'
 import { formatMessageDateTime } from '#/shared/ui/formatMessageDateTime'
 import { getRecord, getString } from '#/shared/utils/record'
@@ -43,8 +43,18 @@ function extractSnapshot(
   if (!Array.isArray(snapshot.categories)) return null
 
   if (target === 'draft') {
-    if (typeof snapshot.draft_version !== 'number') return null
-    return { ...(snapshot as unknown as ChangesRequestedSnapshot), target }
+    const draftVersion =
+      typeof snapshot.draft_version === 'number'
+        ? snapshot.draft_version
+        : typeof snapshot.version === 'number'
+          ? snapshot.version
+          : null
+    if (draftVersion === null) return null
+    return {
+      ...(snapshot as unknown as ChangesRequestedSnapshot),
+      draft_version: draftVersion,
+      target,
+    }
   }
 
   const link = getRecord(snapshot.link) ?? snapshot
@@ -165,86 +175,81 @@ export function RequestChangesCard({
   const notes = snapshot.notes?.trim() ?? ''
 
   return (
-    <div
-      ref={cardRef}
-      data-testid="request-changes-card"
-      className={cn(
-        'flex px-4 py-0.5',
-        isOutgoing ? 'justify-end' : 'justify-start',
-      )}
-    >
-      <div className="max-w-[75%]">
-        <SystemEventCard
-          tone="warning"
-          kicker={t`Cambios solicitados`}
-          icon={AlertCircle}
-          headerVariant="solid"
-        >
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-medium text-foreground">
-                {requesterName}
-              </span>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-muted-foreground">
-                {formatMessageDateTime(message.created_at)}
-              </span>
-            </div>
-
-            {snapshot.target === 'draft' ? (
-              <div className="text-xs text-muted-foreground">
-                {t`v${snapshot.draft_version}`}
-              </div>
-            ) : null}
-
-            {snapshot.target === 'draft' && snapshot.draft_thumbnail_url ? (
-              <div className="relative w-full overflow-hidden rounded-lg bg-muted">
-                <img
-                  src={snapshot.draft_thumbnail_url}
-                  alt={t`Draft thumbnail`}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ) : null}
-
-            {snapshot.target === 'link' ? (
-              <LinkPreviewBlock
-                preview={linkPreview ?? urlOnlyPreview}
-                url={snapshot.link.url}
-                analytics={{
-                  deliverableId: snapshot.deliverable_id,
-                  linkId: snapshot.link.id,
-                  platform: snapshot.deliverable_platform,
-                  outcome: linkPreview?.outcome ?? 'url_only',
-                }}
-              />
-            ) : null}
-
-            {snapshot.categories.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {snapshot.categories.map((category) => (
-                  <ChangeCategoryChip
-                    key={category}
-                    label={CATEGORY_LABELS[category]?.() ?? category}
-                    selected
-                    readOnly
-                  />
-                ))}
-              </div>
-            ) : null}
-
-            <div className="text-sm text-foreground">
-              {notes ? (
-                <p className="whitespace-pre-wrap">{notes}</p>
-              ) : (
-                <p className="italic text-muted-foreground">
-                  {t`No additional notes`}
-                </p>
-              )}
-            </div>
+    <div ref={cardRef} data-testid="request-changes-card">
+      <SystemEventCard
+        tone="destructive"
+        kicker={t`Cambios solicitados`}
+        icon={AlertCircle}
+        headerVariant="solid"
+        side={isOutgoing ? 'out' : 'in'}
+      >
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-medium text-foreground">{requesterName}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">
+              {formatMessageDateTime(message.created_at)}
+            </span>
           </div>
-        </SystemEventCard>
-      </div>
+
+          {snapshot.target === 'draft'
+            ? (() => {
+                const draftVersion = snapshot.draft_version
+                return (
+                  <div className="text-xs text-muted-foreground">
+                    {t`v${draftVersion}`}
+                  </div>
+                )
+              })()
+            : null}
+
+          {snapshot.target === 'draft' && snapshot.draft_thumbnail_url ? (
+            <div className="relative w-full overflow-hidden rounded-lg bg-muted">
+              <img
+                src={snapshot.draft_thumbnail_url}
+                alt={t`Draft thumbnail`}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ) : null}
+
+          {snapshot.target === 'link' ? (
+            <LinkPreviewBlock
+              preview={linkPreview ?? urlOnlyPreview}
+              url={snapshot.link.url}
+              analytics={{
+                deliverableId: snapshot.deliverable_id,
+                linkId: snapshot.link.id,
+                platform: snapshot.deliverable_platform,
+                outcome: linkPreview?.outcome ?? 'url_only',
+              }}
+            />
+          ) : null}
+
+          {snapshot.categories.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {snapshot.categories.map((category) => (
+                <ChangeCategoryChip
+                  key={category}
+                  label={CATEGORY_LABELS[category]?.() ?? category}
+                  selected
+                  readOnly
+                />
+              ))}
+            </div>
+          ) : null}
+
+          <div className="text-sm text-foreground">
+            {notes ? (
+              <p className="whitespace-pre-wrap">{notes}</p>
+            ) : (
+              <p className="italic text-muted-foreground">
+                {t`No additional notes`}
+              </p>
+            )}
+          </div>
+        </div>
+      </SystemEventCard>
     </div>
   )
 }

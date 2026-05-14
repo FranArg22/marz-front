@@ -7,20 +7,24 @@ import type { DeliverableStatus } from '#/features/deliverables/types'
 const statusMeta: Record<
   DeliverableStatus,
   {
-    label: string
+    label: () => string
     tone: 'info' | 'success' | 'destructive' | 'neutral' | 'terminal'
   }
 > = {
-  pending: { label: t`Pendiente`, tone: 'neutral' },
-  draft_submitted: { label: t`En revisión`, tone: 'info' },
-  changes_requested: { label: t`Cambios solicitados`, tone: 'destructive' },
-  draft_approved: { label: t`Aprobado`, tone: 'success' },
-  link_submitted: { label: t`Revisión de link`, tone: 'info' },
-  link_approved: { label: t`En vivo`, tone: 'success' },
-  completed: { label: t`Completado`, tone: 'success' },
-  paid: { label: t`Pagado`, tone: 'terminal' },
+  pending: { label: () => t`Pendiente`, tone: 'neutral' },
+  draft_submitted: { label: () => t`En revisión`, tone: 'info' },
+  changes_requested: {
+    label: () => t`Cambios solicitados`,
+    tone: 'destructive',
+  },
+  draft_approved: { label: () => t`Aprobado`, tone: 'success' },
+  link_submitted: { label: () => t`Revisión de link`, tone: 'info' },
+  link_approved: { label: () => t`En vivo`, tone: 'success' },
+  completed: { label: () => t`Completado`, tone: 'success' },
+  paid: { label: () => t`Pagado`, tone: 'terminal' },
 }
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const toneClass: Record<
   (typeof statusMeta)[DeliverableStatus]['tone'],
   string
@@ -31,6 +35,7 @@ const toneClass: Record<
   neutral: 'bg-muted text-foreground',
   terminal: 'bg-primary text-primary-foreground',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 interface DeliverableStatusBadgeProps {
   status: DeliverableStatus
@@ -45,7 +50,7 @@ export function DeliverableStatusBadge({
 
   return (
     <Badge className={cn('rounded-full', toneClass[meta.tone], className)}>
-      {meta.label}
+      {meta.label()}
     </Badge>
   )
 }

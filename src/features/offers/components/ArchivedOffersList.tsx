@@ -1,4 +1,6 @@
 import { Archive, ChevronRight } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 
@@ -13,24 +15,27 @@ interface ArchivedOffersListProps {
   offers: Array<ArchivedOffer>
 }
 
-const badgeByStatus: Record<
+function getBadgeByStatus(): Record<
   ArchivedOffer['status'],
   {
     label: string
     variant: 'default' | 'secondary' | 'destructive' | 'outline'
   }
-> = {
-  paid: { label: 'Paid', variant: 'default' },
-  rejected: { label: 'Rejected', variant: 'destructive' },
-  cancelled: { label: 'Cancelled', variant: 'outline' },
+> {
+  return {
+    paid: { label: t`Paid`, variant: 'default' },
+    rejected: { label: t`Rejected`, variant: 'destructive' },
+    cancelled: { label: t`Cancelled`, variant: 'outline' },
+  }
 }
 
 export function ArchivedOffersList({ offers }: ArchivedOffersListProps) {
+  const badgeByStatus = getBadgeByStatus()
   return (
     <section>
       <header className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         <Archive className="size-4" />
-        Archived offers
+        <Trans>Archived offers</Trans>
         <span className="ml-auto">{offers.length}</span>
       </header>
       <ul className="space-y-2">

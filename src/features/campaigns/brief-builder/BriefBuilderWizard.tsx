@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { Outlet, useParams, useRouter } from '@tanstack/react-router'
+import { t } from '@lingui/core/macro'
 
 import { WizardShell } from '#/shared/ui/wizard'
 import { useBriefBuilderStore } from './store'
@@ -77,7 +78,7 @@ export function BriefBuilderWizard() {
   }
 
   const percent = ((currentIndex + 1) / PHASES.length) * 100
-  const stepLabel = `Fase ${currentIndex + 1} de ${PHASES.length}`
+  const stepLabel = t`Fase ${currentIndex + 1} de ${PHASES.length}`
   const isLastPhase = currentIndex === PHASES.length - 1
   const isProgressPhase = currentIndex === 1
   const isConfirmPhase = isLastPhase
@@ -148,15 +149,15 @@ export function BriefBuilderWizard() {
         nextDisabled={nextDisabled}
         nextLabel={
           isLastPhase
-            ? 'Crear campaña'
+            ? t`Crear campaña`
             : currentIndex === 0
-              ? 'Analizar'
+              ? t`Analizar`
               : currentIndex === 2
-                ? 'Confirmar'
-                : 'Continuar'
+                ? t`Confirmar`
+                : t`Continuar`
         }
         onExit={handleExit}
-        exitLabel="Cancelar"
+        exitLabel={t`Cancelar`}
         hideFooter={isProgressPhase || isConfirmPhase}
       >
         <Outlet />

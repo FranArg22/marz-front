@@ -26,12 +26,12 @@ const VERTICAL_LABEL: Record<Vertical, () => string> = {
   other: () => t`tu vertical`,
 }
 
-const BUDGET_LABEL: Record<MonthlyBudgetRange, string> = {
-  zero: '$0',
-  under_10k: '$10K',
-  '10k_to_25k': '$25K',
-  '25k_to_50k': '$50K',
-  '50k_plus': '$100K+',
+const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
+  zero: () => t`$0`,
+  under_10k: () => t`$10K`,
+  '10k_to_25k': () => t`$25K`,
+  '25k_to_50k': () => t`$50K`,
+  '50k_plus': () => t`$100K+`,
 }
 
 const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
@@ -56,10 +56,13 @@ export function B12LoadingScreen() {
   const budget = store.monthly_budget_range ?? MonthlyBudgetRange.under_10k
   const objective = store.marketing_objective ?? MarketingObjective.performance
 
+  const verticalLabel = VERTICAL_LABEL[vertical]()
+  const budgetLabel = BUDGET_LABEL[budget]()
+  const objectiveLabel = OBJECTIVE_LABEL[objective]()
   const steps = [
-    t`Filtramos por vertical ${VERTICAL_LABEL[vertical]()}`,
-    t`Cruzamos con tu budget de ${BUDGET_LABEL[budget]}`,
-    t`Ordenamos por ${OBJECTIVE_LABEL[objective]()} histórico`,
+    t`Filtramos por vertical ${verticalLabel}`,
+    t`Cruzamos con tu budget de ${budgetLabel}`,
+    t`Ordenamos por ${objectiveLabel} histórico`,
     t`Personalizando tu plan`,
   ]
 
@@ -126,10 +129,10 @@ export function B12LoadingScreen() {
         {steps.map((label, i) => {
           const status: 'done' | 'current' | 'pending' =
             i < completedCount
-              ? 'done'
+              ? 'done'  
               : i === completedCount
-                ? 'current'
-                : 'pending'
+                ? 'current'  
+                : 'pending'  
           return (
             <li
               key={label}

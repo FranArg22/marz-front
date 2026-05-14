@@ -22,15 +22,19 @@ const bandClassName: Record<MatchScoreBand, string> = {
   low: 'border-muted-foreground/25 bg-muted text-muted-foreground',
 }
 
-const bandLabel: Record<MatchScoreBand, string> = {
-  high: t`match alto`,
-  medium: t`match medio`,
-  low: t`match bajo`,
+function getBandLabel(): Record<MatchScoreBand, string> {
+  return {
+    high: t`match alto`,
+    medium: t`match medio`,
+    low: t`match bajo`,
+  }
 }
 
 export function MatchScoreBadge({ score, className }: MatchScoreBadgeProps) {
   const roundedScore = Math.round(score)
   const band = getMatchScoreBand(score)
+  const bandLabel = getBandLabel()
+  const bandLabelText = bandLabel[band]
 
   return (
     <span
@@ -39,7 +43,7 @@ export function MatchScoreBadge({ score, className }: MatchScoreBadgeProps) {
         bandClassName[band],
         className,
       )}
-      aria-label={t`${roundedScore}% de match, ${bandLabel[band]}`}
+      aria-label={t`${roundedScore}% de match, ${bandLabelText}`}
     >
       <Sparkles className="size-3" aria-hidden="true" />
       {roundedScore}%

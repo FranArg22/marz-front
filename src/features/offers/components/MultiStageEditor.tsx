@@ -19,10 +19,7 @@ import { useSendOfferSheetStore } from '../store/sendOfferSheetStore'
 import { useCreateMultistageOffer } from '../hooks/useCreateMultistageOffer'
 import { DeliverableSummaryRow } from './DeliverableSummaryRow'
 import { StageEditor } from './StageEditor'
-import {
-  multiStageEditorBaseSchema,
-  multiStageEditorSubmitSchema,
-} from '../schemas/multiStageEditor'
+import { createMultiStageEditorSchemas } from '../schemas/multiStageEditor'
 import { deadlineToRFC3339 } from '../utils/formatOffer'
 
 function createDefaultValues() {
@@ -55,6 +52,9 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
 
   const [initialValues] = useState(createDefaultValues)
 
+  const { multiStageEditorBaseSchema, multiStageEditorSubmitSchema } =
+    createMultiStageEditorSchemas()
+
   const form = useAppForm({
     defaultValues: initialValues,
     validators: {
@@ -72,7 +72,9 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
         bonus_terms: null,
         description: '',
         deliverable: {
+           
           platform: 'multistage',
+           
           format: 'multistage',
         },
         stages: value.stages.map((s, index) => ({
@@ -113,6 +115,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
     [campaigns, selectedCampaignId],
   )
 
+   
   const currency = selectedCampaign?.budget_currency ?? 'USD'
   const budgetRemaining = selectedCampaign
     ? parseFloat(selectedCampaign.budget_remaining)
@@ -127,6 +130,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
 
   const exceedsBudget =
     isFinite(budgetRemaining) && totalAmount > budgetRemaining
+  const budgetDisplay = `${currency} ${selectedCampaign?.budget_remaining ?? '0.00'}`
 
   const campaignOptions = campaigns.map((c) => ({
     value: c.id,
@@ -151,6 +155,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
     return map
   })
   const handleAddStage = () => {
+     
     form.setFieldValue('stages', [
       ...stages,
       {
@@ -206,6 +211,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
                 stages.length > 1
                   ? () => {
                       form.setFieldValue(
+                         
                         'stages',
                         stages.filter((_, i) => i !== index),
                       )
@@ -213,15 +219,19 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
                   : undefined
               }
               onChangeName={(v) =>
+                // eslint-disable-next-line lingui/no-unlocalized-strings
                 form.setFieldValue(`stages[${index}].name`, v)
               }
               onChangeDescription={(v) =>
+                // eslint-disable-next-line lingui/no-unlocalized-strings
                 form.setFieldValue(`stages[${index}].description`, v)
               }
               onChangeDeadline={(v) =>
+                // eslint-disable-next-line lingui/no-unlocalized-strings
                 form.setFieldValue(`stages[${index}].deadline`, v)
               }
               onChangeAmount={(v) =>
+                // eslint-disable-next-line lingui/no-unlocalized-strings
                 form.setFieldValue(`stages[${index}].amount`, v)
               }
             />
@@ -250,7 +260,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
 
         {exceedsBudget ? (
           <p className="text-sm text-warning" aria-live="polite">
-            {t`This amount exceeds the campaign's remaining budget (${currency} ${selectedCampaign?.budget_remaining ?? '0.00'})`}
+            {t`This amount exceeds the campaign's remaining budget (${budgetDisplay})`}
           </p>
         ) : null}
 
@@ -258,6 +268,7 @@ export function MultiStageEditor({ onClose, dirtyRef }: MultiStageEditorProps) {
           label={t`Total`}
           amount={totalAmount > 0 ? totalAmount.toFixed(2) : '0.00'}
           currency={currency}
+           
           emphasis="strong"
         />
       </div>

@@ -3,6 +3,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { LogOut } from 'lucide-react'
 import { useCallback } from 'react'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { cn } from '#/lib/utils'
 import { track } from '#/shared/analytics/track'
@@ -15,7 +17,7 @@ export function SignOutButton({ collapsed = false }: { collapsed?: boolean }) {
   const navigate = useNavigate()
 
   const handleSignOut = useCallback(async () => {
-    track('sign_out')
+    track('sign_out')  
     queryClient.clear()
     useBrandOnboardingStore.getState().reset()
     useCreatorOnboardingStore.getState().reset()
@@ -27,7 +29,7 @@ export function SignOutButton({ collapsed = false }: { collapsed?: boolean }) {
     <button
       type="button"
       onClick={handleSignOut}
-      aria-label={collapsed ? 'Sign out' : undefined}
+      aria-label={collapsed ? t`Sign out` : undefined}
       className={cn(
         'rounded-md text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
         collapsed
@@ -38,7 +40,7 @@ export function SignOutButton({ collapsed = false }: { collapsed?: boolean }) {
       {collapsed ? (
         <LogOut className="size-5" aria-hidden="true" />
       ) : (
-        'Sign out'
+        <Trans>Sign out</Trans>
       )}
     </button>
   )

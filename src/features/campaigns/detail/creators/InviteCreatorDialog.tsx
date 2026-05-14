@@ -27,15 +27,19 @@ interface InviteCreatorDialogProps {
   allowsInPlatformInvites: boolean
 }
 
-const inviteCreatorSchema = z.object({
-  mode: z.enum(['email', 'in_platform']),
-  email: z.email(t`Ingresá un email válido`).or(z.literal('')),
-  // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
-  // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
-  creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
-})
+function createInviteCreatorSchema() {
+  return z.object({
+    mode: z.enum(['email', 'in_platform']),
+    email: z.email(t`Ingresá un email válido`).or(z.literal('')),
+    // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
+    // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
+    creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
+  })
+}
 
-type InviteCreatorFormValues = z.infer<typeof inviteCreatorSchema>
+type InviteCreatorFormValues = z.infer<
+  ReturnType<typeof createInviteCreatorSchema>
+>
 
 const defaultValues: InviteCreatorFormValues = {
   mode: 'email',
@@ -56,6 +60,7 @@ export function InviteCreatorDialog({
     allowsInPlatformInvites,
     inPlatformDisabledByPlan,
   )
+  const inviteCreatorSchema = createInviteCreatorSchema()
 
   const form = useAppForm({
     defaultValues,

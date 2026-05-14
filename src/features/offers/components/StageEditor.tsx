@@ -1,4 +1,6 @@
 import { X as XIcon } from 'lucide-react'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { Input } from '#/components/ui/input'
 import { Textarea } from '#/components/ui/textarea'
@@ -31,30 +33,31 @@ export function StageEditor({
   onRemove,
   deadlineError,
 }: StageEditorProps) {
+   
   const deadlineErrorId = `stage-${stageNumber}-deadline-error`
 
   return (
     <div
       className={`space-y-3 rounded-xl bg-muted p-4 ${deadlineError ? 'border border-destructive' : ''}`}
       role="group"
-      aria-label={`Stage ${stageNumber}`}
+      aria-label={t`Stage ${stageNumber}`}
     >
       <header className="flex items-start gap-3">
         <div className="flex-1">
           <div className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Stage {stageNumber}
+            <Trans>Stage {stageNumber}</Trans>
           </div>
           <Input
             type="text"
             value={name}
             onChange={(e) => onChangeName(e.target.value)}
-            placeholder="Stage name"
+            placeholder={t`Stage name`}
             className="mt-0.5 border-0 bg-transparent text-base font-semibold text-foreground shadow-none outline-none placeholder:text-muted-foreground focus-visible:ring-0"
-            aria-label="Stage name"
+            aria-label={t`Stage name`}
           />
         </div>
         {onRemove ? (
-          <IconButton size="sm" aria-label="Remove stage" onClick={onRemove}>
+          <IconButton size="sm" aria-label={t`Remove stage`} onClick={onRemove}>
             <XIcon />
           </IconButton>
         ) : null}
@@ -65,13 +68,13 @@ export function StageEditor({
           htmlFor={`stage-${stageNumber}-description`}
           className="mb-1 block text-sm font-medium text-foreground"
         >
-          Description
+          <Trans>Description</Trans>
         </label>
         <Textarea
           id={`stage-${stageNumber}-description`}
           value={description}
           onChange={(e) => onChangeDescription(e.target.value)}
-          placeholder="Describe what this stage covers"
+          placeholder={t`Describe what this stage covers`}
           className="min-h-20"
         />
       </div>
@@ -82,7 +85,7 @@ export function StageEditor({
             htmlFor={`stage-${stageNumber}-deadline`}
             className="mb-1 block text-sm font-medium text-foreground"
           >
-            Deadline
+            <Trans>Deadline</Trans>
           </label>
           <Input
             id={`stage-${stageNumber}-deadline`}
@@ -92,6 +95,7 @@ export function StageEditor({
             className={deadlineError ? 'border-destructive' : ''}
             aria-invalid={deadlineError ? true : undefined}
             aria-describedby={
+               
               deadlineError ? `stage-${stageNumber}-deadline-error` : undefined
             }
           />
@@ -111,7 +115,7 @@ export function StageEditor({
             htmlFor={`stage-${stageNumber}-amount`}
             className="mb-1 block text-sm font-medium text-foreground"
           >
-            Amount
+            <Trans>Amount</Trans>
           </label>
           <Input
             id={`stage-${stageNumber}-amount`}

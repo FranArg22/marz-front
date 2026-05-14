@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { FileUp, X } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 import { Button } from '#/components/ui/button'
 import { FieldRow } from '#/shared/ui/form'
 import { cn } from '#/lib/utils'
@@ -19,10 +20,10 @@ function validatePdf(file: File): string | null {
     file.type !== ACCEPTED_MIME &&
     !file.name.toLowerCase().endsWith('.pdf')
   ) {
-    return 'Solo se aceptan archivos PDF.'
+    return t`Solo se aceptan archivos PDF.`
   }
   if (file.size > MAX_SIZE_BYTES) {
-    return 'Archivo demasiado grande (>10MB).'
+    return t`Archivo demasiado grande (>10MB).`
   }
   return null
 }
@@ -30,8 +31,8 @@ function validatePdf(file: File): string | null {
 export function PDFUploadField({
   file,
   onFileChange,
-  label = 'Documento PDF',
-  hint = 'Opcional. Subí un PDF con info de tu marca.',
+  label = t`Documento PDF`,
+  hint = t`Opcional. Subí un PDF con info de tu marca.`,
 }: PDFUploadFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | null>(null)
@@ -92,7 +93,7 @@ export function PDFUploadField({
                 size="icon"
                 className="size-7 shrink-0"
                 onClick={removeSelectedFile}
-                aria-label="Eliminar archivo"
+                aria-label={t`Eliminar archivo`}
               >
                 <X className="size-4" />
               </Button>
@@ -105,7 +106,7 @@ export function PDFUploadField({
               onClick={() => inputRef.current?.click()}
             >
               <FileUp className="size-4" />
-              Seleccionar archivo PDF
+              {t`Seleccionar archivo PDF`}
             </Button>
           )}
         </div>

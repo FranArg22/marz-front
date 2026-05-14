@@ -3,6 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useAuth, useClerk } from '@clerk/tanstack-react-start'
 import { useQueryClient } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
 
 import { getMeQueryKey, me } from '#/shared/api/generated/accounts/accounts'
 import { track } from '#/shared/analytics/track'
@@ -38,7 +39,7 @@ export function CallbackScreen() {
           return
         }
 
-        track('magic_link_succeeded')
+        track('magic_link_succeeded')  
 
         const meResponse = await queryClient.fetchQuery({
           queryKey: getMeQueryKey(),
@@ -48,10 +49,10 @@ export function CallbackScreen() {
 
         if (meResponse.status === 200) {
           const { onboarding_status, kind, redirect_to } = meResponse.data
-          track('sign_in_succeeded', { onboarding_status, kind })
+          track('sign_in_succeeded', { onboarding_status, kind })  
 
           const destination =
-            redirect_to ?? (kind === 'brand' ? '/campaigns' : '/offers')
+            redirect_to ?? (kind === 'brand' ? '/campaigns' : '/offers')  
 
           void navigate({ to: destination })
         } else {
@@ -100,7 +101,7 @@ export function CallbackScreen() {
           </svg>
         </div>
         <span className="text-2xl font-bold tracking-tight text-foreground">
-          Marz
+          <Trans>Marz</Trans>
         </span>
       </div>
 
@@ -116,7 +117,7 @@ export function CallbackScreen() {
         className="text-center text-sm leading-relaxed text-muted-foreground"
         aria-live="polite"
       >
-        Verificando tu link…
+        <Trans>Verificando tu link…</Trans>
       </p>
     </div>
   )

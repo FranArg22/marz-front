@@ -1,4 +1,6 @@
 import { Check, Upload } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
 import { SystemEventCard } from '#/shared/ui/SystemEventCard'
@@ -22,21 +24,23 @@ type OfferAcceptedCardProps =
   | OfferAcceptedCardBrandProps
 
 export function OfferAcceptedCard(props: OfferAcceptedCardProps) {
+  const deadline = props.deadline
   return (
     <SystemEventCard
       tone="success"
-      kicker="Offer accepted"
+      kicker={t`Offer accepted`}
       icon={Check}
+       
       headerVariant="solid"
     >
       {props.audience === 'creator' ? (
         <div className="space-y-4">
           <div>
             <h3 className="text-lg font-semibold text-foreground">
-              You accepted the offer
+              <Trans>You accepted the offer</Trans>
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              Start preparing your draft. Deadline is {props.deadline}.
+              <Trans>Start preparing your draft. Deadline is {deadline}.</Trans>
             </p>
           </div>
           <Button
@@ -44,18 +48,28 @@ export function OfferAcceptedCard(props: OfferAcceptedCardProps) {
             onClick={props.onUploadDraft}
           >
             <Upload />
-            Upload draft
+            <Trans>Upload draft</Trans>
           </Button>
         </div>
       ) : (
         <div>
-          <h3 className="text-lg font-semibold text-foreground">
-            {props.creatorName} accepted the offer
-          </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {props.creatorName.split(' ')[0]} is preparing the draft. Deadline
-            is {props.deadline}.
-          </p>
+          {(() => {
+            const creatorName = props.creatorName
+            const firstName = props.creatorName.split(' ')[0]
+            const deadline = props.deadline
+            return (
+              <>
+                <h3 className="text-lg font-semibold text-foreground">
+                  <Trans>{creatorName} accepted the offer</Trans>
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  <Trans>
+                    {firstName} is preparing the draft. Deadline is {deadline}.
+                  </Trans>
+                </p>
+              </>
+            )
+          })()}
         </div>
       )}
     </SystemEventCard>

@@ -38,15 +38,17 @@ export function B14ConfirmationScreen() {
   const brandName = store.name?.trim() ?? t`Tu marca`
   const vertical = store.vertical ?? Vertical.other
   const objective = store.marketing_objective ?? MarketingObjective.performance
+  const verticalLabel = VERTICAL_LABEL[vertical]()
+  const objectiveLabel = OBJECTIVE_LABEL[objective]()
 
   const steps = [
     {
       title: t`Armá tu primera campaña y brief`,
-      sublabel: t`Te ayudamos con un template base para ${VERTICAL_LABEL[vertical]()}`,
+      sublabel: t`Te ayudamos con un template base para ${verticalLabel}`,
     },
     {
       title: t`Revisá tus matchs de creadores`,
-      sublabel: t`Filtrados por ${VERTICAL_LABEL[vertical]()} LatAm + ${OBJECTIVE_LABEL[objective]()}`,
+      sublabel: t`Filtrados por ${verticalLabel} LatAm + ${objectiveLabel}`,
     },
     {
       title: t`Enviá tus primeros invites (100 este mes)`,

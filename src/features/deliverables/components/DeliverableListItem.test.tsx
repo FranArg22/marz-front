@@ -62,8 +62,8 @@ function renderItem(
 describe('DeliverableListItem', () => {
   it.each([
     ['brand owner', 'brand' as const, 'owner' as const, true],
-    ['brand member', 'brand' as const, 'member' as const, false],
-    ['brand admin', 'brand' as const, 'admin' as const, false],
+    ['brand member', 'brand' as const, 'member' as const, true],
+    ['brand admin', 'brand' as const, 'admin' as const, true],
     ['creator', 'creator' as const, undefined, false],
   ])(
     'shows Mark as paid for %s only when allowed',

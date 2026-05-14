@@ -1,4 +1,6 @@
+/* eslint-disable lingui/no-unlocalized-strings */
 import { useCallback, useRef, useState } from 'react'
+import { t } from '@lingui/core/macro'
 
 import {
   useRequestDraftUploadMutation,
@@ -109,7 +111,7 @@ export function useDraftUploadFlow(
           progress: 0,
           error: {
             kind: 'format',
-            message: "This file format isn't supported. Use MP4, MOV, or WebM.",
+            message: t`This file format isn't supported. Use MP4, MOV, or WebM.`,
           },
           intentId: null,
         })
@@ -123,7 +125,7 @@ export function useDraftUploadFlow(
           progress: 0,
           error: {
             kind: 'size',
-            message: 'File too large (max 2 GB).',
+            message: t`File too large (max 2 GB).`,
           },
           intentId: null,
         })
@@ -229,7 +231,7 @@ export function useDraftUploadFlow(
             progress: 0,
             error: {
               kind: 'network',
-              message: 'Upload failed. Check your connection and try again.',
+              message: t`Upload failed. Check your connection and try again.`,
             },
             intentId: intent.intent_id,
           })

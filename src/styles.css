@@ -19,19 +19,19 @@
 
 :root {
   /* Surfaces */
-  --background: #fafafa;
+  --background: #ffffff;
   --foreground: #0a0a0a;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-  --muted: #f4f4f5;
+  --muted: #ececee;
   --muted-foreground: #71717a;
-  --accent: #ececee;
+  --accent: #e4e4e7;
   --accent-foreground: #18181b;
-  --secondary: #f4f4f5;
+  --secondary: #ececee;
   --secondary-foreground: #18181b;
-  --input: #f4f4f5;
+  --input: #ececee;
 
   /* Brand */
   --primary: #0da678;
@@ -50,13 +50,13 @@
   --info-foreground: #ffffff;
 
   /* Borders */
-  --border: #e4e4e7;
-  --border-strong: #d4d4d8;
+  --border: #d4d4d8;
+  --border-strong: #a1a1aa;
 
   /* Surface states */
-  --surface-hover: #f4f4f5;
-  --surface-active: #ececee;
-  --context-panel: #ffffff;
+  --surface-hover: #ececee;
+  --surface-active: #d4d4d8;
+  --context-panel: #f4f4f5;
 
   /* Neutral scale */
   --neutral-0: #ffffff;

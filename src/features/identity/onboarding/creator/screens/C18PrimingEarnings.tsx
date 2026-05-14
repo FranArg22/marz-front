@@ -31,6 +31,7 @@ export function C18PrimingEarnings() {
 
   const low = Math.round(collabs * avgPerCollab)
   const high = Math.round(collabs * avgPerCollab * 2)
+  const avgPerCollabFormatted = avgPerCollab.toLocaleString('es-AR')  
 
   return (
     <div className="relative flex w-full flex-col items-center gap-12">
@@ -49,7 +50,8 @@ export function C18PrimingEarnings() {
         </p>
         <div className="flex items-end gap-1.5">
           <span className="whitespace-nowrap text-[96px] font-bold leading-[1.2] tracking-[-0.02em] text-primary">
-            ${low.toLocaleString('es-AR')} – ${high.toLocaleString('es-AR')}
+            { }$
+            {low.toLocaleString('es-AR')} – ${high.toLocaleString('es-AR')}
           </span>
           <span className="whitespace-nowrap pb-6 text-[22px] font-semibold text-muted-foreground">
             {t`USD / mes`}
@@ -115,7 +117,7 @@ export function C18PrimingEarnings() {
         <div className="h-16 w-px bg-border" />
         <div className="flex w-[240px] flex-col gap-1">
           <span className="text-xs font-semibold leading-[1.5] text-foreground">
-            {t`Cobrás $${avgPerCollab.toLocaleString('es-AR')} promedio`}
+            {t`Cobrás $${avgPerCollabFormatted} promedio`}
           </span>
           <span className="text-[11px] text-muted-foreground">
             {t`por colab en tu nicho`}

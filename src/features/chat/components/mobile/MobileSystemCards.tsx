@@ -6,6 +6,8 @@ import {
   Video,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
@@ -103,7 +105,7 @@ export function MobileOfferCard({
   onAccept,
   onReject,
 }: MobileOfferCardProps) {
-  const kicker = variant === 'received' ? 'Offer Received' : 'Offer Sent'
+  const kicker = variant === 'received' ? t`Oferta recibida` : t`Oferta enviada`
   return (
     <MobileCardFrame
       tone="success"
@@ -129,7 +131,7 @@ export function MobileOfferCard({
         {variant === 'received' ? (
           <div className="space-y-2">
             <Button className="w-full" size="lg" onClick={onAccept}>
-              Accept offer
+              <Trans>Aceptar oferta</Trans>
             </Button>
             <Button
               variant="outline"
@@ -137,7 +139,7 @@ export function MobileOfferCard({
               size="lg"
               onClick={onReject}
             >
-              Reject
+              <Trans>Rechazar</Trans>
             </Button>
           </div>
         ) : null}
@@ -168,7 +170,7 @@ export function MobileDraftCard({
   return (
     <MobileCardFrame
       tone="info"
-      kicker="Draft Submitted"
+      kicker={t`Borrador enviado`}
       icon={Video}
       headerVariant="solid"
       right={version}
@@ -185,7 +187,7 @@ export function MobileDraftCard({
           </div>
         </div>
         <Button className="w-full" size="lg" onClick={onReview}>
-          Review draft
+          <Trans>Revisar borrador</Trans>
         </Button>
       </div>
     </MobileCardFrame>
@@ -213,7 +215,7 @@ export function MobilePaymentCard({
   return (
     <MobileCardFrame
       tone="success"
-      kicker="Payment"
+      kicker={t`Pago`}
       icon={DollarSign}
       headerVariant="solid"
     >
@@ -249,7 +251,7 @@ interface MobileLinkCardProps {
 
 export function MobileLinkCard({ url, meta }: MobileLinkCardProps) {
   return (
-    <MobileCardFrame tone="success" kicker="Link Submitted" icon={LinkIcon}>
+    <MobileCardFrame tone="success" kicker={t`Link enviado`} icon={LinkIcon}>
       <div className="space-y-1.5">
         <div className="truncate font-mono text-sm font-semibold text-foreground">
           {url}
@@ -274,7 +276,7 @@ export function MobileRequestChangesCard({
   return (
     <MobileCardFrame
       tone="destructive"
-      kicker="Changes Requested"
+      kicker={t`Cambios solicitados`}
       icon={MessageCircle}
       headerVariant="solid"
     >

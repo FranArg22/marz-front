@@ -7,6 +7,7 @@ import type { MonthlyBudgetRange } from '#/shared/api/generated/model/monthlyBud
 
 const TOTAL_CREATORS = 350
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const BLOB_COLORS = [
   '#3B82F6',
   '#F59E0B',
@@ -15,6 +16,7 @@ const BLOB_COLORS = [
   '#22C55E',
   '#0DA678',
 ] as const
+/* eslint-enable lingui/no-unlocalized-strings */
 
 const VERTICAL_LABEL: Record<Vertical, () => string> = {
   fintech: () => t`Fintech`,
@@ -42,12 +44,12 @@ const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
   community: () => t`Comunidad`,
 }
 
-const BUDGET_LABEL: Record<MonthlyBudgetRange, string> = {
-  zero: '$0',
-  under_10k: '$10K',
-  '10k_to_25k': '$25K',
-  '25k_to_50k': '$50K',
-  '50k_plus': '$100K+',
+const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
+  zero: () => t`$0`,
+  under_10k: () => t`$10K`,
+  '10k_to_25k': () => t`$25K`,
+  '25k_to_50k': () => t`$50K`,
+  '50k_plus': () => t`$100K+`,
 }
 
 const VERTICAL_NICHES: Record<Vertical, () => string[]> = {
@@ -130,7 +132,8 @@ export function B7PrimingMatchPreview() {
 
   const chips: string[] = [VERTICAL_LABEL[vertical]()]
   if (store.monthly_budget_range) {
-    chips.push(t`Budget ${BUDGET_LABEL[store.monthly_budget_range]}`)
+    const budgetLabel = BUDGET_LABEL[store.monthly_budget_range]()
+    chips.push(t`Budget ${budgetLabel}`)
   }
   if (store.marketing_objective) {
     chips.push(OBJECTIVE_LABEL[store.marketing_objective]())

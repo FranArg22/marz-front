@@ -1,11 +1,12 @@
 import { t } from '@lingui/core/macro'
 import { Zap } from 'lucide-react'
 
-const BRANDS = ['Fintech', 'SaaS', 'Gaming', 'E-commerce', 'Beauty']
+const BRANDS = () => [t`Fintech`, t`SaaS`, t`Gaming`, t`E-commerce`, t`Beauty`]
 const TOTAL = 142
 
 export function C3PrimingBrandsWaiting() {
-  const remaining = TOTAL - BRANDS.length
+  const brands = BRANDS()
+  const remaining = TOTAL - brands.length
 
   return (
     <div className="relative flex w-full flex-col items-center gap-10">
@@ -35,7 +36,7 @@ export function C3PrimingBrandsWaiting() {
       </div>
 
       <div className="relative flex flex-wrap justify-center gap-4">
-        {BRANDS.map((b) => (
+        {brands.map((b) => (
           <div
             key={b}
             className="flex size-[120px] items-center justify-center rounded-[20px] border border-border bg-card"

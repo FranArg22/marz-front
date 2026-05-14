@@ -13,6 +13,7 @@ import type { LucideIcon } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
+import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 import type {
   DeliverableDTO,
@@ -20,10 +21,12 @@ import type {
   StageStatus,
 } from '#/features/deliverables/types'
 import { useDeliverableLinks } from '#/features/deliverables/hooks/useDeliverableLinks'
+import { useApproveLink } from '#/features/deliverables/hooks/useApproveLink'
 import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
 import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { DraftVersionList } from './DraftVersionList'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
+import { RequestChangesModal } from './RequestChangesModal'
 import {
   formatOfferDeadline,
   formatOfferPlatform,
@@ -36,6 +39,7 @@ const platformIcon: Record<string, LucideIcon> = {
   twitter_x: Twitter,
 }
 
+ 
 const nonUploadableStatuses: ReadonlySet<DeliverableDTO['status']> = new Set([
   'draft_approved',
   'link_submitted',
@@ -43,6 +47,7 @@ const nonUploadableStatuses: ReadonlySet<DeliverableDTO['status']> = new Set([
   'completed',
   'paid',
 ])
+ 
 
 export interface DeliverableListItemProps {
   deliverable: DeliverableDTO
@@ -126,8 +131,10 @@ export function DeliverableListItem({
   const metaParts: string[] = []
   if (deliverable.deadline)
     metaParts.push(formatOfferDeadline(deliverable.deadline))
-  if (deliverable.current_version)
-    metaParts.push(`v${deliverable.current_version}`)
+  if (deliverable.current_version) {
+    const currentVersion = deliverable.current_version
+    metaParts.push(t`v${currentVersion}`)
+  }
   const metaLine = metaParts.join(' · ')
 
   return (
@@ -165,10 +172,12 @@ export function DeliverableListItem({
 
       {shouldShowCurrentLink && (
         <CurrentLinkSummary
+          deliverableId={deliverable.id}
           deliverableStatus={deliverable.status}
           currentLinkId={linksQuery.data?.current_link_id ?? null}
           links={linksQuery.data?.links ?? []}
           isLoading={linksQuery.isLoading}
+          sessionKind={sessionKind}
         />
       )}
 
@@ -209,11 +218,14 @@ export function DeliverableListItem({
 }
 
 function CurrentLinkSummary({
+  deliverableId,
   deliverableStatus,
   currentLinkId,
   links,
   isLoading,
+  sessionKind,
 }: {
+  deliverableId: string
   deliverableStatus: DeliverableDTO['status']
   currentLinkId: string | null
   links: {
@@ -222,6 +234,7 @@ function CurrentLinkSummary({
     status: PublishedLinkStatus
   }[]
   isLoading: boolean
+  sessionKind: 'brand' | 'creator'
 }) {
   if (isLoading) {
     return (
@@ -254,21 +267,67 @@ function CurrentLinkSummary({
       ? t`Link aprobado`
       : currentLinkStatusMeta.label
 
+  const showActions =
+    sessionKind === 'brand' &&
+    deliverableStatus === 'link_submitted' &&
+    currentLink.status === 'submitted'
+
   return (
-    <div
-      className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2"
-      data-testid="current-link-summary"
-    >
-      <ExternalLink className="size-3.5 shrink-0 text-muted-foreground" />
-      <a
-        href={currentLink.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="min-w-0 flex-1 truncate text-xs font-medium text-info-foreground hover:underline"
+    <div className="flex flex-col gap-2">
+      <div
+        className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2"
+        data-testid="current-link-summary"
       >
-        {currentLink.url}
-      </a>
-      <StatusBadge label={linkLabel} tone={currentLinkStatusMeta.tone} />
+        <ExternalLink className="size-3.5 shrink-0 text-muted-foreground" />
+        <a
+          href={currentLink.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="min-w-0 flex-1 truncate text-xs font-medium text-info hover:underline"
+        >
+          {currentLink.url}
+        </a>
+        <StatusBadge label={linkLabel} tone={currentLinkStatusMeta.tone} />
+      </div>
+      {showActions ? (
+        <CurrentLinkActions
+          deliverableId={deliverableId}
+          linkId={currentLink.id}
+        />
+      ) : null}
+    </div>
+  )
+}
+
+function CurrentLinkActions({
+  deliverableId,
+  linkId,
+}: {
+  deliverableId: string
+  linkId: string
+}) {
+  const approveLink = useApproveLink(deliverableId, linkId)
+  return (
+    <div className="flex gap-2">
+      <Button
+        size="sm"
+        className="w-1/2"
+        disabled={approveLink.isPending}
+        onClick={() => approveLink.mutate()}
+      >
+        {t`Aprobar`}
+      </Button>
+      <RequestChangesModal
+        title={t`Solicitar cambios en el link`}
+        target="link"
+        deliverableId={deliverableId}
+        linkId={linkId}
+        trigger={
+          <Button size="sm" variant="outline" className="w-1/2">
+            {t`Rechazar`}
+          </Button>
+        }
+      />
     </div>
   )
 }
@@ -299,12 +358,14 @@ function StatusBadge({
   label: string
   tone: 'info' | 'success' | 'destructive' | 'neutral'
 }) {
+  /* eslint-disable lingui/no-unlocalized-strings */
   const toneClass: Record<typeof tone, string> = {
     info: 'bg-info text-info-foreground',
     success: 'bg-success text-success-foreground',
     destructive: 'bg-destructive text-destructive-foreground',
     neutral: 'bg-muted text-foreground',
   }
+  /* eslint-enable lingui/no-unlocalized-strings */
   return (
     <Badge className={cn('rounded-full text-[10px]', toneClass[tone])}>
       {label}

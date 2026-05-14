@@ -61,8 +61,8 @@ describe('DraftVersionList', () => {
     )
 
     expect(screen.getByText('v1')).toBeInTheDocument()
-    expect(screen.getByText('Current')).toBeInTheDocument()
-    expect(screen.getByText('Submitted')).toBeInTheDocument()
+    expect(screen.getByText('Actual')).toBeInTheDocument()
+    expect(screen.getByText('Enviado')).toBeInTheDocument()
   })
 
   it('renders three versions and marks the highest as current', () => {
@@ -83,7 +83,7 @@ describe('DraftVersionList', () => {
     expect(screen.getByText('v1')).toBeInTheDocument()
     expect(screen.getByText('v2')).toBeInTheDocument()
     expect(screen.getByText('v3')).toBeInTheDocument()
-    expect(screen.getByText('Current')).toBeInTheDocument()
+    expect(screen.getByText('Actual')).toBeInTheDocument()
   })
 
   it('shows approved status when draft has approved_at', () => {
@@ -100,7 +100,7 @@ describe('DraftVersionList', () => {
       />,
     )
 
-    expect(screen.getByText('Approved')).toBeInTheDocument()
+    expect(screen.getByText('Aprobado')).toBeInTheDocument()
   })
 
   it('shows changes_requested status when changeRequests includes the draft_id', () => {
@@ -111,7 +111,7 @@ describe('DraftVersionList', () => {
       />,
     )
 
-    expect(screen.getByText('Changes requested')).toBeInTheDocument()
+    expect(screen.getByText('Cambios solicitados')).toBeInTheDocument()
   })
 
   it('classifies each version correctly in a 3-round scenario', () => {
@@ -133,11 +133,11 @@ describe('DraftVersionList', () => {
     expect(rows).toHaveLength(3)
 
     const v1Row = rows[0]!
-    expect(v1Row).toHaveTextContent('Changes requested')
+    expect(v1Row).toHaveTextContent('Cambios solicitados')
 
-    expect(screen.getAllByText('Changes requested')).toHaveLength(2)
-    expect(screen.getByText('Submitted')).toBeInTheDocument()
-    expect(screen.getByText('Current')).toBeInTheDocument()
+    expect(screen.getAllByText('Cambios solicitados')).toHaveLength(2)
+    expect(screen.getByText('Enviado')).toBeInTheDocument()
+    expect(screen.getByText('Actual')).toBeInTheDocument()
   })
 
   it('opens preview dialog when play is clicked', async () => {

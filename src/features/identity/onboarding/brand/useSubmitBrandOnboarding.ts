@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { t } from '@lingui/core/macro'
 
 import { getMeQueryKey, useMe } from '#/shared/api/generated/accounts/accounts'
 import { useCompleteBrandOnboarding } from '#/shared/api/generated/onboarding/onboarding'
@@ -13,6 +14,7 @@ import type { FieldErrors } from './store'
 import { useBrandOnboardingStore } from './store'
 import { getStepIndex } from './steps'
 
+ 
 const FIELD_TO_STEP: Record<string, string> = {
   name: 'identity',
   website_url: 'identity',
@@ -27,6 +29,7 @@ const FIELD_TO_STEP: Record<string, string> = {
   contact_whatsapp_e164: 'contact',
   attribution: 'attribution',
 }
+ 
 
 export function useSubmitBrandOnboarding() {
   const navigate = useNavigate()
@@ -43,8 +46,8 @@ export function useSubmitBrandOnboarding() {
       fields.website_url.trim() &&
       !/^https?:\/\//i.test(fields.website_url.trim())
     ) {
-      const normalized = `https://${fields.website_url.trim()}`
-      setField('website_url', normalized)
+      const normalized = `https://${fields.website_url.trim()}`  
+      setField('website_url', normalized)  
       fields.website_url = normalized
     }
 
@@ -82,12 +85,12 @@ export function useSubmitBrandOnboarding() {
         onSuccess: () => {
           reset()
           void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
-          track('onboarding_completed', { kind: 'brand' })
+          track('onboarding_completed', { kind: 'brand' })  
           void navigate({ to: '/campaigns' })
         },
         onError: (error) => {
           if (!(error instanceof ApiError)) {
-            toast.error('Ocurrió un error inesperado. Intentá de nuevo.')
+            toast.error(t`Ocurrió un error inesperado. Intentá de nuevo.`)
             return
           }
 
@@ -131,7 +134,7 @@ export function useSubmitBrandOnboarding() {
             return
           }
 
-          toast.error('Ocurrió un error inesperado. Intentá de nuevo.')
+          toast.error(t`Ocurrió un error inesperado. Intentá de nuevo.`)
         },
       },
     )

@@ -12,12 +12,12 @@ const BUDGET_USD: Record<MonthlyBudgetRange, number> = {
   '50k_plus': 100_000,
 }
 
-const BUDGET_LABEL: Record<MonthlyBudgetRange, string> = {
-  zero: '$0',
-  under_10k: '$10K',
-  '10k_to_25k': '$25K',
-  '25k_to_50k': '$50K',
-  '50k_plus': '$100K+',
+const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
+  zero: () => t`$0`,
+  under_10k: () => t`$10K`,
+  '10k_to_25k': () => t`$25K`,
+  '25k_to_50k': () => t`$50K`,
+  '50k_plus': () => t`$100K+`,
 }
 
 const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
@@ -46,6 +46,7 @@ const VERTICAL_LABEL: Record<Vertical, () => string> = {
   other: () => t`tu vertical`,
 }
 
+/* eslint-disable lingui/no-unlocalized-strings */
 function formatViews(n: number): string {
   if (n >= 1_000_000) {
     const m = n / 1_000_000
@@ -59,6 +60,7 @@ function formatClicks(n: number): string {
   if (n >= 1_000) return `${Math.round(n / 1_000)}K`
   return `${n}`
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 export function B10PrimingProjection() {
   const store = useBrandOnboardingStore()
@@ -72,7 +74,11 @@ export function B10PrimingProjection() {
   const cpc = clicks > 0 ? budgetUsd / clicks : 0
 
   const highlight: 'views' | 'clicks' =
-    objective === 'performance' ? 'clicks' : 'views'
+    objective === 'performance' ? 'clicks' : 'views'  
+
+  const budgetLabel = BUDGET_LABEL[budget]()
+  const objectiveLabel = OBJECTIVE_LABEL[objective]()
+  const verticalLabel = VERTICAL_LABEL[vertical]()
 
   return (
     <div className="relative flex w-full flex-col items-center gap-10">
@@ -97,7 +103,7 @@ export function B10PrimingProjection() {
           {t`Así se ve lo que podés alcanzar.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
-          {t`Con ${BUDGET_LABEL[budget]}/mes y foco en ${OBJECTIVE_LABEL[objective]()}, tu primer mes promedio en ${VERTICAL_LABEL[vertical]()} LatAm.`}
+          {t`Con ${budgetLabel}/mes y foco en ${objectiveLabel}, tu primer mes promedio en ${verticalLabel} LatAm.`}
         </p>
       </div>
 
@@ -120,7 +126,7 @@ export function B10PrimingProjection() {
       </div>
 
       <p className="relative max-w-[720px] text-center text-[11px] leading-[1.5] text-muted-foreground">
-        {t`Los números son referencias históricas en ${VERTICAL_LABEL[vertical]()} LatAm. Variables como creador, formato y hook mueven fuerte.`}
+        {t`Los números son referencias históricas en ${verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte.`}
       </p>
     </div>
   )

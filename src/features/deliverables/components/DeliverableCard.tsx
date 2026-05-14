@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { cn } from '#/lib/utils'
 import { Badge } from '#/components/ui/badge'
@@ -18,6 +19,7 @@ import type {
 } from '#/features/deliverables/types'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
 
+/* eslint-disable lingui/no-unlocalized-strings */
 const linkToneClass: Record<
   'info' | 'success' | 'destructive' | 'neutral',
   string
@@ -27,6 +29,7 @@ const linkToneClass: Record<
   destructive: 'bg-destructive text-destructive-foreground',
   neutral: 'bg-muted text-foreground',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 const platformIcon: Record<string, LucideIcon> = {
   youtube: Youtube,
@@ -63,7 +66,7 @@ export function DeliverableCard({
   status,
   drafts,
   onAddDraft,
-  emptyLabel = 'Upload draft',
+  emptyLabel = t`Upload draft`,
   currentLink = null,
 }: DeliverableCardProps) {
   const PlatformIcon = platformIcon[platform] ?? Film
@@ -102,7 +105,7 @@ export function DeliverableCard({
         className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-hover"
       >
         <Plus className="size-4" />
-        {hasDrafts ? 'Add draft' : emptyLabel}
+        {hasDrafts ? t`Add draft` : emptyLabel}
       </button>
     </div>
   )
@@ -163,6 +166,7 @@ function getCurrentLinkStatusMeta(status: PublishedLinkStatus): {
 
 function DraftRow({ draft }: { draft: DraftEntry }) {
   const hasChanges = draft.status === 'changes_requested'
+  const duration = draft.duration
   return (
     <li
       className={cn(
@@ -172,7 +176,7 @@ function DraftRow({ draft }: { draft: DraftEntry }) {
     >
       {hasChanges ? (
         <div className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
-          ⚠ Changes requested
+          <Trans>⚠ Changes requested</Trans>
         </div>
       ) : null}
       <div className="flex items-center gap-2 text-sm">
@@ -182,7 +186,7 @@ function DraftRow({ draft }: { draft: DraftEntry }) {
         </span>
         {!hasChanges && draft.status === 'in_review' ? (
           <span className="font-mono text-xs text-muted-foreground">
-            {draft.duration} · In review
+            <Trans>{duration} · In review</Trans>
           </span>
         ) : (
           <span className="font-mono text-xs text-muted-foreground">

@@ -106,7 +106,9 @@ describe('RequestChangesCard', () => {
     expect(screen.getByText('Audio')).toBeInTheDocument()
 
     const container = screen.getByTestId('request-changes-card')
-    expect(container.className).toContain('justify-end')
+    expect(container.firstElementChild?.className ?? '').toContain(
+      'justify-end',
+    )
   })
 
   it('renders incoming variant when requested by counterpart', () => {
@@ -121,7 +123,9 @@ describe('RequestChangesCard', () => {
     expect(screen.getByText('María García')).toBeInTheDocument()
 
     const container = screen.getByTestId('request-changes-card')
-    expect(container.className).toContain('justify-start')
+    expect(container.firstElementChild?.className ?? '').toContain(
+      'justify-start',
+    )
   })
 
   it('shows thumbnail when draft_thumbnail_url is present', () => {

@@ -230,16 +230,19 @@ function CampaignBoardResultSummary({
   totalVisible?: number
   recommended?: number
 }) {
+  const totalVisibleCount = totalVisible ?? 0
+  const recommendedCount = recommended ?? 0
+
   return (
     <div className="flex items-center gap-2">
       <p className="text-sm font-semibold text-foreground">
-        {t`${totalVisible ?? 0} campañas`}
+        {t`${totalVisibleCount} campañas`}
       </p>
       <span className="text-muted-foreground" aria-hidden="true">
         ·
       </span>
       <p className="text-xs text-muted-foreground">
-        {t`${recommended ?? 0} recomendadas para vos`}
+        {t`${recommendedCount} recomendadas para vos`}
       </p>
     </div>
   )

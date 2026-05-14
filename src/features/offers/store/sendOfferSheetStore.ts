@@ -22,18 +22,22 @@ export const useSendOfferSheetStore = create<SendOfferSheetState>()(
   (set, get) => ({
     isOpen: false,
     conversationId: null,
+     
     offerType: 'single',
     pendingOfferType: null,
     pendingOfferTypeHadData: false,
     isTypeChangeConfirmationOpen: false,
     open: (conversationId) => {
+       
       trackOfferEvent('offer_sidesheet_opened', {
         actor_kind: 'brand',
         source: 'conversation',
       })
+       
       set({
         isOpen: true,
         conversationId,
+         
         offerType: 'single',
         pendingOfferType: null,
         pendingOfferTypeHadData: false,
@@ -44,6 +48,7 @@ export const useSendOfferSheetStore = create<SendOfferSheetState>()(
       set({
         isOpen: false,
         conversationId: null,
+         
         offerType: 'single',
         pendingOfferType: null,
         pendingOfferTypeHadData: false,
@@ -60,24 +65,28 @@ export const useSendOfferSheetStore = create<SendOfferSheetState>()(
           isTypeChangeConfirmationOpen: true,
         })
       } else {
+         
         trackOfferEvent('offer_type_changed_in_sidesheet', {
           actor_kind: 'brand',
           from_type: offerType,
           to_type: type,
           had_data: false,
         })
+         
         set({ offerType: type, pendingOfferType: null })
       }
     },
     confirmTypeChange: () => {
       const { offerType, pendingOfferType, pendingOfferTypeHadData } = get()
       if (pendingOfferType) {
+         
         trackOfferEvent('offer_type_changed_in_sidesheet', {
           actor_kind: 'brand',
           from_type: offerType,
           to_type: pendingOfferType,
           had_data: pendingOfferTypeHadData,
         })
+         
         set({
           offerType: pendingOfferType,
           pendingOfferType: null,

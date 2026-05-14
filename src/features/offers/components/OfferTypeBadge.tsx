@@ -5,14 +5,16 @@ import type { ArchivedOfferItem } from '#/features/offers/hooks/useConversationO
 
 type OfferArchiveType = ArchivedOfferItem['type']
 
-const offerTypeLabels: Record<OfferArchiveType, string> = {
-  single: t`Single`,
-  bundle: t`Bundle`,
-  multistage: t`Multi-stage`,
+function getOfferTypeLabels(): Record<OfferArchiveType, string> {
+  return {
+    single: t`Single`,
+    bundle: t`Bundle`,
+    multistage: t`Multi-stage`,
+  }
 }
 
 export function getOfferTypeBadgeLabel(type: OfferArchiveType) {
-  return offerTypeLabels[type]
+  return getOfferTypeLabels()[type]
 }
 
 interface OfferTypeBadgeProps {

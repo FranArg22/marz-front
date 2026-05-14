@@ -14,7 +14,7 @@ import type {
   Platform,
   CampaignObjective,
 } from '../store'
-import { phase3Schema } from '../schemas'
+import { createPhase3Schema } from '../schemas'
 import type { Phase3Values } from '../schemas'
 import { useRegisterStepValidator } from '../validation'
 import { ScoringDimensionCard } from '../components/ScoringDimensionCard'
@@ -286,6 +286,7 @@ export function P3Review() {
   const store = useBriefBuilderStore()
   const draft = store.briefDraft ?? EMPTY_DRAFT
   const draftIsEmpty = isDraftEmpty(draft)
+  const phase3Schema = createPhase3Schema()
 
   const form = useAppForm({
     defaultValues: draftToFormValues(draft),

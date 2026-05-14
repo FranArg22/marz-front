@@ -204,6 +204,7 @@ export function ConversationView({
         currentAccountId={currentAccountId}
         canSend={canSend}
         wsSend={wsSend}
+        onSent={() => timelineRef.current?.scrollToBottom()}
       />
     </div>
   )

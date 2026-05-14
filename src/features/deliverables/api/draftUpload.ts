@@ -1,3 +1,6 @@
+ 
+import { t } from '@lingui/core/macro'
+
 import { ApiError } from '#/shared/api/mutator'
 import type { DraftDTO } from '#/shared/api/generated/model'
 import {
@@ -120,7 +123,7 @@ export function apiErrorToUploadError(error: unknown): UploadError {
     return { kind: 'network', message: error.message }
   }
 
-  return { kind: 'server', message: 'Something went wrong. Try again.' }
+  return { kind: 'server', message: t`Something went wrong. Try again.` }
 }
 
 export type { cancelDraftUploadResponseSuccess }

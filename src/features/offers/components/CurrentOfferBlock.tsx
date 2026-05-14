@@ -17,17 +17,19 @@ import { OfferDeliverablesList } from './OfferDeliverablesList'
 import { formatBonusWindowsLabel } from '../utils/bonusTerms'
 import { useOfferActions } from '#/features/offers/hooks/useOfferActions'
 
-const statusConfig: Record<
+function getStatusConfig(): Record<
   OfferStatus,
   {
     label: string
     variant: 'default' | 'secondary' | 'destructive' | 'outline'
   }
-> = {
-  sent: { label: t`Enviada`, variant: 'secondary' },
-  accepted: { label: t`Aceptada`, variant: 'default' },
-  rejected: { label: t`Rechazada`, variant: 'destructive' },
-  expired: { label: t`Expirada`, variant: 'outline' },
+> {
+  return {
+    sent: { label: t`Enviada`, variant: 'secondary' },
+    accepted: { label: t`Aceptada`, variant: 'default' },
+    rejected: { label: t`Rechazada`, variant: 'destructive' },
+    expired: { label: t`Expirada`, variant: 'outline' },
+  }
 }
 
 function getPaymentProgress(deliverables: DeliverableDTO[]) {
@@ -44,13 +46,15 @@ function getOfferBadge(offer: OfferDTO, deliverables: DeliverableDTO[]) {
   }
 
   if (progress.paidCount > 0 && progress.paidCount < progress.total) {
+    const paidCount = progress.paidCount
+    const total = progress.total
     return {
-      label: t`Pago parcial (${progress.paidCount}/${progress.total})`,
+      label: t`Pago parcial (${paidCount}/${total})`,
       variant: 'secondary' as const,
     }
   }
 
-  return statusConfig[offer.status]
+  return getStatusConfig()[offer.status]
 }
 
 interface CurrentOfferBlockProps {
@@ -117,6 +121,7 @@ export function CurrentOfferBlock({
   useEffect(() => {
     if (offer && !trackedRef.current) {
       trackedRef.current = true
+       
       trackOfferEvent('offer_panel_viewed', {
         actor_kind: actorKind,
         offer_state: offer.status,
@@ -131,6 +136,7 @@ export function CurrentOfferBlock({
   const badge = getOfferBadge(offer, deliverables)
   const bonusLabel = formatBonusWindowsLabel(offer.bonus_terms)
   // RAFITA:BLOCKER currency no expuesto en OfferDTO — asumir USD hasta que backend lo agregue
+   
   const currency = 'USD'
 
   return (

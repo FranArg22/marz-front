@@ -7,17 +7,19 @@ import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
 import type { OfferStatus } from '#/features/offers/types'
 import { getOfferTypeBadgeLabel, OfferTypeBadge } from './OfferTypeBadge'
 
-const badgeConfig: Record<
+function getBadgeConfig(): Record<
   OfferStatus,
   {
     label: string
     variant: 'default' | 'secondary' | 'destructive' | 'outline'
   }
-> = {
-  sent: { label: t`Pending`, variant: 'secondary' },
-  accepted: { label: t`Accepted`, variant: 'default' },
-  rejected: { label: t`Rejected`, variant: 'destructive' },
-  expired: { label: t`Expired`, variant: 'outline' },
+> {
+  return {
+    sent: { label: t`Pending`, variant: 'secondary' },
+    accepted: { label: t`Accepted`, variant: 'default' },
+    rejected: { label: t`Rejected`, variant: 'destructive' },
+    expired: { label: t`Expired`, variant: 'outline' },
+  }
 }
 
 interface OfferArchiveItemProps {
@@ -26,16 +28,21 @@ interface OfferArchiveItemProps {
 
 export function OfferArchiveItem({ item }: OfferArchiveItemProps) {
   const offer = item.offer
-  const badge = badgeConfig[offer.status]
+  const badge = getBadgeConfig()[offer.status]
   const offerTypeLabel = getOfferTypeBadgeLabel(item.type)
   // RAFITA:BLOCKER currency no expuesto en OfferDTO — asumir USD hasta que backend lo agregue
+   
   const currency = 'USD'
   // RAFITA:BLOCKER campaign_name no expuesto en OfferDTO — usar id corto hasta que backend lo agregue
   const campaignLabel = offer.campaign_id.slice(0, 8)
   const sentAt = offer.sent_at ?? offer.created_at
+   
   const sentDate = new Date(sentAt).toLocaleDateString('en-US', {
+     
     month: 'short',
+     
     day: 'numeric',
+     
     year: 'numeric',
   })
 

@@ -1,10 +1,14 @@
+import { t } from '@lingui/core/macro'
+
+ 
+
 export interface ShellNavigationItem {
   id: string
-  label: string
+  label: () => string
   icon: string
   href?: string
   disabled?: boolean
-  disabledReason?: string
+  disabledReason?: () => string
 }
 
 export interface ShellNavigationConfig {
@@ -12,51 +16,51 @@ export interface ShellNavigationConfig {
   creator: ShellNavigationItem[]
 }
 
-const DISABLED_REASON = 'Próximamente'
+const DISABLED_REASON = () => t`Próximamente`
 
 export const shellNavigationConfig: ShellNavigationConfig = {
   brand: [
     {
       id: 'home',
-      label: 'Home',
+      label: () => t`Home`,
       icon: 'home',
       disabled: true,
       disabledReason: DISABLED_REASON,
     },
     {
       id: 'inbox',
-      label: 'Inbox',
+      label: () => t`Inbox`,
       icon: 'inbox',
       href: '/inbox',
     },
     {
       id: 'workspace',
-      label: 'Workspace',
+      label: () => t`Workspace`,
       icon: 'message-square',
       href: '/workspace',
     },
     {
       id: 'campaigns',
-      label: 'Campaigns',
+      label: () => t`Campaigns`,
       icon: 'megaphone',
       href: '/campaigns',
     },
     {
       id: 'payments',
-      label: 'Payments & Spending',
+      label: () => t`Payments & Spending`,
       icon: 'wallet',
       href: '/payments',
     },
     {
       id: 'creators',
-      label: 'Creators',
+      label: () => t`Creators`,
       icon: 'users',
       disabled: true,
       disabledReason: DISABLED_REASON,
     },
     {
       id: 'analytics',
-      label: 'Analytics',
+      label: () => t`Analytics`,
       icon: 'bar-chart-3',
       disabled: true,
       disabledReason: DISABLED_REASON,
@@ -65,38 +69,38 @@ export const shellNavigationConfig: ShellNavigationConfig = {
   creator: [
     {
       id: 'home',
-      label: 'Home',
+      label: () => t`Home`,
       icon: 'home',
       disabled: true,
       disabledReason: DISABLED_REASON,
     },
     {
       id: 'inbox',
-      label: 'Inbox',
+      label: () => t`Inbox`,
       icon: 'inbox',
       href: '/inbox',
     },
     {
       id: 'workspace',
-      label: 'Workspace',
+      label: () => t`Workspace`,
       icon: 'message-square',
       href: '/workspace',
     },
     {
       id: 'campaigns',
-      label: 'Campaigns',
+      label: () => t`Campaigns`,
       icon: 'briefcase',
       href: '/discover/campaigns',
     },
     {
       id: 'earnings',
-      label: 'Earnings',
+      label: () => t`Earnings`,
       icon: 'dollar-sign',
       href: '/earnings',
     },
     {
       id: 'analytics',
-      label: 'Analytics',
+      label: () => t`Analytics`,
       icon: 'bar-chart-3',
       disabled: true,
       disabledReason: DISABLED_REASON,

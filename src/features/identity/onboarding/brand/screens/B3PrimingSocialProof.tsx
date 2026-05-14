@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 export function B3PrimingSocialProof() {
   return (
@@ -31,7 +32,7 @@ export function B3PrimingSocialProof() {
       <div className="relative flex items-stretch gap-[60px]">
         <div className="flex flex-col items-center gap-2">
           <span className="text-[64px] font-bold leading-none tracking-[-0.02em] text-primary">
-            +$1M
+            <Trans>+$1M</Trans>
           </span>
           <span className="text-xs text-muted-foreground">
             {t`USD manejados en campañas`}
@@ -45,7 +46,7 @@ export function B3PrimingSocialProof() {
 
         <div className="flex flex-col items-center gap-2">
           <span className="text-[64px] font-bold leading-none tracking-[-0.02em] text-foreground">
-            +500M
+            <Trans>+500M</Trans>
           </span>
           <span className="text-xs text-muted-foreground">
             {t`views generados`}

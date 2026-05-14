@@ -1,5 +1,6 @@
 import { ChevronUp } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 import { IconButton } from '#/shared/ui/IconButton'
@@ -31,6 +32,7 @@ export function OfferBlock({
   title,
   offerId,
   statusLabel,
+   
   statusVariant = 'default',
   terms,
   sectionLabel,
@@ -51,8 +53,9 @@ export function OfferBlock({
           {onToggle ? (
             <IconButton
               size="sm"
+               
               shape="circle"
-              aria-label="Collapse offer"
+              aria-label={t`Collapse offer`}
               onClick={onToggle}
             >
               <ChevronUp />

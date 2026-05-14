@@ -44,14 +44,22 @@ function StageCard({ stage, currency, stageIndex, actorKind }: StageCardProps) {
     const next = !expanded
     setExpanded(next)
     if (next) {
-      trackOfferEvent('stage_expanded', {
-        actor_kind: actorKind,
-        offer_type: 'multistage',
-        stage_index: stageIndex,
-        surface: 'card',
-      })
+      trackOfferEvent(
+         
+        'stage_expanded',
+        {
+          actor_kind: actorKind,
+           
+          offer_type: 'multistage',
+          stage_index: stageIndex,
+           
+          surface: 'card',
+        },
+      )
     }
   }
+
+  const stageName = stage.name
 
   return (
     <div className="rounded-xl border border-border bg-muted">
@@ -60,7 +68,7 @@ function StageCard({ stage, currency, stageIndex, actorKind }: StageCardProps) {
         onClick={handleToggle}
         className="flex w-full items-center justify-between px-4 py-3 text-left"
         aria-expanded={expanded}
-        aria-label={t`Toggle stage ${stage.name}`}
+        aria-label={t`Toggle stage ${stageName}`}
       >
         <div className="flex flex-col gap-0.5">
           <span className="font-medium text-foreground">{stage.name}</span>
@@ -122,15 +130,17 @@ export function OfferCardMultiStage({
   const actionsEnabled = side === 'in' && status === 'sent' && !expired
   const amount = formatOfferAmount(snapshot.total_amount, snapshot.currency)
   const badge = getStatusConfig(status)
+  const badgeLabel = badge.label
   const kicker = side === 'out' ? t`Offer sent` : t`New campaign offer`
   const icon = side === 'out' ? Timer : Sparkles
+   
   const actorKind = side === 'out' ? 'brand' : 'creator'
 
   return (
     <div
       role="article"
       data-testid="offer-card-multistage"
-      aria-label={t`Multi-stage offer, total ${amount}, status ${badge.label}`}
+      aria-label={t`Multi-stage offer, total ${amount}, status ${badgeLabel}`}
     >
       <SystemEventCard tone="success" kicker={kicker} icon={icon}>
         <div className="space-y-4">
@@ -190,7 +200,7 @@ export function OfferCardMultiStage({
             <div className="flex items-center justify-center gap-2 rounded-full bg-muted px-4 py-3 text-sm">
               <span
                 className={badge.className}
-                aria-label={t`Status: ${badge.label}`}
+                aria-label={t`Status: ${badgeLabel}`}
               >
                 {badge.label}
               </span>

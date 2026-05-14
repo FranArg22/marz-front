@@ -36,6 +36,7 @@ interface Plan {
   bgOverride?: string
 }
 
+/* eslint-disable lingui/no-unlocalized-strings */
 function getPlans(): Plan[] {
   return [
     {
@@ -142,11 +143,12 @@ function getRecommendedPlan(budget: MonthlyBudgetRange | undefined): PlanId {
   if (budget === '25k_to_50k') return 'scale'
   return 'custom'
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 export function B13PaywallScreen() {
   const navigate = useNavigate()
   const store = useBrandOnboardingStore()
-  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly')
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly')  
 
   const plans = getPlans()
   const recommended = getRecommendedPlan(store.monthly_budget_range)

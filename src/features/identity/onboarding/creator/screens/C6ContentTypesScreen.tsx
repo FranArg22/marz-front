@@ -17,6 +17,7 @@ import type { LucideIcon } from 'lucide-react'
 import { OnboardingContentTypeChip } from '#/features/identity/onboarding/shared/components'
 import { useCreatorOnboardingStore } from '../store'
 
+ 
 const CONTENT_TYPE_OPTIONS: {
   value: string
   label: () => string
@@ -47,6 +48,7 @@ const CONTENT_TYPE_OPTIONS: {
     icon: Clapperboard,
   },
 ]
+ 
 
 export function C6ContentTypesScreen() {
   const store = useCreatorOnboardingStore()
@@ -55,11 +57,11 @@ export function C6ContentTypesScreen() {
   const toggle = (value: string) => {
     if (selected.includes(value)) {
       store.setField(
-        'content_types',
+        'content_types',  
         selected.filter((v) => v !== value),
       )
     } else {
-      store.setField('content_types', [...selected, value])
+      store.setField('content_types', [...selected, value])  
     }
   }
 
@@ -85,7 +87,11 @@ export function C6ContentTypesScreen() {
         ))}
       </div>
       <p className="text-[11px] text-muted-foreground" aria-live="polite">
-        {t`${selected.length} de ${CONTENT_TYPE_OPTIONS.length} seleccionados`}
+        {(() => {
+          const n = selected.length
+          const total = CONTENT_TYPE_OPTIONS.length
+          return t`${n} de ${total} seleccionados`
+        })()}
       </p>
     </div>
   )

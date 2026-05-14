@@ -12,6 +12,8 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
+import { t } from '@lingui/core/macro'
+
 import { TooltipProvider } from '#/components/ui/tooltip'
 
 import { AppSidebarItem } from './AppSidebarItem'
@@ -37,8 +39,6 @@ const iconByName: Record<string, LucideIcon> = {
   users: Users,
   wallet: Wallet,
 }
-
-const DISABLED_TOOLTIP_LABEL = 'Próximamente'
 
 function getInitials(name: string): string {
   const initials = name
@@ -68,7 +68,7 @@ export function AppSidebar({
       <aside
         data-testid="app-sidebar"
         data-width="72px"
-        aria-label="Navegación principal"
+        aria-label={t`Navegación principal`}
         className="flex h-full w-[72px] shrink-0 flex-col items-center gap-2 border-r border-sidebar-border bg-background py-4"
       >
         <div
@@ -82,15 +82,20 @@ export function AppSidebar({
           const Icon = iconByName[item.icon] ?? Inbox
           const disabled = item.disabled === true
 
+          const label = item.label()
+          const tooltipLabel = disabled
+            ? (item.disabledReason?.() ?? t`Próximamente`)
+            : label
+
           return (
             <AppSidebarItem
               key={item.id}
-              label={item.label}
+              label={label}
               icon={Icon}
               href={item.href}
               active={activeItem?.id === item.id}
               disabled={disabled}
-              tooltipLabel={disabled ? DISABLED_TOOLTIP_LABEL : item.label}
+              tooltipLabel={tooltipLabel}
             />
           )
         })}

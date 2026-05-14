@@ -44,6 +44,7 @@ export function OfferCardBundle({
   const amount = formatOfferAmount(snapshot.total_amount, snapshot.currency)
   const deadline = formatOfferDeadline(snapshot.deadline)
   const badge = getStatusConfig(status)
+  const badgeLabel = badge.label
   const kicker = side === 'out' ? t`Offer sent` : t`New campaign offer`
   const icon = side === 'out' ? Timer : Sparkles
   const bonusLabel = formatBonusWindowsLabel(snapshot.bonus_terms)
@@ -52,7 +53,7 @@ export function OfferCardBundle({
     <div
       role="article"
       data-testid="offer-card-bundle"
-      aria-label={t`Bundle offer, total ${amount}, deadline ${deadline}, status ${badge.label}`}
+      aria-label={t`Bundle offer, total ${amount}, deadline ${deadline}, status ${badgeLabel}`}
     >
       <SystemEventCard tone="success" kicker={kicker} icon={icon}>
         <div className="space-y-4">
@@ -105,6 +106,7 @@ export function OfferCardBundle({
                 label={t`Total`}
                 amount={snapshot.total_amount}
                 currency={snapshot.currency}
+                 
                 emphasis="strong"
               />
             </div>
@@ -137,7 +139,7 @@ export function OfferCardBundle({
             <div className="flex items-center justify-center gap-2 rounded-full bg-muted px-4 py-3 text-sm">
               <span
                 className={badge.className}
-                aria-label={t`Status: ${badge.label}`}
+                aria-label={t`Status: ${badgeLabel}`}
               >
                 {badge.label}
               </span>

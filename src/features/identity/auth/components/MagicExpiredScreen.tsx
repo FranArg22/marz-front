@@ -1,18 +1,20 @@
 import { useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { Button } from '#/components/ui/button'
 import { track } from '#/shared/analytics/track'
 
-const reasons = [
-  'Pasó más de 15 minutos desde que lo recibiste',
-  'Ya usaste este link en otro dispositivo',
-  'El link se cortó al copiarlo',
+const reasons = () => [
+  t`Pasó más de 15 minutos desde que lo recibiste`,
+  t`Ya usaste este link en otro dispositivo`,
+  t`El link se cortó al copiarlo`,
 ]
 
 export function MagicExpiredScreen() {
   useEffect(() => {
-    track('magic_link_failed')
+    track('magic_link_failed')  
   }, [])
 
   return (
@@ -40,16 +42,18 @@ export function MagicExpiredScreen() {
 
       <div className="flex w-full flex-col items-center gap-2.5">
         <h1 className="text-center text-[28px] font-semibold leading-tight tracking-tight text-foreground">
-          Este link ya no sirve
+          <Trans>Este link ya no sirve</Trans>
         </h1>
         <p className="text-center text-sm leading-relaxed text-muted-foreground">
-          El link para entrar a Marz venció o ya fue usado. Pedí uno nuevo con
-          tu email y volvé a intentar.
+          <Trans>
+            El link para entrar a Marz venció o ya fue usado. Pedí uno nuevo con
+            tu email y volvé a intentar.
+          </Trans>
         </p>
       </div>
 
       <ul className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-muted p-4">
-        {reasons.map((reason) => (
+        {reasons().map((reason) => (
           <li
             key={reason}
             className="flex items-center gap-2.5 text-xs text-foreground"
@@ -63,7 +67,9 @@ export function MagicExpiredScreen() {
       </ul>
 
       <Button asChild className="h-12 w-full rounded-xl text-sm font-semibold">
-        <Link to="/auth">Pedir nuevo link</Link>
+        <Link to="/auth">
+          <Trans>Pedir nuevo link</Trans>
+        </Link>
       </Button>
 
       <Link
@@ -85,7 +91,7 @@ export function MagicExpiredScreen() {
           <path d="m12 19-7-7 7-7" />
           <path d="M19 12H5" />
         </svg>
-        Volver al inicio
+        <Trans>Volver al inicio</Trans>
       </Link>
     </div>
   )

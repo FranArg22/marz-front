@@ -22,9 +22,9 @@ export function canMarkDeliverableAsPaid({
   viewer: MarkAsPaidViewer
   deliverableStatus: MarkAsPaidDeliverableStatus | undefined
 }) {
+  // RAFITA:BLOCKER: backend no expone membership.role todavía — chequear viewer.role === 'owner' cuando esté disponible.
   return (
     viewer.kind === 'brand' &&
-    viewer.role === 'owner' &&
-    deliverableStatus === 'completed'
+    (deliverableStatus === 'link_approved' || deliverableStatus === 'completed')
   )
 }

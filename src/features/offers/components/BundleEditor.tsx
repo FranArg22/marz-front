@@ -19,16 +19,16 @@ import { deadlineToRFC3339 } from '../utils/formatOffer'
 import { BonusTermsFields, BonusWindowRow } from './BonusTermsFields'
 import { DeliverableSummaryRow } from './DeliverableSummaryRow'
 import { BundlePlatformRow } from './BundlePlatformRow'
-import {
-  bundleEditorBaseSchema,
-  bundleEditorSubmitSchema,
-} from '../schemas/bundleEditor'
+import { createBundleEditorSchemas } from '../schemas/bundleEditor'
 import { sortBonusTerms } from '../utils/bonusTerms'
 
 function getPlatformOptions() {
   return [
+     
     { value: 'youtube', label: t`YouTube` },
+     
     { value: 'instagram', label: t`Instagram` },
+     
     { value: 'tiktok', label: t`TikTok` },
   ] as const
 }
@@ -39,14 +39,20 @@ function getFormatOptionsByPlatform(): Record<
 > {
   return {
     youtube: [
+       
       { value: 'yt_long', label: t`Long Video` },
+       
       { value: 'yt_short', label: t`Short` },
     ],
     instagram: [
+       
       { value: 'ig_reel', label: t`Reel` },
+       
       { value: 'ig_story', label: t`Story` },
+       
       { value: 'ig_post', label: t`Post` },
     ],
+     
     tiktok: [{ value: 'tiktok_post', label: t`Post` }],
   }
 }
@@ -81,20 +87,23 @@ type DefaultValues = ReturnType<typeof createDefaultValues>
 
 // Captures the concrete form type from a single call site so sub-components
 // can reference it without duplicating the validator generics.
-declare const _formShape: ReturnType<typeof useAppForm<
-  DefaultValues,
-  undefined,
-  typeof bundleEditorBaseSchema,
-  undefined,
-  undefined,
-  undefined,
-  typeof bundleEditorSubmitSchema,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined
->>
+type BundleEditorSchemas = ReturnType<typeof createBundleEditorSchemas>
+declare const _formShape: ReturnType<
+  typeof useAppForm<
+    DefaultValues,
+    undefined,
+    BundleEditorSchemas['bundleEditorBaseSchema'],
+    undefined,
+    undefined,
+    undefined,
+    BundleEditorSchemas['bundleEditorSubmitSchema'],
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined
+  >
+>
 type BundleForm = typeof _formShape
 
 interface BundleEditorProps {
@@ -135,6 +144,7 @@ function BundleFormFields({
   exceedsBudget,
   minimumDeadline,
 }: BundleFormFieldsProps) {
+  const budgetDisplay = `${currency} ${selectedCampaign?.budget_remaining ?? '0.00'}`
   return (
     <>
       <form.AppField name="campaign_id">
@@ -166,7 +176,7 @@ function BundleFormFields({
 
       {exceedsBudget ? (
         <p className="text-sm text-warning" aria-live="polite">
-          {t`This amount exceeds the campaign's remaining budget (${currency} ${selectedCampaign?.budget_remaining ?? '0.00'})`}
+          {t`This amount exceeds the campaign's remaining budget (${budgetDisplay})`}
         </p>
       ) : null}
 
@@ -230,6 +240,7 @@ function BundleDeliverablesSection({
                         listeners={{
                           onChange: () => {
                             form.setFieldValue(
+                              // eslint-disable-next-line lingui/no-unlocalized-strings
                               `deliverables[${index}].format`,
                               '',
                             )
@@ -391,6 +402,9 @@ export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
 
   const [initialValues] = useState(createDefaultValues)
 
+  const { bundleEditorBaseSchema, bundleEditorSubmitSchema } =
+    createBundleEditorSchemas()
+
   const form = useAppForm({
     defaultValues: initialValues,
     validators: {
@@ -455,6 +469,7 @@ export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
     [campaigns, selectedCampaignId],
   )
 
+   
   const currency = selectedCampaign?.budget_currency ?? 'USD'
   const budgetRemaining = selectedCampaign
     ? parseFloat(selectedCampaign.budget_remaining)
@@ -496,12 +511,16 @@ export function BundleEditor({ onClose, dirtyRef }: BundleEditorProps) {
           formatOptionsByPlatform={formatOptionsByPlatform}
         />
 
-        <BundleBonusSection form={form as BundleForm} bonusWindows={bonusWindows} />
+        <BundleBonusSection
+          form={form as BundleForm}
+          bonusWindows={bonusWindows}
+        />
 
         <DeliverableSummaryRow
           label={t`Total`}
           amount={parsedTotal > 0 ? parsedTotal.toFixed(2) : '0.00'}
           currency={currency}
+           
           emphasis="strong"
         />
       </div>

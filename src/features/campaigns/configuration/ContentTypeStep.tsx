@@ -17,38 +17,39 @@ import {
 } from './hooks'
 import type { CampaignConfiguration, CampaignContentType } from './hooks'
 
-const contentTypeOptions: Array<{
-  value: CampaignContentType
-  title: string
-  description: string
-  Icon: LucideIcon
-}> = [
-  {
-    value: 'influencer_posts',
-    title: t`Influencer Posts`,
-    description: t`Creators publican contenido en sus redes para amplificar tu marca.`,
-    Icon: Megaphone,
-  },
-  {
-    value: 'ugc_videos',
-    title: t`UGC Videos`,
-    description: t`Creators producen videos para que tu marca use en ads y canales propios.`,
-    Icon: Video,
-  },
-]
-
 interface ContentTypeStepProps {
   campaignId: string
   config: CampaignConfiguration
 }
 
 export function ContentTypeStep({ campaignId, config }: ContentTypeStepProps) {
+  const contentTypeOptions: Array<{
+    value: CampaignContentType
+    title: string
+    description: string
+    Icon: LucideIcon
+  }> = [
+    {
+      value: 'influencer_posts',
+      title: t`Influencer Posts`,
+      description: t`Creators publican contenido en sus redes para amplificar tu marca.`,
+      Icon: Megaphone,
+    },
+    {
+      value: 'ugc_videos',
+      title: t`UGC Videos`,
+      description: t`Creators producen videos para que tu marca use en ads y canales propios.`,
+      Icon: Video,
+    },
+  ]
+
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const mutation = useUpdateContentTypeMutation()
   const initialContentType = useRef(config.content_type).current
-  const [selected, setSelected] =
-    useState<CampaignContentType | null>(initialContentType)
+  const [selected, setSelected] = useState<CampaignContentType | null>(
+    initialContentType,
+  )
 
   const handleContinue = () => {
     if (!selected) return

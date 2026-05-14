@@ -1,34 +1,34 @@
 import { t } from '@lingui/core/macro'
 import { Users } from 'lucide-react'
 
-const TESTIMONIALS = [
+/* eslint-disable lingui/no-unlocalized-strings */
+const TESTIMONIALS = () => [
   {
-    quote: '“Rapidez y eficiencia. Cero vueltas.”',
+    quote: t`”Rapidez y eficiencia. Cero vueltas.”`,
     handle: '@bahiablancafood',
-    meta: 'Food · Establecido',
-    initials: 'BB',
+    meta: t`Food · Establecido`,
+    initials: t`BB`,
     color: '#F59E0B',
     highlighted: false,
   },
   {
-    quote:
-      '“Claridad sobre el pago y los tiempos, con libertad total para armar el guion.”',
+    quote: t`”Claridad sobre el pago y los tiempos, con libertad total para armar el guion.”`,
     handle: '@mica.creando',
-    meta: 'Lifestyle · En crecimiento',
-    initials: 'MC',
+    meta: t`Lifestyle · En crecimiento`,
+    initials: t`MC`,
     color: '#EC4899',
     highlighted: true,
   },
   {
-    quote:
-      '“Toda la info en la plataforma. Podía ver el paso a paso del proceso.”',
+    quote: t`”Toda la info en la plataforma. Podía ver el paso a paso del proceso.”`,
     handle: '@vianeconigliougc',
-    meta: 'UGC · En crecimiento',
-    initials: 'VC',
+    meta: t`UGC · En crecimiento`,
+    initials: t`VC`,
     color: '#3B82F6',
     highlighted: false,
   },
 ]
+/* eslint-enable lingui/no-unlocalized-strings */
 
 export function C8PrimingTestimonials() {
   return (
@@ -52,7 +52,7 @@ export function C8PrimingTestimonials() {
       </div>
 
       <div className="relative flex flex-wrap justify-center gap-4">
-        {TESTIMONIALS.map((tt) => (
+        {TESTIMONIALS().map((tt) => (
           <div
             key={tt.handle}
             className="flex w-[300px] flex-col gap-4 rounded-[20px] border bg-card p-6"

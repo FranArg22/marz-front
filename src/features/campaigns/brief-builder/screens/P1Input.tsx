@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useStore } from '@tanstack/react-form'
+import { t } from '@lingui/core/macro'
 import { useBrandSession } from '#/features/identity/session/BrandSessionContext'
 import { useAppForm } from '#/shared/ui/form'
 import { WizardSectionTitle } from '#/shared/ui/wizard'
 import { useBriefBuilderStore } from '../store'
-import { formInputSchema, websiteUrlFieldSchema } from '../schemas'
+import { createFormInputSchema, createWebsiteUrlFieldSchema } from '../schemas'
 import { useRegisterStepValidator } from '../validation'
 import { PDFUploadField } from '../components/PDFUploadField'
 import {
@@ -19,6 +20,8 @@ export function P1Input() {
   const { brandWorkspace } = useBrandSession()
 
   const initMutation = useInitBriefBuilder()
+  const formInputSchema = createFormInputSchema()
+  const websiteUrlFieldSchema = createWebsiteUrlFieldSchema()
 
   const form = useAppForm({
     defaultValues: {
@@ -95,8 +98,8 @@ export function P1Input() {
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <WizardSectionTitle
-        title="Contanos sobre tu producto"
-        subtitle="Ingresá la web del producto, describí qué hace o subí un PDF para generar el brief."
+        title={t`Contanos sobre tu producto`}
+        subtitle={t`Ingresá la web del producto, describí qué hace o subí un PDF para generar el brief.`}
       />
       <div className="flex w-full max-w-[440px] flex-col gap-6">
         <form.AppField
@@ -115,7 +118,7 @@ export function P1Input() {
           {(field) => (
             <div className="flex flex-col gap-2">
               <field.TextField
-                label="Sitio web del producto"
+                label={t`Sitio web del producto`}
                 placeholder="https://miproducto.com"
                 maxLength={500}
               />
@@ -130,7 +133,7 @@ export function P1Input() {
                     )
                   }}
                 >
-                  Usar el de la marca
+                  {t`Usar el de la marca`}
                 </button>
               )}
             </div>
@@ -139,9 +142,9 @@ export function P1Input() {
         <form.AppField name="descriptionText">
           {(field) => (
             <field.TextareaField
-              label="Descripción del producto o servicio"
-              hint="Opcional si subís un PDF."
-              placeholder="Describí brevemente qué hace tu marca, a quién le vende y qué tipo de campaña necesitás."
+              label={t`Descripción del producto o servicio`}
+              hint={t`Opcional si subís un PDF.`}
+              placeholder={t`Describí brevemente qué hace tu marca, a quién le vende y qué tipo de campaña necesitás.`}
               maxLength={2000}
               rows={4}
             />
@@ -159,7 +162,7 @@ export function P1Input() {
       )}
       {!hasInput && (
         <p className="text-[length:var(--font-size-xs)] text-muted-foreground">
-          Completa al menos uno de los campos para continuar.
+          {t`Completa al menos uno de los campos para continuar.`}
         </p>
       )}
     </div>

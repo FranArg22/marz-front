@@ -1,4 +1,5 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { IconButton } from '#/shared/ui/IconButton'
@@ -47,8 +48,8 @@ export function CreatorHeaderCard({
         </div>
         {onToggle ? (
           <IconButton
-            shape="circle"
-            aria-label="Toggle creator details"
+            shape="circle"  
+            aria-label={t`Toggle creator details`}
             onClick={onToggle}
           >
             {collapsed ? <ChevronDown /> : <ChevronUp />}

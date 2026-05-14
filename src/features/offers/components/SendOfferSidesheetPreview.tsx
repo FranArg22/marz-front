@@ -1,5 +1,7 @@
 import { Plus, Trash2, X as XIcon, Zap } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
 import { Label } from '#/components/ui/label'
@@ -30,17 +32,28 @@ export function SendOfferSidesheetPreview({
     <div className="flex max-w-xl flex-col rounded-2xl border border-border bg-card">
       <header className="flex items-start justify-between gap-4 border-b border-border p-5">
         <div>
-          <h2 className="text-2xl font-semibold text-foreground">Send Offer</h2>
-          <p className="text-sm text-muted-foreground">To {creatorName}</p>
+          <h2 className="text-2xl font-semibold text-foreground">
+            <Trans>Send Offer</Trans>
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            <Trans>To {creatorName}</Trans>
+          </p>
         </div>
-        <IconButton shape="circle" aria-label="Close" onClick={onCancel}>
+        <IconButton
+           
+          shape="circle"
+          aria-label={t`Close`}
+          onClick={onCancel}
+        >
           <XIcon />
         </IconButton>
       </header>
 
       <div className="space-y-5 p-5">
         <div className="space-y-2">
-          <Label className="text-sm font-semibold">Offer Type</Label>
+          <Label className="text-sm font-semibold">
+            <Trans>Offer Type</Trans>
+          </Label>
           <OfferTypeChooser value={mode} onChange={onChangeMode} />
         </div>
 
@@ -49,9 +62,11 @@ export function SendOfferSidesheetPreview({
 
       <footer className="flex items-center justify-end gap-3 border-t border-border p-5">
         <Button variant="outline" onClick={onCancel}>
-          Cancel
+          <Trans>Cancel</Trans>
         </Button>
-        <Button onClick={onSubmit}>Send Offer</Button>
+        <Button onClick={onSubmit}>
+          <Trans>Send Offer</Trans>
+        </Button>
       </footer>
     </div>
   )
@@ -84,12 +99,12 @@ export function SpeedBonusBlock({
         <div className="flex items-center gap-2">
           <Zap className="size-5 text-warning" />
           <span className="text-base font-semibold text-foreground">
-            Speed Bonus
+            <Trans>Speed Bonus</Trans>
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs text-muted-foreground">
-            Reward faster delivery
+            <Trans>Reward faster delivery</Trans>
           </span>
           <Switch checked={enabled} onCheckedChange={onToggle} />
         </div>
@@ -110,7 +125,7 @@ export function SpeedBonusBlock({
             className="flex w-full items-center justify-center gap-2 rounded-full border border-dashed border-border py-2.5 text-sm text-muted-foreground hover:bg-surface-hover"
           >
             <Plus className="size-4" />
-            Add bonus tier
+            <Trans>Add bonus tier</Trans>
           </button>
         </div>
       ) : null}
@@ -129,7 +144,9 @@ function TierRow({
     tier.mode === 'percent' ? `+ ${tier.amount}%` : `+$ ${tier.amount}`
   return (
     <div className="flex items-center gap-3 rounded-full bg-background px-3 py-1.5">
-      <span className="text-sm text-muted-foreground">Within</span>
+      <span className="text-sm text-muted-foreground">
+        <Trans>Within</Trans>
+      </span>
       <span className="rounded-full bg-muted px-2.5 py-1 font-mono text-sm font-semibold text-foreground">
         {tier.value}
       </span>
@@ -141,7 +158,7 @@ function TierRow({
       <span className="font-mono text-sm font-semibold text-success">
         {reward}
       </span>
-      <IconButton size="sm" aria-label="Remove tier" onClick={onRemove}>
+      <IconButton size="sm" aria-label={t`Remove tier`} onClick={onRemove}>
         <Trash2 />
       </IconButton>
     </div>

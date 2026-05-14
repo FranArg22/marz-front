@@ -2,17 +2,16 @@
 
 exports[`RequestChangesCard > shows thumbnail when draft_thumbnail_url is present 1`] = `
 <div
-  class="flex px-4 py-0.5 justify-end"
   data-testid="request-changes-card"
 >
   <div
-    class="max-w-[75%]"
+    class="flex justify-end"
   >
     <div
-      class="w-full max-w-[460px] overflow-hidden rounded-2xl border-2 bg-card border-warning/60"
+      class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-destructive/60"
     >
       <div
-        class="flex items-center gap-2 px-4 py-2.5 bg-warning text-warning-foreground"
+        class="flex items-center gap-2 px-4 py-2.5 bg-destructive text-destructive-foreground"
       >
         <svg
           aria-hidden="true"
@@ -73,7 +72,7 @@ exports[`RequestChangesCard > shows thumbnail when draft_thumbnail_url is presen
             <span
               class="text-muted-foreground"
             >
-              27 abr 2026, 9:00 a. m.
+              27 abr 2026, 9:00 a. m.
             </span>
           </div>
           <div

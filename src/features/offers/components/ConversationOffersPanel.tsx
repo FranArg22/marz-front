@@ -54,7 +54,13 @@ export function ConversationOffersPanel({
   return (
     <ContextPanel
       headerSlot={headerSlot}
-      nextStepSlot={<NextStep offer={current} sessionKind={sessionKind} />}
+      nextStepSlot={
+        <NextStep
+          offer={current}
+          sessionKind={sessionKind}
+          deliverables={deliverables}
+        />
+      }
       offerSlot={
         actorKind ? (
           <CurrentOfferBlock

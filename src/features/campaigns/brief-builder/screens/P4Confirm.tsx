@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from '@tanstack/react-router'
+import { t } from '@lingui/core/macro'
 import { campaignDetailSearchDefaults } from '#/features/campaigns/configuration/hooks'
 import {
   Check,
@@ -63,10 +64,10 @@ export function P4Confirm() {
           if (fieldErrors) {
             const messages = Object.values(fieldErrors).flat()
             toast.error(
-              messages[0] ?? 'Error de validación. Revisá los campos.',
+              messages[0] ?? t`Error de validación. Revisá los campos.`,
             )
           } else {
-            toast.error('No se pudo crear la campaña. Intentá de nuevo.')
+            toast.error(t`No se pudo crear la campaña. Intentá de nuevo.`)
           }
         },
       },
@@ -77,8 +78,8 @@ export function P4Confirm() {
     return (
       <div className="flex w-full flex-col items-center gap-8">
         <WizardSectionTitle
-          title="Sin brief disponible"
-          subtitle="Volvé al paso anterior para completar la información."
+          title={t`Sin brief disponible`}
+          subtitle={t`Volvé al paso anterior para completar la información.`}
         />
       </div>
     )
@@ -89,8 +90,8 @@ export function P4Confirm() {
       <div className="flex w-full flex-col items-center gap-8">
         <Loader2 className="size-10 animate-spin text-primary" />
         <WizardSectionTitle
-          title="Creando tu campaña…"
-          subtitle="Esto puede tardar unos segundos."
+          title={t`Creando tu campaña…`}
+          subtitle={t`Esto puede tardar unos segundos.`}
         />
       </div>
     )
@@ -101,11 +102,11 @@ export function P4Confirm() {
     return (
       <div className="flex w-full flex-col items-center gap-8">
         <WizardSectionTitle
-          title="Error al crear la campaña"
+          title={t`Error al crear la campaña`}
           subtitle={
             fieldErrors
-              ? 'Hay errores de validación. Volvé al paso anterior para corregirlos.'
-              : 'Ocurrió un error inesperado. Podés volver a intentar.'
+              ? t`Hay errores de validación. Volvé al paso anterior para corregirlos.`
+              : t`Ocurrió un error inesperado. Podés volver a intentar.`
           }
         />
         <div className="flex gap-3">
@@ -120,7 +121,7 @@ export function P4Confirm() {
             }}
           >
             <ArrowLeft className="size-4" />
-            Volver al formulario
+            {t`Volver al formulario`}
           </Button>
           {!fieldErrors && (
             <Button
@@ -132,7 +133,7 @@ export function P4Confirm() {
               }}
             >
               <RotateCcw className="size-4" />
-              Volver a intentar
+              {t`Volver a intentar`}
             </Button>
           )}
         </div>
@@ -150,7 +151,7 @@ export function P4Confirm() {
       } as Parameters<typeof router.navigate>[0])
     } catch {
       toast.info(
-        'El marketplace no está disponible aún. Te llevamos al inicio.',
+        t`El marketplace no está disponible aún. Te llevamos al inicio.`,
       )
       void router.navigate({ to: '/' })
     }
@@ -165,8 +166,8 @@ export function P4Confirm() {
       </div>
 
       <WizardSectionTitle
-        title="Campaña creada"
-        subtitle="Tu campaña fue creada con éxito. Podés ir al marketplace o revisar el brief."
+        title={t`Campaña creada`}
+        subtitle={t`Tu campaña fue creada con éxito. Podés ir al marketplace o revisar el brief.`}
       />
 
       <div className="flex gap-3">
@@ -176,10 +177,10 @@ export function P4Confirm() {
           disabled={mutation.isPending}
         >
           <Eye className="size-4" />
-          Ver resumen del brief
+          {t`Ver resumen del brief`}
         </Button>
         <Button onClick={handleGoToMarketplace} disabled={mutation.isPending}>
-          Ir al marketplace
+          {t`Ir al marketplace`}
           <ArrowRight className="size-4" />
         </Button>
       </div>
@@ -187,9 +188,9 @@ export function P4Confirm() {
       <Dialog open={summaryOpen} onOpenChange={setSummaryOpen}>
         <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Resumen del brief</DialogTitle>
+            <DialogTitle>{t`Resumen del brief`}</DialogTitle>
             <DialogDescription>
-              Detalle completo de la campaña y brief creados.
+              {t`Detalle completo de la campaña y brief creados.`}
             </DialogDescription>
           </DialogHeader>
           <BriefSummaryView draft={draft} />

@@ -130,6 +130,7 @@ function MatchesSection({
     enabled: summaryReady && canViewMatches !== false,
   })
   const matches = matchesQuery.data?.pages.flatMap((page) => page.data) ?? []
+  const matchesCount = matches.length
 
   if (!summaryReady) {
     return (
@@ -155,13 +156,13 @@ function MatchesSection({
   return (
     <SectionFrame
       title={t`Suggested matches`}
-      description={t`${matches.length} creators match your campaign brief`}
+      description={t`${matchesCount} creators match your campaign brief`}
       action={<SortSelect value={sort} onValueChange={onSortChange} />}
     >
       <QueryState
         isLoading={matchesQuery.isPending}
         isError={matchesQuery.isError}
-        isEmpty={matches.length === 0}
+        isEmpty={matchesCount === 0}
         emptyTitle={t`Todavía no hay matches sugeridos`}
         emptyDescription={t`Cuando el brief tenga perfiles compatibles, van a aparecer en esta lista.`}
       >
@@ -188,16 +189,17 @@ function ApplicationsSection({ campaignId }: { campaignId: string }) {
   const applicationsQuery = useCampaignApplicationsQuery(campaignId)
   const applications =
     applicationsQuery.data?.pages.flatMap((page) => page.data) ?? []
+  const applicationsCount = applications.length
 
   return (
     <SectionFrame
       title={t`Applicants`}
-      description={t`${applications.length} creators applied to this campaign`}
+      description={t`${applicationsCount} creators applied to this campaign`}
     >
       <QueryState
         isLoading={applicationsQuery.isPending}
         isError={applicationsQuery.isError}
-        isEmpty={applications.length === 0}
+        isEmpty={applicationsCount === 0}
         emptyTitle={t`Todavía no hay aplicaciones`}
         emptyDescription={t`Las postulaciones entrantes van a aparecer acá.`}
       >
@@ -230,12 +232,13 @@ function InvitesSection({
   const [addCreatorOpen, setAddCreatorOpen] = useState(false)
   const invitesQuery = useCampaignInvitesQuery(campaignId)
   const invites = invitesQuery.data?.pages.flatMap((page) => page.data) ?? []
+  const invitesCount = invites.length
 
   return (
     <>
       <SectionFrame
         title={t`Invited creators`}
-        description={t`${invites.length} invitations sent`}
+        description={t`${invitesCount} invitations sent`}
         action={
           <Button
             type="button"
@@ -250,7 +253,7 @@ function InvitesSection({
         <QueryState
           isLoading={invitesQuery.isPending}
           isError={invitesQuery.isError}
-          isEmpty={invites.length === 0}
+          isEmpty={invitesCount === 0}
           emptyTitle={t`Todavía no hay invitaciones`}
           emptyDescription={t`Las invitaciones creadas para esta campaña van a aparecer acá.`}
         >
@@ -276,16 +279,17 @@ function ActiveSection({ campaignId }: { campaignId: string }) {
   const activeQuery = useCampaignActiveQuery(campaignId)
   const collaborations =
     activeQuery.data?.pages.flatMap((page) => page.data) ?? []
+  const collaborationsCount = collaborations.length
 
   return (
     <SectionFrame
       title={t`Active collaborations`}
-      description={t`${collaborations.length} creators are active`}
+      description={t`${collaborationsCount} creators are active`}
     >
       <QueryState
         isLoading={activeQuery.isPending}
         isError={activeQuery.isError}
-        isEmpty={collaborations.length === 0}
+        isEmpty={collaborationsCount === 0}
         emptyTitle={t`Todavía no hay colaboraciones activas`}
         emptyDescription={t`Cuando aceptes una aplicación o invitación, el creator va a aparecer acá.`}
       >

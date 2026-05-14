@@ -39,6 +39,7 @@ export function MatchCard({ campaignId, match }: MatchCardProps) {
   const primaryPlatform = getPrimaryPlatform(creator)
   const platforms = creator.platforms.slice(0, 3)
   const isContacting = contactMatch.isPending
+  const scorePct = match.score_pct
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-border bg-card">
@@ -62,7 +63,7 @@ export function MatchCard({ campaignId, match }: MatchCardProps) {
           </div>
         )}
         <div className="absolute top-4 right-4 rounded-full border border-white/25 bg-primary/70 px-2.5 py-1 font-mono text-[11px] font-semibold tracking-[0.08em] text-white shadow-sm backdrop-blur-md">
-          {t`${match.score_pct}% match`}
+          {t`${scorePct}% match`}
         </div>
         <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/65 to-transparent p-4 pt-28 text-white">
           <h3 className="text-[22px] leading-tight font-semibold">

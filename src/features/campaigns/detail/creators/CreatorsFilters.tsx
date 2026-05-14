@@ -30,16 +30,18 @@ interface CreatorsFiltersProps {
 
 const ALL_PLATFORMS = 'all'
 
-const statusOptions: ReadonlyArray<{
+function getStatusOptions(): ReadonlyArray<{
   value: ListCampaignParticipantsStatus
   label: string
-}> = [
-  { value: 'invited', label: t`Invited` },
-  { value: 'active', label: t`Active` },
-  { value: 'in_review', label: t`In review` },
-  { value: 'approved', label: t`Approved` },
-  { value: 'paid', label: t`Paid` },
-]
+}> {
+  return [
+    { value: 'invited', label: t`Invited` },
+    { value: 'active', label: t`Active` },
+    { value: 'in_review', label: t`In review` },
+    { value: 'approved', label: t`Approved` },
+    { value: 'paid', label: t`Paid` },
+  ]
+}
 
 const platformOptions: ReadonlyArray<{
   value: ListCampaignParticipantsPlatform
@@ -78,7 +80,7 @@ export function CreatorsFilters({
   return (
     <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-2">
-        {statusOptions.map((option) => {
+        {getStatusOptions().map((option) => {
           const active = params.status === option.value
           return (
             <button

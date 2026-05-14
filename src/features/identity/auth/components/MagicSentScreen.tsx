@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useSignIn } from '@clerk/tanstack-react-start'
 import { MailCheck, RefreshCw, ArrowLeft, Clock3 } from 'lucide-react'
+import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 
 import { Button } from '#/components/ui/button'
 import { track } from '#/shared/analytics/track'
@@ -42,9 +44,9 @@ export function MagicSentScreen({ email }: { email: string }) {
       await signIn.create({ identifier: email })
       await signIn.emailLink.sendLink({
         emailAddress: email,
-        verificationUrl: `${window.location.origin}/auth/callback`,
+        verificationUrl: `${window.location.origin}/auth/callback`,  
       })
-      track('magic_link_requested', { email })
+      track('magic_link_requested', { email })  
       startCooldown()
     } catch {
       // Clerk error — silent for now, user can retry
@@ -90,7 +92,7 @@ export function MagicSentScreen({ email }: { email: string }) {
           </svg>
         </div>
         <span className="text-2xl font-bold tracking-tight text-foreground">
-          Marz
+          <Trans>Marz</Trans>
         </span>
       </div>
 
@@ -100,12 +102,14 @@ export function MagicSentScreen({ email }: { email: string }) {
 
       <div className="flex w-full flex-col items-center gap-2.5">
         <h1 className="text-center text-[28px] font-semibold leading-tight tracking-tight text-foreground">
-          Revisá tu email
+          <Trans>Revisá tu email</Trans>
         </h1>
         <p className="text-center text-sm leading-relaxed text-muted-foreground">
-          Te mandamos un link a{' '}
-          <span className="font-medium text-foreground">{email}</span>. Clické
-          el link para entrar a Marz.
+          <Trans>
+            Te mandamos un link a{' '}
+            <span className="font-medium text-foreground">{email}</span>. Clické
+            el link para entrar a Marz.
+          </Trans>
         </p>
       </div>
 
@@ -116,7 +120,7 @@ export function MagicSentScreen({ email }: { email: string }) {
           aria-hidden="true"
         />
         <span className="text-xs text-muted-foreground">
-          El link expira en 15 minutos.
+          <Trans>El link expira en 15 minutos.</Trans>
         </span>
       </div>
 
@@ -128,10 +132,10 @@ export function MagicSentScreen({ email }: { email: string }) {
         <RefreshCw size={16} aria-hidden="true" />
         <span aria-live="polite" aria-atomic="true">
           {cooldown > 0
-            ? `Reenviar link (${cooldown}s)`
+            ? t`Reenviar link (${cooldown}s)`
             : resending
-              ? 'Reenviando…'
-              : 'Reenviar link'}
+              ? t`Reenviando…`
+              : t`Reenviar link`}
         </span>
       </Button>
 
@@ -140,11 +144,11 @@ export function MagicSentScreen({ email }: { email: string }) {
         className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft size={14} aria-hidden="true" />
-        Usar otro email
+        <Trans>Usar otro email</Trans>
       </Link>
 
       <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
-        ¿No lo encontrás? Chequeá en spam o promociones.
+        <Trans>¿No lo encontrás? Chequeá en spam o promociones.</Trans>
       </p>
     </div>
   )

@@ -1,4 +1,6 @@
 import { ChevronRight, Search } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { t } from '@lingui/core/macro'
 
 import { useTopbar } from './TopbarContext'
 import type { TopbarBreadcrumbSegment } from './TopbarContext'
@@ -14,7 +16,7 @@ export function AppTopbar() {
       className="flex h-14 shrink-0 items-center gap-3 border-b border-border px-5"
     >
       {segments.length > 0 ? (
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5">
+        <nav aria-label={t`Breadcrumb`} className="flex items-center gap-1.5">
           {segments.map((segment, index) => (
             <BreadcrumbSegment
               key={segment.label}
@@ -27,7 +29,9 @@ export function AppTopbar() {
       <div className="flex-1" />
       <div className="flex h-9 w-70 items-center gap-2 rounded-full bg-muted px-3.5">
         <Search className="size-3.5 shrink-0 text-muted-foreground" />
-        <span className="text-sm text-muted-foreground">Buscar…</span>
+        <span className="text-sm text-muted-foreground">
+          <Trans>Buscar…</Trans>
+        </span>
       </div>
     </header>
   )
