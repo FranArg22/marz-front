@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import type { MessageItem } from '#/features/chat/types'
-
+import { makePaymentMarkedMessage } from './offerEventCardTestUtils'
 import { PaymentMarkedCard } from './PaymentMarkedCard'
 
 const mockCustomFetch = vi.hoisted(() => vi.fn())
@@ -49,33 +48,6 @@ class FakeIntersectionObserver {
   }
 }
 
-function makePaymentMarkedMessage(
-  payloadOverrides: Record<string, unknown> = {},
-): MessageItem {
-  return {
-    id: 'msg-payment-1',
-    conversation_id: 'conv-1',
-    author_account_id: 'system',
-    type: 'system_event',
-    text_content: null,
-    event_type: 'PaymentMarked',
-    payload: {
-      snapshot: {
-        event_type: 'PaymentMarked',
-        declared_payment_id: 'pay-1',
-        deliverable_id: 'del-1',
-        amount: '4575.00',
-        currency: 'USD',
-        deliverable_display_label: 'YouTube Video',
-        declared_at: '2026-05-08T12:00:00Z',
-        ...payloadOverrides,
-      },
-    },
-    created_at: '2026-05-08T12:00:00Z',
-    read_by_self: false,
-  }
-}
-
 describe('PaymentMarkedCard', () => {
   beforeEach(() => {
     vi.stubGlobal('IntersectionObserver', FakeIntersectionObserver)
@@ -85,25 +57,32 @@ describe('PaymentMarkedCard', () => {
   })
 
   it('renders the outgoing sent variant for brand viewers', () => {
-    const { container } = render(
+    render(
       <PaymentMarkedCard
         message={makePaymentMarkedMessage()}
         viewer={{ kind: 'brand' }}
       />,
     )
 
-    expect(container.firstChild).toMatchSnapshot()
+    expect(screen.getByRole('article', { name: 'Pago marcado' })).toHaveClass(
+      'justify-end',
+    )
+    expect(screen.getByText('Pago de $4,575.00 marcado.')).toBeInTheDocument()
+    expect(screen.getByText('YouTube, Instagram')).toBeInTheDocument()
+    expect(screen.getByText('2')).toBeInTheDocument()
   })
 
   it('renders the incoming received variant for creator viewers', () => {
-    const { container } = render(
+    render(
       <PaymentMarkedCard
         message={makePaymentMarkedMessage()}
         viewer={{ kind: 'creator' }}
       />,
     )
 
-    expect(container.firstChild).toMatchSnapshot()
+    expect(screen.getByRole('article', { name: 'Pago marcado' })).toHaveClass(
+      'justify-start',
+    )
   })
 
   it('is axe-clean', async () => {
@@ -118,20 +97,37 @@ describe('PaymentMarkedCard', () => {
   })
 
   it('renders from the self-contained snapshot without aggregate data', () => {
-    const { getByText } = render(
+    render(
       <PaymentMarkedCard
         message={makePaymentMarkedMessage({
           amount: '1200.50',
           currency: 'USD',
-          deliverable_display_label: 'Instagram Reel',
+          platforms: ['Instagram'],
+          deliverables_count: 1,
           declared_at: '2026-05-09T12:00:00Z',
         })}
         viewer={{ kind: 'creator' }}
       />,
     )
 
-    expect(getByText('Payment of $1,200.50 received')).toBeInTheDocument()
-    expect(getByText(/^Instagram Reel · .*2026$/)).toBeInTheDocument()
+    expect(screen.getByText('Pago de $1,200.50 marcado.')).toBeInTheDocument()
+    expect(screen.getByText('Instagram')).toBeInTheDocument()
+    expect(screen.getByText('1')).toBeInTheDocument()
+  })
+
+  it('renders when optional platform and count fields are missing', () => {
+    render(
+      <PaymentMarkedCard
+        message={makePaymentMarkedMessage({
+          platforms: undefined,
+          deliverables_count: undefined,
+        })}
+        viewer={{ kind: 'creator' }}
+      />,
+    )
+
+    expect(screen.getByText('Sin plataformas')).toBeInTheDocument()
+    expect(screen.getByText('1')).toBeInTheDocument()
   })
 
   it('tracks payment_card_seen exactly once when a creator card enters the viewport multiple times', () => {

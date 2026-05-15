@@ -55,9 +55,8 @@ Cards inline en el chat, redondeadas, con badge de estado. Light + Dark. Copy en
 - [ ] Snapshots renderizan **sin refetchear** el agregado.
 
 ## Done summary
-
-_To be filled at task completion._
-
+Todos los fixes del round anterior aplicados correctamente: offer_deadline renderiza vía snapshot.deadline, tests de OfferCancelledCard cubren phase desde snapshot y fallback, new Date(iso) documentado, OFFER_EVENT_TYPES importado desde shared, text-2xs token definido en styles.css y usado en ambos componentes.
 ## Evidence
-
-_To be filled at task completion._
+- Commits:
+- Tests:
+- PRs:
