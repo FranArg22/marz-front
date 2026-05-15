@@ -3,7 +3,7 @@ import { defineConfig } from 'orval'
 export default defineConfig({
   marz: {
     input: {
-      target: 'http://localhost:57806/openapi.yaml',
+      target: './openapi/spec.json',
     },
     output: {
       mode: 'tags-split',
@@ -27,7 +27,7 @@ export default defineConfig({
   },
   marzZod: {
     input: {
-      target: 'http://localhost:57806/openapi.yaml',
+      target: './openapi/spec.json',
     },
     output: {
       mode: 'tags-split',
@@ -38,7 +38,7 @@ export default defineConfig({
   },
   marzTest: {
     input: {
-      target: 'http://localhost:57806/openapi.yaml',
+      target: './openapi/test-spec.json',
     },
     output: {
       mode: 'tags-split',

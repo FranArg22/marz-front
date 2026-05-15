@@ -36,9 +36,8 @@ Regenerar el cliente Orval contra el OpenAPI v3 del backend (live en dev tras B.
 - [ ] Lista de archivos rotos por shape v2 documentada en el PR para guiar las próximas tasks.
 
 ## Done summary
-
-_To be filled at task completion._
-
+openapi/ gitignored, orval apunta a spec local generada por sync-api, mutación de brief_draft eliminada correctamente
 ## Evidence
-
-_To be filled at task completion._
+- Commits:
+- Tests:
+- PRs:
