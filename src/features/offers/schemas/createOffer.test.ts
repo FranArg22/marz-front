@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
-  bonusAmountSchema,
-  createOfferSchema,
+  createBonusAmountSchema,
+  createCreateOfferSchema,
   getMinimumTentativePublishDateUTC,
 } from './createOffer'
 
@@ -18,10 +18,11 @@ function createValidOfferInput() {
     offer_deadline: '2026-05-19',
     platforms: ['instagram'] as const,
     bonus_terms: {
+      enabled: true,
       speed_bonus_windows: [
         {
           window_hours: 24,
-          bonus_pct: '10',
+          bonus_amount: { type: 'percentage' as const, value: 10 },
         },
       ],
     },
@@ -29,6 +30,9 @@ function createValidOfferInput() {
 }
 
 describe('createOfferSchema', () => {
+  const bonusAmountSchema = createBonusAmountSchema()
+  const createOfferSchema = createCreateOfferSchema()
+
   beforeEach(() => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2026-05-15T12:00:00.000Z'))
@@ -46,7 +50,7 @@ describe('createOfferSchema', () => {
       createOfferSchema.safeParse({
         ...createValidOfferInput(),
         tentative_publish_date: '2026-05-19',
-        offer_deadline: '2026-05-19',
+        offer_deadline: '2026-05-20',
       }).success,
     ).toBe(false)
     expect(
@@ -58,13 +62,22 @@ describe('createOfferSchema', () => {
     ).toBe(true)
   })
 
-  it('validates generated bonus_pct decimal string boundaries', () => {
-    expect(bonusAmountSchema.safeParse('100').success).toBe(true)
-    expect(bonusAmountSchema.safeParse('0').success).toBe(true)
-    expect(bonusAmountSchema.safeParse('10.25').success).toBe(true)
-    expect(bonusAmountSchema.safeParse('-1').success).toBe(false)
-    expect(bonusAmountSchema.safeParse('10.123').success).toBe(false)
-    expect(bonusAmountSchema.safeParse('abc').success).toBe(false)
+  it('validates percentage and fixed bonus amount boundaries', () => {
+    expect(
+      bonusAmountSchema.safeParse({ type: 'percentage', value: 100 }).success,
+    ).toBe(true)
+    expect(
+      bonusAmountSchema.safeParse({ type: 'percentage', value: 0 }).success,
+    ).toBe(false)
+    expect(
+      bonusAmountSchema.safeParse({ type: 'percentage', value: 10.5 }).success,
+    ).toBe(false)
+    expect(
+      bonusAmountSchema.safeParse({ type: 'fixed', amount_usd: 1 }).success,
+    ).toBe(true)
+    expect(
+      bonusAmountSchema.safeParse({ type: 'fixed', amount_usd: -1 }).success,
+    ).toBe(false)
   })
 
   it('validates speed bonus window hour boundaries', () => {
@@ -72,7 +85,13 @@ describe('createOfferSchema', () => {
       createOfferSchema.safeParse({
         ...createValidOfferInput(),
         bonus_terms: {
-          speed_bonus_windows: [{ window_hours: 720, bonus_pct: '10' }],
+          enabled: true,
+          speed_bonus_windows: [
+            {
+              window_hours: 720,
+              bonus_amount: { type: 'fixed', amount_usd: 100 },
+            },
+          ],
         },
       }).success,
     ).toBe(true)
@@ -80,8 +99,23 @@ describe('createOfferSchema', () => {
       createOfferSchema.safeParse({
         ...createValidOfferInput(),
         bonus_terms: {
-          speed_bonus_windows: [{ window_hours: 721, bonus_pct: '10' }],
+          enabled: true,
+          speed_bonus_windows: [
+            {
+              window_hours: 721,
+              bonus_amount: { type: 'percentage', value: 10 },
+            },
+          ],
         },
+      }).success,
+    ).toBe(false)
+  })
+
+  it('rejects enabled bonus terms without windows', () => {
+    expect(
+      createOfferSchema.safeParse({
+        ...createValidOfferInput(),
+        bonus_terms: { enabled: true, speed_bonus_windows: [] },
       }).success,
     ).toBe(false)
   })

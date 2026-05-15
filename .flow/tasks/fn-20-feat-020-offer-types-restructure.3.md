@@ -63,9 +63,8 @@ Relevante de `marz-docs/DESIGN-DEV.md` y del .pen `vzg1p`:
 - [ ] Mutación invalida `['offers','list',conversationId]` y `['offers','current',conversationId]`.
 
 ## Done summary
-
-_To be filled at task completion._
-
+Todos los issues del round anterior corregidos: query keys fantasma eliminadas del código de producción, RAFITA:ANY comentado, key={index} en OfferBonusEditor, guard !nextType en ToggleGroup, alias deadline muerto removido, props mode/children inexistentes eliminadas.
 ## Evidence
-
-_To be filled at task completion._
+- Commits:
+- Tests:
+- PRs:

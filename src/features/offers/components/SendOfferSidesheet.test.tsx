@@ -1,11 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import { ApiError } from '#/shared/api/mutator'
+
 import { SendOfferSidesheet } from './SendOfferSidesheet'
 import { useSendOfferSheetStore } from '../store/sendOfferSheetStore'
+import { useSendOfferWizard } from '../store/sendOfferWizardStore'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -17,40 +20,35 @@ vi.mock('@lingui/core/macro', () => ({
 
 const mockMutateAsync = vi.fn()
 
-vi.mock('../hooks/useCreateSingleOffer', () => ({
-  useCreateSingleOffer: () => ({
+vi.mock('../hooks/useCreateOfferMutation', () => ({
+  useCreateOfferMutation: () => ({
     mutateAsync: mockMutateAsync,
     isPending: false,
   }),
 }))
 
+const campaignId = '018f9b3f-2394-7a08-9cb8-b4bd3b8d0e12'
+const creatorAccountId = '018f9b3f-2394-7a08-9cb8-b4bd3b8d0e12'
+
 let mockCampaignsData = [
   {
-    id: 'camp-1',
+    id: campaignId,
     name: 'Summer Campaign',
     status: 'active' as const,
     budget_currency: 'USD',
     budget_remaining: '5000.00',
   },
 ]
-let mockCampaignsLoading = false
 
 vi.mock('#/shared/api/activeCampaigns', () => ({
   useActiveCampaigns: () => ({
     get data() {
       return mockCampaignsData
     },
-    get isLoading() {
-      return mockCampaignsLoading
-    },
+    isLoading: false,
+    isError: false,
+    refetch: vi.fn(),
   }),
-}))
-
-vi.mock('sonner', () => ({
-  toast: {
-    success: vi.fn(),
-    error: vi.fn(),
-  },
 }))
 
 function createWrapper() {
@@ -70,268 +68,164 @@ function renderSheet() {
     conversationId: 'conv-1',
     offerType: 'single',
     pendingOfferType: null,
+    pendingOfferTypeHadData: false,
     isTypeChangeConfirmationOpen: false,
   })
-  return render(<SendOfferSidesheet creatorName="Test Creator" />, {
-    wrapper: createWrapper(),
-  })
+
+  return render(
+    <SendOfferSidesheet
+      creatorName="Test Creator"
+      creatorAccountId={creatorAccountId}
+    />,
+    { wrapper: createWrapper() },
+  )
+}
+
+async function fillRequiredFields() {
+  const user = userEvent.setup()
+
+  await user.click(screen.getByRole('combobox', { name: /campaña/i }))
+  await user.click(
+    await screen.findByRole('option', { name: 'Summer Campaign' }),
+  )
+  await user.clear(screen.getByLabelText(/monto/i))
+  await user.type(screen.getByLabelText(/monto/i), '1000')
+  await user.type(screen.getByLabelText(/publicación tentativa/i), '2099-12-30')
+  await user.type(
+    screen.getByLabelText(/fecha límite de respuesta/i),
+    '2099-12-31',
+  )
 }
 
 beforeEach(() => {
   vi.clearAllMocks()
   mockCampaignsData = [
     {
-      id: 'camp-1',
+      id: campaignId,
       name: 'Summer Campaign',
       status: 'active' as const,
       budget_currency: 'USD',
       budget_remaining: '5000.00',
     },
   ]
-  mockCampaignsLoading = false
   useSendOfferSheetStore.setState({
     isOpen: false,
     conversationId: null,
     offerType: 'single',
     pendingOfferType: null,
+    pendingOfferTypeHadData: false,
     isTypeChangeConfirmationOpen: false,
   })
+  useSendOfferWizard.getState().reset()
 })
 
 describe('SendOfferSidesheet', () => {
-  describe('form validation', () => {
-    it('shows error when deadline is in the past', async () => {
-      const user = userEvent.setup()
-      renderSheet()
+  it('submits a same-content offer and closes the sheet', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockResolvedValueOnce({ status: 201, data: {} })
+    renderSheet()
 
-      const deadlineInput = screen.getByLabelText(/^deadline$/i)
-      await user.clear(deadlineInput)
-      await user.type(deadlineInput, '2020-01-01')
-      await user.tab()
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
 
-      expect(
-        await screen.findByText(/deadline must be a future date/i),
-      ).toBeInTheDocument()
-    })
-
-    it('shows error when amount is zero', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      const amountInput = screen.getByLabelText(/amount/i)
-      await user.type(amountInput, '0.00')
-      await user.tab()
-
-      expect(
-        await screen.findByText(/amount must be greater than 0/i),
-      ).toBeInTheDocument()
-    })
-
-    it('shows error when amount format is invalid', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      const amountInput = screen.getByLabelText(/amount/i)
-      await user.type(amountInput, '123')
-      await user.tab()
-
-      expect(await screen.findByText(/use format 0\.00/i)).toBeInTheDocument()
-    })
-
-    it('shows error when speed bonus window is invalid on submit', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      await user.click(screen.getByLabelText(/campaign/i))
-      await user.click(
-        await screen.findByRole('option', { name: 'Summer Campaign' }),
-      )
-
-      await user.click(screen.getByLabelText(/platform/i))
-      await user.click(await screen.findByRole('option', { name: 'YouTube' }))
-
-      await user.click(screen.getByLabelText(/format/i))
-      await user.click(
-        await screen.findByRole('option', { name: 'Long Video' }),
-      )
-
-      await user.type(screen.getByLabelText(/amount/i), '1000.00')
-      await user.type(screen.getByLabelText(/^deadline$/i), '2099-12-31')
-
-      await user.click(screen.getByRole('button', { name: /add window/i }))
-      const hours = screen.getByLabelText(/window hours/i)
-      await user.clear(hours)
-      await user.type(hours, '0')
-      await user.type(screen.getByLabelText(/bonus percentage/i), '0')
-      await user.tab()
-
-      const submitButton = screen.getByRole('button', { name: /send offer/i })
-      await user.click(submitButton)
-
-      expect(await screen.findByText(/minimum 1 hour/i)).toBeInTheDocument()
-      expect(
-        await screen.findByText(/bonus percentage must be greater than 0/i),
-      ).toBeInTheDocument()
-    })
-  })
-
-  describe('budget warning', () => {
-    it('shows warning when amount exceeds budget without blocking submit', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      await user.click(screen.getByLabelText(/campaign/i))
-      await user.click(
-        await screen.findByRole('option', { name: 'Summer Campaign' }),
-      )
-
-      const amountInput = screen.getByLabelText(/amount/i)
-      await user.type(amountInput, '6000.00')
-      await user.tab()
-
-      expect(
-        await screen.findByText(/exceeds the campaign's remaining budget/i),
-      ).toBeInTheDocument()
-    })
-  })
-
-  describe('empty state', () => {
-    it('shows empty state when no active campaigns', () => {
-      mockCampaignsData = []
-      renderSheet()
-
-      expect(
-        screen.getByText(/don't have any active campaigns/i),
-      ).toBeInTheDocument()
-    })
-  })
-
-  describe('backend error mapping', () => {
-    async function fillAndSubmit() {
-      const user = userEvent.setup()
-      renderSheet()
-
-      await user.click(screen.getByLabelText(/campaign/i))
-      await user.click(
-        await screen.findByRole('option', { name: 'Summer Campaign' }),
-      )
-
-      await user.click(screen.getByLabelText(/platform/i))
-      await user.click(await screen.findByRole('option', { name: 'YouTube' }))
-
-      await user.click(screen.getByLabelText(/format/i))
-      await user.click(
-        await screen.findByRole('option', { name: 'Long Video' }),
-      )
-
-      await user.type(screen.getByLabelText(/amount/i), '1000.00')
-      await user.type(screen.getByLabelText(/^deadline$/i), '2099-12-31')
-
-      const submitButton = screen.getByRole('button', { name: /send offer/i })
-      await user.click(submitButton)
-    }
-
-    it('maps campaign_not_active error to banner', async () => {
-      const { ApiError } = await import('#/shared/api/mutator')
-      mockMutateAsync.mockRejectedValueOnce(
-        new ApiError(409, 'campaign_not_active', 'Campaign is not active'),
-      )
-
-      await fillAndSubmit()
-
-      await waitFor(() => {
-        expect(
-          screen.getByText(/campaign is no longer active/i),
-        ).toBeInTheDocument()
-      })
-    })
-
-    it('maps backend field_errors to form field errors', async () => {
-      const { ApiError } = await import('#/shared/api/mutator')
-      mockMutateAsync.mockRejectedValueOnce(
-        new ApiError(422, 'validation_error', 'Validation failed', {
-          field_errors: { amount: ['Amount exceeds campaign budget'] },
+    await waitFor(() => {
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          conversation_id: 'conv-1',
+          campaign_id: campaignId,
+          creator_account_id: creatorAccountId,
+          offer_mode: 'same_content',
+          amount: 1000,
+          platforms: ['instagram'],
         }),
       )
-
-      await fillAndSubmit()
-
-      await waitFor(() => {
-        expect(
-          screen.getByText(/amount exceeds campaign budget/i),
-        ).toBeInTheDocument()
-      })
     })
+    expect(useSendOfferSheetStore.getState().isOpen).toBe(false)
+  })
 
-    it('shows toast for generic errors', async () => {
-      const { toast } = await import('sonner')
-      mockMutateAsync.mockRejectedValueOnce(new Error('Network failure'))
+  it('preserves snapshots when switching offer mode', async () => {
+    const user = userEvent.setup()
+    renderSheet()
 
-      await fillAndSubmit()
+    await user.clear(screen.getByLabelText(/monto/i))
+    await user.type(screen.getByLabelText(/monto/i), '1200')
+    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
+    await user.clear(screen.getByLabelText(/monto/i))
+    await user.type(screen.getByLabelText(/monto/i), '2400')
+    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
 
-      await waitFor(() => {
-        expect(toast.error).toHaveBeenCalledWith('Network failure')
-      })
+    expect(screen.getByLabelText(/monto/i)).toHaveValue(1200)
+    expect(useSendOfferWizard.getState().sameContent.amount).toBe(1200)
+    expect(useSendOfferWizard.getState().perPlatform.amount).toBe(2400)
+  })
+
+  it('hides and ignores bonuses in per-platform mode', async () => {
+    const user = userEvent.setup()
+    renderSheet()
+
+    await user.click(screen.getByRole('switch', { name: /bonos de oferta/i }))
+    expect(screen.getByText(/agregar ventana/i)).toBeInTheDocument()
+
+    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
+
+    expect(screen.queryByText(/agregar ventana/i)).not.toBeInTheDocument()
+    expect(useSendOfferWizard.getState().perPlatform.bonus_terms).toEqual({
+      enabled: false,
+      speed_bonus_windows: [],
     })
   })
 
-  describe('offer type change', () => {
-    it('shows confirmation modal when changing type with data', async () => {
-      const user = userEvent.setup()
-      renderSheet()
+  it('maps bonus_not_supported_for_per_platform inline', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockRejectedValueOnce(
+      new ApiError(
+        422,
+        'bonus_not_supported_for_per_platform',
+        'Bonus not supported',
+      ),
+    )
+    renderSheet()
 
-      await user.type(screen.getByLabelText(/amount/i), '1000.00')
-      await user.click(screen.getByRole('radio', { name: /bundle/i }))
+    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
 
-      expect(screen.getByText(/discard the entered data/i)).toBeInTheDocument()
-    })
-
-    it('keeps previous type and data when cancelling', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      const amountInput = screen.getByLabelText(/amount/i)
-      await user.type(amountInput, '1000.00')
-      await user.click(screen.getByRole('radio', { name: /bundle/i }))
-
-      const dialog = screen.getByRole('dialog')
-      await user.click(within(dialog).getByRole('button', { name: /cancel/i }))
-
-      expect(useSendOfferSheetStore.getState().offerType).toBe('single')
-      expect(amountInput).toHaveValue('1000.00')
-    })
-
-    it('resets form when type change is confirmed', async () => {
-      const user = userEvent.setup()
-      renderSheet()
-
-      await user.type(screen.getByLabelText(/amount/i), '1000.00')
-      await user.click(screen.getByRole('radio', { name: /bundle/i }))
-
-      const dialog = screen.getByRole('dialog')
-      await user.click(
-        within(dialog).getByRole('button', { name: /continue/i }),
-      )
-
-      await waitFor(() => {
-        expect(
-          screen.queryByRole('dialog', { name: /change offer type/i }),
-        ).not.toBeInTheDocument()
-      })
-
-      await user.click(screen.getByRole('radio', { name: /single/i }))
-
-      await waitFor(() => {
-        expect(screen.getByLabelText(/amount/i)).toHaveValue('')
-      })
-    })
+    await waitFor(() => expect(mockMutateAsync).toHaveBeenCalled())
+    expect(
+      await screen.findByText(/bonos sólo están disponibles/i),
+    ).toBeInTheDocument()
   })
 
-  describe('accessibility', () => {
-    it('has no axe violations when open', async () => {
-      const { container } = renderSheet()
-      const results = await axe(container)
-      expect(results).toHaveNoViolations()
-    })
+  it('maps backend date validation to the field', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockRejectedValueOnce(
+      new ApiError(422, 'validation_error', 'Validation failed', {
+        field_errors: {
+          offer_deadline: ['La fecha límite no es válida'],
+        },
+      }),
+    )
+    renderSheet()
+
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    await waitFor(() => expect(mockMutateAsync).toHaveBeenCalled())
+    expect(
+      await screen.findByText('La fecha límite no es válida'),
+    ).toBeInTheDocument()
+  })
+
+  it('shows empty state when no active campaigns', () => {
+    mockCampaignsData = []
+    renderSheet()
+
+    expect(screen.getByText(/no tenés campañas activas/i)).toBeInTheDocument()
+  })
+
+  it('has no axe violations when open', async () => {
+    const { container } = renderSheet()
+
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

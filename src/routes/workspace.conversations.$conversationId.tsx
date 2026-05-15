@@ -168,7 +168,12 @@ function ConversationRoute() {
           onSubmitted={handleSubmitLinkClose}
         />
       )}
-      {isBrand ? <SendOfferSidesheet creatorName={creatorName} /> : null}
+      {isBrand && conversationDetail.data?.counterpart.id ? (
+        <SendOfferSidesheet
+          creatorName={creatorName}
+          creatorAccountId={conversationDetail.data.counterpart.id}
+        />
+      ) : null}
     </div>
   )
 }

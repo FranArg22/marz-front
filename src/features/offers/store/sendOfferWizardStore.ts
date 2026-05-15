@@ -1,23 +1,23 @@
 import { create } from 'zustand'
 
 import type {
-  CreateOfferRequest,
-  OfferBonusTerms as BonusTerms,
-} from '#/shared/api/generated/model'
+  CreateOfferFormValues,
+  OfferBonusTermsFormValues,
+} from '../schemas/createOffer'
 
 export type SendOfferWizardMode = 'same_content' | 'per_platform'
 
 export type SendOfferWizardState = {
   mode: SendOfferWizardMode
-  sameContent: Partial<CreateOfferRequest>
-  perPlatform: Partial<CreateOfferRequest>
+  sameContent: Partial<CreateOfferFormValues>
+  perPlatform: Partial<CreateOfferFormValues>
   bonusesEnabledGlobal: boolean
-  bonusesSnapshot: BonusTerms | null
+  bonusesSnapshot: OfferBonusTermsFormValues | null
   setMode: (mode: SendOfferWizardMode) => void
-  patchSameContent: (patch: Partial<CreateOfferRequest>) => void
-  patchPerPlatform: (patch: Partial<CreateOfferRequest>) => void
+  patchSameContent: (patch: Partial<CreateOfferFormValues>) => void
+  patchPerPlatform: (patch: Partial<CreateOfferFormValues>) => void
   setBonusesEnabledGlobal: (enabled: boolean) => void
-  setBonusesSnapshot: (snapshot: BonusTerms | null) => void
+  setBonusesSnapshot: (snapshot: OfferBonusTermsFormValues | null) => void
   reset: () => void
 }
 
@@ -30,11 +30,10 @@ const getInitialState = () => ({
 })
 
 function mergeCreateOfferDraft(
-  current: Partial<CreateOfferRequest>,
-  patch: Partial<CreateOfferRequest>,
+  current: Partial<CreateOfferFormValues>,
+  patch: Partial<CreateOfferFormValues>,
 ) {
-  // TypeScript cannot preserve Partial<CreateOfferRequest> through object spread over generated union members.
-  return { ...current, ...patch } as Partial<CreateOfferRequest>
+  return { ...current, ...patch }
 }
 
 export const useSendOfferWizard = create<SendOfferWizardState>()((set) => ({

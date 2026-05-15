@@ -10,12 +10,12 @@ describe('useSendOfferWizard', () => {
   it('preserves both content snapshots when toggling mode', () => {
     useSendOfferWizard.getState().patchSameContent({
       campaign_id: 'campaign-1',
-      description: 'Same content brief',
+      amount: 1000,
     })
     useSendOfferWizard.getState().setMode('per_platform')
     useSendOfferWizard.getState().patchPerPlatform({
       campaign_id: 'campaign-2',
-      description: 'Per platform brief',
+      amount: 2000,
     })
     useSendOfferWizard.getState().setMode('same_content')
 
@@ -23,11 +23,11 @@ describe('useSendOfferWizard', () => {
     expect(state.mode).toBe('same_content')
     expect(state.sameContent).toEqual({
       campaign_id: 'campaign-1',
-      description: 'Same content brief',
+      amount: 1000,
     })
     expect(state.perPlatform).toEqual({
       campaign_id: 'campaign-2',
-      description: 'Per platform brief',
+      amount: 2000,
     })
   })
 
@@ -35,15 +35,21 @@ describe('useSendOfferWizard', () => {
     useSendOfferWizard.getState().setMode('per_platform')
     useSendOfferWizard.getState().patchSameContent({
       campaign_id: 'campaign-1',
-      description: 'Same content brief',
+      amount: 1000,
     })
     useSendOfferWizard.getState().patchPerPlatform({
       campaign_id: 'campaign-2',
-      description: 'Per platform brief',
+      amount: 2000,
     })
     useSendOfferWizard.getState().setBonusesEnabledGlobal(true)
     useSendOfferWizard.getState().setBonusesSnapshot({
-      speed_bonus_windows: [{ window_hours: 24, bonus_pct: '10' }],
+      enabled: true,
+      speed_bonus_windows: [
+        {
+          window_hours: 24,
+          bonus_amount: { type: 'percentage', value: 10 },
+        },
+      ],
     })
 
     useSendOfferWizard.getState().reset()
