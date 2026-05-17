@@ -7,15 +7,17 @@ import { LinkApprovedCard } from '#/features/deliverables/components/LinkApprove
 import { LinkChangesRequestedCard } from '#/features/deliverables/components/LinkChangesRequestedCard'
 import { LinkSubmittedCard } from '#/features/deliverables/components/LinkSubmittedCard'
 import { RequestChangesCard } from '#/features/deliverables/components/RequestChangesCard'
-import { OfferTimelineEntry } from '#/features/offers/components/OfferTimelineEntry'
-import { StageOpenedBubble } from '#/features/offers/components/StageOpenedBubble'
-import { stageOpenedSnapSchema } from '#/features/offers/schemas'
-import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 import { OFFER_EVENT_TYPES } from '#/shared/offers/constants'
+import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 import { getRecord, getString } from '#/shared/utils/record'
 import { EventBubble } from './EventBubble'
 import type { EventSeverity } from './EventBubble'
 import { MessageBubble } from './MessageBubble'
+import { OfferAcceptedCard } from './systemEvents/OfferAcceptedCard'
+import { OfferCancelledCard } from './systemEvents/OfferCancelledCard'
+import { OfferExpiredCard } from './systemEvents/OfferExpiredCard'
+import { OfferRejectedCard } from './systemEvents/OfferRejectedCard'
+import { OfferSentCard } from './systemEvents/OfferSentCard'
 import { PaymentMarkedCard } from './systemEvents/PaymentMarkedCard'
 
 interface RenderTimelineMessageContentArgs {
@@ -37,7 +39,6 @@ export function TimelineMessageContent({
   counterpartDisplayName,
   highlightPaymentId,
   onMarkAsPaid,
-  onUploadDraft,
   sessionKind,
   viewerRole,
 }: RenderTimelineMessageContentArgs) {
@@ -49,7 +50,6 @@ export function TimelineMessageContent({
       counterpartDisplayName,
       highlightPaymentId,
       onMarkAsPaid,
-      onUploadDraft,
       sessionKind,
       viewerRole,
     })
@@ -78,7 +78,6 @@ function renderSystemTimelineMessage({
   counterpartDisplayName,
   highlightPaymentId,
   onMarkAsPaid,
-  onUploadDraft,
   sessionKind,
   viewerRole,
 }: RenderTimelineMessageContentArgs) {
@@ -151,48 +150,40 @@ function renderSystemTimelineMessage({
 
   if (message.event_type === 'PaymentMarked') {
     return (
-      <PaymentMarkedCard
-        message={message}
-        viewer={{ kind: sessionKind }}
-        highlighted={
-          highlightPaymentId !== undefined &&
-          getPaymentMarkedDeclaredPaymentId(message.payload) ===
-            highlightPaymentId
-        }
-      />
-    )
-  }
-
-  if (message.event_type === 'StageOpened') {
-    const rawPayload = message.payload ?? {}
-    const snapshot =
-      (rawPayload['snapshot'] as Record<string, unknown> | undefined) ??
-      rawPayload
-    const parsed = stageOpenedSnapSchema.safeParse(snapshot)
-    if (!parsed.success) return null
-    const side = message.author_account_id === currentAccountId ? 'out' : 'in'
-    return (
       <div className="flex justify-center py-1">
-        <StageOpenedBubble snapshot={parsed.data} side={side} />
+        <PaymentMarkedCard
+          message={message}
+          viewer={{ kind: sessionKind }}
+          highlighted={
+            highlightPaymentId !== undefined &&
+            getPaymentMarkedDeclaredPaymentId(message.payload) ===
+              highlightPaymentId
+          }
+        />
       </div>
     )
   }
 
-  if (message.event_type === 'StageApproved') {
-    console.warn('StageApproved rendering not implemented yet (FEAT-009)')
-    return null
-  }
-
   if (OFFER_EVENT_TYPES.has(message.event_type ?? '')) {
-    return (
-      <OfferTimelineEntry
-        message={message}
-        currentAccountId={currentAccountId}
-        conversationId={conversationId}
-        counterpartDisplayName={counterpartDisplayName}
-        onUploadDraft={onUploadDraft}
-      />
-    )
+    const offerCard = (() => {
+      switch (message.event_type) {
+        case 'OfferSent':
+          return <OfferSentCard message={message} />
+        case 'OfferAccepted':
+          return <OfferAcceptedCard message={message} />
+        case 'OfferRejected':
+          return <OfferRejectedCard message={message} />
+        case 'OfferExpired':
+          return <OfferExpiredCard message={message} />
+        case 'OfferCancelled':
+          return <OfferCancelledCard message={message} />
+        default:
+          return null
+      }
+    })()
+
+    if (!offerCard) return null
+    return <div className="flex justify-center py-1">{offerCard}</div>
   }
 
   const label =

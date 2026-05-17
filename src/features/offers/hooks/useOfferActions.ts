@@ -9,20 +9,21 @@ import type {
 } from '#/shared/api/generated/offers/offers'
 import { ApiError } from '#/shared/api/mutator'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
+import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 
 import { trackOfferEvent } from '../analytics'
-import type { OfferType } from '../analytics'
+import type { OfferMode } from '../types'
 
 interface AcceptVariables {
   offerId: string
   sentAt: string
-  offerType: OfferType
+  offerMode: OfferMode
 }
 
 interface RejectVariables {
   offerId: string
   sentAt: string
-  offerType: OfferType
+  offerMode: OfferMode
   reason?: string
 }
 
@@ -37,6 +38,8 @@ function timeToResponseSeconds(sentAt: string): number {
 export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
   const queryClient = useQueryClient()
   const offersQueryKey = getConversationOffersQueryKey(conversationId)
+  const deliverablesQueryKey =
+    getConversationDeliverablesQueryKey(conversationId)
 
   const acceptMutation = useMutation<
     acceptOfferResponse,
@@ -60,7 +63,7 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
     onSuccess: (_data, variables) => {
       trackOfferEvent('offer_accepted', {
         actor_kind: 'creator',
-        offer_type: variables.offerType,
+        offer_mode: variables.offerMode,
         time_to_response_seconds: timeToResponseSeconds(variables.sentAt),
       })
     },
@@ -77,6 +80,7 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
     },
     onSettled: () => {
       void queryClient.invalidateQueries({ queryKey: offersQueryKey })
+      void queryClient.invalidateQueries({ queryKey: deliverablesQueryKey })
     },
   })
 
@@ -103,7 +107,7 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
     onSuccess: (_data, variables) => {
       trackOfferEvent('offer_rejected', {
         actor_kind: 'creator',
-        offer_type: variables.offerType,
+        offer_mode: variables.offerMode,
         time_to_response_seconds: timeToResponseSeconds(variables.sentAt),
       })
     },

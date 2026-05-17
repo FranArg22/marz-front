@@ -3,17 +3,18 @@ import { Archive } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
-import type { ArchivedOfferItem } from '#/features/offers/hooks/useConversationOffers'
+import type { ArchivedOfferDetailItem } from '#/features/offers/hooks/useConversationOffers'
 import { OfferArchiveItem } from './OfferArchiveItem'
 import { trackOfferEvent, toArchiveSizeBucket } from '../analytics'
 import type { ActorKind } from '../analytics'
 
 interface OffersArchiveBlockProps {
-  items: ArchivedOfferItem[]
+  items: ArchivedOfferDetailItem[]
   nextCursor: string | null
   onLoadMore?: () => void
   isLoadingMore?: boolean
   actorKind: ActorKind
+  defaultOpen?: boolean
 }
 
 export function OffersArchiveBlock({
@@ -22,8 +23,9 @@ export function OffersArchiveBlock({
   onLoadMore,
   isLoadingMore = false,
   actorKind,
+  defaultOpen = false,
 }: OffersArchiveBlockProps) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(defaultOpen)
 
   const handleToggle = useCallback(() => {
     setOpen((prev) => {
@@ -39,19 +41,7 @@ export function OffersArchiveBlock({
   }, [actorKind, items.length])
 
   if (items.length === 0) {
-    return (
-      <section>
-        <header className="flex items-center gap-1.5 px-1 text-muted-foreground">
-          <Archive className="size-3" />
-          <span className="font-mono text-[11px] uppercase tracking-wider">
-            {t`Archived offers`}
-          </span>
-        </header>
-        <p className="mt-2 text-center text-xs text-muted-foreground">
-          {t`No past offers`}
-        </p>
-      </section>
-    )
+    return null
   }
 
   return (
@@ -64,7 +54,7 @@ export function OffersArchiveBlock({
       >
         <Archive className="size-3" />
         <span className="font-mono text-[11px] uppercase tracking-wider">
-          {t`Archived offers`}
+          {t`Ofertas anteriores`}
         </span>
         <span className="ml-auto font-mono text-[11px]">{items.length}</span>
       </button>
@@ -84,7 +74,7 @@ export function OffersArchiveBlock({
               onClick={onLoadMore}
               disabled={isLoadingMore}
             >
-              {isLoadingMore ? t`Loading...` : t`Load more`}
+              {isLoadingMore ? t`Cargando…` : t`Cargar más`}
             </Button>
           ) : null}
         </div>

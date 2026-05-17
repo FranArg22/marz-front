@@ -1,49 +1,17 @@
 import { t } from '@lingui/core/macro'
 import { useEffect, useMemo, useRef } from 'react'
+import { CircleDollarSign } from 'lucide-react'
 
 import type { MessageItem } from '#/features/chat/types'
 import { trackCardSeen } from '#/shared/analytics/paymentCardSeen'
-import { i18n } from '#/shared/i18n/setup'
-import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
-import { PaymentCard } from '#/shared/ui/PaymentCard'
-import type { PaymentMarkedSnapshot } from '#/shared/ws/types'
+import { EventBubble } from '#/shared/ui/EventBubble'
+
+import { extractPaymentMarkedSnapshotV3 } from './offerEventCardUtils'
 
 interface PaymentMarkedCardProps {
   message: MessageItem
   viewer: { kind: 'brand' | 'creator' | undefined }
   highlighted?: boolean
-}
-
-type PaymentMarkedCardSnapshot = PaymentMarkedSnapshot & {
-  declared_payment_id?: string
-}
-
-function extractSnapshot(
-  payload: Record<string, unknown> | null,
-): PaymentMarkedCardSnapshot | null {
-  if (!payload) return null
-  const snapshot =
-    (payload.snapshot as Record<string, unknown> | undefined) ?? payload
-  if (snapshot.event_type !== 'PaymentMarked') return null
-  if (typeof snapshot.amount !== 'string') return null
-  if (typeof snapshot.currency !== 'string') return null
-  if (typeof snapshot.deliverable_display_label !== 'string') return null
-  if (typeof snapshot.declared_at !== 'string') return null
-  if (typeof snapshot.deliverable_id !== 'string') return null
-  return snapshot as unknown as PaymentMarkedSnapshot
-}
-
-function buildNote(snapshot: PaymentMarkedSnapshot) {
-  const declaredDate = new Date(snapshot.declared_at).toLocaleDateString(
-    i18n.locale || undefined,
-    {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    },
-  )
-  const deliverableLabel = snapshot.deliverable_display_label
-  return t`${deliverableLabel} · ${declaredDate}`
 }
 
 export function PaymentMarkedCard({
@@ -52,7 +20,7 @@ export function PaymentMarkedCard({
   highlighted = false,
 }: PaymentMarkedCardProps) {
   const snapshot = useMemo(
-    () => extractSnapshot(message.payload),
+    () => extractPaymentMarkedSnapshotV3(message.payload),
     [message.payload],
   )
   const cardRef = useRef<HTMLDivElement>(null)
@@ -60,7 +28,7 @@ export function PaymentMarkedCard({
 
   useEffect(() => {
     if (
-      !snapshot?.declared_payment_id ||
+      !snapshot?.declaredPaymentId ||
       viewer.kind !== 'creator' ||
       hasFiredRef.current ||
       !cardRef.current
@@ -68,7 +36,7 @@ export function PaymentMarkedCard({
       return
     }
 
-    const declaredPaymentId = snapshot.declared_payment_id
+    const declaredPaymentId = snapshot.declaredPaymentId
 
     const observer = new IntersectionObserver((entries) => {
       const isVisible = entries.some((entry) => entry.isIntersecting)
@@ -85,22 +53,23 @@ export function PaymentMarkedCard({
 
   if (!snapshot) return null
 
-  const audience = viewer.kind === 'brand' ? 'sent' : 'received'
+  const side = viewer.kind === 'brand' ? 'out' : 'in'
 
   return (
-    <div
+    <article
       ref={cardRef}
-      className={`flex py-1 ${viewer.kind === 'brand' ? 'justify-end' : 'justify-start'}`}
+      role="article"
+      aria-label={t`Pago marcado`}
       data-testid="payment-marked-card"
+      data-highlighted={highlighted ? 'true' : undefined}
     >
-      <div className="w-full max-w-[380px]">
-        <PaymentCard
-          audience={audience}
-          amount={formatOfferAmount(snapshot.amount, snapshot.currency)}
-          note={buildNote(snapshot)}
-          highlighted={highlighted}
-        />
-      </div>
-    </div>
+      <EventBubble
+        severity="success"
+        direction={side}
+        icon={CircleDollarSign}
+      >
+        {t`Pago marcado`}
+      </EventBubble>
+    </article>
   )
 }

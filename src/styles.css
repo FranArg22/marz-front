@@ -104,6 +104,7 @@
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Font sizes */
+  --font-size-2xs: 10px;
   --font-size-xs: 11px;
   --font-size-sm: 12px;
   --font-size-base: 13px;
@@ -275,6 +276,8 @@
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+
+  --text-2xs: var(--font-size-2xs);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);

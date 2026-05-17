@@ -90,32 +90,35 @@ export function useBriefBuilderWS(
       const payload = envelope.payload as BriefProcessingCompleted
       if (payload.processing_token !== tokenRef.current) return
 
-      const incoming = payload.brief_draft
       // The backend only emits the AI-generated `brief` portion; the user fills
       // `campaign` in P4. Initialize it with empty defaults so P3Review can
       // render before the user has touched it.
-      if (!incoming.campaign) {
-        incoming.campaign = {
+      const briefDraft: BriefDraft = {
+        ...payload.brief_draft,
+        campaign: payload.brief_draft.campaign ?? {
           name: '',
           objective: '',
           budget_amount: null,
           budget_currency: 'USD',
           deadline: '',
-        }
+        },
+        brief: {
+          ...payload.brief_draft.brief,
+          scoring_dimensions: payload.brief_draft.brief.scoring_dimensions.map(
+            (d) => ({
+              ...d,
+              id: d.id || crypto.randomUUID(),
+            }),
+          ),
+          hard_filters: payload.brief_draft.brief.hard_filters.map((f) => ({
+            ...f,
+            id: f.id || crypto.randomUUID(),
+          })),
+        },
       }
-      incoming.brief.scoring_dimensions = incoming.brief.scoring_dimensions.map(
-        (d) => ({
-          ...d,
-          id: d.id || crypto.randomUUID(),
-        }),
-      )
-      incoming.brief.hard_filters = incoming.brief.hard_filters.map((f) => ({
-        ...f,
-        id: f.id || crypto.randomUUID(),
-      }))
       dispatch({
         type: 'completed',
-        payload: { ...payload, brief_draft: incoming },
+        payload: { ...payload, brief_draft: briefDraft },
       })
     },
     [],
@@ -219,7 +222,12 @@ interface BriefBuilderWSState {
 
 type BriefBuilderWSAction =
   | { type: 'stepCompleted'; payload: BriefProcessingStepCompleted }
-  | { type: 'completed'; payload: BriefProcessingCompleted }
+  | {
+      type: 'completed'
+      payload: Omit<BriefProcessingCompleted, 'brief_draft'> & {
+        brief_draft: BriefDraft
+      }
+    }
   | { type: 'failed'; payload: BriefProcessingFailed }
   | { type: 'subscribed'; subscribed: boolean }
   | { type: 'subscribeFailed'; code: string; message: string }
