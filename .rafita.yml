@@ -70,3 +70,7 @@ flow:
 
 verify:
   quality_gates: [] # closer carries the heavy gates
+
+# Activa el step run_auditor de skinner antes de invocar rafita.
+audit:
+  enabled: true
