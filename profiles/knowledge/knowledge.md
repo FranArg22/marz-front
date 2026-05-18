@@ -15,6 +15,7 @@
 - Si vas a escribir o modificar tests (Vitest, Testing Library) → leé `testing.md`.
 - Si tu task toca UI, ruta nueva, interacción visible, form o cualquier cambio que se vea en el browser → leé `playwright.md` (sección 2: MCP). Verificación obligatoria antes de declarar done.
 - Si vas a escribir o modificar tests E2E persistentes con Playwright (`src/test/e2e/`) → leé `playwright.md` (sección 1: E2E).
+- Si vas a seedear, mutar o resetear estado del backend desde un E2E (cliente `marzTest`, helpers de `fixtures.ts`, endpoints `/v1/test/*`) → leé `e2e-fixtures.md`.
 - Si vas a tocar manejo de errores, `ApiError` o boundaries → leé `errors.md`.
 - Si vas a tocar i18n, traducciones o textos → leé `i18n.md`.
 - Si vas a tocar configuración del entorno del agente, env vars o tooling local → leé `agent-env.md`.
