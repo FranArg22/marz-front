@@ -8486,15 +8486,20 @@
       "InboxCounts": {
         "type": "object",
         "required": [
-          "action",
-          "waiting"
+          "action_items",
+          "waiting_items",
+          "total"
         ],
         "properties": {
-          "action": {
+          "action_items": {
             "type": "integer",
             "minimum": 0
           },
-          "waiting": {
+          "waiting_items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "total": {
             "type": "integer",
             "minimum": 0
           }
@@ -8837,7 +8842,8 @@
           "source_ref",
           "inline_actions",
           "navigation_action",
-          "can_mark_read"
+          "can_mark_read",
+          "metadata"
         ],
         "properties": {
           "id": {
@@ -8930,6 +8936,10 @@
             "enum": [
               true
             ]
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
           }
         }
       },

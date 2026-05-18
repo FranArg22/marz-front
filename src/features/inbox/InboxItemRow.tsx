@@ -1,13 +1,24 @@
 import { t } from '@lingui/core/macro'
 import { useRouter } from '@tanstack/react-router'
-import { Loader2, Check } from 'lucide-react'
+import { ArrowUpRight, Loader2, MailOpen } from 'lucide-react'
+
+import { useMe } from '#/shared/api/generated/accounts/accounts'
+
+import { InboxMessagePreviewPopover } from './InboxMessagePreviewPopover'
 import type { MouseEvent } from 'react'
 import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { Button } from '#/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '#/components/ui/tooltip'
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
+import { InboxDraftReviewPopover } from './InboxDraftReviewPopover'
 
 import type { InboxItem, InboxResponse } from './api/inbox'
 import { isKnownRouterHref } from './routerHref'
@@ -35,6 +46,29 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
     item,
   })
 
+  const conversationId = getInboxConversationId(item)
+  const conversationHref = conversationId
+    ? `/workspace/conversations/${conversationId}`
+    : null
+  const rowHref = conversationHref ?? item.navigation_action?.href
+
+  function navigateTo(
+    href: string,
+    navigationType: NonNullable<InboxItem['navigation_action']>['type'],
+  ) {
+    trackInboxItemOpened({
+      ...analyticsPayload,
+      navigation_type: navigationType,
+    })
+
+    if (!isKnownRouterHref(router, href)) {
+      toast.info(t`Esta sección todavía no está disponible.`)
+      return
+    }
+
+    void router.navigate({ to: href })
+  }
+
   function handleNavigationClick(event: MouseEvent<HTMLAnchorElement>) {
     if (event.button !== 0 || event.metaKey || event.altKey || event.ctrlKey) {
       return
@@ -42,22 +76,19 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
 
     event.preventDefault()
 
-    const navigationAction = item.navigation_action
-    if (!navigationAction) return
+    if (!rowHref) return
 
-    trackInboxItemOpened({
-      ...analyticsPayload,
-      navigation_type: navigationAction.type,
-    })
+    const navigationType =
+      conversationHref !== null
+        ? 'open_conversation'
+        : (item.navigation_action?.type ?? 'open_conversation')
+    navigateTo(rowHref, navigationType)
+  }
 
-    if (!isKnownRouterHref(router, navigationAction.href)) {
-      toast.info(t`Esta sección todavía no está disponible.`)
-      return
-    }
-
-    void router.navigate({
-      to: navigationAction.href,
-    })
+  function handleOpenConversation(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation()
+    if (!conversationHref) return
+    navigateTo(conversationHref, 'open_conversation')
   }
 
   function handleMarkRead(event: MouseEvent<HTMLButtonElement>) {
@@ -109,33 +140,64 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
 
         <InboxItemMainContent
           item={item}
-          href={item.navigation_action?.href}
+          href={rowHref ?? undefined}
           onNavigationClick={handleNavigationClick}
         />
 
-        <InboxInlineActionPopover
-          analyticsPayload={analyticsPayload}
-          conversationId={getInboxConversationId(item)}
-          itemId={item.id}
-          inlineActions={item.inline_actions}
-        />
+        {item.kind === 'draft_review' &&
+        item.source_ref.type === 'deliverable' ? (
+          <InboxDraftReviewPopover deliverableId={item.source_ref.id} />
+        ) : (
+          <InboxInlineActionPopover
+            analyticsPayload={analyticsPayload}
+            conversationId={conversationId}
+            itemId={item.id}
+            inlineActions={item.inline_actions}
+          />
+        )}
 
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={handleMarkRead}
-          disabled={markRead.isPending}
-          aria-label={t`Marcar item como leído`}
-          className="shrink-0 rounded-full"
-        >
-          {markRead.isPending ? (
-            <Loader2 className="size-4 animate-spin" aria-hidden />
-          ) : (
-            <Check className="size-4" aria-hidden />
-          )}
-          <span className="hidden sm:inline">{t`Mark read`}</span>
-        </Button>
+        <TooltipProvider delayDuration={200}>
+          <div className="flex items-center gap-0.5">
+            {conversationHref ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleOpenConversation}
+                    aria-label={t`Ir al chat`}
+                    className="shrink-0 rounded-full"
+                  >
+                    <ArrowUpRight className="size-4" aria-hidden />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t`Ir al chat`}</TooltipContent>
+              </Tooltip>
+            ) : null}
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleMarkRead}
+                  disabled={markRead.isPending}
+                  aria-label={t`Marcar como leído`}
+                  className="shrink-0 rounded-full"
+                >
+                  {markRead.isPending ? (
+                    <Loader2 className="size-4 animate-spin" aria-hidden />
+                  ) : (
+                    <MailOpen className="size-4" aria-hidden />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Marcar como leído`}</TooltipContent>
+            </Tooltip>
+          </div>
+        </TooltipProvider>
       </article>
     </li>
   )
@@ -152,6 +214,42 @@ function getInboxConversationId(item: InboxItem): string | null {
   )
 }
 
+interface MessagePreviewEntry {
+  preview: string
+  occurred_at: string
+  author_account_id: string
+}
+
+function extractRecentPreviews(item: InboxItem): MessagePreviewEntry[] {
+  const raw = (item.metadata as { recent_previews?: unknown } | undefined)
+    ?.recent_previews
+  if (!Array.isArray(raw)) return []
+  const entries: MessagePreviewEntry[] = []
+  for (const item of raw) {
+    if (typeof item !== 'object' || item === null) continue
+    const obj = item as Record<string, unknown>
+    const preview = typeof obj.preview === 'string' ? obj.preview : ''
+    const occurredAt =
+      typeof obj.occurred_at === 'string' ? obj.occurred_at : ''
+    const authorId =
+      typeof obj.author_account_id === 'string' ? obj.author_account_id : ''
+    if (!preview) continue
+    entries.push({
+      preview,
+      occurred_at: occurredAt,
+      author_account_id: authorId,
+    })
+  }
+  return entries
+}
+
+function extractUnreadCount(item: InboxItem): number {
+  const raw = (item.metadata as { unread_count?: unknown } | undefined)
+    ?.unread_count
+  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return raw
+  return 0
+}
+
 function InboxItemMainContent({
   href,
   item,
@@ -161,35 +259,64 @@ function InboxItemMainContent({
   item: InboxItem
   onNavigationClick: (event: MouseEvent<HTMLAnchorElement>) => void
 }) {
+  const subtitleParts = [
+    item.counterpart?.display_name,
+    item.campaign?.name,
+  ].filter(
+    (part): part is string => typeof part === 'string' && part.length > 0,
+  )
+
+  const unreadCount = extractUnreadCount(item)
+  const previews = extractRecentPreviews(item)
+  const showMessageBundle = item.kind === 'message_reply' && unreadCount > 1
+
+  const meQuery = useMe()
+  const selfAccountId =
+    meQuery.data?.status === 200 ? meQuery.data.data.id : null
+
+  const previewLine = showMessageBundle ? (
+    <p className="mt-0.5 flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
+      <span className="shrink-0 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+        +{unreadCount} {t`nuevos`}
+      </span>
+      <span className="truncate">{item.preview}</span>
+    </p>
+  ) : (
+    <p className="mt-0.5 truncate text-xs text-muted-foreground">
+      {item.preview}
+    </p>
+  )
+
+  const previewSlot =
+    showMessageBundle && previews.length > 0 ? (
+      <InboxMessagePreviewPopover
+        previews={previews}
+        selfAccountId={selfAccountId}
+        trigger={previewLine}
+      />
+    ) : (
+      previewLine
+    )
+
   const content = (
     <>
-      <div className="flex min-w-0 items-center gap-2 text-xs">
-        <span className="truncate font-semibold text-foreground">
-          {item.meta.primary}
-        </span>
-        <span className="text-muted-foreground" aria-hidden>
-          -
-        </span>
-        <span className="truncate text-muted-foreground">
-          {item.meta.secondary}
-        </span>
-        <span className="shrink-0 text-muted-foreground" aria-hidden>
-          -
-        </span>
+      <div className="flex min-w-0 items-baseline gap-2">
+        <h3 className="truncate text-sm font-semibold text-foreground">
+          {item.title}
+        </h3>
         <time
-          className="shrink-0 text-muted-foreground"
+          className="shrink-0 text-xs text-muted-foreground"
           dateTime={item.occurred_at}
         >
           {item.meta.timestamp}
         </time>
       </div>
-
-      <h3 className="mt-0.5 truncate text-sm font-semibold text-foreground">
-        {item.title}
-      </h3>
-      <p className="mt-0.5 truncate text-xs text-muted-foreground">
-        {item.preview}
-      </p>
+      {subtitleParts.length > 0 ? (
+        <p className="mt-0.5 truncate text-xs text-muted-foreground">
+          {subtitleParts.join(' · ')}
+        </p>
+      ) : null}
+      {previewSlot}
     </>
   )
 

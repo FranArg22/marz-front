@@ -65,15 +65,13 @@ export const Route = createFileRoute('/_brand')({
       accountId: me.id,
       hasBrandWorkspace: Boolean(workspace),
       brandWorkspaceRole: membershipRole,
-      workspaceName: workspace?.name,
     }
   },
   component: BrandLayout,
 })
 
 function BrandLayout() {
-  const { accountId, hasBrandWorkspace, workspaceName } =
-    Route.useRouteContext()
+  const { accountId, hasBrandWorkspace } = Route.useRouteContext()
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   if (!hasBrandWorkspace) {
@@ -81,12 +79,7 @@ function BrandLayout() {
   }
 
   return (
-    <AppShell
-      accountKind="brand"
-      accountId={accountId}
-      pathname={pathname}
-      workspaceName={workspaceName}
-    >
+    <AppShell accountKind="brand" accountId={accountId} pathname={pathname}>
       <BrandSessionProvider>
         <Outlet />
       </BrandSessionProvider>

@@ -1,5 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
+import { Megaphone } from 'lucide-react'
 import { toast } from 'sonner'
 
 import {
@@ -56,8 +57,9 @@ export function CampaignFilterSelect({ value }: CampaignFilterSelectProps) {
     <Select value={value ?? ALL_CAMPAIGNS} onValueChange={handleChange}>
       <SelectTrigger
         aria-label={t`Filtrar por campaña`}
-        className="h-8 text-xs"
+        className="h-10 w-full cursor-pointer rounded-full border-none bg-muted px-4 text-sm"
       >
+        <Megaphone className="size-4 shrink-0 text-muted-foreground" />
         <SelectValue placeholder={t`Todas las campañas`} />
       </SelectTrigger>
       <SelectContent>

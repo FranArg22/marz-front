@@ -46,7 +46,8 @@ function InboxPageContent({
 }) {
   const actionItems = sortByNewest(data.action_items)
   const waitingItems = sortByNewest(data.waiting_items)
-  const isEmpty = data.counts.action === 0 && data.counts.waiting === 0
+  const isEmpty =
+    data.counts.action_items === 0 && data.counts.waiting_items === 0
   const copy = getInboxCopy(data.account_kind)
 
   useEffect(() => {
@@ -57,8 +58,8 @@ function InboxPageContent({
 
     trackInboxViewed({
       ...payload,
-      action_count: data.counts.action,
-      waiting_count: data.counts.waiting,
+      action_count: data.counts.action_items,
+      waiting_count: data.counts.waiting_items,
     })
 
     if (isEmpty) {
@@ -67,8 +68,8 @@ function InboxPageContent({
   }, [
     data.account_kind,
     data.campaign_id,
-    data.counts.action,
-    data.counts.waiting,
+    data.counts.action_items,
+    data.counts.waiting_items,
     data.generated_at,
     isEmpty,
   ])
@@ -91,21 +92,21 @@ function InboxPageContent({
           <InboxEmptyState emptyState={data.empty_state} />
         ) : (
           <div className="flex flex-col gap-6">
-            {data.counts.action > 0 ? (
+            {data.counts.action_items > 0 ? (
               <InboxSection
                 title={t`Action items`}
                 description={t`Newest first`}
-                count={data.counts.action}
+                count={data.counts.action_items}
                 items={actionItems}
                 tone="action"
                 accountKind={data.account_kind}
               />
             ) : null}
-            {data.counts.waiting > 0 ? (
+            {data.counts.waiting_items > 0 ? (
               <InboxSection
                 title={copy.waitingTitle}
                 description={copy.waitingDescription}
-                count={data.counts.waiting}
+                count={data.counts.waiting_items}
                 items={waitingItems}
                 tone="waiting"
                 accountKind={data.account_kind}

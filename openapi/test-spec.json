@@ -45,7 +45,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MeResponse"
+                  "$ref": "#/components/schemas/TestAccountResponse"
                 }
               }
             }
@@ -423,6 +423,359 @@
         }
       }
     },
+    "/v1/test/notifications/inbox-items/bulk-seed": {
+      "post": {
+        "operationId": "bulkSeedTestInboxItems",
+        "tags": [
+          "test"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSeedInboxItemsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkSeedInboxItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: bulk_seed_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/notifications/inbox-items/{id}/status": {
+      "post": {
+        "operationId": "setTestInboxItemStatus",
+        "tags": [
+          "test"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetTestInboxItemStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/InboxItemStatus"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/events/emit": {
+      "post": {
+        "operationId": "emitTestEvent",
+        "tags": [
+          "test"
+        ],
+        "description": "This endpoint bypasses the outbox. Use it to trigger handler side-effects\nin tests, not to validate outbox persistence guarantees (atomicity,\nidempotency by event_id, replay).\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmitTestEventRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "event_id"
+                  ],
+                  "properties": {
+                    "event_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: emit_event_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/faults": {
+      "post": {
+        "operationId": "createTestFault",
+        "tags": [
+          "test"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestFaultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/notifications/inbox-items/reset": {
+      "post": {
+        "operationId": "resetTestWorkspace",
+        "tags": [
+          "test"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetTestWorkspaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "deleted_inbox_items"
+                  ],
+                  "properties": {
+                    "deleted_inbox_items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: reset_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/test/accounts/{clerk_user_id}": {
       "delete": {
         "operationId": "deleteTestAccount",
@@ -550,8 +903,52 @@
           "full_name": {
             "type": "string",
             "minLength": 1
+          },
+          "kind": {
+            "$ref": "#/components/schemas/AccountKind"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "onboarding_status": {
+            "$ref": "#/components/schemas/OnboardingStatus"
+          },
+          "workspace_name": {
+            "type": "string"
           }
         }
+      },
+      "TestAccountResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MeResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "account_id",
+              "clerk_user_id",
+              "clerk_m2m_token"
+            ],
+            "properties": {
+              "account_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "workspace_id": {
+                "type": "string",
+                "format": "uuid",
+                "nullable": true
+              },
+              "clerk_user_id": {
+                "type": "string"
+              },
+              "clerk_m2m_token": {
+                "type": "string"
+              }
+            }
+          }
+        ]
       },
       "PurgeTestAccountsRequest": {
         "type": "object",
@@ -696,15 +1093,234 @@
       },
       "SetTestOnboardingRequest": {
         "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/OnboardingStatus"
+          },
+          "onboarding_status": {
+            "$ref": "#/components/schemas/OnboardingStatus"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/AccountKind"
+          }
+        }
+      },
+      "InboxItemStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "read",
+          "closed",
+          "resolved"
+        ]
+      },
+      "InboxItemSection": {
+        "type": "string",
+        "enum": [
+          "action",
+          "waiting"
+        ]
+      },
+      "InboxItemKind": {
+        "type": "string",
+        "enum": [
+          "message_reply",
+          "offer_received",
+          "offer_sent_waiting",
+          "draft_review",
+          "draft_changes_requested",
+          "draft_sent_waiting",
+          "draft_approved_publish_link",
+          "link_review",
+          "link_sent_waiting",
+          "link_changes_requested",
+          "application_received",
+          "application_sent_waiting",
+          "match_suggested",
+          "invite_sent_waiting"
+        ]
+      },
+      "InboxSourceRef": {
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "conversation",
+              "offer",
+              "deliverable",
+              "link",
+              "application",
+              "invite",
+              "match"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "BulkSeedInboxItem": {
+        "type": "object",
+        "required": [
+          "recipient_account_id",
+          "section",
+          "kind",
+          "status",
+          "occurred_at",
+          "payload",
+          "source_ref"
+        ],
+        "properties": {
+          "recipient_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "section": {
+            "$ref": "#/components/schemas/InboxItemSection"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/InboxItemKind"
+          },
+          "status": {
+            "$ref": "#/components/schemas/InboxItemStatus"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payload": {
+            "type": "object",
+            "nullable": false,
+            "additionalProperties": true
+          },
+          "source_ref": {
+            "$ref": "#/components/schemas/InboxSourceRef"
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        }
+      },
+      "BulkSeedInboxItemsRequest": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkSeedInboxItem"
+            }
+          }
+        }
+      },
+      "BulkSeedInboxItemsResponse": {
+        "type": "object",
+        "required": [
+          "item_ids"
+        ],
+        "properties": {
+          "item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "SetTestInboxItemStatusRequest": {
+        "type": "object",
         "required": [
           "status"
         ],
         "properties": {
           "status": {
-            "$ref": "#/components/schemas/OnboardingStatus"
+            "type": "string",
+            "enum": [
+              "read",
+              "closed",
+              "resolved"
+            ]
+          }
+        }
+      },
+      "EmitTestEventRequest": {
+        "type": "object",
+        "required": [
+          "event_type",
+          "payload"
+        ],
+        "properties": {
+          "event_type": {
+            "type": "string"
           },
-          "kind": {
-            "$ref": "#/components/schemas/AccountKind"
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateTestFaultRequest": {
+        "type": "object",
+        "required": [
+          "method",
+          "path",
+          "status",
+          "body",
+          "count"
+        ],
+        "properties": {
+          "method": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          },
+          "body": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "count": {
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          }
+        }
+      },
+      "ResetTestWorkspaceRequest": {
+        "type": "object",
+        "required": [
+          "workspace_id"
+        ],
+        "properties": {
+          "workspace_id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },

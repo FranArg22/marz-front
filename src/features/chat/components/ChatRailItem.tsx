@@ -31,10 +31,10 @@ export function ChatRailItem({
       onClick={onClick}
       title={compact ? name : undefined}
       className={cn(
-        'flex items-center gap-3 text-left transition-colors',
+        'flex cursor-pointer items-center gap-3 text-left transition-colors',
         compact
-          ? 'mx-auto size-11 justify-center rounded-full'
-          : 'w-full justify-start rounded-lg px-3 py-2.5',
+          ? 'mx-auto size-10 justify-center rounded-full'
+          : 'w-full justify-start rounded-full px-3 py-2.5',
         active ? 'bg-surface-active' : 'hover:bg-surface-hover',
       )}
     >

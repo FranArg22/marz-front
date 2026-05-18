@@ -35,7 +35,7 @@ export function WorkspaceLayout({
       <aside
         role="region"
         aria-label={t`Conversaciones`}
-        className="hidden w-14 shrink-0 overflow-hidden border-r border-border bg-background transition-[width] duration-300 ease-out md:block xl:w-80"
+        className="w-14 shrink-0 overflow-hidden border-r border-border bg-background transition-[width] duration-300 ease-out xl:w-80"
       >
         <div className="relative h-full">
           <div className="absolute left-0 top-0 h-full w-14 opacity-100 transition-opacity duration-200 xl:pointer-events-none xl:opacity-0">

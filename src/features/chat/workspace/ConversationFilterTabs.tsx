@@ -37,7 +37,7 @@ export function ConversationFilterTabs({ value }: ConversationFilterTabsProps) {
     <div
       role="tablist"
       aria-label={t`Filtrar conversaciones`}
-      className="flex gap-1"
+      className="flex gap-2"
     >
       {TABS.map((tab) => {
         const selected = tab.value === value
@@ -48,10 +48,10 @@ export function ConversationFilterTabs({ value }: ConversationFilterTabsProps) {
             role="tab"
             aria-selected={selected}
             onClick={() => handleSelect(tab.value)}
-            className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+            className={`cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
               selected
-                ? 'bg-primary/10 text-primary'
-                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                ? 'bg-primary text-primary-foreground'
+                : 'border border-border text-foreground hover:bg-muted'
             }`}
           >
             {tab.label()}

@@ -4,19 +4,24 @@ import type { Browser, Page } from '@playwright/test'
 import { createHash } from 'node:crypto'
 
 import {
+  bulkSeedTestInboxItems,
   createTestAccount,
   createTestConversation,
   deleteTestAccount,
   onboardTestAccountFull,
+  resetTestWorkspace,
+  setTestInboxItemStatus,
   setTestOnboardingState,
 } from '#/shared/api/test-generated/test/test'
 import type {
   AccountKind,
+  BulkSeedInboxItem,
   CreateTestConversationResponse,
   MeResponse,
   OnboardingStatus,
   SeedMessagesInput,
   SeedOfferReadyInput,
+  SetTestInboxItemStatusRequestStatus,
 } from '#/shared/api/test-generated/model'
 
 const CLERK_SECRET = process.env.CLERK_SECRET_KEY
@@ -377,6 +382,24 @@ function buildCompletedDeliverableSeedMessages(count: number): SeedMessagesInput
     alternating_authors: true,
     mark_read_for: 'both',
   }
+}
+
+export async function seedInboxItems(
+  items: BulkSeedInboxItem[],
+): Promise<string[]> {
+  const res = await bulkSeedTestInboxItems({ items })
+  return (res as { data: { item_ids: string[] } }).data.item_ids
+}
+
+export async function setInboxItemStatus(
+  itemId: string,
+  status: SetTestInboxItemStatusRequestStatus,
+): Promise<void> {
+  await setTestInboxItemStatus(itemId, { status })
+}
+
+export async function resetInbox(workspaceId: string): Promise<void> {
+  await resetTestWorkspace({ workspace_id: workspaceId })
 }
 
 function buildUserKey(testInfo: { testId: string; workerIndex: number }): string {

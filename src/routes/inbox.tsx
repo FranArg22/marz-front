@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-router'
 
 import { AppShell } from '#/features/identity/app-shell/AppShell'
+import { inboxQueryKey } from '#/features/inbox/api/inbox'
 import { InboxPage } from '#/features/inbox/InboxPage'
 import { inboxSearchSchema } from '#/features/inbox/inboxSearchSchema'
 import { track } from '#/shared/analytics/track'
@@ -72,6 +73,9 @@ export const Route = createFileRoute('/inbox')({
       accountId: me.id,
       sessionKind,
     }
+  },
+  loader: ({ context }) => {
+    void context.queryClient.invalidateQueries({ queryKey: inboxQueryKey })
   },
   component: InboxRoute,
 })

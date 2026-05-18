@@ -103,7 +103,7 @@ describe('InboxPage', () => {
             occurred_at: '2026-05-07T10:00:00Z',
           }),
         ],
-        counts: { action: 2, waiting: 1 },
+        counts: { action_items: 2, waiting_items: 1, total: 3 },
       }),
     })
 
@@ -134,7 +134,7 @@ describe('InboxPage', () => {
       data: makeInboxResponse({
         action_items: [],
         waiting_items: [],
-        counts: { action: 0, waiting: 0 },
+        counts: { action_items: 0, waiting_items: 0, total: 0 },
         empty_state: {
           visible: true,
           title: 'Estás al día',
@@ -366,6 +366,11 @@ describe('InboxPage', () => {
       data: makeInboxResponse({
         action_items: [
           makeInboxItem({
+            kind: 'match_suggested',
+            source_ref: {
+              type: 'match',
+              id: 'match-1',
+            },
             navigation_action: {
               type: 'open_video_reviewer',
               label: 'Review video',
@@ -467,7 +472,7 @@ function makeInboxResponse(
     campaign_id: null,
     action_items: [makeInboxItem()],
     waiting_items: [],
-    counts: { action: 1, waiting: 0 },
+    counts: { action_items: 1, waiting_items: 0, total: 1 },
     campaign_filter_options: [],
     empty_state: {
       visible: false,
@@ -513,6 +518,7 @@ function makeInboxItem(overrides: Partial<InboxItem> = {}): InboxItem {
     inline_actions: [],
     navigation_action: null,
     can_mark_read: true,
+    metadata: {},
     ...overrides,
   }
 }

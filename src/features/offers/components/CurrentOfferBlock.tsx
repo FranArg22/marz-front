@@ -4,6 +4,12 @@ import { Send, X } from 'lucide-react'
 
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '#/components/ui/tooltip'
 import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
 import { formatOfferDeadline } from '#/features/offers/utils/formatOffer'
 import type { OfferDetailDTO, OfferMode } from '#/features/offers/types'
@@ -266,27 +272,53 @@ export function CurrentOfferBlock({
 
         {canShowBrandOfferActions ? (
           <div className="mt-3 flex gap-2">
-            {offer.status === 'accepted' && onMarkAsPaid ? (
+            {offer.status === 'accepted' && onMarkAsPaid && canMarkAsPaid ? (
               <Button
                 size="sm"
                 className="flex-1"
-                disabled={!canMarkAsPaid}
                 onClick={() => onMarkAsPaid(paymentOffer)}
               >
                 {t`Marcar como pagado`}
               </Button>
             ) : null}
-            <Button
-              size="sm"
-              variant="outline"
-              className="flex-1"
-              onClick={() => setCancelDialogOpen(true)}
-            >
-              <X className="size-4" aria-hidden="true" />
-              {offer.status === 'accepted'
-                ? t`Cancelar oferta aceptada`
-                : t`Cancelar oferta`}
-            </Button>
+            {(() => {
+              const deadlineDate = deadline ? new Date(deadline) : null
+              const deadlinePassed =
+                offer.status === 'accepted' && deadlineDate
+                  ? deadlineDate.getTime() <= Date.now()
+                  : true
+              const cancelDisabled =
+                offer.status === 'accepted' && !deadlinePassed
+              const cancelButton = (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full"
+                  disabled={cancelDisabled}
+                  onClick={() => setCancelDialogOpen(true)}
+                >
+                  <X className="size-4" aria-hidden="true" />
+                  {offer.status === 'accepted'
+                    ? t`Cancelar oferta aceptada`
+                    : t`Cancelar oferta`}
+                </Button>
+              )
+              if (!cancelDisabled) {
+                return <div className="flex-1">{cancelButton}</div>
+              }
+              return (
+                <TooltipProvider delayDuration={200}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex flex-1">{cancelButton}</span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {t`Podés cancelar la oferta a partir de la fecha límite.`}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )
+            })()}
           </div>
         ) : null}
 
