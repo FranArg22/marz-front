@@ -93,8 +93,10 @@ export function ConversationRail({
         hasResults={hasResults}
       />
       <ConversationFilterTabs value={search.filter} />
-      {sessionKind === 'brand' && 'campaign_id' in search ? (
-        <CampaignFilterSelect value={search.campaign_id} />
+      {sessionKind === 'brand' ? (
+        <CampaignFilterSelect
+          value={'campaign_id' in search ? search.campaign_id : undefined}
+        />
       ) : null}
     </div>
   )
@@ -160,15 +162,32 @@ export function ConversationRail({
     )
   }
 
+  const sectionLabel =
+    search.filter === 'unread'
+      ? t`SIN LEER`
+      : search.filter === 'needs_reply'
+        ? t`POR RESPONDER`
+        : t`ACTIVAS`
+
   return (
     <>
       {expandButton}
       {railHeader}
+      {compact ? null : (
+        <div className="flex items-center justify-between px-4 pb-2 pt-3">
+          <span className="text-xs font-semibold tracking-wider text-muted-foreground">
+            {sectionLabel}
+          </span>
+          <span className="text-xs font-medium text-muted-foreground">
+            {conversations.length}
+          </span>
+        </div>
+      )}
       <div
         className={
           compact
             ? 'flex flex-col items-center gap-1.5 overflow-y-auto py-2'
-            : 'flex flex-col overflow-y-auto'
+            : 'flex flex-col gap-0.5 overflow-y-auto px-2 pb-2'
         }
         role="list"
       >

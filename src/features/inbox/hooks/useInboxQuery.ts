@@ -12,5 +12,9 @@ export function useInboxQuery({ campaignId }: UseInboxQueryOptions = {}) {
     queryKey: getInboxQueryKey(campaignId),
     queryFn: () =>
       getInbox({ data: campaignId ? { campaign_id: campaignId } : {} }),
+    staleTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
+    refetchInterval: 30_000,
   })
 }

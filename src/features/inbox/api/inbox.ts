@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import { auth } from '@clerk/tanstack-react-start/server'
 import { z } from 'zod'
 
 import {
@@ -47,8 +48,9 @@ type SerializableInboxInlineAction = Omit<
   request_schema: { [key: string]: JsonValue }
 }
 
-type SerializableInboxItem = Omit<InboxItem, 'inline_actions'> & {
+type SerializableInboxItem = Omit<InboxItem, 'inline_actions' | 'metadata'> & {
   inline_actions: SerializableInboxInlineAction[]
+  metadata: { [key: string]: JsonValue }
 }
 
 export type SerializableInboxResponse = Omit<
@@ -88,7 +90,20 @@ export type MarkInboxVisibleReadInput = z.infer<
 >
 
 async function fetchInbox(input: GetInboxInput = {}): Promise<InboxResponse> {
-  const response = await listInbox(input)
+  const authObject = await auth()
+
+  if (!authObject.userId) {
+    throw new Error('Unauthorized')
+  }
+
+  const token = await authObject.getToken()
+  if (!token) {
+    throw new Error('Unauthorized')
+  }
+
+  const response = await listInbox(input, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
   return response.data as InboxResponse
 }
 
@@ -154,6 +169,7 @@ function serializeInboxItem(item: InboxItem): SerializableInboxItem {
       ...action,
       request_schema: toJsonObject(action.request_schema),
     })),
+    metadata: toJsonObject(item.metadata),
   }
 }
 

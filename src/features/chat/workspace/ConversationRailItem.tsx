@@ -3,7 +3,6 @@ import { t } from '@lingui/core/macro'
 import { ChatRailItem } from '#/features/chat/components/ChatRailItem'
 import { usePresence } from '#/features/chat/stores/presenceStore'
 
-import { formatRelativeTime } from './formatRelativeTime'
 import type { ConversationListItem } from '#/shared/api/generated/model'
 
 interface ConversationRailItemProps {
@@ -19,8 +18,7 @@ export function ConversationRailItem({
   variant = 'full',
   onClick,
 }: ConversationRailItemProps) {
-  const { counterpart, last_message_preview, unread_count, last_activity_at } =
-    conversation
+  const { counterpart, last_message_preview, unread_count } = conversation
 
   const presenceState = usePresence(counterpart.id)
   const online = presenceState === 'online'
@@ -29,14 +27,13 @@ export function ConversationRailItem({
     last_message_preview.kind,
     last_message_preview.text,
   )
-  const timestamp = formatRelativeTime(last_activity_at)
   const fallback = counterpart.display_name.charAt(0).toUpperCase()
 
   return (
     <div role="listitem">
       <ChatRailItem
         name={counterpart.display_name}
-        preview={`${timestamp} · ${preview}`}
+        preview={preview}
         avatarUrl={counterpart.avatar_url ?? undefined}
         avatarFallback={fallback}
         online={online}

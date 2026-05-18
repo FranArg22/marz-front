@@ -18,13 +18,13 @@ import { TooltipProvider } from '#/components/ui/tooltip'
 
 import { AppSidebarItem } from './AppSidebarItem'
 import { resolveActiveSidebarItem, shellNavigationConfig } from './navigation'
+import { useShellIdentityLabel } from './useShellIdentityLabel'
 
 type AppSidebarAccountKind = 'brand' | 'creator'
 
 interface AppSidebarProps {
   accountKind: AppSidebarAccountKind
   pathname: string
-  workspaceName?: string
 }
 
 const iconByName: Record<string, LucideIcon> = {
@@ -40,28 +40,10 @@ const iconByName: Record<string, LucideIcon> = {
   wallet: Wallet,
 }
 
-function getInitials(name: string): string {
-  const initials = name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('')
-    .toUpperCase()
-
-  if (initials.length > 0) return initials
-  const first = name.trim()[0]
-  return first ? first.toUpperCase() : '?'
-}
-
-export function AppSidebar({
-  accountKind,
-  pathname,
-  workspaceName,
-}: AppSidebarProps) {
+export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
-  const initials = workspaceName ? getInitials(workspaceName) : '?'
+  const initials = useShellIdentityLabel(accountKind)
 
   return (
     <TooltipProvider>
@@ -69,36 +51,40 @@ export function AppSidebar({
         data-testid="app-sidebar"
         data-width="72px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-[72px] shrink-0 flex-col items-center gap-2 border-r border-sidebar-border bg-background py-4"
+        className="flex h-full w-[72px] shrink-0 flex-col items-center border-r border-sidebar-border bg-background"
       >
-        <div
-          aria-hidden="true"
-          className="flex size-11 items-center justify-center rounded-[var(--radius-lg)] bg-primary font-bold text-xl text-primary-foreground"
-        >
-          {initials}
+        <div className="flex h-14 w-full shrink-0 items-center justify-center">
+          <div
+            aria-hidden="true"
+            className="flex size-9 items-center justify-center rounded-[var(--radius-md)] bg-primary text-base font-bold text-primary-foreground"
+          >
+            {initials}
+          </div>
         </div>
-        <div className="my-1 h-px w-7 bg-sidebar-border" />
-        {items.map((item) => {
-          const Icon = iconByName[item.icon] ?? Inbox
-          const disabled = item.disabled === true
+        <div className="h-px w-7 bg-sidebar-border" />
+        <div className="flex w-full flex-1 flex-col items-center gap-2 pt-4">
+          {items.map((item) => {
+            const Icon = iconByName[item.icon] ?? Inbox
+            const disabled = item.disabled === true
 
-          const label = item.label()
-          const tooltipLabel = disabled
-            ? (item.disabledReason?.() ?? t`Próximamente`)
-            : label
+            const label = item.label()
+            const tooltipLabel = disabled
+              ? (item.disabledReason?.() ?? t`Próximamente`)
+              : label
 
-          return (
-            <AppSidebarItem
-              key={item.id}
-              label={label}
-              icon={Icon}
-              href={item.href}
-              active={activeItem?.id === item.id}
-              disabled={disabled}
-              tooltipLabel={tooltipLabel}
-            />
-          )
-        })}
+            return (
+              <AppSidebarItem
+                key={item.id}
+                label={label}
+                icon={Icon}
+                href={item.href}
+                active={activeItem?.id === item.id}
+                disabled={disabled}
+                tooltipLabel={tooltipLabel}
+              />
+            )
+          })}
+        </div>
       </aside>
     </TooltipProvider>
   )

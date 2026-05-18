@@ -7,6 +7,7 @@ import {
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { axe } from 'vitest-axe'
 import { describe, expect, it } from 'vitest'
 
@@ -63,9 +64,17 @@ function renderSidebar(
     history: createMemoryHistory({ initialEntries: [pathname] }),
   })
 
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
+
   return {
     router,
-    ...render(<RouterProvider router={router} />),
+    ...render(
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    ),
   }
 }
 

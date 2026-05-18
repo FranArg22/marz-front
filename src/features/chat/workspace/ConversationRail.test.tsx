@@ -4,10 +4,12 @@ import type { ReactNode } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { ConversationRail } from './ConversationRail'
+import * as activeCampaignsModule from '#/shared/api/activeCampaigns'
 import type {
   ConversationListItem,
   ConversationListResponse,
 } from '#/shared/api/generated/model'
+import { brandWorkspaceSearchSchema } from './workspaceSearchSchema'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -188,6 +190,38 @@ describe('ConversationRail', () => {
       expect(
         screen.getByText('No hay conversaciones no leídas'),
       ).toBeInTheDocument()
+    })
+  })
+
+  it('renders campaign filter for brand when URL has no campaign_id (Zod omits key)', async () => {
+    // Regression: brandWorkspaceSearchSchema.parse({}) yields an object WITHOUT
+    // a campaign_id property, so `'campaign_id' in search` is false. The rail
+    // must not gate the CampaignFilterSelect on that key being present.
+    const search = brandWorkspaceSearchSchema.parse({ filter: 'all' })
+    expect('campaign_id' in search).toBe(false)
+
+    mockCustomFetch.mockResolvedValueOnce(
+      makeResponse([makeConversation('1', 'María López')]),
+    )
+    vi.spyOn(activeCampaignsModule, 'useActiveCampaigns').mockReturnValue({
+      data: [
+        {
+          id: 'camp-1',
+          name: 'Seed Campaign',
+          status: 'active',
+          budget_currency: 'USD',
+          budget_remaining: '0.00',
+        },
+      ],
+      isLoading: false,
+    } as ReturnType<typeof activeCampaignsModule.useActiveCampaigns>)
+
+    render(<ConversationRail search={search} sessionKind="brand" />, {
+      wrapper: createWrapper(),
+    })
+
+    await waitFor(() => {
+      expect(screen.getByLabelText('Filtrar por campaña')).toBeInTheDocument()
     })
   })
 

@@ -33,7 +33,7 @@ import type {
 import { ApiError } from '#/shared/api/mutator'
 import { cn } from '#/lib/utils'
 
-import { inboxQueryKey } from './api/inbox'
+import { inboxQueryKey, markInboxItemRead } from './api/inbox'
 import {
   trackInboxInlineCompleted,
   trackInboxInlineFailed,
@@ -75,8 +75,22 @@ export function InboxInlineActionPopover({
 
   if (supportedActions.length === 0) return null
 
-  function handleActionSuccess() {
+  function handleActionSuccess(action: InboxInlineAction) {
     setOpen(false)
+    const isReply =
+      action.type === 'brand_reply_message' ||
+      action.type === 'creator_reply_message'
+    if (isReply) {
+      void markInboxItemRead({
+        item_id: itemId,
+        read_reason: 'resolved_elsewhere',
+      })
+        .catch(() => undefined)
+        .finally(() => {
+          void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
+        })
+      return
+    }
     void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
   }
 
@@ -123,7 +137,7 @@ export function InboxInlineActionPopover({
                 analyticsPayload={analyticsPayload}
                 conversationId={conversationId}
                 onError={handleActionError}
-                onSuccess={handleActionSuccess}
+                onSuccess={() => handleActionSuccess(action)}
               />
             ))}
           </div>
@@ -245,10 +259,20 @@ function ReplyActionControl({
       <Textarea
         value={text}
         onChange={(event) => setText(event.target.value)}
+        onKeyDown={(event) => {
+          if (
+            event.key === 'Enter' &&
+            (event.metaKey || event.ctrlKey) &&
+            !isSubmitDisabled
+          ) {
+            event.preventDefault()
+            handleSend()
+          }
+        }}
         aria-labelledby={labelId}
         aria-describedby={hasLengthError ? errorId : undefined}
         aria-invalid={hasLengthError}
-        placeholder={t`Escribí una respuesta...`}
+        placeholder={t`Escribí una respuesta... (Cmd/Ctrl+Enter para enviar)`}
         className="max-h-36 min-h-24 resize-y text-sm"
       />
       <div className="flex items-center justify-between gap-3">

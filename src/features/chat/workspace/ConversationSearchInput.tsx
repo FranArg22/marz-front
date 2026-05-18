@@ -62,21 +62,21 @@ export function ConversationSearchInput({
 
   return (
     <div className="relative">
-      <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
       <input
         type="search"
         aria-label={t`Buscar conversaciones`}
         placeholder={t`Buscar conversaciones…`}
         value={localValue}
         onChange={updateSearchFromInput}
-        className="h-9 w-full rounded-lg border border-input bg-background pl-9 pr-8 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        className="h-10 w-full rounded-full border-none bg-muted pl-10 pr-9 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       />
       {localValue.length > 0 ? (
         <button
           type="button"
           onClick={clearSearch}
           aria-label={t`Limpiar búsqueda`}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+          className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer rounded-full p-0.5 text-muted-foreground hover:text-foreground"
         >
           <X className="size-3.5" />
         </button>
