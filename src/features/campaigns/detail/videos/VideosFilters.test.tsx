@@ -110,6 +110,31 @@ describe('VideosFilters', () => {
     expect(onParamsChange).toHaveBeenLastCalledWith({})
   })
 
+  it('shows only supported platform options', async () => {
+    const user = userEvent.setup({
+      advanceTimers: vi.advanceTimersByTime.bind(vi),
+    })
+
+    render(
+      <VideosFilters
+        params={{}}
+        creators={[creator]}
+        onParamsChange={vi.fn()}
+      />,
+    )
+
+    await user.click(
+      screen.getByRole('combobox', { name: 'Filter by platform' }),
+    )
+
+    expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
+      'All platforms',
+      'YouTube',
+      'Instagram',
+      'TikTok',
+    ])
+  })
+
   it('detects active filters and video statuses', () => {
     expect(hasActiveVideoFilters({})).toBe(false)
     expect(hasActiveVideoFilters({ search: '  ' })).toBe(false)

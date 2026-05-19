@@ -4,7 +4,6 @@ import {
   Instagram,
   Music,
   Plus,
-  Twitter,
   Youtube,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -17,6 +16,7 @@ import type {
   DeliverableStatus,
   PublishedLinkStatus,
 } from '#/features/deliverables/types'
+import type { SocialPlatform } from '#/shared/api/generated/model'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
 
 /* eslint-disable lingui/no-unlocalized-strings */
@@ -31,11 +31,10 @@ const linkToneClass: Record<
 }
 /* eslint-enable lingui/no-unlocalized-strings */
 
-const platformIcon: Record<string, LucideIcon> = {
+const platformIcon: Record<SocialPlatform, LucideIcon> = {
   youtube: Youtube,
   instagram: Instagram,
   tiktok: Music,
-  twitter_x: Twitter,
 }
 
 export interface DraftEntry {
@@ -47,7 +46,7 @@ export interface DraftEntry {
 }
 
 interface DeliverableCardProps {
-  platform: 'youtube' | 'instagram' | 'tiktok' | 'twitter_x'
+  platform: SocialPlatform
   title: string
   status: DeliverableStatus
   drafts: Array<DraftEntry>
@@ -69,7 +68,7 @@ export function DeliverableCard({
   emptyLabel = t`Upload draft`,
   currentLink = null,
 }: DeliverableCardProps) {
-  const PlatformIcon = platformIcon[platform] ?? Film
+  const PlatformIcon = platformIcon[platform]
   const hasDrafts = drafts.length > 0
 
   return (

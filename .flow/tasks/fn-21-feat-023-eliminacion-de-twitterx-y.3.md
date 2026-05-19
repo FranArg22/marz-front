@@ -52,9 +52,8 @@ El grep inicial encontró también usos de `"x"` en tests no relacionados como d
 - [ ] `pnpm lint` no reporta imports huérfanos de `lucide-react` por esta limpieza.
 
 ## Done summary
-
-_To be filled by the DEV agent when completing the task._
-
+Limpieza de plataformas legacy completada en cards, maps, selects, formatter global y DS playground; tests cercanos ajustados.
 ## Evidence
-
-_To be filled by the DEV agent with commands, outputs, screenshots or blockers._
+- Commits:
+- Tests:
+- PRs:

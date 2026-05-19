@@ -1,19 +1,19 @@
-import { Film, Instagram, Music, Twitter, Upload, Youtube } from 'lucide-react'
+import { Instagram, Music, Upload, Youtube } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Badge } from '#/components/ui/badge'
 import { formatOfferPlatform } from '#/features/offers/utils/formatOffer'
+import type { SocialPlatform } from '#/shared/api/generated/model'
 
-const platformIcon: Record<string, LucideIcon> = {
+const platformIcon: Record<SocialPlatform, LucideIcon> = {
   youtube: Youtube,
   instagram: Instagram,
   tiktok: Music,
-  twitter_x: Twitter,
 }
 
 interface ExpectedDeliverableSlotProps {
-  platform: string
+  platform: SocialPlatform
   format: string
   sessionKind: 'brand' | 'creator'
   offerStatus: 'sent' | 'accepted' | 'rejected' | 'expired'
@@ -27,7 +27,7 @@ export function ExpectedDeliverableSlot({
   offerStatus,
   onUploadDraft,
 }: ExpectedDeliverableSlotProps) {
-  const PlatformIcon = platformIcon[platform] ?? Film
+  const PlatformIcon = platformIcon[platform]
   const label = formatOfferPlatform(platform, format)
   const isCreator = sessionKind === 'creator'
   const isAccepted = offerStatus === 'accepted'
