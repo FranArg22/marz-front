@@ -93,6 +93,15 @@ export function useSubmitBrandOnboarding() {
           }
 
           if (error.status === 422) {
+            if (
+              error.code === 'validation.invalid_value' &&
+              error.details?.field === 'attribution_source' &&
+              error.details.value === 'twitter_x'
+            ) {
+              toast.error(error.message)
+              return
+            }
+
             const rawFieldErrors = error.details?.field_errors
             if (rawFieldErrors) {
               const inlineErrors: FieldErrors = {}

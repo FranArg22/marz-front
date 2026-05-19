@@ -22,10 +22,11 @@ beforeEach(() => {
 })
 
 describe('B11AttributionScreen', () => {
-  it('renders 8 attribution options', () => {
+  it('renders 7 attribution options without X / Twitter', () => {
     render(<B11AttributionScreen />)
     const radios = screen.getAllByRole('radio')
-    expect(radios).toHaveLength(8)
+    expect(radios).toHaveLength(7)
+    expect(screen.queryByText('X / Twitter')).not.toBeInTheDocument()
   })
 
   it('selects non-referral source', async () => {

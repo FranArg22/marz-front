@@ -4,7 +4,11 @@ import { generateIdempotencyKey } from '#/shared/api/idempotency'
 export interface ApiErrorBody {
   code: string
   message: string
-  details?: { field_errors?: Record<string, string[]> }
+  details?: {
+    field_errors?: Record<string, string[]>
+    field?: string
+    value?: unknown
+  }
 }
 
 export class ApiError extends Error {

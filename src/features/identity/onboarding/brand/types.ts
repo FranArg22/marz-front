@@ -42,7 +42,6 @@ export type MonthlyBudgetRange =
 
 export const AttributionNonReferralSource = {
   instagram: 'instagram',
-  twitter_x: 'twitter_x',
   search: 'search',
   other: 'other',
   tiktok: 'tiktok',

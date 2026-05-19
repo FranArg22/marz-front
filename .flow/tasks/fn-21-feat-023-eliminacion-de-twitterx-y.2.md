@@ -42,9 +42,8 @@ No cambiar layout, tokens ni jerarquía visual. Es una remoción de una opción 
 - [ ] `pnpm test -- B11AttributionScreen` y `pnpm typecheck` pasan o quedan bloqueados sólo por tasks dependientes aún no ejecutadas.
 
 ## Done summary
-
-_To be filled by the DEV agent when completing the task._
-
+Twitter/X removido de B11 y del tipo local; tests actualizados y 422 invalid_value para twitter_x cubierto con toast usando el message del backend.
 ## Evidence
-
-_To be filled by the DEV agent with commands, outputs, screenshots or blockers._
+- Commits:
+- Tests:
+- PRs:
