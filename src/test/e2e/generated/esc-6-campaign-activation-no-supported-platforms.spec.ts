@@ -9,6 +9,21 @@ const campaignId = process.env.FEAT023_CAMPAIGN_ONLY_LEGACY_ID
 const brandEmail =
   process.env.FEAT023_BRAND_EMAIL ?? 'brand-feat023+clerk_test@example.com'
 
+type ApiErrorEnvelope = {
+  code?: string
+  details?: unknown
+  error?: ApiErrorEnvelope
+}
+
+function extractApiError(raw: unknown) {
+  const body = (raw ?? {}) as ApiErrorEnvelope
+  if (body.code) return { code: body.code, details: body.details }
+  if (body.error?.code) {
+    return { code: body.error.code, details: body.error.details }
+  }
+  return {}
+}
+
 test.skip(
   !campaignId,
   'SETUP REQUERIDO: seed feat023_campaign_only_legacy_platforms y exportar FEAT023_CAMPAIGN_ONLY_LEGACY_ID.',
@@ -49,8 +64,8 @@ test('ESC-6: Activar Campaign sin plataformas operativas -> 409 inline en Review
   await activationButton.click()
   const response = await responsePromise
   expect(response.status()).toBe(409)
-  const body = await response.json()
-  expect(body.code).toBe('campaign.no_supported_platforms')
+  const { code } = extractApiError(await response.json())
+  expect(code).toBe('campaign.no_supported_platforms')
 
   await expect(
     page.getByText(/sin plataformas soportadas|agregar Instagram|TikTok|YouTube/i),

@@ -8,6 +8,21 @@ const API_BASE_URL = (
   'http://localhost:8080'
 ).replace(/\/$/, '')
 
+type ApiErrorEnvelope = {
+  code?: string
+  details?: { field?: string; value?: unknown; allowed?: unknown }
+  error?: ApiErrorEnvelope
+}
+
+function extractApiError(raw: unknown) {
+  const body = (raw ?? {}) as ApiErrorEnvelope
+  if (body.code) return { code: body.code, details: body.details }
+  if (body.error?.code) {
+    return { code: body.error.code, details: body.error.details }
+  }
+  return {}
+}
+
 function creatorPayload() {
   return {
     handle: `feat023_${Date.now().toString(36).slice(-6)}`,
@@ -72,11 +87,11 @@ test('ESC-3: Creator no puede guardar Twitter/X como Creator channel', async ({
   )
 
   expect(response.status()).toBe(422)
-  const body = await response.json()
-  expect(body.code).toBe('validation.invalid_value')
-  expect(body.details?.field).toContain('platform')
-  expect(body.details?.value).toBe('twitter_x')
-  expect(body.details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
+  const { code, details } = extractApiError(await response.json())
+  expect(code).toBe('validation.invalid_value')
+  expect(details?.field).toContain('platform')
+  expect(details?.value).toBe('twitter_x')
+  expect(details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
 
   await expect(page).toHaveURL(/\/onboarding\/creator\/channels/)
 })

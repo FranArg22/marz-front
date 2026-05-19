@@ -6,6 +6,21 @@ const API_BASE_URL = (
   'http://localhost:8080'
 ).replace(/\/$/, '')
 
+type ApiErrorEnvelope = {
+  code?: string
+  details?: { field?: string; value?: unknown; allowed?: unknown }
+  error?: ApiErrorEnvelope
+}
+
+function extractApiError(raw: unknown) {
+  const body = (raw ?? {}) as ApiErrorEnvelope
+  if (body.code) return { code: body.code, details: body.details }
+  if (body.error?.code) {
+    return { code: body.error.code, details: body.error.details }
+  }
+  return {}
+}
+
 function campaignPayload(platforms: string[]) {
   return {
     name: `FEAT023 Campaign ${Date.now().toString(36)}`,
@@ -62,11 +77,11 @@ test('ESC-5: Brand crea Campaign draft con plataformas oficiales y rechaza X', a
   })
 
   expect(invalid.status()).toBe(422)
-  const invalidBody = await invalid.json()
-  expect(invalidBody.code).toBe('validation.invalid_value')
-  expect(invalidBody.details?.field).toMatch(/platforms|icp_platforms/)
-  expect(JSON.stringify(invalidBody.details?.value)).toContain('x')
-  expect(invalidBody.details?.allowed).toEqual([
+  const { code, details } = extractApiError(await invalid.json())
+  expect(code).toBe('validation.invalid_value')
+  expect(details?.field).toMatch(/platforms|icp_platforms/)
+  expect(JSON.stringify(details?.value)).toContain('x')
+  expect(details?.allowed).toEqual([
     'instagram',
     'tiktok',
     'youtube',

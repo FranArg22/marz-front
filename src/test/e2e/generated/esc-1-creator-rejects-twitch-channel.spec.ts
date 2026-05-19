@@ -11,6 +11,21 @@ const API_BASE_URL = (
 const supportedPlatformLabels = ['Instagram', 'TikTok', 'YouTube'] as const
 const unsupportedPlatformLabels = [/Twitch/i]
 
+type ApiErrorEnvelope = {
+  code?: string
+  details?: { field?: string; value?: unknown; allowed?: unknown }
+  error?: ApiErrorEnvelope
+}
+
+function extractApiError(raw: unknown) {
+  const body = (raw ?? {}) as ApiErrorEnvelope
+  if (body.code) return { code: body.code, details: body.details }
+  if (body.error?.code) {
+    return { code: body.error.code, details: body.error.details }
+  }
+  return {}
+}
+
 function creatorPayload(platform: string, handle: string) {
   return {
     handle: `feat023_${Date.now().toString(36).slice(-6)}`,
@@ -52,14 +67,12 @@ async function visiblePlatformOptions(page: Page) {
   return labels.map((label) => label.trim())
 }
 
-function expectInvalidPlatformError(body: {
-  code?: string
-  details?: { field?: string; value?: unknown; allowed?: unknown }
-}) {
-  expect(body.code).toBe('validation.invalid_value')
-  expect(body.details?.field).toContain('platform')
-  expect(body.details?.value).toBe('twitch')
-  expect(body.details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
+function expectInvalidPlatformError(raw: unknown) {
+  const { code, details } = extractApiError(raw)
+  expect(code).toBe('validation.invalid_value')
+  expect(details?.field).toContain('platform')
+  expect(details?.value).toBe('twitch')
+  expect(details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
 }
 
 test('ESC-1: Creator no puede guardar Twitch como Creator channel', async ({

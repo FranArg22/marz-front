@@ -6,6 +6,21 @@ const API_BASE_URL = (
   'http://localhost:8080'
 ).replace(/\/$/, '')
 
+type ApiErrorEnvelope = {
+  code?: string
+  details?: { field?: string; value?: unknown; allowed?: unknown }
+  error?: ApiErrorEnvelope
+}
+
+function extractApiError(raw: unknown) {
+  const body = (raw ?? {}) as ApiErrorEnvelope
+  if (body.code) return { code: body.code, details: body.details }
+  if (body.error?.code) {
+    return { code: body.error.code, details: body.error.details }
+  }
+  return {}
+}
+
 function brandPayload() {
   return {
     name: 'Brand FEAT023',
@@ -59,11 +74,11 @@ test('ESC-4: Brand B11 attribution sin Twitter/X', async ({
   )
 
   expect(response.status()).toBe(422)
-  const body = await response.json()
-  expect(body.code).toBe('validation.invalid_value')
-  expect(body.details?.field).toContain('attribution')
-  expect(body.details?.value).toBe('twitter_x')
-  expect(body.details?.allowed).not.toContain('twitter_x')
+  const { code, details } = extractApiError(await response.json())
+  expect(code).toBe('validation.invalid_value')
+  expect(details?.field).toContain('attribution')
+  expect(details?.value).toBe('twitter_x')
+  expect(details?.allowed).not.toContain('twitter_x')
 
   await expect(page).toHaveURL(/\/onboarding\/brand\/attribution/)
 })
