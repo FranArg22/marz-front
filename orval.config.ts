@@ -38,7 +38,7 @@ export default defineConfig({
   },
   marzTest: {
     input: {
-      target: 'http://localhost:50886/openapi.yaml',
+      target: './openapi/test-spec.json',
     },
     output: {
       mode: 'tags-split',

@@ -5,8 +5,8 @@ import { CampaignDetailPage } from '#/features/campaigns/detail/CampaignDetailPa
 import { campaignDetailQueryOptions } from '#/features/campaigns/detail/useCampaignDetailQuery'
 import {
   DeliverableStatus,
-  ListCampaignParticipantsPlatform,
   ListCampaignParticipantsStatus,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 
 const campaignDetailTabSchema = z
@@ -25,7 +25,7 @@ const campaignDetailStatusSchema = z
   .catch(undefined)
 
 const campaignParticipantsPlatformSchema = z
-  .enum(ListCampaignParticipantsPlatform)
+  .enum(SocialPlatform)
   .optional()
   .catch(undefined)
 

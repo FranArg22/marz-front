@@ -39,9 +39,8 @@ FEAT-023 frontend no debe editar OpenAPI manualmente. Si `pnpm api:sync` no refl
 - [ ] `pnpm typecheck` fue ejecutado y sus errores restantes, si existen, apuntan sólo a consumidores legados que cubren tasks `.2`, `.3` o `.4`.
 
 ## Done summary
-
-_To be filled by the DEV agent when completing the task._
-
+Gates corregidas: consumidores migrados a SocialPlatform, X/Twitch removidos de UI params/options y marzTest apunta al test spec local para regenerar endpoints E2E.
 ## Evidence
-
-_To be filled by the DEV agent with commands, outputs, screenshots or blockers._
+- Commits:
+- Tests:
+- PRs:
