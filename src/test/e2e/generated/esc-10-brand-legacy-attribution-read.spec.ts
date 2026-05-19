@@ -5,22 +5,21 @@ const API_BASE_URL = (
   process.env.API_URL ??
   'http://localhost:8080'
 ).replace(/\/$/, '')
-const brandEmail =
-  process.env.FEAT023_BRAND_LEGACY_ATTRIBUTION_EMAIL ??
-  'brand-feat023-legacy-attribution+clerk_test@example.com'
+const brandEmail = process.env.E2E_LEGACY_ATTRIBUTION_BRAND_EMAIL
 
+// HELPER SUGERIDO: seedBrandWithAttribution(source: string)
 test.skip(
-  !process.env.FEAT023_BRAND_LEGACY_ATTRIBUTION_EMAIL,
-  'SETUP REQUERIDO: seed feat023_brand_legacy_attribution_twitter_x y exportar FEAT023_BRAND_LEGACY_ATTRIBUTION_EMAIL.',
+  !brandEmail,
+  'SETUP REQUERIDO: primitiva para fijar attribution_source en un brand existente.',
 )
 
 test('ESC-10: GET brand onboarding con attribution legacy responde sin twitter_x', async ({
   page,
 }) => {
   const brand = new TestUser(
-    'feat023_brand_legacy_attribution',
-    brandEmail,
-    'FEAT023 Legacy Attribution Brand',
+    'e2e_legacy_attribution_brand',
+    brandEmail!,
+    'E2E Legacy Attribution Brand',
   )
   await brand.signIn(page)
 

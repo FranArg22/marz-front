@@ -14,7 +14,10 @@ type ApiErrorEnvelope = {
   error?: ApiErrorEnvelope
 }
 
-function extractApiError(raw: unknown) {
+function extractApiError(raw: unknown): {
+  code?: string
+  details?: ApiErrorEnvelope['details']
+} {
   const body = (raw ?? {}) as ApiErrorEnvelope
   if (body.code) return { code: body.code, details: body.details }
   if (body.error?.code) {
@@ -72,9 +75,9 @@ test('ESC-3: Creator no puede guardar Twitter/X como Creator channel', async ({
     'TikTok',
     'YouTube',
   ])
-  await expect(page.getByRole('option', { name: /Twitter|^X$/i })).toHaveCount(
-    0,
-  )
+  await expect(
+    page.getByRole('option', { name: /Twitter|^X$|twitter_x/i }),
+  ).toHaveCount(0)
   await page.keyboard.press('Escape')
 
   const token = await getClerkSessionToken(page)

@@ -1,3 +1,5 @@
+import type { Page } from '@playwright/test'
+
 import { expect, getClerkSessionToken, TestUser, test } from '../fixtures'
 
 const API_BASE_URL = (
@@ -5,9 +7,8 @@ const API_BASE_URL = (
   process.env.API_URL ??
   'http://localhost:8080'
 ).replace(/\/$/, '')
-const campaignId = process.env.FEAT023_CAMPAIGN_ONLY_LEGACY_ID
-const brandEmail =
-  process.env.FEAT023_BRAND_EMAIL ?? 'brand-feat023+clerk_test@example.com'
+const campaignId = process.env.E2E_LEGACY_ONLY_CAMPAIGN_ID
+const brandEmail = process.env.E2E_LEGACY_CAMPAIGN_BRAND_EMAIL
 
 type ApiErrorEnvelope = {
   code?: string
@@ -15,7 +16,7 @@ type ApiErrorEnvelope = {
   error?: ApiErrorEnvelope
 }
 
-function extractApiError(raw: unknown) {
+function extractApiError(raw: unknown): { code?: string; details?: unknown } {
   const body = (raw ?? {}) as ApiErrorEnvelope
   if (body.code) return { code: body.code, details: body.details }
   if (body.error?.code) {
@@ -24,42 +25,48 @@ function extractApiError(raw: unknown) {
   return {}
 }
 
+// HELPER SUGERIDO: seedDraftCampaignWithStoredPlatforms(platforms: string[])
 test.skip(
-  !campaignId,
-  'SETUP REQUERIDO: seed feat023_campaign_only_legacy_platforms y exportar FEAT023_CAMPAIGN_ONLY_LEGACY_ID.',
+  !campaignId || !brandEmail,
+  'SETUP REQUERIDO: primitiva para crear campaign draft con plataformas almacenadas arbitrarias.',
 )
 
-async function authHeaders(page: import('@playwright/test').Page) {
+async function authHeaders(page: Page) {
   const token = await getClerkSessionToken(page)
   const me = await page.request.get(`${API_BASE_URL}/v1/me`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   expect(me.ok()).toBeTruthy()
-  const meBody = await me.json()
+  const meBody = (await me.json()) as { brand_workspace?: { id?: string } }
+  expect(meBody.brand_workspace?.id).toBeTruthy()
   return {
     Authorization: `Bearer ${token}`,
-    'X-Brand-Workspace-Id': meBody.brand_workspace.id,
+    'X-Brand-Workspace-Id': meBody.brand_workspace!.id!,
   }
 }
 
 test('ESC-6: Activar Campaign sin plataformas operativas -> 409 inline en ReviewStep', async ({
   page,
 }) => {
-  const brand = new TestUser('feat023_brand_fixture', brandEmail, 'FEAT023 Brand')
+  const brand = new TestUser(
+    'e2e_legacy_campaign_brand',
+    brandEmail!,
+    'E2E Legacy Campaign Brand',
+  )
   await brand.signIn(page)
   await page.goto(`/campaigns/${campaignId}/configuration/review`)
 
-  await expect(
-    page.getByRole('button', { name: /activar|publicar|lanzar/i }),
-  ).toBeVisible()
   const activationButton = page.getByRole('button', {
     name: /activar|publicar|lanzar/i,
   })
+  await expect(activationButton).toBeVisible()
 
   const responsePromise = page.waitForResponse(
     (response) =>
       response.request().method() === 'POST' &&
-      response.url().includes(`/v1/campaigns/${campaignId}/configuration/activate`),
+      response
+        .url()
+        .includes(`/v1/campaigns/${campaignId}/configuration/activate`),
   )
   await activationButton.click()
   const response = await responsePromise
@@ -68,7 +75,9 @@ test('ESC-6: Activar Campaign sin plataformas operativas -> 409 inline en Review
   expect(code).toBe('campaign.no_supported_platforms')
 
   await expect(
-    page.getByText(/sin plataformas soportadas|agregar Instagram|TikTok|YouTube/i),
+    page.getByText(
+      /sin plataformas soportadas|agregá Instagram|agregar Instagram|TikTok|YouTube/i,
+    ),
   ).toBeVisible()
 
   const headers = await authHeaders(page)
@@ -77,5 +86,6 @@ test('ESC-6: Activar Campaign sin plataformas operativas -> 409 inline en Review
     { headers },
   )
   expect(detail.ok()).toBeTruthy()
-  expect((await detail.json()).status).toBe('draft')
+  const detailBody = (await detail.json()) as { status?: string }
+  expect(detailBody.status).toBe('draft')
 })

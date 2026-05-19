@@ -9,7 +9,6 @@ const API_BASE_URL = (
 ).replace(/\/$/, '')
 
 const supportedPlatformLabels = ['Instagram', 'TikTok', 'YouTube'] as const
-const unsupportedPlatformLabels = [/Twitch/i]
 
 type ApiErrorEnvelope = {
   code?: string
@@ -17,7 +16,10 @@ type ApiErrorEnvelope = {
   error?: ApiErrorEnvelope
 }
 
-function extractApiError(raw: unknown) {
+function extractApiError(raw: unknown): {
+  code?: string
+  details?: ApiErrorEnvelope['details']
+} {
   const body = (raw ?? {}) as ApiErrorEnvelope
   if (body.code) return { code: body.code, details: body.details }
   if (body.error?.code) {
@@ -57,22 +59,9 @@ function creatorPayload(platform: string, handle: string) {
   }
 }
 
-async function visiblePlatformOptions(page: Page) {
+async function openPlatformOptions(page: Page) {
   await page.getByRole('button', { name: /Agregar canal/i }).click()
   await page.getByRole('combobox').first().click()
-  const options = page.getByRole('option')
-  await expect(options).toHaveCount(3)
-  const labels = await options.allTextContents()
-  await page.keyboard.press('Escape')
-  return labels.map((label) => label.trim())
-}
-
-function expectInvalidPlatformError(raw: unknown) {
-  const { code, details } = extractApiError(raw)
-  expect(code).toBe('validation.invalid_value')
-  expect(details?.field).toContain('platform')
-  expect(details?.value).toBe('twitch')
-  expect(details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
 }
 
 test('ESC-1: Creator no puede guardar Twitch como Creator channel', async ({
@@ -85,12 +74,10 @@ test('ESC-1: Creator no puede guardar Twitch como Creator channel', async ({
   await expect(
     page.getByRole('button', { name: /Agregar canal/i }),
   ).toBeVisible()
-  await expect(visiblePlatformOptions(page)).resolves.toEqual(
-    supportedPlatformLabels,
-  )
-  for (const label of unsupportedPlatformLabels) {
-    await expect(page.getByRole('option', { name: label })).toHaveCount(0)
-  }
+  await openPlatformOptions(page)
+  await expect(page.getByRole('option')).toHaveText(supportedPlatformLabels)
+  await expect(page.getByRole('option', { name: /Twitch/i })).toHaveCount(0)
+  await page.keyboard.press('Escape')
 
   const token = await getClerkSessionToken(page)
   const response = await page.request.post(
@@ -102,7 +89,11 @@ test('ESC-1: Creator no puede guardar Twitch como Creator channel', async ({
   )
 
   expect(response.status()).toBe(422)
-  expectInvalidPlatformError(await response.json())
+  const { code, details } = extractApiError(await response.json())
+  expect(code).toBe('validation.invalid_value')
+  expect(details?.field).toContain('platform')
+  expect(details?.value).toBe('twitch')
+  expect(details?.allowed).toEqual(['instagram', 'tiktok', 'youtube'])
 
   await expect(page).toHaveURL(/\/onboarding\/creator\/channels/)
   await expect(

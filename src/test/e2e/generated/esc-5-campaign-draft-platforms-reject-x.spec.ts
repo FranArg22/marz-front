@@ -1,3 +1,5 @@
+import type { Page } from '@playwright/test'
+
 import { expect, getClerkSessionToken, test } from '../fixtures'
 
 const API_BASE_URL = (
@@ -43,7 +45,7 @@ function campaignPayload(platforms: string[]) {
   }
 }
 
-async function authHeaders(page: import('@playwright/test').Page) {
+async function authHeaders(page: Page) {
   const token = await getClerkSessionToken(page)
   const me = await page.request.get(`${API_BASE_URL}/v1/me`, {
     headers: { Authorization: `Bearer ${token}` },
