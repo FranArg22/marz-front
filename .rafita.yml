@@ -28,7 +28,7 @@ commands:
   # Derive: regenerate Orval client. Idempotent.
   # Runs after `commands.api_client_target_file` has been patched by skinner
   # to point at the live back agent.
-  derive: 'pnpm api:generate'
+  derive: 'pnpm api:sync'
 
   # Custom gates.
   react_doctor: 'pnpm react-doctor'
