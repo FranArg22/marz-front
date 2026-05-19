@@ -46,9 +46,8 @@ El endpoint actual en frontend es `/v1/campaigns/{id}/configuration/activate`; e
 - [ ] `pnpm test -- ReviewStep` y `pnpm typecheck` pasan o documentan un bloqueo externo concreto.
 
 ## Done summary
-
-_To be filled by the DEV agent when completing the task._
-
+Mapeado campaign.no_supported_platforms para mostrar error inline en ReviewStep sin éxito, toast ni tracking.
 ## Evidence
-
-_To be filled by the DEV agent with commands, outputs, screenshots or blockers._
+- Commits:
+- Tests:
+- PRs:
