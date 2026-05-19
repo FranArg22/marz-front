@@ -215,6 +215,7 @@ function getInboxConversationId(item: InboxItem): string | null {
 }
 
 interface MessagePreviewEntry {
+  id: string
   preview: string
   occurred_at: string
   author_account_id: string
@@ -225,9 +226,9 @@ function extractRecentPreviews(item: InboxItem): MessagePreviewEntry[] {
     ?.recent_previews
   if (!Array.isArray(raw)) return []
   const entries: MessagePreviewEntry[] = []
-  for (const item of raw) {
-    if (typeof item !== 'object' || item === null) continue
-    const obj = item as Record<string, unknown>
+  for (const [position, entry] of raw.entries()) {
+    if (typeof entry !== 'object' || entry === null) continue
+    const obj = entry as Record<string, unknown>
     const preview = typeof obj.preview === 'string' ? obj.preview : ''
     const occurredAt =
       typeof obj.occurred_at === 'string' ? obj.occurred_at : ''
@@ -235,6 +236,7 @@ function extractRecentPreviews(item: InboxItem): MessagePreviewEntry[] {
       typeof obj.author_account_id === 'string' ? obj.author_account_id : ''
     if (!preview) continue
     entries.push({
+      id: `${authorId}-${occurredAt}-${position}`,
       preview,
       occurred_at: occurredAt,
       author_account_id: authorId,
