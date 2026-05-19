@@ -1,0 +1,15 @@
+{
+  "branch_name": "fn-21-feat-023-eliminacion-de-twitterx-y",
+  "created_at": "2026-05-19T03:19:22.766086Z",
+  "depends_on_epics": [
+    "fn-18-campaign-configuration-wizard-feat-019"
+  ],
+  "id": "fn-21-feat-023-eliminacion-de-twitterx-y",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-21-feat-023-eliminacion-de-twitterx-y.md",
+  "status": "open",
+  "title": "FEAT-023: Eliminaci\u00f3n de Twitter/X y Twitch \u2014 Frontend",
+  "updated_at": "2026-05-19T03:22:26.408337Z"
+}
