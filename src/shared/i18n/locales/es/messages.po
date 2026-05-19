@@ -2999,10 +2999,6 @@ msgstr "What needs to change?"
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:26
-msgid "X / Twitter"
-msgstr "X / Twitter"
-
 #: src/features/deliverables/hooks/useRequestChangesFlow.ts:131
 msgid "Ya se solicitó un cambio para este borrador."
 msgstr "Ya se solicitó un cambio para este borrador."

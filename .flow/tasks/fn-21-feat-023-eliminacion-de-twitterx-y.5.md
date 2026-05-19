@@ -36,9 +36,8 @@ Cerrar el epic con sweep de referencias legadas, limpieza i18n si corresponde y 
 - [ ] `pnpm test:e2e -- onboarding campaign-configuration` pasa; si el entorno no puede correr e2e, registrar comando, error y razón ambiental.
 
 ## Done summary
-
-_To be filled by the DEV agent when completing the task._
-
+Sweep de referencias legadas X/Twitter completado; i18n limpio y checks estándar pasando.
 ## Evidence
-
-_To be filled by the DEV agent with commands, outputs, screenshots or blockers._
+- Commits:
+- Tests:
+- PRs:

@@ -160,37 +160,6 @@ describe('useSubmitBrandOnboarding', () => {
     )
   })
 
-  it('422 validation.invalid_value: shows attribution source message for twitter_x', async () => {
-    for (const [key, value] of Object.entries(VALID_STATE)) {
-      useBrandOnboardingStore.setState({ [key]: value })
-    }
-
-    const apiError = new ApiError(
-      422,
-      'validation.invalid_value',
-      'Twitter/X ya no está soportado como fuente de atribución',
-      {
-        field: 'attribution_source',
-        value: 'twitter_x',
-      },
-    )
-    mockMutate.mockImplementation(
-      (
-        _data: unknown,
-        opts: { onSuccess?: () => void; onError?: (e: unknown) => void },
-      ) => {
-        opts.onError?.(apiError)
-      },
-    )
-
-    const { result } = await loadAndRender()
-    act(() => result.current.submit())
-
-    expect(mockToastError).toHaveBeenCalledWith(
-      'Twitter/X ya no está soportado como fuente de atribución',
-    )
-  })
-
   it('409: refetches useMe and navigates to redirect_to', async () => {
     for (const [key, value] of Object.entries(VALID_STATE)) {
       useBrandOnboardingStore.setState({ [key]: value })
