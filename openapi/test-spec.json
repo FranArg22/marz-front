@@ -423,6 +423,219 @@
         }
       }
     },
+    "/v1/test/campaigns/campaigns/upsert": {
+      "post": {
+        "operationId": "upsertTestCampaign",
+        "tags": [
+          "test"
+        ],
+        "description": "Creates or updates one test campaign in a brand workspace. The request\nis idempotent by either `campaign_id` or by stable\n`brand_workspace_id` + `campaign_key`.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertTestCampaignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertTestCampaignResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_brand_workspace_id, invalid_campaign_id, campaign_identity_required, invalid_campaign_fixture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: upsert_test_campaign_failed. Cause is included in `message` for /v1/test/* endpoints.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/campaigns/participants/upsert": {
+      "post": {
+        "operationId": "upsertTestCampaignParticipant",
+        "tags": [
+          "test"
+        ],
+        "description": "Creates or updates one test campaign participant by campaign_id + creator_account_id.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertTestCampaignParticipantRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertTestCampaignParticipantResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_campaign_id, invalid_brand_workspace_id, invalid_creator_account_id, invalid_source, invalid_status, invalid_deliverables_counts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: upsert_test_campaign_participant_failed. Cause is included in `message` for /v1/test/* endpoints.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/deliverables/videos/upsert": {
+      "post": {
+        "operationId": "upsertTestCampaignVideo",
+        "tags": [
+          "test"
+        ],
+        "description": "Creates or updates one test campaign video visible through campaign video readers.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertTestCampaignVideoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertTestCampaignVideoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_campaign_id, invalid_brand_workspace_id, invalid_creator_account_id, invalid_platform, invalid_url, invalid_status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: upsert_test_campaign_video_failed. Cause is included in `message` for /v1/test/* endpoints.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/test/notifications/inbox-items/bulk-seed": {
       "post": {
         "operationId": "bulkSeedTestInboxItems",
@@ -482,6 +695,188 @@
           },
           "500": {
             "description": "Internal Server Error. Possible codes: bulk_seed_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/identity/brands/attribution-source/set": {
+      "post": {
+        "operationId": "setTestBrandAttributionSource",
+        "tags": [
+          "test"
+        ],
+        "description": "Creates or updates the single onboarding profile for an existing test\nbrand workspace with a deterministic attribution source.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetTestBrandAttributionSourceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetTestBrandAttributionSourceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_brand_workspace_id, invalid_completed_by_account_id, invalid_attribution_source, invalid_referral_text.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: brand_workspace_not_found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: test_unsafe_target.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: set_attribution_source_failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/identity/brand-onboarding-profiles/upsert": {
+      "post": {
+        "operationId": "upsertTestBrandOnboardingProfile",
+        "tags": [
+          "test"
+        ],
+        "description": "Creates or updates the single onboarding profile for an existing test\nbrand workspace. Accepts legacy attribution values for read fixtures.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Test-Secret",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertTestBrandOnboardingProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpsertTestBrandOnboardingProfileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, invalid_brand_workspace_id, invalid_completed_by_account_id, invalid_attribution_source, invalid_referral_text.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: test_secret_invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: brand_workspace_not_found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: test_unsafe_target.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: upsert_brand_onboarding_profile_failed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -986,6 +1381,116 @@
           }
         }
       },
+      "BrandAttributionSource": {
+        "type": "string",
+        "enum": [
+          "instagram",
+          "tiktok",
+          "linkedin",
+          "reddit",
+          "referral",
+          "search",
+          "other"
+        ]
+      },
+      "TestBrandAttributionSource": {
+        "type": "string",
+        "enum": [
+          "instagram",
+          "tiktok",
+          "linkedin",
+          "reddit",
+          "twitter_x",
+          "referral",
+          "search",
+          "other"
+        ]
+      },
+      "SetTestBrandAttributionSourceRequest": {
+        "type": "object",
+        "required": [
+          "brand_workspace_id",
+          "attribution_source"
+        ],
+        "properties": {
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "attribution_source": {
+            "$ref": "#/components/schemas/BrandAttributionSource"
+          },
+          "attribution_referral_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "completed_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "SetTestBrandAttributionSourceResponse": {
+        "type": "object",
+        "required": [
+          "brand_onboarding_profile_id"
+        ],
+        "properties": {
+          "brand_onboarding_profile_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "UpsertTestBrandOnboardingProfileRequest": {
+        "type": "object",
+        "required": [
+          "brand_workspace_id",
+          "attribution_source"
+        ],
+        "properties": {
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "attribution_source": {
+            "$ref": "#/components/schemas/TestBrandAttributionSource"
+          },
+          "attribution_referral_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "completed_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "UpsertTestBrandOnboardingProfileResponse": {
+        "type": "object",
+        "required": [
+          "brand_workspace_id",
+          "brand_onboarding_profile_id",
+          "attribution_source"
+        ],
+        "properties": {
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_onboarding_profile_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "attribution_source": {
+            "$ref": "#/components/schemas/TestBrandAttributionSource"
+          },
+          "attribution_referral_text": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "SeedMessagesInput": {
         "type": "object",
         "required": [
@@ -1088,6 +1593,447 @@
             "type": "string",
             "format": "uuid",
             "description": "Only present when the request included seed_offer_ready."
+          }
+        }
+      },
+      "UpsertTestCampaignRequest": {
+        "type": "object",
+        "required": [
+          "brand_workspace_id"
+        ],
+        "properties": {
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Stable explicit campaign id. Required when campaign_key is absent."
+          },
+          "campaign_key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Stable key scoped by brand_workspace_id. Required when campaign_id is absent."
+          },
+          "name": {
+            "type": "string",
+            "default": "Test Campaign"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "brand_awareness",
+              "conversion",
+              "engagement",
+              "reach"
+            ],
+            "default": "brand_awareness"
+          },
+          "budget_amount": {
+            "type": "string",
+            "default": "1000.00"
+          },
+          "budget_currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "default": "USD"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "completed"
+            ],
+            "default": "draft"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "influencer_posts",
+              "ugc_videos"
+            ]
+          },
+          "pricing_model": {
+            "type": "string",
+            "enum": [
+              "fixed_per_video",
+              "per_views"
+            ]
+          },
+          "target_platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "configuration_completed_steps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "content_type",
+                "pricing_model",
+                "targeting",
+                "bonus",
+                "review"
+              ]
+            },
+            "default": []
+          },
+          "configuration_current_step": {
+            "type": "string",
+            "enum": [
+              "content_type",
+              "pricing_model",
+              "targeting",
+              "bonus",
+              "review"
+            ],
+            "default": "content_type"
+          },
+          "configuration_completed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "operational_targeting": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "bonus_config": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "read_dependencies": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "UpsertTestCampaignResponse": {
+        "type": "object",
+        "required": [
+          "campaign_id",
+          "brand_workspace_id",
+          "status",
+          "target_platforms",
+          "read_dependencies"
+        ],
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string"
+          },
+          "target_platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "read_dependencies": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpsertTestCampaignParticipantRequest": {
+        "type": "object",
+        "required": [
+          "campaign_id",
+          "brand_workspace_id",
+          "creator_account_id",
+          "current_platforms"
+        ],
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "current_platforms": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "instagram",
+                "tiktok",
+                "youtube"
+              ]
+            },
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "invited",
+              "active",
+              "in_review",
+              "approved",
+              "paid"
+            ],
+            "default": "active"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "application",
+              "invite",
+              "conversation",
+              "offer",
+              "deliverable"
+            ],
+            "default": "conversation"
+          },
+          "deliverables_expected": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "deliverables_completed": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "latest_offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "first_joined_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_activity_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpsertTestCampaignParticipantResponse": {
+        "type": "object",
+        "required": [
+          "campaign_id",
+          "brand_workspace_id",
+          "creator_account_id",
+          "source",
+          "status",
+          "current_platforms",
+          "deliverables_expected",
+          "deliverables_completed"
+        ],
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "current_platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "deliverables_expected": {
+            "type": "integer"
+          },
+          "deliverables_completed": {
+            "type": "integer"
+          }
+        }
+      },
+      "UpsertTestCampaignVideoRequest": {
+        "type": "object",
+        "required": [
+          "campaign_id",
+          "brand_workspace_id",
+          "creator_account_id",
+          "platform",
+          "url"
+        ],
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "instagram",
+              "tiktok",
+              "youtube"
+            ]
+          },
+          "fixture_key": {
+            "type": "string",
+            "description": "Optional stable key. Without it, idempotency uses campaign_id + creator_account_id + platform + url."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "format": {
+            "type": "string",
+            "default": "reel"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "draft_submitted",
+              "changes_requested",
+              "draft_approved",
+              "link_submitted",
+              "link_approved",
+              "completed",
+              "paid"
+            ],
+            "default": "link_submitted"
+          },
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "s3_key": {
+            "type": "string"
+          },
+          "thumbnail_s3_key": {
+            "type": "string"
+          },
+          "duration_sec": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "original_filename": {
+            "type": "string",
+            "default": "video.mp4"
+          },
+          "file_size_bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "preview_title": {
+            "type": "string"
+          },
+          "preview_description": {
+            "type": "string"
+          },
+          "preview_image_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "preview_site_name": {
+            "type": "string"
+          },
+          "preview_resolved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpsertTestCampaignVideoResponse": {
+        "type": "object",
+        "required": [
+          "deliverable_id",
+          "current_draft_id",
+          "current_link_id",
+          "campaign_id",
+          "brand_workspace_id",
+          "creator_account_id",
+          "platform",
+          "url",
+          "status",
+          "format"
+        ],
+        "properties": {
+          "deliverable_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "current_draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "current_link_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "status": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
           }
         }
       },
