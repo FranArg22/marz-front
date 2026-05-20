@@ -525,7 +525,6 @@ function MoleculesSection() {
               <SelectItem value="youtube">YouTube</SelectItem>
               <SelectItem value="instagram">Instagram</SelectItem>
               <SelectItem value="tiktok">TikTok</SelectItem>
-              <SelectItem value="twitter_x">Twitter / X</SelectItem>
             </SelectContent>
           </Select>
         </div>

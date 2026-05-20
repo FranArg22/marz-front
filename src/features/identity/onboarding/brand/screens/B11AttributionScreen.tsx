@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { t } from '@lingui/core/macro'
-import { Instagram, Twitter, Users, Search, Linkedin } from 'lucide-react'
+import { Instagram, Users, Search, Linkedin } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { Input } from '#/components/ui/input'
@@ -20,11 +20,6 @@ const SOURCES: {
     value: AttributionNonReferralSource.instagram,
     label: () => t`Instagram`,
     icon: Instagram,
-  },
-  {
-    value: AttributionNonReferralSource.twitter_x,
-    label: () => t`X / Twitter`,
-    icon: Twitter,
   },
   { value: 'referral' as const, label: () => t`Referido`, icon: Users },
   {

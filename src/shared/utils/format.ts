@@ -2,8 +2,6 @@ const platformLabels: Record<string, string> = {
   instagram: 'Instagram',
   tiktok: 'TikTok',
   youtube: 'YouTube',
-  twitch: 'Twitch',
-  x: 'X',
 }
 
 const esRelativeTimeFormatter = new Intl.RelativeTimeFormat('es-AR', {

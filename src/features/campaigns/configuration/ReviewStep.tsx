@@ -30,6 +30,7 @@ import type { CampaignConfiguration, CampaignConfigurationStep } from './hooks'
 type ActivationErrorAction =
   | { type: 'reload_latest' }
   | { type: 'redirect_to_step'; step: CampaignConfigurationStep }
+  | { type: 'inline_error'; message: string }
   | { type: 'generic_error' }
 
 interface ReviewStepProps {
@@ -91,6 +92,10 @@ export function getActivationErrorAction(
     }
   }
 
+  if (error.code === 'campaign.no_supported_platforms') {
+    return { type: 'inline_error', message: error.message }
+  }
+
   return { type: 'generic_error' }
 }
 
@@ -128,6 +133,9 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
   const queryClient = useQueryClient()
   const activateMutation = useActivateCampaignConfigurationMutation()
   const [showConflictBanner, setShowConflictBanner] = useState(false)
+  const [activationInlineError, setActivationInlineError] = useState<
+    string | null
+  >(null)
 
   function navigateToStep(step: CampaignConfigurationStep) {
     void navigate({
@@ -141,6 +149,7 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
     if (!config.configuration_complete) return
 
     setShowConflictBanner(false)
+    setActivationInlineError(null)
     activateMutation.mutate(
       {
         campaignId,
@@ -178,6 +187,13 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
 
           if (action.type === 'redirect_to_step') {
             navigateToStep(action.step)
+            return
+          }
+
+          if (action.type === 'inline_error') {
+            setActivationInlineError(
+              action.message || t`No se pudo activar la campaña.`,
+            )
             return
           }
 
@@ -300,6 +316,14 @@ export function ReviewStep({ campaignId, config }: ReviewStepProps) {
           )}
           {t`Activar campaña`}
         </Button>
+        {activationInlineError ? (
+          <p
+            role="alert"
+            className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive"
+          >
+            {activationInlineError}
+          </p>
+        ) : null}
         <Button
           type="button"
           variant="outline"

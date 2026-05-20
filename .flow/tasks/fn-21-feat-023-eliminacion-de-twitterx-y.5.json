@@ -1,0 +1,18 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-19T03:20:44.582573Z",
+  "depends_on": [
+    "fn-21-feat-023-eliminacion-de-twitterx-y.2",
+    "fn-21-feat-023-eliminacion-de-twitterx-y.3",
+    "fn-21-feat-023-eliminacion-de-twitterx-y.4"
+  ],
+  "epic": "fn-21-feat-023-eliminacion-de-twitterx-y",
+  "id": "fn-21-feat-023-eliminacion-de-twitterx-y.5",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-21-feat-023-eliminacion-de-twitterx-y.5.md",
+  "status": "todo",
+  "title": "Sweep final de referencias legadas y smoke",
+  "updated_at": "2026-05-19T03:22:45.972643Z"
+}

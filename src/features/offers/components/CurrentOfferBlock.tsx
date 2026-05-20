@@ -25,6 +25,7 @@ import type { ActorKind } from '../analytics'
 import { OfferDeliverablesList } from './OfferDeliverablesList'
 import { formatBonusWindowsLabel } from '../utils/bonusTerms'
 import { useOfferActions } from '#/features/offers/hooks/useOfferActions'
+import { useClientNow } from '#/shared/hooks/useClientNow'
 
 type StatusKey = OfferDetailDTO['status']
 
@@ -151,6 +152,7 @@ export function CurrentOfferBlock({
   const trackedRef = useRef(false)
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false)
   const { accept, reject } = useOfferActions({ conversationId })
+  const clientNow = useClientNow()
 
   useEffect(() => {
     if (offer && !trackedRef.current) {
@@ -173,6 +175,15 @@ export function CurrentOfferBlock({
   const offerMode = offer.offer_mode
   const platforms = getOfferPlatforms(offer)
   const deadline = offer.offer_deadline
+  const deadlineTime =
+    deadline ? new Date(deadline).getTime() : null
+  const deadlinePassed =
+    offer.status === 'accepted' && deadlineTime !== null && clientNow !== null
+      ? deadlineTime <= clientNow
+      : offer.status !== 'accepted'
+        ? true
+        : false
+  const cancelDisabled = offer.status === 'accepted' && !deadlinePassed
   const tentativePublishDate = offer.tentative_publish_date
   const paymentOffer: MarkAsPaidOffer = {
     id: offer.id,
@@ -282,13 +293,6 @@ export function CurrentOfferBlock({
               </Button>
             ) : null}
             {(() => {
-              const deadlineDate = deadline ? new Date(deadline) : null
-              const deadlinePassed =
-                offer.status === 'accepted' && deadlineDate
-                  ? deadlineDate.getTime() <= Date.now()
-                  : true
-              const cancelDisabled =
-                offer.status === 'accepted' && !deadlinePassed
               const cancelButton = (
                 <Button
                   size="sm"

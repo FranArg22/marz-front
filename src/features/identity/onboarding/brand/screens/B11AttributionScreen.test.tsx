@@ -22,10 +22,17 @@ beforeEach(() => {
 })
 
 describe('B11AttributionScreen', () => {
-  it('renders 8 attribution options', () => {
+  it('renders the supported attribution options', () => {
     render(<B11AttributionScreen />)
-    const radios = screen.getAllByRole('radio')
-    expect(radios).toHaveLength(8)
+    expect(screen.getAllByRole('radio').map((radio) => radio.textContent)).toEqual([
+      'Instagram',
+      'Referido',
+      'Búsqueda',
+      'Otro',
+      'TikTok',
+      'LinkedIn',
+      'Reddit',
+    ])
   })
 
   it('selects non-referral source', async () => {

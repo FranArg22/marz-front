@@ -10,9 +10,7 @@ import {
   Music,
   Plus,
   Search,
-  Twitch,
   UserPlus,
-  X,
   Youtube,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -24,8 +22,8 @@ import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 import type {
   CampaignParticipantListItem,
-  ListCampaignParticipantsPlatform,
   ListCampaignParticipantsStatus,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import { formatRelativeTime, initials } from '#/shared/utils/format'
@@ -68,14 +66,12 @@ const statusClassNames: Record<ListCampaignParticipantsStatus, string> = {
 }
 
 const platformMeta: Record<
-  ListCampaignParticipantsPlatform,
+  SocialPlatform,
   { label: string; icon: LucideIcon }
 > = {
   youtube: { label: 'YouTube', icon: Youtube },
   instagram: { label: 'Instagram', icon: Instagram },
   tiktok: { label: 'TikTok', icon: Music },
-  x: { label: 'X', icon: X },
-  twitch: { label: 'Twitch', icon: Twitch },
 }
 /* eslint-enable lingui/no-unlocalized-strings */
 
@@ -373,7 +369,7 @@ function CreatorCell({
 function PlatformCell({
   platform,
 }: {
-  platform: ListCampaignParticipantsPlatform | undefined
+  platform: SocialPlatform | undefined
 }) {
   if (!platform) {
     return <span className="text-xs text-muted-foreground">{t`None`}</span>
@@ -531,6 +527,6 @@ function isParticipantStatus(
 
 function isParticipantPlatform(
   platform: string,
-): platform is ListCampaignParticipantsPlatform {
+): platform is SocialPlatform {
   return Object.hasOwn(platformMeta, platform)
 }
