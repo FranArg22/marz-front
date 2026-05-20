@@ -10,7 +10,7 @@ import { ListCampaignParticipantsStatus } from '#/shared/api/generated/model'
 import type {
   CampaignPlanCapabilities,
   DeliverableStatus,
-  ListCampaignParticipantsPlatform,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import { trackDiscoverySectionViewed } from '#/shared/analytics/discoveryTracking'
@@ -41,7 +41,7 @@ export interface CampaignDetailSearch {
   section: 'matches' | 'applications' | 'active' | 'invited'
   q?: string
   status?: ListCampaignParticipantsStatus | DeliverableStatus
-  platform?: ListCampaignParticipantsPlatform
+  platform?: SocialPlatform
   creator_account_id?: string
   sort?: string
 }

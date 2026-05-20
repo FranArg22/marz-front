@@ -4,6 +4,10 @@ import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import {
+  getTrackedEvents,
+  resetTrackedEvents,
+} from '#/shared/analytics/track'
 import { ReviewStep, getActivationErrorAction } from './ReviewStep'
 import type { CampaignConfiguration } from './hooks'
 
@@ -164,6 +168,7 @@ function renderStep(config = makeConfig()) {
 
 beforeEach(() => {
   vi.clearAllMocks()
+  resetTrackedEvents()
   vi.spyOn(crypto, 'randomUUID').mockReturnValue(
     '11111111-1111-4111-8111-111111111111',
   )
@@ -202,6 +207,21 @@ describe('getActivationErrorAction', () => {
         new TestApiError(409, 'configuration_incomplete', 'Incomplete'),
       ),
     ).toEqual({ type: 'redirect_to_step', step: 'content_type' })
+  })
+
+  it('maps no supported platforms conflicts to inline error feedback', () => {
+    expect(
+      getActivationErrorAction(
+        new TestApiError(
+          409,
+          'campaign.no_supported_platforms',
+          'La campaña no tiene plataformas soportadas.',
+        ),
+      ),
+    ).toEqual({
+      type: 'inline_error',
+      message: 'La campaña no tiene plataformas soportadas.',
+    })
   })
 })
 
@@ -316,6 +336,37 @@ describe('ReviewStep', () => {
         search: { tab: 'overview', section: 'matches' },
       })
     })
+  })
+
+  it('shows no supported platforms conflicts inline without success side effects', async () => {
+    const user = userEvent.setup()
+    mockCustomFetch.mockRejectedValue(
+      new TestApiError(
+        409,
+        'campaign.no_supported_platforms',
+        'La campaña no tiene plataformas soportadas.',
+      ),
+    )
+    renderStep()
+
+    await user.click(screen.getByRole('button', { name: 'Activar campaña' }))
+
+    const alert = await screen.findByRole('alert')
+    expect(alert).toHaveTextContent(
+      'La campaña no tiene plataformas soportadas.',
+    )
+    expect(mockNavigate).not.toHaveBeenCalledWith({
+      to: '/campaigns/$campaignId',
+      params: { campaignId },
+      search: { tab: 'overview', section: 'matches' },
+    })
+    expect(mockToastSuccess).not.toHaveBeenCalled()
+    expect(mockToastError).not.toHaveBeenCalled()
+    expect(
+      getTrackedEvents().some(
+        (event) => event.event === 'campaign_configuration_activated',
+      ),
+    ).toBe(false)
   })
 
   it('disables activation when configuration is incomplete', () => {

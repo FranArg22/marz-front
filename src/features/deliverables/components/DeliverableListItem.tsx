@@ -1,11 +1,9 @@
 import {
   ExternalLink,
-  Film,
   Instagram,
   Link as LinkIcon,
   Music,
   Plus,
-  Twitter,
   Youtube,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -18,6 +16,7 @@ import type {
   DeliverableDTO,
   PublishedLinkStatus,
 } from '#/features/deliverables/types'
+import type { SocialPlatform } from '#/shared/api/generated/model'
 import { useDeliverableLinks } from '#/features/deliverables/hooks/useDeliverableLinks'
 import { useApproveLink } from '#/features/deliverables/hooks/useApproveLink'
 import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
@@ -32,11 +31,10 @@ import {
   formatOfferPlatform,
 } from '#/features/offers/utils/formatOffer'
 
-const platformIcon: Record<string, LucideIcon> = {
+const platformIcon: Record<SocialPlatform, LucideIcon> = {
   youtube: Youtube,
   instagram: Instagram,
   tiktok: Music,
-  twitter_x: Twitter,
 }
 
 const nonUploadableStatuses: ReadonlySet<DeliverableDTO['status']> = new Set([
@@ -64,7 +62,7 @@ export function DeliverableListItem({
   onMarkAsPaid,
   onSubmitLink,
 }: DeliverableListItemProps) {
-  const PlatformIcon = platformIcon[deliverable.platform] ?? Film
+  const PlatformIcon = platformIcon[deliverable.platform]
   const isNonUploadable = nonUploadableStatuses.has(deliverable.status)
 
   const isCreator = sessionKind === 'creator'

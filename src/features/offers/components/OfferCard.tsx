@@ -1,4 +1,11 @@
-import { ChevronDown, Instagram, Sparkles, Timer, Youtube } from 'lucide-react'
+import {
+  ChevronDown,
+  Instagram,
+  Music,
+  Sparkles,
+  Timer,
+  Youtube,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Trans } from '@lingui/react/macro'
 import { t } from '@lingui/core/macro'
@@ -7,18 +14,16 @@ import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { IconButton } from '#/shared/ui/IconButton'
 import { StatTile, SystemEventCard } from '#/shared/ui/SystemEventCard'
+import type { SocialPlatform } from '#/shared/api/generated/model'
 
-/**
- * Platform icon map — matches the .pen palette (YouTube, Instagram). Extend as
- * other platforms land.
- */
-const platformIcon: Record<string, LucideIcon> = {
+const platformIcon: Record<SocialPlatform, LucideIcon> = {
   youtube: Youtube,
   instagram: Instagram,
+  tiktok: Music,
 }
 
 export interface OfferPlatform {
-  platform: 'youtube' | 'instagram' | 'tiktok' | 'twitter_x'
+  platform: SocialPlatform
   label: string
 }
 
@@ -59,7 +64,7 @@ export function OfferCard(props: OfferCardProps) {
 
         <div className="flex flex-wrap gap-2">
           {props.platforms.map((p) => {
-            const Icon = platformIcon[p.platform] ?? Sparkles
+            const Icon = platformIcon[p.platform]
             return (
               <span
                 key={`${p.platform}-${p.label}`}

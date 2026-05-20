@@ -12,15 +12,15 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import type {
-  ListCampaignParticipantsPlatform,
   ListCampaignParticipantsStatus,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 import { cn } from '#/lib/utils'
 
 export interface CreatorsFilterParams {
   search?: string
   status?: ListCampaignParticipantsStatus
-  platform?: ListCampaignParticipantsPlatform
+  platform?: SocialPlatform
 }
 
 interface CreatorsFiltersProps {
@@ -44,15 +44,13 @@ function getStatusOptions(): ReadonlyArray<{
 }
 
 const platformOptions: ReadonlyArray<{
-  value: ListCampaignParticipantsPlatform
+  value: SocialPlatform
   label: string
 }> = [
   /* eslint-disable lingui/no-unlocalized-strings -- Platform brand names are not translatable UI copy. */
   { value: 'youtube', label: 'YouTube' },
   { value: 'instagram', label: 'Instagram' },
   { value: 'tiktok', label: 'TikTok' },
-  { value: 'x', label: 'X' },
-  { value: 'twitch', label: 'Twitch' },
   /* eslint-enable lingui/no-unlocalized-strings */
 ]
 
@@ -175,6 +173,6 @@ export function hasActiveFilters(params: CreatorsFilterParams) {
   )
 }
 
-function isPlatform(value: string): value is ListCampaignParticipantsPlatform {
+function isPlatform(value: string): value is SocialPlatform {
   return platformOptions.some((option) => option.value === value)
 }

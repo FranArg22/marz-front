@@ -68,6 +68,25 @@ describe('CreatorsFilters', () => {
     expect(onParamsChange).toHaveBeenLastCalledWith({})
   })
 
+  it('shows only supported platform options', async () => {
+    const user = userEvent.setup({
+      advanceTimers: vi.advanceTimersByTime.bind(vi),
+    })
+
+    render(<CreatorsFilters params={{}} onParamsChange={vi.fn()} />)
+
+    await user.click(
+      screen.getByRole('combobox', { name: 'Filter by platform' }),
+    )
+
+    expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
+      'All platforms',
+      'YouTube',
+      'Instagram',
+      'TikTok',
+    ])
+  })
+
   it('detects active filters', () => {
     expect(hasActiveFilters({})).toBe(false)
     expect(hasActiveFilters({ search: '  ' })).toBe(false)

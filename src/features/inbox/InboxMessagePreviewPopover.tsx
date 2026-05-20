@@ -13,6 +13,7 @@ import { useIsMobile } from '#/features/identity/onboarding/hooks/useIsMobile'
 import { cn } from '#/lib/utils'
 
 interface MessagePreviewEntry {
+  id: string
   preview: string
   occurred_at: string
   author_account_id: string
@@ -56,9 +57,9 @@ export function InboxMessagePreviewPopover({
               <SheetTitle>{t`Mensajes recientes`}</SheetTitle>
             </SheetHeader>
             <ul className="mt-4 flex flex-col gap-3">
-              {previews.map((entry, index) => (
+              {previews.map((entry) => (
                 <PreviewRow
-                  key={`${entry.author_account_id}-${entry.occurred_at}-${index}`}
+                  key={entry.id}
                   entry={entry}
                   isSelf={entry.author_account_id === selfAccountId}
                 />
@@ -100,9 +101,9 @@ export function InboxMessagePreviewPopover({
             {t`Mensajes recientes`}
           </p>
           <ul className="flex flex-col gap-2">
-            {previews.map((entry, index) => (
+            {previews.map((entry) => (
               <PreviewRow
-                key={`${entry.author_account_id}-${entry.occurred_at}-${index}`}
+                key={entry.id}
                 entry={entry}
                 isSelf={entry.author_account_id === selfAccountId}
               />

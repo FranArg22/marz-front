@@ -15,13 +15,13 @@ import { cn } from '#/lib/utils'
 import type {
   CampaignParticipantListItem,
   DeliverableStatus,
-  GetCampaignVideosPlatform,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 
 export interface VideosFilterParams {
   search?: string
   status?: DeliverableStatus
-  platform?: GetCampaignVideosPlatform
+  platform?: SocialPlatform
   creator_account_id?: string
 }
 
@@ -51,15 +51,13 @@ function getStatusOptions(): ReadonlyArray<{
 }
 
 const platformOptions: ReadonlyArray<{
-  value: GetCampaignVideosPlatform
+  value: SocialPlatform
   label: string
 }> = [
   /* eslint-disable lingui/no-unlocalized-strings -- Platform brand names are not translatable UI copy. */
   { value: 'youtube', label: 'YouTube' },
   { value: 'instagram', label: 'Instagram' },
   { value: 'tiktok', label: 'TikTok' },
-  { value: 'x', label: 'X' },
-  { value: 'twitch', label: 'Twitch' },
   /* eslint-enable lingui/no-unlocalized-strings */
 ]
 
@@ -217,7 +215,7 @@ export function hasActiveVideoFilters(params: VideosFilterParams) {
 
 export function isCampaignVideoPlatform(
   value: string,
-): value is GetCampaignVideosPlatform {
+): value is SocialPlatform {
   return platformOptions.some((option) => option.value === value)
 }
 
@@ -227,6 +225,6 @@ export function isCampaignVideoStatus(
   return getStatusOptions().some((option) => option.value === value)
 }
 
-function isPlatform(value: string): value is GetCampaignVideosPlatform {
+function isPlatform(value: string): value is SocialPlatform {
   return isCampaignVideoPlatform(value)
 }

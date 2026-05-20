@@ -8,10 +8,8 @@ import {
   Music,
   Play,
   Search,
-  Twitch,
   UserPlus,
   Video,
-  X,
   Youtube,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -23,8 +21,8 @@ import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 import type {
   CampaignVideoCard,
-  CampaignVideoCardPlatform,
   DeliverableStatus,
+  SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import { formatRelativeTime, initials } from '#/shared/utils/format'
@@ -73,14 +71,12 @@ const statusClassNames: Record<DeliverableStatus, string> = {
 }
 
 const platformMeta: Record<
-  CampaignVideoCardPlatform,
+  SocialPlatform,
   { label: string; icon: LucideIcon }
 > = {
   youtube: { label: 'YouTube', icon: Youtube },
   instagram: { label: 'Instagram', icon: Instagram },
   tiktok: { label: 'TikTok', icon: Music },
-  x: { label: 'X', icon: X },
-  twitch: { label: 'Twitch', icon: Twitch },
 }
 /* eslint-enable lingui/no-unlocalized-strings */
 

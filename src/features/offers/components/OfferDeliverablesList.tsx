@@ -4,6 +4,7 @@ import { DeliverableListItem } from '#/features/deliverables/components/Delivera
 import { ExpectedDeliverableSlot } from '#/features/deliverables/components/ExpectedDeliverableSlot'
 import type { DeliverableDTO } from '#/features/deliverables/types'
 import type { OfferDetailDTO } from '#/features/offers/types'
+import type { SocialPlatform } from '#/shared/api/generated/model'
 import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 
 import type { ActorKind } from '../analytics'
@@ -38,6 +39,14 @@ function getHeaderLabel(offer: OfferDetailDTO): string {
     : t`Entregables`
 }
 
+function isExpectedDeliverablePlatform(
+  platform: string,
+): platform is SocialPlatform {
+  return (
+    platform === 'instagram' || platform === 'tiktok' || platform === 'youtube'
+  )
+}
+
 export function OfferDeliverablesList({
   offer,
   deliverables,
@@ -50,9 +59,15 @@ export function OfferDeliverablesList({
   const showExpectedSlot =
     deliverables.length === 0 && offer.deliverables.length > 0
 
-  if (deliverables.length === 0 && !showExpectedSlot) return null
-
   const expectedFirst = offer.deliverables[0]
+  const expectedPlatform =
+    expectedFirst && isExpectedDeliverablePlatform(expectedFirst.platform)
+      ? expectedFirst.platform
+      : null
+  const canShowExpectedSlot =
+    showExpectedSlot && expectedFirst !== undefined && expectedPlatform !== null
+
+  if (deliverables.length === 0 && !canShowExpectedSlot) return null
 
   return (
     <div className="mt-3 space-y-2">
@@ -60,9 +75,9 @@ export function OfferDeliverablesList({
         {getHeaderLabel(offer)}
       </div>
       <div className="space-y-2">
-        {showExpectedSlot && expectedFirst ? (
+        {canShowExpectedSlot ? (
           <ExpectedDeliverableSlot
-            platform={expectedFirst.platform}
+            platform={expectedPlatform}
             format={expectedFirst.format}
             sessionKind={sessionKind}
             offerStatus={toExpectedDeliverableOfferStatus(offer.status)}

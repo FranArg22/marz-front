@@ -5443,11 +5443,17 @@
             }
           },
           "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_incomplete, configuration_version_conflict, idempotency_conflict. See §4.1.8.",
+            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_incomplete, campaign.no_supported_platforms, configuration_version_conflict, idempotency_conflict. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "campaign.no_supported_platforms",
+                    "message": "Campaign has no supported platforms"
+                  }
                 }
               }
             }
@@ -5728,14 +5734,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "youtube",
-                "instagram",
-                "tiktok",
-                "x",
-                "twitch"
-              ]
+              "$ref": "#/components/schemas/SocialPlatform"
             }
           },
           {
@@ -6509,14 +6508,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "youtube",
-                "instagram",
-                "tiktok",
-                "x",
-                "twitch"
-              ]
+              "$ref": "#/components/schemas/SocialPlatform"
             }
           }
         ],
@@ -7251,12 +7243,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "instagram",
-                  "tiktok",
-                  "youtube"
-                ]
+                "$ref": "#/components/schemas/SocialPlatform"
               }
             },
             "style": "form",
@@ -9758,6 +9745,26 @@
           "exploring"
         ]
       },
+      "AttributionSource": {
+        "type": "string",
+        "enum": [
+          "instagram",
+          "tiktok",
+          "linkedin",
+          "reddit",
+          "referral",
+          "search",
+          "other"
+        ]
+      },
+      "SocialPlatform": {
+        "type": "string",
+        "enum": [
+          "instagram",
+          "tiktok",
+          "youtube"
+        ]
+      },
       "Attribution": {
         "oneOf": [
           {
@@ -9772,7 +9779,6 @@
           "mapping": {
             "referral": "#/components/schemas/AttributionReferral",
             "instagram": "#/components/schemas/AttributionNonReferral",
-            "twitter_x": "#/components/schemas/AttributionNonReferral",
             "tiktok": "#/components/schemas/AttributionNonReferral",
             "linkedin": "#/components/schemas/AttributionNonReferral",
             "reddit": "#/components/schemas/AttributionNonReferral",
@@ -9810,7 +9816,6 @@
             "type": "string",
             "enum": [
               "instagram",
-              "twitter_x",
               "tiktok",
               "linkedin",
               "reddit",
@@ -10325,14 +10330,7 @@
             "nullable": true
           },
           "platform": {
-            "type": "string",
-            "enum": [
-              "youtube",
-              "instagram",
-              "tiktok",
-              "x",
-              "twitch"
-            ]
+            "$ref": "#/components/schemas/SocialPlatform"
           },
           "format": {
             "type": "string"
@@ -13939,14 +13937,7 @@
             "nullable": true
           },
           "platform": {
-            "type": "string",
-            "enum": [
-              "youtube",
-              "instagram",
-              "tiktok",
-              "x",
-              "twitch"
-            ]
+            "$ref": "#/components/schemas/SocialPlatform"
           },
           "format": {
             "type": "string"
@@ -14798,12 +14789,7 @@
           "platforms": {
             "type": "array",
             "items": {
-              "type": "string",
-              "enum": [
-                "instagram",
-                "tiktok",
-                "youtube"
-              ]
+              "$ref": "#/components/schemas/SocialPlatform"
             }
           },
           "deliverables": {
