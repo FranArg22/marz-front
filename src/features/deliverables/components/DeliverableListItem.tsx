@@ -23,6 +23,8 @@ import { useApproveLink } from '#/features/deliverables/hooks/useApproveLink'
 import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
 import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { DraftVersionList } from './DraftVersionList'
+import { useListDrafts } from '#/shared/api/generated/deliverables/deliverables'
+import type { DraftDTO } from '#/shared/api/generated/model'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
 import { RequestChangesModal } from './RequestChangesModal'
 import {
@@ -153,22 +155,34 @@ export function DeliverableListItem({
       </div>
 
       {deliverable.current_draft ? (
-        <DraftVersionList
-          drafts={[deliverable.current_draft]}
-          changeRequests={[]}
+        <DeliverableDrafts
           deliverableId={deliverable.id}
+          draftsCount={deliverable.drafts_count}
+          currentDraft={deliverable.current_draft}
+          canReview={sessionKind === 'brand'}
         />
       ) : null}
 
       {shouldShowCurrentLink && (
-        <CurrentLinkSummary
-          deliverableId={deliverable.id}
-          deliverableStatus={deliverable.status}
-          currentLinkId={linksQuery.data?.current_link_id ?? null}
-          links={linksQuery.data?.links ?? []}
-          isLoading={linksQuery.isLoading}
-          sessionKind={sessionKind}
-        />
+        <section
+          aria-labelledby={`link-${deliverable.id}`}
+          className="flex flex-col gap-1.5"
+        >
+          <h4
+            id={`link-${deliverable.id}`}
+            className="text-[11px] font-medium text-muted-foreground"
+          >
+            {t`Link publicado`}
+          </h4>
+          <CurrentLinkSummary
+            deliverableId={deliverable.id}
+            deliverableStatus={deliverable.status}
+            currentLinkId={linksQuery.data?.current_link_id ?? null}
+            links={linksQuery.data?.links ?? []}
+            isLoading={linksQuery.isLoading}
+            sessionKind={sessionKind}
+          />
+        </section>
       )}
 
       {canUpload ? (
@@ -199,6 +213,54 @@ export function DeliverableListItem({
         </button>
       ) : null}
     </div>
+  )
+}
+
+function DeliverableDrafts({
+  deliverableId,
+  draftsCount,
+  currentDraft,
+  canReview,
+}: {
+  deliverableId: string
+  draftsCount: number
+  currentDraft: DraftDTO
+  canReview: boolean
+}) {
+  const shouldFetchHistory = draftsCount > 1
+  const draftsQuery = useListDrafts(deliverableId, {
+    query: { enabled: shouldFetchHistory },
+  })
+
+  const drafts: DraftDTO[] = (() => {
+    if (!shouldFetchHistory) return [currentDraft]
+    if (draftsQuery.data?.status === 200) {
+      const list = draftsQuery.data.data.drafts
+      return [...list].sort((a, b) => b.version - a.version)
+    }
+    return [currentDraft]
+  })()
+
+  return (
+    <section
+      aria-labelledby={`drafts-${deliverableId}`}
+      className="flex flex-col gap-1.5"
+    >
+      <h4
+        id={`drafts-${deliverableId}`}
+        className="text-[11px] font-medium text-muted-foreground"
+      >
+        {draftsCount > 1
+          ? t`Versiones enviadas (${draftsCount})`
+          : t`Versiones enviadas`}
+      </h4>
+      <DraftVersionList
+        drafts={drafts}
+        changeRequests={[]}
+        deliverableId={deliverableId}
+        canReview={canReview}
+      />
+    </section>
   )
 }
 

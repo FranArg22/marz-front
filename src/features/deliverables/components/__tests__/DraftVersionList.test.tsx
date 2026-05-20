@@ -1,10 +1,21 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render as rtlRender, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { ReactElement } from 'react'
 
 import { DraftVersionList } from '../DraftVersionList'
 import type { DraftDTO, ChangeRequestDTO } from '#/features/deliverables/types'
+
+function render(ui: ReactElement) {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
+  return rtlRender(
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
+  )
+}
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -63,9 +74,9 @@ describe('DraftVersionList', () => {
       />,
     )
 
-    expect(screen.getByText('v1')).toBeInTheDocument()
-    expect(screen.getByText('Actual')).toBeInTheDocument()
-    expect(screen.getByText('Enviado')).toBeInTheDocument()
+    expect(screen.getByText('Versión 1')).toBeInTheDocument()
+    expect(screen.getByText(/Última/)).toBeInTheDocument()
+    expect(screen.getByText('Pendiente de revisión')).toBeInTheDocument()
   })
 
   it('renders three versions and marks the highest as current', () => {
@@ -83,10 +94,10 @@ describe('DraftVersionList', () => {
     const rows = screen.getAllByTestId('draft-version-row')
     expect(rows).toHaveLength(3)
 
-    expect(screen.getByText('v1')).toBeInTheDocument()
-    expect(screen.getByText('v2')).toBeInTheDocument()
-    expect(screen.getByText('v3')).toBeInTheDocument()
-    expect(screen.getByText('Actual')).toBeInTheDocument()
+    expect(screen.getByText('Versión 1')).toBeInTheDocument()
+    expect(screen.getByText('Versión 2')).toBeInTheDocument()
+    expect(screen.getByText('Versión 3')).toBeInTheDocument()
+    expect(screen.getByText(/Última/)).toBeInTheDocument()
   })
 
   it('shows approved status when draft has approved_at', () => {
@@ -139,8 +150,8 @@ describe('DraftVersionList', () => {
     expect(v1Row).toHaveTextContent('Cambios solicitados')
 
     expect(screen.getAllByText('Cambios solicitados')).toHaveLength(2)
-    expect(screen.getByText('Enviado')).toBeInTheDocument()
-    expect(screen.getByText('Actual')).toBeInTheDocument()
+    expect(screen.getByText('Pendiente de revisión')).toBeInTheDocument()
+    expect(screen.getByText(/Última/)).toBeInTheDocument()
   })
 
   it('opens preview dialog when play is clicked', async () => {
@@ -152,7 +163,7 @@ describe('DraftVersionList', () => {
       />,
     )
 
-    const playButton = screen.getByRole('button', { name: /play draft v1/i })
+    const playButton = screen.getByRole('button', { name: /reproducir versión 1/i })
     await user.click(playButton)
 
     expect(
