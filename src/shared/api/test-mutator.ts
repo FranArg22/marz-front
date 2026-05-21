@@ -10,9 +10,11 @@ const API_URL = (
 const TEST_SECRET = process.env.MARZ_TEST_SECRET
 
 export interface TestApiErrorBody {
-  error: {
-    code: string
-    message: string
+  // Optional because not every test-API failure carries a structured envelope
+  // (e.g. plain 5xx without body, validation errors with a different shape).
+  error?: {
+    code?: string
+    message?: string
   }
 }
 
@@ -58,8 +60,8 @@ export async function testFetch<T>(
     const body = parsed as TestApiErrorBody | undefined
     throw new TestApiError(
       res.status,
-      body?.error.code ?? 'unknown',
-      body?.error.message ?? res.statusText,
+      body?.error?.code ?? 'unknown',
+      body?.error?.message ?? res.statusText,
     )
   }
 

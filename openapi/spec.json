@@ -16838,6 +16838,36 @@
           }
         }
       },
+      "WSPresenceUpdatedPayload": {
+        "type": "object",
+        "description": "Pushed on `identity.presence.updated`. One frame per affected conversation\nfrom the receiver's perspective: `counterpart_kind` + `counterpart_id`\nmatch `ConversationDetailCounterpart` returned by\n`GET /v1/conversations/{id}`.\n",
+        "required": [
+          "conversation_id",
+          "counterpart_kind",
+          "counterpart_id",
+          "state"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "counterpart_kind": {
+            "type": "string",
+            "enum": [
+              "brand_workspace",
+              "creator_profile"
+            ]
+          },
+          "counterpart_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "#/components/schemas/PresenceState"
+          }
+        }
+      },
       "WSCampaignRefreshPayload": {
         "type": "object",
         "required": [

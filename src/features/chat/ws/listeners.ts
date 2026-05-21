@@ -5,7 +5,6 @@ import type {
   MessageReadBatchPayload,
   TypingStartedPayload,
   TypingStoppedPayload,
-  PresenceUpdatedPayload,
 } from '#/shared/ws/types'
 import type { ChatWsHandlers } from './types'
 
@@ -52,10 +51,6 @@ export function buildChatHandlers(
     'chat.typing.stopped': makeConversationGuard<TypingStoppedPayload>(
       conversationId,
       handlers.onTypingStopped,
-    ),
-    'identity.presence.updated': makeConversationGuard<PresenceUpdatedPayload>(
-      conversationId,
-      handlers.onPresenceUpdated,
     ),
   }
 }

@@ -3,8 +3,6 @@
 
 type LengthBucket = '<50' | '50-200' | '200-500' | '500-2000' | '2000+'
 
-type PresenceState = 'online' | 'offline' | 'disconnected'
-
 interface ConversationOpenedPayload {
   conversation_id: string
   counterpart_kind: 'brand_workspace' | 'creator_profile'
@@ -28,18 +26,11 @@ interface HistoryPageLoadedPayload {
   items_count: number
 }
 
-interface PresenceStateChangedPayload {
-  conversation_id: string
-  counterpart_account_id: string
-  state: PresenceState
-}
-
 interface ChatEventMap {
   conversation_opened: ConversationOpenedPayload
   message_sent: MessageSentPayload
   message_received_live: MessageReceivedLivePayload
   history_page_loaded: HistoryPageLoadedPayload
-  presence_state_changed: PresenceStateChangedPayload
 }
 
 export type ChatEventName = keyof ChatEventMap

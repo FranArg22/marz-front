@@ -30,13 +30,6 @@ export interface TypingStoppedPayload {
   actor_account_id: string
 }
 
-export interface PresenceUpdatedPayload {
-  conversation_id: string
-  counterpart_kind: 'brand_workspace' | 'creator_profile'
-  counterpart_id: string
-  state: 'online' | 'offline' | 'disconnected'
-}
-
 export interface ConversationActivityUpdatedPayload {
   conversation_id: string
   last_activity_at: string
@@ -193,9 +186,6 @@ export type DomainWsEvent =
     })
   | (DomainEventEnvelope<TypingStoppedPayload> & {
       event_type: 'chat.typing.stopped'
-    })
-  | (DomainEventEnvelope<PresenceUpdatedPayload> & {
-      event_type: 'identity.presence.updated'
     })
   | (DomainEventEnvelope<ConversationActivityUpdatedPayload> & {
       event_type: 'chat.conversation.activity_updated'

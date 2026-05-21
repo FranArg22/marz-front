@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef } from 'react'
 import { t } from '@lingui/core/macro'
 import { PanelLeftOpen } from 'lucide-react'
 
+import { cn } from '#/lib/utils'
+
 import { CampaignFilterSelect } from './CampaignFilterSelect'
 import { ConversationFilterTabs } from './ConversationFilterTabs'
 import { ConversationRailEmpty } from './ConversationRailEmpty'
@@ -106,7 +108,7 @@ export function ConversationRail({
       <>
         {expandButton}
         {railHeader}
-        <ConversationRailSkeleton />
+        <ConversationRailSkeleton variant={variant} />
       </>
     )
   }
@@ -201,7 +203,9 @@ export function ConversationRail({
           />
         ))}
         <div ref={sentinelRef} className="h-px shrink-0" aria-hidden />
-        {isFetchingNextPage ? <ConversationRailSkeleton count={2} /> : null}
+        {isFetchingNextPage ? (
+          <ConversationRailSkeleton count={2} variant={variant} />
+        ) : null}
       </div>
     </>
   )
@@ -214,24 +218,41 @@ const CONVERSATION_RAIL_SKELETON_ROWS = [
   'fourth',
 ] as const
 
-function ConversationRailSkeleton({ count = 4 }: { count?: 1 | 2 | 3 | 4 }) {
+function ConversationRailSkeleton({
+  count = 4,
+  variant = 'full',
+}: {
+  count?: 1 | 2 | 3 | 4
+  variant?: 'full' | 'compact'
+}) {
   const rows = CONVERSATION_RAIL_SKELETON_ROWS.slice(0, count)
+  const compact = variant === 'compact'
 
   return (
     <div
-      className="flex flex-col gap-1 p-2"
+      className={cn(
+        'flex flex-col p-2',
+        compact ? 'items-center gap-2' : 'gap-1',
+      )}
       role="status"
       aria-label={t`Cargando conversaciones`}
     >
-      {rows.map((row) => (
-        <div key={row} className="flex items-center gap-3 px-3 py-2.5">
-          <div className="size-10 animate-pulse rounded-full bg-muted" />
-          <div className="flex flex-1 flex-col gap-1.5">
-            <div className="h-4 w-28 animate-pulse rounded bg-muted" />
-            <div className="h-3 w-40 animate-pulse rounded bg-muted" />
+      {rows.map((row) =>
+        compact ? (
+          <div
+            key={row}
+            className="size-10 animate-pulse rounded-full bg-muted"
+          />
+        ) : (
+          <div key={row} className="flex items-center gap-3 px-3 py-2.5">
+            <div className="size-10 animate-pulse rounded-full bg-muted" />
+            <div className="flex flex-1 flex-col gap-1.5">
+              <div className="h-4 w-28 animate-pulse rounded bg-muted" />
+              <div className="h-3 w-40 animate-pulse rounded bg-muted" />
+            </div>
           </div>
-        </div>
-      ))}
+        ),
+      )}
     </div>
   )
 }

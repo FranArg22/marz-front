@@ -4,7 +4,6 @@ import type {
   MessageReadBatchPayload,
   TypingStartedPayload,
   TypingStoppedPayload,
-  PresenceUpdatedPayload,
 } from '#/shared/ws/types'
 
 export interface ChatWsHandlers {
@@ -19,8 +18,5 @@ export interface ChatWsHandlers {
   ) => void
   onTypingStopped?: (
     envelope: DomainEventEnvelope<TypingStoppedPayload>,
-  ) => void
-  onPresenceUpdated?: (
-    envelope: DomainEventEnvelope<PresenceUpdatedPayload>,
   ) => void
 }

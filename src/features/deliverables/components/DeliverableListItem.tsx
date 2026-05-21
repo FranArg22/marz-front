@@ -16,14 +16,13 @@ import type {
   DeliverableDTO,
   PublishedLinkStatus,
 } from '#/features/deliverables/types'
-import type { SocialPlatform } from '#/shared/api/generated/model'
+import type { DraftDTO, SocialPlatform } from '#/shared/api/generated/model'
 import { useDeliverableLinks } from '#/features/deliverables/hooks/useDeliverableLinks'
 import { useApproveLink } from '#/features/deliverables/hooks/useApproveLink'
 import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
 import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { DraftVersionList } from './DraftVersionList'
 import { useListDrafts } from '#/shared/api/generated/deliverables/deliverables'
-import type { DraftDTO } from '#/shared/api/generated/model'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
 import { RequestChangesModal } from './RequestChangesModal'
 import {

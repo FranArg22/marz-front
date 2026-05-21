@@ -42,12 +42,54 @@ Funciones generadas en `src/shared/api/test-generated/test/test.ts`. Naming = `o
 | `createTestFault`        | `POST /v1/test/faults`                                | One-shot            | Registra una fault que se aplica a la próxima request matching y se consume. Útil para forzar 500 en un endpoint específico.                                                                 |
 | `resetTestWorkspace`     | `POST /v1/test/notifications/inbox-items/reset`       | Sí                  | Wipea inbox items del workspace. **Scope honesto**: NO toca otros BCs.                                                                                                                       |
 
-## Helpers en `src/test/e2e/fixtures.ts`
+## Estructura del árbol E2E (post-reorg 2026-05-20)
+
+```
+src/test/e2e/
+  support/          # mecánica de la suite, NUNCA tests
+    fixtures.ts     # único `test.extend` — re-exporta TestUser, ChatPair, seeders
+    test-user.ts    # clase TestUser (Clerk + backend)
+    chat-pair.ts    # createChatPair + variantes
+    clerk.ts        # Clerk Admin API + getClerkSessionToken
+    seeders.ts      # seedInboxItems / setInboxItemStatus / resetInbox
+    env.ts          # CLERK_SECRET, API_BASE_URL, E2E_RUN_ID
+    global-setup.ts # carga .env.local + clerkSetup()
+    campaign-board-mocks.ts
+  poms/             # Page Object Models por superficie de UI
+    app-shell.pom.ts
+    workspace.pom.ts
+    conversation.pom.ts
+    deliverable-panel.pom.ts
+    inbox.pom.ts
+  suites/           # tests organizados por dominio (NUNCA por FEAT-NNN)
+    smoke/          health.spec, app-shell.spec
+    identity/       onboarding, creator-birthday, creator-channels
+    workspace/      shell.spec
+    chat/           send-receive, history-scroll, offer-sent
+    deliverables/   link-live-updates, request-changes-single, draft-version-history, multistage-unlock
+    campaigns/      configuration-wizard, creator-board, brief-builder-*, brief-to-configuration-handoff
+    payments/       mark-as-paid, brand-payment-highlight
+    platform-cleanup/ social-platforms
+    inbox/          inbox.spec
+```
+
+**Reglas duras:**
+
+- Specs **siempre** importan de `'../../support/fixtures'` (nunca `@playwright/test` salvo `import type {...}`).
+- Selectores **siempre** viven en POMs. Los specs describen flow, no DOM.
+- Carpetas por dominio del producto. **Prohibido** crear carpetas tipo `feat007/`, `feat008/`, `generated/`. El ID del ticket vive en el nombre del `test()` (`ESC-X` / `FEAT-NNN`), no en el path.
+- Si te falta seed del backend, marcar `test.skip(true, 'TODO: needs <endpoint> from backend harness')`. Nunca skipear por env var inventada.
+
+## Helpers en `src/test/e2e/support/fixtures.ts`
 
 Envoltorios tipados para las funciones generadas crudas. Reusalos siempre antes de llamar al cliente directo:
 
 ```ts
-import { seedInboxItems, setInboxItemStatus, resetInbox } from './fixtures'
+import {
+  seedInboxItems,
+  setInboxItemStatus,
+  resetInbox,
+} from '../../support/fixtures'
 
 const ids = await seedInboxItems([
   {

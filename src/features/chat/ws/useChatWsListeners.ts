@@ -19,7 +19,6 @@ export function useChatWsListeners(
     onMessageReadBatch,
     onTypingStarted,
     onTypingStopped,
-    onPresenceUpdated,
   }: UseChatWsListenersOptions = {},
 ) {
   const queryClient = useQueryClient()
@@ -28,14 +27,12 @@ export function useChatWsListeners(
     onMessageReadBatch,
     onTypingStarted,
     onTypingStopped,
-    onPresenceUpdated,
   })
   handlersRef.current = {
     onMessageCreated,
     onMessageReadBatch,
     onTypingStarted,
     onTypingStopped,
-    onPresenceUpdated,
   }
 
   const stableHandlers = useMemo(() => {
@@ -44,7 +41,6 @@ export function useChatWsListeners(
       onMessageReadBatch: (e) => handlersRef.current.onMessageReadBatch?.(e),
       onTypingStarted: (e) => handlersRef.current.onTypingStarted?.(e),
       onTypingStopped: (e) => handlersRef.current.onTypingStopped?.(e),
-      onPresenceUpdated: (e) => handlersRef.current.onPresenceUpdated?.(e),
     }
     return {
       ...createWsHandlers(queryClient),

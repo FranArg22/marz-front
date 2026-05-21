@@ -9,7 +9,6 @@ import { useChatWsListeners } from '#/features/chat/ws/useChatWsListeners'
 import { handleMessageCreated } from '#/features/chat/ws/messageCreatedHandler'
 import { useAutoMarkRead } from '#/features/chat/hooks/useAutoMarkRead'
 import { useViewportAtBottom } from '#/features/chat/hooks/useViewportAtBottom'
-import { usePresenceStore } from '#/features/chat/stores/presenceStore'
 import { useTypingStore } from '#/features/chat/stores/typingStore'
 import {
   trackChatEvent,
@@ -52,7 +51,6 @@ export function ConversationView({
   const detailQuery = useConversationDetailQuery(conversationId)
   const timelineRef = useRef<MessageTimelineHandle>(null)
   const { isAtBottom, onAtBottomStateChange } = useViewportAtBottom()
-  const setPresence = usePresenceStore((s) => s.setPresence)
   const setTyping = useTypingStore((s) => s.setTyping)
   const clearTyping = useTypingStore((s) => s.clearTyping)
 
@@ -72,8 +70,7 @@ export function ConversationView({
 
   useEffect(() => {
     if (!detailQuery.data) return
-    const { counterpart, presence } = detailQuery.data
-    setPresence(counterpart.id, presence.state)
+    const { counterpart } = detailQuery.data
 
     if (!openedTrackedRef.current) {
       openedTrackedRef.current = true
@@ -83,7 +80,7 @@ export function ConversationView({
         has_unread: unreadCountRef.current > 0,
       })
     }
-  }, [detailQuery.data, setPresence, conversationId])
+  }, [detailQuery.data, conversationId])
 
   const onMessageCreated = useCallback(
     (envelope: Parameters<typeof handleMessageCreated>[1]) => {
@@ -126,29 +123,11 @@ export function ConversationView({
     [conversationId, clearTyping],
   )
 
-  const onPresenceUpdated = useCallback(
-    (envelope: {
-      payload: {
-        counterpart_id: string
-        state: 'online' | 'offline' | 'disconnected'
-      }
-    }) => {
-      setPresence(envelope.payload.counterpart_id, envelope.payload.state)
-      trackChatEvent('presence_state_changed', {
-        conversation_id: conversationId,
-        counterpart_account_id: envelope.payload.counterpart_id,
-        state: envelope.payload.state,
-      })
-    },
-    [setPresence, conversationId],
-  )
-
   const { send: wsSend } = useChatWsListeners(conversationId, {
     enabled: true,
     onMessageCreated,
     onTypingStarted,
     onTypingStopped,
-    onPresenceUpdated,
   })
 
   const handlePillClick = useCallback(() => {

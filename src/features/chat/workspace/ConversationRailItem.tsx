@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro'
 
 import { ChatRailItem } from '#/features/chat/components/ChatRailItem'
-import { usePresence } from '#/features/chat/stores/presenceStore'
 
 import type { ConversationListItem } from '#/shared/api/generated/model'
 
@@ -20,9 +19,6 @@ export function ConversationRailItem({
 }: ConversationRailItemProps) {
   const { counterpart, last_message_preview, unread_count } = conversation
 
-  const presenceState = usePresence(counterpart.id)
-  const online = presenceState === 'online'
-
   const preview = resolvePreview(
     last_message_preview.kind,
     last_message_preview.text,
@@ -36,7 +32,6 @@ export function ConversationRailItem({
         preview={preview}
         avatarUrl={counterpart.avatar_url ?? undefined}
         avatarFallback={fallback}
-        online={online}
         active={active}
         unread={unread_count > 0}
         variant={variant}

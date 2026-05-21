@@ -19,12 +19,14 @@ Los dos viven en este archivo porque comparten setup y tokens de auth.
 
 ```
 src/test/e2e/
-  global-setup.ts        # corre clerkSetup() si las env vars están seteadas
-  health.spec.ts         # smoke test: /health responde con payload válido
-  <flow>.spec.ts         # un archivo por flow
+  support/             # mecánica de la suite (fixtures, clerk, seeders, env)
+  poms/                # Page Object Models por superficie de UI
+  suites/<dominio>/    # tests agrupados por dominio del producto
 ```
 
-Convención de archivo: `*.spec.ts`. Vitest excluye `**/e2e/**` así que no se mezclan.
+Detalle completo del árbol y reglas en `profiles/knowledge/e2e-fixtures.md`.
+
+Convención de archivo: `*.spec.ts`. Vitest excluye `**/e2e/**` así que no se mezclan. `playwright.config.ts` apunta a `testDir: './src/test/e2e/suites'`, así nada en `support/` o `poms/` se ejecuta como test.
 
 ### Comandos
 

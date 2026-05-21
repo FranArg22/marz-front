@@ -10,7 +10,6 @@ import type {
   MessageReadBatchPayload,
   TypingStartedPayload,
   TypingStoppedPayload,
-  PresenceUpdatedPayload,
 } from '#/shared/ws/types'
 import { useChatWsListeners } from './useChatWsListeners'
 
@@ -216,38 +215,6 @@ describe('useChatWsListeners', () => {
 
     expect(onTypingStopped).toHaveBeenCalledTimes(1)
     expect(onTypingStopped).toHaveBeenCalledWith(
-      expect.objectContaining({ payload }),
-    )
-  })
-
-  it('routes presence.updated to onPresenceUpdated', () => {
-    mockWsStatus = 'open'
-    const onPresenceUpdated = vi.fn()
-
-    renderHook(
-      () =>
-        useChatWsListeners(CONVERSATION_ID, {
-          enabled: true,
-          onPresenceUpdated,
-        }),
-      { wrapper: makeWrapper() },
-    )
-
-    const payload: PresenceUpdatedPayload = {
-      conversation_id: CONVERSATION_ID,
-      counterpart_kind: 'creator_profile',
-      counterpart_id: 'cp-1',
-      state: 'online',
-    }
-
-    act(() => {
-      mockWsHandlers['identity.presence.updated']!(
-        makeEnvelope('identity.presence.updated', payload),
-      )
-    })
-
-    expect(onPresenceUpdated).toHaveBeenCalledTimes(1)
-    expect(onPresenceUpdated).toHaveBeenCalledWith(
       expect.objectContaining({ payload }),
     )
   })

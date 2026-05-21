@@ -5,8 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { ConversationDetail } from '#/features/chat/types'
 
-import { PresenceBadge } from './PresenceBadge'
-
 interface ConversationHeaderProps {
   conversation: ConversationDetail
   leadingSlot?: ReactNode
@@ -37,18 +35,15 @@ export function ConversationHeader({
           <AvatarFallback>{fallback}</AvatarFallback>
         </Avatar>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <div className="flex items-center gap-2">
-            <span className="truncate text-sm font-semibold text-foreground">
-              {counterpart.display_name}
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <span className="truncate text-sm font-semibold text-foreground">
+            {counterpart.display_name}
+          </span>
+          {counterpart.handle ? (
+            <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
+              @{counterpart.handle}
             </span>
-            {counterpart.handle ? (
-              <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
-                @{counterpart.handle}
-              </span>
-            ) : null}
-          </div>
-          <PresenceBadge accountId={counterpart.id} />
+          ) : null}
         </div>
       </header>
     </TooltipProvider>
