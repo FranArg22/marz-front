@@ -76,7 +76,7 @@ Si ves cualquiera de estas en el diff, es bloqueo salvo justificación muy sóli
 ### Herramientas a tu alcance
 
 - `git diff`, `git log`, `git show` para inspeccionar.
-- `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build` para verificar que pasa.
+- `pnpm quality-gates` (o `pnpm work:post` para incluir format/i18n) y `pnpm build` para verificar que pasa. Ver `CLAUDE.md`.
 - Playwright MCP para verificar UI si el diff toca visual/interacción. Ver `profiles/knowledge/playwright.md`.
 - Lectura de archivos del repo para entender el contexto del cambio.
 - `profiles/knowledge/knowledge.md` SI O SI antes de revisar: es el índice condicional que te dice qué knowledge cargar según lo que toque el diff.

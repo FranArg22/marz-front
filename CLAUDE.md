@@ -97,5 +97,23 @@ reporting at least 95/100.
 
 ---
 
+## Quality gates
+
+Flujo de una task:
+
+1. `pnpm work:pre` — antes de empezar. Hoy: `pnpm api:sync` (regenera cliente Orval desde el OpenAPI del backend dev).
+2. Implementación.
+3. `pnpm work:post` — al terminar, antes de commit. Encadena (en orden):
+   1. `pnpm format` — prettier --write + eslint --fix (writes).
+   2. `pnpm i18n:extract` — extrae keys i18n nuevas del código (writes catálogos `.po`).
+   3. `pnpm i18n:compile` — compila los catálogos (writes).
+   4. `pnpm quality-gates` — read-only checks: `lint` → `check` (prettier --check) → `typecheck` → `react-doctor` → `test` (vitest) → `test:e2e` (playwright) → `knip` → `check:api-direct` → `check:i18n-standards`.
+
+Todos deben pasar. Si `test:e2e` o cualquier otro check rompe, fixear la causa raíz — nunca bypassear (`--no-verify`, `eslint-disable`, `@ts-ignore` sin razón escrita).
+
+Código autogenerado (`src/shared/api/generated/`, `src/shared/api/test-generated/`, `openapi/spec.json`, `openapi/test-spec.json`, `src/routeTree.gen.ts`) **está committeado**. Después de cambiar el contrato del backend, regenerar con `pnpm api:sync` y committear el diff.
+
+---
+
 - El knowledge del proyecto está en `profiles/knowledge/knowledge.md`.
 - Cuando leas CLAUDE.md avisame que lo leiste.

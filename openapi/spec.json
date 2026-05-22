@@ -5682,9 +5682,9 @@
         }
       }
     },
-    "/v1/campaigns/{campaign_id}/videos": {
+    "/v1/videos": {
       "get": {
-        "operationId": "getCampaignVideos",
+        "operationId": "listVideos",
         "tags": [
           "campaigns"
         ],
@@ -5695,8 +5695,8 @@
         ],
         "parameters": [
           {
-            "name": "campaign_id",
-            "in": "path",
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string",
@@ -5704,9 +5704,9 @@
             }
           },
           {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
+            "name": "campaign_id",
+            "in": "query",
+            "required": false,
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -6430,9 +6430,9 @@
         }
       }
     },
-    "/v1/campaigns/{campaign_id}/participants": {
+    "/v1/creators": {
       "get": {
-        "operationId": "listCampaignParticipants",
+        "operationId": "listCreators",
         "tags": [
           "campaigns"
         ],
@@ -6443,8 +6443,8 @@
         ],
         "parameters": [
           {
-            "name": "campaign_id",
-            "in": "path",
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string",
@@ -6452,9 +6452,9 @@
             }
           },
           {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
+            "name": "campaign_id",
+            "in": "query",
+            "required": false,
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -6554,7 +6554,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required, campaign_id_invalid. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -16835,36 +16835,6 @@
                 "$ref": "#/components/schemas/WSCampaignActivityPayload"
               }
             ]
-          }
-        }
-      },
-      "WSPresenceUpdatedPayload": {
-        "type": "object",
-        "description": "Pushed on `identity.presence.updated`. One frame per affected conversation\nfrom the receiver's perspective: `counterpart_kind` + `counterpart_id`\nmatch `ConversationDetailCounterpart` returned by\n`GET /v1/conversations/{id}`.\n",
-        "required": [
-          "conversation_id",
-          "counterpart_kind",
-          "counterpart_id",
-          "state"
-        ],
-        "properties": {
-          "conversation_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "counterpart_kind": {
-            "type": "string",
-            "enum": [
-              "brand_workspace",
-              "creator_profile"
-            ]
-          },
-          "counterpart_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "state": {
-            "$ref": "#/components/schemas/PresenceState"
           }
         }
       },

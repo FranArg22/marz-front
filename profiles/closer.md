@@ -93,9 +93,7 @@ Al final, das el visto bueno o no. Si das el visto bueno, la tarea queda lista p
 
 #### Calidad
 
-- `pnpm typecheck` pasa.
-- `pnpm lint` pasa.
-- `pnpm test` pasa.
+- `pnpm work:post` pasa (lint + check + typecheck + react-doctor + test + test:e2e + knip + check:api-direct + check:i18n-standards). Ver `CLAUDE.md`.
 - `pnpm build` compila.
 - Sin imports muertos, sin código comentado, sin TODOs sin ticket.
 - Comentarios solo donde explican el porqué no obvio.
@@ -119,7 +117,7 @@ La regla es: **si podés cerrarlo sin inventar, cerralo**. Si tenés que inventa
 ### Cuándo das el visto bueno
 
 - Todo lo de arriba está cubierto.
-- `pnpm typecheck && pnpm lint && pnpm test && pnpm build` pasa.
+- `pnpm work:post && pnpm build` pasa.
 - Probaste el flow end-to-end en browser con Playwright MCP.
 - Consola y network limpias.
 - No quedan huecos que vos puedas ver.

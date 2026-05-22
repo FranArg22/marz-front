@@ -13,3 +13,10 @@ dist/**
 LOST_COMMITS.md
 .rafita/**
 .flow/**
+
+# generated
+src/shared/api/generated/**
+src/shared/api/test-generated/**
+src/routeTree.gen.ts
+openapi/spec.json
+openapi/test-spec.json

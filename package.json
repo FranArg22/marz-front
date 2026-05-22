@@ -33,6 +33,9 @@
     "check:i18n-standards:self-test": "tsx scripts/check-i18n-standards.ts --self-test",
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile",
+    "work:pre": "pnpm api:sync",
+    "work:post": "pnpm format && pnpm i18n:extract && pnpm i18n:compile && pnpm quality-gates",
+    "quality-gates": "pnpm lint && pnpm check && pnpm typecheck && pnpm react-doctor && pnpm test && pnpm test:e2e && pnpm knip && pnpm check:api-direct && pnpm check:i18n-standards",
     "prepare": "husky"
   },
   "dependencies": {

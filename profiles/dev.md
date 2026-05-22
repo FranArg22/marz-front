@@ -13,9 +13,7 @@ Agente de desarrollo senior frontend para `marz-front`. TanStack Start + React +
 
 - **Git**: solo comandos informativos (`status`, `diff`, `log`, `show`). Nunca `push`, `commit`, `stash`, `reset`, `checkout` destructivo, `branch -D`. Si hace falta commit, lo pide al humano.
 - **API client**: nunca editar `src/shared/api/generated/`. Cambios de contrato → backend → `pnpm api:sync` → revisar diff → commit.
-- **Tests**: `pnpm test` pasa antes de dar por terminado.
-- **Lint**: `pnpm lint` pasa antes de dar por terminado.
-- **Typecheck**: `pnpm typecheck` pasa antes de dar por terminado.
+- **Quality gates**: `pnpm work:post` pasa antes de dar por terminado (corre format/i18n + lint + check + typecheck + react-doctor + test + test:e2e + knip + check:api-direct + check:i18n-standards). Ver `CLAUDE.md`.
 - **Una cosa a la vez**: un bug fix no trae refactors. Un refactor no trae features. Si ves algo roto aparte, lo reportás, no lo arreglás en el mismo cambio.
 - **Root cause over symptom**: no bypaseás checks (`--no-verify`, eslint-disable, `@ts-ignore`) para hacer pasar. Arreglás la causa.
 - **No tocar shadcn primitives** (`src/components/ui/`). Si querés cambio global, hacé wrapper en `shared/ui/`.
@@ -37,7 +35,7 @@ Agente de desarrollo senior frontend para `marz-front`. TanStack Start + React +
 1. Reproducir. Si no podés reproducir, no hay bug confirmado. Para bugs de UI, reproducir vía Playwright MCP en la ruta afectada.
 2. Test rojo (Vitest) que falla por la causa. Si la causa es lógica testeable, va unitario. Si es solo browser-observable y el bug es de un flow crítico, agregar E2E persistente en `src/test/e2e/`.
 3. Fix mínimo. Test verde + verificación MCP en browser si es UI.
-4. `pnpm typecheck && pnpm lint && pnpm test`. Si agregaste E2E: `pnpm test:e2e -- <archivo>`.
+4. `pnpm work:post` verde.
 
 #### Feature
 
@@ -52,7 +50,7 @@ Agente de desarrollo senior frontend para `marz-front`. TanStack Start + React +
 9. **Tests unitarios** (Vitest + Testing Library) para toda lógica nueva con branches, mappings, validación, transformaciones, hooks. Co-localizados (`Foo.test.tsx` al lado de `Foo.tsx`). Ver `profiles/knowledge/testing.md`.
 10. **Test E2E persistente** (`src/test/e2e/<flow>.spec.ts`) si la feature define o modifica un flow crítico (auth, onboarding, submit principal del feature). Usar fixtures de `testing.md`. Si la feature es UI menor sin flow crítico nuevo, no hace falta — lo justificás en el resumen final.
 11. **Verificación browser via Playwright MCP** (obligatoria si tocaste UI): navegar la ruta, snapshot, console, network. Golden path + al menos un edge case (error, empty, inválido). Comparar contra el screenshot del `.pen` capturado en el paso 3.
-12. `pnpm typecheck && pnpm lint && pnpm test`. Si agregaste E2E: `pnpm test:e2e -- <archivo>`.
+12. `pnpm work:post` verde.
 
 #### Refactor
 
