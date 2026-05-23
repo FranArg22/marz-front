@@ -33,8 +33,7 @@ interface PillContent {
 
 export function BillingTopbarPill() {
   const meQuery = useMe()
-  const kind =
-    meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
+  const kind = meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
 
   const subscriptionQuery = useBillingSubscription({
     staleTime: 60_000,
@@ -135,8 +134,7 @@ function resolvePillContent(sub: BillingSubscription): PillContent | null {
       state: 'past_due',
       label: t`Tu cobro falló — actualizá la tarjeta`,
       tooltip: t`Hubo un problema con el último cobro. Abrí el portal para actualizar la tarjeta.`,
-      className:
-        'bg-destructive/10 text-destructive hover:bg-destructive/15',
+      className: 'bg-destructive/10 text-destructive hover:bg-destructive/15',
       icon: CircleAlert,
     }
   }

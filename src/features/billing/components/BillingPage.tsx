@@ -21,8 +21,10 @@ const dateTimeFormatter = new Intl.DateTimeFormat('es-AR', {
   day: '2-digit',
   month: 'short',
   year: 'numeric',
+  /* eslint-disable lingui/no-unlocalized-strings -- Intl format option values, not user-facing copy. */
   hour: '2-digit',
   minute: '2-digit',
+  /* eslint-enable lingui/no-unlocalized-strings */
 })
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -59,7 +61,10 @@ export function BillingPage() {
         role="status"
         aria-label={t`Cargando suscripción`}
       >
-        <Loader2 aria-hidden="true" className="size-6 animate-spin text-muted-foreground" />
+        <Loader2
+          aria-hidden="true"
+          className="size-6 animate-spin text-muted-foreground"
+        />
       </div>
     )
   }
@@ -110,10 +115,7 @@ function TrialingView({ subscription }: BillingPageContentProps) {
 
   return (
     <BillingShell>
-      <Header
-        title={t`Estás en período de prueba`}
-        description={countdown}
-      />
+      <Header title={t`Estás en período de prueba`} description={countdown} />
       <DetailsCard subscription={subscription} />
       <ManagePortalButton variant="default" />
     </BillingShell>
@@ -238,10 +240,7 @@ function DetailsCard({
           }
         />
         {!hideNextInvoice && nextAmount && nextAt ? (
-          <Row
-            label={t`Próximo cobro`}
-            value={`${nextAmount} · ${nextAt}`}
-          />
+          <Row label={t`Próximo cobro`} value={`${nextAmount} · ${nextAt}`} />
         ) : null}
       </CardContent>
     </Card>

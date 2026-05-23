@@ -85,7 +85,11 @@ export function B13PaywallScreen() {
     return <PaywallSkeleton />
   }
 
-  if (plansQuery.isError || !plansQuery.data || plansQuery.data.status !== 200) {
+  if (
+    plansQuery.isError ||
+    !plansQuery.data ||
+    plansQuery.data.status !== 200
+  ) {
     return (
       <div
         role="alert"

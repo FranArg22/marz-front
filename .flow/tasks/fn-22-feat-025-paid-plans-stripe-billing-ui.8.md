@@ -37,8 +37,7 @@ Extraer y compilar los catálogos i18n con todos los strings billing nuevos intr
 - `pnpm work:post` completo pasa (lint, check, typecheck, react-doctor, vitest, e2e, knip, check:api-direct, check:i18n-standards).
 - Verify: `pnpm work:post`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.8; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

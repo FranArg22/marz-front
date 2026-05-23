@@ -70,7 +70,12 @@ interface IntervalTabProps {
   label: string
 }
 
-function IntervalTab({ interval, selected, onSelect, label }: IntervalTabProps) {
+function IntervalTab({
+  interval,
+  selected,
+  onSelect,
+  label,
+}: IntervalTabProps) {
   return (
     <button
       type="button"

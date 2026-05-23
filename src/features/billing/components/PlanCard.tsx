@@ -43,7 +43,9 @@ export function PlanCard({
       className={cn(
         'relative flex w-[260px] flex-col gap-4 rounded-2xl border bg-card p-6 text-left transition-colors',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-        selected ? 'border-primary' : 'border-border hover:border-foreground/30',
+        selected
+          ? 'border-primary'
+          : 'border-border hover:border-foreground/30',
       )}
     >
       {highlightLabel ? (
@@ -60,7 +62,9 @@ export function PlanCard({
         <span className="text-4xl font-semibold leading-none tracking-tight text-foreground">
           {priceFormatter.format(amountUsd)}
         </span>
-        <span className="pb-1 text-xs text-muted-foreground">{intervalLabel}</span>
+        <span className="pb-1 text-xs text-muted-foreground">
+          {intervalLabel}
+        </span>
       </div>
 
       <span

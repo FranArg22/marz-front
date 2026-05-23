@@ -10,10 +10,7 @@ import { z } from 'zod'
 
 import { useBillingSubscription } from '#/features/billing/hooks/useBillingSubscription'
 import { useBrandOnboardingStore } from '#/features/identity/onboarding/brand/store'
-import {
-  STEPS,
-  getStepId,
-} from '#/features/identity/onboarding/brand/steps'
+import { STEPS, getStepId } from '#/features/identity/onboarding/brand/steps'
 
 const TIMEOUT_MS = 30_000
 const POLL_INTERVAL_MS = 2_000

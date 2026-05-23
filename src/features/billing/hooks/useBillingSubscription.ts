@@ -8,7 +8,9 @@ export interface UseBillingSubscriptionOptions {
   enabled?: boolean
 }
 
-export function useBillingSubscription(options?: UseBillingSubscriptionOptions) {
+export function useBillingSubscription(
+  options?: UseBillingSubscriptionOptions,
+) {
   return useGetBillingSubscription({
     query: {
       staleTime: options?.staleTime ?? 60_000,
