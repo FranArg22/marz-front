@@ -1734,6 +1734,16 @@
               }
             }
           },
+          "402": {
+            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. Possible codes: forbidden_role, forbidden_workspace. See §4.1.8.",
             "content": {
@@ -6665,6 +6675,16 @@
               }
             }
           },
+          "402": {
+            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
             "content": {
@@ -6779,6 +6799,16 @@
           },
           "401": {
             "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6909,6 +6939,16 @@
               }
             }
           },
+          "402": {
+            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
             "content": {
@@ -7025,6 +7065,16 @@
           },
           "401": {
             "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8389,6 +8439,410 @@
           }
         }
       }
+    },
+    "/v1/billing/plans": {
+      "get": {
+        "operationId": "listBillingPlans",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingPlansResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/subscription": {
+      "get": {
+        "operationId": "getBillingSubscription",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingSubscription"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/checkout-sessions": {
+      "post": {
+        "operationId": "createBillingCheckoutSession",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingCheckoutSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCheckoutSessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: subscription_already_active, idempotency_conflict. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_plan, validation.invalid_interval, validation.invalid_url. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/portal-sessions": {
+      "post": {
+        "operationId": "createBillingPortalSession",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingPortalSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingPortalSessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_url. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/webhooks/stripe": {
+      "post": {
+        "operationId": "receiveStripeWebhook",
+        "tags": [
+          "billing"
+        ],
+        "description": "Webhook endpoint invoked by Stripe to deliver subscription/customer events. Authenticated\nvia the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by\nbearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are\nno-ops. Returns 200 on accepted events (including duplicates) and 401 when the signature\ndoes not match the configured endpoint secret.\n",
+        "security": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Stripe-Signature",
+            "required": true,
+            "description": "HMAC signature header populated by Stripe.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Raw Stripe event payload. Body is consumed verbatim for signature verification.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event accepted (or duplicate ignored)."
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_payload. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: invalid_signature. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -9592,6 +10046,11 @@
           },
           "plan": {
             "type": "string"
+          },
+          "trial_consumed": {
+            "type": "boolean",
+            "readOnly": true,
+            "description": "Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n"
           }
         }
       },
@@ -12118,6 +12577,238 @@
                 "$ref": "#/components/schemas/DeliverableChangedWSPayload"
               }
             ]
+          }
+        }
+      },
+      "BillingPlanIdentifier": {
+        "type": "string",
+        "enum": [
+          "starter",
+          "growth",
+          "scale"
+        ],
+        "description": "Paid plan identifier. Free plan has no row in billing_plans."
+      },
+      "BillingInterval": {
+        "type": "string",
+        "enum": [
+          "month",
+          "year"
+        ]
+      },
+      "BillingSubscriptionStatus": {
+        "type": "string",
+        "enum": [
+          "trialing",
+          "active",
+          "past_due",
+          "unpaid",
+          "canceled"
+        ]
+      },
+      "BillingPlan": {
+        "type": "object",
+        "required": [
+          "plan",
+          "interval",
+          "amount_usd",
+          "stripe_price_id"
+        ],
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/BillingPlanIdentifier"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/BillingInterval"
+          },
+          "amount_usd": {
+            "type": "string",
+            "description": "Decimal string with two fractional digits, e.g. 49.00"
+          },
+          "stripe_price_id": {
+            "type": "string"
+          }
+        }
+      },
+      "BillingPlansResponse": {
+        "type": "object",
+        "required": [
+          "plans"
+        ],
+        "properties": {
+          "plans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingPlan"
+            }
+          }
+        }
+      },
+      "BillingCardSummary": {
+        "type": "object",
+        "required": [
+          "brand",
+          "last4"
+        ],
+        "properties": {
+          "brand": {
+            "type": "string"
+          },
+          "last4": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 4
+          }
+        }
+      },
+      "BillingSubscription": {
+        "type": "object",
+        "required": [
+          "plan",
+          "interval",
+          "status",
+          "in_trial",
+          "current_period_start",
+          "current_period_end",
+          "cancel_at_period_end"
+        ],
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/BillingPlanIdentifier"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/BillingInterval"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BillingSubscriptionStatus"
+          },
+          "in_trial": {
+            "type": "boolean"
+          },
+          "trial_ends_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "current_period_start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "current_period_end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "cancel_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancel_at_period_end": {
+            "type": "boolean"
+          },
+          "card": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BillingCardSummary"
+              }
+            ],
+            "nullable": true
+          },
+          "next_invoice_amount_usd": {
+            "type": "string",
+            "nullable": true,
+            "description": "Decimal string with two fractional digits, null when not applicable (e.g. canceled)."
+          },
+          "next_invoice_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "days_until_trial_ends": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Days remaining in trial; null when not trialing."
+          },
+          "days_until_downgrade": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Days until downgrade either by past_due (7-day grace) or scheduled cancel_at_period_end. Null otherwise."
+          }
+        }
+      },
+      "BillingCheckoutSessionRequest": {
+        "type": "object",
+        "required": [
+          "plan",
+          "interval",
+          "success_url",
+          "cancel_url"
+        ],
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/BillingPlanIdentifier"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/BillingInterval"
+          },
+          "success_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute https URL Stripe redirects to after success."
+          },
+          "cancel_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute https URL Stripe redirects to on cancel."
+          }
+        }
+      },
+      "BillingCheckoutSessionResponse": {
+        "type": "object",
+        "required": [
+          "checkout_url",
+          "session_id",
+          "expires_at"
+        ],
+        "properties": {
+          "checkout_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BillingPortalSessionRequest": {
+        "type": "object",
+        "properties": {
+          "return_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "Absolute https URL to return to. Defaults to <app-url>/billing."
+          }
+        }
+      },
+      "BillingPortalSessionResponse": {
+        "type": "object",
+        "required": [
+          "portal_url",
+          "expires_at"
+        ],
+        "properties": {
+          "portal_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },

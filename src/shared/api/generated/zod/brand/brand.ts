@@ -113,3 +113,56 @@ export const ExportBrandWorkspacePaymentsSpendingCSVQueryParams = zod.object({
   "q": zod.string().max(exportBrandWorkspacePaymentsSpendingCSVQueryQMax).optional()
 })
 
+export const ListBillingPlansResponse = zod.object({
+  "plans": zod.array(zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
+  "interval": zod.enum(['month', 'year']),
+  "amount_usd": zod.string().describe('Decimal string with two fractional digits, e.g. 49.00'),
+  "stripe_price_id": zod.string()
+}))
+})
+
+export const getBillingSubscriptionResponseCardOneLast4Min = 4;
+export const getBillingSubscriptionResponseCardOneLast4Max = 4;
+
+
+
+export const GetBillingSubscriptionResponse = zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
+  "interval": zod.enum(['month', 'year']),
+  "status": zod.enum(['trialing', 'active', 'past_due', 'unpaid', 'canceled']),
+  "in_trial": zod.boolean(),
+  "trial_ends_at": zod.iso.datetime({}).nullish(),
+  "current_period_start": zod.iso.datetime({}),
+  "current_period_end": zod.iso.datetime({}),
+  "cancel_at": zod.iso.datetime({}).nullish(),
+  "cancel_at_period_end": zod.boolean(),
+  "card": zod.object({
+  "brand": zod.string(),
+  "last4": zod.string().min(getBillingSubscriptionResponseCardOneLast4Min).max(getBillingSubscriptionResponseCardOneLast4Max)
+}).nullish(),
+  "next_invoice_amount_usd": zod.string().nullish().describe('Decimal string with two fractional digits, null when not applicable (e.g. canceled).'),
+  "next_invoice_at": zod.iso.datetime({}).nullish(),
+  "days_until_trial_ends": zod.number().nullish().describe('Days remaining in trial; null when not trialing.'),
+  "days_until_downgrade": zod.number().nullish().describe('Days until downgrade either by past_due (7-day grace) or scheduled cancel_at_period_end. Null otherwise.')
+})
+
+export const CreateBillingCheckoutSessionHeader = zod.object({
+  "Idempotency-Key": zod.uuid()
+})
+
+export const CreateBillingCheckoutSessionBody = zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
+  "interval": zod.enum(['month', 'year']),
+  "success_url": zod.url().describe('Absolute https URL Stripe redirects to after success.'),
+  "cancel_url": zod.url().describe('Absolute https URL Stripe redirects to on cancel.')
+})
+
+export const CreateBillingPortalSessionHeader = zod.object({
+  "Idempotency-Key": zod.uuid()
+})
+
+export const CreateBillingPortalSessionBody = zod.object({
+  "return_url": zod.url().nullish().describe('Absolute https URL to return to. Defaults to <app-url>\/billing.')
+})
+

@@ -3241,6 +3241,11 @@ export type contactCampaignDiscoveryMatchResponse401 = {
   status: 401
 }
 
+export type contactCampaignDiscoveryMatchResponse402 = {
+  data: Error
+  status: 402
+}
+
 export type contactCampaignDiscoveryMatchResponse403 = {
   data: Error
   status: 403
@@ -3264,7 +3269,7 @@ export type contactCampaignDiscoveryMatchResponse422 = {
 export type contactCampaignDiscoveryMatchResponseSuccess = (contactCampaignDiscoveryMatchResponse200) & {
   headers: Headers;
 };
-export type contactCampaignDiscoveryMatchResponseError = (contactCampaignDiscoveryMatchResponse400 | contactCampaignDiscoveryMatchResponse401 | contactCampaignDiscoveryMatchResponse403 | contactCampaignDiscoveryMatchResponse404 | contactCampaignDiscoveryMatchResponse409 | contactCampaignDiscoveryMatchResponse422) & {
+export type contactCampaignDiscoveryMatchResponseError = (contactCampaignDiscoveryMatchResponse400 | contactCampaignDiscoveryMatchResponse401 | contactCampaignDiscoveryMatchResponse402 | contactCampaignDiscoveryMatchResponse403 | contactCampaignDiscoveryMatchResponse404 | contactCampaignDiscoveryMatchResponse409 | contactCampaignDiscoveryMatchResponse422) & {
   headers: Headers;
 };
 
@@ -3352,6 +3357,11 @@ export type acceptCampaignDiscoveryApplicationResponse401 = {
   status: 401
 }
 
+export type acceptCampaignDiscoveryApplicationResponse402 = {
+  data: Error
+  status: 402
+}
+
 export type acceptCampaignDiscoveryApplicationResponse403 = {
   data: Error
   status: 403
@@ -3375,7 +3385,7 @@ export type acceptCampaignDiscoveryApplicationResponse422 = {
 export type acceptCampaignDiscoveryApplicationResponseSuccess = (acceptCampaignDiscoveryApplicationResponse200) & {
   headers: Headers;
 };
-export type acceptCampaignDiscoveryApplicationResponseError = (acceptCampaignDiscoveryApplicationResponse400 | acceptCampaignDiscoveryApplicationResponse401 | acceptCampaignDiscoveryApplicationResponse403 | acceptCampaignDiscoveryApplicationResponse404 | acceptCampaignDiscoveryApplicationResponse409 | acceptCampaignDiscoveryApplicationResponse422) & {
+export type acceptCampaignDiscoveryApplicationResponseError = (acceptCampaignDiscoveryApplicationResponse400 | acceptCampaignDiscoveryApplicationResponse401 | acceptCampaignDiscoveryApplicationResponse402 | acceptCampaignDiscoveryApplicationResponse403 | acceptCampaignDiscoveryApplicationResponse404 | acceptCampaignDiscoveryApplicationResponse409 | acceptCampaignDiscoveryApplicationResponse422) & {
   headers: Headers;
 };
 
@@ -3461,6 +3471,11 @@ export type rejectCampaignDiscoveryApplicationResponse401 = {
   status: 401
 }
 
+export type rejectCampaignDiscoveryApplicationResponse402 = {
+  data: Error
+  status: 402
+}
+
 export type rejectCampaignDiscoveryApplicationResponse403 = {
   data: Error
   status: 403
@@ -3484,7 +3499,7 @@ export type rejectCampaignDiscoveryApplicationResponse422 = {
 export type rejectCampaignDiscoveryApplicationResponseSuccess = (rejectCampaignDiscoveryApplicationResponse200) & {
   headers: Headers;
 };
-export type rejectCampaignDiscoveryApplicationResponseError = (rejectCampaignDiscoveryApplicationResponse400 | rejectCampaignDiscoveryApplicationResponse401 | rejectCampaignDiscoveryApplicationResponse403 | rejectCampaignDiscoveryApplicationResponse404 | rejectCampaignDiscoveryApplicationResponse409 | rejectCampaignDiscoveryApplicationResponse422) & {
+export type rejectCampaignDiscoveryApplicationResponseError = (rejectCampaignDiscoveryApplicationResponse400 | rejectCampaignDiscoveryApplicationResponse401 | rejectCampaignDiscoveryApplicationResponse402 | rejectCampaignDiscoveryApplicationResponse403 | rejectCampaignDiscoveryApplicationResponse404 | rejectCampaignDiscoveryApplicationResponse409 | rejectCampaignDiscoveryApplicationResponse422) & {
   headers: Headers;
 };
 
@@ -3570,6 +3585,11 @@ export type createCampaignDiscoveryInviteResponse401 = {
   status: 401
 }
 
+export type createCampaignDiscoveryInviteResponse402 = {
+  data: Error
+  status: 402
+}
+
 export type createCampaignDiscoveryInviteResponse403 = {
   data: Error
   status: 403
@@ -3593,7 +3613,7 @@ export type createCampaignDiscoveryInviteResponse422 = {
 export type createCampaignDiscoveryInviteResponseSuccess = (createCampaignDiscoveryInviteResponse201) & {
   headers: Headers;
 };
-export type createCampaignDiscoveryInviteResponseError = (createCampaignDiscoveryInviteResponse400 | createCampaignDiscoveryInviteResponse401 | createCampaignDiscoveryInviteResponse403 | createCampaignDiscoveryInviteResponse404 | createCampaignDiscoveryInviteResponse409 | createCampaignDiscoveryInviteResponse422) & {
+export type createCampaignDiscoveryInviteResponseError = (createCampaignDiscoveryInviteResponse400 | createCampaignDiscoveryInviteResponse401 | createCampaignDiscoveryInviteResponse402 | createCampaignDiscoveryInviteResponse403 | createCampaignDiscoveryInviteResponse404 | createCampaignDiscoveryInviteResponse409 | createCampaignDiscoveryInviteResponse422) & {
   headers: Headers;
 };
 

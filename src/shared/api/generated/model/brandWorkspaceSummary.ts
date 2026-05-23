@@ -24,4 +24,9 @@ export interface BrandWorkspaceSummary {
   /** @nullable */
   website_url?: string | null;
   plan: string;
+  /** Whether this workspace has already consumed its trial allotment. Server-managed:
+  flips to true the first time a paid subscription starts in trial, and stays true
+  forever — preventing repeated trial reactivations after downgrade or cancellation.
+   */
+  readonly trial_consumed?: boolean;
 }
