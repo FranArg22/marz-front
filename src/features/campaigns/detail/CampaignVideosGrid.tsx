@@ -32,7 +32,7 @@ import { useCampaignVideosQuery } from './videos/useCampaignVideosQuery'
 
 export type CampaignVideosGridScope =
   | { type: 'campaign'; campaignId: string }
-  | { type: 'global'; brandWorkspaceId: string }
+  | { type: 'global' }
 
 interface CampaignVideosGridProps {
   scope: CampaignVideosGridScope

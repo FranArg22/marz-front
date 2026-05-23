@@ -40,8 +40,7 @@ El backend `marz-api` debe estar corriendo en dev con los endpoints y schemas bi
 - Cero ediciones manuales a `src/shared/api/generated/**` (verificable por diff).
 - Verify: `pnpm typecheck && test -d src/features/billing/components && test -d src/features/billing/hooks`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

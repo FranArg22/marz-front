@@ -33,7 +33,7 @@ import type { CampaignParticipantsParams } from './creators/useCampaignParticipa
 
 export type CampaignCreatorsTableScope =
   | { type: 'campaign'; campaignId: string; allowsInPlatformInvites: boolean }
-  | { type: 'global'; brandWorkspaceId: string }
+  | { type: 'global' }
 
 interface CampaignCreatorsTableProps {
   scope: CampaignCreatorsTableScope

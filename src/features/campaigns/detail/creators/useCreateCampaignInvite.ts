@@ -7,6 +7,8 @@ import type { CreateCampaignInviteRequest } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import { useIdempotencyKey, withIdempotencyKey } from '#/shared/api/idempotency'
 
+import { matchesCreatorsQueryForCampaign } from './useCampaignParticipantsQuery'
+
 export function useCreateCampaignInvite(campaignId: string) {
   const queryClient = useQueryClient()
   const idempotency = useIdempotencyKey<CreateCampaignInviteRequest>((data) =>
@@ -35,7 +37,7 @@ export function useCreateCampaignInvite(campaignId: string) {
       toast.success(t`Invitación enviada`)
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ['campaign', campaignId, 'participants'],
+          predicate: matchesCreatorsQueryForCampaign(campaignId),
         }),
         queryClient.invalidateQueries({
           queryKey: ['campaign', campaignId, 'discovery'],

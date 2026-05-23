@@ -163,7 +163,7 @@ function CampaignDetailShell({
   children: ReactNode
 }) {
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-y-auto bg-background">
+    <div className="flex min-h-full flex-col bg-background">
       {header}
       <CampaignDetailTabs activeTab={tab} onTabChange={onTabChange} />
       <main className="flex-1 bg-muted/30 px-5 py-5 md:px-8 md:py-6">

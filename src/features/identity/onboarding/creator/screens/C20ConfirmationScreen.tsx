@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
-import { STEPS, getStepId } from '../steps'
+import { getStepId, getStepIndex } from '../steps'
 import { COUNTRIES } from '../countries'
 
 /* eslint-disable lingui/no-unlocalized-strings */
@@ -110,7 +110,7 @@ export function C20ConfirmationScreen() {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
 
   const goBack = () => {
-    const prevIndex = Math.max(0, STEPS.length - 2)
+    const prevIndex = Math.max(0, getStepIndex('confirmation') - 1)
     void navigate({
       to: '/onboarding/creator/$step',
       params: { step: getStepId(prevIndex) },

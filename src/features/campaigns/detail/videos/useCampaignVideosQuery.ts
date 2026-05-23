@@ -22,6 +22,19 @@ function videosQueryKey(
   return ['videos', { campaignId, ...params }] as const
 }
 
+export function matchesVideosQueryForCampaign(campaignId: string) {
+  return (query: { queryKey: readonly unknown[] }) => {
+    if (query.queryKey[0] !== 'videos') return false
+    const params = query.queryKey[1]
+    return (
+      typeof params === 'object' &&
+      params !== null &&
+      'campaignId' in params &&
+      (params as { campaignId?: string }).campaignId === campaignId
+    )
+  }
+}
+
 function videosQueryOptions(
   campaignId: string | undefined,
   params: CampaignVideosParams,

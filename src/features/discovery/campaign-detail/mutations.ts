@@ -6,7 +6,6 @@ import {
   acceptCampaignDiscoveryApplication,
   contactCampaignDiscoveryMatch,
   createCampaignDiscoveryInvite,
-  getListCreatorsQueryKey,
   rejectCampaignDiscoveryApplication,
 } from '#/shared/api/generated/campaigns/campaigns'
 import type {
@@ -21,6 +20,8 @@ import {
 } from '#/shared/analytics/discoveryTracking'
 import { ApiError } from '#/shared/api/mutator'
 import { useIdempotencyKey, withIdempotencyKey } from '#/shared/api/idempotency'
+
+import { matchesCreatorsQueryForCampaign } from '#/features/campaigns/detail/creators/useCampaignParticipantsQuery'
 
 import { getCampaignDiscoveryQueryKey } from './queries'
 
@@ -223,7 +224,7 @@ async function invalidateDiscovery(
     }),
     options.participants
       ? queryClient.invalidateQueries({
-          queryKey: getListCreatorsQueryKey({ campaign_id: campaignId }),
+          predicate: matchesCreatorsQueryForCampaign(campaignId),
         })
       : Promise.resolve(),
   ])

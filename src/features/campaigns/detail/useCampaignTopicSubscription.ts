@@ -12,6 +12,8 @@ import { useWebSocket } from '#/shared/ws/useWebSocket'
 import type { DomainEventEnvelope, EventHandler } from '#/shared/ws/events'
 
 import type { DiscoverySection } from './tracking'
+import { matchesCreatorsQueryForCampaign } from './creators/useCampaignParticipantsQuery'
+import { matchesVideosQueryForCampaign } from './videos/useCampaignVideosQuery'
 import { campaignOverviewQueryKey } from './useCampaignOverviewQuery'
 
 const MAX_SEEN_EVENTS = 200
@@ -167,7 +169,7 @@ function handleParticipantsUpdated(
   campaignId: string,
 ) {
   void queryClient.invalidateQueries({
-    queryKey: ['campaign', campaignId, 'participants'],
+    predicate: matchesCreatorsQueryForCampaign(campaignId),
   })
   void queryClient.invalidateQueries({
     queryKey: campaignOverviewQueryKey(campaignId),
@@ -176,7 +178,7 @@ function handleParticipantsUpdated(
 
 function handleVideosUpdated(queryClient: QueryClient, campaignId: string) {
   void queryClient.invalidateQueries({
-    queryKey: ['campaign', campaignId, 'videos'],
+    predicate: matchesVideosQueryForCampaign(campaignId),
   })
   void queryClient.invalidateQueries({
     queryKey: campaignOverviewQueryKey(campaignId),

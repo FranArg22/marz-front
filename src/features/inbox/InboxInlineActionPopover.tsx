@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
 import { Textarea } from '#/components/ui/textarea'
+import { matchesCreatorsQueryForCampaign } from '#/features/campaigns/detail/creators/useCampaignParticipantsQuery'
 import { useSendMessageMutation } from '#/features/chat/mutations/useSendMessageMutation'
 import { generateClientMessageId } from '#/features/chat/utils/clientMessageId'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
@@ -16,7 +17,6 @@ import {
 } from '#/shared/api/idempotency'
 import {
   acceptCampaignDiscoveryApplication,
-  getListCreatorsQueryKey,
   rejectCampaignDiscoveryApplication,
 } from '#/shared/api/generated/campaigns/campaigns'
 import type {
@@ -459,7 +459,7 @@ function ApplicationActionControl({
           queryKey: ['campaign', params.campaignId, 'discovery'],
         }),
         queryClient.invalidateQueries({
-          queryKey: getListCreatorsQueryKey({ campaign_id: params.campaignId }),
+          predicate: matchesCreatorsQueryForCampaign(params.campaignId),
         }),
       ])
       trackInboxInlineCompleted({

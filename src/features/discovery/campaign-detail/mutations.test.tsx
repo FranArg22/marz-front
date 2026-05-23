@@ -46,11 +46,6 @@ vi.mock('#/shared/api/generated/campaigns/campaigns', () => ({
   acceptCampaignDiscoveryApplication: vi.fn(),
   contactCampaignDiscoveryMatch: vi.fn(),
   createCampaignDiscoveryInvite: vi.fn(),
-  getListCreatorsQueryKey: vi.fn((campaignId: string) => [
-    'campaign',
-    campaignId,
-    'participants',
-  ]),
   rejectCampaignDiscoveryApplication: vi.fn(),
 }))
 
