@@ -1,0 +1,19 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:36.852771Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.4",
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.5",
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.6",
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.7"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.8.md",
+  "status": "todo",
+  "title": "i18n strings billing (Lingui es-AR + en-US)",
+  "updated_at": "2026-05-23T16:00:32.171255Z"
+}

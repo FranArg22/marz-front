@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:35.750668Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.1"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.2",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.2.md",
+  "status": "todo",
+  "title": "Hooks de data billing (4 hooks Orval-backed)",
+  "updated_at": "2026-05-23T15:57:24.081991Z"
+}

@@ -1,0 +1,18 @@
+{
+  "branch_name": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "completion_review_status": "unknown",
+  "completion_reviewed_at": null,
+  "created_at": "2026-05-23T15:55:42.101696Z",
+  "default_impl": null,
+  "default_review": null,
+  "default_sync": null,
+  "depends_on_epics": [],
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-22-feat-025-paid-plans-stripe-billing-ui.md",
+  "status": "open",
+  "title": "feat-025 paid plans Stripe billing UI",
+  "updated_at": "2026-05-23T15:56:23.458366Z"
+}

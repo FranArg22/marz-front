@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:36.476432Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.2"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.6.md",
+  "status": "todo",
+  "title": "BillingTopbarPill (3 estados + portal CTA)",
+  "updated_at": "2026-05-23T15:59:34.486338Z"
+}

@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:36.282531Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.4"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.5",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.5.md",
+  "status": "todo",
+  "title": "Billing callback page con poll de subscription",
+  "updated_at": "2026-05-23T15:58:58.759666Z"
+}
