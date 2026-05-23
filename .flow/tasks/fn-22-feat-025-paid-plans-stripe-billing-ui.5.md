@@ -69,8 +69,7 @@ Requiere backend dev con Stripe test mode configurado (anexo `stripe-account-set
 - E2E pasa contra backend dev con Stripe test mode.
 - Verify: `pnpm vitest run src/routes/onboarding/brand.billing-callback && pnpm test:e2e src/test/e2e/onboarding-brand-paywall.spec.ts && pnpm lint && pnpm typecheck && pnpm react-doctor`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
