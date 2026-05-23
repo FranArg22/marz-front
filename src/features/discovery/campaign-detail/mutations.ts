@@ -6,7 +6,7 @@ import {
   acceptCampaignDiscoveryApplication,
   contactCampaignDiscoveryMatch,
   createCampaignDiscoveryInvite,
-  getListCampaignParticipantsQueryKey,
+  getListCreatorsQueryKey,
   rejectCampaignDiscoveryApplication,
 } from '#/shared/api/generated/campaigns/campaigns'
 import type {
@@ -223,7 +223,7 @@ async function invalidateDiscovery(
     }),
     options.participants
       ? queryClient.invalidateQueries({
-          queryKey: getListCampaignParticipantsQueryKey(campaignId),
+          queryKey: getListCreatorsQueryKey({ campaign_id: campaignId }),
         })
       : Promise.resolve(),
   ])

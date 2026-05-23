@@ -3,11 +3,11 @@ import {
   Briefcase,
   BriefcaseBusiness,
   DollarSign,
-  Home,
   Inbox,
   Megaphone,
   MessageSquare,
   Users,
+  Video,
   Wallet,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -32,11 +32,11 @@ const iconByName: Record<string, LucideIcon> = {
   briefcase: Briefcase,
   'briefcase-business': BriefcaseBusiness,
   'dollar-sign': DollarSign,
-  home: Home,
   inbox: Inbox,
   megaphone: Megaphone,
   'message-square': MessageSquare,
   users: Users,
+  video: Video,
   wallet: Wallet,
 }
 

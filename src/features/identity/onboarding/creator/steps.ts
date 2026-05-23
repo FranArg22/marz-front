@@ -100,8 +100,11 @@ export const STEPS: CreatorOnboardingStep[] = [
   {
     id: 'birthday',
     component: C11BirthdayScreen,
-    validate: (s) =>
-      typeof s.birthday === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s.birthday),
+    validate: (s) => {
+      if (typeof s.birthday !== 'string') return false
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(s.birthday)) return false
+      return isAtLeast18(s.birthday)
+    },
   },
   {
     id: 'gender',
@@ -143,6 +146,21 @@ export const STEPS: CreatorOnboardingStep[] = [
     component: C20ConfirmationScreen,
   },
 ]
+
+export function isAtLeast18(birthday: string): boolean {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(birthday)
+  if (!match) return false
+  const [, y, m, d] = match
+  const birth = new Date(Number(y), Number(m) - 1, Number(d))
+  if (Number.isNaN(birth.getTime())) return false
+  const now = new Date()
+  const eighteenth = new Date(
+    birth.getFullYear() + 18,
+    birth.getMonth(),
+    birth.getDate(),
+  )
+  return now >= eighteenth
+}
 
 export function getStepIndex(stepId: string): number {
   return STEPS.findIndex((s) => s.id === stepId)

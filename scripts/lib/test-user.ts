@@ -111,6 +111,17 @@ export interface EnsuredUser {
   kind: AccountKind
 }
 
+function deriveHandle(name: string): string {
+  return (
+    name
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '')
+      .slice(0, 24) || 'creator'
+  )
+}
+
 // Idempotent: crea (o reusa) usuario en Clerk + account en backend + onboard-full.
 export async function ensureUser(
   env: Env,
@@ -159,7 +170,15 @@ export async function ensureUser(
   })
   await back(env, `/v1/test/accounts/${clerkUserId}/onboard-full`, {
     method: 'POST',
-    body: JSON.stringify({ kind }),
+    body: JSON.stringify({
+      kind,
+      ...(kind === 'brand'
+        ? { workspace_name: fullName }
+        : {
+            display_name: fullName,
+            handle: deriveHandle(fullName),
+          }),
+    }),
   })
 
   return { clerkUserId, email, fullName, kind }

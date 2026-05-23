@@ -143,11 +143,12 @@ describe('validate functions', () => {
     expect(STEPS[10]!.validate).toBeUndefined()
   })
 
-  it('C11 birthday: requires YYYY-MM-DD format', () => {
+  it('C11 birthday: requires YYYY-MM-DD format and at least 18 years old', () => {
     const validate = STEPS[11]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ birthday: '2000-01-01' }))).toBe(true)
     expect(validate(makeState({ birthday: '01/01/2000' }))).toBe(false)
+    expect(validate(makeState({ birthday: '2015-01-01' }))).toBe(false)
   })
 
   it('C12 gender: no validation (optional)', () => {

@@ -18,18 +18,15 @@ import { ConversationPage } from '../../poms/conversation.pom'
 // 3. Creator (separate browser) is sitting in the conversation and must see
 //    the "Offer sent" card appear in the timeline via WS push.
 
-test.describe('OfferSent system_event rendering', () => {
+// TODO: backend rechaza el POST /v1/offers con 422 validation_error genérico.
+// Reglas de dominio del Offer (campaign config completo, deliverable platforms,
+// tentative_publish_date vs deadline, etc.) no documentadas en el error. Necesita
+// que el backend exponga `details` con el campo inválido o que el spec replique
+// las precondiciones reales del flow.
+test.describe.skip('OfferSent system_event rendering', () => {
   test('creator sees offer card after brand sends single offer', async ({
     chatPairOfferReady,
   }) => {
-    test.skip(
-      true,
-      'TODO: backend rechaza el POST /v1/offers con 422 validation_error genérico. ' +
-        'Reglas de dominio del Offer (campaign config completo, deliverable platforms, ' +
-        'tentative_publish_date vs deadline, etc.) no documentadas en el error. Necesita ' +
-        'que el backend exponga `details` con el campo inválido o que el spec replique las ' +
-        'precondiciones reales del flow.',
-    )
     const {
       conversationId,
       brandWorkspaceId,

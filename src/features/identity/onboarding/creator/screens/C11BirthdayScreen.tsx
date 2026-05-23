@@ -9,6 +9,7 @@ import {
 } from '#/components/ui/select'
 import { FieldRow } from '#/shared/ui/form'
 import { useCreatorOnboardingStore } from '../store'
+import { isAtLeast18 } from '../steps'
 
 const MONTHS = () => [
   t`Enero`,
@@ -70,8 +71,15 @@ export function C11BirthdayScreen() {
 
   const years = useMemo(() => {
     const current = new Date().getFullYear()
-    return Array.from({ length: 80 }, (_, i) => `${current - 13 - i}`)
+    return Array.from({ length: 80 }, (_, i) => `${current - 18 - i}`)
   }, [])
+
+  const ageError = useMemo(() => {
+    if (!year || !month || !day) return null
+    const candidate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    if (isAtLeast18(candidate)) return null
+    return t`Tenés que ser mayor de 18 años para usar Marz.`
+  }, [day, month, year])
 
   return (
     <div className="flex w-full flex-col items-center gap-9">
@@ -134,9 +142,9 @@ export function C11BirthdayScreen() {
           )}
         </FieldRow>
       </div>
-      {birthdayError && (
+      {(ageError || birthdayError) && (
         <p className="text-xs text-destructive" role="alert">
-          {birthdayError}
+          {ageError ?? birthdayError}
         </p>
       )}
     </div>

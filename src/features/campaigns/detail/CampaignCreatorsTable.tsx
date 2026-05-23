@@ -22,7 +22,7 @@ import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 import type {
   CampaignParticipantListItem,
-  ListCampaignParticipantsStatus,
+  ListCreatorsStatus,
   SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
@@ -45,8 +45,8 @@ interface CampaignCreatorsTableProps {
   onInviteCreator?: () => void
 }
 
-function getStatusLabel(status: ListCampaignParticipantsStatus) {
-  const labels: Record<ListCampaignParticipantsStatus, () => string> = {
+function getStatusLabel(status: ListCreatorsStatus) {
+  const labels: Record<ListCreatorsStatus, () => string> = {
     invited: () => t`Invited`,
     active: () => t`Active`,
     in_review: () => t`In review`,
@@ -57,7 +57,7 @@ function getStatusLabel(status: ListCampaignParticipantsStatus) {
 }
 
 /* eslint-disable lingui/no-unlocalized-strings -- Static class names and platform brand names are not translatable UI copy. */
-const statusClassNames: Record<ListCampaignParticipantsStatus, string> = {
+const statusClassNames: Record<ListCreatorsStatus, string> = {
   invited: 'border-border bg-background text-muted-foreground',
   active: 'bg-primary text-primary-foreground',
   in_review: 'bg-success text-success-foreground',
@@ -82,47 +82,12 @@ export function CampaignCreatorsTable({
   hasActiveFilters,
   onClearFilters,
   onFindCreators,
-  onInviteCreator,
-}: CampaignCreatorsTableProps) {
-  if (scope.type === 'global') {
-    return (
-      <TableFrame>
-        <EmptyTableState
-          icon={Search}
-          title={t`Creators global todavía no está disponible`}
-          description={t`Esta tabla ya acepta scope global para conectarse cuando exista el endpoint.`}
-          action={null}
-        />
-      </TableFrame>
-    )
-  }
-
-  return (
-    <CampaignScopedCreatorsTable
-      scope={scope}
-      params={params}
-      onParamsChange={onParamsChange}
-      hasActiveFilters={hasActiveFilters}
-      onClearFilters={onClearFilters}
-      onFindCreators={onFindCreators}
-      onInviteCreator={onInviteCreator}
-    />
-  )
-}
-
-function CampaignScopedCreatorsTable({
-  scope,
-  params,
-  onParamsChange,
-  hasActiveFilters,
-  onClearFilters,
-  onFindCreators,
   onInviteCreator = () => {},
-}: Omit<CampaignCreatorsTableProps, 'scope'> & {
-  scope: Extract<CampaignCreatorsTableScope, { type: 'campaign' }>
-}) {
+}: CampaignCreatorsTableProps) {
+  const campaignIdForQuery =
+    scope.type === 'campaign' ? scope.campaignId : undefined
   const participantsQuery = useCampaignParticipantsQuery(
-    scope.campaignId,
+    campaignIdForQuery,
     params,
   )
   const participants = participantsQuery.data?.data ?? []
@@ -206,7 +171,7 @@ function CampaignScopedCreatorsTable({
               <CreatorRow
                 key={participant.participant_id}
                 participant={participant}
-                campaignId={scope.campaignId}
+                campaignId={campaignIdForQuery}
                 onInviteCreator={onInviteCreator}
               />
             ))}
@@ -271,7 +236,7 @@ function CreatorRow({
   onInviteCreator,
 }: {
   participant: CampaignParticipantListItem
-  campaignId: string
+  campaignId: string | undefined
   onInviteCreator: () => void
 }) {
   const navigate = useNavigate()
@@ -366,11 +331,7 @@ function CreatorCell({
   )
 }
 
-function PlatformCell({
-  platform,
-}: {
-  platform: SocialPlatform | undefined
-}) {
+function PlatformCell({ platform }: { platform: SocialPlatform | undefined }) {
   if (!platform) {
     return <span className="text-xs text-muted-foreground">{t`None`}</span>
   }
@@ -519,14 +480,10 @@ function getPrimaryPlatform(participant: CampaignParticipantListItem) {
   return undefined
 }
 
-function isParticipantStatus(
-  status: string,
-): status is ListCampaignParticipantsStatus {
+function isParticipantStatus(status: string): status is ListCreatorsStatus {
   return Object.hasOwn(statusClassNames, status)
 }
 
-function isParticipantPlatform(
-  platform: string,
-): platform is SocialPlatform {
+function isParticipantPlatform(platform: string): platform is SocialPlatform {
   return Object.hasOwn(platformMeta, platform)
 }

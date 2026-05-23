@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { CampaignDetailPage } from '#/features/campaigns/detail/CampaignDetailPage'
 import {
   DeliverableStatus,
-  ListCampaignParticipantsStatus,
+  ListCreatorsStatus,
   SocialPlatform,
 } from '#/shared/api/generated/model'
 
@@ -19,7 +19,7 @@ const campaignDetailSectionSchema = z
   .catch('matches')
 
 const campaignDetailStatusSchema = z
-  .union([z.enum(ListCampaignParticipantsStatus), z.enum(DeliverableStatus)])
+  .union([z.enum(ListCreatorsStatus), z.enum(DeliverableStatus)])
   .optional()
   .catch(undefined)
 

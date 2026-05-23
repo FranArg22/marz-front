@@ -28,7 +28,9 @@ import { Route as AuthCheckEmailRouteImport } from './routes/auth/check-email'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 import { Route as CreatorOffersRouteImport } from './routes/_creator/offers'
 import { Route as CreatorEarningsRouteImport } from './routes/_creator/earnings'
+import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
+import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
 import { Route as BrandCampaignsRouteImport } from './routes/_brand/campaigns'
 import { Route as OnboardingCreatorIndexRouteImport } from './routes/onboarding/creator.index'
 import { Route as OnboardingBrandIndexRouteImport } from './routes/onboarding/brand.index'
@@ -139,9 +141,19 @@ const CreatorEarningsRoute = CreatorEarningsRouteImport.update({
   path: '/earnings',
   getParentRoute: () => CreatorRoute,
 } as any)
+const BrandVideosRoute = BrandVideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
+  getParentRoute: () => BrandRoute,
+} as any)
 const BrandPaymentsRoute = BrandPaymentsRouteImport.update({
   id: '/payments',
   path: '/payments',
+  getParentRoute: () => BrandRoute,
+} as any)
+const BrandCreatorsRoute = BrandCreatorsRouteImport.update({
+  id: '/creators',
+  path: '/creators',
   getParentRoute: () => BrandRoute,
 } as any)
 const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
@@ -241,7 +253,9 @@ export interface FileRoutesByFullPath {
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/campaigns': typeof BrandCampaignsRouteWithChildren
+  '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
+  '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
   '/offers': typeof CreatorOffersRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -275,7 +289,9 @@ export interface FileRoutesByTo {
   '/ds-onboarding': typeof DsOnboardingRoute
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
+  '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
+  '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
   '/offers': typeof CreatorOffersRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -310,7 +326,9 @@ export interface FileRoutesById {
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/_brand/campaigns': typeof BrandCampaignsRouteWithChildren
+  '/_brand/creators': typeof BrandCreatorsRoute
   '/_brand/payments': typeof BrandPaymentsRoute
+  '/_brand/videos': typeof BrandVideosRoute
   '/_creator/earnings': typeof CreatorEarningsRoute
   '/_creator/offers': typeof CreatorOffersRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -348,7 +366,9 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/workspace'
     | '/campaigns'
+    | '/creators'
     | '/payments'
+    | '/videos'
     | '/earnings'
     | '/offers'
     | '/auth/callback'
@@ -382,7 +402,9 @@ export interface FileRouteTypes {
     | '/ds-onboarding'
     | '/health'
     | '/inbox'
+    | '/creators'
     | '/payments'
+    | '/videos'
     | '/earnings'
     | '/offers'
     | '/auth/callback'
@@ -416,7 +438,9 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/workspace'
     | '/_brand/campaigns'
+    | '/_brand/creators'
     | '/_brand/payments'
+    | '/_brand/videos'
     | '/_creator/earnings'
     | '/_creator/offers'
     | '/auth/callback'
@@ -598,11 +622,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorEarningsRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/_brand/videos': {
+      id: '/_brand/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof BrandVideosRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/_brand/payments': {
       id: '/_brand/payments'
       path: '/payments'
       fullPath: '/payments'
       preLoaderRoute: typeof BrandPaymentsRouteImport
+      parentRoute: typeof BrandRoute
+    }
+    '/_brand/creators': {
+      id: '/_brand/creators'
+      path: '/creators'
+      fullPath: '/creators'
+      preLoaderRoute: typeof BrandCreatorsRouteImport
       parentRoute: typeof BrandRoute
     }
     '/_brand/campaigns': {
@@ -785,12 +823,16 @@ const BrandCampaignsRouteWithChildren = BrandCampaignsRoute._addFileChildren(
 
 interface BrandRouteChildren {
   BrandCampaignsRoute: typeof BrandCampaignsRouteWithChildren
+  BrandCreatorsRoute: typeof BrandCreatorsRoute
   BrandPaymentsRoute: typeof BrandPaymentsRoute
+  BrandVideosRoute: typeof BrandVideosRoute
 }
 
 const BrandRouteChildren: BrandRouteChildren = {
   BrandCampaignsRoute: BrandCampaignsRouteWithChildren,
+  BrandCreatorsRoute: BrandCreatorsRoute,
   BrandPaymentsRoute: BrandPaymentsRoute,
+  BrandVideosRoute: BrandVideosRoute,
 }
 
 const BrandRouteWithChildren = BrandRoute._addFileChildren(BrandRouteChildren)
