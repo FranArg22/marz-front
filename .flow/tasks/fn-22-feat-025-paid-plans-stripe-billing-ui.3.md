@@ -74,8 +74,7 @@ Una vez integrado en una pantalla (en task 4 vamos al paywall), verificar ≥95%
 - Tests Vitest pasan.
 - Verify: `pnpm vitest run src/features/billing/components && pnpm lint && pnpm typecheck`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
