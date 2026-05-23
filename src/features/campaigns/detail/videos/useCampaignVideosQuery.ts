@@ -1,40 +1,43 @@
 import { useQuery } from '@tanstack/react-query'
 import type { UseQueryOptions } from '@tanstack/react-query'
 
-import { getCampaignVideos } from '#/shared/api/generated/campaigns/campaigns'
+import { listVideos } from '#/shared/api/generated/campaigns/campaigns'
 import type {
   CampaignVideoListResponse,
-  GetCampaignVideosParams,
+  ListVideosParams,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 
 const CAMPAIGN_VIDEOS_STALE_TIME = 30_000
 
 export type CampaignVideosParams = Pick<
-  GetCampaignVideosParams,
+  ListVideosParams,
   'cursor' | 'limit' | 'search' | 'status' | 'platform' | 'creator_account_id'
 >
 
-function campaignVideosQueryKey(
-  campaignId: string,
+function videosQueryKey(
+  campaignId: string | undefined,
   params: CampaignVideosParams,
 ) {
-  return ['campaign', campaignId, 'videos', params] as const
+  return ['videos', { campaignId, ...params }] as const
 }
 
-function campaignVideosQueryOptions(
-  campaignId: string,
+function videosQueryOptions(
+  campaignId: string | undefined,
   params: CampaignVideosParams,
 ) {
   return {
-    queryKey: campaignVideosQueryKey(campaignId, params),
+    queryKey: videosQueryKey(campaignId, params),
     queryFn: async (): Promise<CampaignVideoListResponse> => {
-      const response = await getCampaignVideos(campaignId, params)
+      const response = await listVideos({
+        ...params,
+        campaign_id: campaignId,
+      })
       if (response.status !== 200) {
         throw new ApiError(
           response.status,
           'campaign_videos_error',
-          'Campaign videos request failed',
+          'Videos request failed',
         )
       }
       return response.data
@@ -48,8 +51,8 @@ function campaignVideosQueryOptions(
 }
 
 export function useCampaignVideosQuery(
-  campaignId: string,
+  campaignId: string | undefined,
   params: CampaignVideosParams,
 ) {
-  return useQuery(campaignVideosQueryOptions(campaignId, params))
+  return useQuery(videosQueryOptions(campaignId || undefined, params))
 }

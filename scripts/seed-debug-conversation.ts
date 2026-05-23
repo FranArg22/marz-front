@@ -76,8 +76,8 @@ if (existing.length > 0 && existing[0]) {
     body: JSON.stringify({
       external_id: 'e2e_debug_creator',
       email_address: [CREATOR_EMAIL],
-      first_name: 'Debug',
-      last_name: 'Creator',
+      first_name: 'Lucía',
+      last_name: 'Fernández',
     }),
   })
   creatorClerkId = created.id
@@ -90,14 +90,18 @@ await back('/v1/test/accounts', {
   body: JSON.stringify({
     clerk_user_id: creatorClerkId,
     email: CREATOR_EMAIL,
-    full_name: 'Debug Creator',
+    full_name: 'Lucía Fernández',
   }),
 })
 
 console.log('3. Onboard-full creator...')
 await back(`/v1/test/accounts/${creatorClerkId}/onboard-full`, {
   method: 'POST',
-  body: JSON.stringify({ kind: 'creator' }),
+  body: JSON.stringify({
+    kind: 'creator',
+    display_name: 'Lucía Fernández',
+    handle: 'luciafernandez',
+  }),
 })
 
 console.log('4. Crear conversation entre tu brand y el creator...')

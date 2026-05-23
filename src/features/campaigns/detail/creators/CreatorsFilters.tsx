@@ -12,14 +12,14 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import type {
-  ListCampaignParticipantsStatus,
+  ListCreatorsStatus,
   SocialPlatform,
 } from '#/shared/api/generated/model'
 import { cn } from '#/lib/utils'
 
 export interface CreatorsFilterParams {
   search?: string
-  status?: ListCampaignParticipantsStatus
+  status?: ListCreatorsStatus
   platform?: SocialPlatform
 }
 
@@ -31,7 +31,7 @@ interface CreatorsFiltersProps {
 const ALL_PLATFORMS = 'all'
 
 function getStatusOptions(): ReadonlyArray<{
-  value: ListCampaignParticipantsStatus
+  value: ListCreatorsStatus
   label: string
 }> {
   return [

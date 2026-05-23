@@ -35,6 +35,7 @@ commands:
   check_api_direct: 'pnpm check:api-direct'
   check_i18n: 'pnpm check:i18n-standards'
   test_e2e: 'pnpm test:e2e'
+  quality_gates: 'pnpm quality-gates'
 
   # Dev server (consumed by skinner when has_dev_server).
   # The package.json `dev` script hardcodes --port 3000; we bypass it
@@ -58,14 +59,7 @@ flow:
     review: true
   closer:
     post_derive: false
-    quality_gates:
-      - typecheck
-      - lint
-      - test
-      - react_doctor
-      - check_api_direct
-      - check_i18n
-      - test_e2e
+    quality_gates: [quality_gates]
     review: true
 
 verify:
@@ -76,8 +70,8 @@ audit:
   enabled: true
 
 profile_extensions:
-  dev:      "profiles/dev.md"
-  review:   "profiles/reviewer.md"
-  closer:   "profiles/closer.md"
-  planner:  "profiles/planner.md"
-  auditor:  "profiles/auditor.md"
+  dev: 'profiles/dev.md'
+  review: 'profiles/reviewer.md'
+  closer: 'profiles/closer.md'
+  planner: 'profiles/planner.md'
+  auditor: 'profiles/auditor.md'

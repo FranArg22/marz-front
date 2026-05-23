@@ -19,13 +19,6 @@ const DISABLED_REASON = () => t`Próximamente`
 export const shellNavigationConfig: ShellNavigationConfig = {
   brand: [
     {
-      id: 'home',
-      label: () => t`Home`,
-      icon: 'home',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
-    },
-    {
       id: 'inbox',
       label: () => t`Inbox`,
       icon: 'inbox',
@@ -53,8 +46,13 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       id: 'creators',
       label: () => t`Creators`,
       icon: 'users',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
+      href: '/creators',
+    },
+    {
+      id: 'videos',
+      label: () => t`Videos`,
+      icon: 'video',
+      href: '/videos',
     },
     {
       id: 'analytics',
@@ -65,13 +63,6 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
   ],
   creator: [
-    {
-      id: 'home',
-      label: () => t`Home`,
-      icon: 'home',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
-    },
     {
       id: 'inbox',
       label: () => t`Inbox`,

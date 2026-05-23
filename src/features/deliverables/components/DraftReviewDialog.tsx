@@ -1,5 +1,5 @@
-import { useState  } from 'react'
-import type {ReactNode} from 'react';
+import { useState } from 'react'
+import type { ReactNode } from 'react'
 import { t } from '@lingui/core/macro'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, Loader2 } from 'lucide-react'

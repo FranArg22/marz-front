@@ -20,12 +20,12 @@ function enabledItemIds(items: ShellNavigationItem[]) {
 describe('shellNavigationConfig', () => {
   it('defines brand items in order with workspace, inbox and payments enabled', () => {
     expect(itemIds(brandItems)).toEqual([
-      'home',
       'inbox',
       'workspace',
       'campaigns',
       'payments',
       'creators',
+      'videos',
       'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
@@ -33,12 +33,13 @@ describe('shellNavigationConfig', () => {
       'workspace',
       'campaigns',
       'payments',
+      'creators',
+      'videos',
     ])
   })
 
   it('defines creator items in order with inbox, workspace, campaigns and earnings enabled', () => {
     expect(itemIds(creatorItems)).toEqual([
-      'home',
       'inbox',
       'workspace',
       'campaigns',

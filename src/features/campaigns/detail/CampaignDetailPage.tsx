@@ -6,7 +6,7 @@ import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
 import { DiscoveryTab } from '#/features/discovery/campaign-detail/DiscoveryTab'
-import { ListCampaignParticipantsStatus } from '#/shared/api/generated/model'
+import { ListCreatorsStatus } from '#/shared/api/generated/model'
 import type {
   CampaignPlanCapabilities,
   DeliverableStatus,
@@ -40,7 +40,7 @@ export interface CampaignDetailSearch {
   tab: CampaignDetailTabId
   section: 'matches' | 'applications' | 'active' | 'invited'
   q?: string
-  status?: ListCampaignParticipantsStatus | DeliverableStatus
+  status?: ListCreatorsStatus | DeliverableStatus
   platform?: SocialPlatform
   creator_account_id?: string
   sort?: string
@@ -163,7 +163,7 @@ function CampaignDetailShell({
   children: ReactNode
 }) {
   return (
-    <div className="flex min-h-full flex-col bg-background">
+    <div className="flex h-full min-h-0 flex-col overflow-y-auto bg-background">
       {header}
       <CampaignDetailTabs activeTab={tab} onTabChange={onTabChange} />
       <main className="flex-1 bg-muted/30 px-5 py-5 md:px-8 md:py-6">
@@ -295,6 +295,6 @@ function EmptyState({
 
 function isCampaignParticipantStatus(
   status: CampaignDetailSearch['status'],
-): status is ListCampaignParticipantsStatus {
-  return status ? Object.hasOwn(ListCampaignParticipantsStatus, status) : false
+): status is ListCreatorsStatus {
+  return status ? Object.hasOwn(ListCreatorsStatus, status) : false
 }

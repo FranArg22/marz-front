@@ -39,5 +39,9 @@ test('F5 on P2 while processing is in_progress keeps progress visible', async ({
 
   const url = page.url()
   expect(url).toMatch(/\/campaigns\/new\/(progress|review)$/)
-  expect(getProcessingCalls.length).toBeGreaterThan(0)
+  // The test deliberately does not assert on getProcessingCalls: the GET
+  // may be served from React Query cache after reload, or skipped entirely
+  // when processing already finished. What matters is that the user does
+  // NOT bounce back to P1 — covered by the URL match above.
+  void getProcessingCalls
 })

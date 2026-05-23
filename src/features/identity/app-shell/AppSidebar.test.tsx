@@ -93,11 +93,13 @@ describe('AppSidebar', () => {
     const user = userEvent.setup()
     const { router } = renderSidebar('/workspace')
 
-    const homeButton = await screen.findByRole('button', { name: 'Home' })
-    await user.click(homeButton)
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
+    })
+    await user.click(analyticsButton)
 
-    expect(homeButton).toHaveAttribute('aria-disabled', 'true')
-    expect(homeButton).not.toHaveAttribute('href')
+    expect(analyticsButton).toHaveAttribute('aria-disabled', 'true')
+    expect(analyticsButton).not.toHaveAttribute('href')
     expect(router.state.location.pathname).toBe('/workspace')
   })
 
@@ -154,7 +156,6 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace')
 
     await user.tab()
-    await user.tab()
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Inbox')
   })
 
@@ -162,20 +163,22 @@ describe('AppSidebar', () => {
     const user = userEvent.setup()
     renderSidebar('/workspace')
 
-    const homeButton = await screen.findByRole('button', { name: 'Home' })
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
+    })
 
-    await user.hover(homeButton)
+    await user.hover(analyticsButton)
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
   it('shows disabled item tooltips when focused by keyboard', async () => {
-    const user = userEvent.setup()
     renderSidebar('/workspace')
 
-    await user.tab()
-
-    const homeButton = await screen.findByRole('button', { name: 'Home' })
-    expect(homeButton).toHaveFocus()
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
+    })
+    analyticsButton.focus()
+    expect(analyticsButton).toHaveFocus()
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
@@ -184,17 +187,19 @@ describe('AppSidebar', () => {
     const brandSidebar = await screen.findByTestId('app-sidebar')
 
     for (const name of [
-      'Home',
       'Workspace',
       'Inbox',
       'Payments & Spending',
       'Campaigns',
       'Creators',
+      'Videos',
       'Analytics',
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Payments & Spending|Campaigns/.test(name)
+          /Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos/.test(
+            name,
+          )
             ? 'link'
             : 'button',
           {
@@ -210,7 +215,6 @@ describe('AppSidebar', () => {
     const creatorSidebar = await screen.findByTestId('app-sidebar')
 
     for (const name of [
-      'Home',
       'Workspace',
       'Inbox',
       'Campaigns',

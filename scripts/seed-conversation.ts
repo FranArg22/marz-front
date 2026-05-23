@@ -49,12 +49,12 @@ console.log('1. Ensure brand + creator (idempotente)...')
 const [brand, creator] = await Promise.all([
   ensureUser(env, {
     email: brandEmail,
-    fullName: 'Manual Brand',
+    fullName: 'Nubex Pay',
     kind: 'brand',
   }),
   ensureUser(env, {
     email: creatorEmail,
-    fullName: 'Manual Creator',
+    fullName: 'Lucía Fernández',
     kind: 'creator',
   }),
 ])
@@ -70,7 +70,7 @@ const conv = await back<{
     brand_clerk_user_id: brand.clerkUserId,
     creator_clerk_user_id: creator.clerkUserId,
     seed_offer_ready: {
-      campaign_name: `Seed Campaign ${new Date().toISOString()}`,
+      campaign_name: 'Lanzamiento Nubex Verano',
       currency: 'USD',
     },
     ...(seedCount > 0

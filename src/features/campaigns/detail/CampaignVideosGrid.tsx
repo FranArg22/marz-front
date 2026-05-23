@@ -89,44 +89,9 @@ export function CampaignVideosGrid({
   onClearFilters,
   onInviteCreators,
 }: CampaignVideosGridProps) {
-  if (scope.type === 'global') {
-    return (
-      <GridFrame>
-        <EmptyGridState
-          icon={Search}
-          title={t`Videos global todavía no está disponible`}
-          description={t`Este grid ya acepta scope global para conectarse cuando exista el endpoint.`}
-          action={null}
-        />
-      </GridFrame>
-    )
-  }
-
-  return (
-    <CampaignScopedVideosGrid
-      scope={scope}
-      params={params}
-      hasActiveFilters={hasActiveFilters}
-      hasActiveParticipants={hasActiveParticipants}
-      onParamsChange={onParamsChange}
-      onClearFilters={onClearFilters}
-      onInviteCreators={onInviteCreators}
-    />
-  )
-}
-
-function CampaignScopedVideosGrid({
-  scope,
-  params,
-  hasActiveFilters,
-  hasActiveParticipants,
-  onParamsChange,
-  onClearFilters,
-  onInviteCreators,
-}: Omit<CampaignVideosGridProps, 'scope'> & {
-  scope: Extract<CampaignVideosGridScope, { type: 'campaign' }>
-}) {
-  const videosQuery = useCampaignVideosQuery(scope.campaignId, params)
+  const campaignIdForQuery =
+    scope.type === 'campaign' ? scope.campaignId : undefined
+  const videosQuery = useCampaignVideosQuery(campaignIdForQuery, params)
   const videos = videosQuery.data?.data ?? []
   const totalVisible = videosQuery.data?.total_visible ?? 0
 

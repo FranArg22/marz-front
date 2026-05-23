@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
+import { useNavigate } from '@tanstack/react-router'
 import {
+  ArrowLeft,
   Check,
   ArrowRight,
   Loader2,
@@ -12,6 +14,7 @@ import {
 } from 'lucide-react'
 import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
+import { STEPS, getStepId } from '../steps'
 import { COUNTRIES } from '../countries'
 
 /* eslint-disable lingui/no-unlocalized-strings */
@@ -103,7 +106,16 @@ function flagFromCountryCode(code: string): string {
 export function C20ConfirmationScreen() {
   const { submit, isPending } = useSubmitCreatorOnboarding()
   const store = useCreatorOnboardingStore()
+  const navigate = useNavigate()
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+
+  const goBack = () => {
+    const prevIndex = Math.max(0, STEPS.length - 2)
+    void navigate({
+      to: '/onboarding/creator/$step',
+      params: { step: getStepId(prevIndex) },
+    })
+  }
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -269,6 +281,15 @@ export function C20ConfirmationScreen() {
       </div>
 
       <div className="relative flex flex-wrap items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={goBack}
+          disabled={isPending}
+          className="flex h-12 items-center gap-2 rounded-xl border border-border bg-background px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          <ArrowLeft className="size-4" />
+          {t`Atrás`}
+        </button>
         <button
           type="button"
           data-testid="onboarding-start-btn"

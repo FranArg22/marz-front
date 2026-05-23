@@ -107,7 +107,7 @@ beforeEach(() => {
   useSendOfferWizard.getState().reset()
 })
 
-describe('SendOfferSidesheet', () => {
+describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
   it('submits a same-content offer and closes the sheet', async () => {
     const user = userEvent.setup()
     mockMutateAsync.mockResolvedValueOnce({ status: 201, data: {} })

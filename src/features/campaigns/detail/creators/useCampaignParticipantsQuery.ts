@@ -1,40 +1,43 @@
 import { useQuery } from '@tanstack/react-query'
 import type { UseQueryOptions } from '@tanstack/react-query'
 
-import { listCampaignParticipants } from '#/shared/api/generated/campaigns/campaigns'
+import { listCreators } from '#/shared/api/generated/campaigns/campaigns'
 import type {
   CampaignParticipantListResponse,
-  ListCampaignParticipantsParams,
+  ListCreatorsParams,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 
 const CAMPAIGN_PARTICIPANTS_STALE_TIME = 30_000
 
 export type CampaignParticipantsParams = Pick<
-  ListCampaignParticipantsParams,
+  ListCreatorsParams,
   'cursor' | 'limit' | 'search' | 'status' | 'platform'
 >
 
-function campaignParticipantsQueryKey(
-  campaignId: string,
+function participantsQueryKey(
+  campaignId: string | undefined,
   params: CampaignParticipantsParams,
 ) {
-  return ['campaign', campaignId, 'participants', params] as const
+  return ['creators', { campaignId, ...params }] as const
 }
 
-function campaignParticipantsQueryOptions(
-  campaignId: string,
+function participantsQueryOptions(
+  campaignId: string | undefined,
   params: CampaignParticipantsParams,
 ) {
   return {
-    queryKey: campaignParticipantsQueryKey(campaignId, params),
+    queryKey: participantsQueryKey(campaignId, params),
     queryFn: async (): Promise<CampaignParticipantListResponse> => {
-      const response = await listCampaignParticipants(campaignId, params)
+      const response = await listCreators({
+        ...params,
+        campaign_id: campaignId,
+      })
       if (response.status !== 200) {
         throw new ApiError(
           response.status,
           'campaign_participants_error',
-          'Campaign participants request failed',
+          'Creators request failed',
         )
       }
       return response.data
@@ -48,8 +51,8 @@ function campaignParticipantsQueryOptions(
 }
 
 export function useCampaignParticipantsQuery(
-  campaignId: string,
+  campaignId: string | undefined,
   params: CampaignParticipantsParams,
 ) {
-  return useQuery(campaignParticipantsQueryOptions(campaignId, params))
+  return useQuery(participantsQueryOptions(campaignId || undefined, params))
 }

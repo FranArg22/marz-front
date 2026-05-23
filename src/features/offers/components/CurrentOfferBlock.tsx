@@ -175,8 +175,7 @@ export function CurrentOfferBlock({
   const offerMode = offer.offer_mode
   const platforms = getOfferPlatforms(offer)
   const deadline = offer.offer_deadline
-  const deadlineTime =
-    deadline ? new Date(deadline).getTime() : null
+  const deadlineTime = deadline ? new Date(deadline).getTime() : null
   const deadlinePassed =
     offer.status === 'accepted' && deadlineTime !== null && clientNow !== null
       ? deadlineTime <= clientNow

@@ -12,7 +12,7 @@ test.describe('Workspace shell — estado vacío', () => {
 
     await expect(ws.shell).toHaveCount(1)
     await expect(ws.sidebar).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Creators' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Creators' })).toBeVisible()
     await expect(ws.rail).toBeVisible()
     await expect(ws.search).toBeVisible()
     await expect(ws.filters).toBeVisible()
@@ -28,7 +28,7 @@ test.describe('Workspace shell — estado vacío', () => {
 
     await expect(ws.shell).toHaveCount(1)
     await expect(ws.sidebar).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Creators' })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Creators' })).toHaveCount(0)
     await expect(ws.rail).toBeVisible()
   })
 

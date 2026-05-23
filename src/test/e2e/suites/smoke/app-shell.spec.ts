@@ -1,7 +1,7 @@
 import { test, expect } from '../../support/fixtures'
 import { AppShell } from '../../poms/app-shell.pom'
 
-const disabledBrandItems = ['Home', 'Creators', 'Analytics']
+const disabledBrandItems = ['Analytics']
 
 test.describe('App shell desktop', () => {
   test('brand onboarded sees brand sidebar and navigates to workspace and inbox', async ({
@@ -16,7 +16,7 @@ test.describe('App shell desktop', () => {
     await expect(shell.sidebar).toBeVisible()
     await expect(shell.navLink('Workspace')).toBeVisible()
     await expect(shell.navLink('Inbox')).toBeVisible()
-    await expect(shell.navButton('Creators')).toBeVisible()
+    await expect(shell.navLink('Creators')).toBeVisible()
 
     await shell.clickNavLink('Workspace')
     await expect(page).toHaveURL(/\/workspace/)
@@ -41,8 +41,7 @@ test.describe('App shell desktop', () => {
     await expect(shell.sidebar).toBeVisible()
     await expect(shell.navLink('Workspace')).toBeVisible()
     await expect(shell.navLink('Inbox')).toBeVisible()
-    await expect(shell.navButton('Campaigns')).toHaveCount(0)
-    await expect(shell.navButton('Creators')).toHaveCount(0)
+    await expect(shell.navLink('Creators')).toHaveCount(0)
 
     await shell.clickNavLink('Workspace')
     await expect(page).toHaveURL(/\/workspace/)
@@ -50,7 +49,6 @@ test.describe('App shell desktop', () => {
     await shell.clickNavLink('Inbox')
     await expect(page).toHaveURL(/\/inbox/)
 
-    await shell.expectDisabledItemDoesNotNavigate('Home')
     await shell.expectDisabledItemDoesNotNavigate('Analytics')
   })
 
@@ -59,6 +57,7 @@ test.describe('App shell desktop', () => {
     onboardedBrandUser,
   }) => {
     await onboardedBrandUser.signIn(page)
+    await expect(page).toHaveURL(/\/campaigns/)
     await page.goto('/offers')
     await expect(page).toHaveURL(/\/workspace/)
   })
@@ -104,7 +103,7 @@ test.describe('App shell desktop', () => {
     await onboardedBrandUser.signIn(page)
     await page.goto('/campaigns')
     const shell = new AppShell(page)
-    await shell.expectDisabledItemDoesNotNavigate('Home')
+    await shell.expectDisabledItemDoesNotNavigate('Analytics')
     await shell.clickNavLink('Inbox')
     await expect(page).toHaveURL(/\/inbox/)
 

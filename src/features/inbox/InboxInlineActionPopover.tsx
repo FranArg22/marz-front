@@ -16,7 +16,7 @@ import {
 } from '#/shared/api/idempotency'
 import {
   acceptCampaignDiscoveryApplication,
-  getListCampaignParticipantsQueryKey,
+  getListCreatorsQueryKey,
   rejectCampaignDiscoveryApplication,
 } from '#/shared/api/generated/campaigns/campaigns'
 import type {
@@ -459,7 +459,7 @@ function ApplicationActionControl({
           queryKey: ['campaign', params.campaignId, 'discovery'],
         }),
         queryClient.invalidateQueries({
-          queryKey: getListCampaignParticipantsQueryKey(params.campaignId),
+          queryKey: getListCreatorsQueryKey({ campaign_id: params.campaignId }),
         }),
       ])
       trackInboxInlineCompleted({
