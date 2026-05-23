@@ -63,8 +63,7 @@ Diferir el E2E completo paywall → Stripe Checkout test mode a la task 5 (callb
 - `B13PaywallScreen.test.tsx` cubre los 6 escenarios arriba.
 - Verify: `pnpm vitest run src/features/identity/onboarding/brand/screens/B13PaywallScreen && pnpm lint && pnpm typecheck && pnpm react-doctor`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
