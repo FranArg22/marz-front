@@ -61,8 +61,7 @@ Archivo por hook, junto al hook (`*.test.ts`). Test mínimo por hook:
 - Tests por hook pasan.
 - Verify: `pnpm vitest run src/features/billing/hooks && pnpm lint && pnpm typecheck`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
