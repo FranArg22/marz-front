@@ -1,16 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Trans } from '@lingui/react/macro'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+
+import { BillingPage } from '#/features/billing/components/BillingPage'
+import { getGetBillingSubscriptionQueryOptions } from '#/shared/api/generated/brand/brand'
+import { ApiError } from '#/shared/api/mutator'
 
 export const Route = createFileRoute('/_brand/billing')({
-  component: BillingRoute,
+  loader: async ({ context }) => {
+    const response = await context.queryClient
+      .ensureQueryData(getGetBillingSubscriptionQueryOptions())
+      .catch((err: unknown) => {
+        if (err instanceof ApiError && err.status === 404) {
+          return { status: 404 as const, data: null }
+        }
+        throw err
+      })
+    if (response.status === 404) {
+      throw redirect({ to: '/' })
+    }
+  },
+  component: BillingPage,
 })
-
-function BillingRoute() {
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold">
-        <Trans>Billing</Trans>
-      </h1>
-    </div>
-  )
-}

@@ -98,8 +98,7 @@ Correr solo este spec; no `pnpm test:e2e` full.
 - E2E del flow `active` → portal pasa.
 - Verify: `pnpm vitest run src/features/billing/components/BillingPage src/routes/_brand/billing && pnpm test:e2e src/test/e2e/billing-page.spec.ts && pnpm lint && pnpm typecheck && pnpm react-doctor`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.7; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
