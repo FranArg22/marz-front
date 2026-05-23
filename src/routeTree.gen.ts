@@ -32,6 +32,7 @@ import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
 import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
 import { Route as BrandCampaignsRouteImport } from './routes/_brand/campaigns'
+import { Route as BrandBillingRouteImport } from './routes/_brand/billing'
 import { Route as OnboardingCreatorIndexRouteImport } from './routes/onboarding/creator.index'
 import { Route as OnboardingBrandIndexRouteImport } from './routes/onboarding/brand.index'
 import { Route as BrandCampaignsIndexRouteImport } from './routes/_brand/campaigns.index'
@@ -162,6 +163,11 @@ const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => BrandRoute,
 } as any)
+const BrandBillingRoute = BrandBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => BrandRoute,
+} as any)
 const OnboardingCreatorIndexRoute = OnboardingCreatorIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -259,6 +265,7 @@ export interface FileRoutesByFullPath {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/billing': typeof BrandBillingRoute
   '/campaigns': typeof BrandCampaignsRouteWithChildren
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/ds-onboarding': typeof DsOnboardingRoute
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
+  '/billing': typeof BrandBillingRoute
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
@@ -334,6 +342,7 @@ export interface FileRoutesById {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/_brand/billing': typeof BrandBillingRoute
   '/_brand/campaigns': typeof BrandCampaignsRouteWithChildren
   '/_brand/creators': typeof BrandCreatorsRoute
   '/_brand/payments': typeof BrandPaymentsRoute
@@ -375,6 +384,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/billing'
     | '/campaigns'
     | '/creators'
     | '/payments'
@@ -413,6 +423,7 @@ export interface FileRouteTypes {
     | '/ds-onboarding'
     | '/health'
     | '/inbox'
+    | '/billing'
     | '/creators'
     | '/payments'
     | '/videos'
@@ -449,6 +460,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/_brand/billing'
     | '/_brand/campaigns'
     | '/_brand/creators'
     | '/_brand/payments'
@@ -663,6 +675,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandCampaignsRouteImport
       parentRoute: typeof BrandRoute
     }
+    '/_brand/billing': {
+      id: '/_brand/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BrandBillingRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/onboarding/creator/': {
       id: '/onboarding/creator/'
       path: '/'
@@ -842,6 +861,7 @@ const BrandCampaignsRouteWithChildren = BrandCampaignsRoute._addFileChildren(
 )
 
 interface BrandRouteChildren {
+  BrandBillingRoute: typeof BrandBillingRoute
   BrandCampaignsRoute: typeof BrandCampaignsRouteWithChildren
   BrandCreatorsRoute: typeof BrandCreatorsRoute
   BrandPaymentsRoute: typeof BrandPaymentsRoute
@@ -849,6 +869,7 @@ interface BrandRouteChildren {
 }
 
 const BrandRouteChildren: BrandRouteChildren = {
+  BrandBillingRoute: BrandBillingRoute,
   BrandCampaignsRoute: BrandCampaignsRouteWithChildren,
   BrandCreatorsRoute: BrandCreatorsRoute,
   BrandPaymentsRoute: BrandPaymentsRoute,

@@ -2,6 +2,8 @@ import { ChevronRight, Search } from 'lucide-react'
 import { Trans } from '@lingui/react/macro'
 import { t } from '@lingui/core/macro'
 
+import { BillingTopbarPill } from '#/features/billing/components/BillingTopbarPill'
+
 import { useTopbar } from './TopbarContext'
 import type { TopbarBreadcrumbSegment } from './TopbarContext'
 
@@ -27,6 +29,7 @@ export function AppTopbar() {
         </nav>
       ) : null}
       <div className="flex-1" />
+      <BillingTopbarPill />
       <div className="flex h-9 w-70 items-center gap-2 rounded-full bg-muted px-3.5">
         <Search className="size-3.5 shrink-0 text-muted-foreground" />
         <span className="text-sm text-muted-foreground">

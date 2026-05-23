@@ -76,8 +76,7 @@ Con el dev server corriendo: navegar a `/_brand/...` con sesión seedeada en cad
 - Tests Vitest pasan (7+ casos).
 - Verify: `pnpm vitest run src/features/billing/components/BillingTopbarPill src/features/identity/app-shell/AppTopbar && pnpm lint && pnpm typecheck && pnpm react-doctor`
 ## Done summary
-TBD
-
+Implemented fn-22-feat-025-paid-plans-stripe-billing-ui.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
