@@ -1,0 +1,12 @@
+# pnpm 11 movió la config del campo `pnpm` de package.json acá.
+# allowBuilds: qué dependencias pueden correr build/post-install scripts (supply-chain hardening).
+# Reemplaza a onlyBuiltDependencies (removido en pnpm 11). Map paquete -> true/false; lo no
+# listado se bloquea. Mismo posture que teníamos en pnpm 10: solo esbuild + lightningcss.
+allowBuilds:
+  esbuild: true
+  lightningcss: true
+  '@clerk/shared': false
+  '@sentry/cli': false
+  '@swc/core': false
+  protobufjs: false
+  unrs-resolver: false

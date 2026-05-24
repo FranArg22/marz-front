@@ -1484,7 +1484,7 @@ msgstr ""
 msgid "Campañas"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:186
+#: src/features/billing/components/PlanCard.tsx:193
 msgid "CAMPAÑAS"
 msgstr ""
 
@@ -3554,7 +3554,7 @@ msgstr ""
 msgid "HIGH VOLUME"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:199
+#: src/features/billing/components/PlanCard.tsx:206
 msgid "HIRES"
 msgstr ""
 
@@ -3662,7 +3662,7 @@ msgstr ""
 msgid "Inbox"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:242
+#: src/features/billing/components/PlanCard.tsx:249
 msgid "INCLUYE"
 msgstr ""
 
@@ -3803,7 +3803,7 @@ msgstr ""
 msgid "Invited creators"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:214
+#: src/features/billing/components/PlanCard.tsx:221
 msgid "INVITES"
 msgstr ""
 
@@ -5349,7 +5349,7 @@ msgstr ""
 msgid "payout promedio"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:227
+#: src/features/billing/components/PlanCard.tsx:234
 msgid "PAYOUTS"
 msgstr ""
 
@@ -6421,7 +6421,7 @@ msgstr ""
 msgid "Sin resultados para esos filtros"
 msgstr ""
 
-#: src/features/billing/components/PlanCard.tsx:155
+#: src/features/billing/components/PlanCard.tsx:162
 msgid "Sin take rate"
 msgstr ""
 

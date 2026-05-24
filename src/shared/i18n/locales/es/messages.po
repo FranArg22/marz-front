@@ -798,7 +798,7 @@ msgstr "Add manually"
 msgid "Adjuntar archivo"
 msgstr "Adjuntar archivo"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:132
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:133
 #~ msgid "Agendar una llamada"
 #~ msgstr "Agendar una llamada"
 
@@ -1484,7 +1484,7 @@ msgstr "Campaña sin nombre"
 msgid "Campañas"
 msgstr "Campañas"
 
-#: src/features/billing/components/PlanCard.tsx:186
+#: src/features/billing/components/PlanCard.tsx:193
 msgid "CAMPAÑAS"
 msgstr "CAMPAÑAS"
 
@@ -1930,10 +1930,6 @@ msgstr "Continuar"
 msgid "Continuar con email"
 msgstr "Continuar con email"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:102
-#~ msgid "Continuar con plan pago"
-#~ msgstr "Continuar con plan pago"
-
 #: src/features/offers/components/SendOfferSidesheet.tsx:161
 #~ msgid "Continue"
 #~ msgstr "Continue"
@@ -1984,7 +1980,7 @@ msgstr "Creá una invitación para esta campaña."
 msgid "Creador"
 msgstr "Creador"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:122
 #~ msgid "CREADORES"
 #~ msgstr "CREADORES"
 
@@ -2620,10 +2616,6 @@ msgstr "Elegí un plan para continuar."
 msgid "Elegí una campaña"
 msgstr "Elegí una campaña"
 
-#: src/features/billing/components/PlanCard.tsx:78
-#~ msgid "Elegir plan"
-#~ msgstr "Elegir plan"
-
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:189
 msgid "Eliminar {tag}"
 msgstr "Eliminar {tag}"
@@ -2859,7 +2851,7 @@ msgstr "Enviar postulación"
 msgid "Enviar una oferta a {creatorName}"
 msgstr "Enviar una oferta a {creatorName}"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:126
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:127
 #~ msgid "Equipo Marz dedicado"
 #~ msgstr "Equipo Marz dedicado"
 
@@ -3086,7 +3078,7 @@ msgstr "Estos valores vienen del Brief. Podés ajustarlos sin modificar el Brief
 msgid "Estoy explorando"
 msgstr "Estoy explorando"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:127
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:128
 #~ msgid "Estrategia + curaduría"
 #~ msgstr "Estrategia + curaduría"
 
@@ -3149,7 +3141,7 @@ msgstr "Exportar CSV"
 msgid "Faceless / Clipping"
 msgstr "Faceless / Clipping"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:189
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:191
 #~ msgid "Facturación"
 #~ msgstr "Facturación"
 
@@ -3469,11 +3461,11 @@ msgstr "Gym"
 msgid "h"
 msgstr "h"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:108
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:109
 #~ msgid "Hablar con ventas"
 #~ msgstr "Hablar con ventas"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:117
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:118
 #~ msgid "Hablemos"
 #~ msgstr "Hablemos"
 
@@ -3554,7 +3546,7 @@ msgstr "Hice 6–20 campañas"
 msgid "HIGH VOLUME"
 msgstr "HIGH VOLUME"
 
-#: src/features/billing/components/PlanCard.tsx:199
+#: src/features/billing/components/PlanCard.tsx:206
 msgid "HIRES"
 msgstr "HIRES"
 
@@ -3662,7 +3654,7 @@ msgstr "In-platform"
 msgid "Inbox"
 msgstr "Inbox"
 
-#: src/features/billing/components/PlanCard.tsx:242
+#: src/features/billing/components/PlanCard.tsx:249
 msgid "INCLUYE"
 msgstr "INCLUYE"
 
@@ -3803,7 +3795,7 @@ msgstr "Invited"
 msgid "Invited creators"
 msgstr "Invited creators"
 
-#: src/features/billing/components/PlanCard.tsx:214
+#: src/features/billing/components/PlanCard.tsx:221
 msgid "INVITES"
 msgstr "INVITES"
 
@@ -4256,7 +4248,7 @@ msgstr "Mark as paid"
 msgid "Marz"
 msgstr "Marz"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:115
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:116
 #~ msgid "Marz lo opera todo. Vos aprobás, nosotros ejecutamos."
 #~ msgstr "Marz lo opera todo. Vos aprobás, nosotros ejecutamos."
 
@@ -4567,7 +4559,7 @@ msgstr "Música"
 #~ msgid "Must be after the previous stage"
 #~ msgstr "Must be after the previous stage"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
 #~ msgid "Nada"
 #~ msgstr "Nada"
 
@@ -4799,10 +4791,6 @@ msgstr "No pudimos exportar el CSV. Intentá de nuevo."
 #: src/features/payments/components/BrandPaymentsPage.tsx:131
 msgid "No pudimos exportar los pagos. Intentá de nuevo."
 msgstr "No pudimos exportar los pagos. Intentá de nuevo."
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:248
-#~ msgid "No pudimos iniciar el checkout. Intentá de nuevo."
-#~ msgstr "No pudimos iniciar el checkout. Intentá de nuevo."
 
 #: src/features/campaigns/components/CampaignBriefPage.tsx:37
 msgid "No se encontró el brief de esta campaña."
@@ -5349,7 +5337,7 @@ msgstr "Payout máximo si aplican todos los bonos"
 msgid "payout promedio"
 msgstr "payout promedio"
 
-#: src/features/billing/components/PlanCard.tsx:227
+#: src/features/billing/components/PlanCard.tsx:234
 msgid "PAYOUTS"
 msgstr "PAYOUTS"
 
@@ -5451,10 +5439,6 @@ msgstr "Peso dimensión {dimensionNumber}"
 #: src/features/billing/components/BillingPage.tsx:233
 msgid "Plan"
 msgstr "Plan"
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:241
-#~ msgid "Plan inválido, refrescá la página."
-#~ msgstr "Plan inválido, refrescá la página."
 
 #: src/features/billing/components/PlansGrid.tsx:52
 msgid "Planes"
@@ -5572,10 +5556,6 @@ msgstr "Prefiero no decir"
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:110
 msgid "Prefiero seguir sin acceso a la red de creadores →"
 msgstr "Prefiero seguir sin acceso a la red de creadores →"
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:110
-#~ msgid "Prefiero seguir sin la red de creadores"
-#~ msgstr "Prefiero seguir sin la red de creadores"
 
 #: src/features/campaigns/configuration/BonusStep.tsx:299
 msgid "Premiá a creators con un porcentaje extra por velocidad o performance."
@@ -5814,7 +5794,7 @@ msgstr "Rechazar oferta"
 msgid "Recomendado para vos"
 msgstr "Recomendado para vos"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:279
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:281
 #~ msgid "RECOMENDADO PARA VOS"
 #~ msgstr "RECOMENDADO PARA VOS"
 
@@ -5825,10 +5805,6 @@ msgstr "Red de creadores"
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:37
 msgid "Reddit"
 msgstr "Reddit"
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:156
-#~ msgid "Redirigiendo a Stripe…"
-#~ msgstr "Redirigiendo a Stripe…"
 
 #: src/features/offers/utils/formatOffer.ts:21
 msgid "Reel"
@@ -5918,7 +5894,7 @@ msgstr "Rejected"
 msgid "Reportes custom"
 msgstr "Reportes custom"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:129
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:130
 #~ msgid "Reportes semanales"
 #~ msgstr "Reportes semanales"
 
@@ -6077,7 +6053,7 @@ msgstr "Script Lab básico"
 msgid "Script Lab completo"
 msgstr "Script Lab completo"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:128
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:129
 #~ msgid "Scripts + QA"
 #~ msgstr "Scripts + QA"
 
@@ -6274,7 +6250,7 @@ msgstr "Septiembre"
 #~ msgid "Sequential deliverables with milestones"
 #~ msgstr "Sequential deliverables with milestones"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:315
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:317
 #~ msgid "Servicio fully managed"
 #~ msgstr "Servicio fully managed"
 
@@ -6421,13 +6397,9 @@ msgstr "Sin resultados"
 msgid "Sin resultados para esos filtros"
 msgstr "Sin resultados para esos filtros"
 
-#: src/features/billing/components/PlanCard.tsx:155
+#: src/features/billing/components/PlanCard.tsx:162
 msgid "Sin take rate"
 msgstr "Sin take rate"
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:79
-#~ msgid "Sin take rate. Sin letra chica."
-#~ msgstr "Sin take rate. Sin letra chica."
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:85
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
@@ -6458,7 +6430,7 @@ msgstr "Skills"
 msgid "Skincare"
 msgstr "Skincare"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:130
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:131
 #~ msgid "SLA custom"
 #~ msgstr "SLA custom"
 
@@ -6613,10 +6585,6 @@ msgstr "Streetwear"
 #: src/features/billing/components/BillingPage.tsx:286
 msgid "Stripe no responde, intentá de nuevo"
 msgstr "Stripe no responde, intentá de nuevo"
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:225
-#~ msgid "Stripe no responde, intentá de nuevo."
-#~ msgstr "Stripe no responde, intentá de nuevo."
 
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:101
 msgid "Subí la foto de nuevo"
@@ -6929,7 +6897,7 @@ msgstr "Todavía no tenés campañas"
 msgid "Todo lo de Growth, +:"
 msgstr "Todo lo de Growth, +:"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:125
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:126
 #~ msgid "Todo lo de Scale, +:"
 #~ msgstr "Todo lo de Scale, +:"
 
@@ -7490,7 +7458,7 @@ msgstr "Volver al inicio"
 msgid "Volver al paywall"
 msgstr "Volver al paywall"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
 #~ msgid "VOS HACÉS"
 #~ msgstr "VOS HACÉS"
 
@@ -7553,10 +7521,6 @@ msgstr "Ya se solicitó un cambio para este borrador."
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:165
 msgid "Ya tenemos {TOTAL_CREATORS} creadores que encajan con tu marca."
 msgstr "Ya tenemos {TOTAL_CREATORS} creadores que encajan con tu marca."
-
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:205
-#~ msgid "Ya tenés una suscripción activa."
-#~ msgstr "Ya tenés una suscripción activa."
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:29
 msgid "Ya tengo mis creadores"
