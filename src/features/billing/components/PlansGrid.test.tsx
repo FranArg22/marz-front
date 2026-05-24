@@ -13,6 +13,10 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
+vi.mock('@lingui/react/macro', () => ({
+  Trans: ({ children }: { children: React.ReactNode }) => children,
+}))
+
 const ALL_PLANS: BillingPlan[] = [
   { plan: 'starter', interval: 'month', amount_usd: '199.00', stripe_price_id: 'price_starter_m' },
   { plan: 'growth', interval: 'month', amount_usd: '299.00', stripe_price_id: 'price_growth_m' },
@@ -25,16 +29,18 @@ const ALL_PLANS: BillingPlan[] = [
 function setup(overrides: Partial<Parameters<typeof PlansGrid>[0]> = {}) {
   const onPlanSelect = vi.fn()
   const onIntervalChange = vi.fn()
+  const onPlanCta = vi.fn()
   const utils = render(
     <PlansGrid
       plans={ALL_PLANS}
       selectedInterval="month"
       onIntervalChange={onIntervalChange}
       onPlanSelect={onPlanSelect}
+      onPlanCta={onPlanCta}
       {...overrides}
     />,
   )
-  return { onPlanSelect, onIntervalChange, ...utils }
+  return { onPlanSelect, onIntervalChange, onPlanCta, ...utils }
 }
 
 describe('PlansGrid', () => {
@@ -42,14 +48,14 @@ describe('PlansGrid', () => {
     setup({ selectedInterval: 'month' })
     const group = screen.getByRole('radiogroup', { name: /planes/i })
     expect(within(group).getAllByRole('radio')).toHaveLength(3)
-    expect(screen.getByText('$199')).toBeInTheDocument()
-    expect(screen.queryByText('$159')).not.toBeInTheDocument()
+    expect(screen.getByText('199')).toBeInTheDocument()
+    expect(screen.queryByText('159')).not.toBeInTheDocument()
   })
 
   it('shows year cards when selectedInterval is year', () => {
     setup({ selectedInterval: 'year' })
-    expect(screen.getByText('$159')).toBeInTheDocument()
-    expect(screen.queryByText('$199')).not.toBeInTheDocument()
+    expect(screen.getByText('159')).toBeInTheDocument()
+    expect(screen.queryByText('199')).not.toBeInTheDocument()
   })
 
   it('invokes onIntervalChange when toggling annual tab', async () => {
@@ -59,30 +65,43 @@ describe('PlansGrid', () => {
     expect(onIntervalChange).toHaveBeenCalledWith('year')
   })
 
-  it('invokes onPlanSelect with plan id when a card is clicked', async () => {
+  it('invokes onPlanSelect with plan id when a radio is changed', async () => {
     const user = userEvent.setup()
     const { onPlanSelect } = setup({ selectedInterval: 'month' })
-    const group = screen.getByRole('radiogroup', { name: /planes/i })
-    const cards = within(group).getAllByRole('radio')
-    await user.click(cards[1]!)
+    await user.click(screen.getByRole('radio', { name: /growth/i }))
     expect(onPlanSelect).toHaveBeenCalledWith('growth')
+  })
+
+  it('invokes onPlanCta when CTA button inside a card is clicked', async () => {
+    const user = userEvent.setup()
+    const { onPlanCta } = setup({ selectedInterval: 'month' })
+    const ctaButtons = screen.getAllByRole('button', { name: /probar 7 días gratis/i })
+    await user.click(ctaButtons[0]!)
+    expect(onPlanCta).toHaveBeenCalledWith('starter')
   })
 
   it('renders no selected card when selectedPlan is undefined', () => {
     setup({ selectedInterval: 'month', selectedPlan: undefined })
     const group = screen.getByRole('radiogroup', { name: /planes/i })
-    for (const card of within(group).getAllByRole('radio')) {
-      expect(card).toHaveAttribute('aria-checked', 'false')
+    for (const radio of within(group).getAllByRole('radio')) {
+      expect(radio).not.toBeChecked()
     }
   })
 
   it('marks the selected plan card as checked', () => {
     setup({ selectedInterval: 'month', selectedPlan: 'scale' })
-    const group = screen.getByRole('radiogroup', { name: /planes/i })
-    const cards = within(group).getAllByRole('radio')
-    const scaleCard = cards.find((c) => c.textContent?.includes('$999'))
-    expect(scaleCard).toBeDefined()
-    expect(scaleCard).toHaveAttribute('aria-checked', 'true')
+    const scaleInput = screen.getByRole('radio', { name: /scale/i })
+    expect(scaleInput).toBeChecked()
+  })
+
+  it('shows the -20% badge on the annual tab', () => {
+    setup({ selectedInterval: 'month' })
+    expect(screen.getByText('-20%')).toBeInTheDocument()
+  })
+
+  it('shows "Recomendado para vos" badge on the growth card', () => {
+    setup({ selectedInterval: 'month' })
+    expect(screen.getByText('Recomendado para vos')).toBeInTheDocument()
   })
 
   it('has no accessibility violations', async () => {

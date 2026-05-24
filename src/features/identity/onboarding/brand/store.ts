@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import type { BillingInterval } from '#/shared/api/generated/model/billingInterval'
+import type { BillingPlanIdentifier } from '#/shared/api/generated/model/billingPlanIdentifier'
 import { STEPS } from './steps'
 import type { BrandOnboardingPayload } from './types'
 
@@ -28,14 +30,21 @@ const sessionStorageSSR = createJSONStorage<BrandOnboardingState>(() => {
 })
 
 export type FieldErrors = Partial<Record<keyof BrandOnboardingPayload, string>>
+export type BrandOnboardingFlowChoice = 'paid' | 'free' | null
 
 export type BrandOnboardingState = Partial<BrandOnboardingPayload> & {
   currentStepIndex: number
   fieldErrors: FieldErrors
+  selectedPlan: BillingPlanIdentifier | null
+  selectedInterval: BillingInterval | null
+  flowChoice: BrandOnboardingFlowChoice
   setField: <TKey extends keyof BrandOnboardingPayload>(
     key: TKey,
     value: BrandOnboardingPayload[TKey],
   ) => void
+  setSelectedPlan: (plan: BillingPlanIdentifier | null) => void
+  setSelectedInterval: (interval: BillingInterval | null) => void
+  setFlowChoice: (choice: BrandOnboardingFlowChoice) => void
   setFieldErrors: (errors: FieldErrors) => void
   clearFieldErrors: () => void
   goTo: (index: number) => void
@@ -47,11 +56,17 @@ export const useBrandOnboardingStore = create<BrandOnboardingState>()(
     (set) => ({
       currentStepIndex: 0,
       fieldErrors: {},
+      selectedPlan: null,
+      selectedInterval: null,
+      flowChoice: null,
       setField: (key, value) =>
         set((state) => ({
           [key]: value,
           fieldErrors: { ...state.fieldErrors, [key]: undefined },
         })),
+      setSelectedPlan: (plan) => set({ selectedPlan: plan }),
+      setSelectedInterval: (interval) => set({ selectedInterval: interval }),
+      setFlowChoice: (choice) => set({ flowChoice: choice }),
       setFieldErrors: (errors: FieldErrors) => set({ fieldErrors: errors }),
       clearFieldErrors: () => set({ fieldErrors: {} }),
       goTo: (index: number) =>
@@ -77,6 +92,9 @@ export const useBrandOnboardingStore = create<BrandOnboardingState>()(
           contact_name: undefined,
           contact_title: undefined,
           contact_whatsapp_e164: undefined,
+          selectedPlan: null,
+          selectedInterval: null,
+          flowChoice: null,
         })
         if (typeof window !== 'undefined') {
           sessionStorage.removeItem(STORAGE_KEY)

@@ -27,8 +27,6 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  BillingCheckoutSessionRequest,
-  BillingCheckoutSessionResponse,
   BillingPlansResponse,
   BillingPortalSessionRequest,
   BillingPortalSessionResponse,
@@ -578,115 +576,7 @@ export function useGetBillingSubscription<TData = Awaited<ReturnType<typeof getB
 
 
 
-export type createBillingCheckoutSessionResponse201 = {
-  data: BillingCheckoutSessionResponse
-  status: 201
-}
-
-export type createBillingCheckoutSessionResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type createBillingCheckoutSessionResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type createBillingCheckoutSessionResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type createBillingCheckoutSessionResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type createBillingCheckoutSessionResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type createBillingCheckoutSessionResponse502 = {
-  data: Error
-  status: 502
-}
-
-export type createBillingCheckoutSessionResponseSuccess = (createBillingCheckoutSessionResponse201) & {
-  headers: Headers;
-};
-export type createBillingCheckoutSessionResponseError = (createBillingCheckoutSessionResponse401 | createBillingCheckoutSessionResponse403 | createBillingCheckoutSessionResponse409 | createBillingCheckoutSessionResponse422 | createBillingCheckoutSessionResponse500 | createBillingCheckoutSessionResponse502) & {
-  headers: Headers;
-};
-
-export type createBillingCheckoutSessionResponse = (createBillingCheckoutSessionResponseSuccess | createBillingCheckoutSessionResponseError)
-
-export const getCreateBillingCheckoutSessionUrl = () => {
-
-
-
-
-  return `/v1/billing/checkout-sessions`
-}
-
-export const createBillingCheckoutSession = async (billingCheckoutSessionRequest: BillingCheckoutSessionRequest, options?: RequestInit): Promise<createBillingCheckoutSessionResponse> => {
-
-  return customFetch<createBillingCheckoutSessionResponse>(getCreateBillingCheckoutSessionUrl(),
-  {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      billingCheckoutSessionRequest,)
-  }
-);}
-
-
-
-
-export const getCreateBillingCheckoutSessionMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: BillingCheckoutSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: BillingCheckoutSessionRequest}, TContext> => {
-
-const mutationKey = ['createBillingCheckoutSession'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createBillingCheckoutSession>>, {data: BillingCheckoutSessionRequest}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createBillingCheckoutSession(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateBillingCheckoutSessionMutationResult = NonNullable<Awaited<ReturnType<typeof createBillingCheckoutSession>>>
-    export type CreateBillingCheckoutSessionMutationBody = BillingCheckoutSessionRequest
-    export type CreateBillingCheckoutSessionMutationError = Error
-
-    export const useCreateBillingCheckoutSession = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: BillingCheckoutSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createBillingCheckoutSession>>,
-        TError,
-        {data: BillingCheckoutSessionRequest},
-        TContext
-      > => {
-      return useMutation(getCreateBillingCheckoutSessionMutationOptions(options), queryClient);
-    }
-    export type createBillingPortalSessionResponse201 = {
+export type createBillingPortalSessionResponse201 = {
   data: BillingPortalSessionResponse
   status: 201
 }

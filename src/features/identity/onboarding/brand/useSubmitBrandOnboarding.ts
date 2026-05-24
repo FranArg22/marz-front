@@ -5,6 +5,8 @@ import { t } from '@lingui/core/macro'
 
 import { getMeQueryKey, useMe } from '#/shared/api/generated/accounts/accounts'
 import { useCompleteBrandOnboarding } from '#/shared/api/generated/onboarding/onboarding'
+import type { BrandOnboardingPayload } from '#/shared/api/generated/model/brandOnboardingPayload'
+import type { CompleteBrandOnboardingResponse } from '#/shared/api/generated/model/completeBrandOnboardingResponse'
 import { ApiError } from '#/shared/api/mutator'
 import { track } from '#/shared/analytics/track'
 
@@ -37,7 +39,22 @@ export function useSubmitBrandOnboarding() {
 
   const submit = () => {
     const state = useBrandOnboardingStore.getState()
-    const { currentStepIndex: _, setField, goTo: _g, reset, ...fields } = state
+    const {
+      currentStepIndex: _,
+      setField,
+      setSelectedPlan: _sp,
+      setSelectedInterval: _si,
+      setFlowChoice: _sfc,
+      setFieldErrors: _sfe,
+      clearFieldErrors: _cfe,
+      goTo: _g,
+      reset,
+      selectedPlan,
+      selectedInterval,
+      flowChoice,
+      fieldErrors: _fe,
+      ...fields
+    } = state
 
     if (
       typeof fields.website_url === 'string' &&
@@ -77,10 +94,46 @@ export function useSubmitBrandOnboarding() {
       return
     }
 
+    if (flowChoice === 'paid' && (!selectedPlan || !selectedInterval)) {
+      const paywallStepId = 'paywall'
+      const idx = getStepIndex(paywallStepId)
+      if (idx >= 0) {
+        useBrandOnboardingStore.getState().goTo(idx)
+        void navigate({
+          to: '/onboarding/brand/$step',
+          params: { step: paywallStepId },
+        })
+      }
+      toast.error(t`Elegí un plan para continuar.`)
+      return
+    }
+
+    const billingIntent =
+      flowChoice === 'paid'
+        ? {
+            plan: selectedPlan!,
+            interval: selectedInterval!,
+            success_url: `${window.location.origin}/onboarding/brand/billing-callback?checkout=success`,
+            cancel_url: `${window.location.origin}/onboarding/brand/billing-callback?checkout=cancel`,
+          }
+        : undefined
+
+    const payload: BrandOnboardingPayload = {
+      ...parsed.data,
+      billing_intent: billingIntent,
+    }
+
     mutation.mutate(
-      { data: parsed.data },
+      { data: payload },
       {
-        onSuccess: () => {
+        onSuccess: (response) => {
+          if (response.status === 200) {
+            const data = response.data as CompleteBrandOnboardingResponse
+            if (data.checkout_url) {
+              window.location.assign(data.checkout_url)
+              return
+            }
+          }
           reset()
           void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
           track('onboarding_completed', { kind: 'brand' })
@@ -116,6 +169,25 @@ export function useSubmitBrandOnboarding() {
                     params: { step: firstStepId },
                   })
                 }
+              }
+              return
+            }
+            const code = error.code
+            const isBillingValidation =
+              code === 'validation.invalid_url' ||
+              code === 'validation.invalid_plan' ||
+              code === 'validation.invalid_interval' ||
+              code === 'validation.invalid_workspace' ||
+              code === 'subscription_already_active'
+            toast.error(error.message || t`No pudimos completar el onboarding.`)
+            if (isBillingValidation) {
+              const idx = getStepIndex('paywall')
+              if (idx >= 0) {
+                useBrandOnboardingStore.getState().goTo(idx)
+                void navigate({
+                  to: '/onboarding/brand/$step',
+                  params: { step: 'paywall' },
+                })
               }
             }
             return

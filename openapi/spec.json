@@ -104,7 +104,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MeResponse"
+                  "$ref": "#/components/schemas/CompleteBrandOnboardingResponse"
                 }
               }
             }
@@ -8562,113 +8562,6 @@
         }
       }
     },
-    "/v1/billing/checkout-sessions": {
-      "post": {
-        "operationId": "createBillingCheckoutSession",
-        "tags": [
-          "brand",
-          "billing"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Idempotency-Key",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BillingCheckoutSessionRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BillingCheckoutSessionResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: subscription_already_active, idempotency_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_plan, validation.invalid_interval, validation.invalid_url. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "502": {
-            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/billing/portal-sessions": {
       "post": {
         "operationId": "createBillingPortalSession",
@@ -10136,8 +10029,66 @@
           "contact_whatsapp_e164": {
             "type": "string",
             "pattern": "^\\+[1-9]\\d{1,14}$"
+          },
+          "billing_intent": {
+            "$ref": "#/components/schemas/BrandOnboardingBillingIntent",
+            "nullable": true
           }
         }
+      },
+      "BrandOnboardingBillingIntent": {
+        "type": "object",
+        "required": [
+          "plan",
+          "interval",
+          "success_url",
+          "cancel_url"
+        ],
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/BillingPlanIdentifier"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/BillingInterval"
+          },
+          "success_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute https URL Stripe redirects to after success."
+          },
+          "cancel_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute https URL Stripe redirects to on cancel."
+          }
+        }
+      },
+      "CompleteBrandOnboardingResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MeResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "subscription_status"
+            ],
+            "properties": {
+              "subscription_status": {
+                "type": "string",
+                "enum": [
+                  "free",
+                  "pending_checkout"
+                ]
+              },
+              "checkout_url": {
+                "type": "string",
+                "format": "uri",
+                "nullable": true
+              }
+            }
+          }
+        ]
       },
       "Vertical": {
         "type": "string",
@@ -12733,54 +12684,6 @@
             "type": "integer",
             "nullable": true,
             "description": "Days until downgrade either by past_due (7-day grace) or scheduled cancel_at_period_end. Null otherwise."
-          }
-        }
-      },
-      "BillingCheckoutSessionRequest": {
-        "type": "object",
-        "required": [
-          "plan",
-          "interval",
-          "success_url",
-          "cancel_url"
-        ],
-        "properties": {
-          "plan": {
-            "$ref": "#/components/schemas/BillingPlanIdentifier"
-          },
-          "interval": {
-            "$ref": "#/components/schemas/BillingInterval"
-          },
-          "success_url": {
-            "type": "string",
-            "format": "uri",
-            "description": "Absolute https URL Stripe redirects to after success."
-          },
-          "cancel_url": {
-            "type": "string",
-            "format": "uri",
-            "description": "Absolute https URL Stripe redirects to on cancel."
-          }
-        }
-      },
-      "BillingCheckoutSessionResponse": {
-        "type": "object",
-        "required": [
-          "checkout_url",
-          "session_id",
-          "expires_at"
-        ],
-        "properties": {
-          "checkout_url": {
-            "type": "string",
-            "format": "uri"
-          },
-          "session_id": {
-            "type": "string"
-          },
-          "expires_at": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },

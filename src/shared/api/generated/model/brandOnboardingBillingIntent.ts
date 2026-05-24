@@ -10,7 +10,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import type { BillingInterval } from './billingInterval';
 import type { BillingPlanIdentifier } from './billingPlanIdentifier';
 
-export interface BillingCheckoutSessionRequest {
+export interface BrandOnboardingBillingIntent {
   plan: BillingPlanIdentifier;
   interval: BillingInterval;
   /** Absolute https URL Stripe redirects to after success. */

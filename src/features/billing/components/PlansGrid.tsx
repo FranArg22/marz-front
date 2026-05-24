@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 import { cn } from '#/lib/utils'
 import type { BillingInterval } from '#/shared/api/generated/model/billingInterval'
 import type { BillingPlan } from '#/shared/api/generated/model/billingPlan'
@@ -11,6 +12,7 @@ interface PlansGridProps {
   selectedInterval: BillingInterval
   onIntervalChange: (interval: BillingInterval) => void
   onPlanSelect: (plan: BillingPlanIdentifier) => void
+  onPlanCta?: (plan: BillingPlanIdentifier) => void
 }
 
 export function PlansGrid({
@@ -19,6 +21,7 @@ export function PlansGrid({
   selectedInterval,
   onIntervalChange,
   onPlanSelect,
+  onPlanCta,
 }: PlansGridProps) {
   const visiblePlans = plans.filter((p) => p.interval === selectedInterval)
 
@@ -40,6 +43,7 @@ export function PlansGrid({
           selected={selectedInterval === 'year'}
           onSelect={onIntervalChange}
           label={t`Anual`}
+          showDiscount
         />
       </div>
 
@@ -56,6 +60,10 @@ export function PlansGrid({
             amountUsd={Number.parseFloat(p.amount_usd)}
             selected={selectedPlan === p.plan}
             onSelect={() => onPlanSelect(p.plan)}
+            onCta={() => onPlanCta?.(p.plan)}
+            highlightLabel={
+              p.plan === 'growth' ? t`Recomendado para vos` : undefined
+            }
           />
         ))}
       </div>
@@ -68,6 +76,7 @@ interface IntervalTabProps {
   selected: boolean
   onSelect: (interval: BillingInterval) => void
   label: string
+  showDiscount?: boolean
 }
 
 function IntervalTab({
@@ -75,6 +84,7 @@ function IntervalTab({
   selected,
   onSelect,
   label,
+  showDiscount,
 }: IntervalTabProps) {
   return (
     <button
@@ -83,13 +93,23 @@ function IntervalTab({
       aria-selected={selected}
       onClick={() => onSelect(interval)}
       className={cn(
-        'flex h-8 items-center rounded-full px-4 text-xs font-semibold transition-colors',
+        'flex h-8 items-center gap-1.5 rounded-full px-4 text-xs font-semibold transition-colors',
         selected
           ? 'bg-foreground text-background'
           : 'text-muted-foreground hover:text-foreground',
       )}
     >
       {label}
+      {showDiscount && (
+        <span
+          className={cn(
+            'text-[10px] font-semibold',
+            selected ? 'text-background' : 'text-primary',
+          )}
+        >
+          <Trans>-20%</Trans>
+        </span>
+      )}
     </button>
   )
 }

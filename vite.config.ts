@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
-import { devtools } from '@tanstack/devtools-vite'
+// @tanstack/devtools-vite disabled: causes infinite SSR↔client log echo loop.
+// Re-enable after upstream fix lands.
 
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
@@ -16,7 +17,6 @@ const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
-    devtools(),
     tailwindcss(),
     tanstackStart({
       router: {

@@ -147,17 +147,6 @@ export const GetBillingSubscriptionResponse = zod.object({
   "days_until_downgrade": zod.number().nullish().describe('Days until downgrade either by past_due (7-day grace) or scheduled cancel_at_period_end. Null otherwise.')
 })
 
-export const CreateBillingCheckoutSessionHeader = zod.object({
-  "Idempotency-Key": zod.uuid()
-})
-
-export const CreateBillingCheckoutSessionBody = zod.object({
-  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
-  "interval": zod.enum(['month', 'year']),
-  "success_url": zod.url().describe('Absolute https URL Stripe redirects to after success.'),
-  "cancel_url": zod.url().describe('Absolute https URL Stripe redirects to on cancel.')
-})
-
 export const CreateBillingPortalSessionHeader = zod.object({
   "Idempotency-Key": zod.uuid()
 })

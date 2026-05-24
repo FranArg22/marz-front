@@ -8,7 +8,13 @@ function makeState(
   return {
     currentStepIndex: 0,
     fieldErrors: {},
+    selectedPlan: null,
+    selectedInterval: null,
+    flowChoice: null,
     setField: () => {},
+    setSelectedPlan: () => {},
+    setSelectedInterval: () => {},
+    setFlowChoice: () => {},
     setFieldErrors: () => {},
     clearFieldErrors: () => {},
     goTo: () => {},

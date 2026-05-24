@@ -1,48 +1,18 @@
-import { useState } from 'react'
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import { PlansGrid } from '#/features/billing/components/PlansGrid'
 import { useBillingPlans } from '#/features/billing/hooks/useBillingPlans'
-import { useCreateCheckoutSession } from '#/features/billing/hooks/useCreateCheckoutSession'
-import type { BillingInterval } from '#/shared/api/generated/model/billingInterval'
 import type { BillingPlanIdentifier } from '#/shared/api/generated/model/billingPlanIdentifier'
-import { ApiError } from '#/shared/api/mutator'
 import { useBrandOnboardingStore } from '../store'
 import { STEPS, getStepId } from '../steps'
-
-type PaywallErrorKind =
-  | 'subscription_active'
-  | 'validation'
-  | 'stripe_unavailable'
-  | 'generic'
-
-/* eslint-disable lingui/no-unlocalized-strings -- API error codes are not user-facing copy. */
-function classifyError(error: unknown): PaywallErrorKind {
-  if (!(error instanceof ApiError)) return 'generic'
-  if (error.status === 409 && error.code === 'subscription_already_active') {
-    return 'subscription_active'
-  }
-  if (error.status === 422 && error.code.startsWith('validation.')) {
-    return 'validation'
-  }
-  if (error.status === 502 && error.code === 'stripe_unavailable') {
-    return 'stripe_unavailable'
-  }
-  return 'generic'
-}
-/* eslint-enable lingui/no-unlocalized-strings */
 
 export function B13PaywallScreen() {
   const navigate = useNavigate()
   const store = useBrandOnboardingStore()
   const plansQuery = useBillingPlans()
-  const checkout = useCreateCheckoutSession()
-
-  const [selectedInterval, setSelectedInterval] =
-    useState<BillingInterval>('month')
-  const [selectedPlan, setSelectedPlan] =
-    useState<BillingPlanIdentifier | null>(null)
-  const [errorKind, setErrorKind] = useState<PaywallErrorKind | null>(null)
+  const selectedInterval = store.selectedInterval ?? 'month'
+  const selectedPlan = store.selectedPlan
 
   const advanceToNextStep = () => {
     const currentIndex = STEPS.findIndex((s) => s.id === 'paywall')
@@ -55,30 +25,18 @@ export function B13PaywallScreen() {
     })
   }
 
-  const handleContinuePaid = () => {
-    if (!selectedPlan || checkout.isPending) return
-    setErrorKind(null)
-    const origin = window.location.origin
-    checkout.mutate(
-      {
-        data: {
-          plan: selectedPlan,
-          interval: selectedInterval,
-          success_url: `${origin}/onboarding/brand/billing-callback?checkout=success`,
-          cancel_url: `${origin}/onboarding/brand/billing-callback?checkout=cancelled`,
-        },
-      },
-      {
-        onSuccess: (response) => {
-          if (response.status === 201) {
-            window.location.assign(response.data.checkout_url)
-          }
-        },
-        onError: (error) => {
-          setErrorKind(classifyError(error))
-        },
-      },
-    )
+  const handlePlanCta = (plan: BillingPlanIdentifier) => {
+    store.setSelectedPlan(plan)
+    store.setSelectedInterval(selectedInterval)
+    store.setFlowChoice('paid')
+    advanceToNextStep()
+  }
+
+  const handleContinueFree = () => {
+    store.setSelectedPlan(null)
+    store.setSelectedInterval(null)
+    store.setFlowChoice('free')
+    advanceToNextStep()
   }
 
   if (plansQuery.isLoading) {
@@ -116,11 +74,17 @@ export function B13PaywallScreen() {
   return (
     <div className="relative flex w-full flex-col items-center gap-6">
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-2">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-          {firstName ? t`Elegí tu plan, ${firstName}.` : t`Elegí tu plan.`}
+        <h1 className="text-center text-[28px] font-bold leading-tight tracking-[-0.02em] text-foreground">
+          {firstName ? (
+            <Trans>Elegí tu plan, {firstName}.</Trans>
+          ) : (
+            <Trans>Elegí tu plan.</Trans>
+          )}
         </h1>
-        <p className="text-center text-sm text-muted-foreground">
-          {t`Sin take rate. Sin letra chica.`}
+        <p className="text-center text-[14px] text-muted-foreground">
+          <Trans>
+            Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth.
+          </Trans>
         </p>
       </div>
 
@@ -129,40 +93,21 @@ export function B13PaywallScreen() {
         selectedPlan={selectedPlan ?? undefined}
         selectedInterval={selectedInterval}
         onIntervalChange={(interval) => {
-          setSelectedInterval(interval)
-          setSelectedPlan(null)
+          store.setSelectedInterval(interval)
+          store.setSelectedPlan(null)
         }}
         onPlanSelect={(plan) => {
-          setSelectedPlan(plan)
-          setErrorKind(null)
+          store.setSelectedPlan(plan)
         }}
+        onPlanCta={handlePlanCta}
       />
 
-      {errorKind ? (
-        <PaywallError
-          kind={errorKind}
-          onAdvance={advanceToNextStep}
-          onRetry={handleContinuePaid}
-        />
-      ) : null}
-
       <button
         type="button"
-        onClick={handleContinuePaid}
-        disabled={!selectedPlan || checkout.isPending}
-        className="flex h-11 min-w-[260px] items-center justify-center rounded-xl bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+        onClick={handleContinueFree}
+        className="text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
-        {checkout.isPending
-          ? t`Redirigiendo a Stripe…`
-          : t`Continuar con plan pago`}
-      </button>
-
-      <button
-        type="button"
-        onClick={advanceToNextStep}
-        className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-      >
-        {t`Prefiero seguir sin la red de creadores`}
+        <Trans>Prefiero seguir sin acceso a la red de creadores →</Trans>
       </button>
     </div>
   )
@@ -180,72 +125,10 @@ function PaywallSkeleton() {
         {['s-starter', 's-growth', 's-scale'].map((slot) => (
           <div
             key={slot}
-            className="h-[280px] w-[260px] animate-pulse rounded-2xl bg-muted"
+            className="h-[560px] w-[260px] animate-pulse rounded-[var(--radius-xl)] bg-muted"
           />
         ))}
       </div>
     </div>
-  )
-}
-
-interface PaywallErrorProps {
-  kind: PaywallErrorKind
-  onAdvance: () => void
-  onRetry: () => void
-}
-
-function PaywallError({ kind, onAdvance, onRetry }: PaywallErrorProps) {
-  if (kind === 'subscription_active') {
-    return (
-      <div
-        role="alert"
-        className="flex w-full max-w-[720px] flex-col items-center gap-3 rounded-xl border border-border bg-card p-4 text-center"
-      >
-        <p className="text-sm text-foreground">
-          {t`Ya tenés una suscripción activa.`}
-        </p>
-        <button
-          type="button"
-          onClick={onAdvance}
-          className="flex h-10 items-center justify-center rounded-xl bg-primary px-4 text-xs font-semibold text-primary-foreground"
-        >
-          {t`Continuar`}
-        </button>
-      </div>
-    )
-  }
-
-  if (kind === 'stripe_unavailable') {
-    return (
-      <div
-        role="alert"
-        className="flex w-full max-w-[720px] flex-col items-center gap-3 rounded-xl border border-border bg-card p-4 text-center"
-      >
-        <p className="text-sm text-foreground">
-          {t`Stripe no responde, intentá de nuevo.`}
-        </p>
-        <button
-          type="button"
-          onClick={onRetry}
-          className="flex h-10 items-center justify-center rounded-xl border border-border bg-background px-4 text-xs font-semibold text-foreground"
-        >
-          {t`Reintentar`}
-        </button>
-      </div>
-    )
-  }
-
-  if (kind === 'validation') {
-    return (
-      <p role="alert" className="text-sm text-destructive">
-        {t`Plan inválido, refrescá la página.`}
-      </p>
-    )
-  }
-
-  return (
-    <p role="alert" className="text-sm text-destructive">
-      {t`No pudimos iniciar el checkout. Intentá de nuevo.`}
-    </p>
   )
 }

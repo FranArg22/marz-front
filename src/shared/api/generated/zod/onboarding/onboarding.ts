@@ -45,7 +45,13 @@ export const CompleteBrandOnboardingBody = zod.object({
 })]),
   "contact_name": zod.string().max(completeBrandOnboardingBodyContactNameMax),
   "contact_title": zod.string().max(completeBrandOnboardingBodyContactTitleMax),
-  "contact_whatsapp_e164": zod.string().regex(completeBrandOnboardingBodyContactWhatsappE164RegExp)
+  "contact_whatsapp_e164": zod.string().regex(completeBrandOnboardingBodyContactWhatsappE164RegExp),
+  "billing_intent": zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
+  "interval": zod.enum(['month', 'year']),
+  "success_url": zod.url().describe('Absolute https URL Stripe redirects to after success.'),
+  "cancel_url": zod.url().describe('Absolute https URL Stripe redirects to on cancel.')
+}).nullish()
 })
 
 export const completeBrandOnboardingResponseFullNameMax = 200;

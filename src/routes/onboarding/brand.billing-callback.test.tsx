@@ -93,16 +93,16 @@ describe('/onboarding/brand/billing-callback search/beforeLoad', () => {
     expect(callValidateSearch({ checkout: 'success' })).toEqual({
       checkout: 'success',
     })
-    expect(callValidateSearch({ checkout: 'cancelled' })).toEqual({
-      checkout: 'cancelled',
+    expect(callValidateSearch({ checkout: 'cancel' })).toEqual({
+      checkout: 'cancel',
     })
     expect(callValidateSearch({})).toEqual({})
   })
 
-  it('beforeLoad redirects to paywall when checkout=cancelled', () => {
+  it('beforeLoad redirects to paywall when checkout=cancel', () => {
     let thrown: unknown
     try {
-      callBeforeLoad({ checkout: 'cancelled' })
+      callBeforeLoad({ checkout: 'cancel' })
     } catch (e) {
       thrown = e
     }

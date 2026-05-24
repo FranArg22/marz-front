@@ -12,8 +12,13 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
+vi.mock('@lingui/react/macro', () => ({
+  Trans: ({ children }: { children: React.ReactNode }) => children,
+}))
+
 function renderCard(overrides: Partial<Parameters<typeof PlanCard>[0]> = {}) {
   const onSelect = vi.fn()
+  const onCta = vi.fn()
   const utils = render(
     <div role="radiogroup" aria-label="planes">
       <PlanCard
@@ -22,34 +27,42 @@ function renderCard(overrides: Partial<Parameters<typeof PlanCard>[0]> = {}) {
         amountUsd={299}
         selected={false}
         onSelect={onSelect}
+        onCta={onCta}
         {...overrides}
       />
     </div>,
   )
-  return { onSelect, ...utils }
+  return { onSelect, onCta, ...utils }
 }
 
 describe('PlanCard', () => {
-  it('renders price formatted as USD currency', () => {
+  it('renders price amount', () => {
     renderCard({ amountUsd: 299 })
-    expect(screen.getByText('$299')).toBeInTheDocument()
+    expect(screen.getByText('299')).toBeInTheDocument()
   })
 
-  it('invokes onSelect when clicked', async () => {
+  it('invokes onSelect when the radio input is changed', async () => {
     const user = userEvent.setup()
     const { onSelect } = renderCard()
     await user.click(screen.getByRole('radio'))
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
 
-  it('reflects selected via aria-checked', () => {
+  it('invokes onCta when the CTA button is clicked', async () => {
+    const user = userEvent.setup()
+    const { onCta } = renderCard()
+    await user.click(screen.getByRole('button', { name: /probar 7 días gratis/i }))
+    expect(onCta).toHaveBeenCalledTimes(1)
+  })
+
+  it('reflects selected state via checked property', () => {
     renderCard({ selected: true })
-    expect(screen.getByRole('radio')).toHaveAttribute('aria-checked', 'true')
+    expect(screen.getByRole('radio')).toBeChecked()
   })
 
   it('is unchecked when selected is false', () => {
     renderCard({ selected: false })
-    expect(screen.getByRole('radio')).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByRole('radio')).not.toBeChecked()
   })
 
   it('renders highlight label when provided', () => {
@@ -60,6 +73,20 @@ describe('PlanCard', () => {
   it('omits highlight label when not provided', () => {
     renderCard()
     expect(screen.queryByText(/RECOMENDADO/i)).not.toBeInTheDocument()
+  })
+
+  it('renders stats section', () => {
+    renderCard()
+    expect(screen.getByText('CAMPAÑAS')).toBeInTheDocument()
+    expect(screen.getByText('HIRES')).toBeInTheDocument()
+    expect(screen.getByText('INVITES')).toBeInTheDocument()
+    expect(screen.getByText('PAYOUTS')).toBeInTheDocument()
+  })
+
+  it('renders INCLUYE section with feature bullets', () => {
+    renderCard()
+    expect(screen.getByText('INCLUYE')).toBeInTheDocument()
+    expect(screen.getByText(/Todo lo de Starter/i)).toBeInTheDocument()
   })
 
   it('has no accessibility violations', async () => {

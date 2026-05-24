@@ -10,19 +10,19 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import * as zod from 'zod';
 
 
-export const meResponseFullNameMax = 200;
+export const meResponseOneFullNameMax = 200;
 
-export const meResponseCreatorProfileHandleMax = 200;
+export const meResponseOneCreatorProfileHandleMax = 200;
 
-export const meResponseCreatorProfileDisplayNameMax = 200;
+export const meResponseOneCreatorProfileDisplayNameMax = 200;
 
-export const meResponseCreatorProfileBioMax = 2000;
+export const meResponseOneCreatorProfileBioMax = 2000;
 
-export const meResponseCreatorProfileNichesItemMax = 200;
+export const meResponseOneCreatorProfileNichesItemMax = 200;
 
-export const meResponseCreatorProfileContentTypesItemMax = 200;
+export const meResponseOneCreatorProfileContentTypesItemMax = 200;
 
-export const meResponseCreatorProfileCityMax = 200;
+export const meResponseOneCreatorProfileCityMax = 200;
 
 
 
@@ -30,20 +30,20 @@ export const MeResponse = zod.object({
   "id": zod.uuid(),
   "email": zod.email(),
   "kind": zod.enum(['brand', 'creator']).nullish(),
-  "full_name": zod.string().max(meResponseFullNameMax),
+  "full_name": zod.string().max(meResponseOneFullNameMax),
   "verified_at": zod.iso.datetime({}).nullish(),
   "created_at": zod.iso.datetime({}),
   "redirect_to": zod.string().nullable(),
   "onboarding_status": zod.enum(['kind_pending', 'onboarding_pending', 'onboarded']),
   "creator_profile": zod.object({
-  "handle": zod.string().max(meResponseCreatorProfileHandleMax).optional(),
-  "display_name": zod.string().max(meResponseCreatorProfileDisplayNameMax).optional(),
-  "bio": zod.string().max(meResponseCreatorProfileBioMax).nullish(),
+  "handle": zod.string().max(meResponseOneCreatorProfileHandleMax).optional(),
+  "display_name": zod.string().max(meResponseOneCreatorProfileDisplayNameMax).optional(),
+  "bio": zod.string().max(meResponseOneCreatorProfileBioMax).nullish(),
   "tier": zod.string().nullish(),
-  "niches": zod.array(zod.string().max(meResponseCreatorProfileNichesItemMax)).optional(),
-  "content_types": zod.array(zod.string().max(meResponseCreatorProfileContentTypesItemMax)).optional(),
+  "niches": zod.array(zod.string().max(meResponseOneCreatorProfileNichesItemMax)).optional(),
+  "content_types": zod.array(zod.string().max(meResponseOneCreatorProfileContentTypesItemMax)).optional(),
   "country": zod.string().nullish(),
-  "city": zod.string().max(meResponseCreatorProfileCityMax).nullish(),
+  "city": zod.string().max(meResponseOneCreatorProfileCityMax).nullish(),
   "avatar_url": zod.string().nullish(),
   "experience_level": zod.string().nullish(),
   "gender": zod.string().nullish(),
@@ -61,7 +61,10 @@ export const MeResponse = zod.object({
   "plan": zod.string(),
   "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
-})
+}).and(zod.object({
+  "subscription_status": zod.enum(['free', 'pending_checkout']),
+  "checkout_url": zod.url().nullish()
+}))
 
 export const SelectKindBody = zod.object({
   "kind": zod.enum(['brand', 'creator'])

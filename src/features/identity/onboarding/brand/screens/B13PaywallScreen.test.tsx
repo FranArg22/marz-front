@@ -1,9 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
+import type { UseQueryResult } from '@tanstack/react-query'
 import type { BillingPlansResponse } from '#/shared/api/generated/model/billingPlansResponse'
-import { ApiError } from '#/shared/api/mutator'
 import { B13PaywallScreen } from './B13PaywallScreen'
 
 vi.mock('@lingui/core/macro', () => ({
@@ -14,28 +13,45 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
-const mockNavigate = vi.fn()
-vi.mock('@tanstack/react-router', () => ({
-  useNavigate: () => mockNavigate,
+vi.mock('@lingui/react/macro', () => ({
+  Trans: ({ children }: { children: React.ReactNode }) => children,
 }))
 
+const mockNavigate = vi.fn()
+vi.mock('@tanstack/react-router', async () => {
+  const actual =
+    await vi.importActual<typeof import('@tanstack/react-router')>(
+      '@tanstack/react-router',
+    )
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
+
 const mockGoTo = vi.fn()
+const mockSetSelectedPlan = vi.fn()
+const mockSetSelectedInterval = vi.fn()
+const mockSetFlowChoice = vi.fn()
+let storeState = {
+  contact_name: 'Ana Pérez',
+  selectedPlan: null as 'starter' | 'growth' | 'scale' | null,
+  selectedInterval: null as 'month' | 'year' | null,
+}
 vi.mock('../store', () => ({
   useBrandOnboardingStore: () => ({
-    contact_name: 'Ana Pérez',
+    ...storeState,
     goTo: mockGoTo,
+    setSelectedPlan: mockSetSelectedPlan,
+    setSelectedInterval: mockSetSelectedInterval,
+    setFlowChoice: mockSetFlowChoice,
   }),
 }))
 
 const useBillingPlansMock = vi.fn()
-const useCreateCheckoutSessionMock = vi.fn()
 
 vi.mock('#/features/billing/hooks/useBillingPlans', () => ({
   useBillingPlans: () => useBillingPlansMock(),
-}))
-
-vi.mock('#/features/billing/hooks/useCreateCheckoutSession', () => ({
-  useCreateCheckoutSession: () => useCreateCheckoutSessionMock(),
 }))
 
 const PLANS: BillingPlansResponse = {
@@ -96,143 +112,72 @@ function plansQueryError(refetch = vi.fn()): PlansQueryResult {
   } as unknown as PlansQueryResult
 }
 
-type CheckoutMutation = UseMutationResult<
-  { data: { checkout_url: string; session_id: string; expires_at: string } },
-  unknown,
-  { data: unknown },
-  unknown
->
-
-function checkoutMutation(overrides: {
-  mutate?: ReturnType<typeof vi.fn>
-  isPending?: boolean
-} = {}): CheckoutMutation {
-  return {
-    mutate: overrides.mutate ?? vi.fn(),
-    isPending: overrides.isPending ?? false,
-  } as unknown as CheckoutMutation
-}
-
-const originalLocation = window.location
-
 beforeEach(() => {
   vi.clearAllMocks()
+  storeState = {
+    contact_name: 'Ana Pérez',
+    selectedPlan: null,
+    selectedInterval: null,
+  }
   useBillingPlansMock.mockReturnValue(plansQuerySuccess())
-  useCreateCheckoutSessionMock.mockReturnValue(checkoutMutation())
-
-  Object.defineProperty(window, 'location', {
-    configurable: true,
-    value: {
-      ...originalLocation,
-      origin: 'https://app.marz.test',
-      assign: vi.fn(),
-    },
-  })
 })
 
 describe('B13PaywallScreen', () => {
-  it('renders the PlansGrid with month plans by default', () => {
+  it('renders the plan cards with plan names and prices', () => {
     render(<B13PaywallScreen />)
     expect(screen.getByText('Starter')).toBeInTheDocument()
     expect(screen.getByText('Growth')).toBeInTheDocument()
     expect(screen.getByText('Scale')).toBeInTheDocument()
-    expect(screen.getByText('$199')).toBeInTheDocument()
+    expect(screen.getByText('199')).toBeInTheDocument()
   })
 
-  it('disables the primary CTA until a plan is selected, then enables it', async () => {
+  it('renders the personalized header with first name', () => {
+    render(<B13PaywallScreen />)
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Ana')
+  })
+
+  it('renders the trial subtitle', () => {
+    render(<B13PaywallScreen />)
+    expect(screen.getByText(/trial de 7 días/i)).toBeInTheDocument()
+  })
+
+  it('renders the -20% badge on the annual toggle', () => {
+    render(<B13PaywallScreen />)
+    expect(screen.getByText('-20%')).toBeInTheDocument()
+  })
+
+  it('sets onPlanSelect when a radio is changed', async () => {
     const user = userEvent.setup()
     render(<B13PaywallScreen />)
-    const cta = screen.getByRole('button', { name: /continuar con plan pago/i })
-    expect(cta).toBeDisabled()
-
     await user.click(screen.getByRole('radio', { name: /growth/i }))
-    expect(cta).toBeEnabled()
+    expect(mockSetSelectedPlan).toHaveBeenCalledWith('growth')
   })
 
-  it('calls checkout mutation with selected plan, interval, success and cancel URLs', async () => {
+  it('clicking CTA on a plan card sets plan+interval+flowChoice and advances', async () => {
     const user = userEvent.setup()
-    const mutate = vi.fn()
-    useCreateCheckoutSessionMock.mockReturnValue(checkoutMutation({ mutate }))
-
     render(<B13PaywallScreen />)
-    await user.click(screen.getByRole('radio', { name: /growth/i }))
-    await user.click(screen.getByRole('button', { name: /continuar con plan pago/i }))
+    const ctaButtons = screen.getAllByRole('button', { name: /probar 7 días gratis/i })
+    await user.click(ctaButtons[0]!)
 
-    expect(mutate).toHaveBeenCalledTimes(1)
-    expect(mutate.mock.calls[0]?.[0]).toEqual({
-      data: {
-        plan: 'growth',
-        interval: 'month',
-        success_url:
-          'https://app.marz.test/onboarding/brand/billing-callback?checkout=success',
-        cancel_url:
-          'https://app.marz.test/onboarding/brand/billing-callback?checkout=cancelled',
-      },
-    })
-  })
-
-  it('on success redirects to checkout_url', async () => {
-    const user = userEvent.setup()
-    const mutate = vi.fn(
-      (_vars: unknown, opts: { onSuccess: (resp: unknown) => void }) => {
-        opts.onSuccess({
-          status: 201,
-          data: {
-            checkout_url: 'https://stripe.test/checkout/abc',
-            session_id: 'cs_123',
-            expires_at: '2026-05-23T00:00:00Z',
-          },
-        })
-      },
-    )
-    useCreateCheckoutSessionMock.mockReturnValue(checkoutMutation({ mutate }))
-
-    render(<B13PaywallScreen />)
-    await user.click(screen.getByRole('radio', { name: /starter/i }))
-    await user.click(screen.getByRole('button', { name: /continuar con plan pago/i }))
-
-    expect(window.location.assign).toHaveBeenCalledWith(
-      'https://stripe.test/checkout/abc',
-    )
-  })
-
-  it('on 409 subscription_already_active shows message and an advance CTA', async () => {
-    const user = userEvent.setup()
-    const mutate = vi.fn(
-      (_vars: unknown, opts: { onError: (e: unknown) => void }) => {
-        opts.onError(
-          new ApiError(409, 'subscription_already_active', 'already active'),
-        )
-      },
-    )
-    useCreateCheckoutSessionMock.mockReturnValue(checkoutMutation({ mutate }))
-
-    render(<B13PaywallScreen />)
-    await user.click(screen.getByRole('radio', { name: /starter/i }))
-    await user.click(screen.getByRole('button', { name: /continuar con plan pago/i }))
-
-    expect(
-      screen.getByText(/ya tenés una suscripción activa/i),
-    ).toBeInTheDocument()
-
-    await user.click(screen.getByRole('button', { name: /^continuar$/i }))
+    expect(mockSetSelectedPlan).toHaveBeenCalledWith('starter')
+    expect(mockSetSelectedInterval).toHaveBeenCalledWith('month')
+    expect(mockSetFlowChoice).toHaveBeenCalledWith('paid')
     expect(mockGoTo).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalled()
   })
 
-  it('free CTA advances step without invoking checkout mutation', async () => {
+  it('free CTA saves free choice and advances', async () => {
     const user = userEvent.setup()
-    const mutate = vi.fn()
-    useCreateCheckoutSessionMock.mockReturnValue(checkoutMutation({ mutate }))
-
     render(<B13PaywallScreen />)
     await user.click(
       screen.getByRole('button', {
-        name: /prefiero seguir sin la red de creadores/i,
+        name: /prefiero seguir sin acceso a la red de creadores/i,
       }),
     )
 
-    expect(mutate).not.toHaveBeenCalled()
+    expect(mockSetSelectedPlan).toHaveBeenCalledWith(null)
+    expect(mockSetSelectedInterval).toHaveBeenCalledWith(null)
+    expect(mockSetFlowChoice).toHaveBeenCalledWith('free')
     expect(mockGoTo).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalled()
   })
