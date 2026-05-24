@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { devtools } from '@tanstack/devtools-vite'
 
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { nitro } from 'nitro/vite'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 
 import viteReact from '@vitejs/plugin-react-swc'
@@ -23,6 +24,10 @@ const config = defineConfig({
         routeFileIgnorePattern: '\\.(test|spec)\\.(ts|tsx)$',
       },
     }),
+    // Vercel (prod) detecta TanStack Start y arma su preset Nitro solo.
+    // En self-hosted (NUC, node-server) no hay auto-detección → activar el
+    // plugin explícitamente sólo cuando SELF_HOSTED=1 (lo setea el build Docker).
+    ...(process.env.SELF_HOSTED ? [nitro()] : []),
     viteReact({
       plugins: [['@lingui/swc-plugin', {}]],
     }),

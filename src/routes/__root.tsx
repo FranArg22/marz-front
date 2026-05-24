@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import { Toaster } from '#/components/ui/sonner'
 
-import appCss from '../styles.css?url'
+import '../styles.css'
 
 import { useBrandWorkspaceProvider } from '#/features/identity/hooks/useBrandWorkspaceProvider'
 import { useClerkTokenProvider } from '#/features/identity/hooks/useClerkTokenProvider'
@@ -54,7 +54,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { title: 'Marz' },
       /* eslint-enable lingui/no-unlocalized-strings */
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
     htmlAttrs: { lang: loaderData?.locale ?? 'es' },
   }),
   shellComponent: RootDocument,

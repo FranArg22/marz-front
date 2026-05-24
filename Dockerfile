@@ -14,6 +14,19 @@ RUN corepack enable
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# VITE_* deben estar presentes en build-time (se hornean en el bundle del cliente).
+ARG VITE_API_URL
+ARG VITE_WS_URL
+ARG VITE_APP_TITLE
+ARG VITE_CLERK_PUBLISHABLE_KEY
+# Self-hosted build (node-server): activa el plugin Nitro en vite.config.
+# En Vercel esto no se setea → Vercel arma su preset solo.
+ARG SELF_HOSTED=1
+ENV VITE_API_URL=$VITE_API_URL \
+    VITE_WS_URL=$VITE_WS_URL \
+    VITE_APP_TITLE=$VITE_APP_TITLE \
+    VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY \
+    SELF_HOSTED=$SELF_HOSTED
 RUN pnpm build
 
 # -------- runner: minimal runtime --------
