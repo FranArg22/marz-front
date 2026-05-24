@@ -30,7 +30,14 @@ export function AppI18nProvider({
   // streaming SSR boundary can re-render the provider before children
   // hydrate, leaving them without a locale. Re-activating here is a no-op
   // when the catalog is already loaded.
-  if (i18n.locale !== initialLocale) {
+  // On the client, setup.ts pre-activates an empty catalog under DEFAULT_LOCALE,
+  // so a locale-only guard skips activation when initialLocale === DEFAULT_LOCALE,
+  // leaving children with the empty catalog (hash IDs in production). Also
+  // activate when the active catalog is empty so the real initialMessages load.
+  if (
+    i18n.locale !== initialLocale ||
+    Object.keys(i18n.messages).length === 0
+  ) {
     activateCatalog(initialLocale, initialMessages)
   }
 
