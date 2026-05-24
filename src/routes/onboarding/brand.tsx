@@ -64,8 +64,18 @@ function BrandOnboardingLayout() {
   const stepId = (params as Record<string, string | undefined>).step
   const currentIndex = stepId ? getStepIndex(stepId) : -1
   const store = useBrandOnboardingStore()
+  const isStepRoute = stepId !== undefined
 
-  if (currentIndex === -1) return null
+  if (isStepRoute && currentIndex === -1) return null
+
+  if (meQuery.isLoading) return null
+  if (!me || me.status !== 200) return null
+  if (kind !== 'brand' || onboardingStatus !== 'onboarding_pending') return null
+  if (!hasHydrated) return null
+
+  if (!isStepRoute) {
+    return <Outlet />
+  }
 
   const currentStep = STEPS[currentIndex]!
   const percent = ((currentIndex + 1) / STEPS.length) * 100
@@ -114,11 +124,6 @@ function BrandOnboardingLayout() {
     })
     void router.navigate({ to: '/' })
   }
-
-  if (meQuery.isLoading) return null
-  if (!me || me.status !== 200) return null
-  if (kind !== 'brand' || onboardingStatus !== 'onboarding_pending') return null
-  if (!hasHydrated) return null
 
   return (
     <WizardShell

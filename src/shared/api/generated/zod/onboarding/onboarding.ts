@@ -45,7 +45,13 @@ export const CompleteBrandOnboardingBody = zod.object({
 })]),
   "contact_name": zod.string().max(completeBrandOnboardingBodyContactNameMax),
   "contact_title": zod.string().max(completeBrandOnboardingBodyContactTitleMax),
-  "contact_whatsapp_e164": zod.string().regex(completeBrandOnboardingBodyContactWhatsappE164RegExp)
+  "contact_whatsapp_e164": zod.string().regex(completeBrandOnboardingBodyContactWhatsappE164RegExp),
+  "billing_intent": zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
+  "interval": zod.enum(['month', 'year']),
+  "success_url": zod.url().describe('Absolute https URL Stripe redirects to after success.'),
+  "cancel_url": zod.url().describe('Absolute https URL Stripe redirects to on cancel.')
+}).nullish()
 })
 
 export const completeBrandOnboardingResponseFullNameMax = 200;
@@ -96,7 +102,8 @@ export const CompleteBrandOnboardingResponse = zod.object({
   "name": zod.string(),
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
-  "plan": zod.string()
+  "plan": zod.string(),
+  "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })
 
@@ -223,7 +230,8 @@ export const CompleteCreatorOnboardingResponse = zod.object({
   "name": zod.string(),
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
-  "plan": zod.string()
+  "plan": zod.string(),
+  "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })
 

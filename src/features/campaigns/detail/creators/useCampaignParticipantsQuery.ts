@@ -22,6 +22,19 @@ function participantsQueryKey(
   return ['creators', { campaignId, ...params }] as const
 }
 
+export function matchesCreatorsQueryForCampaign(campaignId: string) {
+  return (query: { queryKey: readonly unknown[] }) => {
+    if (query.queryKey[0] !== 'creators') return false
+    const params = query.queryKey[1]
+    return (
+      typeof params === 'object' &&
+      params !== null &&
+      'campaignId' in params &&
+      (params as { campaignId?: string }).campaignId === campaignId
+    )
+  }
+}
+
 function participantsQueryOptions(
   campaignId: string | undefined,
   params: CampaignParticipantsParams,

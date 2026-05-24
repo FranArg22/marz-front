@@ -33,6 +33,7 @@ function setupRouterMock() {
     ),
     useParams: () => mockParams,
     useRouter: () => mockRouter,
+    useNavigate: () => mockNavigate,
   }))
 }
 

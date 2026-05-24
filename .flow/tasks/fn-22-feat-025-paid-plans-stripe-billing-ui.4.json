@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:36.103981Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.3"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.4",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.4.md",
+  "status": "todo",
+  "title": "Refactor B13PaywallScreen con Stripe Checkout real",
+  "updated_at": "2026-05-23T15:58:29.368633Z"
+}

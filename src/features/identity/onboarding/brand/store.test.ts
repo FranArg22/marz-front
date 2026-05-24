@@ -10,6 +10,9 @@ beforeEach(() => {
     currentStepIndex: 0,
     name: undefined,
     vertical: undefined,
+    selectedPlan: null,
+    selectedInterval: null,
+    flowChoice: null,
   })
   sessionStorage.clear()
 })
@@ -52,11 +55,31 @@ describe('useBrandOnboardingStore', () => {
     })
   })
 
+  describe('paywall selection', () => {
+    it('stores selected plan, interval, and flow choice', () => {
+      useBrandOnboardingStore.getState().setSelectedPlan('starter')
+      useBrandOnboardingStore.getState().setSelectedInterval('year')
+      useBrandOnboardingStore.getState().setFlowChoice('paid')
+
+      expect(useBrandOnboardingStore.getState().selectedPlan).toBe('starter')
+      expect(useBrandOnboardingStore.getState().selectedInterval).toBe('year')
+      expect(useBrandOnboardingStore.getState().flowChoice).toBe('paid')
+    })
+  })
+
   describe('reset', () => {
     it('resets currentStepIndex to 0', () => {
-      useBrandOnboardingStore.getState().goTo(7)
+      useBrandOnboardingStore.setState({
+        currentStepIndex: 7,
+        selectedPlan: 'growth',
+        selectedInterval: 'month',
+        flowChoice: 'paid',
+      })
       useBrandOnboardingStore.getState().reset()
       expect(useBrandOnboardingStore.getState().currentStepIndex).toBe(0)
+      expect(useBrandOnboardingStore.getState().selectedPlan).toBeNull()
+      expect(useBrandOnboardingStore.getState().selectedInterval).toBeNull()
+      expect(useBrandOnboardingStore.getState().flowChoice).toBeNull()
     })
   })
 

@@ -10,10 +10,18 @@ const mockRefetch = vi.fn()
 const mockNavigate = vi.fn()
 const mockTrack = vi.fn()
 const mockToastError = vi.fn()
+const mockLocationAssign = vi.fn()
 
-vi.mock('@tanstack/react-router', () => ({
-  useNavigate: () => mockNavigate,
-}))
+vi.mock('@tanstack/react-router', async () => {
+  const actual =
+    await vi.importActual<typeof import('@tanstack/react-router')>(
+      '@tanstack/react-router',
+    )
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
 
 vi.mock('#/shared/api/generated/onboarding/onboarding', () => ({
   useCompleteBrandOnboarding: () => ({
@@ -72,6 +80,14 @@ describe('useSubmitBrandOnboarding', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     useBrandOnboardingStore.getState().reset()
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: {
+        ...window.location,
+        origin: 'https://app.marz.test',
+        assign: mockLocationAssign,
+      },
+    })
   })
 
   async function loadAndRender() {
@@ -89,9 +105,12 @@ describe('useSubmitBrandOnboarding', () => {
     mockMutate.mockImplementation(
       (
         _data: unknown,
-        opts: { onSuccess?: () => void; onError?: (e: unknown) => void },
+        opts: { onSuccess?: (response: unknown) => void; onError?: (e: unknown) => void },
       ) => {
-        opts.onSuccess?.()
+        opts.onSuccess?.({
+          status: 200,
+          data: { subscription_status: 'free' },
+        })
       },
     )
 
@@ -110,6 +129,87 @@ describe('useSubmitBrandOnboarding', () => {
     const state = useBrandOnboardingStore.getState()
     expect(state.name).toBeUndefined()
     expect(state.currentStepIndex).toBe(0)
+  })
+
+  it('paid path: sends billing_intent and redirects when checkout_url is returned', async () => {
+    for (const [key, value] of Object.entries(VALID_STATE)) {
+      useBrandOnboardingStore.setState({ [key]: value })
+    }
+    useBrandOnboardingStore.setState({
+      flowChoice: 'paid',
+      selectedPlan: 'growth',
+      selectedInterval: 'year',
+    })
+
+    mockMutate.mockImplementation(
+      (
+        _data: unknown,
+        opts: { onSuccess?: (response: unknown) => void },
+      ) => {
+        opts.onSuccess?.({
+          status: 200,
+          data: {
+            checkout_url: 'https://checkout.stripe.test/session',
+            subscription_status: 'pending_checkout',
+          },
+        })
+      },
+    )
+
+    const { result } = await loadAndRender()
+    act(() => result.current.submit())
+
+    expect(mockMutate).toHaveBeenCalledWith(
+      {
+        data: expect.objectContaining({
+          billing_intent: {
+            plan: 'growth',
+            interval: 'year',
+            success_url:
+              'https://app.marz.test/onboarding/brand/billing-callback?checkout=success',
+            cancel_url:
+              'https://app.marz.test/onboarding/brand/billing-callback?checkout=cancel',
+          },
+        }),
+      },
+      expect.any(Object),
+    )
+    expect(mockLocationAssign).toHaveBeenCalledWith(
+      'https://checkout.stripe.test/session',
+    )
+    expect(mockNavigate).not.toHaveBeenCalledWith({ to: '/campaigns' })
+  })
+
+  it('free path: omits billing_intent', async () => {
+    for (const [key, value] of Object.entries(VALID_STATE)) {
+      useBrandOnboardingStore.setState({ [key]: value })
+    }
+    useBrandOnboardingStore.setState({ flowChoice: 'free' })
+
+    mockMutate.mockImplementation(
+      (
+        _data: unknown,
+        opts: { onSuccess?: (response: unknown) => void },
+      ) => {
+        opts.onSuccess?.({
+          status: 200,
+          data: { subscription_status: 'free' },
+        })
+      },
+    )
+
+    const { result } = await loadAndRender()
+    act(() => result.current.submit())
+
+    expect(mockMutate).toHaveBeenCalledWith(
+      {
+        data: expect.not.objectContaining({
+          billing_intent: expect.anything(),
+        }),
+      },
+      expect.any(Object),
+    )
+    expect(mockNavigate).toHaveBeenCalledWith({ to: '/campaigns' })
   })
 
   it('Zod parse fail: navigates to step with missing field', async () => {

@@ -9,6 +9,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 import type { Attribution } from './attribution';
 import type { BrandfetchSnapshot } from './brandfetchSnapshot';
+import type { BrandOnboardingBillingIntent } from './brandOnboardingBillingIntent';
 import type { CreatorExperience } from './creatorExperience';
 import type { CreatorSourcingIntent } from './creatorSourcingIntent';
 import type { MarketingObjective } from './marketingObjective';
@@ -48,4 +49,5 @@ export interface BrandOnboardingPayload {
   contact_title: string;
   /** @pattern ^\+[1-9]\d{1,14}$ */
   contact_whatsapp_e164: string;
+  billing_intent?: BrandOnboardingBillingIntent | null;
 }

@@ -107,7 +107,7 @@ function BrandCreatorsRoute() {
       <CreatorsFilters params={filters} onParamsChange={updateFilters} />
 
       <CampaignCreatorsTable
-        scope={{ type: 'global', brandWorkspaceId: '' }}
+        scope={{ type: 'global' }}
         params={tableParams}
         onParamsChange={updateTableParams}
         hasActiveFilters={activeFilters}

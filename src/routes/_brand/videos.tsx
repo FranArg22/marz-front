@@ -112,6 +112,7 @@ function BrandVideosRoute() {
         </h2>
       </div>
 
+      {/* Creator selector deshabilitado en scope global: no hay endpoint de creators del workspace todavía. */}
       <VideosFilters
         params={filters}
         creators={[]}
@@ -119,7 +120,7 @@ function BrandVideosRoute() {
       />
 
       <CampaignVideosGrid
-        scope={{ type: 'global', brandWorkspaceId: '' }}
+        scope={{ type: 'global' }}
         params={gridParams}
         hasActiveFilters={activeFilters}
         hasActiveParticipants={false}

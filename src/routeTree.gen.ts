@@ -32,11 +32,13 @@ import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
 import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
 import { Route as BrandCampaignsRouteImport } from './routes/_brand/campaigns'
+import { Route as BrandBillingRouteImport } from './routes/_brand/billing'
 import { Route as OnboardingCreatorIndexRouteImport } from './routes/onboarding/creator.index'
 import { Route as OnboardingBrandIndexRouteImport } from './routes/onboarding/brand.index'
 import { Route as BrandCampaignsIndexRouteImport } from './routes/_brand/campaigns.index'
 import { Route as WorkspaceConversationsConversationIdRouteImport } from './routes/workspace.conversations.$conversationId'
 import { Route as OnboardingCreatorStepRouteImport } from './routes/onboarding/creator.$step'
+import { Route as OnboardingBrandBillingCallbackRouteImport } from './routes/onboarding/brand.billing-callback'
 import { Route as OnboardingBrandStepRouteImport } from './routes/onboarding/brand.$step'
 import { Route as CreatorDiscoverCampaignsRouteImport } from './routes/_creator/discover.campaigns'
 import { Route as BrandCampaignsNewRouteImport } from './routes/_brand/campaigns.new'
@@ -161,6 +163,11 @@ const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => BrandRoute,
 } as any)
+const BrandBillingRoute = BrandBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => BrandRoute,
+} as any)
 const OnboardingCreatorIndexRoute = OnboardingCreatorIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -187,6 +194,12 @@ const OnboardingCreatorStepRoute = OnboardingCreatorStepRouteImport.update({
   path: '/$step',
   getParentRoute: () => OnboardingCreatorRoute,
 } as any)
+const OnboardingBrandBillingCallbackRoute =
+  OnboardingBrandBillingCallbackRouteImport.update({
+    id: '/billing-callback',
+    path: '/billing-callback',
+    getParentRoute: () => OnboardingBrandRoute,
+  } as any)
 const OnboardingBrandStepRoute = OnboardingBrandStepRouteImport.update({
   id: '/$step',
   path: '/$step',
@@ -252,6 +265,7 @@ export interface FileRoutesByFullPath {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/billing': typeof BrandBillingRoute
   '/campaigns': typeof BrandCampaignsRouteWithChildren
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
@@ -270,6 +284,7 @@ export interface FileRoutesByFullPath {
   '/campaigns/new': typeof BrandCampaignsNewRouteWithChildren
   '/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
   '/onboarding/brand/$step': typeof OnboardingBrandStepRoute
+  '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
   '/campaigns/': typeof BrandCampaignsIndexRoute
@@ -289,6 +304,7 @@ export interface FileRoutesByTo {
   '/ds-onboarding': typeof DsOnboardingRoute
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
+  '/billing': typeof BrandBillingRoute
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
@@ -302,6 +318,7 @@ export interface FileRoutesByTo {
   '/workspace': typeof WorkspaceIndexRoute
   '/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
   '/onboarding/brand/$step': typeof OnboardingBrandStepRoute
+  '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
   '/campaigns': typeof BrandCampaignsIndexRoute
@@ -325,6 +342,7 @@ export interface FileRoutesById {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/_brand/billing': typeof BrandBillingRoute
   '/_brand/campaigns': typeof BrandCampaignsRouteWithChildren
   '/_brand/creators': typeof BrandCreatorsRoute
   '/_brand/payments': typeof BrandPaymentsRoute
@@ -343,6 +361,7 @@ export interface FileRoutesById {
   '/_brand/campaigns/new': typeof BrandCampaignsNewRouteWithChildren
   '/_creator/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
   '/onboarding/brand/$step': typeof OnboardingBrandStepRoute
+  '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
   '/_brand/campaigns/': typeof BrandCampaignsIndexRoute
@@ -365,6 +384,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/billing'
     | '/campaigns'
     | '/creators'
     | '/payments'
@@ -383,6 +403,7 @@ export interface FileRouteTypes {
     | '/campaigns/new'
     | '/discover/campaigns'
     | '/onboarding/brand/$step'
+    | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
     | '/campaigns/'
@@ -402,6 +423,7 @@ export interface FileRouteTypes {
     | '/ds-onboarding'
     | '/health'
     | '/inbox'
+    | '/billing'
     | '/creators'
     | '/payments'
     | '/videos'
@@ -415,6 +437,7 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/discover/campaigns'
     | '/onboarding/brand/$step'
+    | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
     | '/campaigns'
@@ -437,6 +460,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/_brand/billing'
     | '/_brand/campaigns'
     | '/_brand/creators'
     | '/_brand/payments'
@@ -455,6 +479,7 @@ export interface FileRouteTypes {
     | '/_brand/campaigns/new'
     | '/_creator/discover/campaigns'
     | '/onboarding/brand/$step'
+    | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
     | '/_brand/campaigns/'
@@ -650,6 +675,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandCampaignsRouteImport
       parentRoute: typeof BrandRoute
     }
+    '/_brand/billing': {
+      id: '/_brand/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BrandBillingRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/onboarding/creator/': {
       id: '/onboarding/creator/'
       path: '/'
@@ -684,6 +716,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/onboarding/creator/$step'
       preLoaderRoute: typeof OnboardingCreatorStepRouteImport
       parentRoute: typeof OnboardingCreatorRoute
+    }
+    '/onboarding/brand/billing-callback': {
+      id: '/onboarding/brand/billing-callback'
+      path: '/billing-callback'
+      fullPath: '/onboarding/brand/billing-callback'
+      preLoaderRoute: typeof OnboardingBrandBillingCallbackRouteImport
+      parentRoute: typeof OnboardingBrandRoute
     }
     '/onboarding/brand/$step': {
       id: '/onboarding/brand/$step'
@@ -822,6 +861,7 @@ const BrandCampaignsRouteWithChildren = BrandCampaignsRoute._addFileChildren(
 )
 
 interface BrandRouteChildren {
+  BrandBillingRoute: typeof BrandBillingRoute
   BrandCampaignsRoute: typeof BrandCampaignsRouteWithChildren
   BrandCreatorsRoute: typeof BrandCreatorsRoute
   BrandPaymentsRoute: typeof BrandPaymentsRoute
@@ -829,6 +869,7 @@ interface BrandRouteChildren {
 }
 
 const BrandRouteChildren: BrandRouteChildren = {
+  BrandBillingRoute: BrandBillingRoute,
   BrandCampaignsRoute: BrandCampaignsRouteWithChildren,
   BrandCreatorsRoute: BrandCreatorsRoute,
   BrandPaymentsRoute: BrandPaymentsRoute,
@@ -869,11 +910,13 @@ const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
 
 interface OnboardingBrandRouteChildren {
   OnboardingBrandStepRoute: typeof OnboardingBrandStepRoute
+  OnboardingBrandBillingCallbackRoute: typeof OnboardingBrandBillingCallbackRoute
   OnboardingBrandIndexRoute: typeof OnboardingBrandIndexRoute
 }
 
 const OnboardingBrandRouteChildren: OnboardingBrandRouteChildren = {
   OnboardingBrandStepRoute: OnboardingBrandStepRoute,
+  OnboardingBrandBillingCallbackRoute: OnboardingBrandBillingCallbackRoute,
   OnboardingBrandIndexRoute: OnboardingBrandIndexRoute,
 }
 

@@ -66,6 +66,11 @@ export type createOfferResponse401 = {
   status: 401
 }
 
+export type createOfferResponse402 = {
+  data: Error
+  status: 402
+}
+
 export type createOfferResponse403 = {
   data: Error
   status: 403
@@ -94,7 +99,7 @@ export type createOfferResponse500 = {
 export type createOfferResponseSuccess = (createOfferResponse200 | createOfferResponse201) & {
   headers: Headers;
 };
-export type createOfferResponseError = (createOfferResponse400 | createOfferResponse401 | createOfferResponse403 | createOfferResponse404 | createOfferResponse409 | createOfferResponse422 | createOfferResponse500) & {
+export type createOfferResponseError = (createOfferResponse400 | createOfferResponse401 | createOfferResponse402 | createOfferResponse403 | createOfferResponse404 | createOfferResponse409 | createOfferResponse422 | createOfferResponse500) & {
   headers: Headers;
 };
 

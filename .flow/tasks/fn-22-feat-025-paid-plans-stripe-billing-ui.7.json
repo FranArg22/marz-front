@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-23T15:56:36.671044Z",
+  "depends_on": [
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.2",
+    "fn-22-feat-025-paid-plans-stripe-billing-ui.6"
+  ],
+  "epic": "fn-22-feat-025-paid-plans-stripe-billing-ui",
+  "id": "fn-22-feat-025-paid-plans-stripe-billing-ui.7",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-22-feat-025-paid-plans-stripe-billing-ui.7.md",
+  "status": "todo",
+  "title": "BillingPage en ruta /billing (4 variantes de estado)",
+  "updated_at": "2026-05-23T16:00:08.320696Z"
+}

@@ -1,11 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { Megaphone, MessageSquare } from 'lucide-react'
 
 import { AppTopbar } from './AppTopbar'
 import { TopbarProvider } from './TopbarContext'
 import type { TopbarConfig } from './TopbarContext'
+
+vi.mock('#/features/billing/components/BillingTopbarPill', () => ({
+  BillingTopbarPill: () => null,
+}))
 
 function renderTopbar(config?: TopbarConfig) {
   return render(

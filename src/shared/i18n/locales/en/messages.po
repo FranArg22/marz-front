@@ -13,6 +13,10 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
+#: src/features/billing/components/PlansGrid.tsx:110
+msgid "-20%"
+msgstr ""
+
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:145
 msgid "¡Recién publicado! Acá va el link."
 msgstr ""
@@ -213,6 +217,11 @@ msgstr ""
 #~ msgid "{creatorName} accepted the offer, deadline {deadline}"
 #~ msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:110
+#: src/features/billing/components/BillingTopbarPill.tsx:119
+msgid "{days, plural, one {Tu trial termina en # día} other {Tu trial termina en # días}}"
+msgstr "{days, plural, one {Your trial ends in # day} other {Your trial ends in # days}}"
+
 #: src/features/campaigns/configuration/ReviewStep.tsx:474
 msgid "{days} días"
 msgstr ""
@@ -394,13 +403,13 @@ msgstr ""
 msgid "/mes"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:307
+#: src/features/billing/components/PlanCard.tsx:106
 msgid "/mo"
-msgstr ""
+msgstr "/mo"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:307
+#: src/features/billing/components/PlanCard.tsx:106
 msgid "/mo · anual"
-msgstr ""
+msgstr "/mo · annual"
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:194
 #: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:51
@@ -493,7 +502,7 @@ msgstr ""
 msgid "100.000+"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:74
+#: src/features/billing/components/PlanCard.tsx:49
 msgid "100/mes"
 msgstr ""
 
@@ -530,6 +539,9 @@ msgstr ""
 msgid "20K–100K followers"
 msgstr ""
 
+#: src/features/billing/components/PlanCard.tsx:44
+#: src/features/billing/components/PlanCard.tsx:50
+#: src/features/billing/components/PlanCard.tsx:56
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:47
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:17
 msgid "24h"
@@ -539,7 +551,7 @@ msgstr ""
 msgid "25.000"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:51
+#: src/features/billing/components/PlanCard.tsx:43
 msgid "30/mes"
 msgstr ""
 
@@ -577,7 +589,7 @@ msgstr ""
 msgid "A newer version was submitted"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:80
+#: src/features/billing/components/PlanCard.tsx:72
 msgid "A/B testing"
 msgstr ""
 
@@ -606,7 +618,7 @@ msgstr ""
 msgid "Acá no entrás solo."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:46
+#: src/features/billing/components/PlanCard.tsx:26
 msgid "Accedé a la red de creadores de Marz."
 msgstr ""
 
@@ -632,7 +644,7 @@ msgstr ""
 msgid "Acceso a la red completa"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:106
+#: src/features/billing/components/PlanCard.tsx:83
 msgid "Acceso API"
 msgstr ""
 
@@ -640,7 +652,7 @@ msgstr ""
 msgid "Acciones"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:103
+#: src/features/billing/components/PlanCard.tsx:79
 msgid "Account manager dedicado"
 msgstr ""
 
@@ -698,6 +710,10 @@ msgstr ""
 msgid "Activa"
 msgstr ""
 
+#: src/routes/onboarding/brand.billing-callback.tsx:107
+msgid "Activando tu plan…"
+msgstr "Activating your plan…"
+
 #: src/features/campaigns/configuration/BonusStep.tsx:296
 #: src/features/campaigns/configuration/BonusStep.tsx:308
 msgid "Activar bonus de pago"
@@ -739,11 +755,23 @@ msgstr ""
 msgid "Activo"
 msgstr ""
 
+#: src/features/billing/components/BillingTopbarPill.tsx:126
+msgid "Actualizá tu método de pago antes de que termine el trial para evitar interrupciones."
+msgstr "Update your payment method before the trial ends to avoid interruptions."
+
+#: src/features/billing/components/BillingPage.tsx:140
+msgid "Actualizá tu tarjeta para mantener el acceso."
+msgstr "Update your card to keep access."
+
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:20
 #: src/features/discovery/campaign-board/CampaignBoardHeader.tsx:39
 #: src/features/payments/components/BrandPaymentsPage.tsx:194
 msgid "Actualizar"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:146
+msgid "Actualizar tarjeta en Stripe"
+msgstr "Update card in Stripe"
 
 #: src/features/offers/components/BundleEditor.tsx:328
 #~ msgid "Add deliverable"
@@ -770,9 +798,9 @@ msgstr ""
 msgid "Adjuntar archivo"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:133
-msgid "Agendar una llamada"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:132
+#~ msgid "Agendar una llamada"
+#~ msgstr ""
 
 #: src/features/chat/utils/groupByDay.ts:27
 #: src/features/chat/workspace/formatRelativeTime.ts:16
@@ -852,7 +880,7 @@ msgstr ""
 msgid "AI / Tech"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:56
+#: src/features/billing/components/PlanCard.tsx:63
 msgid "AI matching + outreach"
 msgstr ""
 
@@ -878,11 +906,11 @@ msgstr ""
 msgid "Algo salió mal"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:51
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:72
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:53
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:74
 #: src/features/deliverables/hooks/useRequestChangesFlow.ts:165
-#: src/features/discovery/campaign-detail/mutations.ts:234
-#: src/features/discovery/campaign-detail/mutations.ts:272
+#: src/features/discovery/campaign-detail/mutations.ts:235
+#: src/features/discovery/campaign-detail/mutations.ts:273
 #: src/features/identity/auth/components/KindSelector.tsx:95
 #: src/features/offers/components/CancelOfferDialog.tsx:107
 #: src/features/payments/components/MarkAsPaidDialog.tsx:89
@@ -976,9 +1004,13 @@ msgstr ""
 msgid "Antes de aceptación"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:220
+#: src/features/billing/components/BillingPage.tsx:44
+msgid "anual"
+msgstr "annual"
+
+#: src/features/billing/components/PlansGrid.tsx:45
 msgid "Anual"
-msgstr ""
+msgstr "Annual"
 
 #: src/features/discovery/campaign-detail/ActiveCollaborationList.tsx:68
 msgid "Aplicación"
@@ -1100,7 +1132,7 @@ msgstr ""
 msgid "Atrás"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:104
+#: src/features/billing/components/PlanCard.tsx:80
 msgid "Attribution / ROAS"
 msgstr ""
 
@@ -1277,7 +1309,7 @@ msgstr ""
 msgid "Brasil"
 msgstr ""
 
-#: src/features/identity/app-shell/AppTopbar.tsx:19
+#: src/features/identity/app-shell/AppTopbar.tsx:21
 msgid "Breadcrumb"
 msgstr ""
 
@@ -1361,7 +1393,7 @@ msgstr ""
 msgid "Buscar por marca, campaña o nicho"
 msgstr ""
 
-#: src/features/identity/app-shell/AppTopbar.tsx:33
+#: src/features/identity/app-shell/AppTopbar.tsx:36
 msgid "Buscar…"
 msgstr ""
 
@@ -1452,10 +1484,7 @@ msgstr ""
 msgid "Campañas"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:49
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:72
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:96
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#: src/features/billing/components/PlanCard.tsx:193
 msgid "CAMPAÑAS"
 msgstr ""
 
@@ -1521,6 +1550,14 @@ msgstr ""
 msgid "Cancelar oferta aceptada"
 msgstr ""
 
+#: src/features/billing/components/BillingTopbarPill.tsx:146
+msgid "Cancelaste — acceso hasta {formattedDate}"
+msgstr "Canceled — access until {formattedDate}"
+
+#: src/features/billing/components/BillingPage.tsx:160
+msgid "Cancelaste tu suscripción"
+msgstr "You canceled your subscription"
+
 #: src/features/offers/components/ArchivedOffersList.tsx:28
 msgid "Cancelled"
 msgstr ""
@@ -1569,9 +1606,17 @@ msgstr ""
 msgid "Cargando pagos"
 msgstr ""
 
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+msgid "Cargando planes"
+msgstr "Loading plans"
+
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:139
 msgid "Cargando resumen de Discovery"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:62
+msgid "Cargando suscripción"
+msgstr "Loading subscription"
 
 #: src/features/payments/components/BrandPaymentsTable.tsx:118
 msgid "Cargando..."
@@ -1871,7 +1916,7 @@ msgstr ""
 msgid "Content model"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:81
+#: src/features/billing/components/PlanCard.tsx:73
 msgid "Content review workflow"
 msgstr ""
 
@@ -1884,6 +1929,10 @@ msgstr ""
 #: src/features/identity/auth/components/MagicLinkRequestForm.tsx:116
 msgid "Continuar con email"
 msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:102
+#~ msgid "Continuar con plan pago"
+#~ msgstr "Continue with paid plan"
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:161
 #~ msgid "Continue"
@@ -1935,9 +1984,9 @@ msgstr ""
 msgid "Creador"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:122
-msgid "CREADORES"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
+#~ msgid "CREADORES"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
 msgid "creadores activos"
@@ -2196,6 +2245,10 @@ msgstr ""
 #: src/features/campaigns/components/CampaignBriefPage.tsx:71
 msgid "Detalle"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:229
+msgid "Detalle del plan"
+msgstr "Plan details"
 
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:130
 msgid "Detalle read-only para revisar antes de postularte."
@@ -2519,7 +2572,7 @@ msgstr ""
 msgid "El plan o estado de esta campaña todavía no permite ver sugerencias automáticas."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:69
+#: src/features/billing/components/PlanCard.tsx:28
 msgid "El plan que eligen equipos que miden creadores como canal performance."
 msgstr ""
 
@@ -2547,21 +2600,29 @@ msgstr ""
 msgid "Elegí la categoría que mejor represente tu industria."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:182
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:79
 msgid "Elegí tu plan, {firstName}."
-msgstr ""
+msgstr "Choose your plan, {firstName}."
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:182
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:81
 msgid "Elegí tu plan."
-msgstr ""
+msgstr "Choose your plan."
 
 #: src/features/identity/auth/components/KindSelector.tsx:108
 msgid "Elegí tu rol. Vamos a personalizar la experiencia desde acá."
 msgstr ""
 
+#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:107
+msgid "Elegí un plan para continuar."
+msgstr ""
+
 #: src/features/offers/components/SendOfferSidesheet.tsx:397
 msgid "Elegí una campaña"
 msgstr ""
+
+#: src/features/billing/components/PlanCard.tsx:78
+#~ msgid "Elegir plan"
+#~ msgstr "Choose plan"
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:189
 msgid "Eliminar {tag}"
@@ -2798,9 +2859,9 @@ msgstr ""
 msgid "Enviar una oferta a {creatorName}"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:127
-msgid "Equipo Marz dedicado"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:126
+#~ msgid "Equipo Marz dedicado"
+#~ msgstr ""
 
 #: src/features/campaigns/components/CampaignBriefPage.tsx:65
 msgid "Error al cargar el brief. Intentá de nuevo más tarde."
@@ -2901,6 +2962,10 @@ msgstr ""
 msgid "Esports"
 msgstr ""
 
+#: src/features/billing/components/PlanCard.tsx:14
+msgid "ESSENTIALS"
+msgstr ""
+
 #: src/features/offers/components/CancelOfferDialog.tsx:75
 msgid "Esta acción cancela la oferta enviada."
 msgstr ""
@@ -2909,12 +2974,12 @@ msgstr ""
 msgid "Esta acción cancela una oferta ya aceptada. El backend valida si todavía hay deadlines o links activos."
 msgstr ""
 
-#: src/features/discovery/campaign-detail/mutations.ts:263
+#: src/features/discovery/campaign-detail/mutations.ts:264
 msgid "Esta aplicación ya no se puede modificar."
 msgstr ""
 
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:67
-#: src/features/discovery/campaign-detail/mutations.ts:259
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:69
+#: src/features/discovery/campaign-detail/mutations.ts:260
 msgid "Esta campaña no está disponible para Discovery."
 msgstr ""
 
@@ -2965,9 +3030,21 @@ msgstr ""
 msgid "Estamos armando una propuesta personalizada para tu campaña."
 msgstr ""
 
+#: src/routes/onboarding/brand.billing-callback.tsx:110
+msgid "Estamos confirmando el pago con Stripe."
+msgstr "We're confirming the payment with Stripe."
+
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:121
 msgid "Estamos cruzando tu perfil con 2.340 creadores activos."
 msgstr ""
+
+#: src/routes/onboarding/brand.billing-callback.tsx:78
+msgid "Estamos demorando, refrescá en unos minutos"
+msgstr "We're taking longer than expected, refresh in a few minutes"
+
+#: src/features/billing/components/BillingPage.tsx:118
+msgid "Estás en período de prueba"
+msgstr "You're on a trial"
 
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:146
 msgid "Este handle ya está en uso"
@@ -2981,7 +3058,7 @@ msgstr ""
 msgid "Este link ya no sirve"
 msgstr ""
 
-#: src/features/discovery/campaign-detail/mutations.ts:267
+#: src/features/discovery/campaign-detail/mutations.ts:268
 msgid "Este match ya no se puede contactar."
 msgstr ""
 
@@ -3009,9 +3086,9 @@ msgstr ""
 msgid "Estoy explorando"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:128
-msgid "Estrategia + curaduría"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:127
+#~ msgid "Estrategia + curaduría"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:29
 msgid "Estrenar producto o campaña"
@@ -3072,9 +3149,9 @@ msgstr ""
 msgid "Faceless / Clipping"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:191
-msgid "Facturación"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:189
+#~ msgid "Facturación"
+#~ msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:83
 #~ msgid "Failed to load campaigns. Please try again."
@@ -3265,6 +3342,10 @@ msgstr ""
 msgid "Foodie"
 msgstr ""
 
+#: src/features/billing/components/PlanCard.tsx:15
+msgid "FOR GROWTH TEAMS"
+msgstr ""
+
 #: src/features/offers/components/BundleEditor.tsx:277
 #: src/features/offers/components/SingleEditor.tsx:303
 #~ msgid "Format"
@@ -3363,8 +3444,17 @@ msgstr ""
 msgid "Geografía"
 msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:274
+msgid "Gestionar en Stripe"
+msgstr "Manage in Stripe"
+
 #: src/shared/ui/PaymentCard.tsx:29
 msgid "Great job on the video!"
+msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:38
+#: src/features/billing/components/PlanCard.tsx:21
+msgid "Growth"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:62
@@ -3379,13 +3469,13 @@ msgstr ""
 msgid "h"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:109
-msgid "Hablar con ventas"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:108
+#~ msgid "Hablar con ventas"
+#~ msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:118
-msgid "Hablemos"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:117
+#~ msgid "Hablemos"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:144
 msgid "Hace {days} d"
@@ -3460,9 +3550,11 @@ msgstr ""
 msgid "Hice 6–20 campañas"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:50
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:73
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:97
+#: src/features/billing/components/PlanCard.tsx:16
+msgid "HIGH VOLUME"
+msgstr ""
+
+#: src/features/billing/components/PlanCard.tsx:206
 msgid "HIRES"
 msgstr ""
 
@@ -3513,6 +3605,10 @@ msgstr ""
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:176
 msgid "https://www.youtube.com/watch?v=abc123"
 msgstr ""
+
+#: src/features/billing/components/BillingTopbarPill.tsx:136
+msgid "Hubo un problema con el último cobro. Abrí el portal para actualizar la tarjeta."
+msgstr "There was a problem with the last charge. Open the portal to update your card."
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:72
 msgid "Humor / sketches"
@@ -3566,7 +3662,7 @@ msgstr ""
 msgid "Inbox"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:376
+#: src/features/billing/components/PlanCard.tsx:249
 msgid "INCLUYE"
 msgstr ""
 
@@ -3656,6 +3752,10 @@ msgstr ""
 msgid "Intereses"
 msgstr ""
 
+#: src/features/billing/components/PlansGrid.tsx:32
+msgid "Intervalo de facturación"
+msgstr "Billing interval"
+
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:61
 msgid "Inversión"
 msgstr ""
@@ -3669,8 +3769,8 @@ msgstr ""
 msgid "Invitación"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:35
-#: src/features/discovery/campaign-detail/mutations.ts:196
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:37
+#: src/features/discovery/campaign-detail/mutations.ts:197
 msgid "Invitación enviada"
 msgstr ""
 
@@ -3703,9 +3803,7 @@ msgstr ""
 msgid "Invited creators"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:51
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:74
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:98
+#: src/features/billing/components/PlanCard.tsx:221
 msgid "INVITES"
 msgstr ""
 
@@ -3803,8 +3901,8 @@ msgstr ""
 #~ msgid "La información proporcionada no fue suficiente para generar el brief completo. Llená los campos manualmente."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:63
-#: src/features/discovery/campaign-detail/mutations.ts:255
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:65
+#: src/features/discovery/campaign-detail/mutations.ts:256
 msgid "La invitación ya fue enviada."
 msgstr ""
 
@@ -4086,6 +4184,14 @@ msgstr ""
 msgid "Manejo campañas para varias marcas."
 msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:163
+msgid "Mantenés acceso hasta {cancelAtLabel}"
+msgstr "You keep access until {cancelAtLabel}"
+
+#: src/features/billing/components/BillingPage.tsx:164
+msgid "Mantenés acceso hasta el final del período actual."
+msgstr "You keep access until the end of the current period."
+
 #: src/features/chat/utils/groupByDay.ts:22
 #: src/features/chat/workspace/formatRelativeTime.ts:11
 msgid "mar"
@@ -4150,9 +4256,9 @@ msgstr ""
 msgid "Marz"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:116
-msgid "Marz lo opera todo. Vos aprobás, nosotros ejecutamos."
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:115
+#~ msgid "Marz lo opera todo. Vos aprobás, nosotros ejecutamos."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/components/DesktopOnlyScreen.tsx:47
 msgid "Marz todavía no está optimizado para mobile. Abrí Marz desde tu computadora para completar el onboarding."
@@ -4274,9 +4380,13 @@ msgstr ""
 msgid "Mensajes recientes"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:206
+#: src/features/billing/components/BillingPage.tsx:43
+msgid "mensual"
+msgstr "monthly"
+
+#: src/features/billing/components/PlansGrid.tsx:39
 msgid "Mensual"
-msgstr ""
+msgstr "Monthly"
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:85
 msgid "Mental"
@@ -4286,11 +4396,11 @@ msgstr ""
 msgid "Mes"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:59
+#: src/features/billing/components/PlanCard.tsx:66
 msgid "Métricas 30 días"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:82
+#: src/features/billing/components/PlanCard.tsx:75
 msgid "Métricas ilimitadas"
 msgstr ""
 
@@ -4457,9 +4567,9 @@ msgstr ""
 #~ msgid "Must be after the previous stage"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
-msgid "Nada"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#~ msgid "Nada"
+#~ msgstr ""
 
 #: src/features/identity/app-shell/AppSidebar.tsx:53
 msgid "Navegación principal"
@@ -4652,13 +4762,25 @@ msgstr ""
 msgid "No pudimos cargar los creators"
 msgstr ""
 
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:57
+msgid "No pudimos cargar los planes. Intentá de nuevo."
+msgstr "We couldn't load the plans. Try again."
+
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:315
 msgid "No pudimos cargar los videos"
 msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:77
+msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
+msgstr "We couldn't load your subscription. Reload the page or try again later."
+
 #: src/features/offers/components/SendOfferSidesheet.tsx:328
 #: src/routes/_brand/campaigns.index.tsx:49
 msgid "No pudimos cargar tus campañas. Intentá de nuevo."
+msgstr ""
+
+#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:182
+msgid "No pudimos completar el onboarding."
 msgstr ""
 
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:103
@@ -4677,6 +4799,10 @@ msgstr ""
 #: src/features/payments/components/BrandPaymentsPage.tsx:131
 msgid "No pudimos exportar los pagos. Intentá de nuevo."
 msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:248
+#~ msgid "No pudimos iniciar el checkout. Intentá de nuevo."
+#~ msgstr "We couldn't start the checkout. Try again."
 
 #: src/features/campaigns/components/CampaignBriefPage.tsx:37
 msgid "No se encontró el brief de esta campaña."
@@ -4883,8 +5009,8 @@ msgstr ""
 msgid "Ocurrió un error inesperado."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:91
-#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:135
+#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:144
+#: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:207
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:93
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:169
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
@@ -5157,7 +5283,7 @@ msgstr ""
 msgid "Para {creatorName}"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:93
+#: src/features/billing/components/PlanCard.tsx:29
 msgid "Para equipos que gastan $10K+/mes y necesitan control total."
 msgstr ""
 
@@ -5173,7 +5299,7 @@ msgstr ""
 msgid "Paso {activeStepNumber} de {totalSteps}"
 msgstr ""
 
-#: src/routes/onboarding/brand.tsx:74
+#: src/routes/onboarding/brand.tsx:84
 #: src/routes/onboarding/creator.tsx:74
 msgid "Paso {currentStepNumber} de {totalSteps}"
 msgstr ""
@@ -5223,14 +5349,11 @@ msgstr ""
 msgid "payout promedio"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:52
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:75
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:99
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:123
+#: src/features/billing/components/PlanCard.tsx:234
 msgid "PAYOUTS"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:58
+#: src/features/billing/components/PlanCard.tsx:65
 msgid "Payouts automáticos 24h"
 msgstr ""
 
@@ -5324,6 +5447,18 @@ msgstr ""
 #: src/features/campaigns/brief-builder/components/ScoringDimensionCard.tsx:186
 msgid "Peso dimensión {dimensionNumber}"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:233
+msgid "Plan"
+msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:241
+#~ msgid "Plan inválido, refrescá la página."
+#~ msgstr "Invalid plan, refresh the page."
+
+#: src/features/billing/components/PlansGrid.tsx:52
+msgid "Planes"
+msgstr "Plans"
 
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:96
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:484
@@ -5434,9 +5569,13 @@ msgstr ""
 msgid "Prefiero no decir"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:241
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:110
 msgid "Prefiero seguir sin acceso a la red de creadores →"
 msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:110
+#~ msgid "Prefiero seguir sin la red de creadores"
+#~ msgstr "I'd rather continue without the creator network"
 
 #: src/features/campaigns/configuration/BonusStep.tsx:299
 msgid "Premiá a creators con un porcentaje extra por velocidad o performance."
@@ -5509,8 +5648,7 @@ msgstr ""
 msgid "Probá con otra búsqueda, estado, plataforma o creator."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:62
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:85
+#: src/features/billing/components/PlanCard.tsx:110
 msgid "Probar 7 días gratis"
 msgstr ""
 
@@ -5542,9 +5680,12 @@ msgstr ""
 #: src/features/identity/app-shell/AppSidebar.tsx:72
 #: src/features/identity/app-shell/navigation.ts:17
 #: src/features/identity/auth/components/KindSelector.tsx:164
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:344
 msgid "Próximamente"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:243
+msgid "Próximo cobro"
+msgstr "Next charge"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:97
 msgid "Proyección con tu budget y objetivo"
@@ -5629,7 +5770,7 @@ msgstr ""
 msgid "Reach"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:83
+#: src/features/billing/components/PlanCard.tsx:74
 msgid "Reasignación automática"
 msgstr ""
 
@@ -5669,17 +5810,25 @@ msgstr ""
 msgid "Rechazar oferta"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:281
-msgid "RECOMENDADO PARA VOS"
+#: src/features/billing/components/PlansGrid.tsx:65
+msgid "Recomendado para vos"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:55
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:279
+#~ msgid "RECOMENDADO PARA VOS"
+#~ msgstr ""
+
+#: src/features/billing/components/PlanCard.tsx:62
 msgid "Red de creadores"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:37
 msgid "Reddit"
 msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:156
+#~ msgid "Redirigiendo a Stripe…"
+#~ msgstr "Redirecting to Stripe…"
 
 #: src/features/offers/utils/formatOffer.ts:21
 msgid "Reel"
@@ -5735,6 +5884,7 @@ msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P2Progress.tsx:193
 #: src/features/chat/workspace/ConversationRail.tsx:130
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
 #: src/features/inbox/InboxPage.tsx:172
 #: src/features/offers/components/SendOfferSidesheet.tsx:334
 #: src/routes/_brand/campaigns.index.tsx:55
@@ -5764,13 +5914,13 @@ msgstr ""
 #~ msgid "Remove deliverable"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:105
+#: src/features/billing/components/PlanCard.tsx:81
 msgid "Reportes custom"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:130
-msgid "Reportes semanales"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:129
+#~ msgid "Reportes semanales"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DraftVersionList.tsx:116
 #: src/features/deliverables/components/DraftVersionList.tsx:122
@@ -5909,22 +6059,27 @@ msgstr ""
 msgid "Salud"
 msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:39
+#: src/features/billing/components/PlanCard.tsx:22
+msgid "Scale"
+msgstr ""
+
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:114
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:254
 msgid "Scoring Dimensions"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:57
+#: src/features/billing/components/PlanCard.tsx:64
 msgid "Script Lab básico"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:79
+#: src/features/billing/components/PlanCard.tsx:71
 msgid "Script Lab completo"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:129
-msgid "Scripts + QA"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:128
+#~ msgid "Scripts + QA"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:250
 msgid "Se envió una versión más nueva"
@@ -6119,9 +6274,9 @@ msgstr ""
 #~ msgid "Sequential deliverables with milestones"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:317
-msgid "Servicio fully managed"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:315
+#~ msgid "Servicio fully managed"
+#~ msgstr ""
 
 #: src/features/offers/utils/formatOffer.ts:20
 msgid "Short"
@@ -6266,13 +6421,21 @@ msgstr ""
 msgid "Sin resultados para esos filtros"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:317
+#: src/features/billing/components/PlanCard.tsx:162
 msgid "Sin take rate"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:185
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:79
+#~ msgid "Sin take rate. Sin letra chica."
+#~ msgstr "No take rate. No fine print."
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:85
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:239
+msgid "Sin tarjeta cargada"
+msgstr "No card on file"
 
 #: src/features/campaigns/configuration/ReviewStep.tsx:370
 msgid "Sin tiers"
@@ -6295,9 +6458,9 @@ msgstr ""
 msgid "Skincare"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:131
-msgid "SLA custom"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:130
+#~ msgid "SLA custom"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DraftReviewDialog.tsx:132
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:243
@@ -6363,11 +6526,11 @@ msgstr ""
 msgid "Something went wrong. Try again."
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:107
+#: src/features/billing/components/PlanCard.tsx:82
 msgid "Soporte 24/7"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:60
+#: src/features/billing/components/PlanCard.tsx:67
 msgid "Soporte por email"
 msgstr ""
 
@@ -6412,6 +6575,11 @@ msgstr ""
 #~ msgid "Start preparing your draft. Deadline is {deadline}."
 #~ msgstr ""
 
+#: src/features/billing/components/BillingPage.tsx:37
+#: src/features/billing/components/PlanCard.tsx:20
+msgid "Starter"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:63
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:118
 msgid "Startups"
@@ -6441,6 +6609,14 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:109
 msgid "Streetwear"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:286
+msgid "Stripe no responde, intentá de nuevo"
+msgstr "Stripe isn't responding, try again"
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:225
+#~ msgid "Stripe no responde, intentá de nuevo."
+#~ msgstr "Stripe isn't responding, try again."
 
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:101
 msgid "Subí la foto de nuevo"
@@ -6506,6 +6682,14 @@ msgstr ""
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:179
 msgid "Tarifas"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:235
+msgid "Tarjeta"
+msgstr "Card"
+
+#: src/features/billing/components/BillingPage.tsx:235
+msgid "Tarjeta (solo lectura)"
+msgstr "Card (read-only)"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:45
 #~ msgid "Te ayudamos con un template base para {0}"
@@ -6741,15 +6925,15 @@ msgstr ""
 msgid "Todavía no tenés campañas"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:102
+#: src/features/billing/components/PlanCard.tsx:78
 msgid "Todo lo de Growth, +:"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:126
-msgid "Todo lo de Scale, +:"
-msgstr ""
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:125
+#~ msgid "Todo lo de Scale, +:"
+#~ msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:78
+#: src/features/billing/components/PlanCard.tsx:70
 msgid "Todo lo de Starter, +:"
 msgstr ""
 
@@ -6846,6 +7030,10 @@ msgstr ""
 msgid "Tu campaña fue creada con éxito. Configurá los detalles para activarla."
 msgstr ""
 
+#: src/features/billing/components/BillingTopbarPill.tsx:135
+msgid "Tu cobro falló — actualizá la tarjeta"
+msgstr "Your charge failed — update your card"
+
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:116
 msgid "Tu experiencia con creadores"
 msgstr ""
@@ -6870,19 +7058,31 @@ msgstr ""
 msgid "Tu objetivo define a quién te mostramos y qué scripts te armamos."
 msgstr ""
 
+#: src/routes/onboarding/brand.billing-callback.tsx:81
+msgid "Tu pago se procesó pero todavía no vemos la suscripción activa."
+msgstr "Your payment was processed but we don't see the subscription active yet."
+
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:155
 #: src/features/discovery/campaign-detail/AddCreatorDialog.tsx:152
 msgid "Tu plan actual permite invitaciones por email."
 msgstr ""
 
-#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:58
-#: src/features/discovery/campaign-detail/mutations.ts:241
+#: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:60
+#: src/features/discovery/campaign-detail/mutations.ts:242
 msgid "Tu plan no permite invitaciones in-platform. Usá email o actualizá el plan."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:19
 msgid "Tu potencial según tu perfil"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:128
+msgid "Tu suscripción está activa"
+msgstr "Your subscription is active"
+
+#: src/features/billing/components/BillingTopbarPill.tsx:147
+msgid "Tu suscripción está cancelada. Mantenés acceso hasta el {formattedDate}."
+msgstr "Your subscription is canceled. You keep access until {formattedDate}."
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:22
 msgid "TU TARIFA, COMPLETA"
@@ -6892,6 +7092,14 @@ msgstr ""
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:111
 msgid "Tu tarifa, tu calendario, tu estilo. Nosotros operamos el resto."
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:114
+msgid "Tu trial sigue activo"
+msgstr "Your trial is still active"
+
+#: src/features/billing/components/BillingPage.tsx:139
+msgid "Tu último cobro falló"
+msgstr "Your last charge failed"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:46
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:26
@@ -7278,9 +7486,13 @@ msgstr ""
 msgid "Volver al inicio"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
-msgid "VOS HACÉS"
-msgstr ""
+#: src/routes/onboarding/brand.billing-callback.tsx:88
+msgid "Volver al paywall"
+msgstr "Back to paywall"
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#~ msgid "VOS HACÉS"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:69
 #~ msgid "Waiting for brand review"
@@ -7329,8 +7541,8 @@ msgstr ""
 msgid "Ya enviaste una postulación para esta campaña."
 msgstr ""
 
-#: src/features/discovery/campaign-detail/mutations.ts:248
-#: src/features/discovery/campaign-detail/mutations.ts:251
+#: src/features/discovery/campaign-detail/mutations.ts:249
+#: src/features/discovery/campaign-detail/mutations.ts:252
 msgid "Ya existe una conversación con este creator."
 msgstr ""
 
@@ -7341,6 +7553,10 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:165
 msgid "Ya tenemos {TOTAL_CREATORS} creadores que encajan con tu marca."
 msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:205
+#~ msgid "Ya tenés una suscripción activa."
+#~ msgstr "You already have an active subscription."
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:29
 msgid "Ya tengo mis creadores"
