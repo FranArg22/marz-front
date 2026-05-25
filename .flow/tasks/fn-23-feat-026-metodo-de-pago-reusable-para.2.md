@@ -71,8 +71,7 @@ pnpm vitest run src/features/billing/analytics.test.ts
 - Tests de analytics pasan (`pnpm vitest run src/features/billing/analytics.test.ts`).
 
 ## Done summary
-TBD
-
+Implemented fn-23-feat-026-metodo-de-pago-reusable-para.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
