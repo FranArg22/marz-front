@@ -74,8 +74,7 @@ pnpm vitest run src/features/billing/components/PaymentMethodCard.test.tsx
 - Tests pasan.
 
 ## Done summary
-TBD
-
+Implemented fn-23-feat-026-metodo-de-pago-reusable-para.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
