@@ -17,6 +17,10 @@ LOST_COMMITS.md
 # generated
 src/shared/api/generated/**
 src/shared/api/test-generated/**
+src/shared/i18n/locales/*.mjs
+**/src/shared/i18n/locales/*.mjs
+src/shared/i18n/locales/en/messages.mjs
+src/shared/i18n/locales/es/messages.mjs
 src/routeTree.gen.ts
 openapi/spec.json
 openapi/test-spec.json

@@ -55,8 +55,7 @@ pnpm i18n:extract && pnpm i18n:compile && pnpm quality-gates
 - `pnpm quality-gates` verde (incluye `check:i18n-standards`).
 
 ## Done summary
-TBD
-
+Implemented fn-23-feat-026-metodo-de-pago-reusable-para.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

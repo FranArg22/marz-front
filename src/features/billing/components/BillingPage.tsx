@@ -296,6 +296,7 @@ function PaymentMethodBlock({ subscription }: PaymentMethodBlockProps) {
   }, [])
 
   const handleManageClick = () => {
+    if (portalMutation.isPending) return
     trackBillingEvent('offers_payment_method_portal_opened')
     portalMutation.mutate(
       { data: { return_url: `${window.location.origin}/billing` } },
