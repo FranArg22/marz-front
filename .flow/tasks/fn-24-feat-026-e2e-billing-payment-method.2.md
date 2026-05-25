@@ -97,8 +97,7 @@ Sin `STRIPE_TEST_MODE=1` el test se saltea (`test.skip`), lo cual es el comporta
 - [ ] `pnpm quality-gates` verde (los checks que no requieren backend real).
 
 ## Done summary
-TBD
-
+Implemented fn-24-feat-026-e2e-billing-payment-method.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

@@ -63,9 +63,7 @@ test.describe('/billing — active subscription manage portal flow', () => {
     ).toBeVisible()
 
     // ESC-1: bloque combinado de método de pago
-    const portalBlock = page.getByTestId(
-      'billing.page.active_subscription_portal',
-    )
+    const portalBlock = page.getByTestId('billing.page.active_subscription_portal')
     await expect(portalBlock).toBeVisible()
     await expect(portalBlock.getByText(/visa •••• 4242/i)).toBeVisible()
     await expect(
@@ -74,9 +72,7 @@ test.describe('/billing — active subscription manage portal flow', () => {
 
     await Promise.all([
       page.waitForURL(/billing\.stripe\.com/, { timeout: 30_000 }),
-      portalBlock
-        .getByRole('button', { name: /Gestionar.*en Stripe/i })
-        .click(),
+      portalBlock.getByRole('button', { name: /Gestionar.*en Stripe/i }).click(),
     ])
   })
 })
