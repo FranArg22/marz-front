@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-25T05:36:32.200405Z",
+  "depends_on": [],
+  "epic": "fn-24-feat-026-e2e-billing-payment-method",
+  "id": "fn-24-feat-026-e2e-billing-payment-method.1",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-24-feat-026-e2e-billing-payment-method.1.md",
+  "status": "todo",
+  "title": "Agregar data-testid al bloque combinado de PaymentMethodBlock en BillingPage",
+  "updated_at": "2026-05-25T05:36:32.200427Z"
+}

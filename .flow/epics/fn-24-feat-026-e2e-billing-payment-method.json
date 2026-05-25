@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-back-front-e2e-task-loop",
+  "created_at": "2026-05-25T05:36:29.451000Z",
+  "depends_on_epics": [],
+  "id": "fn-24-feat-026-e2e-billing-payment-method",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-24-feat-026-e2e-billing-payment-method.md",
+  "status": "open",
+  "title": "FEAT-026 E2E: billing payment method portal (ESC-1)",
+  "updated_at": "2026-05-25T05:36:29.451023Z"
+}
