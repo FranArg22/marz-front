@@ -7,7 +7,7 @@
   "plan_review_status": "unknown",
   "plan_reviewed_at": null,
   "spec_path": ".flow/specs/fn-24-feat-026-e2e-billing-payment-method.md",
-  "status": "open",
+  "status": "done",
   "title": "FEAT-026 E2E: billing payment method portal (ESC-1)",
-  "updated_at": "2026-05-25T05:36:29.451023Z"
+  "updated_at": "2026-05-25T06:01:55.476241Z"
 }
