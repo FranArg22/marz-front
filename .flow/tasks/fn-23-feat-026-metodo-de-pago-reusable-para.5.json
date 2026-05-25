@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-25T03:46:16.578011Z",
+  "depends_on": [
+    "fn-23-feat-026-metodo-de-pago-reusable-para.4"
+  ],
+  "epic": "fn-23-feat-026-metodo-de-pago-reusable-para",
+  "id": "fn-23-feat-026-metodo-de-pago-reusable-para.5",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-23-feat-026-metodo-de-pago-reusable-para.5.md",
+  "status": "todo",
+  "title": "i18n strings bloque metodo de pago",
+  "updated_at": "2026-05-25T03:46:16.578031Z"
+}

@@ -12595,17 +12595,21 @@
           }
         }
       },
-      "BillingCardSummary": {
+      "BillingPaymentMethod": {
         "type": "object",
         "required": [
-          "brand",
-          "last4"
+          "stripe_payment_method_id",
+          "card_brand",
+          "card_last4"
         ],
         "properties": {
-          "brand": {
+          "stripe_payment_method_id": {
             "type": "string"
           },
-          "last4": {
+          "card_brand": {
+            "type": "string"
+          },
+          "card_last4": {
             "type": "string",
             "minLength": 4,
             "maxLength": 4
@@ -12621,7 +12625,10 @@
           "in_trial",
           "current_period_start",
           "current_period_end",
-          "cancel_at_period_end"
+          "cancel_at_period_end",
+          "subscription_payment_method",
+          "offers_payment_method",
+          "same_payment_method"
         ],
         "properties": {
           "plan": {
@@ -12657,13 +12664,24 @@
           "cancel_at_period_end": {
             "type": "boolean"
           },
-          "card": {
+          "subscription_payment_method": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/BillingCardSummary"
+                "$ref": "#/components/schemas/BillingPaymentMethod"
               }
             ],
             "nullable": true
+          },
+          "offers_payment_method": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BillingPaymentMethod"
+              }
+            ],
+            "nullable": true
+          },
+          "same_payment_method": {
+            "type": "boolean"
           },
           "next_invoice_amount_usd": {
             "type": "string",
