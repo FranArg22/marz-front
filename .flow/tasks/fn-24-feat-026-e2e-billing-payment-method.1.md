@@ -70,8 +70,7 @@ grep -n 'billing.page.active_subscription_portal' src/features/billing/component
 - [ ] Sin cambios en `PaymentMethodCard.tsx` ni en ningún otro archivo fuera de `BillingPage.tsx`.
 
 ## Done summary
-TBD
-
+Implemented fn-24-feat-026-e2e-billing-payment-method.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

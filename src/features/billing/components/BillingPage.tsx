@@ -315,12 +315,14 @@ function PaymentMethodBlock({ subscription }: PaymentMethodBlockProps) {
 
   if (subscription.same_payment_method) {
     return (
-      <PaymentMethodCard
-        title={t`Método de pago`}
-        paymentMethod={subscription.offers_payment_method}
-        secondaryLabel={t`Se usa para suscripción y pagos a creators`}
-        onManageClick={handleManageClick}
-      />
+      <div data-testid="billing.page.active_subscription_portal">
+        <PaymentMethodCard
+          title={t`Método de pago`}
+          paymentMethod={subscription.offers_payment_method}
+          secondaryLabel={t`Se usa para suscripción y pagos a creators`}
+          onManageClick={handleManageClick}
+        />
+      </div>
     )
   }
 
