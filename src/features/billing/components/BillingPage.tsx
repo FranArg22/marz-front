@@ -234,8 +234,8 @@ function DetailsCard({
         <Row
           label={readOnlyCard ? t`Tarjeta (solo lectura)` : t`Tarjeta`}
           value={
-            subscription.card
-              ? `${subscription.card.brand} •••• ${subscription.card.last4}`
+            subscription.subscription_payment_method
+              ? `${subscription.subscription_payment_method.card_brand} •••• ${subscription.subscription_payment_method.card_last4}`
               : t`Sin tarjeta cargada`
           }
         />

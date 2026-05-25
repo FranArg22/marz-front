@@ -59,7 +59,17 @@ function baseSubscription(
     current_period_end: '2026-06-01T00:00:00Z',
     cancel_at: null,
     cancel_at_period_end: false,
-    card: { brand: 'visa', last4: '4242' },
+    subscription_payment_method: {
+      stripe_payment_method_id: 'pm_test_visa',
+      card_brand: 'visa',
+      card_last4: '4242',
+    },
+    offers_payment_method: {
+      stripe_payment_method_id: 'pm_test_visa',
+      card_brand: 'visa',
+      card_last4: '4242',
+    },
+    same_payment_method: true,
     next_invoice_amount_usd: '49.00',
     next_invoice_at: '2026-06-01T00:00:00Z',
     days_until_trial_ends: null,

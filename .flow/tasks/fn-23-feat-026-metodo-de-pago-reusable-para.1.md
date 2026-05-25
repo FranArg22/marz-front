@@ -80,8 +80,7 @@ Ambos deben pasar sin errores.
 - 0 referencias a `BillingCardSummary` en `src/` (`grep -r BillingCardSummary src/` devuelve vacío).
 
 ## Done summary
-TBD
-
+Implemented fn-23-feat-026-metodo-de-pago-reusable-para.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
