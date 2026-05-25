@@ -130,3 +130,9 @@ pnpm test:e2e -- --grep "billing"
 - E2E: el test en `billing-page.spec.ts` asertan el badge "Se usa para suscripción y pagos a creators" visible en la página `/billing`.
 - `pnpm typecheck` verde.
 - `pnpm vitest run src/features/billing/components/BillingPage.test.tsx` verde.
+## Done summary
+Implemented fn-23-feat-026-metodo-de-pago-reusable-para.4; derive, quality gates and task review passed.
+## Evidence
+- Commits:
+- Tests:
+- PRs:
