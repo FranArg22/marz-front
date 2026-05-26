@@ -17,6 +17,9 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: BASE_URL,
+    // App's source/default locale is 'es'; server picks locale from Accept-Language.
+    // Pin the browser to es-AR so SSR renders Spanish (tests assert Spanish copy).
+    locale: 'es-AR',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     // video: 'retain-on-failure',  // requiere ffmpeg; descomentar si está instalado
