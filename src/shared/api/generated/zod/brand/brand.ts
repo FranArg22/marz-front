@@ -122,8 +122,11 @@ export const ListBillingPlansResponse = zod.object({
 }))
 })
 
-export const getBillingSubscriptionResponseCardOneLast4Min = 4;
-export const getBillingSubscriptionResponseCardOneLast4Max = 4;
+export const getBillingSubscriptionResponseSubscriptionPaymentMethodOneCardLast4Min = 4;
+export const getBillingSubscriptionResponseSubscriptionPaymentMethodOneCardLast4Max = 4;
+
+export const getBillingSubscriptionResponseOffersPaymentMethodOneCardLast4Min = 4;
+export const getBillingSubscriptionResponseOffersPaymentMethodOneCardLast4Max = 4;
 
 
 
@@ -137,10 +140,17 @@ export const GetBillingSubscriptionResponse = zod.object({
   "current_period_end": zod.iso.datetime({}),
   "cancel_at": zod.iso.datetime({}).nullish(),
   "cancel_at_period_end": zod.boolean(),
-  "card": zod.object({
-  "brand": zod.string(),
-  "last4": zod.string().min(getBillingSubscriptionResponseCardOneLast4Min).max(getBillingSubscriptionResponseCardOneLast4Max)
-}).nullish(),
+  "subscription_payment_method": zod.object({
+  "stripe_payment_method_id": zod.string(),
+  "card_brand": zod.string(),
+  "card_last4": zod.string().min(getBillingSubscriptionResponseSubscriptionPaymentMethodOneCardLast4Min).max(getBillingSubscriptionResponseSubscriptionPaymentMethodOneCardLast4Max)
+}).nullable(),
+  "offers_payment_method": zod.object({
+  "stripe_payment_method_id": zod.string(),
+  "card_brand": zod.string(),
+  "card_last4": zod.string().min(getBillingSubscriptionResponseOffersPaymentMethodOneCardLast4Min).max(getBillingSubscriptionResponseOffersPaymentMethodOneCardLast4Max)
+}).nullable(),
+  "same_payment_method": zod.boolean(),
   "next_invoice_amount_usd": zod.string().nullish().describe('Decimal string with two fractional digits, null when not applicable (e.g. canceled).'),
   "next_invoice_at": zod.iso.datetime({}).nullish(),
   "days_until_trial_ends": zod.number().nullish().describe('Days remaining in trial; null when not trialing.'),

@@ -217,7 +217,7 @@ msgstr ""
 #~ msgid "{creatorName} accepted the offer, deadline {deadline}"
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:110
+#: src/features/billing/components/BillingPage.tsx:113
 #: src/features/billing/components/BillingTopbarPill.tsx:119
 msgid "{days, plural, one {Tu trial termina en # día} other {Tu trial termina en # días}}"
 msgstr "{days, plural, one {Your trial ends in # day} other {Your trial ends in # days}}"
@@ -759,7 +759,7 @@ msgstr ""
 msgid "Actualizá tu método de pago antes de que termine el trial para evitar interrupciones."
 msgstr "Update your payment method before the trial ends to avoid interruptions."
 
-#: src/features/billing/components/BillingPage.tsx:140
+#: src/features/billing/components/BillingPage.tsx:149
 msgid "Actualizá tu tarjeta para mantener el acceso."
 msgstr "Update your card to keep access."
 
@@ -769,7 +769,7 @@ msgstr "Update your card to keep access."
 msgid "Actualizar"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:146
+#: src/features/billing/components/BillingPage.tsx:160
 msgid "Actualizar tarjeta en Stripe"
 msgstr "Update card in Stripe"
 
@@ -1004,7 +1004,7 @@ msgstr ""
 msgid "Antes de aceptación"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:44
+#: src/features/billing/components/BillingPage.tsx:47
 msgid "anual"
 msgstr "annual"
 
@@ -1554,7 +1554,7 @@ msgstr ""
 msgid "Cancelaste — acceso hasta {formattedDate}"
 msgstr "Canceled — access until {formattedDate}"
 
-#: src/features/billing/components/BillingPage.tsx:160
+#: src/features/billing/components/BillingPage.tsx:174
 msgid "Cancelaste tu suscripción"
 msgstr "You canceled your subscription"
 
@@ -1614,7 +1614,7 @@ msgstr "Loading plans"
 msgid "Cargando resumen de Discovery"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:62
+#: src/features/billing/components/BillingPage.tsx:65
 msgid "Cargando suscripción"
 msgstr "Loading subscription"
 
@@ -2246,7 +2246,7 @@ msgstr ""
 msgid "Detalle"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:229
+#: src/features/billing/components/BillingPage.tsx:250
 msgid "Detalle del plan"
 msgstr "Plan details"
 
@@ -3042,7 +3042,7 @@ msgstr ""
 msgid "Estamos demorando, refrescá en unos minutos"
 msgstr "We're taking longer than expected, refresh in a few minutes"
 
-#: src/features/billing/components/BillingPage.tsx:118
+#: src/features/billing/components/BillingPage.tsx:121
 msgid "Estás en período de prueba"
 msgstr "You're on a trial"
 
@@ -3444,7 +3444,12 @@ msgstr ""
 msgid "Geografía"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:274
+#: src/features/billing/components/PaymentMethodCard.tsx:46
+msgid "Gestionar {title} en Stripe"
+msgstr "Manage {title} in Stripe"
+
+#: src/features/billing/components/BillingPage.tsx:353
+#: src/features/billing/components/PaymentMethodCard.tsx:48
 msgid "Gestionar en Stripe"
 msgstr "Manage in Stripe"
 
@@ -3452,7 +3457,7 @@ msgstr "Manage in Stripe"
 msgid "Great job on the video!"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:38
+#: src/features/billing/components/BillingPage.tsx:41
 #: src/features/billing/components/PlanCard.tsx:21
 msgid "Growth"
 msgstr ""
@@ -4184,11 +4189,11 @@ msgstr ""
 msgid "Manejo campañas para varias marcas."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:163
+#: src/features/billing/components/BillingPage.tsx:177
 msgid "Mantenés acceso hasta {cancelAtLabel}"
 msgstr "You keep access until {cancelAtLabel}"
 
-#: src/features/billing/components/BillingPage.tsx:164
+#: src/features/billing/components/BillingPage.tsx:178
 msgid "Mantenés acceso hasta el final del período actual."
 msgstr "You keep access until the end of the current period."
 
@@ -4380,7 +4385,7 @@ msgstr ""
 msgid "Mensajes recientes"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:43
+#: src/features/billing/components/BillingPage.tsx:46
 msgid "mensual"
 msgstr "monthly"
 
@@ -4395,6 +4400,18 @@ msgstr ""
 #: src/features/identity/onboarding/creator/screens/C11BirthdayScreen.tsx:112
 msgid "Mes"
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:319
+msgid "Método de pago"
+msgstr "Payment method"
+
+#: src/features/billing/components/BillingPage.tsx:330
+msgid "Método de pago de la suscripción"
+msgstr "Subscription payment method"
+
+#: src/features/billing/components/BillingPage.tsx:335
+msgid "Método de pago para pagos a creators"
+msgstr "Offers payment method"
 
 #: src/features/billing/components/PlanCard.tsx:66
 msgid "Métricas 30 días"
@@ -4770,7 +4787,7 @@ msgstr "We couldn't load the plans. Try again."
 msgid "No pudimos cargar los videos"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:77
+#: src/features/billing/components/BillingPage.tsx:80
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
 
@@ -5448,7 +5465,7 @@ msgstr ""
 msgid "Peso dimensión {dimensionNumber}"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:233
+#: src/features/billing/components/BillingPage.tsx:254
 msgid "Plan"
 msgstr ""
 
@@ -5683,7 +5700,7 @@ msgstr ""
 msgid "Próximamente"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:243
+#: src/features/billing/components/BillingPage.tsx:266
 msgid "Próximo cobro"
 msgstr "Next charge"
 
@@ -6059,7 +6076,7 @@ msgstr ""
 msgid "Salud"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:39
+#: src/features/billing/components/BillingPage.tsx:42
 #: src/features/billing/components/PlanCard.tsx:22
 msgid "Scale"
 msgstr ""
@@ -6096,6 +6113,10 @@ msgstr ""
 #: src/features/campaigns/brief-builder/hooks/useBriefBuilderWS.ts:338
 msgid "Se perdió la conexión con el servidor."
 msgstr ""
+
+#: src/features/billing/components/BillingPage.tsx:321
+msgid "Se usa para suscripción y pagos a creators"
+msgstr "Used for subscription and creator payments"
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:118
 msgid "Search creator"
@@ -6377,6 +6398,10 @@ msgstr ""
 msgid "Sin managers. Sin comisiones. Sin intermediarios."
 msgstr ""
 
+#: src/features/billing/components/PaymentMethodCard.tsx:25
+msgid "Sin método de pago"
+msgstr "No payment method"
+
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:77
 msgid "Sin modelo definido"
 msgstr ""
@@ -6433,7 +6458,7 @@ msgstr ""
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:239
+#: src/features/billing/components/BillingPage.tsx:261
 msgid "Sin tarjeta cargada"
 msgstr "No card on file"
 
@@ -6575,7 +6600,7 @@ msgstr ""
 #~ msgid "Start preparing your draft. Deadline is {deadline}."
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:37
+#: src/features/billing/components/BillingPage.tsx:40
 #: src/features/billing/components/PlanCard.tsx:20
 msgid "Starter"
 msgstr ""
@@ -6610,7 +6635,8 @@ msgstr ""
 msgid "Streetwear"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:286
+#: src/features/billing/components/BillingPage.tsx:310
+#: src/features/billing/components/BillingPage.tsx:365
 msgid "Stripe no responde, intentá de nuevo"
 msgstr "Stripe isn't responding, try again"
 
@@ -6683,11 +6709,11 @@ msgstr ""
 msgid "Tarifas"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:235
+#: src/features/billing/components/BillingPage.tsx:257
 msgid "Tarjeta"
 msgstr "Card"
 
-#: src/features/billing/components/BillingPage.tsx:235
+#: src/features/billing/components/BillingPage.tsx:257
 msgid "Tarjeta (solo lectura)"
 msgstr "Card (read-only)"
 
@@ -7076,7 +7102,7 @@ msgstr ""
 msgid "Tu potencial según tu perfil"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:128
+#: src/features/billing/components/BillingPage.tsx:134
 msgid "Tu suscripción está activa"
 msgstr "Your subscription is active"
 
@@ -7093,11 +7119,11 @@ msgstr ""
 msgid "Tu tarifa, tu calendario, tu estilo. Nosotros operamos el resto."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:114
+#: src/features/billing/components/BillingPage.tsx:117
 msgid "Tu trial sigue activo"
 msgstr "Your trial is still active"
 
-#: src/features/billing/components/BillingPage.tsx:139
+#: src/features/billing/components/BillingPage.tsx:148
 msgid "Tu último cobro falló"
 msgstr "Your last charge failed"
 

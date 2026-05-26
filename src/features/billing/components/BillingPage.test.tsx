@@ -21,6 +21,7 @@ vi.mock('@lingui/core/macro', () => ({
 
 const subscriptionMock = vi.fn()
 const mutateMock = vi.fn()
+const trackBillingEventMock = vi.hoisted(() => vi.fn())
 let isPending = false
 
 vi.mock('../hooks/useBillingSubscription', () => ({
@@ -32,6 +33,10 @@ vi.mock('../hooks/useCreatePortalSession', () => ({
     mutate: mutateMock,
     isPending,
   }),
+}))
+
+vi.mock('../analytics', () => ({
+  trackBillingEvent: (...args: unknown[]) => trackBillingEventMock(...args),
 }))
 
 const toastErrorMock = vi.fn()
@@ -59,7 +64,17 @@ function baseSubscription(
     current_period_end: '2026-06-01T00:00:00Z',
     cancel_at: null,
     cancel_at_period_end: false,
-    card: { brand: 'visa', last4: '4242' },
+    subscription_payment_method: {
+      stripe_payment_method_id: 'pm_test_visa',
+      card_brand: 'visa',
+      card_last4: '4242',
+    },
+    offers_payment_method: {
+      stripe_payment_method_id: 'pm_test_visa',
+      card_brand: 'visa',
+      card_last4: '4242',
+    },
+    same_payment_method: true,
     next_invoice_amount_usd: '49.00',
     next_invoice_at: '2026-06-01T00:00:00Z',
     days_until_trial_ends: null,
@@ -117,6 +132,86 @@ describe('BillingPage', () => {
     expect(screen.getByText(/\$49\.00/)).toBeInTheDocument()
   })
 
+  it('renders combined payment method card and hides duplicated card row when same_payment_method is true', () => {
+    setSubscription(
+      baseSubscription({
+        same_payment_method: true,
+        subscription_payment_method: {
+          stripe_payment_method_id: 'pm_test_visa',
+          card_brand: 'visa',
+          card_last4: '4242',
+        },
+        offers_payment_method: {
+          stripe_payment_method_id: 'pm_test_visa',
+          card_brand: 'visa',
+          card_last4: '4242',
+        },
+      }),
+    )
+
+    render(<BillingPage />, { wrapper })
+
+    expect(
+      screen.getAllByText(/Se usa para suscripción y pagos a creators/i),
+    ).toHaveLength(1)
+    expect(screen.getByText(/Método de pago/i)).toBeInTheDocument()
+    expect(screen.queryByText(/^Tarjeta$/i)).not.toBeInTheDocument()
+  })
+
+  it('renders separated payment method cards and keeps card row when same_payment_method is false', () => {
+    setSubscription(
+      baseSubscription({
+        same_payment_method: false,
+        subscription_payment_method: {
+          stripe_payment_method_id: 'pm_test_visa',
+          card_brand: 'visa',
+          card_last4: '4242',
+        },
+        offers_payment_method: {
+          stripe_payment_method_id: 'pm_test_mastercard',
+          card_brand: 'mastercard',
+          card_last4: '4444',
+        },
+      }),
+    )
+
+    render(<BillingPage />, { wrapper })
+
+    expect(
+      screen.getByText(/Método de pago de la suscripción/i),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Método de pago para pagos a creators/i),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/^Tarjeta$/i)).toBeInTheDocument()
+  })
+
+  it("tracks offers payment method block view on mount", () => {
+    setSubscription(baseSubscription({ status: 'active' }))
+
+    render(<BillingPage />, { wrapper })
+
+    expect(trackBillingEventMock).toHaveBeenCalledWith(
+      'offers_payment_method_viewed',
+    )
+  })
+
+  it("tracks offers payment method portal click from card", async () => {
+    const user = userEvent.setup()
+    setSubscription(baseSubscription({ status: 'active' }))
+
+    render(<BillingPage />, { wrapper })
+    await user.click(
+      screen.getByRole('button', {
+        name: /Gestionar Método de pago en Stripe/i,
+      }),
+    )
+
+    expect(trackBillingEventMock).toHaveBeenCalledWith(
+      'offers_payment_method_portal_opened',
+    )
+  })
+
   it('renders past_due block with destructive CTA', () => {
     setSubscription(baseSubscription({ status: 'past_due' }))
     render(<BillingPage />, { wrapper })
@@ -165,7 +260,9 @@ describe('BillingPage', () => {
     })
 
     render(<BillingPage />, { wrapper })
-    await user.click(screen.getByRole('button', { name: /Gestionar en Stripe/i }))
+    await user.click(
+      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
+    )
 
     await waitFor(() => {
       expect(mutateMock).toHaveBeenCalledTimes(1)
@@ -187,7 +284,9 @@ describe('BillingPage', () => {
     })
 
     render(<BillingPage />, { wrapper })
-    await user.click(screen.getByRole('button', { name: /Gestionar en Stripe/i }))
+    await user.click(
+      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
+    )
 
     await waitFor(() => {
       expect(toastErrorMock).toHaveBeenCalledWith(

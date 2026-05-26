@@ -8,11 +8,12 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export interface BillingCardSummary {
-  brand: string;
+export interface BillingPaymentMethod {
+  stripe_payment_method_id: string;
+  card_brand: string;
   /**
      * @minLength 4
      * @maxLength 4
      */
-  last4: string;
+  card_last4: string;
 }

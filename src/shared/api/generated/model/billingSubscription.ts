@@ -7,8 +7,8 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
-import type { BillingCardSummary } from './billingCardSummary';
 import type { BillingInterval } from './billingInterval';
+import type { BillingPaymentMethod } from './billingPaymentMethod';
 import type { BillingPlanIdentifier } from './billingPlanIdentifier';
 import type { BillingSubscriptionStatus } from './billingSubscriptionStatus';
 
@@ -24,7 +24,9 @@ export interface BillingSubscription {
   /** @nullable */
   cancel_at?: string | null;
   cancel_at_period_end: boolean;
-  card?: BillingCardSummary | null;
+  subscription_payment_method: BillingPaymentMethod | null;
+  offers_payment_method: BillingPaymentMethod | null;
+  same_payment_method: boolean;
   /**
      * Decimal string with two fractional digits, null when not applicable (e.g. canceled).
      * @nullable
