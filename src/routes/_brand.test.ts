@@ -62,19 +62,6 @@ async function callBeforeLoad(
   return beforeLoad({ context: { queryClient }, location: { pathname } })
 }
 
-async function callPaymentsBeforeLoad(role?: 'owner' | 'admin' | 'member') {
-  const { Route } = await import('./_brand/payments')
-  const beforeLoad = (
-    Route.options as unknown as {
-      beforeLoad: (opts: {
-        context: { brandWorkspaceRole?: 'owner' | 'admin' | 'member' }
-      }) => void
-    }
-  ).beforeLoad
-
-  return beforeLoad({ context: { brandWorkspaceRole: role } })
-}
-
 describe('/_brand beforeLoad', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -255,20 +242,7 @@ describe('/_brand beforeLoad', () => {
   })
 })
 
-describe('/_brand/payments beforeLoad', () => {
-  it('allows brand admins through the route-specific guard', async () => {
-    await expect(callPaymentsBeforeLoad('admin')).resolves.toBeUndefined()
-  })
-
-  it('redirects non-admin brand roles to /workspace', async () => {
-    await expect(callPaymentsBeforeLoad('owner')).rejects.toEqual(
-      redirect({ to: '/workspace' }),
-    )
-    await expect(callPaymentsBeforeLoad('member')).rejects.toEqual(
-      redirect({ to: '/workspace' }),
-    )
-  })
-
+describe('/_brand/payments route', () => {
   it('defaults payments search period to 30d', async () => {
     const { paymentsSearchSchema } = await import('./_brand/payments')
 

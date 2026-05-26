@@ -1,4 +1,4 @@
-import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 import { brandPaymentsSearchSchema } from '#/features/payments/api/brandPaymentsSchemas'
 import type { BrandPaymentsSearch } from '#/features/payments/api/brandPaymentsSchemas'
@@ -9,11 +9,6 @@ export const paymentsSearchSchema = brandPaymentsSearchSchema
 
 export const Route = createFileRoute('/_brand/payments')({
   validateSearch: paymentsSearchSchema,
-  beforeLoad: ({ context }) => {
-    if (context.brandWorkspaceRole !== 'admin') {
-      throw redirect({ to: '/workspace' })
-    }
-  },
   component: BrandPaymentsRoute,
 })
 
