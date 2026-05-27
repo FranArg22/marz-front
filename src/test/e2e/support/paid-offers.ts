@@ -376,6 +376,15 @@ export async function sendPaidOffer(pair: ChatPair): Promise<ConversationPage> {
 }
 
 export async function getCurrentOfferId(pair: ChatPair): Promise<string> {
+  const offer = await getCurrentOffer(pair)
+  expect(offer.id, 'Expected current sent offer id').toBeDefined()
+  return offer.id
+}
+
+export async function getCurrentOffer(pair: ChatPair): Promise<{
+  id: string
+  status: string
+}> {
   const token = await getClerkSessionToken(pair.brandPage)
   const response = await pair.brandPage.request.get(
     `${API_BASE_URL}/v1/conversations/${pair.conversationId}/offers`,
@@ -392,9 +401,15 @@ export async function getCurrentOfferId(pair: ChatPair): Promise<string> {
     `GET /v1/conversations/${pair.conversationId}/offers failed: ${response.status()} ${await response.text()}`,
   ).toBe(true)
 
-  const body = (await response.json()) as { current?: { id?: string } | null }
-  expect(body.current?.id, 'Expected current sent offer id').toBeDefined()
-  return body.current!.id!
+  const body = (await response.json()) as {
+    current?: { id?: string; status?: string } | null
+  }
+  expect(body.current?.id, 'Expected current offer').toBeDefined()
+  expect(body.current?.status, 'Expected current offer status').toBeDefined()
+  return {
+    id: body.current!.id!,
+    status: body.current!.status!,
+  }
 }
 
 export async function createHoldDeclinedFault(): Promise<void> {

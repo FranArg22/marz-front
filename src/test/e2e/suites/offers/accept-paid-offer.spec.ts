@@ -2,13 +2,21 @@ import { expect, test } from '../../support/fixtures'
 import { ConversationPage } from '../../poms/conversation.pom'
 import {
   createCaptureFailedFault,
+  getCurrentOffer,
   getCurrentOfferId,
   sendPaidOffer,
   STRIPE_TEST_MODE_ENABLED,
 } from '../../support/paid-offers'
 
-test.describe('Offers: paid offer accept flow', () => {
-  test('offers.paid.accept_captures_hold_and_marks_offer_accepted', async ({
+async function expectNoTechnicalPaymentCopy(chat: ConversationPage) {
+  await expect(chat.timeline).not.toContainText(/Stripe/i)
+  await expect(chat.timeline).not.toContainText(/PaymentIntent/i)
+  await expect(chat.timeline).not.toContainText(/\bhold\b/i)
+  await expect(chat.timeline).not.toContainText(/\bcapture\b/i)
+}
+
+test.describe('Offers: paid offer creator accept flow', () => {
+  test('offers.paid.creator_accept_captures_hold', async ({
     chatPairOfferReady,
   }) => {
     test.skip(!STRIPE_TEST_MODE_ENABLED, 'Requires backend with STRIPE_TEST_MODE=1')
@@ -19,19 +27,26 @@ test.describe('Offers: paid offer accept flow', () => {
     const creatorChat = new ConversationPage(chatPairOfferReady.creatorPage)
     await creatorChat.goto(chatPairOfferReady.conversationId)
 
-    await chatPairOfferReady.creatorPage
-      .getByRole('button', { name: /Aceptar|Accept/i })
-      .click()
+    await expect(creatorChat.offerSentCard()).toBeVisible()
+    await creatorChat.acceptOfferButton().click()
 
-    await expect(
-      creatorChat.timeline.getByRole('article', { name: /Oferta aceptada/i }),
-    ).toBeVisible({ timeout: 30_000 })
-    await expect(creatorChat.timeline).not.toContainText(/Stripe/i)
-    await expect(creatorChat.timeline).not.toContainText(/PaymentIntent/i)
-    await expect(creatorChat.timeline).not.toContainText(/\bcapture\b/i)
+    await expect(creatorChat.offerAcceptedCard()).toBeVisible({
+      timeout: 30_000,
+    })
+    await expect
+      .poll(async () => (await getCurrentOffer(chatPairOfferReady)).status, {
+        timeout: 30_000,
+      })
+      .toBe('accepted')
+    await expectNoTechnicalPaymentCopy(creatorChat)
+
+    await chatPairOfferReady.creatorPage.reload()
+    await creatorChat.waitForReady()
+    await expect(creatorChat.offerAcceptedCard()).toHaveCount(1)
+    await expectNoTechnicalPaymentCopy(creatorChat)
   })
 
-  test('offers.paid.accept_capture_failed_keeps_offer_sent', async ({
+  test('offers.paid.creator_accept_capture_failed', async ({
     chatPairOfferReady,
   }) => {
     test.skip(!STRIPE_TEST_MODE_ENABLED, 'Requires backend with STRIPE_TEST_MODE=1')
@@ -44,24 +59,22 @@ test.describe('Offers: paid offer accept flow', () => {
     const creatorChat = new ConversationPage(chatPairOfferReady.creatorPage)
     await creatorChat.goto(chatPairOfferReady.conversationId)
 
-    await chatPairOfferReady.creatorPage
-      .getByRole('button', { name: /Aceptar|Accept/i })
-      .click()
+    await expect(creatorChat.offerSentCard()).toBeVisible()
+    const acceptButton = creatorChat.acceptOfferButton()
+    await expect(acceptButton).toBeEnabled()
+    await acceptButton.click()
 
     await expect(
       chatPairOfferReady.creatorPage.getByText(/No se pudo procesar el pago/i),
     ).toBeVisible({ timeout: 15_000 })
-    await expect(
-      chatPairOfferReady.creatorPage.getByRole('button', {
-        name: /Aceptar|Accept/i,
-      }),
-    ).toBeVisible({ timeout: 15_000 })
-    await expect(
-      creatorChat.timeline.getByRole('article', { name: /Oferta aceptada/i }),
-    ).toHaveCount(0)
-    await expect(creatorChat.timeline).toContainText(/Oferta enviada/i)
-    await expect(creatorChat.timeline).not.toContainText(/Stripe/i)
-    await expect(creatorChat.timeline).not.toContainText(/PaymentIntent/i)
-    await expect(creatorChat.timeline).not.toContainText(/\bcapture\b/i)
+    await expect
+      .poll(async () => (await getCurrentOffer(chatPairOfferReady)).status, {
+        timeout: 15_000,
+      })
+      .toBe('sent')
+    await expect(creatorChat.offerAcceptedCard()).toHaveCount(0)
+    await expect(creatorChat.offerSentCard()).toBeVisible()
+    await expect(acceptButton).toBeVisible()
+    await expectNoTechnicalPaymentCopy(creatorChat)
   })
 })
