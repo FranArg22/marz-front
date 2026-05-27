@@ -165,3 +165,43 @@ export const CreateBillingPortalSessionBody = zod.object({
   "return_url": zod.url().nullish().describe('Absolute https URL to return to. Defaults to <app-url>\/billing.')
 })
 
+/**
+ * Lists the card payment methods attached to the workspace's Stripe customer, flagging which pays the subscription and which pays offers.
+ */
+export const listBillingPaymentMethodsResponsePaymentMethodsItemCardLast4Min = 4;
+export const listBillingPaymentMethodsResponsePaymentMethodsItemCardLast4Max = 4;
+
+
+
+export const ListBillingPaymentMethodsResponse = zod.object({
+  "payment_methods": zod.array(zod.object({
+  "stripe_payment_method_id": zod.string(),
+  "card_brand": zod.string(),
+  "card_last4": zod.string().min(listBillingPaymentMethodsResponsePaymentMethodsItemCardLast4Min).max(listBillingPaymentMethodsResponsePaymentMethodsItemCardLast4Max),
+  "exp_month": zod.number(),
+  "exp_year": zod.number(),
+  "is_subscription_default": zod.boolean().describe('Whether this card is the subscription default payment method.'),
+  "is_offers_default": zod.boolean().describe('Whether this card is the one charged for offers (the effective offers PM).')
+})),
+  "same_payment_method": zod.boolean().describe('Whether offers use the same payment method as the subscription.')
+})
+
+/**
+ * Pins the payment method used for offer charges, or resets it to the subscription payment method (same-as-subscription) when stripe_payment_method_id is null.
+ */
+export const SetOffersPaymentMethodBody = zod.object({
+  "stripe_payment_method_id": zod.string().nullable().describe('PaymentMethod to charge for offers. null resets to the subscription payment method (same-as-subscription).')
+})
+
+/**
+ * Creates a Stripe Checkout session in setup mode so the brand can attach an additional card (with an off-session mandate) to use for offer charges.
+ */
+export const CreateOffersSetupSessionHeader = zod.object({
+  "Idempotency-Key": zod.uuid()
+})
+
+export const CreateOffersSetupSessionBody = zod.object({
+  "success_url": zod.url().nullish().describe('Absolute URL to return to on success. Defaults to <app-url>\/billing.'),
+  "cancel_url": zod.url().nullish().describe('Absolute URL to return to on cancel. Defaults to <app-url>\/billing.')
+})
+
