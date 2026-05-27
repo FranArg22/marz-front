@@ -7,7 +7,7 @@
   "plan_review_status": "unknown",
   "plan_reviewed_at": null,
   "spec_path": ".flow/specs/fn-26-feat-027-e2e-paid-offer-charge-capture.md",
-  "status": "open",
+  "status": "done",
   "title": "FEAT-027 E2E: paid offer charge & capture",
-  "updated_at": "2026-05-27T01:42:51.799508Z"
+  "updated_at": "2026-05-27T03:16:02.330787Z"
 }
