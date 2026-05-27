@@ -61,7 +61,7 @@ Archivo: `src/features/offers/components/OfferSummaryBlock.test.tsx`
 - Verify: `pnpm vitest run src/features/offers/components/OfferSummaryBlock && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
