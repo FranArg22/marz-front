@@ -65,7 +65,7 @@ Leer `profiles/knowledge/i18n.md` antes de empezar. En resumen:
 - Verify: `pnpm i18n:extract && pnpm i18n:compile && pnpm check:i18n-standards && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.8; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
