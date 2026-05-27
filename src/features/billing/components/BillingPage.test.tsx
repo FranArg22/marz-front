@@ -39,6 +39,18 @@ vi.mock('../analytics', () => ({
   trackBillingEvent: (...args: unknown[]) => trackBillingEventMock(...args),
 }))
 
+vi.mock('../hooks/useOffersPaymentMethod', () => ({
+  useOffersPaymentMethods: () => ({
+    isLoading: false,
+    data: {
+      status: 200,
+      data: { payment_methods: [], same_payment_method: true },
+    },
+  }),
+  useSetOffersPaymentMethod: () => ({ mutate: vi.fn(), isPending: false }),
+  useCreateOffersSetupSession: () => ({ mutate: vi.fn(), isPending: false }),
+}))
+
 const toastErrorMock = vi.fn()
 vi.mock('sonner', () => ({
   toast: { error: (msg: string) => toastErrorMock(msg) },
@@ -132,41 +144,27 @@ describe('BillingPage', () => {
     expect(screen.getByText(/\$49\.00/)).toBeInTheDocument()
   })
 
-  it('renders combined payment method card and hides duplicated card row when same_payment_method is true', () => {
-    setSubscription(
-      baseSubscription({
-        same_payment_method: true,
-        subscription_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
-        offers_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
-      }),
-    )
+  it('marks the subscription card as also used for creators when same_payment_method is true', () => {
+    setSubscription(baseSubscription({ same_payment_method: true }))
 
     render(<BillingPage />, { wrapper })
 
     expect(
-      screen.getAllByText(/Se usa para suscripción y pagos a creators/i),
-    ).toHaveLength(1)
-    expect(screen.getByText(/Método de pago/i)).toBeInTheDocument()
-    expect(screen.queryByText(/^Tarjeta$/i)).not.toBeInTheDocument()
+      screen.getByText(/Método de pago de la suscripción/i),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/También se usa para pagos a creators/i),
+    ).toBeInTheDocument()
+    // The offers selector is always present for choosing same/different.
+    expect(
+      screen.getByText(/Método de pago para pagos a creators/i),
+    ).toBeInTheDocument()
   })
 
-  it('renders separated payment method cards and keeps card row when same_payment_method is false', () => {
+  it('shows subscription card and offers selector without the shared badge when same_payment_method is false', () => {
     setSubscription(
       baseSubscription({
         same_payment_method: false,
-        subscription_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
         offers_payment_method: {
           stripe_payment_method_id: 'pm_test_mastercard',
           card_brand: 'mastercard',
@@ -183,7 +181,9 @@ describe('BillingPage', () => {
     expect(
       screen.getByText(/Método de pago para pagos a creators/i),
     ).toBeInTheDocument()
-    expect(screen.getByText(/^Tarjeta$/i)).toBeInTheDocument()
+    expect(
+      screen.queryByText(/También se usa para pagos a creators/i),
+    ).not.toBeInTheDocument()
   })
 
   it("tracks offers payment method block view on mount", () => {
@@ -203,7 +203,7 @@ describe('BillingPage', () => {
     render(<BillingPage />, { wrapper })
     await user.click(
       screen.getByRole('button', {
-        name: /Gestionar Método de pago en Stripe/i,
+        name: /Gestionar Método de pago de la suscripción en Stripe/i,
       }),
     )
 
@@ -261,7 +261,7 @@ describe('BillingPage', () => {
 
     render(<BillingPage />, { wrapper })
     await user.click(
-      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
+      screen.getByRole('button', { name: /Gestionar Método de pago de la suscripción en Stripe/i }),
     )
 
     await waitFor(() => {
@@ -285,7 +285,7 @@ describe('BillingPage', () => {
 
     render(<BillingPage />, { wrapper })
     await user.click(
-      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
+      screen.getByRole('button', { name: /Gestionar Método de pago de la suscripción en Stripe/i }),
     )
 
     await waitFor(() => {

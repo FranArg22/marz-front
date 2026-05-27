@@ -27,9 +27,13 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  BillingOffersPaymentMethodSelection,
+  BillingPaymentMethodList,
   BillingPlansResponse,
   BillingPortalSessionRequest,
   BillingPortalSessionResponse,
+  BillingSetupSessionRequest,
+  BillingSetupSessionResponse,
   BillingSubscription,
   BrandPaymentsSpendingResponse,
   Error,
@@ -683,4 +687,362 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getCreateBillingPortalSessionMutationOptions(options), queryClient);
+    }
+    /**
+ * Lists the card payment methods attached to the workspace's Stripe customer, flagging which pays the subscription and which pays offers.
+ */
+export type listBillingPaymentMethodsResponse200 = {
+  data: BillingPaymentMethodList
+  status: 200
+}
+
+export type listBillingPaymentMethodsResponse401 = {
+  data: Error
+  status: 401
+}
+
+export type listBillingPaymentMethodsResponse403 = {
+  data: Error
+  status: 403
+}
+
+export type listBillingPaymentMethodsResponse404 = {
+  data: Error
+  status: 404
+}
+
+export type listBillingPaymentMethodsResponse500 = {
+  data: Error
+  status: 500
+}
+
+export type listBillingPaymentMethodsResponse502 = {
+  data: Error
+  status: 502
+}
+
+export type listBillingPaymentMethodsResponseSuccess = (listBillingPaymentMethodsResponse200) & {
+  headers: Headers;
+};
+export type listBillingPaymentMethodsResponseError = (listBillingPaymentMethodsResponse401 | listBillingPaymentMethodsResponse403 | listBillingPaymentMethodsResponse404 | listBillingPaymentMethodsResponse500 | listBillingPaymentMethodsResponse502) & {
+  headers: Headers;
+};
+
+export type listBillingPaymentMethodsResponse = (listBillingPaymentMethodsResponseSuccess | listBillingPaymentMethodsResponseError)
+
+export const getListBillingPaymentMethodsUrl = () => {
+
+
+
+
+  return `/v1/billing/payment-methods`
+}
+
+export const listBillingPaymentMethods = async ( options?: RequestInit): Promise<listBillingPaymentMethodsResponse> => {
+
+  return customFetch<listBillingPaymentMethodsResponse>(getListBillingPaymentMethodsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListBillingPaymentMethodsQueryKey = () => {
+    return [
+    `/v1/billing/payment-methods`
+    ] as const;
+    }
+
+
+export const getListBillingPaymentMethodsQueryOptions = <TData = Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError = Error>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListBillingPaymentMethodsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listBillingPaymentMethods>>> = ({ signal }) => listBillingPaymentMethods({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListBillingPaymentMethodsQueryResult = NonNullable<Awaited<ReturnType<typeof listBillingPaymentMethods>>>
+export type ListBillingPaymentMethodsQueryError = Error
+
+
+export function useListBillingPaymentMethods<TData = Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError = Error>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listBillingPaymentMethods>>,
+          TError,
+          Awaited<ReturnType<typeof listBillingPaymentMethods>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListBillingPaymentMethods<TData = Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError = Error>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listBillingPaymentMethods>>,
+          TError,
+          Awaited<ReturnType<typeof listBillingPaymentMethods>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListBillingPaymentMethods<TData = Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError = Error>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useListBillingPaymentMethods<TData = Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError = Error>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBillingPaymentMethods>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListBillingPaymentMethodsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+/**
+ * Pins the payment method used for offer charges, or resets it to the subscription payment method (same-as-subscription) when stripe_payment_method_id is null.
+ */
+export type setOffersPaymentMethodResponse204 = {
+  data: void
+  status: 204
+}
+
+export type setOffersPaymentMethodResponse401 = {
+  data: Error
+  status: 401
+}
+
+export type setOffersPaymentMethodResponse403 = {
+  data: Error
+  status: 403
+}
+
+export type setOffersPaymentMethodResponse404 = {
+  data: Error
+  status: 404
+}
+
+export type setOffersPaymentMethodResponse422 = {
+  data: Error
+  status: 422
+}
+
+export type setOffersPaymentMethodResponse500 = {
+  data: Error
+  status: 500
+}
+
+export type setOffersPaymentMethodResponse502 = {
+  data: Error
+  status: 502
+}
+
+export type setOffersPaymentMethodResponseSuccess = (setOffersPaymentMethodResponse204) & {
+  headers: Headers;
+};
+export type setOffersPaymentMethodResponseError = (setOffersPaymentMethodResponse401 | setOffersPaymentMethodResponse403 | setOffersPaymentMethodResponse404 | setOffersPaymentMethodResponse422 | setOffersPaymentMethodResponse500 | setOffersPaymentMethodResponse502) & {
+  headers: Headers;
+};
+
+export type setOffersPaymentMethodResponse = (setOffersPaymentMethodResponseSuccess | setOffersPaymentMethodResponseError)
+
+export const getSetOffersPaymentMethodUrl = () => {
+
+
+
+
+  return `/v1/billing/offers-payment-method`
+}
+
+export const setOffersPaymentMethod = async (billingOffersPaymentMethodSelection: BillingOffersPaymentMethodSelection, options?: RequestInit): Promise<setOffersPaymentMethodResponse> => {
+
+  return customFetch<setOffersPaymentMethodResponse>(getSetOffersPaymentMethodUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      billingOffersPaymentMethodSelection,)
+  }
+);}
+
+
+
+
+export const getSetOffersPaymentMethodMutationOptions = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setOffersPaymentMethod>>, TError,{data: BillingOffersPaymentMethodSelection}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof setOffersPaymentMethod>>, TError,{data: BillingOffersPaymentMethodSelection}, TContext> => {
+
+const mutationKey = ['setOffersPaymentMethod'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof setOffersPaymentMethod>>, {data: BillingOffersPaymentMethodSelection}> = (props) => {
+          const {data} = props ?? {};
+
+          return  setOffersPaymentMethod(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SetOffersPaymentMethodMutationResult = NonNullable<Awaited<ReturnType<typeof setOffersPaymentMethod>>>
+    export type SetOffersPaymentMethodMutationBody = BillingOffersPaymentMethodSelection
+    export type SetOffersPaymentMethodMutationError = Error
+
+    export const useSetOffersPaymentMethod = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setOffersPaymentMethod>>, TError,{data: BillingOffersPaymentMethodSelection}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof setOffersPaymentMethod>>,
+        TError,
+        {data: BillingOffersPaymentMethodSelection},
+        TContext
+      > => {
+      return useMutation(getSetOffersPaymentMethodMutationOptions(options), queryClient);
+    }
+    /**
+ * Creates a Stripe Checkout session in setup mode so the brand can attach an additional card (with an off-session mandate) to use for offer charges.
+ */
+export type createOffersSetupSessionResponse201 = {
+  data: BillingSetupSessionResponse
+  status: 201
+}
+
+export type createOffersSetupSessionResponse401 = {
+  data: Error
+  status: 401
+}
+
+export type createOffersSetupSessionResponse403 = {
+  data: Error
+  status: 403
+}
+
+export type createOffersSetupSessionResponse404 = {
+  data: Error
+  status: 404
+}
+
+export type createOffersSetupSessionResponse422 = {
+  data: Error
+  status: 422
+}
+
+export type createOffersSetupSessionResponse500 = {
+  data: Error
+  status: 500
+}
+
+export type createOffersSetupSessionResponse502 = {
+  data: Error
+  status: 502
+}
+
+export type createOffersSetupSessionResponseSuccess = (createOffersSetupSessionResponse201) & {
+  headers: Headers;
+};
+export type createOffersSetupSessionResponseError = (createOffersSetupSessionResponse401 | createOffersSetupSessionResponse403 | createOffersSetupSessionResponse404 | createOffersSetupSessionResponse422 | createOffersSetupSessionResponse500 | createOffersSetupSessionResponse502) & {
+  headers: Headers;
+};
+
+export type createOffersSetupSessionResponse = (createOffersSetupSessionResponseSuccess | createOffersSetupSessionResponseError)
+
+export const getCreateOffersSetupSessionUrl = () => {
+
+
+
+
+  return `/v1/billing/offers-payment-method/setup-sessions`
+}
+
+export const createOffersSetupSession = async (billingSetupSessionRequest: BillingSetupSessionRequest, options?: RequestInit): Promise<createOffersSetupSessionResponse> => {
+
+  return customFetch<createOffersSetupSessionResponse>(getCreateOffersSetupSessionUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      billingSetupSessionRequest,)
+  }
+);}
+
+
+
+
+export const getCreateOffersSetupSessionMutationOptions = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createOffersSetupSession>>, TError,{data: BillingSetupSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createOffersSetupSession>>, TError,{data: BillingSetupSessionRequest}, TContext> => {
+
+const mutationKey = ['createOffersSetupSession'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createOffersSetupSession>>, {data: BillingSetupSessionRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createOffersSetupSession(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateOffersSetupSessionMutationResult = NonNullable<Awaited<ReturnType<typeof createOffersSetupSession>>>
+    export type CreateOffersSetupSessionMutationBody = BillingSetupSessionRequest
+    export type CreateOffersSetupSessionMutationError = Error
+
+    export const useCreateOffersSetupSession = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createOffersSetupSession>>, TError,{data: BillingSetupSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createOffersSetupSession>>,
+        TError,
+        {data: BillingSetupSessionRequest},
+        TContext
+      > => {
+      return useMutation(getCreateOffersSetupSessionMutationOptions(options), queryClient);
     }

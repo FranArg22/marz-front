@@ -217,7 +217,7 @@ msgstr ""
 #~ msgid "{creatorName} accepted the offer, deadline {deadline}"
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:113
+#: src/features/billing/components/BillingPage.tsx:114
 #: src/features/billing/components/BillingTopbarPill.tsx:119
 msgid "{days, plural, one {Tu trial termina en # día} other {Tu trial termina en # días}}"
 msgstr "{days, plural, one {Your trial ends in # day} other {Your trial ends in # days}}"
@@ -258,17 +258,17 @@ msgstr ""
 msgid "{firstName}, ¿cuánto hiciste con marcas?"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:46
+#: src/features/offers/components/OfferSummaryBlock.tsx:49
 msgid "{formattedBaseAmount} USD (base)"
-msgstr "{formattedBaseAmount} USD (base)"
+msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:54
+#: src/features/offers/components/OfferSummaryBlock.tsx:57
 msgid "{formattedBonusCeiling} USD (bonus)"
-msgstr "{formattedBonusCeiling} USD (bonus)"
+msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:62
+#: src/features/offers/components/OfferSummaryBlock.tsx:65
 msgid "{formattedMaxPayout} USD (máximo)"
-msgstr "{formattedMaxPayout} USD (max)"
+msgstr ""
 
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:47
 msgid "{gb} GB"
@@ -771,7 +771,7 @@ msgstr ""
 msgid "Actualizá tu método de pago antes de que termine el trial para evitar interrupciones."
 msgstr "Update your payment method before the trial ends to avoid interruptions."
 
-#: src/features/billing/components/BillingPage.tsx:149
+#: src/features/billing/components/BillingPage.tsx:150
 msgid "Actualizá tu tarjeta para mantener el acceso."
 msgstr "Update your card to keep access."
 
@@ -781,7 +781,7 @@ msgstr "Update your card to keep access."
 msgid "Actualizar"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:160
+#: src/features/billing/components/BillingPage.tsx:161
 msgid "Actualizar tarjeta en Stripe"
 msgstr "Update card in Stripe"
 
@@ -846,6 +846,10 @@ msgstr ""
 
 #: src/features/campaigns/configuration/BonusStep.tsx:392
 msgid "Agregar milestone"
+msgstr ""
+
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:127
+msgid "Agregar otra tarjeta"
 msgstr ""
 
 #: src/features/campaigns/configuration/components/CountryMultiSelect.tsx:74
@@ -1016,7 +1020,7 @@ msgstr ""
 msgid "Antes de aceptación"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:47
+#: src/features/billing/components/BillingPage.tsx:48
 msgid "anual"
 msgstr "annual"
 
@@ -1265,9 +1269,9 @@ msgid "Bonos de oferta"
 msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:72
-#: src/features/offers/components/OfferSummaryBlock.tsx:52
+#: src/features/offers/components/OfferSummaryBlock.tsx:55
 msgid "Bonos máximos"
-msgstr "Max bonuses"
+msgstr ""
 
 #: src/features/earnings/components/PendingBonusPanel.tsx:105
 msgid "Bonos que podés alcanzar a tiempo"
@@ -1567,7 +1571,7 @@ msgstr ""
 msgid "Cancelaste — acceso hasta {formattedDate}"
 msgstr "Canceled — access until {formattedDate}"
 
-#: src/features/billing/components/BillingPage.tsx:174
+#: src/features/billing/components/BillingPage.tsx:175
 msgid "Cancelaste tu suscripción"
 msgstr "You canceled your subscription"
 
@@ -1627,7 +1631,7 @@ msgstr "Loading plans"
 msgid "Cargando resumen de Discovery"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:65
+#: src/features/billing/components/BillingPage.tsx:66
 msgid "Cargando suscripción"
 msgstr "Loading subscription"
 
@@ -2259,7 +2263,7 @@ msgstr ""
 msgid "Detalle"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:250
+#: src/features/billing/components/BillingPage.tsx:251
 msgid "Detalle del plan"
 msgstr "Plan details"
 
@@ -2526,15 +2530,15 @@ msgstr ""
 
 #: src/features/offers/hooks/useOfferActions.ts:83
 msgid "El brand necesita actualizar su tarjeta"
-msgstr "The brand needs to update their card"
+msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:69
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
 msgid "El cobro se realiza cuando el creator acepta"
-msgstr "The charge happens when the creator accepts"
+msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:33
 msgid "El código de seguridad de tu tarjeta es incorrecto."
-msgstr "The security code for your card is incorrect."
+msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:129
 msgid "El creator está analizando la oferta"
@@ -2584,6 +2588,10 @@ msgstr ""
 msgid "El mensaje no puede superar los {submitCreatorCampaignBoardApplicationBodyMessageMax} caracteres."
 msgstr ""
 
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:103
+msgid "El mismo que la suscripción"
+msgstr ""
+
 #: src/features/offers/schemas/createOffer.ts:75
 msgid "El monto tiene que ser mayor a 0"
 msgstr ""
@@ -2619,6 +2627,10 @@ msgstr ""
 
 #: src/features/campaigns/configuration/CampaignConfigurationWizard.tsx:43
 msgid "Elegí cómo vas a compensar cada entrega aprobada."
+msgstr ""
+
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:97
+msgid "Elegí el método de pago para creators"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:69
@@ -2843,7 +2855,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:173
 #: src/features/discovery/campaign-detail/AddCreatorDialog.tsx:170
-#: src/features/offers/components/SendOfferSidesheet.tsx:798
+#: src/features/offers/components/SendOfferSidesheet.tsx:799
 msgid "Enviando"
 msgstr ""
 
@@ -2872,7 +2884,7 @@ msgstr ""
 #: src/features/offers/components/CurrentOfferBlock.tsx:132
 #: src/features/offers/components/SendOfferSidesheet.tsx:374
 #: src/features/offers/components/SendOfferSidesheet.tsx:382
-#: src/features/offers/components/SendOfferSidesheet.tsx:797
+#: src/features/offers/components/SendOfferSidesheet.tsx:798
 msgid "Enviar oferta"
 msgstr ""
 
@@ -2963,9 +2975,9 @@ msgstr ""
 msgid "Esperando aprobación del link"
 msgstr ""
 
-#: src/routes/_brand/checkout-return.tsx:130
+#: src/routes/_brand/checkout-return.tsx:132
 msgid "Esperando confirmación…"
-msgstr "Waiting for confirmation..."
+msgstr ""
 
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:46
 msgid "Esperando draft"
@@ -3059,7 +3071,7 @@ msgstr ""
 msgid "Estamos armando una propuesta personalizada para tu campaña."
 msgstr ""
 
-#: src/routes/_brand/checkout-return.tsx:133
+#: src/routes/_brand/checkout-return.tsx:135
 #: src/routes/onboarding/brand.billing-callback.tsx:110
 msgid "Estamos confirmando el pago con Stripe."
 msgstr "We're confirming the payment with Stripe."
@@ -3072,7 +3084,7 @@ msgstr ""
 msgid "Estamos demorando, refrescá en unos minutos"
 msgstr "We're taking longer than expected, refresh in a few minutes"
 
-#: src/features/billing/components/BillingPage.tsx:121
+#: src/features/billing/components/BillingPage.tsx:122
 msgid "Estás en período de prueba"
 msgstr "You're on a trial"
 
@@ -3478,20 +3490,20 @@ msgstr ""
 msgid "Gestionar {title} en Stripe"
 msgstr "Manage {title} in Stripe"
 
-#: src/features/billing/components/BillingPage.tsx:355
+#: src/features/billing/components/BillingPage.tsx:347
 #: src/features/billing/components/PaymentMethodCard.tsx:48
 msgid "Gestionar en Stripe"
 msgstr "Manage in Stripe"
 
-#: src/features/offers/components/OfferSendErrorBanner.tsx:92
+#: src/features/offers/components/OfferSendErrorBanner.tsx:93
 msgid "Gestionar tarjeta en Stripe"
-msgstr "Manage card in Stripe"
+msgstr ""
 
 #: src/shared/ui/PaymentCard.tsx:29
 msgid "Great job on the video!"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:41
+#: src/features/billing/components/BillingPage.tsx:42
 #: src/features/billing/components/PlanCard.tsx:21
 msgid "Growth"
 msgstr ""
@@ -4181,7 +4193,7 @@ msgstr ""
 
 #: src/features/offers/hooks/useOfferActions.ts:81
 msgid "Los fondos reservados expiraron"
-msgstr "Reserved funds expired"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:123
 #~ msgid "Los números son referencias históricas en {0} LatAm. Variables como creador, formato y hook mueven fuerte."
@@ -4227,11 +4239,11 @@ msgstr ""
 msgid "Manejo campañas para varias marcas."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:177
+#: src/features/billing/components/BillingPage.tsx:178
 msgid "Mantenés acceso hasta {cancelAtLabel}"
 msgstr "You keep access until {cancelAtLabel}"
 
-#: src/features/billing/components/BillingPage.tsx:178
+#: src/features/billing/components/BillingPage.tsx:179
 msgid "Mantenés acceso hasta el final del período actual."
 msgstr "You keep access until the end of the current period."
 
@@ -4423,7 +4435,7 @@ msgstr ""
 msgid "Mensajes recientes"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:46
+#: src/features/billing/components/BillingPage.tsx:47
 msgid "mensual"
 msgstr "monthly"
 
@@ -4439,15 +4451,15 @@ msgstr ""
 msgid "Mes"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:320
-msgid "Método de pago"
-msgstr "Payment method"
+#: src/features/billing/components/BillingPage.tsx:319
+#~ msgid "Método de pago"
+#~ msgstr "Payment method"
 
-#: src/features/billing/components/BillingPage.tsx:332
+#: src/features/billing/components/BillingPage.tsx:323
 msgid "Método de pago de la suscripción"
 msgstr "Subscription payment method"
 
-#: src/features/billing/components/BillingPage.tsx:337
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:83
 msgid "Método de pago para pagos a creators"
 msgstr "Offers payment method"
 
@@ -4565,9 +4577,9 @@ msgid "Monto"
 msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:68
-#: src/features/offers/components/OfferSummaryBlock.tsx:44
+#: src/features/offers/components/OfferSummaryBlock.tsx:47
 msgid "Monto base"
-msgstr "Base amount"
+msgstr ""
 
 #: src/features/campaigns/configuration/components/BonusAmountField.tsx:103
 msgid "Monto de {label} en USD"
@@ -4581,9 +4593,9 @@ msgstr ""
 msgid "Monto fijo en USD"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:60
+#: src/features/offers/components/OfferSummaryBlock.tsx:63
 msgid "Monto máximo"
-msgstr "Max amount"
+msgstr ""
 
 #: src/features/payments/components/MarkAsPaidDialog.tsx:109
 msgid "Monto pagado"
@@ -4786,6 +4798,10 @@ msgstr ""
 #~ msgid "No past offers"
 #~ msgstr ""
 
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:51
+msgid "No pudimos cambiar el método de pago, intentá de nuevo"
+msgstr ""
+
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:53
 msgid "No pudimos cargar el brief"
 msgstr ""
@@ -4830,7 +4846,7 @@ msgstr "We couldn't load the plans. Try again."
 msgid "No pudimos cargar los videos"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:80
+#: src/features/billing/components/BillingPage.tsx:81
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
 
@@ -4866,12 +4882,12 @@ msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:36
 msgid "No pudimos procesar el pago. Intentá de nuevo o gestioná tu tarjeta."
-msgstr "We couldn't process the payment. Try again or manage your card."
+msgstr ""
 
 #: src/routes/inbox.tsx:104
 #: src/routes/workspace.conversations.$conversationId.tsx:70
 msgid "No pudimos procesar tu tarjeta. Probá de nuevo o gestioná tu tarjeta."
-msgstr "We couldn't process your card. Try again or manage your card."
+msgstr ""
 
 #: src/features/campaigns/components/CampaignBriefPage.tsx:37
 msgid "No se encontró el brief de esta campaña."
@@ -4927,7 +4943,7 @@ msgstr ""
 
 #: src/features/offers/hooks/useOfferActions.ts:85
 msgid "No se pudo procesar el pago"
-msgstr "Payment couldn't be processed"
+msgstr ""
 
 #: src/features/offers/components/CancelOfferDialog.tsx:44
 msgid "No se puede cancelar esta oferta en este estado."
@@ -5159,7 +5175,7 @@ msgstr ""
 #: src/routes/inbox.tsx:99
 #: src/routes/workspace.conversations.$conversationId.tsx:65
 msgid "Offer enviada"
-msgstr "Offer sent"
+msgstr ""
 
 #: src/features/offers/hooks/useOfferActions.ts:92
 msgid "Offer expired"
@@ -5527,7 +5543,7 @@ msgstr ""
 msgid "Peso dimensión {dimensionNumber}"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:254
+#: src/features/billing/components/BillingPage.tsx:255
 msgid "Plan"
 msgstr ""
 
@@ -5762,7 +5778,7 @@ msgstr ""
 msgid "Próximamente"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:266
+#: src/features/billing/components/BillingPage.tsx:267
 msgid "Próximo cobro"
 msgstr "Next charge"
 
@@ -5968,9 +5984,9 @@ msgstr ""
 #: src/features/offers/components/SendOfferSidesheet.tsx:409
 #: src/routes/_brand/campaigns.index.tsx:55
 #: src/routes/_brand/campaigns.new.tsx:103
-#: src/routes/_brand/checkout-return.tsx:111
+#: src/routes/_brand/checkout-return.tsx:112
 msgid "Reintentar"
-msgstr "Retry"
+msgstr ""
 
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:81
 #: src/features/offers/components/OfferCard.tsx:90
@@ -6033,9 +6049,9 @@ msgid "Restaurantes"
 msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:59
-#: src/features/offers/components/OfferSummaryBlock.tsx:39
+#: src/features/offers/components/OfferSummaryBlock.tsx:42
 msgid "Resumen de la oferta"
-msgstr "Offer summary"
+msgstr ""
 
 #: src/routes/_brand/campaigns.$campaignId.brief.tsx:15
 msgid "Resumen del brief"
@@ -6140,7 +6156,7 @@ msgstr ""
 msgid "Salud"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:42
+#: src/features/billing/components/BillingPage.tsx:43
 #: src/features/billing/components/PlanCard.tsx:22
 msgid "Scale"
 msgstr ""
@@ -6178,9 +6194,9 @@ msgstr ""
 msgid "Se perdió la conexión con el servidor."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:322
-msgid "Se usa para suscripción y pagos a creators"
-msgstr "Used for subscription and creator payments"
+#: src/features/billing/components/BillingPage.tsx:321
+#~ msgid "Se usa para suscripción y pagos a creators"
+#~ msgstr "Used for subscription and creator payments"
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:118
 msgid "Search creator"
@@ -6522,7 +6538,7 @@ msgstr ""
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:261
+#: src/features/billing/components/BillingPage.tsx:262
 msgid "Sin tarjeta cargada"
 msgstr "No card on file"
 
@@ -6664,7 +6680,7 @@ msgstr ""
 #~ msgid "Start preparing your draft. Deadline is {deadline}."
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:40
+#: src/features/billing/components/BillingPage.tsx:41
 #: src/features/billing/components/PlanCard.tsx:20
 msgid "Starter"
 msgstr ""
@@ -6699,14 +6715,15 @@ msgstr ""
 msgid "Streetwear"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:310
-#: src/features/billing/components/BillingPage.tsx:367
+#: src/features/billing/components/BillingPage.tsx:311
+#: src/features/billing/components/BillingPage.tsx:359
+#: src/features/billing/components/OffersPaymentMethodSelector.tsx:73
 msgid "Stripe no responde, intentá de nuevo"
 msgstr "Stripe isn't responding, try again"
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:22
 msgid "Stripe no responde, intentá de nuevo en un momento."
-msgstr "Stripe isn't responding, try again in a moment."
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:225
 #~ msgid "Stripe no responde, intentá de nuevo."
@@ -6764,9 +6781,13 @@ msgstr ""
 msgid "take rate"
 msgstr ""
 
-#: src/routes/_brand/checkout-return.tsx:101
+#: src/features/billing/components/BillingPage.tsx:327
+msgid "También se usa para pagos a creators"
+msgstr ""
+
+#: src/routes/_brand/checkout-return.tsx:102
 msgid "Tardamos más de lo esperado"
-msgstr "This is taking longer than expected"
+msgstr ""
 
 #: src/features/campaigns/configuration/CampaignConfigurationWizard.tsx:51
 msgid "targeting"
@@ -6781,11 +6802,11 @@ msgstr ""
 msgid "Tarifas"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:257
+#: src/features/billing/components/BillingPage.tsx:258
 msgid "Tarjeta"
 msgstr "Card"
 
-#: src/features/billing/components/BillingPage.tsx:257
+#: src/features/billing/components/BillingPage.tsx:258
 msgid "Tarjeta (solo lectura)"
 msgstr "Card (read-only)"
 
@@ -7156,9 +7177,9 @@ msgstr ""
 msgid "Tu objetivo define a quién te mostramos y qué scripts te armamos."
 msgstr ""
 
-#: src/routes/_brand/checkout-return.tsx:104
+#: src/routes/_brand/checkout-return.tsx:105
 msgid "Tu pago puede estar procesándose. Podés volver a intentar o revisar el estado luego."
-msgstr "Your payment may still be processing. You can try again or check the status later."
+msgstr ""
 
 #: src/routes/onboarding/brand.billing-callback.tsx:81
 msgid "Tu pago se procesó pero todavía no vemos la suscripción activa."
@@ -7178,7 +7199,7 @@ msgstr ""
 msgid "Tu potencial según tu perfil"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:134
+#: src/features/billing/components/BillingPage.tsx:135
 msgid "Tu suscripción está activa"
 msgstr "Your subscription is active"
 
@@ -7197,21 +7218,21 @@ msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:31
 msgid "Tu tarjeta está vencida."
-msgstr "Your card is expired."
+msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:27
 msgid "Tu tarjeta fue declinada. Verificá los datos o usá otra tarjeta."
-msgstr "Your card was declined. Check the details or use another card."
+msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:29
 msgid "Tu tarjeta no tiene fondos suficientes."
-msgstr "Your card has insufficient funds."
+msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:117
+#: src/features/billing/components/BillingPage.tsx:118
 msgid "Tu trial sigue activo"
 msgstr "Your trial is still active"
 
-#: src/features/billing/components/BillingPage.tsx:148
+#: src/features/billing/components/BillingPage.tsx:149
 msgid "Tu último cobro falló"
 msgstr "Your last charge failed"
 
@@ -7607,7 +7628,7 @@ msgstr "Back to paywall"
 #: src/routes/inbox.tsx:101
 #: src/routes/workspace.conversations.$conversationId.tsx:67
 msgid "Volviste sin enviar la offer"
-msgstr "You returned without sending the offer"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
 #~ msgid "VOS HACÉS"

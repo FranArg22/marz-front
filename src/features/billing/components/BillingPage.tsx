@@ -12,6 +12,7 @@ import { useBillingSubscription } from '../hooks/useBillingSubscription'
 import type { BillingSubscription } from '../hooks/useBillingSubscription'
 import { useCreatePortalSession } from '../hooks/useCreatePortalSession'
 import { trackBillingEvent } from '../analytics'
+import { OffersPaymentMethodSelector } from './OffersPaymentMethodSelector'
 import { PaymentMethodCard } from './PaymentMethodCard'
 
 const dateFormatter = new Intl.DateTimeFormat('es-AR', {
@@ -313,31 +314,22 @@ function PaymentMethodBlock({ subscription }: PaymentMethodBlockProps) {
     )
   }
 
-  if (subscription.same_payment_method) {
-    return (
-      <div data-testid="billing.page.active_subscription_portal">
-        <PaymentMethodCard
-          title={t`Método de pago`}
-          paymentMethod={subscription.offers_payment_method}
-          secondaryLabel={t`Se usa para suscripción y pagos a creators`}
-          onManageClick={handleManageClick}
-        />
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col gap-4">
+    <div
+      className="flex flex-col gap-4"
+      data-testid="billing.page.active_subscription_portal"
+    >
       <PaymentMethodCard
         title={t`Método de pago de la suscripción`}
         paymentMethod={subscription.subscription_payment_method}
+        secondaryLabel={
+          subscription.same_payment_method
+            ? t`También se usa para pagos a creators`
+            : undefined
+        }
         onManageClick={handleManageClick}
       />
-      <PaymentMethodCard
-        title={t`Método de pago para pagos a creators`}
-        paymentMethod={subscription.offers_payment_method}
-        onManageClick={handleManageClick}
-      />
+      <OffersPaymentMethodSelector />
     </div>
   )
 }
