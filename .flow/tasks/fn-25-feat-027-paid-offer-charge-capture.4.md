@@ -116,7 +116,7 @@ Archivo: `src/features/offers/components/SendOfferSidesheet.test.tsx` (ya existe
 - Verify: `pnpm vitest run src/features/offers/components/SendOfferSidesheet && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

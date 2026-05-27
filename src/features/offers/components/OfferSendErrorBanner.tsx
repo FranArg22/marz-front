@@ -18,6 +18,10 @@ const STRIPE_CODE_HIDDEN_CODES: ReadonlyArray<string> = [
 ]
 
 function getOfferSendErrorMessage(code: OfferSendError['code']) {
+  if (code === ('stripe_unavailable' as OfferSendError['code'])) {
+    return t`Stripe no responde, intentá de nuevo en un momento.`
+  }
+
   switch (code) {
     case OfferSendErrorCode.card_declined:
       return t`Tu tarjeta fue declinada. Verificá los datos o usá otra tarjeta.`

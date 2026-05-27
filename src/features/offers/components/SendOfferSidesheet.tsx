@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useStore } from '@tanstack/react-form'
 import { t } from '@lingui/core/macro'
 import {
@@ -9,6 +10,7 @@ import {
   X,
   Zap,
 } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
@@ -29,6 +31,9 @@ import { Switch } from '#/components/ui/switch'
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
+import { useMe } from '#/shared/api/generated/accounts/accounts'
+import type { OfferSendError } from '#/shared/api/generated/model'
+import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { FieldRow, firstErrorMessage, useAppForm } from '#/shared/ui/form'
 
 import { useCreateOfferMutation } from '../hooks/useCreateOfferMutation'
@@ -39,8 +44,10 @@ import type {
 } from '../schemas/createOffer'
 import { useSendOfferWizard } from '../store/sendOfferWizardStore'
 import type { SendOfferWizardMode } from '../store/sendOfferWizardStore'
+import { redirectToCheckout } from '../utils/redirectToCheckout'
 import { OfferBonusEditor } from './OfferBonusEditor'
-import { OfferSummary } from './OfferSummary'
+import { OfferSendErrorBanner } from './OfferSendErrorBanner'
+import { OfferSummaryBlock } from './OfferSummaryBlock'
 
 const platformOptions = ['instagram', 'tiktok', 'youtube'] as const
 type PlatformOption = (typeof platformOptions)[number]
@@ -59,7 +66,10 @@ const defaultBonusTerms: OfferBonusTermsFormValues = {
 interface SendOfferSidesheetProps {
   creatorName: string
   creatorAccountId: string
+  conversationId?: string
 }
+
+type OfferSummaryPlan = 'free' | 'starter' | 'growth' | 'scale'
 
 function createDefaultValues(
   creatorAccountId: string,
@@ -87,6 +97,33 @@ function translateApiError(error: ApiError) {
   }
 
   return error.message
+}
+
+function getWorkspacePlan(plan: string | undefined): OfferSummaryPlan {
+  if (plan === 'starter' || plan === 'growth' || plan === 'scale') {
+    return plan
+  }
+
+  return 'free'
+}
+
+function getStripeUnavailableError(): OfferSendError {
+  return {
+    code: 'stripe_unavailable' as OfferSendError['code'],
+    stripe_code: null,
+  }
+}
+
+function isStripeUnavailableError(error: ApiError) {
+  if (error.status !== 502) return false
+
+  const body = error.body as
+    | { error?: { code?: string }; code?: string }
+    | undefined
+  return (
+    body?.error?.code === 'stripe_unavailable' ||
+    error.code === 'stripe_unavailable'
+  )
 }
 
 function getPlatformLabel(platform: PlatformOption) {
@@ -126,14 +163,25 @@ function toOfferFieldName(field: string): OfferFieldName | null {
 export function SendOfferSidesheet({
   creatorName,
   creatorAccountId,
+  conversationId,
 }: SendOfferSidesheetProps) {
   const wizard = useSendOfferWizard()
-  const { isOpen, conversationId, close } = wizard
+  const { isOpen, conversationId: wizardConversationId, close } = wizard
+  const activeConversationId = conversationId ?? wizardConversationId
+  const queryClient = useQueryClient()
   const campaignsQuery = useActiveCampaigns()
+  const meQuery = useMe()
   const createOfferMutation = useCreateOfferMutation()
   const createOfferSchema = useMemo(() => createCreateOfferSchema(), [])
+  const [offerDraftId] = useState(() => crypto.randomUUID())
   const [modeError, setModeError] = useState<string | null>(null)
   const [bonusesCollapsed, setBonusesCollapsed] = useState(false)
+  const [sendError, setSendError] = useState<OfferSendError | null>(null)
+  const workspacePlan = getWorkspacePlan(
+    meQuery.data?.status === 200
+      ? meQuery.data.data.brand_workspace?.plan
+      : undefined,
+  )
 
   const form = useAppForm({
     defaultValues: createDefaultValues(
@@ -143,7 +191,9 @@ export function SendOfferSidesheet({
     ),
     validators: { onChange: createOfferSchema },
     onSubmit: async ({ value }) => {
-      if (!conversationId) return
+      if (!activeConversationId) return
+
+      setSendError(null)
 
       const submitValue: CreateOfferFormValues =
         value.offer_mode === 'per_platform'
@@ -154,12 +204,31 @@ export function SendOfferSidesheet({
           : value
 
       try {
-        await createOfferMutation.mutateAsync({
+        const result = await createOfferMutation.mutateAsync({
           ...submitValue,
-          conversation_id: conversationId,
+          conversation_id: activeConversationId,
+          offer_draft_id: offerDraftId,
+          return_to: conversationId
+            ? { kind: 'conversation', id: conversationId }
+            : { kind: 'inbox' },
         })
-        useSendOfferWizard.getState().reset()
-        close()
+
+        if (result.data.status === 'sent') {
+          await queryClient.invalidateQueries({
+            queryKey: getConversationOffersQueryKey(activeConversationId),
+          })
+          toast.success(t`Oferta enviada`)
+          useSendOfferWizard.getState().reset()
+          close()
+          return
+        }
+
+        if (result.data.status === 'requires_action') {
+          redirectToCheckout(result.data.checkout_url)
+          return
+        }
+
+        setSendError(result.data.error)
       } catch (error) {
         if (
           error instanceof ApiError &&
@@ -176,6 +245,11 @@ export function SendOfferSidesheet({
             isTouched: true,
             isDirty: true,
           }))
+          return
+        }
+
+        if (error instanceof ApiError && isStripeUnavailableError(error)) {
+          setSendError(getStripeUnavailableError())
           return
         }
 
@@ -275,6 +349,7 @@ export function SendOfferSidesheet({
   }
 
   function handleClose() {
+    setSendError(null)
     useSendOfferWizard.getState().reset()
     close()
   }
@@ -352,6 +427,8 @@ export function SendOfferSidesheet({
             }}
           >
             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
+              {sendError ? <OfferSendErrorBanner error={sendError} /> : null}
+
               <section className="space-y-1">
                 <h3 className="text-[length:var(--font-size-lg)] font-semibold tracking-tight text-card-foreground">
                   {t`Configuración de la oferta`}
@@ -697,12 +774,12 @@ export function SendOfferSidesheet({
                 </ul>
               </section>
 
-              <OfferSummary
-                offerMode={offerMode}
+              <OfferSummaryBlock
                 amount={amount}
                 bonusTerms={
                   offerMode === 'same_content' ? bonusTerms : undefined
                 }
+                plan={workspacePlan}
               />
             </div>
 

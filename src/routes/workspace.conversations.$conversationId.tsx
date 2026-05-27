@@ -172,6 +172,7 @@ function ConversationRoute() {
         <SendOfferSidesheet
           creatorName={creatorName}
           creatorAccountId={conversationDetail.data.counterpart.id}
+          conversationId={conversationId}
         />
       ) : null}
     </div>
