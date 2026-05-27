@@ -1,24 +1,34 @@
-import { randomUUID } from 'node:crypto'
+import { createHash } from 'node:crypto'
 
-import { expect, getClerkSessionToken, test } from '../../support/fixtures'
+import { expect, test } from '../../support/fixtures'
 import {
-  createDraftStatusSentFault,
+  cancelStripeHostedCheckout,
+  completeStripe3dsAuthentication,
   createHoldDeclinedFault,
-  createPaidOfferViaApi,
-  createRequiresActionFault,
+  createPaidOfferReadyChatPair,
   dateDaysFromNow,
   fillPaidOfferDraft,
   openSendOfferSidesheet,
   PAID_OFFER_BASE_AMOUNT,
   PAID_OFFER_EXPECTED_BASE_AMOUNT,
   PAID_OFFER_EXPECTED_BONUS_AMOUNT,
+  PAID_OFFER_SCA_CARD,
   setupPaidBrand,
   STRIPE_TEST_MODE_ENABLED,
   submitPaidOffer,
 } from '../../support/paid-offers'
+import { E2E_RUN_ID } from '../../support/env'
 
-const STRIPE_CHECKOUT_URL =
-  'https://checkout.stripe.com/c/pay/cs_test_e2e_paid_offer_requires_action'
+function buildPaidOfferUserKey(testInfo: {
+  testId: string
+  workerIndex: number
+}): string {
+  const testHash = createHash('sha1')
+    .update(testInfo.testId)
+    .digest('hex')
+    .slice(0, 8)
+  return `${testInfo.workerIndex}.${E2E_RUN_ID}.${testHash}`
+}
 
 test.describe('Offers: paid offer send flow', () => {
   test('offers.paid.send_summary_displays_base_amount_and_bonus', async ({
@@ -102,77 +112,92 @@ test.describe('Offers: paid offer send flow', () => {
     ).toHaveCount(0)
   })
 
-  test('offers.paid.send_requires_action_checkout_completes_offer', async ({
-    chatPairOfferReady,
-  }) => {
+  test('offers.paid.sca_checkout_return_creates_sent_offer', async ({
+    browser,
+  }, testInfo) => {
     test.skip(!STRIPE_TEST_MODE_ENABLED, 'Requires backend with STRIPE_TEST_MODE=1')
     test.setTimeout(180_000)
 
-    const offerDraftId = randomUUID()
-    const chat = await setupPaidBrand(chatPairOfferReady)
-    await openSendOfferSidesheet(chatPairOfferReady)
-    await fillPaidOfferDraft(chatPairOfferReady)
-    const brandToken = await getClerkSessionToken(chatPairOfferReady.brandPage)
-    await createRequiresActionFault({
-      offerDraftId,
-      checkoutUrl: STRIPE_CHECKOUT_URL,
-    })
-    await submitPaidOffer(chatPairOfferReady)
-
-    await chatPairOfferReady.brandPage.waitForURL(/checkout\.stripe\.com/, {
-      timeout: 30_000,
-    })
-
-    await createPaidOfferViaApi(chatPairOfferReady, offerDraftId, brandToken)
-    await createDraftStatusSentFault(offerDraftId)
-    await chatPairOfferReady.brandPage.goto(
-      `/_brand/checkout-return?offer_draft_id=${offerDraftId}` +
-        `&return_to_kind=conversation&return_to_id=${chatPairOfferReady.conversationId}` +
-        '&checkout=success',
+    const { pair, chat, cleanup } = await createPaidOfferReadyChatPair(
+      browser,
+      buildPaidOfferUserKey(testInfo),
+      { offersCardNumber: PAID_OFFER_SCA_CARD },
     )
+    try {
+      await openSendOfferSidesheet(pair)
+      await fillPaidOfferDraft(pair)
+      await submitPaidOffer(pair)
 
-    await chatPairOfferReady.brandPage.waitForURL(
-      new RegExp(`/workspace/conversations/${chatPairOfferReady.conversationId}`),
-      { timeout: 30_000 },
-    )
-    await expect(
-      chat.timeline.getByRole('article', { name: /Oferta enviada/i }),
-    ).toBeVisible({ timeout: 15_000 })
-    await expect(chat.timeline).not.toContainText(/Stripe/i)
-    await expect(chat.timeline).not.toContainText(/PaymentIntent/i)
+      await pair.brandPage.waitForURL(/checkout\.stripe\.com/, {
+        timeout: 30_000,
+      })
+
+      const successReturn = pair.brandPage.waitForURL(
+        /send_offer_result=success/,
+        { timeout: 120_000 },
+      )
+
+      // Stripe test-mode Checkout renders the 3DS challenge in hosted UI/iframes;
+      // the helper searches both the top page and Stripe frames for the "Complete"
+      // authentication action before waiting for Marz's checkout-return polling.
+      await completeStripe3dsAuthentication(pair.brandPage)
+      await successReturn
+
+      await pair.brandPage.waitForURL(
+        new RegExp(`/workspace/conversations/${pair.conversationId}`),
+        { timeout: 30_000 },
+      )
+      await expect(
+        chat.timeline.getByRole('article', { name: /Oferta enviada/i }),
+      ).toBeVisible({ timeout: 15_000 })
+      await expect(chat.timeline).not.toContainText(/Stripe/i)
+      await expect(chat.timeline).not.toContainText(/PaymentIntent/i)
+      await expect(chat.timeline).not.toContainText(/\bhold\b/i)
+      await expect(chat.timeline).not.toContainText(/\bcapture\b/i)
+    } finally {
+      await cleanup()
+    }
   })
 
-  test('offers.paid.send_checkout_cancel_keeps_draft_without_offer', async ({
-    chatPairOfferReady,
-  }) => {
+  test('offers.paid.sca_checkout_cancel_keeps_draft', async ({
+    browser,
+  }, testInfo) => {
     test.skip(!STRIPE_TEST_MODE_ENABLED, 'Requires backend with STRIPE_TEST_MODE=1')
     test.setTimeout(180_000)
 
-    const offerDraftId = randomUUID()
-    const chat = await setupPaidBrand(chatPairOfferReady)
-    await openSendOfferSidesheet(chatPairOfferReady)
-    await fillPaidOfferDraft(chatPairOfferReady)
-    await createRequiresActionFault({
-      offerDraftId,
-      checkoutUrl: STRIPE_CHECKOUT_URL,
-    })
-    await submitPaidOffer(chatPairOfferReady)
-
-    await chatPairOfferReady.brandPage.waitForURL(/checkout\.stripe\.com/, {
-      timeout: 30_000,
-    })
-    await chatPairOfferReady.brandPage.goto(
-      `/_brand/checkout-return?offer_draft_id=${offerDraftId}` +
-        `&return_to_kind=conversation&return_to_id=${chatPairOfferReady.conversationId}` +
-        '&checkout=cancel',
+    const { pair, chat, cleanup } = await createPaidOfferReadyChatPair(
+      browser,
+      buildPaidOfferUserKey(testInfo),
+      { offersCardNumber: PAID_OFFER_SCA_CARD },
     )
+    try {
+      await openSendOfferSidesheet(pair)
+      await fillPaidOfferDraft(pair)
+      await submitPaidOffer(pair)
 
-    await chatPairOfferReady.brandPage.waitForURL(
-      new RegExp(`/workspace/conversations/${chatPairOfferReady.conversationId}`),
-      { timeout: 30_000 },
-    )
-    await expect(
-      chat.timeline.getByRole('article', { name: /Oferta enviada/i }),
-    ).toHaveCount(0)
+      await pair.brandPage.waitForURL(/checkout\.stripe\.com/, {
+        timeout: 30_000,
+      })
+
+      const cancelReturn = pair.brandPage.waitForURL(
+        /send_offer_result=cancelled/,
+        { timeout: 120_000 },
+      )
+      await cancelStripeHostedCheckout(pair.brandPage)
+      await cancelReturn
+
+      await pair.brandPage.waitForURL(
+        new RegExp(`/workspace/conversations/${pair.conversationId}`),
+        { timeout: 30_000 },
+      )
+      await expect(
+        chat.timeline.getByRole('article', { name: /Oferta enviada/i }),
+      ).toHaveCount(0)
+
+      await openSendOfferSidesheet(pair)
+      await expect(pair.brandPage.getByTestId('offers.send.submit_button')).toBeVisible()
+    } finally {
+      await cleanup()
+    }
   })
 })

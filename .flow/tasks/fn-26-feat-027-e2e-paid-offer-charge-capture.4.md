@@ -63,8 +63,7 @@ El test debe estar guardado con `test.skip(!STRIPE_TEST_MODE_ENABLED, ...)` y `t
 - [ ] `pnpm typecheck` pasa sin errores.
 - [ ] `pnpm quality-gates` verde.
 ## Done summary
-TBD
-
+Implemented fn-26-feat-027-e2e-paid-offer-charge-capture.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
