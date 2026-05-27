@@ -70,7 +70,7 @@ Para mockear `useCreatePortalSession`: usar `vi.mock` del módulo, retornar `{ m
 - Verify: `pnpm vitest run src/features/offers/components/OfferSendErrorBanner && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
