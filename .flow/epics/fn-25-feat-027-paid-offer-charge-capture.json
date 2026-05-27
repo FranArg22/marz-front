@@ -7,7 +7,7 @@
   "plan_review_status": "unknown",
   "plan_reviewed_at": null,
   "spec_path": ".flow/specs/fn-25-feat-027-paid-offer-charge-capture.md",
-  "status": "open",
+  "status": "done",
   "title": "FEAT-027: Paid offer charge & capture \u2014 Frontend",
-  "updated_at": "2026-05-27T00:14:36.214686Z"
+  "updated_at": "2026-05-27T01:37:38.923643Z"
 }
