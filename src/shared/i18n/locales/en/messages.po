@@ -217,7 +217,7 @@ msgstr ""
 #~ msgid "{creatorName} accepted the offer, deadline {deadline}"
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:114
+#: src/features/billing/components/BillingPage.tsx:111
 #: src/features/billing/components/BillingTopbarPill.tsx:119
 msgid "{days, plural, one {Tu trial termina en # día} other {Tu trial termina en # días}}"
 msgstr "{days, plural, one {Your trial ends in # day} other {Your trial ends in # days}}"
@@ -771,7 +771,7 @@ msgstr ""
 msgid "Actualizá tu método de pago antes de que termine el trial para evitar interrupciones."
 msgstr "Update your payment method before the trial ends to avoid interruptions."
 
-#: src/features/billing/components/BillingPage.tsx:150
+#: src/features/billing/components/BillingPage.tsx:141
 msgid "Actualizá tu tarjeta para mantener el acceso."
 msgstr "Update your card to keep access."
 
@@ -781,7 +781,7 @@ msgstr "Update your card to keep access."
 msgid "Actualizar"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:161
+#: src/features/billing/components/BillingPage.tsx:148
 msgid "Actualizar tarjeta en Stripe"
 msgstr "Update card in Stripe"
 
@@ -848,7 +848,7 @@ msgstr ""
 msgid "Agregar milestone"
 msgstr ""
 
-#: src/features/billing/components/OffersPaymentMethodSelector.tsx:127
+#: src/features/billing/components/PaymentMethodsCard.tsx:199
 msgid "Agregar otra tarjeta"
 msgstr ""
 
@@ -1020,7 +1020,7 @@ msgstr ""
 msgid "Antes de aceptación"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:48
+#: src/features/billing/components/BillingPage.tsx:45
 msgid "anual"
 msgstr "annual"
 
@@ -1571,7 +1571,7 @@ msgstr ""
 msgid "Cancelaste — acceso hasta {formattedDate}"
 msgstr "Canceled — access until {formattedDate}"
 
-#: src/features/billing/components/BillingPage.tsx:175
+#: src/features/billing/components/BillingPage.tsx:162
 msgid "Cancelaste tu suscripción"
 msgstr "You canceled your subscription"
 
@@ -1631,7 +1631,7 @@ msgstr "Loading plans"
 msgid "Cargando resumen de Discovery"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:66
+#: src/features/billing/components/BillingPage.tsx:63
 msgid "Cargando suscripción"
 msgstr "Loading subscription"
 
@@ -2263,7 +2263,7 @@ msgstr ""
 msgid "Detalle"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:251
+#: src/features/billing/components/BillingPage.tsx:229
 msgid "Detalle del plan"
 msgstr "Plan details"
 
@@ -2588,7 +2588,7 @@ msgstr ""
 msgid "El mensaje no puede superar los {submitCreatorCampaignBoardApplicationBodyMessageMax} caracteres."
 msgstr ""
 
-#: src/features/billing/components/OffersPaymentMethodSelector.tsx:103
+#: src/features/billing/components/PaymentMethodsCard.tsx:176
 msgid "El mismo que la suscripción"
 msgstr ""
 
@@ -2629,7 +2629,11 @@ msgstr ""
 msgid "Elegí cómo vas a compensar cada entrega aprobada."
 msgstr ""
 
-#: src/features/billing/components/OffersPaymentMethodSelector.tsx:97
+#: src/features/billing/components/PaymentMethodsCard.tsx:151
+msgid "Elegí el método de pago de la suscripción"
+msgstr ""
+
+#: src/features/billing/components/PaymentMethodsCard.tsx:170
 msgid "Elegí el método de pago para creators"
 msgstr ""
 
@@ -3084,7 +3088,7 @@ msgstr ""
 msgid "Estamos demorando, refrescá en unos minutos"
 msgstr "We're taking longer than expected, refresh in a few minutes"
 
-#: src/features/billing/components/BillingPage.tsx:122
+#: src/features/billing/components/BillingPage.tsx:119
 msgid "Estás en período de prueba"
 msgstr "You're on a trial"
 
@@ -3487,11 +3491,11 @@ msgid "Geografía"
 msgstr ""
 
 #: src/features/billing/components/PaymentMethodCard.tsx:46
-msgid "Gestionar {title} en Stripe"
-msgstr "Manage {title} in Stripe"
+#~ msgid "Gestionar {title} en Stripe"
+#~ msgstr "Manage {title} in Stripe"
 
-#: src/features/billing/components/BillingPage.tsx:347
-#: src/features/billing/components/PaymentMethodCard.tsx:48
+#: src/features/billing/components/BillingPage.tsx:266
+#: src/features/billing/components/PaymentMethodsCard.tsx:207
 msgid "Gestionar en Stripe"
 msgstr "Manage in Stripe"
 
@@ -3503,7 +3507,7 @@ msgstr ""
 msgid "Great job on the video!"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:42
+#: src/features/billing/components/BillingPage.tsx:39
 #: src/features/billing/components/PlanCard.tsx:21
 msgid "Growth"
 msgstr ""
@@ -3973,6 +3977,14 @@ msgstr ""
 msgid "La oferta vence en {remainingTime}"
 msgstr ""
 
+#: src/features/billing/components/PaymentMethodsCard.tsx:182
+msgid "La tarjeta con la que pagás a los creators."
+msgstr ""
+
+#: src/features/billing/components/PaymentMethodsCard.tsx:158
+msgid "La tarjeta con la que se cobra tu plan."
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:26
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:40
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:29
@@ -4239,11 +4251,11 @@ msgstr ""
 msgid "Manejo campañas para varias marcas."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:178
+#: src/features/billing/components/BillingPage.tsx:165
 msgid "Mantenés acceso hasta {cancelAtLabel}"
 msgstr "You keep access until {cancelAtLabel}"
 
-#: src/features/billing/components/BillingPage.tsx:179
+#: src/features/billing/components/BillingPage.tsx:166
 msgid "Mantenés acceso hasta el final del período actual."
 msgstr "You keep access until the end of the current period."
 
@@ -4435,7 +4447,7 @@ msgstr ""
 msgid "Mensajes recientes"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:47
+#: src/features/billing/components/BillingPage.tsx:44
 msgid "mensual"
 msgstr "monthly"
 
@@ -4456,12 +4468,16 @@ msgstr ""
 #~ msgstr "Payment method"
 
 #: src/features/billing/components/BillingPage.tsx:323
-msgid "Método de pago de la suscripción"
-msgstr "Subscription payment method"
+#~ msgid "Método de pago de la suscripción"
+#~ msgstr "Subscription payment method"
 
 #: src/features/billing/components/OffersPaymentMethodSelector.tsx:83
-msgid "Método de pago para pagos a creators"
-msgstr "Offers payment method"
+#~ msgid "Método de pago para pagos a creators"
+#~ msgstr "Offers payment method"
+
+#: src/features/billing/components/PaymentMethodsCard.tsx:135
+msgid "Métodos de pago"
+msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:66
 msgid "Métricas 30 días"
@@ -4798,7 +4814,8 @@ msgstr ""
 #~ msgid "No past offers"
 #~ msgstr ""
 
-#: src/features/billing/components/OffersPaymentMethodSelector.tsx:51
+#: src/features/billing/components/PaymentMethodsCard.tsx:62
+#: src/features/billing/components/PaymentMethodsCard.tsx:80
 msgid "No pudimos cambiar el método de pago, intentá de nuevo"
 msgstr ""
 
@@ -4846,7 +4863,7 @@ msgstr "We couldn't load the plans. Try again."
 msgid "No pudimos cargar los videos"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:81
+#: src/features/billing/components/BillingPage.tsx:78
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
 
@@ -5343,6 +5360,10 @@ msgstr ""
 msgid "Pagos"
 msgstr ""
 
+#: src/features/billing/components/PaymentMethodsCard.tsx:163
+msgid "Pagos a creators"
+msgstr ""
+
 #: src/features/payments/components/BrandPaymentsPage.tsx:167
 msgid "Pagos realizados a creators y análisis de gastos por campaña."
 msgstr ""
@@ -5543,7 +5564,7 @@ msgstr ""
 msgid "Peso dimensión {dimensionNumber}"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:255
+#: src/features/billing/components/BillingPage.tsx:233
 msgid "Plan"
 msgstr ""
 
@@ -5778,7 +5799,7 @@ msgstr ""
 msgid "Próximamente"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:267
+#: src/features/billing/components/BillingPage.tsx:235
 msgid "Próximo cobro"
 msgstr "Next charge"
 
@@ -6156,7 +6177,7 @@ msgstr ""
 msgid "Salud"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:43
+#: src/features/billing/components/BillingPage.tsx:40
 #: src/features/billing/components/PlanCard.tsx:22
 msgid "Scale"
 msgstr ""
@@ -6479,8 +6500,8 @@ msgid "Sin managers. Sin comisiones. Sin intermediarios."
 msgstr ""
 
 #: src/features/billing/components/PaymentMethodCard.tsx:25
-msgid "Sin método de pago"
-msgstr "No payment method"
+#~ msgid "Sin método de pago"
+#~ msgstr "No payment method"
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:77
 msgid "Sin modelo definido"
@@ -6538,9 +6559,13 @@ msgstr ""
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 msgstr ""
 
+#: src/features/billing/components/PaymentMethodsCard.tsx:153
+msgid "Sin tarjeta"
+msgstr ""
+
 #: src/features/billing/components/BillingPage.tsx:262
-msgid "Sin tarjeta cargada"
-msgstr "No card on file"
+#~ msgid "Sin tarjeta cargada"
+#~ msgstr "No card on file"
 
 #: src/features/campaigns/configuration/ReviewStep.tsx:370
 msgid "Sin tiers"
@@ -6680,7 +6705,7 @@ msgstr ""
 #~ msgid "Start preparing your draft. Deadline is {deadline}."
 #~ msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:41
+#: src/features/billing/components/BillingPage.tsx:38
 #: src/features/billing/components/PlanCard.tsx:20
 msgid "Starter"
 msgstr ""
@@ -6715,9 +6740,9 @@ msgstr ""
 msgid "Streetwear"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:311
-#: src/features/billing/components/BillingPage.tsx:359
-#: src/features/billing/components/OffersPaymentMethodSelector.tsx:73
+#: src/features/billing/components/BillingPage.tsx:278
+#: src/features/billing/components/PaymentMethodsCard.tsx:101
+#: src/features/billing/components/PaymentMethodsCard.tsx:117
 msgid "Stripe no responde, intentá de nuevo"
 msgstr "Stripe isn't responding, try again"
 
@@ -6777,13 +6802,17 @@ msgstr ""
 msgid "Sumá incentivos por velocidad o performance si aplican."
 msgstr ""
 
+#: src/features/billing/components/PaymentMethodsCard.tsx:144
+msgid "Suscripción"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:48
 msgid "take rate"
 msgstr ""
 
 #: src/features/billing/components/BillingPage.tsx:327
-msgid "También se usa para pagos a creators"
-msgstr ""
+#~ msgid "También se usa para pagos a creators"
+#~ msgstr ""
 
 #: src/routes/_brand/checkout-return.tsx:102
 msgid "Tardamos más de lo esperado"
@@ -6803,12 +6832,12 @@ msgid "Tarifas"
 msgstr ""
 
 #: src/features/billing/components/BillingPage.tsx:258
-msgid "Tarjeta"
-msgstr "Card"
+#~ msgid "Tarjeta"
+#~ msgstr "Card"
 
 #: src/features/billing/components/BillingPage.tsx:258
-msgid "Tarjeta (solo lectura)"
-msgstr "Card (read-only)"
+#~ msgid "Tarjeta (solo lectura)"
+#~ msgstr "Card (read-only)"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:45
 #~ msgid "Te ayudamos con un template base para {0}"
@@ -7199,7 +7228,7 @@ msgstr ""
 msgid "Tu potencial según tu perfil"
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:135
+#: src/features/billing/components/BillingPage.tsx:129
 msgid "Tu suscripción está activa"
 msgstr "Your subscription is active"
 
@@ -7228,11 +7257,11 @@ msgstr ""
 msgid "Tu tarjeta no tiene fondos suficientes."
 msgstr ""
 
-#: src/features/billing/components/BillingPage.tsx:118
+#: src/features/billing/components/BillingPage.tsx:115
 msgid "Tu trial sigue activo"
 msgstr "Your trial is still active"
 
-#: src/features/billing/components/BillingPage.tsx:149
+#: src/features/billing/components/BillingPage.tsx:140
 msgid "Tu último cobro falló"
 msgstr "Your last charge failed"
 

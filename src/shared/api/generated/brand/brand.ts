@@ -35,6 +35,7 @@ import type {
   BillingSetupSessionRequest,
   BillingSetupSessionResponse,
   BillingSubscription,
+  BillingSubscriptionPaymentMethodSelection,
   BrandPaymentsSpendingResponse,
   Error,
   ExportBrandWorkspacePaymentsSpendingCSVParams,
@@ -934,6 +935,117 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getSetOffersPaymentMethodMutationOptions(options), queryClient);
+    }
+    /**
+ * Sets the card charged for the subscription by updating the Stripe subscription's default payment method (decoupling it from the customer default).
+ */
+export type setSubscriptionPaymentMethodResponse204 = {
+  data: void
+  status: 204
+}
+
+export type setSubscriptionPaymentMethodResponse401 = {
+  data: Error
+  status: 401
+}
+
+export type setSubscriptionPaymentMethodResponse403 = {
+  data: Error
+  status: 403
+}
+
+export type setSubscriptionPaymentMethodResponse404 = {
+  data: Error
+  status: 404
+}
+
+export type setSubscriptionPaymentMethodResponse422 = {
+  data: Error
+  status: 422
+}
+
+export type setSubscriptionPaymentMethodResponse500 = {
+  data: Error
+  status: 500
+}
+
+export type setSubscriptionPaymentMethodResponse502 = {
+  data: Error
+  status: 502
+}
+
+export type setSubscriptionPaymentMethodResponseSuccess = (setSubscriptionPaymentMethodResponse204) & {
+  headers: Headers;
+};
+export type setSubscriptionPaymentMethodResponseError = (setSubscriptionPaymentMethodResponse401 | setSubscriptionPaymentMethodResponse403 | setSubscriptionPaymentMethodResponse404 | setSubscriptionPaymentMethodResponse422 | setSubscriptionPaymentMethodResponse500 | setSubscriptionPaymentMethodResponse502) & {
+  headers: Headers;
+};
+
+export type setSubscriptionPaymentMethodResponse = (setSubscriptionPaymentMethodResponseSuccess | setSubscriptionPaymentMethodResponseError)
+
+export const getSetSubscriptionPaymentMethodUrl = () => {
+
+
+
+
+  return `/v1/billing/subscription-payment-method`
+}
+
+export const setSubscriptionPaymentMethod = async (billingSubscriptionPaymentMethodSelection: BillingSubscriptionPaymentMethodSelection, options?: RequestInit): Promise<setSubscriptionPaymentMethodResponse> => {
+
+  return customFetch<setSubscriptionPaymentMethodResponse>(getSetSubscriptionPaymentMethodUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      billingSubscriptionPaymentMethodSelection,)
+  }
+);}
+
+
+
+
+export const getSetSubscriptionPaymentMethodMutationOptions = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>, TError,{data: BillingSubscriptionPaymentMethodSelection}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>, TError,{data: BillingSubscriptionPaymentMethodSelection}, TContext> => {
+
+const mutationKey = ['setSubscriptionPaymentMethod'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>, {data: BillingSubscriptionPaymentMethodSelection}> = (props) => {
+          const {data} = props ?? {};
+
+          return  setSubscriptionPaymentMethod(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SetSubscriptionPaymentMethodMutationResult = NonNullable<Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>>
+    export type SetSubscriptionPaymentMethodMutationBody = BillingSubscriptionPaymentMethodSelection
+    export type SetSubscriptionPaymentMethodMutationError = Error
+
+    export const useSetSubscriptionPaymentMethod = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>, TError,{data: BillingSubscriptionPaymentMethodSelection}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof setSubscriptionPaymentMethod>>,
+        TError,
+        {data: BillingSubscriptionPaymentMethodSelection},
+        TContext
+      > => {
+      return useMutation(getSetSubscriptionPaymentMethodMutationOptions(options), queryClient);
     }
     /**
  * Creates a Stripe Checkout session in setup mode so the brand can attach an additional card (with an off-session mandate) to use for offer charges.

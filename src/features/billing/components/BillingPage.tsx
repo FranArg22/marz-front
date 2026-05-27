@@ -1,6 +1,5 @@
 import { Loader2 } from 'lucide-react'
 import { t, plural } from '@lingui/core/macro'
-import { useEffect } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
@@ -11,9 +10,7 @@ import type { BillingPlanIdentifier } from '#/shared/api/generated/model/billing
 import { useBillingSubscription } from '../hooks/useBillingSubscription'
 import type { BillingSubscription } from '../hooks/useBillingSubscription'
 import { useCreatePortalSession } from '../hooks/useCreatePortalSession'
-import { trackBillingEvent } from '../analytics'
-import { OffersPaymentMethodSelector } from './OffersPaymentMethodSelector'
-import { PaymentMethodCard } from './PaymentMethodCard'
+import { PaymentMethodsCard } from './PaymentMethodsCard'
 
 const dateFormatter = new Intl.DateTimeFormat('es-AR', {
   day: '2-digit',
@@ -120,11 +117,8 @@ function TrialingView({ subscription }: BillingPageContentProps) {
   return (
     <BillingShell>
       <Header title={t`Estás en período de prueba`} description={countdown} />
-      <DetailsCard
-        subscription={subscription}
-        hideTarjeta={subscription.same_payment_method}
-      />
-      <PaymentMethodBlock subscription={subscription} />
+      <DetailsCard subscription={subscription} />
+      <PaymentMethodsCard />
     </BillingShell>
   )
 }
@@ -133,11 +127,8 @@ function ActiveView({ subscription }: BillingPageContentProps) {
   return (
     <BillingShell>
       <Header title={t`Tu suscripción está activa`} />
-      <DetailsCard
-        subscription={subscription}
-        hideTarjeta={subscription.same_payment_method}
-      />
-      <PaymentMethodBlock subscription={subscription} />
+      <DetailsCard subscription={subscription} />
+      <PaymentMethodsCard />
     </BillingShell>
   )
 }
@@ -150,12 +141,8 @@ function PastDueView({ subscription }: BillingPageContentProps) {
         description={t`Actualizá tu tarjeta para mantener el acceso.`}
         tone="destructive"
       />
-      <DetailsCard
-        subscription={subscription}
-        hideNextInvoice
-        hideTarjeta={subscription.same_payment_method}
-      />
-      <PaymentMethodBlock subscription={subscription} />
+      <DetailsCard subscription={subscription} hideNextInvoice />
+      <PaymentMethodsCard />
       <ManagePortalButton
         variant="destructive"
         label={t`Actualizar tarjeta en Stripe`}
@@ -179,13 +166,8 @@ function CanceledView({ subscription }: BillingPageContentProps) {
             : t`Mantenés acceso hasta el final del período actual.`
         }
       />
-      <DetailsCard
-        subscription={subscription}
-        hideNextInvoice
-        readOnlyCard
-        hideTarjeta={subscription.same_payment_method}
-      />
-      <PaymentMethodBlock subscription={subscription} />
+      <DetailsCard subscription={subscription} hideNextInvoice />
+      <PaymentMethodsCard />
     </BillingShell>
   )
 }
@@ -225,15 +207,11 @@ function Header({ title, description, tone = 'default' }: HeaderProps) {
 interface DetailsCardProps {
   subscription: BillingSubscription
   hideNextInvoice?: boolean
-  hideTarjeta?: boolean
-  readOnlyCard?: boolean
 }
 
 function DetailsCard({
   subscription,
   hideNextInvoice = false,
-  hideTarjeta = false,
-  readOnlyCard = false,
 }: DetailsCardProps) {
   const planLabel = `${PLAN_NAME[subscription.plan]()} (${INTERVAL_LABEL[
     subscription.interval
@@ -253,16 +231,6 @@ function DetailsCard({
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Row label={t`Plan`} value={planLabel} />
-        {!hideTarjeta ? (
-          <Row
-            label={readOnlyCard ? t`Tarjeta (solo lectura)` : t`Tarjeta`}
-            value={
-              subscription.subscription_payment_method
-                ? `${subscription.subscription_payment_method.card_brand} •••• ${subscription.subscription_payment_method.card_last4}`
-                : t`Sin tarjeta cargada`
-            }
-          />
-        ) : null}
         {!hideNextInvoice && nextAmount && nextAt ? (
           <Row label={t`Próximo cobro`} value={`${nextAmount} · ${nextAt}`} />
         ) : null}
@@ -281,55 +249,6 @@ function Row({ label, value }: RowProps) {
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
       <span className="text-sm text-muted-foreground">{label}</span>
       <span className="text-sm font-medium text-foreground">{value}</span>
-    </div>
-  )
-}
-
-interface PaymentMethodBlockProps {
-  subscription: BillingSubscription
-}
-
-function PaymentMethodBlock({ subscription }: PaymentMethodBlockProps) {
-  const portalMutation = useCreatePortalSession()
-
-  useEffect(() => {
-    trackBillingEvent('offers_payment_method_viewed')
-  }, [])
-
-  const handleManageClick = () => {
-    if (portalMutation.isPending) return
-    trackBillingEvent('offers_payment_method_portal_opened')
-    portalMutation.mutate(
-      { data: { return_url: `${window.location.origin}/billing` } },
-      {
-        onSuccess: (portalResponse) => {
-          if (portalResponse.status === 201) {
-            window.location.assign(portalResponse.data.portal_url)
-          }
-        },
-        onError: () => {
-          toast.error(t`Stripe no responde, intentá de nuevo`)
-        },
-      },
-    )
-  }
-
-  return (
-    <div
-      className="flex flex-col gap-4"
-      data-testid="billing.page.active_subscription_portal"
-    >
-      <PaymentMethodCard
-        title={t`Método de pago de la suscripción`}
-        paymentMethod={subscription.subscription_payment_method}
-        secondaryLabel={
-          subscription.same_payment_method
-            ? t`También se usa para pagos a creators`
-            : undefined
-        }
-        onManageClick={handleManageClick}
-      />
-      <OffersPaymentMethodSelector />
     </div>
   )
 }

@@ -53,6 +53,7 @@ export * from './billingSavedPaymentMethod';
 export * from './billingSetupSessionRequest';
 export * from './billingSetupSessionResponse';
 export * from './billingSubscription';
+export * from './billingSubscriptionPaymentMethodSelection';
 export * from './billingSubscriptionStatus';
 export * from './bonusAmount';
 export * from './brandEnrichment';

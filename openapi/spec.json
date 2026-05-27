@@ -8972,6 +8972,96 @@
         }
       }
     },
+    "/v1/billing/subscription-payment-method": {
+      "put": {
+        "operationId": "setSubscriptionPaymentMethod",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "description": "Sets the card charged for the subscription by updating the Stripe subscription's default payment method (decoupling it from the customer default).",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingSubscriptionPaymentMethodSelection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Subscription payment method updated."
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_payment_method. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/billing/offers-payment-method/setup-sessions": {
       "post": {
         "operationId": "createOffersSetupSession",
@@ -13341,6 +13431,18 @@
             "type": "string",
             "nullable": true,
             "description": "PaymentMethod to charge for offers. null resets to the subscription payment method (same-as-subscription)."
+          }
+        }
+      },
+      "BillingSubscriptionPaymentMethodSelection": {
+        "type": "object",
+        "required": [
+          "stripe_payment_method_id"
+        ],
+        "properties": {
+          "stripe_payment_method_id": {
+            "type": "string",
+            "description": "PaymentMethod to charge for the subscription. Must be a card attached to the customer."
           }
         }
       },

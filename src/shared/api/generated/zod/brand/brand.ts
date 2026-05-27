@@ -194,6 +194,13 @@ export const SetOffersPaymentMethodBody = zod.object({
 })
 
 /**
+ * Sets the card charged for the subscription by updating the Stripe subscription's default payment method (decoupling it from the customer default).
+ */
+export const SetSubscriptionPaymentMethodBody = zod.object({
+  "stripe_payment_method_id": zod.string().describe('PaymentMethod to charge for the subscription. Must be a card attached to the customer.')
+})
+
+/**
  * Creates a Stripe Checkout session in setup mode so the brand can attach an additional card (with an off-session mandate) to use for offer charges.
  */
 export const CreateOffersSetupSessionHeader = zod.object({
