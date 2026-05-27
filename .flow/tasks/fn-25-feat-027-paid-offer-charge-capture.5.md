@@ -128,7 +128,7 @@ function navigateToReturnTo(navigate, search, result: 'success' | 'cancelled' | 
 - Verify: `pnpm vitest run src/features/payments/hooks/useDraftStatus && pnpm vitest run src/routes/_brand/checkout-return && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

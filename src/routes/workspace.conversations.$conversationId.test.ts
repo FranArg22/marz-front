@@ -25,6 +25,12 @@ describe('/workspace/conversations/$conversationId route', () => {
     })
   })
 
+  it('accepts an optional send_offer_result search param', () => {
+    expect(
+      conversationSearchSchema.parse({ send_offer_result: 'success' }),
+    ).toEqual({ send_offer_result: 'success' })
+  })
+
   it('rejects invalid highlightPaymentId values', () => {
     expect(() =>
       conversationSearchSchema.parse({ highlightPaymentId: 'payment-1' }),

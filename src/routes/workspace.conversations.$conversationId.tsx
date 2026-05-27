@@ -18,6 +18,7 @@ import { useGetConversationDeliverablesQuery } from '#/features/deliverables/api
 
 export const conversationSearchSchema = z.object({
   highlightPaymentId: z.uuid().optional(),
+  send_offer_result: z.enum(['success', 'cancelled', 'failed']).optional(),
 })
 
 export const Route = createFileRoute(
