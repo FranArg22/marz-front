@@ -1,0 +1,19 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T00:14:58.947105Z",
+  "depends_on": [
+    "fn-25-feat-027-paid-offer-charge-capture.4",
+    "fn-25-feat-027-paid-offer-charge-capture.5",
+    "fn-25-feat-027-paid-offer-charge-capture.6",
+    "fn-25-feat-027-paid-offer-charge-capture.7"
+  ],
+  "epic": "fn-25-feat-027-paid-offer-charge-capture",
+  "id": "fn-25-feat-027-paid-offer-charge-capture.8",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-25-feat-027-paid-offer-charge-capture.8.md",
+  "status": "todo",
+  "title": "i18n strings Lingui (es-AR + en-US): summary, banner, accept errors, toasts",
+  "updated_at": "2026-05-27T00:14:58.947138Z"
+}

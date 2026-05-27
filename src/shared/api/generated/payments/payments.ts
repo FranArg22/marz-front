@@ -8,23 +8,28 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import {
+  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
+  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
+  UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
   Error,
-  PaymentSuggestionResponse
+  PaymentSuggestionResponse,
+  ReceivePaymentsStripeWebhookBody
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -167,3 +172,99 @@ export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPay
 
 
 
+/**
+ * Webhook endpoint invoked by Stripe to deliver paid-offer hold/capture events. Authenticated
+via the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by
+bearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are
+no-ops. Returns 200 on accepted events (including duplicates and orphan events recorded for
+inspection) and 401 when the signature does not match the configured endpoint secret.
+
+ */
+export type receivePaymentsStripeWebhookResponse200 = {
+  data: void
+  status: 200
+}
+
+export type receivePaymentsStripeWebhookResponse401 = {
+  data: Error
+  status: 401
+}
+
+export type receivePaymentsStripeWebhookResponse500 = {
+  data: Error
+  status: 500
+}
+
+export type receivePaymentsStripeWebhookResponseSuccess = (receivePaymentsStripeWebhookResponse200) & {
+  headers: Headers;
+};
+export type receivePaymentsStripeWebhookResponseError = (receivePaymentsStripeWebhookResponse401 | receivePaymentsStripeWebhookResponse500) & {
+  headers: Headers;
+};
+
+export type receivePaymentsStripeWebhookResponse = (receivePaymentsStripeWebhookResponseSuccess | receivePaymentsStripeWebhookResponseError)
+
+export const getReceivePaymentsStripeWebhookUrl = () => {
+
+
+
+
+  return `/v1/payments/webhooks/stripe`
+}
+
+export const receivePaymentsStripeWebhook = async (receivePaymentsStripeWebhookBody: ReceivePaymentsStripeWebhookBody, options?: RequestInit): Promise<receivePaymentsStripeWebhookResponse> => {
+
+  return customFetch<receivePaymentsStripeWebhookResponse>(getReceivePaymentsStripeWebhookUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      receivePaymentsStripeWebhookBody,)
+  }
+);}
+
+
+
+
+export const getReceivePaymentsStripeWebhookMutationOptions = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext> => {
+
+const mutationKey = ['receivePaymentsStripeWebhook'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, {data: ReceivePaymentsStripeWebhookBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  receivePaymentsStripeWebhook(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReceivePaymentsStripeWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>>
+    export type ReceivePaymentsStripeWebhookMutationBody = ReceivePaymentsStripeWebhookBody
+    export type ReceivePaymentsStripeWebhookMutationError = Error
+
+    export const useReceivePaymentsStripeWebhook = <TError = Error,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>,
+        TError,
+        {data: ReceivePaymentsStripeWebhookBody},
+        TContext
+      > => {
+      return useMutation(getReceivePaymentsStripeWebhookMutationOptions(options), queryClient);
+    }

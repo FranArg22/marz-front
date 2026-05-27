@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T00:14:53.326551Z",
+  "depends_on": [
+    "fn-25-feat-027-paid-offer-charge-capture.1"
+  ],
+  "epic": "fn-25-feat-027-paid-offer-charge-capture",
+  "id": "fn-25-feat-027-paid-offer-charge-capture.6",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-25-feat-027-paid-offer-charge-capture.6.md",
+  "status": "todo",
+  "title": "useOfferActions: manejar 402 capture_failed con toast tipado",
+  "updated_at": "2026-05-27T00:14:53.326580Z"
+}

@@ -53,3 +53,17 @@ export const GetPaymentSuggestionResponse = zod.object({
 })
 })
 
+/**
+ * Webhook endpoint invoked by Stripe to deliver paid-offer hold/capture events. Authenticated
+via the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by
+bearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are
+no-ops. Returns 200 on accepted events (including duplicates and orphan events recorded for
+inspection) and 401 when the signature does not match the configured endpoint secret.
+
+ */
+export const ReceivePaymentsStripeWebhookHeader = zod.object({
+  "Stripe-Signature": zod.string().describe('HMAC signature header populated by Stripe.')
+})
+
+export const ReceivePaymentsStripeWebhookBody = zod.record(zod.string(), zod.unknown())
+

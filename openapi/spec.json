@@ -1709,7 +1709,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OfferDetailDTO"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OfferSendSent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OfferSendRequiresAction"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OfferSendRejected"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "status"
+                  }
                 }
               }
             }
@@ -1765,7 +1778,7 @@
             }
           },
           "409": {
-            "description": "Conflict. Possible codes: campaign_not_active, idempotency_conflict. See §4.1.8.",
+            "description": "Conflict. Possible codes: campaign_not_active, idempotency_conflict, default_offers_payment_method_missing. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1776,6 +1789,111 @@
           },
           "422": {
             "description": "Unprocessable Entity. Possible codes: validation_error, invalid_amount. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/draft-status/{offer_draft_id}": {
+      "get": {
+        "operationId": "getOfferDraftStatus",
+        "tags": [
+          "offers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "offer_draft_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDraftStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: draft_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_offer_draft_id, validation_error. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1916,6 +2034,24 @@
               }
             }
           },
+          "402": {
+            "description": "Payment Required. Possible codes: hold_expired, card_declined, capture_failed_generic.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/OfferAcceptError"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. Possible codes: forbidden_not_recipient. See §4.1.8.",
             "content": {
@@ -1937,7 +2073,7 @@
             }
           },
           "409": {
-            "description": "Conflict. Possible codes: offer_not_actionable. See §4.1.8.",
+            "description": "Conflict. Possible codes: offer_not_actionable, offer_not_acceptable. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8736,6 +8872,64 @@
           }
         }
       }
+    },
+    "/v1/payments/webhooks/stripe": {
+      "post": {
+        "operationId": "receivePaymentsStripeWebhook",
+        "tags": [
+          "payments"
+        ],
+        "description": "Webhook endpoint invoked by Stripe to deliver paid-offer hold/capture events. Authenticated\nvia the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by\nbearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are\nno-ops. Returns 200 on accepted events (including duplicates and orphan events recorded for\ninspection) and 401 when the signature does not match the configured endpoint secret.\n",
+        "security": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Stripe-Signature",
+            "required": true,
+            "description": "HMAC signature header populated by Stripe.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Raw Stripe event payload. Body is consumed verbatim for signature verification.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event accepted (or duplicate ignored)."
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: invalid_signature. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8761,6 +8955,77 @@
           "status": {
             "type": "string",
             "example": "ok"
+          }
+        }
+      },
+      "OfferDraftStatus": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "requires_capture",
+              "requires_action",
+              "sent",
+              "failed",
+              "canceled"
+            ]
+          },
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "checkout_url": {
+            "type": "string"
+          },
+          "error": {
+            "$ref": "#/components/schemas/OfferSendError"
+          }
+        }
+      },
+      "OfferSendError": {
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "card_declined",
+              "insufficient_funds",
+              "expired_card",
+              "incorrect_cvc",
+              "hold_failed_generic"
+            ]
+          },
+          "stripe_code": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "OfferAcceptError": {
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "hold_expired",
+              "card_declined",
+              "capture_failed_generic"
+            ]
+          },
+          "stripe_code": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -16708,6 +16973,13 @@
           "deliverables"
         ],
         "properties": {
+          "offer_draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "return_to": {
+            "$ref": "#/components/schemas/OfferSendReturnTo"
+          },
           "campaign_id": {
             "type": "string",
             "format": "uuid"
@@ -16757,6 +17029,84 @@
             "items": {
               "$ref": "#/components/schemas/OfferDeliverableDTO"
             }
+          }
+        }
+      },
+      "OfferSendReturnTo": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "conversation",
+              "inbox"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "OfferSendSent": {
+        "type": "object",
+        "required": [
+          "status",
+          "offer"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "sent"
+            ]
+          },
+          "offer": {
+            "$ref": "#/components/schemas/OfferDTO"
+          }
+        }
+      },
+      "OfferSendRequiresAction": {
+        "type": "object",
+        "required": [
+          "status",
+          "offer_draft_id",
+          "checkout_url"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "requires_action"
+            ]
+          },
+          "offer_draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "checkout_url": {
+            "type": "string"
+          }
+        }
+      },
+      "OfferSendRejected": {
+        "type": "object",
+        "required": [
+          "status",
+          "error"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "rejected"
+            ]
+          },
+          "error": {
+            "$ref": "#/components/schemas/OfferSendError"
           }
         }
       },

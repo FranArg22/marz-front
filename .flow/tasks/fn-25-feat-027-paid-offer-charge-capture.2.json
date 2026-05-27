@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T00:14:44.431522Z",
+  "depends_on": [],
+  "epic": "fn-25-feat-027-paid-offer-charge-capture",
+  "id": "fn-25-feat-027-paid-offer-charge-capture.2",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-25-feat-027-paid-offer-charge-capture.2.md",
+  "status": "todo",
+  "title": "OfferSummaryBlock: monto + bonuses + leyenda cobro",
+  "updated_at": "2026-05-27T00:14:44.431546Z"
+}

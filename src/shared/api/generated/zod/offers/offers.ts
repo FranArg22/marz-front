@@ -40,6 +40,11 @@ export const createOfferBodyDeliverablesItemDescriptionMax = 5000;
 
 
 export const CreateOfferBody = zod.object({
+  "offer_draft_id": zod.uuid().optional(),
+  "return_to": zod.object({
+  "kind": zod.enum(['conversation', 'inbox']),
+  "id": zod.string().optional()
+}).optional(),
   "campaign_id": zod.uuid(),
   "conversation_id": zod.uuid(),
   "offer_mode": zod.enum(['same_content', 'per_platform']),
@@ -149,6 +154,24 @@ export const CreateOfferResponse = zod.object({
   "declared_payment_id": zod.uuid().nullish(),
   "created_at": zod.iso.datetime({}),
   "updated_at": zod.iso.datetime({})
+})
+
+export const GetOfferDraftStatusParams = zod.object({
+  "offer_draft_id": zod.uuid()
+})
+
+export const GetOfferDraftStatusHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid()
+})
+
+export const GetOfferDraftStatusResponse = zod.object({
+  "status": zod.enum(['pending', 'requires_capture', 'requires_action', 'sent', 'failed', 'canceled']),
+  "offer_id": zod.uuid().optional(),
+  "checkout_url": zod.string().optional(),
+  "error": zod.object({
+  "code": zod.enum(['card_declined', 'insufficient_funds', 'expired_card', 'incorrect_cvc', 'hold_failed_generic']),
+  "stripe_code": zod.string().nullish()
+}).optional()
 })
 
 export const GetOfferParams = zod.object({
