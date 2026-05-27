@@ -79,7 +79,7 @@ Agregar `send_offer_result: z.enum(['success', 'cancelled', 'failed']).optional(
 - Verify: `pnpm vitest run src/routes/workspace.conversations && pnpm vitest run src/routes/inbox && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.7; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

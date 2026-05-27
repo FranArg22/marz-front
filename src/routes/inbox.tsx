@@ -1,8 +1,12 @@
 import {
   createFileRoute,
   redirect,
+  useNavigate,
   useRouterState,
 } from '@tanstack/react-router'
+import { useEffect } from 'react'
+import { t } from '@lingui/core/macro'
+import { toast } from 'sonner'
 
 import { AppShell } from '#/features/identity/app-shell/AppShell'
 import { inboxQueryKey } from '#/features/inbox/api/inbox'
@@ -82,10 +86,33 @@ export const Route = createFileRoute('/inbox')({
 
 function InboxRoute() {
   const search = Route.useSearch()
+  const navigate = useNavigate({ from: '/inbox' })
   const { accountId, sessionKind } = Route.useRouteContext()
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
+
+  useEffect(() => {
+    if (!search.send_offer_result) return
+
+    if (search.send_offer_result === 'success') {
+      toast.success(t`Offer enviada`)
+    } else if (search.send_offer_result === 'cancelled') {
+      toast(t`Volviste sin enviar la offer`)
+    } else {
+      toast.error(
+        t`No pudimos procesar tu tarjeta. Probá de nuevo o gestioná tu tarjeta.`,
+      )
+    }
+
+    void navigate({
+      search: (prev) => {
+        const { send_offer_result: _, ...rest } = prev
+        return rest
+      },
+      replace: true,
+    })
+  }, [search.send_offer_result, navigate])
 
   return (
     <AppShell
