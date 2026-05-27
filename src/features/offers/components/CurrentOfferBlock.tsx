@@ -165,6 +165,15 @@ export function CurrentOfferBlock({
     }
   }, [offer, actorKind])
 
+  // Close the cancel dialog whenever the current offer changes. After a
+  // successful cancel the offer disappears (and a new one may take its place);
+  // the dialog's mutate-level onSuccess that closes it is skipped when the
+  // dialog unmounts during query invalidation, so reset here to avoid a stale
+  // open dialog reappearing on the next offer.
+  useEffect(() => {
+    setCancelDialogOpen(false)
+  }, [offer?.id])
+
   if (!offer) {
     return <EmptyState canSendOffer={canSendOffer} onSendOffer={onSendOffer} />
   }

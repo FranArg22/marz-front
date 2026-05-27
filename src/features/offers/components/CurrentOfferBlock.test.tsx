@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { afterEach, describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -120,6 +120,34 @@ describe('CurrentOfferBlock', () => {
   it('renders empty state when current is null', () => {
     renderWithQuery(<CurrentOfferBlock offer={null} {...defaultProps} />)
     expect(screen.getByText('Sin oferta activa')).toBeInTheDocument()
+  })
+
+  it('closes a stale cancel dialog when the current offer changes', () => {
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    const wrapper = ({ children }: { children: ReactElement }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    )
+    const { rerender } = render(
+      <CurrentOfferBlock offer={sameContentOffer} {...defaultProps} />,
+      { wrapper },
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancelar oferta' }))
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Offer cancelled → disappears, then a new offer is sent. The dialog must
+    // not reappear (regression: stale open state carried to the next offer).
+    rerender(<CurrentOfferBlock offer={null} {...defaultProps} />)
+    rerender(
+      <CurrentOfferBlock
+        offer={{ ...sameContentOffer, id: 'next-offer-id' }}
+        {...defaultProps}
+      />,
+    )
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
   it('renders Enviar oferta button in empty state when brand can send', () => {
