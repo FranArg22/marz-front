@@ -4,8 +4,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createElement } from 'react'
 import { toast } from 'sonner'
 
-import { useOfferActions } from './useOfferActions'
+import { OfferAcceptErrorCode } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
+
+import { useOfferActions } from './useOfferActions'
 import { trackOfferEvent } from '../analytics'
 
 vi.mock('@lingui/core/macro', () => ({
@@ -120,6 +122,100 @@ describe('useOfferActions', () => {
       expect(result.current.accept.isError).toBe(true)
     })
     expect(toast.error).toHaveBeenCalledWith('Offer expired')
+  })
+
+  it('accept mutation handles 402 hold_expired with toast and rollback', async () => {
+    const queryClient = createTestQueryClient()
+    const initialOffers = [
+      { id: 'offer-1', status: 'sent', total_amount: 1000 },
+      { id: 'offer-2', status: 'sent', total_amount: 2000 },
+    ]
+    const queryKey = ['conversations', 'conv-1', 'offers']
+    queryClient.setQueryData(queryKey, initialOffers)
+
+    mockFetchError = new ApiError(
+      402,
+      'unknown',
+      'Payment Required',
+      undefined,
+      { error: { code: OfferAcceptErrorCode.hold_expired } },
+    )
+
+    const { result } = renderHook(
+      () => useOfferActions({ conversationId: 'conv-1' }),
+      { wrapper: createWrapper(queryClient) },
+    )
+
+    result.current.accept.mutate({
+      offerId: 'offer-1',
+      sentAt: new Date().toISOString(),
+      offerMode: 'same_content',
+    })
+
+    await waitFor(() => {
+      expect(result.current.accept.isError).toBe(true)
+    })
+
+    expect(toast.error).toHaveBeenCalledWith(
+      'Los fondos reservados expiraron',
+    )
+    expect(queryClient.getQueryData(queryKey)).toEqual(initialOffers)
+  })
+
+  it('accept mutation handles 402 card_declined with toast', async () => {
+    mockFetchError = new ApiError(
+      402,
+      'unknown',
+      'Payment Required',
+      undefined,
+      { error: { code: OfferAcceptErrorCode.card_declined } },
+    )
+
+    const { result } = renderHook(
+      () => useOfferActions({ conversationId: 'conv-1' }),
+      { wrapper: createWrapper() },
+    )
+
+    result.current.accept.mutate({
+      offerId: 'offer-1',
+      sentAt: new Date().toISOString(),
+      offerMode: 'same_content',
+    })
+
+    await waitFor(() => {
+      expect(result.current.accept.isError).toBe(true)
+    })
+
+    expect(toast.error).toHaveBeenCalledWith(
+      'El brand necesita actualizar su tarjeta',
+    )
+  })
+
+  it('accept mutation handles 402 capture_failed_generic with toast', async () => {
+    mockFetchError = new ApiError(
+      402,
+      'unknown',
+      'Payment Required',
+      undefined,
+      { error: { code: OfferAcceptErrorCode.capture_failed_generic } },
+    )
+
+    const { result } = renderHook(
+      () => useOfferActions({ conversationId: 'conv-1' }),
+      { wrapper: createWrapper() },
+    )
+
+    result.current.accept.mutate({
+      offerId: 'offer-1',
+      sentAt: new Date().toISOString(),
+      offerMode: 'same_content',
+    })
+
+    await waitFor(() => {
+      expect(result.current.accept.isError).toBe(true)
+    })
+
+    expect(toast.error).toHaveBeenCalledWith('No se pudo procesar el pago')
   })
 
   it('reject mutation succeeds and fires offer_rejected analytics', async () => {

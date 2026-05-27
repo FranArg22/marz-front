@@ -7,6 +7,8 @@ import type {
   acceptOfferResponse,
   rejectOfferResponse,
 } from '#/shared/api/generated/offers/offers'
+import type { AcceptOffer402 } from '#/shared/api/generated/model'
+import { OfferAcceptErrorCode } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
@@ -70,6 +72,21 @@ export function useOfferActions({ conversationId }: UseOfferActionsOptions) {
     onError: (error, _vars, context) => {
       if (context?.snapshot !== undefined) {
         queryClient.setQueryData(offersQueryKey, context.snapshot)
+      }
+      if (error instanceof ApiError && error.status === 402) {
+        const body = error.body as AcceptOffer402 | undefined
+        const code = body?.error.code
+
+        if (code === OfferAcceptErrorCode.hold_expired) {
+          toast.error(t`Los fondos reservados expiraron`)
+        } else if (code === OfferAcceptErrorCode.card_declined) {
+          toast.error(t`El brand necesita actualizar su tarjeta`)
+        } else {
+          toast.error(t`No se pudo procesar el pago`)
+        }
+
+        void queryClient.invalidateQueries({ queryKey: offersQueryKey })
+        return
       }
       if (error instanceof ApiError && error.status === 409) {
         toast.error(t`Offer expired`)

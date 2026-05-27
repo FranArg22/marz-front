@@ -85,7 +85,7 @@ new ApiError(402, 'unknown', 'Payment Required', undefined, { error: { code: 'ho
 - Verify: `pnpm vitest run src/features/offers/hooks/useOfferActions && pnpm lint && pnpm typecheck`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
