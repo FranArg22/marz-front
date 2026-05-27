@@ -51,7 +51,7 @@ _(completar si `pnpm typecheck` falla en archivos de features)_
 - Verify: `git status --short src/shared/api/generated/ openapi/spec.json && pnpm typecheck 2>&1 | grep -E "error TS|Found [0-9]+ error" | head -10`
 
 ## Done summary
-
+Implemented fn-25-feat-027-paid-offer-charge-capture.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
