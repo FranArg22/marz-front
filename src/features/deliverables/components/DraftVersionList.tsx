@@ -26,7 +26,15 @@ interface DraftVersionListProps {
   canReview?: boolean
 }
 
-function getStatusMeta(status: 'approved' | 'changes_requested' | 'submitted') {
+function getStatusMeta(
+  status: 'approved' | 'changes_requested' | 'submitted',
+  isCurrent: boolean,
+) {
+  // A superseded version is no longer awaiting review — "Pendiente de revisión"
+  // only makes sense for the latest one.
+  if (status === 'submitted' && !isCurrent) {
+    return { label: t`Reemplazada`, tone: 'text-muted-foreground' }
+  }
   const map: Record<typeof status, { label: string; tone: string }> = {
     approved: {
       label: t`Aprobado`,
@@ -84,7 +92,7 @@ export function DraftVersionList({
       {drafts.map((draft) => {
         const isCurrent = draft.version === maxVersion
         const status = getDraftStatus(draft, changeRequestDraftIds)
-        const meta = getStatusMeta(status)
+        const meta = getStatusMeta(status, isCurrent)
         const version = draft.version
 
         return (
