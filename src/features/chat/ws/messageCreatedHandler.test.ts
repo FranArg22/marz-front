@@ -416,4 +416,37 @@ describe('handleMessageCreated', () => {
     const cache = queryClient.getQueryData<MessagesInfiniteData>(key)
     expect(cache?.pages[0]?.data.data).toHaveLength(1)
   })
+
+  it.each([
+    'LinkSubmitted',
+    'DraftSubmitted',
+    'LinkApproved',
+    'ChangesRequested',
+  ])(
+    'invalidates deliverables panel + detail for %s system events',
+    (eventType) => {
+      seedCache(queryClient, [])
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+
+      handleMessageCreated(
+        queryClient,
+        makeSystemEventEnvelope({
+          id: `sys-${eventType}`,
+          event_type: eventType,
+          payload: {
+            snapshot: { event_type: eventType, deliverable_id: 'del-1' },
+          },
+        }),
+        'acc-1',
+        CONVERSATION_ID,
+      )
+
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: getConversationDeliverablesQueryKey(CONVERSATION_ID),
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['deliverables', 'del-1'],
+      })
+    },
+  )
 })

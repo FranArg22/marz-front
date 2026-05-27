@@ -14,6 +14,18 @@ type MessagesInfiniteData = InfiniteData<
   string | undefined
 >
 
+// Draft/link lifecycle system events that change the deliverable state shown in
+// the context panel. The chat only receives the message; the panel reads the
+// deliverables query, so it must be invalidated when these arrive.
+const DELIVERABLE_EVENT_TYPES = new Set([
+  'DraftSubmitted',
+  'DraftApproved',
+  'ChangesRequested',
+  'LinkSubmitted',
+  'LinkApproved',
+  'LinkChangesRequested',
+])
+
 export function handleMessageCreated(
   queryClient: QueryClient,
   envelope: DomainEventEnvelope<MessageCreatedPayload>,
@@ -133,6 +145,29 @@ export function handleMessageCreated(
     queryClient.invalidateQueries({
       queryKey: getConversationOffersQueryKey(payload.conversation_id),
     })
+  }
+
+  if (
+    payload.type === 'system_event' &&
+    DELIVERABLE_EVENT_TYPES.has(payload.event_type)
+  ) {
+    // Draft/link submitted/approved/changes: the chat shows the message but the
+    // context panel reads the deliverables query, so refresh it + the
+    // per-deliverable detail the panel rows read.
+    queryClient.invalidateQueries({
+      queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+    })
+    const systemEventPayload = toMessagePayload(payload.payload)
+    const snapshot =
+      (systemEventPayload?.['snapshot'] as
+        | Record<string, unknown>
+        | undefined) ?? systemEventPayload
+    const deliverableId = snapshot?.['deliverable_id']
+    if (typeof deliverableId === 'string') {
+      queryClient.invalidateQueries({
+        queryKey: ['deliverables', deliverableId],
+      })
+    }
   }
 }
 
