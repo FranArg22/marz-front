@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T01:43:00.275916Z",
+  "depends_on": [],
+  "epic": "fn-26-feat-027-e2e-paid-offer-charge-capture",
+  "id": "fn-26-feat-027-e2e-paid-offer-charge-capture.2",
+  "priority": 2,
+  "spec_path": ".flow/tasks/fn-26-feat-027-e2e-paid-offer-charge-capture.2.md",
+  "status": "todo",
+  "title": "Investigar setup STRIPE_TEST_MODE para brand con offers_payment_method y aclarar si se necesitan endpoints de test adicionales",
+  "updated_at": "2026-05-27T01:44:39.527800Z"
+}

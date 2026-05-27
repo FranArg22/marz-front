@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T01:42:55.482338Z",
+  "depends_on": [],
+  "epic": "fn-26-feat-027-e2e-paid-offer-charge-capture",
+  "id": "fn-26-feat-027-e2e-paid-offer-charge-capture.1",
+  "priority": 1,
+  "spec_path": ".flow/tasks/fn-26-feat-027-e2e-paid-offer-charge-capture.1.md",
+  "status": "todo",
+  "title": "Agregar data-testid a componentes de offer paid (OfferSummaryBlock, OfferSendErrorBanner, SendOfferSidesheet, CheckoutReturnPage)",
+  "updated_at": "2026-05-27T01:44:17.895815Z"
+}
