@@ -128,7 +128,7 @@ async function fillRequiredFields() {
   await user.clear(screen.getByLabelText(/monto/i))
   await user.type(screen.getByLabelText(/monto/i), '1000')
   await user.type(screen.getByLabelText(/publicación tentativa/i), '2099-12-30')
-  await user.type(screen.getByLabelText(/fecha límite/i), '2099-12-31')
+  await user.type(screen.getByLabelText(/fecha límite/i), '2100-01-01')
 }
 
 beforeEach(() => {

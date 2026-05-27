@@ -15,7 +15,7 @@ function createValidOfferInput() {
     offer_mode: 'same_content' as const,
     amount: 100,
     tentative_publish_date: '2026-05-19',
-    offer_deadline: '2026-05-19',
+    offer_deadline: '2026-05-21',
     platforms: ['instagram'] as const,
     bonus_terms: {
       enabled: true,
@@ -57,7 +57,7 @@ describe('createOfferSchema', () => {
       createOfferSchema.safeParse({
         ...createValidOfferInput(),
         tentative_publish_date: '2026-05-20',
-        offer_deadline: '2026-05-20',
+        offer_deadline: '2026-05-22',
       }).success,
     ).toBe(true)
   })
@@ -147,7 +147,7 @@ describe('createOfferSchema', () => {
     ).toBe(false)
   })
 
-  it('rejects deadlines before the tentative publish date', () => {
+  it('rejects deadlines less than 48 hours after the tentative publish date', () => {
     expect(
       createOfferSchema.safeParse({
         ...createValidOfferInput(),
@@ -155,5 +155,21 @@ describe('createOfferSchema', () => {
         offer_deadline: '2026-05-19',
       }).success,
     ).toBe(false)
+    // same day and +24h are both inside the 48h window → rejected
+    expect(
+      createOfferSchema.safeParse({
+        ...createValidOfferInput(),
+        tentative_publish_date: '2026-05-20',
+        offer_deadline: '2026-05-21',
+      }).success,
+    ).toBe(false)
+    // exactly +48h → accepted
+    expect(
+      createOfferSchema.safeParse({
+        ...createValidOfferInput(),
+        tentative_publish_date: '2026-05-20',
+        offer_deadline: '2026-05-22',
+      }).success,
+    ).toBe(true)
   })
 })

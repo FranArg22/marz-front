@@ -37,7 +37,11 @@ import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { FieldRow, firstErrorMessage, useAppForm } from '#/shared/ui/form'
 
 import { useCreateOfferMutation } from '../hooks/useCreateOfferMutation'
-import { createCreateOfferSchema } from '../schemas/createOffer'
+import {
+  createCreateOfferSchema,
+  getMinimumOfferDeadlineUTC,
+  getMinimumTentativePublishDateUTC,
+} from '../schemas/createOffer'
 import type {
   CreateOfferFormValues,
   OfferBonusTermsFormValues,
@@ -635,6 +639,7 @@ export function SendOfferSidesheet({
                       onChange={field.handleChange}
                       onBlur={field.handleBlur}
                       ariaLabel={t`Publicación tentativa`}
+                      min={getMinimumTentativePublishDateUTC()}
                       error={
                         field.state.meta.errors.length > 0
                           ? firstErrorMessage(field.state.meta.errors)
@@ -659,6 +664,9 @@ export function SendOfferSidesheet({
                       onChange={field.handleChange}
                       onBlur={field.handleBlur}
                       ariaLabel={t`Fecha límite`}
+                      min={getMinimumOfferDeadlineUTC(
+                        values.tentative_publish_date || undefined,
+                      )}
                       error={
                         field.state.meta.errors.length > 0
                           ? firstErrorMessage(field.state.meta.errors)
@@ -817,6 +825,7 @@ interface TimelineDateRowProps {
   onBlur: () => void
   ariaLabel: string
   error?: string
+  min?: string
 }
 
 function TimelineDateRow({
@@ -828,6 +837,7 @@ function TimelineDateRow({
   onBlur,
   ariaLabel,
   error,
+  min,
 }: TimelineDateRowProps) {
   return (
     <div className="space-y-1">
@@ -853,6 +863,7 @@ function TimelineDateRow({
           aria-label={ariaLabel}
           aria-invalid={error ? true : undefined}
           value={value}
+          min={min}
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
           className="h-9 w-[10.5rem] rounded-lg bg-input/40 font-mono text-[length:var(--font-size-xs)]"
