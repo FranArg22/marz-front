@@ -33,9 +33,23 @@ Si alguna pregunta requiere input del backend team, setear la task como bloquead
 - [ ] El Done summary contiene las respuestas a P1, P2, P3 y P4 con el approach elegido para T3 y T5.
 - [ ] Si se necesita un nuevo endpoint de backend, la task queda bloqueada con razón y desbloqueo claros.
 ## Done summary
-TBD
+P1: Si. En el backend de este ambiente, el webhook de billing sincroniza el default PM de Stripe en ambas columnas. `internal/billing/app/project_subscription.go` llama `syncDefaultPaymentMethod(...)` con `sub.DefaultPaymentMethod`; esa funcion llama `UpdateDefaultPaymentMethodsByStripeCustomer(...)`. En `internal/billing/adapters/db/webhook_uow.go`, el update escribe en una sola sentencia:
 
+- `default_subscription_payment_method = $2`
+- `default_offers_payment_method = $2`
+
+Por lo tanto, despues del checkout de suscripcion en `STRIPE_TEST_MODE=1`, si Stripe devuelve `default_payment_method`, `GET /v1/billing/subscription` queda con `subscription_payment_method` y `offers_payment_method` apuntando al mismo PM, y `same_payment_method=true`. Para T3/T5, el setup puede reusar el flujo de `billing-page.spec.ts`: brand onboarding/paywall -> checkout Stripe con `4242 4242 4242 4242` -> `visa •••• 4242` queda disponible como metodo de offers.
+
+P2: No existe endpoint de test para crear directamente una offer `sent` con PaymentIntent en `requires_capture`. El contrato `openapi/test-spec.json` solo expone `/v1/test/accounts`, `/v1/test/conversations`, campaign/participant/video fixtures, inbox fixtures, event emit y `/v1/test/faults`. `seed_offer_ready` en `CreateTestConversationRequest` solo deja el par `(campaign_id, conversation_id)` listo para un `POST /v1/offers`; no crea la offer ni el hold. Para T5 ESC-6/ESC-7, el setup debe hacer que la brand envie la offer por el flujo real/API real y luego cambiar al contexto creator para aceptarla.
+
+P3: `CreateTestFaultRequest` esta generado con `{ method: string, path: string, status: number 100-599, body: object, count: 1 }`. El backend implementa esto como middleware one-shot por metodo/path (`internal/shared/httpx/test_faults.go`), antes del handler real. Se puede registrar un fault para `POST /v1/offers` y devolver un body que simule la respuesta esperada, por ejemplo `status=201` con `{ "status": "rejected", "error": { "code": "card_declined", "stripe_code": "card_declined" } }` o `insufficient_funds`. Eso sirve para testear el manejo FE de ESC-3 sin tocar Stripe. No inyecta un fallo interno en `CreatePaymentIntentHold`: al matchear `POST /v1/offers`, el handler real no corre y no se crea PaymentIntent. Si se quiere validar integracion Stripe end-to-end del hold rechazado, usar tarjeta Stripe de decline como default offers PM.
+
+P4: `chatPairOfferReady` es el fixture base correcto para FEAT-027. Crea brand+creator onboardeados, conversation, campaign activa y application aceptada usando `seedOfferReady`, y devuelve `brandPage`, `creatorPage`, `conversationId`, `brandWorkspaceId` y `campaignId`. Encima de ese fixture falta completar billing para la brand: navegar con `brandPage` a `/onboarding/brand/paywall`, elegir plan pago, completar Stripe checkout en `STRIPE_TEST_MODE=1`, y verificar `/billing` o `GET /v1/billing/subscription` con `same_payment_method=true`/`offers_payment_method` presente antes de enviar paid offers.
+
+Approach elegido para T3: usar `chatPairOfferReady` + checkout real Stripe 4242 + envio de offer por sidesheet/API real, con `test.skip(!STRIPE_TEST_MODE_ENABLED, ...)`.
+
+Approach elegido para T5: usar el mismo setup; para ESC-6/ESC-7 no hay seed directo de offer sent con hold activo, asi que primero la brand debe enviar la offer y despues el test cambia al creator para aceptar. Para fallos simulados de FE se puede usar `/v1/test/faults`; para cobertura Stripe real usar tarjetas Stripe especificas.
 ## Evidence
 - Commits:
-- Tests:
+- Tests: Intentado: STRIPE_TEST_MODE=1 pnpm test:e2e -- src/test/e2e/suites/billing/billing-page.spec.ts --workers=1; no llego a Stripe por timeout en selector Mensual/Monthly antes del checkout
 - PRs:
