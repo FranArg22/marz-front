@@ -261,6 +261,9 @@ describe('handleMessageCreated', () => {
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: offersKey,
       })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: getConversationDeliverablesQueryKey(CONVERSATION_ID),
+      })
     },
   )
 

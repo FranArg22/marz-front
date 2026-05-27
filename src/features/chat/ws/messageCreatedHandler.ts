@@ -97,6 +97,13 @@ export function handleMessageCreated(
     queryClient.invalidateQueries({
       queryKey: getConversationOffersQueryKey(payload.conversation_id),
     })
+    // Accepting an offer materializes deliverables asynchronously (OfferAccepted
+    // → outbox → worker), so the mutation's immediate invalidation races ahead of
+    // the insert. This WS event arrives after the worker runs, so refresh the
+    // deliverables panel here too (otherwise the creator only sees it after F5).
+    queryClient.invalidateQueries({
+      queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+    })
   }
 
   if (
