@@ -34,7 +34,10 @@ export function OfferSummaryBlock({
   const formattedMaxPayout = formatUsd(maxPayout)
 
   return (
-    <section className="rounded-xl border border-border bg-card p-4 text-card-foreground">
+    <section
+      data-testid="offers.send.summary_block"
+      className="rounded-xl border border-border bg-card p-4 text-card-foreground"
+    >
       <h3 className="text-[length:var(--font-size-sm)] font-semibold">
         {t`Resumen de la oferta`}
       </h3>

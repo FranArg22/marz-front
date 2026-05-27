@@ -62,6 +62,7 @@ export function OfferSendErrorBanner({ error }: OfferSendErrorBannerProps) {
   return (
     <div
       role="alert"
+      data-testid="offers.send.error_banner"
       className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-destructive"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">

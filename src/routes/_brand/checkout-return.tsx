@@ -95,6 +95,7 @@ function CheckoutReturnContent({
       <main className="flex min-h-screen items-center justify-center bg-background p-6">
         <div
           role="alert"
+          data-testid="checkout-return.timeout_error"
           className="flex w-full max-w-md flex-col items-center gap-4 rounded-2xl border border-border bg-card p-6 text-center"
         >
           <h1 className="text-lg font-semibold text-foreground">
@@ -119,6 +120,7 @@ function CheckoutReturnContent({
     <main className="flex min-h-screen items-center justify-center bg-background p-6">
       <div
         role="status"
+        data-testid="checkout-return.waiting"
         aria-live="polite"
         className="flex w-full max-w-md flex-col items-center gap-4 rounded-2xl border border-border bg-card p-6 text-center"
       >

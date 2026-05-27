@@ -794,6 +794,7 @@ export function SendOfferSidesheet({
               </Button>
               <form.AppForm>
                 <form.SubmitButton
+                  data-testid="offers.send.submit_button"
                   label={t`Enviar oferta`}
                   loadingLabel={t`Enviando`}
                   className="rounded-xl"

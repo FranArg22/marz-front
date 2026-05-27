@@ -59,8 +59,7 @@ Cada grep debe retornar exactamente 1 línea. `pnpm typecheck` sin errores.
 - [ ] `pnpm typecheck` pasa sin errores.
 - [ ] `pnpm quality-gates` verde.
 ## Done summary
-TBD
-
+Implemented fn-26-feat-027-e2e-paid-offer-charge-capture.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
