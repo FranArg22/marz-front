@@ -117,8 +117,7 @@ test.describe('Offers: paid offer send flow', () => {
 - [ ] `pnpm typecheck` pasa sin errores.
 - [ ] `pnpm quality-gates` verde.
 ## Done summary
-TBD
-
+Implemented fn-26-feat-027-e2e-paid-offer-charge-capture.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
