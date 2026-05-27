@@ -23,14 +23,18 @@ export function InboxDraftReviewPopover({
   const queryClient = useQueryClient()
 
   return (
-    <DraftReviewDialog
-      deliverableId={deliverableId}
-      onResolved={() => {
-        void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
-      }}
-      trigger={
-        <TooltipProvider delayDuration={200}>
-          <Tooltip>
+    // Tooltip wraps the dialog so DraftReviewDialog's DialogTrigger asChild
+    // lands on the TooltipTrigger (a single slottable element) and both
+    // triggers merge onto the button. Passing the whole Tooltip as the trigger
+    // breaks the asChild slot and the click never opens the dialog.
+    <TooltipProvider delayDuration={200}>
+      <Tooltip>
+        <DraftReviewDialog
+          deliverableId={deliverableId}
+          onResolved={() => {
+            void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
+          }}
+          trigger={
             <TooltipTrigger asChild>
               <Button
                 type="button"
@@ -42,10 +46,10 @@ export function InboxDraftReviewPopover({
                 <Eye className="size-4" aria-hidden />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>{t`Revisar draft`}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      }
-    />
+          }
+        />
+        <TooltipContent>{t`Revisar draft`}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }

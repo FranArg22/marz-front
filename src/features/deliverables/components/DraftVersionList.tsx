@@ -125,12 +125,17 @@ export function DraftVersionList({
                 isCurrent &&
                 status === 'submitted' &&
                 deliverableId ? (
-                  <DraftReviewDialog
-                    deliverableId={deliverableId}
-                    initialDraft={draft}
-                    onResolved={handleResolved}
-                    trigger={
-                      <Tooltip>
+                  <Tooltip>
+                    <DraftReviewDialog
+                      deliverableId={deliverableId}
+                      initialDraft={draft}
+                      onResolved={handleResolved}
+                      trigger={
+                        // TooltipTrigger (not the Tooltip root) is the trigger
+                        // so DraftReviewDialog's DialogTrigger asChild lands on
+                        // a single slottable element and both triggers merge
+                        // onto the button — otherwise the click never opens the
+                        // dialog (the Tooltip root swallows the asChild slot).
                         <TooltipTrigger asChild>
                           <Button
                             variant="outline"
@@ -141,10 +146,10 @@ export function DraftVersionList({
                             <Eye className="size-3.5" aria-hidden />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>{t`Aprobar o pedir cambios`}</TooltipContent>
-                      </Tooltip>
-                    }
-                  />
+                      }
+                    />
+                    <TooltipContent>{t`Aprobar o pedir cambios`}</TooltipContent>
+                  </Tooltip>
                 ) : null}
               </div>
             </TooltipProvider>
