@@ -27,9 +27,14 @@ export function getMinimumOfferDeadlineUTC(
     tentativePublishDate && dateOnlyRegex.test(tentativePublishDate)
       ? tentativePublishDate
       : getMinimumTentativePublishDateUTC(referenceDate)
-  const [year, month, day] = base.split('-').map(Number)
+  // A date-only string (YYYY-MM-DD) parses as UTC midnight.
+  const baseDate = new Date(base)
   const minimumDate = new Date(
-    Date.UTC(year, month - 1, day + MIN_DEADLINE_GAP_DAYS),
+    Date.UTC(
+      baseDate.getUTCFullYear(),
+      baseDate.getUTCMonth(),
+      baseDate.getUTCDate() + MIN_DEADLINE_GAP_DAYS,
+    ),
   )
 
   return minimumDate.toISOString().slice(0, 10)
