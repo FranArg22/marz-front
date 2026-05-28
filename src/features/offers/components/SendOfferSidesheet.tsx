@@ -37,6 +37,7 @@ import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { FieldRow, firstErrorMessage, useAppForm } from '#/shared/ui/form'
 
 import { useCreateOfferMutation } from '../hooks/useCreateOfferMutation'
+import { getWorkspacePlan } from '../utils/workspacePlan'
 import {
   createCreateOfferSchema,
   getMinimumOfferDeadlineUTC,
@@ -73,8 +74,6 @@ interface SendOfferSidesheetProps {
   conversationId?: string
 }
 
-type OfferSummaryPlan = 'free' | 'starter' | 'growth' | 'scale'
-
 function createDefaultValues(
   creatorAccountId: string,
   draft: Partial<CreateOfferFormValues>,
@@ -101,14 +100,6 @@ function translateApiError(error: ApiError) {
   }
 
   return error.message
-}
-
-function getWorkspacePlan(plan: string | undefined): OfferSummaryPlan {
-  if (plan === 'starter' || plan === 'growth' || plan === 'scale') {
-    return plan
-  }
-
-  return 'free'
 }
 
 function getStripeUnavailableError(): OfferSendError {

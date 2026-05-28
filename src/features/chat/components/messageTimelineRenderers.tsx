@@ -8,7 +8,6 @@ import { LinkChangesRequestedCard } from '#/features/deliverables/components/Lin
 import { LinkSubmittedCard } from '#/features/deliverables/components/LinkSubmittedCard'
 import { RequestChangesCard } from '#/features/deliverables/components/RequestChangesCard'
 import { OFFER_EVENT_TYPES } from '#/shared/offers/constants'
-import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 import { getRecord, getString } from '#/shared/utils/record'
 import { EventBubble } from './EventBubble'
 import type { EventSeverity } from './EventBubble'
@@ -26,10 +25,8 @@ interface RenderTimelineMessageContentArgs {
   conversationId: string
   counterpartDisplayName: string
   highlightPaymentId?: string
-  onMarkAsPaid?: (deliverableId: string) => void
   onUploadDraft?: (deliverableId: string) => void
   sessionKind: 'brand' | 'creator' | undefined
-  viewerRole?: MarkAsPaidViewerRole
 }
 
 export function TimelineMessageContent({
@@ -38,9 +35,7 @@ export function TimelineMessageContent({
   conversationId,
   counterpartDisplayName,
   highlightPaymentId,
-  onMarkAsPaid,
   sessionKind,
-  viewerRole,
 }: RenderTimelineMessageContentArgs) {
   if (message.type === 'system_event') {
     return renderSystemTimelineMessage({
@@ -49,9 +44,7 @@ export function TimelineMessageContent({
       conversationId,
       counterpartDisplayName,
       highlightPaymentId,
-      onMarkAsPaid,
       sessionKind,
-      viewerRole,
     })
   }
 
@@ -77,9 +70,7 @@ function renderSystemTimelineMessage({
   conversationId,
   counterpartDisplayName,
   highlightPaymentId,
-  onMarkAsPaid,
   sessionKind,
-  viewerRole,
 }: RenderTimelineMessageContentArgs) {
   const deliverableEventType = parseDeliverableSystemEventType(
     message.event_type,
@@ -129,9 +120,6 @@ function renderSystemTimelineMessage({
           <LinkApprovedCard
             message={message}
             currentAccountId={currentAccountId}
-            conversationId={conversationId}
-            viewer={{ kind: sessionKind, role: viewerRole }}
-            onMarkAsPaid={onMarkAsPaid}
           />
         )
       case 'LinkChangesRequested':

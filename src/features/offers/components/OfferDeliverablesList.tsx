@@ -5,7 +5,6 @@ import { ExpectedDeliverableSlot } from '#/features/deliverables/components/Expe
 import type { DeliverableDTO } from '#/features/deliverables/types'
 import type { OfferDetailDTO } from '#/features/offers/types'
 import type { SocialPlatform } from '#/shared/api/generated/model'
-import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 
 import type { ActorKind } from '../analytics'
 
@@ -19,10 +18,8 @@ interface OfferDeliverablesListProps {
   offer: OfferDetailDTO
   deliverables: DeliverableDTO[]
   sessionKind: 'brand' | 'creator'
-  viewerRole?: MarkAsPaidViewer['role']
   actorKind: ActorKind
   onUploadDraft: (deliverableId: string) => void
-  onMarkAsPaid?: (deliverableId: string) => void
   onSubmitLink?: (deliverableId: string, isResubmission: boolean) => void
 }
 
@@ -51,9 +48,7 @@ export function OfferDeliverablesList({
   offer,
   deliverables,
   sessionKind,
-  viewerRole,
   onUploadDraft,
-  onMarkAsPaid,
   onSubmitLink,
 }: OfferDeliverablesListProps) {
   const showExpectedSlot =
@@ -93,9 +88,7 @@ export function OfferDeliverablesList({
               key={deliverable.id}
               deliverable={deliverable}
               sessionKind={sessionKind}
-              viewerRole={viewerRole}
               onUploadDraft={onUploadDraft}
-              onMarkAsPaid={onMarkAsPaid}
               onSubmitLink={onSubmitLink}
             />
           ))

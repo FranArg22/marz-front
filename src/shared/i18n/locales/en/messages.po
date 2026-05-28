@@ -145,11 +145,11 @@ msgstr ""
 #~ msgid "{0} tarifas"
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:701
+#: src/features/offers/components/SendOfferSidesheet.tsx:692
 msgid "{activeBonusCount} activo"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:702
+#: src/features/offers/components/SendOfferSidesheet.tsx:693
 msgid "{activeBonusCount} activos"
 msgstr ""
 
@@ -197,11 +197,11 @@ msgstr ""
 msgid "{count} mensajes nuevos"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:453
+#: src/features/offers/components/SendOfferSidesheet.tsx:444
 msgid "{count} red"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:453
+#: src/features/offers/components/SendOfferSidesheet.tsx:444
 msgid "{count} redes"
 msgstr ""
 
@@ -668,7 +668,7 @@ msgstr ""
 msgid "Account manager dedicado"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:759
+#: src/features/offers/components/SendOfferSidesheet.tsx:750
 msgid "Aceptación y cancelación"
 msgstr ""
 
@@ -676,7 +676,7 @@ msgstr ""
 #: src/features/discovery/campaign-detail/ActiveCollaborationList.tsx:78
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:108
 #: src/features/discovery/campaign-detail/InviteList.tsx:79
-#: src/features/offers/components/CurrentOfferBlock.tsx:41
+#: src/features/offers/components/CurrentOfferBlock.tsx:42
 #: src/features/offers/components/OfferArchiveItem.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:111
 #: src/features/offers/components/OfferArchiveItem.tsx:240
@@ -691,11 +691,11 @@ msgstr ""
 msgid "Aceptado"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:356
+#: src/features/offers/components/CurrentOfferBlock.tsx:368
 msgid "Aceptando…"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:356
+#: src/features/offers/components/CurrentOfferBlock.tsx:368
 msgid "Aceptar"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgstr ""
 msgid "Agosto"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:79
+#: src/features/offers/schemas/createOffer.ts:84
 msgid "Agregá al menos una ventana de bono"
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgstr ""
 msgid "Aprobado por {approverName} el {approvedDate}"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:362
+#: src/features/deliverables/components/DeliverableListItem.tsx:339
 msgid "Aprobar"
 msgstr ""
 
@@ -1263,8 +1263,8 @@ msgstr ""
 msgid "Bonos"
 msgstr ""
 
+#: src/features/offers/components/SendOfferSidesheet.tsx:676
 #: src/features/offers/components/SendOfferSidesheet.tsx:685
-#: src/features/offers/components/SendOfferSidesheet.tsx:694
 msgid "Bonos de oferta"
 msgstr ""
 
@@ -1299,7 +1299,7 @@ msgstr ""
 msgid "Bonus pagado si el video alcanza el target dentro de la ventana."
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:274
+#: src/features/offers/components/CurrentOfferBlock.tsx:285
 msgid "Bonus por rapidez"
 msgstr ""
 
@@ -1435,7 +1435,7 @@ msgid "Cambiar foto"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
-#: src/features/deliverables/components/DeliverableListItem.tsx:388
+#: src/features/deliverables/components/DeliverableListItem.tsx:365
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:17
 #: src/features/deliverables/components/DraftVersionList.tsx:44
 #: src/features/deliverables/components/RequestChangesCard.tsx:180
@@ -1467,7 +1467,7 @@ msgstr ""
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:65
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:365
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:151
-#: src/features/offers/components/SendOfferSidesheet.tsx:466
+#: src/features/offers/components/SendOfferSidesheet.tsx:457
 #: src/features/payments/components/BrandPaymentsTable.tsx:46
 msgid "Campaña"
 msgstr ""
@@ -1523,7 +1523,7 @@ msgid "Cancel"
 msgstr ""
 
 #: src/features/discovery/campaign-detail/InviteList.tsx:81
-#: src/features/offers/components/CurrentOfferBlock.tsx:44
+#: src/features/offers/components/CurrentOfferBlock.tsx:45
 #: src/features/offers/components/OfferArchiveItem.tsx:105
 #: src/features/offers/components/OfferArchiveItem.tsx:264
 msgid "Cancelada"
@@ -1551,19 +1551,19 @@ msgstr ""
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:216
 #: src/features/discovery/campaign-detail/AddCreatorDialog.tsx:162
 #: src/features/inbox/InboxInlineActionPopover.tsx:625
-#: src/features/offers/components/SendOfferSidesheet.tsx:801
+#: src/features/offers/components/SendOfferSidesheet.tsx:792
 #: src/features/payments/components/MarkAsPaidDialog.tsx:128
 #: src/routes/_brand/campaigns.new.tsx:63
 msgid "Cancelar"
 msgstr ""
 
 #: src/features/offers/components/CancelOfferDialog.tsx:72
-#: src/features/offers/components/CurrentOfferBlock.tsx:315
+#: src/features/offers/components/CurrentOfferBlock.tsx:326
 msgid "Cancelar oferta"
 msgstr ""
 
 #: src/features/offers/components/CancelOfferDialog.tsx:72
-#: src/features/offers/components/CurrentOfferBlock.tsx:314
+#: src/features/offers/components/CurrentOfferBlock.tsx:325
 msgid "Cancelar oferta aceptada"
 msgstr ""
 
@@ -1611,7 +1611,7 @@ msgstr ""
 msgid "Cargando inbox"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:287
+#: src/features/deliverables/components/DeliverableListItem.tsx:264
 msgid "Cargando link actual"
 msgstr ""
 
@@ -1670,8 +1670,8 @@ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:84
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:104
-#: src/features/offers/components/SendOfferSidesheet.tsx:396
-#: src/features/offers/components/SendOfferSidesheet.tsx:422
+#: src/features/offers/components/SendOfferSidesheet.tsx:387
+#: src/features/offers/components/SendOfferSidesheet.tsx:413
 msgid "Cerrar"
 msgstr ""
 
@@ -1764,7 +1764,7 @@ msgstr ""
 msgid "Colabs al mes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:711
+#: src/features/offers/components/SendOfferSidesheet.tsx:702
 msgid "Colapsar"
 msgstr ""
 
@@ -1857,7 +1857,7 @@ msgstr ""
 msgid "Configurá los bonos"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:438
+#: src/features/offers/components/SendOfferSidesheet.tsx:429
 msgid "Configuración de la oferta"
 msgstr ""
 
@@ -1925,7 +1925,7 @@ msgstr ""
 msgid "Contenido"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:448
+#: src/features/offers/components/SendOfferSidesheet.tsx:439
 msgid "Contenido y plataformas"
 msgstr ""
 
@@ -1963,8 +1963,8 @@ msgstr ""
 msgid "Conversación no disponible"
 msgstr ""
 
-#: src/features/chat/components/ConversationView.tsx:198
-#: src/features/chat/components/ConversationView.tsx:201
+#: src/features/chat/components/ConversationView.tsx:191
+#: src/features/chat/components/ConversationView.tsx:194
 #: src/features/chat/workspace/WorkspaceLayout.tsx:37
 #: src/features/chat/workspace/WorkspaceLayout.tsx:62
 msgid "Conversaciones"
@@ -2217,7 +2217,7 @@ msgstr ""
 msgid "Deliverables pendientes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:594
+#: src/features/offers/components/SendOfferSidesheet.tsx:585
 msgid "Desactivá el switch si cada plataforma necesita contenido y monto propios."
 msgstr ""
 
@@ -2284,7 +2284,7 @@ msgstr ""
 msgid "Día"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:637
+#: src/features/offers/components/SendOfferSidesheet.tsx:628
 msgid "Día ideal para que el creator publique."
 msgstr ""
 
@@ -2524,7 +2524,7 @@ msgstr ""
 msgid "El archivo supera los 5MB permitidos."
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:50
+#: src/features/offers/schemas/createOffer.ts:55
 msgid "El bono fijo tiene que ser mayor a 0"
 msgstr ""
 
@@ -2548,7 +2548,7 @@ msgstr ""
 msgid "El creator sabe cuánto cobra por entrega."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:770
+#: src/features/offers/components/SendOfferSidesheet.tsx:761
 msgid "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
 msgstr ""
 
@@ -2592,7 +2592,7 @@ msgstr ""
 msgid "El mismo que la suscripción"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:93
+#: src/features/offers/schemas/createOffer.ts:98
 msgid "El monto tiene que ser mayor a 0"
 msgstr ""
 
@@ -2609,15 +2609,15 @@ msgstr ""
 msgid "El plan que eligen equipos que miden creadores como canal performance."
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:46
+#: src/features/offers/schemas/createOffer.ts:51
 msgid "El porcentaje no puede superar 100"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:45
+#: src/features/offers/schemas/createOffer.ts:50
 msgid "El porcentaje tiene que ser mayor a 0"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:44
+#: src/features/offers/schemas/createOffer.ts:49
 msgid "El porcentaje tiene que ser un número entero"
 msgstr ""
 
@@ -2657,7 +2657,7 @@ msgstr ""
 msgid "Elegí un plan para continuar."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:478
+#: src/features/offers/components/SendOfferSidesheet.tsx:469
 msgid "Elegí una campaña"
 msgstr ""
 
@@ -2823,11 +2823,11 @@ msgstr ""
 msgid "Entregable completado"
 msgstr ""
 
-#: src/features/offers/components/OfferDeliverablesList.tsx:39
+#: src/features/offers/components/OfferDeliverablesList.tsx:36
 msgid "Entregables"
 msgstr ""
 
-#: src/features/offers/components/OfferDeliverablesList.tsx:38
+#: src/features/offers/components/OfferDeliverablesList.tsx:35
 msgid "Entregables por plataforma"
 msgstr ""
 
@@ -2852,14 +2852,14 @@ msgstr ""
 msgid "Enviá tus primeros invites (100 este mes)"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:40
+#: src/features/offers/components/CurrentOfferBlock.tsx:41
 #: src/features/offers/components/OfferArchiveItem.tsx:225
 msgid "Enviada"
 msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:173
 #: src/features/discovery/campaign-detail/AddCreatorDialog.tsx:170
-#: src/features/offers/components/SendOfferSidesheet.tsx:807
+#: src/features/offers/components/SendOfferSidesheet.tsx:798
 msgid "Enviando"
 msgstr ""
 
@@ -2876,7 +2876,7 @@ msgstr ""
 msgid "Enviar"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:90
+#: src/features/deliverables/components/DeliverableListItem.tsx:84
 msgid "Enviar link"
 msgstr ""
 
@@ -2886,9 +2886,9 @@ msgid "Enviar mensaje"
 msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:132
-#: src/features/offers/components/SendOfferSidesheet.tsx:378
-#: src/features/offers/components/SendOfferSidesheet.tsx:386
-#: src/features/offers/components/SendOfferSidesheet.tsx:806
+#: src/features/offers/components/SendOfferSidesheet.tsx:369
+#: src/features/offers/components/SendOfferSidesheet.tsx:377
+#: src/features/offers/components/SendOfferSidesheet.tsx:797
 msgid "Enviar oferta"
 msgstr ""
 
@@ -2896,7 +2896,7 @@ msgstr ""
 msgid "Enviar postulación"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:380
+#: src/features/offers/components/SendOfferSidesheet.tsx:371
 msgid "Enviar una oferta a {creatorName}"
 msgstr ""
 
@@ -2908,7 +2908,7 @@ msgstr ""
 msgid "Error al cargar el brief. Intentá de nuevo más tarde."
 msgstr ""
 
-#: src/features/offers/components/ConversationOffersPanel.tsx:96
+#: src/features/offers/components/ConversationOffersPanel.tsx:92
 msgid "Error al cargar entregables"
 msgstr ""
 
@@ -3063,7 +3063,7 @@ msgid "Estadísticas de campaña"
 msgstr ""
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:176
-#: src/features/offers/components/CurrentOfferBlock.tsx:267
+#: src/features/offers/components/CurrentOfferBlock.tsx:278
 msgid "Estado"
 msgstr ""
 
@@ -3144,7 +3144,7 @@ msgstr ""
 msgid "Estudio"
 msgstr ""
 
-#: src/features/chat/components/messageTimelineRenderers.tsx:192
+#: src/features/chat/components/messageTimelineRenderers.tsx:180
 msgid "Evento del sistema"
 msgstr ""
 
@@ -3156,7 +3156,7 @@ msgstr ""
 msgid "Expand offer"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:711
+#: src/features/offers/components/SendOfferSidesheet.tsx:702
 msgid "Expandir"
 msgstr ""
 
@@ -3165,7 +3165,7 @@ msgid "Expandir conversaciones"
 msgstr ""
 
 #: src/features/discovery/campaign-detail/InviteList.tsx:80
-#: src/features/offers/components/CurrentOfferBlock.tsx:43
+#: src/features/offers/components/CurrentOfferBlock.tsx:44
 #: src/features/offers/components/OfferArchiveItem.tsx:80
 msgid "Expirada"
 msgstr ""
@@ -3226,10 +3226,10 @@ msgstr ""
 msgid "Fecha"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:252
+#: src/features/offers/components/CurrentOfferBlock.tsx:263
 #: src/features/offers/components/OfferArchiveItem.tsx:234
-#: src/features/offers/components/SendOfferSidesheet.tsx:661
-#: src/features/offers/components/SendOfferSidesheet.tsx:666
+#: src/features/offers/components/SendOfferSidesheet.tsx:652
+#: src/features/offers/components/SendOfferSidesheet.tsx:657
 msgid "Fecha límite"
 msgstr ""
 
@@ -3237,7 +3237,7 @@ msgstr ""
 msgid "Fecha no disponible"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:620
+#: src/features/offers/components/SendOfferSidesheet.tsx:611
 msgid "Fechas"
 msgstr ""
 
@@ -3621,7 +3621,7 @@ msgstr ""
 msgid "Historial de pagos y cobros pendientes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:623
+#: src/features/offers/components/SendOfferSidesheet.tsx:614
 msgid "Hitos clave de esta oferta."
 msgstr ""
 
@@ -3785,8 +3785,8 @@ msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:61
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:21
-#: src/features/offers/components/CurrentOfferBlock.tsx:89
-#: src/features/offers/components/SendOfferSidesheet.tsx:134
+#: src/features/offers/components/CurrentOfferBlock.tsx:90
+#: src/features/offers/components/SendOfferSidesheet.tsx:125
 #: src/features/offers/utils/formatOffer.ts:15
 msgid "Instagram"
 msgstr ""
@@ -3944,7 +3944,7 @@ msgstr ""
 msgid "La configuración fue modificada en otra sesión, recargando."
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:120
+#: src/features/offers/schemas/createOffer.ts:125
 msgid "La fecha límite tiene que ser al menos 48 horas después de la publicación tentativa"
 msgstr ""
 
@@ -3952,7 +3952,7 @@ msgstr ""
 #~ msgid "La fecha límite tiene que ser igual o posterior a la publicación tentativa"
 #~ msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:109
+#: src/features/offers/schemas/createOffer.ts:114
 msgid "La fecha tentativa de publicación tiene que ser al menos dentro de cuatro días"
 msgstr ""
 
@@ -3969,7 +3969,7 @@ msgstr ""
 msgid "La marca pausó o cerró esta campaña. Podés cerrar el panel y seguir explorando."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:780
+#: src/features/offers/components/SendOfferSidesheet.tsx:771
 msgid "La marca puede cancelar antes de la aceptación. Después, requiere que se venza la fecha límite."
 msgstr ""
 
@@ -4012,7 +4012,7 @@ msgstr ""
 msgid "Las dos cosas"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:66
+#: src/features/offers/schemas/createOffer.ts:71
 msgid "Las horas tienen que ser un número entero"
 msgstr ""
 
@@ -4028,7 +4028,7 @@ msgstr ""
 msgid "Las marcas filtran por rango de edad. Nunca publicamos la fecha exacta."
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:128
+#: src/features/offers/schemas/createOffer.ts:133
 msgid "Las plataformas no pueden repetirse"
 msgstr ""
 
@@ -4087,17 +4087,17 @@ msgstr ""
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:47
 #: src/features/deliverables/components/DeliverableCard.tsx:126
 #: src/features/deliverables/components/DeliverableCard.tsx:152
-#: src/features/deliverables/components/LinkApprovedCard.tsx:65
+#: src/features/deliverables/components/LinkApprovedCard.tsx:55
 msgid "Link approved"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:311
-#: src/features/deliverables/components/DeliverableListItem.tsx:384
+#: src/features/deliverables/components/DeliverableListItem.tsx:288
+#: src/features/deliverables/components/DeliverableListItem.tsx:361
 msgid "Link aprobado"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:256
-#: src/features/deliverables/components/DeliverableListItem.tsx:395
+#: src/features/deliverables/components/DeliverableListItem.tsx:372
 msgid "Link enviado"
 msgstr ""
 
@@ -4105,7 +4105,7 @@ msgstr ""
 msgid "Link is no longer pending review."
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:172
+#: src/features/deliverables/components/DeliverableListItem.tsx:157
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:139
 msgid "Link publicado"
 msgstr ""
@@ -4195,11 +4195,11 @@ msgstr ""
 #~ msgid "Long Video"
 #~ msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:139
+#: src/features/offers/schemas/createOffer.ts:144
 msgid "Los bonos sólo están disponibles para un contenido único"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:100
+#: src/features/offers/components/SendOfferSidesheet.tsx:99
 msgid "Los bonos sólo están disponibles para un contenido único."
 msgstr ""
 
@@ -4290,8 +4290,7 @@ msgstr ""
 msgid "Marcar como leído"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:209
-#: src/features/offers/components/CurrentOfferBlock.tsx:300
+#: src/features/offers/components/CurrentOfferBlock.tsx:310
 #: src/features/payments/components/MarkAsPaidDialog.tsx:99
 #: src/features/payments/components/MarkAsPaidDialog.tsx:136
 msgid "Marcar como pagado"
@@ -4319,8 +4318,8 @@ msgid "Mark all as read"
 msgstr ""
 
 #: src/features/deliverables/components/LinkApprovedCard.tsx:116
-msgid "Mark as paid"
-msgstr ""
+#~ msgid "Mark as paid"
+#~ msgstr ""
 
 #: src/features/identity/auth/components/CallbackScreen.tsx:104
 #: src/features/identity/auth/components/MagicSentScreen.tsx:95
@@ -4411,7 +4410,7 @@ msgstr ""
 msgid "Máx. seguidores"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:68
+#: src/features/offers/schemas/createOffer.ts:73
 msgid "Máximo 720 horas"
 msgstr ""
 
@@ -4523,7 +4522,7 @@ msgstr ""
 msgid "Mindfulness"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:67
+#: src/features/offers/schemas/createOffer.ts:72
 msgid "Mínimo 1 hora"
 msgstr ""
 
@@ -4547,7 +4546,7 @@ msgstr ""
 msgid "mismo contenido"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:74
+#: src/features/offers/components/CurrentOfferBlock.tsx:75
 msgid "Mismo contenido"
 msgstr ""
 
@@ -4577,7 +4576,7 @@ msgstr ""
 msgid "modelo de pago"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:231
+#: src/features/offers/components/CurrentOfferBlock.tsx:242
 msgid "Modo"
 msgstr ""
 
@@ -4590,7 +4589,7 @@ msgid "Monthly paid earnings"
 msgstr ""
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:173
-#: src/features/offers/components/SendOfferSidesheet.tsx:500
+#: src/features/offers/components/SendOfferSidesheet.tsx:491
 #: src/features/payments/components/BrandPaymentsTable.tsx:52
 #: src/features/payments/components/MarkAsPaidDialog.tsx:107
 msgid "Monto"
@@ -4871,7 +4870,7 @@ msgstr ""
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:407
+#: src/features/offers/components/SendOfferSidesheet.tsx:398
 #: src/routes/_brand/campaigns.index.tsx:49
 msgid "No pudimos cargar tus campañas. Intentá de nuevo."
 msgstr ""
@@ -4994,7 +4993,7 @@ msgstr ""
 msgid "No tenés bonos pendientes por ahora."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:419
+#: src/features/offers/components/SendOfferSidesheet.tsx:410
 msgid "No tenés campañas activas para enviar ofertas."
 msgstr ""
 
@@ -5135,7 +5134,7 @@ msgstr ""
 msgid "Oferta aceptada"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:215
+#: src/features/offers/components/CurrentOfferBlock.tsx:226
 msgid "Oferta actual"
 msgstr ""
 
@@ -5160,7 +5159,7 @@ msgstr ""
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
 #: src/features/chat/components/systemEvents/OfferSentCard.tsx:18
 #: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
-#: src/features/offers/components/SendOfferSidesheet.tsx:224
+#: src/features/offers/components/SendOfferSidesheet.tsx:215
 msgid "Oferta enviada"
 msgstr ""
 
@@ -5321,7 +5320,7 @@ msgstr ""
 msgid "Pagada"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:58
+#: src/features/offers/components/CurrentOfferBlock.tsx:59
 msgid "Pagada en total"
 msgstr ""
 
@@ -5355,7 +5354,7 @@ msgstr ""
 msgid "Pago no visible en mensajes recientes"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:65
+#: src/features/offers/components/CurrentOfferBlock.tsx:66
 msgid "Pago parcial ({paidCount}/{total})"
 msgstr ""
 
@@ -5399,7 +5398,7 @@ msgstr ""
 msgid "Países (código ISO 2 letras)"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:389
+#: src/features/offers/components/SendOfferSidesheet.tsx:380
 msgid "Para {creatorName}"
 msgstr ""
 
@@ -5584,7 +5583,7 @@ msgstr "Plans"
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:484
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:136
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:444
-#: src/features/offers/components/CurrentOfferBlock.tsx:260
+#: src/features/offers/components/CurrentOfferBlock.tsx:271
 msgid "Plataformas"
 msgstr ""
 
@@ -5608,7 +5607,7 @@ msgstr ""
 msgid "Podés agregar contexto..."
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:328
+#: src/features/offers/components/CurrentOfferBlock.tsx:339
 msgid "Podés cancelar la oferta a partir de la fecha límite."
 msgstr ""
 
@@ -5624,7 +5623,7 @@ msgstr ""
 msgid "por plataforma"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:74
+#: src/features/offers/components/CurrentOfferBlock.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:47
 msgid "Por plataforma"
 msgstr ""
@@ -5710,7 +5709,7 @@ msgid "Premiá milestones de views alcanzados dentro de una ventana."
 msgstr ""
 
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:57
-#: src/features/offers/components/CurrentOfferBlock.tsx:237
+#: src/features/offers/components/CurrentOfferBlock.tsx:248
 msgid "Presupuesto"
 msgstr ""
 
@@ -5815,14 +5814,14 @@ msgstr ""
 msgid "Publica en menos de {hours} h"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:244
+#: src/features/offers/components/CurrentOfferBlock.tsx:255
 #: src/features/offers/components/OfferArchiveItem.tsx:228
-#: src/features/offers/components/SendOfferSidesheet.tsx:636
-#: src/features/offers/components/SendOfferSidesheet.tsx:641
+#: src/features/offers/components/SendOfferSidesheet.tsx:627
+#: src/features/offers/components/SendOfferSidesheet.tsx:632
 msgid "Publicación tentativa"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:540
+#: src/features/offers/components/SendOfferSidesheet.tsx:531
 msgid "Publicar en"
 msgstr ""
 
@@ -5900,7 +5899,7 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:137
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:109
-#: src/features/offers/components/CurrentOfferBlock.tsx:42
+#: src/features/offers/components/CurrentOfferBlock.tsx:43
 #: src/features/offers/components/OfferArchiveItem.tsx:79
 #: src/features/offers/components/OfferArchiveItem.tsx:113
 #: src/features/offers/components/OfferArchiveItem.tsx:252
@@ -5908,17 +5907,17 @@ msgid "Rechazada"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:22
-#: src/features/deliverables/components/DeliverableListItem.tsx:392
+#: src/features/deliverables/components/DeliverableListItem.tsx:369
 msgid "Rechazado"
 msgstr ""
 
-#: src/features/offers/components/CurrentOfferBlock.tsx:371
+#: src/features/offers/components/CurrentOfferBlock.tsx:383
 msgid "Rechazando…"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:144
-#: src/features/deliverables/components/DeliverableListItem.tsx:371
-#: src/features/offers/components/CurrentOfferBlock.tsx:371
+#: src/features/deliverables/components/DeliverableListItem.tsx:348
+#: src/features/offers/components/CurrentOfferBlock.tsx:383
 msgid "Rechazar"
 msgstr ""
 
@@ -5962,7 +5961,7 @@ msgstr ""
 msgid "Reenviando…"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:90
+#: src/features/deliverables/components/DeliverableListItem.tsx:84
 #: src/features/identity/auth/components/MagicSentScreen.tsx:138
 msgid "Reenviar link"
 msgstr ""
@@ -6010,7 +6009,7 @@ msgstr ""
 #: src/features/chat/workspace/ConversationRail.tsx:130
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
 #: src/features/inbox/InboxPage.tsx:172
-#: src/features/offers/components/SendOfferSidesheet.tsx:413
+#: src/features/offers/components/SendOfferSidesheet.tsx:404
 #: src/routes/_brand/campaigns.index.tsx:55
 #: src/routes/_brand/campaigns.new.tsx:103
 #: src/routes/_brand/checkout-return.tsx:112
@@ -6267,7 +6266,7 @@ msgstr ""
 msgid "Según el periodo seleccionado"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:102
+#: src/features/offers/schemas/createOffer.ts:107
 msgid "Seleccioná al menos una plataforma"
 msgstr ""
 
@@ -6617,7 +6616,7 @@ msgstr ""
 msgid "Solicitar cambios en el draft"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:365
+#: src/features/deliverables/components/DeliverableListItem.tsx:342
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:187
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:191
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:197
@@ -6774,13 +6773,13 @@ msgstr ""
 msgid "Subiendo…"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:98
+#: src/features/deliverables/components/DeliverableListItem.tsx:92
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
 #: src/features/deliverables/components/UploadDraftDialog.tsx:140
 msgid "Subir draft"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:98
+#: src/features/deliverables/components/DeliverableListItem.tsx:92
 msgid "Subir draft v{nextVersion}"
 msgstr ""
 
@@ -6971,8 +6970,8 @@ msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:62
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:31
-#: src/features/offers/components/CurrentOfferBlock.tsx:90
-#: src/features/offers/components/SendOfferSidesheet.tsx:135
+#: src/features/offers/components/CurrentOfferBlock.tsx:91
+#: src/features/offers/components/SendOfferSidesheet.tsx:126
 #: src/features/offers/utils/formatOffer.ts:16
 msgid "TikTok"
 msgstr ""
@@ -7056,7 +7055,7 @@ msgstr ""
 msgid "Todavía no hay invitaciones"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:303
+#: src/features/deliverables/components/DeliverableListItem.tsx:280
 msgid "Todavía no hay link."
 msgstr ""
 
@@ -7175,7 +7174,7 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: src/features/chat/components/messageTimelineRenderers.tsx:62
+#: src/features/chat/components/messageTimelineRenderers.tsx:55
 #: src/features/deliverables/components/DraftApprovedCard.tsx:42
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:157
 #: src/features/deliverables/components/RequestChangesCard.tsx:172
@@ -7329,7 +7328,7 @@ msgstr ""
 msgid "Última"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:662
+#: src/features/offers/components/SendOfferSidesheet.tsx:653
 msgid "Último día válido para publicar."
 msgstr ""
 
@@ -7341,12 +7340,12 @@ msgstr ""
 msgid "Un contenido"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:591
-#: src/features/offers/components/SendOfferSidesheet.tsx:598
+#: src/features/offers/components/SendOfferSidesheet.tsx:582
+#: src/features/offers/components/SendOfferSidesheet.tsx:589
 msgid "Un contenido para todas las redes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:501
+#: src/features/offers/components/SendOfferSidesheet.tsx:492
 msgid "Un único monto para las plataformas seleccionadas."
 msgstr ""
 
@@ -7358,7 +7357,7 @@ msgstr ""
 msgid "Una foto para tu perfil"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:441
+#: src/features/offers/components/SendOfferSidesheet.tsx:432
 msgid "Una oferta · monto y fechas unificados"
 msgstr ""
 
@@ -7413,8 +7412,8 @@ msgstr ""
 msgid "Uruguay"
 msgstr ""
 
-#: src/features/offers/schemas/createOffer.ts:96
-#: src/features/offers/schemas/createOffer.ts:99
+#: src/features/offers/schemas/createOffer.ts:101
+#: src/features/offers/schemas/createOffer.ts:104
 msgid "Usá el formato AAAA-MM-DD"
 msgstr ""
 
@@ -7456,7 +7455,7 @@ msgstr ""
 #~ msgid "v{0}"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:126
+#: src/features/deliverables/components/DeliverableListItem.tsx:111
 msgid "v{currentVersion}"
 msgstr ""
 
@@ -7553,11 +7552,11 @@ msgstr ""
 msgid "Versión {version}"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:252
+#: src/features/deliverables/components/DeliverableListItem.tsx:229
 msgid "Versiones enviadas"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:251
+#: src/features/deliverables/components/DeliverableListItem.tsx:228
 msgid "Versiones enviadas ({draftsCount})"
 msgstr ""
 
@@ -7768,8 +7767,8 @@ msgid "You sent these · they're with the other side"
 msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:60
-#: src/features/offers/components/CurrentOfferBlock.tsx:88
-#: src/features/offers/components/SendOfferSidesheet.tsx:136
+#: src/features/offers/components/CurrentOfferBlock.tsx:89
+#: src/features/offers/components/SendOfferSidesheet.tsx:127
 #: src/features/offers/utils/formatOffer.ts:14
 msgid "YouTube"
 msgstr ""

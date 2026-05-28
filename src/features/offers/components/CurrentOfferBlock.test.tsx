@@ -1,5 +1,5 @@
-import type { ReactElement } from 'react'
-import { afterEach, describe, it, expect, vi } from 'vitest'
+import type { ReactElement, ReactNode } from 'react'
+import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -27,6 +27,17 @@ vi.mock('@lingui/core/macro', () => ({
     { __lingui: true },
   ),
 }))
+
+const mockUseMe = vi.fn()
+vi.mock('#/shared/api/generated/accounts/accounts', () => ({
+  useMe: () => mockUseMe(),
+}))
+
+function mockWorkspacePlan(plan: 'free' | 'starter' | 'growth' | 'scale') {
+  mockUseMe.mockReturnValue({
+    data: { status: 200, data: { kind: 'brand', brand_workspace: { plan } } },
+  })
+}
 
 const base = {
   id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
@@ -113,6 +124,10 @@ const defaultProps = {
 }
 
 describe('CurrentOfferBlock', () => {
+  beforeEach(() => {
+    mockWorkspacePlan('free')
+  })
+
   afterEach(() => {
     vi.useRealTimers()
   })
@@ -126,7 +141,7 @@ describe('CurrentOfferBlock', () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     })
-    const wrapper = ({ children }: { children: ReactElement }) => (
+    const wrapper = ({ children }: { children: ReactNode }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     )
     const { rerender } = render(
@@ -266,6 +281,62 @@ describe('CurrentOfferBlock', () => {
       expect(screen.getAllByText(expectedLabel)).not.toHaveLength(0)
     },
   )
+
+  it('shows Mark as paid and hides cancel for a free, fully delivered offer', () => {
+    const accepted: OfferDTO = { ...sameContentOffer, status: 'accepted' }
+    renderWithQuery(
+      <CurrentOfferBlock
+        offer={accepted}
+        {...defaultProps}
+        deliverables={makeDeliverables(['completed'])}
+        onMarkAsPaid={() => {}}
+      />,
+    )
+    expect(
+      screen.getByRole('button', { name: 'Marcar como pagado' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /Cancelar oferta/i }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('hides Mark as paid for a paid-plan brand (settled via Stripe)', () => {
+    mockWorkspacePlan('growth')
+    const accepted: OfferDTO = { ...sameContentOffer, status: 'accepted' }
+    renderWithQuery(
+      <CurrentOfferBlock
+        offer={accepted}
+        {...defaultProps}
+        deliverables={makeDeliverables(['completed'])}
+        onMarkAsPaid={() => {}}
+      />,
+    )
+    expect(
+      screen.queryByRole('button', { name: 'Marcar como pagado' }),
+    ).not.toBeInTheDocument()
+    // Cancel remains available since mark-as-paid is not shown.
+    expect(
+      screen.getByRole('button', { name: /Cancelar oferta/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('shows cancel (not Mark as paid) when an accepted offer is not yet delivered', () => {
+    const accepted: OfferDTO = { ...sameContentOffer, status: 'accepted' }
+    renderWithQuery(
+      <CurrentOfferBlock
+        offer={accepted}
+        {...defaultProps}
+        deliverables={makeDeliverables(['link_submitted'])}
+        onMarkAsPaid={() => {}}
+      />,
+    )
+    expect(
+      screen.queryByRole('button', { name: 'Marcar como pagado' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Cancelar oferta/i }),
+    ).toBeInTheDocument()
+  })
 
   it('is axe-clean', async () => {
     const { container } = renderWithQuery(

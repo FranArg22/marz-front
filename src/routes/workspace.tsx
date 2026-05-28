@@ -73,11 +73,9 @@ export const Route = createFileRoute('/workspace')({
     }
 
     const sessionKind: 'brand' | 'creator' = me.kind
-    const membershipRole = 'membership' in me ? me.membership?.role : undefined
     return {
       accountId: me.id,
       sessionKind,
-      viewerRole: sessionKind === 'brand' ? membershipRole : undefined,
     }
   },
   component: WorkspaceRoute,

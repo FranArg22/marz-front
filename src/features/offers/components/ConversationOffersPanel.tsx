@@ -5,7 +5,6 @@ import { ContextPanel } from '#/shared/ui/ContextPanel'
 import { useConversationOffersPaginated } from '#/features/offers/hooks/useConversationOffers'
 import { useGetConversationDeliverablesQuery } from '#/features/deliverables/api/conversationDeliverables'
 import { useMe } from '#/shared/api/generated/accounts/accounts'
-import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import type { MarkAsPaidOffer } from '#/shared/payments/markAsPaidEligibility'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
 import { CurrentOfferBlock } from './CurrentOfferBlock'
@@ -15,7 +14,6 @@ import { OffersArchiveBlock } from './OffersArchiveBlock'
 interface ConversationOffersPanelProps {
   conversationId: string
   sessionKind: 'brand' | 'creator'
-  viewerRole?: MarkAsPaidViewer['role']
   onUploadDraft: (deliverableId: string) => void
   onMarkAsPaid?: (offer: MarkAsPaidOffer) => void
   onSubmitLink?: (deliverableId: string, isResubmission: boolean) => void
@@ -27,7 +25,6 @@ interface ConversationOffersPanelProps {
 export function ConversationOffersPanel({
   conversationId,
   sessionKind,
-  viewerRole,
   onUploadDraft,
   onMarkAsPaid,
   onSubmitLink,
@@ -69,7 +66,6 @@ export function ConversationOffersPanel({
             conversationId={conversationId}
             deliverables={deliverables}
             sessionKind={sessionKind}
-            viewerRole={viewerRole}
             onUploadDraft={onUploadDraft}
             onMarkAsPaid={onMarkAsPaid}
             onSubmitLink={onSubmitLink}

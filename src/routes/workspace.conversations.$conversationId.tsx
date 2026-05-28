@@ -39,7 +39,7 @@ function ConversationRoute() {
   const { conversationId } = Route.useParams()
   const search = Route.useSearch()
   const { highlightPaymentId } = search
-  const { accountId, sessionKind, viewerRole } = Route.useRouteContext()
+  const { accountId, sessionKind } = Route.useRouteContext()
   const navigate = useNavigate({
     from: '/workspace/conversations/$conversationId',
   })
@@ -138,7 +138,6 @@ function ConversationRoute() {
           conversationId={conversationId}
           currentAccountId={accountId}
           sessionKind={sessionKind}
-          viewerRole={viewerRole}
           onUploadDraft={setUploadDeliverableId}
           highlightPaymentId={highlightPaymentId}
         />
@@ -146,7 +145,6 @@ function ConversationRoute() {
       <ConversationOffersPanel
         conversationId={conversationId}
         sessionKind={sessionKind}
-        viewerRole={viewerRole}
         onUploadDraft={setUploadDeliverableId}
         onMarkAsPaid={setPaymentOffer}
         onSubmitLink={handleSubmitLink}

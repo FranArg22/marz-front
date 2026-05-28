@@ -106,7 +106,6 @@ function renderConversationRoute(search: Record<string, unknown>) {
   routeMocks.useRouteContext.mockReturnValue({
     accountId: 'account_1',
     sessionKind: 'brand',
-    viewerRole: 'owner',
   })
 
   const Component = Route.options.component as React.ComponentType

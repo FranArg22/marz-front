@@ -19,8 +19,6 @@ import type {
 import type { DraftDTO, SocialPlatform } from '#/shared/api/generated/model'
 import { useDeliverableLinks } from '#/features/deliverables/hooks/useDeliverableLinks'
 import { useApproveLink } from '#/features/deliverables/hooks/useApproveLink'
-import { canMarkDeliverableAsPaid } from '#/shared/payments/markAsPaidPermissions'
-import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { DraftVersionList } from './DraftVersionList'
 import { useListDrafts } from '#/shared/api/generated/deliverables/deliverables'
 import { DeliverableStatusBadge } from './DeliverableStatusBadge'
@@ -47,18 +45,14 @@ const nonUploadableStatuses: ReadonlySet<DeliverableDTO['status']> = new Set([
 export interface DeliverableListItemProps {
   deliverable: DeliverableDTO
   sessionKind: 'brand' | 'creator'
-  viewerRole?: MarkAsPaidViewer['role']
   onUploadDraft: (deliverableId: string) => void
-  onMarkAsPaid?: (deliverableId: string) => void
   onSubmitLink?: (deliverableId: string, isResubmission: boolean) => void
 }
 
 export function DeliverableListItem({
   deliverable,
   sessionKind,
-  viewerRole,
   onUploadDraft,
-  onMarkAsPaid,
   onSubmitLink,
 }: DeliverableListItemProps) {
   const PlatformIcon = platformIcon[deliverable.platform]
@@ -99,15 +93,6 @@ export function DeliverableListItem({
 
   const handleUploadClick = () => {
     onUploadDraft(deliverable.id)
-  }
-
-  const canMarkAsPaid = canMarkDeliverableAsPaid({
-    viewer: { kind: sessionKind, role: viewerRole },
-    deliverableStatus: deliverable.status,
-  })
-
-  const handleMarkAsPaidClick = () => {
-    onMarkAsPaid?.(deliverable.id)
   }
 
   const handleSubmitLinkClick = () => {
@@ -199,14 +184,6 @@ export function DeliverableListItem({
         >
           <LinkIcon className="size-3.5" />
           {submitLinkLabel}
-        </button>
-      ) : canMarkAsPaid ? (
-        <button
-          type="button"
-          onClick={handleMarkAsPaidClick}
-          className="flex w-full items-center justify-center rounded-full border border-border bg-transparent px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
-        >
-          {t`Marcar como pagado`}
         </button>
       ) : null}
     </div>
