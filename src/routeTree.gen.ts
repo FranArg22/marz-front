@@ -31,6 +31,7 @@ import { Route as CreatorEarningsRouteImport } from './routes/_creator/earnings'
 import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
 import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
+import { Route as BrandCheckoutReturnRouteImport } from './routes/_brand/checkout-return'
 import { Route as BrandCampaignsRouteImport } from './routes/_brand/campaigns'
 import { Route as BrandBillingRouteImport } from './routes/_brand/billing'
 import { Route as OnboardingCreatorIndexRouteImport } from './routes/onboarding/creator.index'
@@ -158,6 +159,11 @@ const BrandCreatorsRoute = BrandCreatorsRouteImport.update({
   path: '/creators',
   getParentRoute: () => BrandRoute,
 } as any)
+const BrandCheckoutReturnRoute = BrandCheckoutReturnRouteImport.update({
+  id: '/checkout-return',
+  path: '/checkout-return',
+  getParentRoute: () => BrandRoute,
+} as any)
 const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
   id: '/campaigns',
   path: '/campaigns',
@@ -267,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/workspace': typeof WorkspaceRouteWithChildren
   '/billing': typeof BrandBillingRoute
   '/campaigns': typeof BrandCampaignsRouteWithChildren
+  '/checkout-return': typeof BrandCheckoutReturnRoute
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
@@ -305,6 +312,7 @@ export interface FileRoutesByTo {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/billing': typeof BrandBillingRoute
+  '/checkout-return': typeof BrandCheckoutReturnRoute
   '/creators': typeof BrandCreatorsRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
@@ -344,6 +352,7 @@ export interface FileRoutesById {
   '/workspace': typeof WorkspaceRouteWithChildren
   '/_brand/billing': typeof BrandBillingRoute
   '/_brand/campaigns': typeof BrandCampaignsRouteWithChildren
+  '/_brand/checkout-return': typeof BrandCheckoutReturnRoute
   '/_brand/creators': typeof BrandCreatorsRoute
   '/_brand/payments': typeof BrandPaymentsRoute
   '/_brand/videos': typeof BrandVideosRoute
@@ -386,6 +395,7 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/billing'
     | '/campaigns'
+    | '/checkout-return'
     | '/creators'
     | '/payments'
     | '/videos'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/billing'
+    | '/checkout-return'
     | '/creators'
     | '/payments'
     | '/videos'
@@ -462,6 +473,7 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/_brand/billing'
     | '/_brand/campaigns'
+    | '/_brand/checkout-return'
     | '/_brand/creators'
     | '/_brand/payments'
     | '/_brand/videos'
@@ -668,6 +680,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandCreatorsRouteImport
       parentRoute: typeof BrandRoute
     }
+    '/_brand/checkout-return': {
+      id: '/_brand/checkout-return'
+      path: '/checkout-return'
+      fullPath: '/checkout-return'
+      preLoaderRoute: typeof BrandCheckoutReturnRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/_brand/campaigns': {
       id: '/_brand/campaigns'
       path: '/campaigns'
@@ -863,6 +882,7 @@ const BrandCampaignsRouteWithChildren = BrandCampaignsRoute._addFileChildren(
 interface BrandRouteChildren {
   BrandBillingRoute: typeof BrandBillingRoute
   BrandCampaignsRoute: typeof BrandCampaignsRouteWithChildren
+  BrandCheckoutReturnRoute: typeof BrandCheckoutReturnRoute
   BrandCreatorsRoute: typeof BrandCreatorsRoute
   BrandPaymentsRoute: typeof BrandPaymentsRoute
   BrandVideosRoute: typeof BrandVideosRoute
@@ -871,6 +891,7 @@ interface BrandRouteChildren {
 const BrandRouteChildren: BrandRouteChildren = {
   BrandBillingRoute: BrandBillingRoute,
   BrandCampaignsRoute: BrandCampaignsRouteWithChildren,
+  BrandCheckoutReturnRoute: BrandCheckoutReturnRoute,
   BrandCreatorsRoute: BrandCreatorsRoute,
   BrandPaymentsRoute: BrandPaymentsRoute,
   BrandVideosRoute: BrandVideosRoute,

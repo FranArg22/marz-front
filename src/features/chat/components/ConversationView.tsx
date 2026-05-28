@@ -26,14 +26,11 @@ import { MessageTimeline } from './MessageTimeline'
 import { MessageComposer } from './MessageComposer'
 import { NewMessagesPill } from './NewMessagesPill'
 import { TypingIndicator } from './TypingIndicator'
-import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 
 interface ConversationViewProps {
   conversationId: string
   currentAccountId: string
   sessionKind: 'brand' | 'creator' | undefined
-  viewerRole?: MarkAsPaidViewerRole
-  onMarkAsPaid?: (deliverableId: string) => void
   onUploadDraft?: (deliverableId: string) => void
   highlightPaymentId?: string
 }
@@ -42,8 +39,6 @@ export function ConversationView({
   conversationId,
   currentAccountId,
   sessionKind,
-  viewerRole,
-  onMarkAsPaid,
   onUploadDraft,
   highlightPaymentId,
 }: ConversationViewProps) {
@@ -163,8 +158,6 @@ export function ConversationView({
           conversationId={conversationId}
           currentAccountId={currentAccountId}
           sessionKind={sessionKind}
-          viewerRole={viewerRole}
-          onMarkAsPaid={onMarkAsPaid}
           onUploadDraft={onUploadDraft}
           highlightPaymentId={highlightPaymentId}
           onAtBottomStateChange={onAtBottomStateChange}

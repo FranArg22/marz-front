@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-05-27T00:14:58.690350Z",
+  "depends_on": [
+    "fn-25-feat-027-paid-offer-charge-capture.5"
+  ],
+  "epic": "fn-25-feat-027-paid-offer-charge-capture",
+  "id": "fn-25-feat-027-paid-offer-charge-capture.7",
+  "priority": null,
+  "spec_path": ".flow/tasks/fn-25-feat-027-paid-offer-charge-capture.7.md",
+  "status": "todo",
+  "title": "Conversation + Inbox: manejar ?send_offer_result (toast + limpiar param)",
+  "updated_at": "2026-05-27T00:14:58.690374Z"
+}

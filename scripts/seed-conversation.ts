@@ -83,6 +83,31 @@ if (conv.campaign_id) {
   console.log(`   campaign_id:     ${conv.campaign_id}`)
 }
 
+// La brand arranca en un plan pago real (Stripe test: customer + pm_card_visa +
+// subscription) para que pueda mandar offers pagas / charge-on-send sin el
+// Checkout manual. `--plan=free` lo saltea (queda free, manda offers declarativas).
+const plan = arg('plan') ?? 'growth'
+if (plan !== 'free') {
+  console.log(
+    `2b. Poner la brand en plan "${plan}" (Stripe test subscription)...`,
+  )
+  const sub = await back<{ status: string; stripe_subscription_id?: string }>(
+    env,
+    '/v1/test/billing/subscription',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        brand_workspace_id: conv.brand_workspace_id,
+        email: brandEmail,
+        plan,
+      }),
+    },
+  )
+  console.log(
+    `   billing: ${sub.status}${sub.stripe_subscription_id ? ` (${sub.stripe_subscription_id})` : ''}`,
+  )
+}
+
 console.log('3. clerkSetup() — fetch testing token...')
 await clerkSetup()
 

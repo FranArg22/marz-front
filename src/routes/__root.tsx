@@ -88,7 +88,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (import.meta.env.DEV && !import.meta.env.VITE_E2E) {
+    // VITE_DEVTOOLS opts a production build (e.g. the NUC mirror) into react-grab
+    // without shipping it to real prod (Vercel never sets the flag).
+    if (
+      (import.meta.env.DEV || import.meta.env.VITE_DEVTOOLS) &&
+      !import.meta.env.VITE_E2E
+    ) {
       void import('react-grab')
     }
   }, [])

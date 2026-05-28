@@ -41,6 +41,8 @@ export function useConversationOffersPaginated(conversationId: string) {
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
     staleTime: 30_000,
+    // Refetch on tab focus (once stale) as a safety net beyond the WS.
+    refetchOnWindowFocus: true,
   })
 
   const current: OfferDetailDTO | null =

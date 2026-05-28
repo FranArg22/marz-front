@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { DeliverableListItem } from './DeliverableListItem'
@@ -40,7 +39,6 @@ function renderItem(
   props?: Partial<Parameters<typeof DeliverableListItem>[0]>,
 ) {
   const onUploadDraft = vi.fn()
-  const onMarkAsPaid = vi.fn()
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   })
@@ -49,51 +47,18 @@ function renderItem(
       <DeliverableListItem
         deliverable={makeDeliverable()}
         sessionKind="brand"
-        viewerRole="owner"
         onUploadDraft={onUploadDraft}
-        onMarkAsPaid={onMarkAsPaid}
         {...props}
       />
     </QueryClientProvider>,
   )
-  return { onUploadDraft, onMarkAsPaid }
+  return { onUploadDraft }
 }
 
 describe('DeliverableListItem', () => {
-  it.each([
-    ['brand owner', 'brand' as const, 'owner' as const, true],
-    ['brand member', 'brand' as const, 'member' as const, true],
-    ['brand admin', 'brand' as const, 'admin' as const, true],
-    ['creator', 'creator' as const, undefined, false],
-  ])(
-    'shows Mark as paid for %s only when allowed',
-    (_label, sessionKind, viewerRole, visible) => {
-      renderItem({ sessionKind, viewerRole })
-
-      const button = screen.queryByRole('button', {
-        name: /marcar como pagado/i,
-      })
-      expect(Boolean(button)).toBe(visible)
-    },
-  )
-
-  it('renders Paid badge without the action when status is paid', () => {
+  it('renders the status badge for a paid deliverable', () => {
     renderItem({ deliverable: makeDeliverable({ status: 'paid' }) })
 
     expect(screen.getByText('Pagado')).toBeInTheDocument()
-    expect(
-      screen.queryByRole('button', { name: /marcar como pagado/i }),
-    ).not.toBeInTheDocument()
-  })
-
-  it('calls onMarkAsPaid with the deliverable id', async () => {
-    const user = userEvent.setup()
-    const { onMarkAsPaid } = renderItem()
-
-    await user.click(
-      screen.getByRole('button', { name: /marcar como pagado/i }),
-    )
-
-    expect(onMarkAsPaid).toHaveBeenCalledWith('del-1')
   })
 })

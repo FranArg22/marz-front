@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -21,7 +20,6 @@ vi.mock('@lingui/core/macro', () => ({
 
 const subscriptionMock = vi.fn()
 const mutateMock = vi.fn()
-const trackBillingEventMock = vi.hoisted(() => vi.fn())
 let isPending = false
 
 vi.mock('../hooks/useBillingSubscription', () => ({
@@ -35,8 +33,10 @@ vi.mock('../hooks/useCreatePortalSession', () => ({
   }),
 }))
 
-vi.mock('../analytics', () => ({
-  trackBillingEvent: (...args: unknown[]) => trackBillingEventMock(...args),
+// Payment-method management is covered by PaymentMethodsCard.test; stub it here
+// so BillingPage tests focus on the per-status views and plan details.
+vi.mock('./PaymentMethodsCard', () => ({
+  PaymentMethodsCard: () => null,
 }))
 
 const toastErrorMock = vi.fn()
@@ -118,7 +118,6 @@ describe('BillingPage', () => {
       screen.getByRole('heading', { name: /período de prueba/i }),
     ).toBeInTheDocument()
     expect(screen.getByText(/termina en 5 días/i)).toBeInTheDocument()
-    expect(screen.getByText(/visa •••• 4242/i)).toBeInTheDocument()
   })
 
   it('renders active block with plan and next invoice', () => {
@@ -130,86 +129,6 @@ describe('BillingPage', () => {
     ).toBeInTheDocument()
     expect(screen.getByText(/Starter \(mensual\)/i)).toBeInTheDocument()
     expect(screen.getByText(/\$49\.00/)).toBeInTheDocument()
-  })
-
-  it('renders combined payment method card and hides duplicated card row when same_payment_method is true', () => {
-    setSubscription(
-      baseSubscription({
-        same_payment_method: true,
-        subscription_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
-        offers_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
-      }),
-    )
-
-    render(<BillingPage />, { wrapper })
-
-    expect(
-      screen.getAllByText(/Se usa para suscripción y pagos a creators/i),
-    ).toHaveLength(1)
-    expect(screen.getByText(/Método de pago/i)).toBeInTheDocument()
-    expect(screen.queryByText(/^Tarjeta$/i)).not.toBeInTheDocument()
-  })
-
-  it('renders separated payment method cards and keeps card row when same_payment_method is false', () => {
-    setSubscription(
-      baseSubscription({
-        same_payment_method: false,
-        subscription_payment_method: {
-          stripe_payment_method_id: 'pm_test_visa',
-          card_brand: 'visa',
-          card_last4: '4242',
-        },
-        offers_payment_method: {
-          stripe_payment_method_id: 'pm_test_mastercard',
-          card_brand: 'mastercard',
-          card_last4: '4444',
-        },
-      }),
-    )
-
-    render(<BillingPage />, { wrapper })
-
-    expect(
-      screen.getByText(/Método de pago de la suscripción/i),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByText(/Método de pago para pagos a creators/i),
-    ).toBeInTheDocument()
-    expect(screen.getByText(/^Tarjeta$/i)).toBeInTheDocument()
-  })
-
-  it("tracks offers payment method block view on mount", () => {
-    setSubscription(baseSubscription({ status: 'active' }))
-
-    render(<BillingPage />, { wrapper })
-
-    expect(trackBillingEventMock).toHaveBeenCalledWith(
-      'offers_payment_method_viewed',
-    )
-  })
-
-  it("tracks offers payment method portal click from card", async () => {
-    const user = userEvent.setup()
-    setSubscription(baseSubscription({ status: 'active' }))
-
-    render(<BillingPage />, { wrapper })
-    await user.click(
-      screen.getByRole('button', {
-        name: /Gestionar Método de pago en Stripe/i,
-      }),
-    )
-
-    expect(trackBillingEventMock).toHaveBeenCalledWith(
-      'offers_payment_method_portal_opened',
-    )
   })
 
   it('renders past_due block with destructive CTA', () => {
@@ -246,52 +165,5 @@ describe('BillingPage', () => {
 
     expect(screen.queryByText(/Detalle del plan/i)).not.toBeInTheDocument()
     expect(screen.getByRole('status')).toBeInTheDocument()
-  })
-
-  it('invokes portal mutation and redirects on success', async () => {
-    const user = userEvent.setup()
-    setSubscription(baseSubscription({ status: 'active' }))
-
-    mutateMock.mockImplementation((_args, handlers) => {
-      handlers.onSuccess({
-        status: 201,
-        data: { portal_url: 'https://billing.stripe.com/abc' },
-      })
-    })
-
-    render(<BillingPage />, { wrapper })
-    await user.click(
-      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
-    )
-
-    await waitFor(() => {
-      expect(mutateMock).toHaveBeenCalledTimes(1)
-    })
-    expect(mutateMock.mock.calls[0]?.[0]).toEqual({
-      data: { return_url: 'http://localhost:3000/billing' },
-    })
-    expect(window.location.assign).toHaveBeenCalledWith(
-      'https://billing.stripe.com/abc',
-    )
-  })
-
-  it('shows toast on mutation error', async () => {
-    const user = userEvent.setup()
-    setSubscription(baseSubscription({ status: 'active' }))
-
-    mutateMock.mockImplementation((_args, handlers) => {
-      handlers.onError(new Error('boom'))
-    })
-
-    render(<BillingPage />, { wrapper })
-    await user.click(
-      screen.getByRole('button', { name: /Gestionar Método de pago en Stripe/i }),
-    )
-
-    await waitFor(() => {
-      expect(toastErrorMock).toHaveBeenCalledWith(
-        expect.stringMatching(/Stripe no responde/i),
-      )
-    })
   })
 })

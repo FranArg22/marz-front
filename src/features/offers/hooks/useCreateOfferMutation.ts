@@ -1,15 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import type {
   BonusAmount,
   CreateOfferRequest,
   OfferBonusTerms,
   OfferDeliverableDTO,
+  OfferSendReturnTo,
 } from '#/shared/api/generated/model'
+import type {
+  createOfferResponse,
+  createOfferResponse201,
+} from '#/shared/api/generated/offers/offers'
 import { createOffer } from '#/shared/api/generated/offers/offers'
 import { generateIdempotencyKey } from '#/shared/api/idempotency'
-import { getMessagesQueryKey } from '#/shared/queries/messages'
-import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 
 import type {
   CreateOfferFormValues,
@@ -19,6 +22,8 @@ import type {
 
 export type CreateOfferMutationVariables = CreateOfferFormValues & {
   conversation_id: string
+  offer_draft_id?: string
+  return_to?: OfferSendReturnTo
 }
 
 function toDecimalString(value: number): string {
@@ -62,6 +67,8 @@ function toCreateOfferRequest(
   variables: CreateOfferMutationVariables,
 ): CreateOfferRequest {
   return {
+    offer_draft_id: variables.offer_draft_id,
+    return_to: variables.return_to,
     campaign_id: variables.campaign_id,
     conversation_id: variables.conversation_id,
     offer_mode: variables.offer_mode,
@@ -75,25 +82,26 @@ function toCreateOfferRequest(
   }
 }
 
-export function useCreateOfferMutation() {
-  const queryClient = useQueryClient()
+function assertCreateOfferCreatedResponse(
+  response: createOfferResponse,
+): createOfferResponse201 {
+  if (response.status !== 201) {
+    throw new Error('Unexpected createOffer response status')
+  }
 
+  return response
+}
+
+export function useCreateOfferMutation() {
   return useMutation({
-    mutationFn: (variables: CreateOfferMutationVariables) =>
-      createOffer(toCreateOfferRequest(variables), {
+    mutationFn: async (variables: CreateOfferMutationVariables) => {
+      const response = await createOffer(toCreateOfferRequest(variables), {
         headers: {
           'Idempotency-Key': generateIdempotencyKey(),
         },
-      }),
-    onSuccess: async (_response, variables) => {
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: getConversationOffersQueryKey(variables.conversation_id),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: getMessagesQueryKey(variables.conversation_id),
-        }),
-      ])
+      })
+
+      return assertCreateOfferCreatedResponse(response)
     },
   })
 }

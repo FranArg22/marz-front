@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import type { RefObject } from 'react'
 
-import { postAnalyticsEvent } from '#/shared/analytics/postEvent'
 import type { ChangeCategory } from './api/requestChanges'
 import type { OfferMode } from '#/features/offers/types'
 
@@ -209,25 +208,25 @@ export function trackDeliverableTotalRounds(
 export function trackLinkSubmitOpened(
   payload: DeliverableEventMap['link_submit_opened'],
 ): void {
-  postAnalyticsEvent('link_submit_opened', payload)
+  postLegacyDeliverableAnalyticsEvent('link_submit_opened', payload)
 }
 
 export function trackLinkPreviewResolved(
   payload: DeliverableEventMap['link_preview_resolved'],
 ): void {
-  postAnalyticsEvent('link_preview_resolved', payload)
+  postLegacyDeliverableAnalyticsEvent('link_preview_resolved', payload)
 }
 
 export function trackLinkCardSeen(
   payload: DeliverableEventMap['link_card_seen'],
 ): void {
-  postAnalyticsEvent('link_card_seen', payload)
+  postLegacyDeliverableAnalyticsEvent('link_card_seen', payload)
 }
 
 export function trackLinkUrlClicked(
   payload: DeliverableEventMap['link_url_clicked'],
 ): void {
-  postAnalyticsEvent('link_url_clicked', payload)
+  postLegacyDeliverableAnalyticsEvent('link_url_clicked', payload)
 }
 
 export function useTrackOnceVisible(

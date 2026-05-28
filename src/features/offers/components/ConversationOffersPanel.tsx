@@ -5,7 +5,6 @@ import { ContextPanel } from '#/shared/ui/ContextPanel'
 import { useConversationOffersPaginated } from '#/features/offers/hooks/useConversationOffers'
 import { useGetConversationDeliverablesQuery } from '#/features/deliverables/api/conversationDeliverables'
 import { useMe } from '#/shared/api/generated/accounts/accounts'
-import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import type { MarkAsPaidOffer } from '#/shared/payments/markAsPaidEligibility'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
 import { CurrentOfferBlock } from './CurrentOfferBlock'
@@ -15,7 +14,6 @@ import { OffersArchiveBlock } from './OffersArchiveBlock'
 interface ConversationOffersPanelProps {
   conversationId: string
   sessionKind: 'brand' | 'creator'
-  viewerRole?: MarkAsPaidViewer['role']
   onUploadDraft: (deliverableId: string) => void
   onMarkAsPaid?: (offer: MarkAsPaidOffer) => void
   onSubmitLink?: (deliverableId: string, isResubmission: boolean) => void
@@ -27,7 +25,6 @@ interface ConversationOffersPanelProps {
 export function ConversationOffersPanel({
   conversationId,
   sessionKind,
-  viewerRole,
   onUploadDraft,
   onMarkAsPaid,
   onSubmitLink,
@@ -49,7 +46,16 @@ export function ConversationOffersPanel({
   const actorKind =
     meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
 
-  const deliverables = deliverablesQuery.data?.deliverables ?? []
+  // Scope deliverables to the offers-context current offer. The deliverables
+  // read derives its own "current offer", which lags after a new offer is sent
+  // (it still points at the previous, already-fulfilled offer); the offers
+  // context is authoritative, so filter by its id to avoid showing the prior
+  // offer's deliverables under the new one.
+  const deliverables = current
+    ? (deliverablesQuery.data?.deliverables ?? []).filter(
+        (deliverable) => deliverable.offer_id === current.id,
+      )
+    : []
 
   return (
     <ContextPanel
@@ -69,7 +75,6 @@ export function ConversationOffersPanel({
             conversationId={conversationId}
             deliverables={deliverables}
             sessionKind={sessionKind}
-            viewerRole={viewerRole}
             onUploadDraft={onUploadDraft}
             onMarkAsPaid={onMarkAsPaid}
             onSubmitLink={onSubmitLink}

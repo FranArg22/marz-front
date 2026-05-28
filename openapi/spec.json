@@ -1709,7 +1709,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OfferDetailDTO"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OfferSendSent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OfferSendRequiresAction"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OfferSendRejected"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "status"
+                  }
                 }
               }
             }
@@ -1765,7 +1778,7 @@
             }
           },
           "409": {
-            "description": "Conflict. Possible codes: campaign_not_active, idempotency_conflict. See §4.1.8.",
+            "description": "Conflict. Possible codes: campaign_not_active, idempotency_conflict, default_offers_payment_method_missing. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1776,6 +1789,111 @@
           },
           "422": {
             "description": "Unprocessable Entity. Possible codes: validation_error, invalid_amount. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/draft-status/{offer_draft_id}": {
+      "get": {
+        "operationId": "getOfferDraftStatus",
+        "tags": [
+          "offers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "offer_draft_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferDraftStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: draft_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_offer_draft_id, validation_error. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1916,6 +2034,24 @@
               }
             }
           },
+          "402": {
+            "description": "Payment Required. Possible codes: hold_expired, card_declined, capture_failed_generic.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/OfferAcceptError"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. Possible codes: forbidden_not_recipient. See §4.1.8.",
             "content": {
@@ -1937,7 +2073,7 @@
             }
           },
           "409": {
-            "description": "Conflict. Possible codes: offer_not_actionable. See §4.1.8.",
+            "description": "Conflict. Possible codes: offer_not_actionable, offer_not_acceptable. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8669,6 +8805,371 @@
         }
       }
     },
+    "/v1/billing/payment-methods": {
+      "get": {
+        "operationId": "listBillingPaymentMethods",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "description": "Lists the card payment methods attached to the workspace's Stripe customer, flagging which pays the subscription and which pays offers.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingPaymentMethodList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/offers-payment-method": {
+      "put": {
+        "operationId": "setOffersPaymentMethod",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "description": "Pins the payment method used for offer charges, or resets it to the subscription payment method (same-as-subscription) when stripe_payment_method_id is null.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingOffersPaymentMethodSelection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Offers payment method updated."
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_payment_method. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/subscription-payment-method": {
+      "put": {
+        "operationId": "setSubscriptionPaymentMethod",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "description": "Sets the card charged for the subscription by updating the Stripe subscription's default payment method (decoupling it from the customer default).",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingSubscriptionPaymentMethodSelection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Subscription payment method updated."
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_payment_method. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/offers-payment-method/setup-sessions": {
+      "post": {
+        "operationId": "createOffersSetupSession",
+        "tags": [
+          "brand",
+          "billing"
+        ],
+        "description": "Creates a Stripe Checkout session in setup mode so the brand can attach an additional card (with an off-session mandate) to use for offer charges.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingSetupSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingSetupSessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: no_subscription, workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_url. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/billing/webhooks/stripe": {
       "post": {
         "operationId": "receiveStripeWebhook",
@@ -8736,6 +9237,64 @@
           }
         }
       }
+    },
+    "/v1/payments/webhooks/stripe": {
+      "post": {
+        "operationId": "receivePaymentsStripeWebhook",
+        "tags": [
+          "payments"
+        ],
+        "description": "Webhook endpoint invoked by Stripe to deliver paid-offer hold/capture events. Authenticated\nvia the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by\nbearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are\nno-ops. Returns 200 on accepted events (including duplicates and orphan events recorded for\ninspection) and 401 when the signature does not match the configured endpoint secret.\n",
+        "security": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Stripe-Signature",
+            "required": true,
+            "description": "HMAC signature header populated by Stripe.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Raw Stripe event payload. Body is consumed verbatim for signature verification.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event accepted (or duplicate ignored)."
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: invalid_signature. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8761,6 +9320,77 @@
           "status": {
             "type": "string",
             "example": "ok"
+          }
+        }
+      },
+      "OfferDraftStatus": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "requires_capture",
+              "requires_action",
+              "sent",
+              "failed",
+              "canceled"
+            ]
+          },
+          "offer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "checkout_url": {
+            "type": "string"
+          },
+          "error": {
+            "$ref": "#/components/schemas/OfferSendError"
+          }
+        }
+      },
+      "OfferSendError": {
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "card_declined",
+              "insufficient_funds",
+              "expired_card",
+              "incorrect_cvc",
+              "hold_failed_generic"
+            ]
+          },
+          "stripe_code": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "OfferAcceptError": {
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "hold_expired",
+              "card_declined",
+              "capture_failed_generic"
+            ]
+          },
+          "stripe_code": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -12724,6 +13354,123 @@
         ],
         "properties": {
           "portal_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BillingSavedPaymentMethod": {
+        "type": "object",
+        "required": [
+          "stripe_payment_method_id",
+          "card_brand",
+          "card_last4",
+          "exp_month",
+          "exp_year",
+          "is_subscription_default",
+          "is_offers_default"
+        ],
+        "properties": {
+          "stripe_payment_method_id": {
+            "type": "string"
+          },
+          "card_brand": {
+            "type": "string"
+          },
+          "card_last4": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "exp_month": {
+            "type": "integer"
+          },
+          "exp_year": {
+            "type": "integer"
+          },
+          "is_subscription_default": {
+            "type": "boolean",
+            "description": "Whether this card is the subscription default payment method."
+          },
+          "is_offers_default": {
+            "type": "boolean",
+            "description": "Whether this card is the one charged for offers (the effective offers PM)."
+          }
+        }
+      },
+      "BillingPaymentMethodList": {
+        "type": "object",
+        "required": [
+          "payment_methods",
+          "same_payment_method"
+        ],
+        "properties": {
+          "payment_methods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingSavedPaymentMethod"
+            }
+          },
+          "same_payment_method": {
+            "type": "boolean",
+            "description": "Whether offers use the same payment method as the subscription."
+          }
+        }
+      },
+      "BillingOffersPaymentMethodSelection": {
+        "type": "object",
+        "required": [
+          "stripe_payment_method_id"
+        ],
+        "properties": {
+          "stripe_payment_method_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "PaymentMethod to charge for offers. null resets to the subscription payment method (same-as-subscription)."
+          }
+        }
+      },
+      "BillingSubscriptionPaymentMethodSelection": {
+        "type": "object",
+        "required": [
+          "stripe_payment_method_id"
+        ],
+        "properties": {
+          "stripe_payment_method_id": {
+            "type": "string",
+            "description": "PaymentMethod to charge for the subscription. Must be a card attached to the customer."
+          }
+        }
+      },
+      "BillingSetupSessionRequest": {
+        "type": "object",
+        "properties": {
+          "success_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "Absolute URL to return to on success. Defaults to <app-url>/billing."
+          },
+          "cancel_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "Absolute URL to return to on cancel. Defaults to <app-url>/billing."
+          }
+        }
+      },
+      "BillingSetupSessionResponse": {
+        "type": "object",
+        "required": [
+          "setup_url",
+          "expires_at"
+        ],
+        "properties": {
+          "setup_url": {
             "type": "string",
             "format": "uri"
           },
@@ -16708,6 +17455,13 @@
           "deliverables"
         ],
         "properties": {
+          "offer_draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "return_to": {
+            "$ref": "#/components/schemas/OfferSendReturnTo"
+          },
           "campaign_id": {
             "type": "string",
             "format": "uuid"
@@ -16757,6 +17511,84 @@
             "items": {
               "$ref": "#/components/schemas/OfferDeliverableDTO"
             }
+          }
+        }
+      },
+      "OfferSendReturnTo": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "conversation",
+              "inbox"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "OfferSendSent": {
+        "type": "object",
+        "required": [
+          "status",
+          "offer"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "sent"
+            ]
+          },
+          "offer": {
+            "$ref": "#/components/schemas/OfferDTO"
+          }
+        }
+      },
+      "OfferSendRequiresAction": {
+        "type": "object",
+        "required": [
+          "status",
+          "offer_draft_id",
+          "checkout_url"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "requires_action"
+            ]
+          },
+          "offer_draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "checkout_url": {
+            "type": "string"
+          }
+        }
+      },
+      "OfferSendRejected": {
+        "type": "object",
+        "required": [
+          "status",
+          "error"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "rejected"
+            ]
+          },
+          "error": {
+            "$ref": "#/components/schemas/OfferSendError"
           }
         }
       },

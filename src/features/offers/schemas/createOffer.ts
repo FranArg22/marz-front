@@ -17,6 +17,29 @@ export function getMinimumTentativePublishDateUTC(referenceDate = new Date()) {
   return minimumDate.toISOString().slice(0, 10)
 }
 
+const MIN_DEADLINE_GAP_DAYS = 2
+
+export function getMinimumOfferDeadlineUTC(
+  tentativePublishDate?: string,
+  referenceDate = new Date(),
+) {
+  const base =
+    tentativePublishDate && dateOnlyRegex.test(tentativePublishDate)
+      ? tentativePublishDate
+      : getMinimumTentativePublishDateUTC(referenceDate)
+  // A date-only string (YYYY-MM-DD) parses as UTC midnight.
+  const baseDate = new Date(base)
+  const minimumDate = new Date(
+    Date.UTC(
+      baseDate.getUTCFullYear(),
+      baseDate.getUTCMonth(),
+      baseDate.getUTCDate() + MIN_DEADLINE_GAP_DAYS,
+    ),
+  )
+
+  return minimumDate.toISOString().slice(0, 10)
+}
+
 export function createBonusAmountSchema() {
   return z.discriminatedUnion('type', [
     z.object({
@@ -93,10 +116,13 @@ export function createCreateOfferSchema() {
         })
       }
 
-      if (offer.offer_deadline < offer.tentative_publish_date) {
+      if (
+        offer.offer_deadline <
+        getMinimumOfferDeadlineUTC(offer.tentative_publish_date)
+      ) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: t`La fecha límite tiene que ser igual o posterior a la publicación tentativa`,
+          message: t`La fecha límite tiene que ser al menos 48 horas después de la publicación tentativa`,
           path: ['offer_deadline'],
         })
       }

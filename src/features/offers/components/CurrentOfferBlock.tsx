@@ -14,7 +14,6 @@ import { formatOfferAmount } from '#/shared/utils/formatOfferAmount'
 import { formatOfferDeadline } from '#/features/offers/utils/formatOffer'
 import type { OfferDetailDTO, OfferMode } from '#/features/offers/types'
 import type { DeliverableDTO } from '#/features/deliverables/types'
-import type { MarkAsPaidViewer } from '#/shared/payments/markAsPaidPermissions'
 import { canMarkOfferAsPaid } from '#/shared/payments/markAsPaidEligibility'
 import type { MarkAsPaidOffer } from '#/shared/payments/markAsPaidEligibility'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
@@ -26,6 +25,8 @@ import { OfferDeliverablesList } from './OfferDeliverablesList'
 import { formatBonusWindowsLabel } from '../utils/bonusTerms'
 import { useOfferActions } from '#/features/offers/hooks/useOfferActions'
 import { useClientNow } from '#/shared/hooks/useClientNow'
+import { useMe } from '#/shared/api/generated/accounts/accounts'
+import { getWorkspacePlan } from '../utils/workspacePlan'
 
 type StatusKey = OfferDetailDTO['status']
 
@@ -99,7 +100,6 @@ interface CurrentOfferBlockProps {
   conversationId?: string
   deliverables: DeliverableDTO[]
   sessionKind: 'brand' | 'creator'
-  viewerRole?: MarkAsPaidViewer['role']
   onUploadDraft: (deliverableId: string) => void
   onMarkAsPaid?: (offer: MarkAsPaidOffer) => void
   onSubmitLink?: (deliverableId: string, isResubmission: boolean) => void
@@ -142,7 +142,6 @@ export function CurrentOfferBlock({
   conversationId = '',
   deliverables,
   sessionKind,
-  viewerRole,
   onUploadDraft,
   onMarkAsPaid,
   onSubmitLink,
@@ -153,6 +152,13 @@ export function CurrentOfferBlock({
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false)
   const { accept, reject } = useOfferActions({ conversationId })
   const clientNow = useClientNow()
+  const meQuery = useMe()
+  const isFreePlan =
+    getWorkspacePlan(
+      meQuery.data?.status === 200
+        ? meQuery.data.data.brand_workspace?.plan
+        : undefined,
+    ) === 'free'
 
   useEffect(() => {
     if (offer && !trackedRef.current) {
@@ -164,6 +170,15 @@ export function CurrentOfferBlock({
       })
     }
   }, [offer, actorKind])
+
+  // Close the cancel dialog whenever the current offer changes. After a
+  // successful cancel the offer disappears (and a new one may take its place);
+  // the dialog's mutate-level onSuccess that closes it is skipped when the
+  // dialog unmounts during query invalidation, so reset here to avoid a stale
+  // open dialog reappearing on the next offer.
+  useEffect(() => {
+    setCancelDialogOpen(false)
+  }, [offer?.id])
 
   if (!offer) {
     return <EmptyState canSendOffer={canSendOffer} onSendOffer={onSendOffer} />
@@ -193,6 +208,11 @@ export function CurrentOfferBlock({
     })),
   }
   const canMarkAsPaid = canMarkOfferAsPaid(paymentOffer)
+  // Mark-as-paid only applies to free brands (paid brands settle via Stripe at
+  // accept). When it's available the offer can no longer be cancelled, so the
+  // two actions are mutually exclusive.
+  const showMarkAsPaid =
+    offer.status === 'accepted' && !!onMarkAsPaid && canMarkAsPaid && isFreePlan
   const canShowBrandOfferActions =
     sessionKind === 'brand' &&
     (offer.status === 'sent' || offer.status === 'accepted')
@@ -274,7 +294,6 @@ export function CurrentOfferBlock({
           offer={offer}
           deliverables={deliverables}
           sessionKind={sessionKind}
-          viewerRole={viewerRole}
           actorKind={actorKind}
           onUploadDraft={onUploadDraft}
           onSubmitLink={onSubmitLink}
@@ -282,7 +301,7 @@ export function CurrentOfferBlock({
 
         {canShowBrandOfferActions ? (
           <div className="mt-3 flex gap-2">
-            {offer.status === 'accepted' && onMarkAsPaid && canMarkAsPaid ? (
+            {showMarkAsPaid ? (
               <Button
                 size="sm"
                 className="flex-1"
@@ -291,37 +310,39 @@ export function CurrentOfferBlock({
                 {t`Marcar como pagado`}
               </Button>
             ) : null}
-            {(() => {
-              const cancelButton = (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="w-full"
-                  disabled={cancelDisabled}
-                  onClick={() => setCancelDialogOpen(true)}
-                >
-                  <X className="size-4" aria-hidden="true" />
-                  {offer.status === 'accepted'
-                    ? t`Cancelar oferta aceptada`
-                    : t`Cancelar oferta`}
-                </Button>
-              )
-              if (!cancelDisabled) {
-                return <div className="flex-1">{cancelButton}</div>
-              }
-              return (
-                <TooltipProvider delayDuration={200}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="flex flex-1">{cancelButton}</span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      {t`Podés cancelar la oferta a partir de la fecha límite.`}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )
-            })()}
+            {!showMarkAsPaid
+              ? (() => {
+                  const cancelButton = (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full"
+                      disabled={cancelDisabled}
+                      onClick={() => setCancelDialogOpen(true)}
+                    >
+                      <X className="size-4" aria-hidden="true" />
+                      {offer.status === 'accepted'
+                        ? t`Cancelar oferta aceptada`
+                        : t`Cancelar oferta`}
+                    </Button>
+                  )
+                  if (!cancelDisabled) {
+                    return <div className="flex-1">{cancelButton}</div>
+                  }
+                  return (
+                    <TooltipProvider delayDuration={200}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span className="flex flex-1">{cancelButton}</span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {t`Podés cancelar la oferta a partir de la fecha límite.`}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  )
+                })()
+              : null}
           </div>
         ) : null}
 

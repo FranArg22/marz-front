@@ -20,5 +20,8 @@ export function useGetConversationDeliverablesQuery(conversationId: string) {
     queryKey: getConversationDeliverablesQueryKey(conversationId),
     queryFn: () => fetchConversationDeliverables(conversationId),
     enabled: !!conversationId,
+    // Refetch when the tab regains focus, as a safety net for any missed WS
+    // event. Explicit so it survives a future global default change.
+    refetchOnWindowFocus: true,
   })
 }

@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { ConversationContextHeader } from '#/features/chat/components/ConversationContextHeader'
@@ -18,6 +19,7 @@ import { useGetConversationDeliverablesQuery } from '#/features/deliverables/api
 
 export const conversationSearchSchema = z.object({
   highlightPaymentId: z.uuid().optional(),
+  send_offer_result: z.enum(['success', 'cancelled', 'failed']).optional(),
 })
 
 export const Route = createFileRoute(
@@ -35,8 +37,12 @@ export const Route = createFileRoute(
 
 function ConversationRoute() {
   const { conversationId } = Route.useParams()
-  const { highlightPaymentId } = Route.useSearch()
-  const { accountId, sessionKind, viewerRole } = Route.useRouteContext()
+  const search = Route.useSearch()
+  const { highlightPaymentId } = search
+  const { accountId, sessionKind } = Route.useRouteContext()
+  const navigate = useNavigate({
+    from: '/workspace/conversations/$conversationId',
+  })
   const canSendOffer = useCanSendOffer({ conversationId })
   const conversationDetail = useConversationDetailQuery(conversationId)
   const deliverablesQuery = useGetConversationDeliverablesQuery(conversationId)
@@ -51,6 +57,28 @@ function ConversationRoute() {
   >(null)
   const [submitLinkIsResubmission, setSubmitLinkIsResubmission] =
     useState(false)
+
+  useEffect(() => {
+    if (!search.send_offer_result) return
+
+    if (search.send_offer_result === 'success') {
+      toast.success(t`Offer enviada`)
+    } else if (search.send_offer_result === 'cancelled') {
+      toast(t`Volviste sin enviar la offer`)
+    } else {
+      toast.error(
+        t`No pudimos procesar tu tarjeta. Probá de nuevo o gestioná tu tarjeta.`,
+      )
+    }
+
+    void navigate({
+      search: (prev) => {
+        const { send_offer_result: _, ...rest } = prev
+        return rest
+      },
+      replace: true,
+    })
+  }, [search.send_offer_result, navigate])
 
   const isBrand = sessionKind === 'brand'
   const creatorName = conversationDetail.data?.counterpart.display_name ?? ''
@@ -110,7 +138,6 @@ function ConversationRoute() {
           conversationId={conversationId}
           currentAccountId={accountId}
           sessionKind={sessionKind}
-          viewerRole={viewerRole}
           onUploadDraft={setUploadDeliverableId}
           highlightPaymentId={highlightPaymentId}
         />
@@ -118,7 +145,6 @@ function ConversationRoute() {
       <ConversationOffersPanel
         conversationId={conversationId}
         sessionKind={sessionKind}
-        viewerRole={viewerRole}
         onUploadDraft={setUploadDeliverableId}
         onMarkAsPaid={setPaymentOffer}
         onSubmitLink={handleSubmitLink}
@@ -172,6 +198,7 @@ function ConversationRoute() {
         <SendOfferSidesheet
           creatorName={creatorName}
           creatorAccountId={conversationDetail.data.counterpart.id}
+          conversationId={conversationId}
         />
       ) : null}
     </div>

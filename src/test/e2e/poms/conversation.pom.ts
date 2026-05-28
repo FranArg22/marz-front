@@ -48,6 +48,18 @@ export class ConversationPage {
     return this.page.locator('[role="article"]', { hasText: text })
   }
 
+  offerSentCard(): Locator {
+    return this.timeline.getByRole('article', { name: /Oferta enviada/i })
+  }
+
+  offerAcceptedCard(): Locator {
+    return this.timeline.getByRole('article', { name: /Oferta aceptada/i })
+  }
+
+  acceptOfferButton(): Locator {
+    return this.page.getByRole('button', { name: /Aceptar|Accept/i })
+  }
+
   async expectTimelineContains(
     text: string | RegExp,
     timeoutMs = 5_000,

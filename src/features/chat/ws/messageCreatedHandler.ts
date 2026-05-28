@@ -5,6 +5,7 @@ import type { MessageCreatedPayload } from '#/shared/ws/types'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
+import { getDeliverableLinksQueryKey } from '#/features/deliverables/hooks/useDeliverableLinks'
 import { OFFER_EVENT_TYPES } from '#/shared/offers/constants'
 import type { MessageItem, MessagesResponse } from '#/features/chat/types'
 import { toMessagePayload } from '#/features/chat/utils/messagePayload'
@@ -13,6 +14,18 @@ type MessagesInfiniteData = InfiniteData<
   { data: MessagesResponse; status: number },
   string | undefined
 >
+
+// Draft/link lifecycle system events that change the deliverable state shown in
+// the context panel. The chat only receives the message; the panel reads the
+// deliverables query, so it must be invalidated when these arrive.
+const DELIVERABLE_EVENT_TYPES = new Set([
+  'DraftSubmitted',
+  'DraftApproved',
+  'ChangesRequested',
+  'LinkSubmitted',
+  'LinkApproved',
+  'LinkChangesRequested',
+])
 
 export function handleMessageCreated(
   queryClient: QueryClient,
@@ -97,6 +110,13 @@ export function handleMessageCreated(
     queryClient.invalidateQueries({
       queryKey: getConversationOffersQueryKey(payload.conversation_id),
     })
+    // Accepting an offer materializes deliverables asynchronously (OfferAccepted
+    // → outbox → worker), so the mutation's immediate invalidation races ahead of
+    // the insert. This WS event arrives after the worker runs, so refresh the
+    // deliverables panel here too (otherwise the creator only sees it after F5).
+    queryClient.invalidateQueries({
+      queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+    })
   }
 
   if (
@@ -126,6 +146,39 @@ export function handleMessageCreated(
     queryClient.invalidateQueries({
       queryKey: getConversationOffersQueryKey(payload.conversation_id),
     })
+  }
+
+  if (
+    payload.type === 'system_event' &&
+    DELIVERABLE_EVENT_TYPES.has(payload.event_type)
+  ) {
+    // Draft/link submitted/approved/changes: the chat shows the message but the
+    // context panel reads the deliverables query, so refresh it + the
+    // per-deliverable detail the panel rows read.
+    queryClient.invalidateQueries({
+      queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
+    })
+    // Approving the last link finalizes the offer (it stops being "current"),
+    // which flips the panel to the empty/send-offer state — refresh offers too.
+    queryClient.invalidateQueries({
+      queryKey: getConversationOffersQueryKey(payload.conversation_id),
+    })
+    const systemEventPayload = toMessagePayload(payload.payload)
+    const snapshot =
+      (systemEventPayload?.['snapshot'] as
+        | Record<string, unknown>
+        | undefined) ?? systemEventPayload
+    const deliverableId = snapshot?.['deliverable_id']
+    if (typeof deliverableId === 'string') {
+      queryClient.invalidateQueries({
+        queryKey: ['deliverables', deliverableId],
+      })
+      // The "Link publicado" panel reads the deliverable's published-links
+      // query; refresh it so a submitted/approved link shows without an F5.
+      queryClient.invalidateQueries({
+        queryKey: getDeliverableLinksQueryKey(deliverableId),
+      })
+    }
   }
 }
 

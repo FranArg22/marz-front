@@ -10,8 +10,11 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import type { CreateOfferRequestOfferMode } from './createOfferRequestOfferMode';
 import type { OfferBonusTerms } from './offerBonusTerms';
 import type { OfferDeliverableDTO } from './offerDeliverableDTO';
+import type { OfferSendReturnTo } from './offerSendReturnTo';
 
 export interface CreateOfferRequest {
+  offer_draft_id?: string;
+  return_to?: OfferSendReturnTo;
   campaign_id: string;
   conversation_id: string;
   offer_mode: CreateOfferRequestOfferMode;

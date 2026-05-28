@@ -6,8 +6,6 @@ import type { ReactNode } from 'react'
 import { createOffer } from '#/shared/api/generated/offers/offers'
 import type { createOfferResponse } from '#/shared/api/generated/offers/offers'
 import { generateIdempotencyKey } from '#/shared/api/idempotency'
-import { getMessagesQueryKey } from '#/shared/queries/messages'
-import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 
 import { useCreateOfferMutation } from './useCreateOfferMutation'
 
@@ -42,11 +40,10 @@ describe('useCreateOfferMutation', () => {
     } as createOfferResponse)
   })
 
-  it('injects Idempotency-Key and invalidates offer queries', async () => {
+  it('injects Idempotency-Key and maps create offer request fields', async () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     })
-    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
     const { result } = renderHook(() => useCreateOfferMutation(), {
       wrapper: createWrapper(queryClient),
     })
@@ -61,12 +58,16 @@ describe('useCreateOfferMutation', () => {
       offer_deadline: '2099-12-31',
       platforms: ['instagram'],
       bonus_terms: { enabled: false, speed_bonus_windows: [] },
+      offer_draft_id: 'draft-1',
+      return_to: { kind: 'conversation', id: 'conv-1' },
     })
 
     await waitFor(() => {
       expect(mockCreateSingleOffer).toHaveBeenCalledWith(
         expect.objectContaining({
           offer_mode: 'same_content',
+          offer_draft_id: 'draft-1',
+          return_to: { kind: 'conversation', id: 'conv-1' },
           conversation_id: 'conv-1',
           amount: '1000.00',
           description: '',
@@ -82,15 +83,6 @@ describe('useCreateOfferMutation', () => {
           },
         },
       )
-    })
-
-    await waitFor(() => {
-      expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: getConversationOffersQueryKey('conv-1'),
-      })
-      expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: getMessagesQueryKey('conv-1'),
-      })
     })
   })
 

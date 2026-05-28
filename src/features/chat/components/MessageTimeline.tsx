@@ -14,7 +14,6 @@ import {
 } from '#/features/chat/queries'
 import type { MessageItem } from '#/features/chat/types'
 import { trackChatEvent } from '#/features/chat/analytics/track'
-import type { MarkAsPaidViewerRole } from '#/shared/payments/markAsPaidPermissions'
 
 import { groupByDayGrouped } from '../utils/groupByDay'
 import { DaySeparator } from './DaySeparator'
@@ -36,8 +35,6 @@ interface MessageTimelineProps {
   conversationId: string
   currentAccountId: string
   sessionKind: 'brand' | 'creator' | undefined
-  viewerRole?: MarkAsPaidViewerRole
-  onMarkAsPaid?: (deliverableId: string) => void
   onUploadDraft?: (deliverableId: string) => void
   onAtBottomStateChange?: (atBottom: boolean) => void
   timelineRef?: React.Ref<MessageTimelineHandle>
@@ -62,8 +59,6 @@ export function MessageTimeline({
   conversationId,
   currentAccountId,
   sessionKind,
-  viewerRole,
-  onMarkAsPaid,
   onUploadDraft,
   onAtBottomStateChange,
   timelineRef,
@@ -339,10 +334,8 @@ export function MessageTimeline({
                     conversationId={conversationId}
                     counterpartDisplayName={counterpartDisplayName}
                     highlightPaymentId={highlightPaymentId}
-                    onMarkAsPaid={onMarkAsPaid}
                     onUploadDraft={onUploadDraft}
                     sessionKind={sessionKind}
-                    viewerRole={viewerRole}
                   />
                 )}
               </div>
@@ -380,10 +373,8 @@ interface MessageRowProps {
   conversationId: string
   counterpartDisplayName: string
   highlightPaymentId: string | undefined
-  onMarkAsPaid: ((deliverableId: string) => void) | undefined
   onUploadDraft: ((deliverableId: string) => void) | undefined
   sessionKind: 'brand' | 'creator' | undefined
-  viewerRole: MarkAsPaidViewerRole | undefined
 }
 
 function MessageRow({
@@ -392,10 +383,8 @@ function MessageRow({
   conversationId,
   counterpartDisplayName,
   highlightPaymentId,
-  onMarkAsPaid,
   onUploadDraft,
   sessionKind,
-  viewerRole,
 }: MessageRowProps) {
   return (
     <div
@@ -408,10 +397,8 @@ function MessageRow({
         conversationId={conversationId}
         counterpartDisplayName={counterpartDisplayName}
         highlightPaymentId={highlightPaymentId}
-        onMarkAsPaid={onMarkAsPaid}
         onUploadDraft={onUploadDraft}
         sessionKind={sessionKind}
-        viewerRole={viewerRole}
       />
     </div>
   )

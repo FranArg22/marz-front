@@ -5,6 +5,7 @@ import { axe } from 'vitest-axe'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { ApiError } from '#/shared/api/mutator'
+import { OfferSendErrorCode } from '#/shared/api/generated/model'
 
 import { SendOfferSidesheet } from './SendOfferSidesheet'
 import { useSendOfferWizard } from '../store/sendOfferWizardStore'
@@ -17,12 +18,51 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
-const mockMutateAsync = vi.fn()
+const {
+  mockMutateAsync,
+  mockRedirectToCheckout,
+  mockToastSuccess,
+  mockRandomUUID,
+} = vi.hoisted(() => ({
+  mockMutateAsync: vi.fn(),
+  mockRedirectToCheckout: vi.fn(),
+  mockToastSuccess: vi.fn(),
+  mockRandomUUID: vi.fn(),
+}))
 
 vi.mock('../hooks/useCreateOfferMutation', () => ({
   useCreateOfferMutation: () => ({
     mutateAsync: mockMutateAsync,
     isPending: false,
+  }),
+}))
+
+vi.mock('../utils/redirectToCheckout', () => ({
+  redirectToCheckout: mockRedirectToCheckout,
+}))
+
+vi.mock('sonner', () => ({
+  toast: {
+    success: mockToastSuccess,
+  },
+}))
+
+vi.mock('#/features/billing/hooks/useCreatePortalSession', () => ({
+  useCreatePortalSession: () => ({
+    mutate: vi.fn(),
+    isPending: false,
+  }),
+}))
+
+vi.mock('#/shared/api/generated/accounts/accounts', () => ({
+  useMe: () => ({
+    data: {
+      status: 200,
+      data: {
+        kind: 'brand',
+        brand_workspace: { plan: 'starter' },
+      },
+    },
   }),
 }))
 
@@ -61,7 +101,7 @@ function createWrapper() {
   }
 }
 
-function renderSheet() {
+function renderSheet(props?: { conversationId?: string }) {
   useSendOfferWizard.setState({
     isOpen: true,
     conversationId: 'conv-1',
@@ -72,6 +112,7 @@ function renderSheet() {
     <SendOfferSidesheet
       creatorName="Test Creator"
       creatorAccountId={creatorAccountId}
+      conversationId={props?.conversationId}
     />,
     { wrapper: createWrapper() },
   )
@@ -87,14 +128,16 @@ async function fillRequiredFields() {
   await user.clear(screen.getByLabelText(/monto/i))
   await user.type(screen.getByLabelText(/monto/i), '1000')
   await user.type(screen.getByLabelText(/publicación tentativa/i), '2099-12-30')
-  await user.type(
-    screen.getByLabelText(/fecha límite/i),
-    '2099-12-31',
-  )
+  await user.type(screen.getByLabelText(/fecha límite/i), '2100-01-01')
 }
 
 beforeEach(() => {
   vi.clearAllMocks()
+  mockRandomUUID.mockReturnValue('draft-1')
+  vi.stubGlobal('crypto', {
+    ...crypto,
+    randomUUID: mockRandomUUID,
+  })
   mockCampaignsData = [
     {
       id: campaignId,
@@ -108,10 +151,13 @@ beforeEach(() => {
 })
 
 describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
-  it('submits a same-content offer and closes the sheet', async () => {
+  it('submits a sent offer, closes the sheet, and shows a toast', async () => {
     const user = userEvent.setup()
-    mockMutateAsync.mockResolvedValueOnce({ status: 201, data: {} })
-    renderSheet()
+    mockMutateAsync.mockResolvedValueOnce({
+      status: 201,
+      data: { status: 'sent', offer: {} },
+    })
+    renderSheet({ conversationId: 'conv-1' })
 
     await fillRequiredFields()
     await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
@@ -125,10 +171,145 @@ describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
           offer_mode: 'same_content',
           amount: 1000,
           platforms: ['instagram'],
+          offer_draft_id: 'draft-1',
+          return_to: { kind: 'conversation', id: 'conv-1' },
         }),
       )
     })
     expect(useSendOfferWizard.getState().isOpen).toBe(false)
+    expect(mockToastSuccess).toHaveBeenCalledWith('Oferta enviada')
+  })
+
+  it('redirects to Stripe Checkout when the offer requires action', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockResolvedValueOnce({
+      status: 201,
+      data: {
+        status: 'requires_action',
+        checkout_url: 'https://checkout.stripe.com/c/pay/cs_test_123',
+        offer_draft_id: 'draft-1',
+      },
+    })
+    renderSheet({ conversationId: 'conv-1' })
+
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    await waitFor(() => {
+      expect(mockRedirectToCheckout).toHaveBeenCalledWith(
+        'https://checkout.stripe.com/c/pay/cs_test_123',
+      )
+    })
+    expect(useSendOfferWizard.getState().isOpen).toBe(true)
+  })
+
+  it('renders the rejected error banner and keeps the sheet open', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockResolvedValueOnce({
+      status: 201,
+      data: {
+        status: 'rejected',
+        error: {
+          code: OfferSendErrorCode.card_declined,
+          stripe_code: null,
+        },
+      },
+    })
+    renderSheet({ conversationId: 'conv-1' })
+
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    expect(
+      await screen.findByText(
+        'Tu tarjeta fue declinada. Verificá los datos o usá otra tarjeta.',
+      ),
+    ).toBeInTheDocument()
+    expect(useSendOfferWizard.getState().isOpen).toBe(true)
+  })
+
+  it('renders a generic retry banner for stripe_unavailable 502 and keeps the sheet open', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockRejectedValueOnce(
+      new ApiError(
+        502,
+        'bad_gateway',
+        'Bad gateway',
+        undefined,
+        { error: { code: 'stripe_unavailable' } },
+      ),
+    )
+    renderSheet({ conversationId: 'conv-1' })
+
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    expect(
+      await screen.findByText(
+        'Stripe no responde, intentá de nuevo en un momento.',
+      ),
+    ).toBeInTheDocument()
+    expect(useSendOfferWizard.getState().isOpen).toBe(true)
+  })
+
+  it('keeps the same offer_draft_id between rerenders', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockResolvedValueOnce({
+      status: 201,
+      data: {
+        status: 'requires_action',
+        checkout_url: 'https://checkout.stripe.com/pay',
+        offer_draft_id: 'draft-1',
+      },
+    })
+    const { rerender } = renderSheet({ conversationId: 'conv-1' })
+
+    rerender(
+      <SendOfferSidesheet
+        creatorName="Test Creator"
+        creatorAccountId={creatorAccountId}
+        conversationId="conv-1"
+      />,
+    )
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    await waitFor(() => {
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({ offer_draft_id: 'draft-1' }),
+      )
+    })
+    expect(mockRandomUUID).toHaveBeenCalledTimes(1)
+  })
+
+  it('builds inbox return_to when no conversationId prop is provided', async () => {
+    const user = userEvent.setup()
+    mockMutateAsync.mockResolvedValueOnce({
+      status: 201,
+      data: { status: 'sent', offer: {} },
+    })
+    renderSheet()
+
+    await fillRequiredFields()
+    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
+
+    await waitFor(() => {
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          conversation_id: 'conv-1',
+          return_to: { kind: 'inbox' },
+        }),
+      )
+    })
+  })
+
+  it('renders the paid offer summary block', () => {
+    renderSheet()
+
+    expect(screen.getByText('$0.00 USD (base)')).toBeInTheDocument()
+    expect(
+      screen.getByText('El cobro se realiza cuando el creator acepta'),
+    ).toBeInTheDocument()
   })
 
   it('keeps form values when switching offer mode', async () => {

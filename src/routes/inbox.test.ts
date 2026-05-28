@@ -1,8 +1,25 @@
-import { redirect } from '@tanstack/react-router'
+import React from 'react'
+import { render, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 let mockServerMeResult: { ok: boolean; body: Record<string, unknown> | null } =
   { ok: false, body: null }
+
+const routeMocks = vi.hoisted(() => ({
+  navigate: vi.fn(),
+  redirect: vi.fn((opts: Record<string, unknown>) => ({
+    __redirect: opts,
+  })),
+  useSearch: vi.fn(),
+  useRouteContext: vi.fn(),
+}))
+
+const toastMock = vi.hoisted(() =>
+  Object.assign(vi.fn(), {
+    error: vi.fn(),
+    success: vi.fn(),
+  }),
+)
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -13,6 +30,25 @@ vi.mock('@lingui/core/macro', () => ({
       ),
     { __lingui: true },
   ),
+}))
+
+vi.mock('@tanstack/react-router', () => ({
+  createFileRoute: () => (options: Record<string, unknown>) => ({
+    options,
+    useSearch: routeMocks.useSearch,
+    useRouteContext: routeMocks.useRouteContext,
+  }),
+  redirect: routeMocks.redirect,
+  useNavigate: () => routeMocks.navigate,
+  useRouterState: ({
+    select,
+  }: {
+    select: (state: { location: { pathname: string } }) => string
+  }) => select({ location: { pathname: '/inbox' } }),
+}))
+
+vi.mock('sonner', () => ({
+  toast: toastMock,
 }))
 
 vi.mock('#/shared/analytics/track', () => ({
@@ -26,6 +62,16 @@ vi.mock('#/shared/auth/getServerMe', () => ({
 vi.mock('#/shared/api/generated/accounts/accounts', () => ({
   getMeQueryKey: () => ['/v1/me'],
 }))
+
+vi.mock('#/features/identity/app-shell/AppShell', () => ({
+  AppShell: ({ children }: { children: React.ReactNode }) => children,
+}))
+
+vi.mock('#/features/inbox/InboxPage', () => ({
+  InboxPage: () => null,
+}))
+
+import { redirect } from '@tanstack/react-router'
 
 interface QueryClientMock {
   getQueryData: ReturnType<typeof vi.fn>
@@ -57,6 +103,40 @@ async function callBeforeLoad(queryClient = makeQueryClient()) {
   })
 }
 
+async function renderInboxRoute(search: Record<string, unknown>) {
+  const { Route } = await import('./inbox')
+
+  routeMocks.useSearch.mockReturnValue(search)
+  routeMocks.useRouteContext.mockReturnValue({
+    accountId: 'account_1',
+    sessionKind: 'brand',
+  })
+
+  const Component = Route.options.component as React.ComponentType
+  render(React.createElement(Component))
+}
+
+function expectSearchParamCleaned() {
+  expect(routeMocks.navigate).toHaveBeenCalledWith({
+    search: expect.any(Function),
+    replace: true,
+  })
+  const [navigateArg] = routeMocks.navigate.mock.calls[0] ?? []
+  if (!navigateArg) throw new Error('Expected navigate to be called')
+
+  const typedNavigateArg = navigateArg as {
+    search: (prev: Record<string, unknown>) => Record<string, unknown>
+  }
+  expect(
+    typedNavigateArg.search({
+      campaign_id: '00000000-0000-0000-0000-000000000000',
+      send_offer_result: 'success',
+    }),
+  ).toEqual({
+    campaign_id: '00000000-0000-0000-0000-000000000000',
+  })
+}
+
 describe('/inbox route', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -79,6 +159,9 @@ describe('/inbox route', () => {
         campaign_id: '00000000-0000-0000-0000-000000000000',
       }),
     ).toEqual({ campaign_id: '00000000-0000-0000-0000-000000000000' })
+    expect(validateSearch({ send_offer_result: 'failed' })).toEqual({
+      send_offer_result: 'failed',
+    })
   })
 
   it('redirects to /auth when not authenticated', async () => {
@@ -166,5 +249,43 @@ describe('/inbox route', () => {
       accountId: 'acct_creator_cached',
       sessionKind: 'creator',
     })
+  })
+
+  it('shows a success toast and clears send_offer_result', async () => {
+    await renderInboxRoute({ send_offer_result: 'success' })
+
+    await waitFor(() => {
+      expect(toastMock.success).toHaveBeenCalledWith('Offer enviada')
+    })
+    expectSearchParamCleaned()
+  })
+
+  it('shows a neutral toast and clears send_offer_result', async () => {
+    await renderInboxRoute({ send_offer_result: 'cancelled' })
+
+    await waitFor(() => {
+      expect(toastMock).toHaveBeenCalledWith('Volviste sin enviar la offer')
+    })
+    expectSearchParamCleaned()
+  })
+
+  it('shows an error toast and clears send_offer_result', async () => {
+    await renderInboxRoute({ send_offer_result: 'failed' })
+
+    await waitFor(() => {
+      expect(toastMock.error).toHaveBeenCalledWith(
+        'No pudimos procesar tu tarjeta. Probá de nuevo o gestioná tu tarjeta.',
+      )
+    })
+    expectSearchParamCleaned()
+  })
+
+  it('does not show an extra toast without send_offer_result', async () => {
+    await renderInboxRoute({})
+
+    expect(toastMock).not.toHaveBeenCalled()
+    expect(toastMock.success).not.toHaveBeenCalled()
+    expect(toastMock.error).not.toHaveBeenCalled()
+    expect(routeMocks.navigate).not.toHaveBeenCalled()
   })
 })

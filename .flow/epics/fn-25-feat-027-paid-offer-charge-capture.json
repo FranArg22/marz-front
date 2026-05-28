@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-feat-027-paid-offer-charge-on-send",
+  "created_at": "2026-05-26T23:08:59.056400Z",
+  "depends_on_epics": [],
+  "id": "fn-25-feat-027-paid-offer-charge-capture",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-25-feat-027-paid-offer-charge-capture.md",
+  "status": "done",
+  "title": "FEAT-027: Paid offer charge & capture \u2014 Frontend",
+  "updated_at": "2026-05-27T01:37:38.923643Z"
+}
