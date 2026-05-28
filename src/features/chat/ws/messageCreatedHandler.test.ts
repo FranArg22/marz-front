@@ -7,6 +7,7 @@ import type { MessageCreatedPayload } from '#/shared/ws/types'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
+import { getDeliverableLinksQueryKey } from '#/features/deliverables/hooks/useDeliverableLinks'
 import type { MessagesResponse } from '#/features/chat/types'
 
 import { handleMessageCreated } from './messageCreatedHandler'
@@ -446,6 +447,12 @@ describe('handleMessageCreated', () => {
       })
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: ['deliverables', 'del-1'],
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: getDeliverableLinksQueryKey('del-1'),
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: getConversationOffersQueryKey(CONVERSATION_ID),
       })
     },
   )

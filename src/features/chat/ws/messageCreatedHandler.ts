@@ -5,6 +5,7 @@ import type { MessageCreatedPayload } from '#/shared/ws/types'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import { getConversationOffersQueryKey } from '#/shared/queries/offers'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
+import { getDeliverableLinksQueryKey } from '#/features/deliverables/hooks/useDeliverableLinks'
 import { OFFER_EVENT_TYPES } from '#/shared/offers/constants'
 import type { MessageItem, MessagesResponse } from '#/features/chat/types'
 import { toMessagePayload } from '#/features/chat/utils/messagePayload'
@@ -157,6 +158,11 @@ export function handleMessageCreated(
     queryClient.invalidateQueries({
       queryKey: getConversationDeliverablesQueryKey(payload.conversation_id),
     })
+    // Approving the last link finalizes the offer (it stops being "current"),
+    // which flips the panel to the empty/send-offer state — refresh offers too.
+    queryClient.invalidateQueries({
+      queryKey: getConversationOffersQueryKey(payload.conversation_id),
+    })
     const systemEventPayload = toMessagePayload(payload.payload)
     const snapshot =
       (systemEventPayload?.['snapshot'] as
@@ -166,6 +172,11 @@ export function handleMessageCreated(
     if (typeof deliverableId === 'string') {
       queryClient.invalidateQueries({
         queryKey: ['deliverables', deliverableId],
+      })
+      // The "Link publicado" panel reads the deliverable's published-links
+      // query; refresh it so a submitted/approved link shows without an F5.
+      queryClient.invalidateQueries({
+        queryKey: getDeliverableLinksQueryKey(deliverableId),
       })
     }
   }

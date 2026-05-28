@@ -46,7 +46,16 @@ export function ConversationOffersPanel({
   const actorKind =
     meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
 
-  const deliverables = deliverablesQuery.data?.deliverables ?? []
+  // Scope deliverables to the offers-context current offer. The deliverables
+  // read derives its own "current offer", which lags after a new offer is sent
+  // (it still points at the previous, already-fulfilled offer); the offers
+  // context is authoritative, so filter by its id to avoid showing the prior
+  // offer's deliverables under the new one.
+  const deliverables = current
+    ? (deliverablesQuery.data?.deliverables ?? []).filter(
+        (deliverable) => deliverable.offer_id === current.id,
+      )
+    : []
 
   return (
     <ContextPanel
