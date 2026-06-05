@@ -13,6 +13,7 @@ interface WizardLayoutProps {
   onCancel: () => void
   onNext: () => void
   nextDisabled?: boolean
+  nextLabel?: ReactNode
   children: ReactNode
 }
 
@@ -24,6 +25,7 @@ export function WizardLayout({
   onCancel,
   onNext,
   nextDisabled = false,
+  nextLabel,
   children,
 }: WizardLayoutProps) {
   return (
@@ -62,7 +64,7 @@ export function WizardLayout({
           <Trans>Atrás</Trans>
         </Button>
         <Button onClick={onNext} disabled={nextDisabled}>
-          <Trans>Continuar</Trans>
+          {nextLabel ?? <Trans>Continuar</Trans>}
           <ArrowRight aria-hidden="true" />
         </Button>
       </footer>

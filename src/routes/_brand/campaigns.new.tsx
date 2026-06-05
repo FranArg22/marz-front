@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
@@ -9,10 +9,36 @@ import { Button } from '#/components/ui/button'
 import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
+import { WizardStep3Brief } from '#/features/campaigns/wizard/WizardStep3Brief'
 import { WizardStep4Audience } from '#/features/campaigns/wizard/WizardStep4Audience'
 import { WizardStep5Compensation } from '#/features/campaigns/wizard/WizardStep5Compensation'
 import { WizardStep6Content } from '#/features/campaigns/wizard/WizardStep6Content'
+import {
+  buildCreateCampaignRequest,
+  WizardStep7Review,
+} from '#/features/campaigns/wizard/WizardStep7Review'
+import { useCreateCampaignMutation } from '#/features/campaigns/wizard/mutations'
+import type { CreateCampaignMutationVariables } from '#/features/campaigns/wizard/mutations'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
+import type { CampaignWizardState } from '#/features/campaigns/wizard/store'
+import { ApiError } from '#/shared/api/mutator'
+import type { createCampaignResponse } from '#/shared/api/generated/campaigns/campaigns'
+
+type CreateCampaignMutate = (
+  variables: CreateCampaignMutationVariables,
+  options?: {
+    onSuccess?: (response: createCampaignResponse) => void
+    onError?: (error: Error) => void
+  },
+) => void
+
+interface SubmitCampaignWizardOptions {
+  state: CampaignWizardState
+  mutate: CreateCampaignMutate
+  navigateToCampaign: (campaignId: string) => void
+  reset: () => void
+  setSubmitError: (message: string | null) => void
+}
 
 const campaignWizardSearchSchema = z.object({
   step: z.number().int().min(1).max(7).default(1),
@@ -39,6 +65,9 @@ export const Route = createFileRoute('/_brand/campaigns/new')({
 function CampaignsNewLayout() {
   const router = useRouter()
   const { step = 1 } = Route.useSearch()
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const createCampaignMutation = useCreateCampaignMutation()
+  const wizardState = useCampaignWizardStore()
   const step1ContentType = useCampaignWizardStore(
     (state) => state.step1.content_type,
   )
@@ -69,6 +98,17 @@ function CampaignsNewLayout() {
       search: { step: step - 1 },
     })
   }, [router, step])
+
+  const handleEditStep = useCallback(
+    (nextStep: number) => {
+      setSubmitError(null)
+      void router.navigate({
+        to: '/campaigns/new',
+        search: { step: nextStep },
+      })
+    },
+    [router],
+  )
 
   const handleNext = useCallback(() => {
     if (step === 1) {
@@ -130,8 +170,25 @@ function CampaignsNewLayout() {
       }
       store.markStepCompleted(6)
       void router.navigate({ to: '/campaigns/new', search: { step: 7 } })
+      return
     }
-  }, [router, step])
+
+    if (step === 7) {
+      submitCampaignWizard({
+        state: useCampaignWizardStore.getState(),
+        mutate: createCampaignMutation.mutate,
+        reset: useCampaignWizardStore.getState().reset,
+        setSubmitError,
+        navigateToCampaign: (campaignId) => {
+          void router.navigate({
+            to: '/campaigns/$campaignId',
+            params: { campaignId },
+            search: { tab: 'overview', section: 'matches' },
+          })
+        },
+      })
+    }
+  }, [createCampaignMutation, router, step])
 
   const nextDisabled =
     step === 1
@@ -147,7 +204,10 @@ function CampaignsNewLayout() {
             ? step5CompensationType === null
             : step === 6
               ? step6ContentGuidelines.trim().length < 50
-              : step !== 3
+              : step === 7
+                ? buildCreateCampaignRequest(wizardState) === null ||
+                  createCampaignMutation.isPending
+                : step !== 3
 
   return (
     <WizardLayout
@@ -158,14 +218,98 @@ function CampaignsNewLayout() {
       onCancel={handleExit}
       onNext={handleNext}
       nextDisabled={nextDisabled}
+      nextLabel={step === 7 ? <Trans>Crear campaña</Trans> : undefined}
     >
       {step === 1 ? <WizardStep1ContentType /> : null}
       {step === 2 ? <WizardStep2PricingModel /> : null}
+      {step === 3 ? <WizardStep3Brief /> : null}
       {step === 4 ? <WizardStep4Audience /> : null}
       {step === 5 ? <WizardStep5Compensation /> : null}
       {step === 6 ? <WizardStep6Content /> : null}
+      {step === 7 ? (
+        <div className="flex flex-col gap-6">
+          {submitError ? (
+            <div
+              role="alert"
+              className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+            >
+              {submitError}
+            </div>
+          ) : null}
+          <WizardStep7Review onEditStep={handleEditStep} />
+        </div>
+      ) : null}
     </WizardLayout>
   )
+}
+
+export function submitCampaignWizard({
+  state,
+  mutate,
+  navigateToCampaign,
+  reset,
+  setSubmitError,
+}: SubmitCampaignWizardOptions): boolean {
+  const request = buildCreateCampaignRequest(state)
+  if (request === null) {
+    setSubmitError(t`Completá los datos requeridos antes de crear la campaña.`)
+    return false
+  }
+
+  setSubmitError(null)
+  mutate(
+    { data: request },
+    {
+      onSuccess: (response: createCampaignResponse) => {
+        if (response.status !== 201) {
+          setSubmitError(getCreateCampaignErrorMessage(response.data))
+          return
+        }
+
+        reset()
+        navigateToCampaign(response.data.id)
+      },
+      onError: (error) => {
+        setSubmitError(getCreateCampaignErrorMessage(error))
+      },
+    },
+  )
+  return true
+}
+
+export function getCreateCampaignErrorMessage(error: unknown): string {
+  if (error instanceof ApiError) {
+    if (error.status === 422) {
+      const fieldErrors = error.details?.field_errors
+      const firstFieldError = fieldErrors
+        ? Object.values(fieldErrors).flat().find(Boolean)
+        : null
+
+      return firstFieldError
+        ? t`Revisá los datos de la campaña: ${firstFieldError}`
+        : t`Revisá los datos de la campaña: ${error.message}`
+    }
+
+    return error.message || t`No pudimos crear la campaña. Intentá de nuevo.`
+  }
+
+  if (
+    typeof error === 'object' &&
+    error !== null &&
+    'error' in error &&
+    typeof error.error === 'object' &&
+    error.error !== null &&
+    'message' in error.error &&
+    typeof error.error.message === 'string'
+  ) {
+    return error.error.message
+  }
+
+  if (error instanceof Error && error.message) {
+    return error.message
+  }
+
+  return t`No pudimos crear la campaña. Intentá de nuevo.`
 }
 
 function CampaignsNewPending() {

@@ -1,1 +1,7 @@
 Archivo completo reescrito. Cambios: (1) '6 bloques de resumen' corregido a '5 bloques' — pasos 1+2 se combinan en un solo bloque 'Tipo de campaña'; (2) eliminado el confuso punto 6 que decía 'No hay paso 6 separado'; (3) cada bloque ahora indica a qué ?step redirige su botón Editar; (4) acceptance criteria actualizado de 6 a 5 bloques.
+## Done summary
+Implemented fn-27-feat-034-unified-campaign-creation.9; derive, quality gates and task review passed.
+## Evidence
+- Commits:
+- Tests:
+- PRs:

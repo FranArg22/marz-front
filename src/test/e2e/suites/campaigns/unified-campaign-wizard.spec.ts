@@ -69,6 +69,64 @@ async function mockBriefPdfUpload(page: import('@playwright/test').Page) {
   })
 }
 
+async function mockCampaignImageUpload(page: import('@playwright/test').Page) {
+  await page.route('**/v1/campaigns/uploads/image-presign', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        upload_url: '/e2e-upload/campaign-image.png',
+        s3_key: 'tmp/campaigns/e2e/campaign-image.png',
+        expires_in: 900,
+        required_headers: { 'content-type': 'image/png' },
+        max_bytes: 5 * 1024 * 1024,
+      }),
+    })
+  })
+  await page.route('**/e2e-upload/campaign-image.png', async (route) => {
+    await route.fulfill({ status: 200, body: '' })
+  })
+}
+
+async function completeWizardToStep7(page: import('@playwright/test').Page) {
+  await mockStep4Lookups(page)
+  await mockCampaignImageUpload(page)
+
+  await page.goto('/campaigns/new')
+  await page.getByRole('radio', { name: /Influencers Posts/ }).click()
+  await page.getByRole('button', { name: /Continuar/ }).click()
+  await page.getByRole('radio', { name: /Pay per post/ }).click()
+  await page.getByRole('button', { name: /Continuar/ }).click()
+
+  await page.getByLabel('Nombre').fill('Launch campaign')
+  await page
+    .getByLabel('Descripción')
+    .fill('Creators introduce the new product line.')
+  await page.getByLabel('URL objetivo').fill('https://example.com')
+  await page.getByLabel('Imagen').setInputFiles({
+    name: 'campaign-image.png',
+    mimeType: 'image/png',
+    buffer: Buffer.from('e2e-image'),
+  })
+  await expect(page.getByText('campaign-image.png')).toBeVisible()
+  await page.getByRole('button', { name: /Continuar/ }).click()
+
+  await page.getByRole('button', { name: 'Instagram' }).click()
+  await page.getByRole('button', { name: 'Belleza' }).click()
+  await page.getByRole('combobox', { name: 'País' }).click()
+  await page.getByRole('option', { name: 'Argentina' }).click()
+  await page.getByRole('radio', { name: 'Micro' }).click()
+  await page.getByRole('button', { name: /Continuar/ }).click()
+  await page.getByRole('button', { name: /Continuar/ }).click()
+
+  await page
+    .getByLabel('Content guidelines')
+    .fill('Estas guidelines tienen más de cincuenta caracteres para avanzar.')
+  await page.getByRole('button', { name: /Continuar/ }).click()
+
+  await expect(page).toHaveURL(/\/campaigns\/new\?step=7$/)
+}
+
 test.describe('unified campaign wizard', () => {
   test('loads /campaigns/new at step 1', async ({
     page,
@@ -188,6 +246,63 @@ test.describe('unified campaign wizard', () => {
     await expect(page.getByText('campaign-brief.pdf')).toBeVisible()
     await page.getByRole('button', { name: /Continuar/ }).click()
 
+    await expect(page).toHaveURL(/\/campaigns\/new\?step=7$/)
+  })
+
+  test('submits step 7 and navigates to the created campaign', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await onboardedBrandUser.signIn(page)
+    let createPayload: Record<string, unknown> | null = null
+    await page.route('**/v1/campaigns', async (route) => {
+      createPayload = route.request().postDataJSON() as Record<string, unknown>
+      await route.fulfill({
+        status: 201,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          id: 'campaign-e2e',
+          status: 'draft',
+          name: 'Launch campaign',
+        }),
+      })
+    })
+
+    await completeWizardToStep7(page)
+    await page.getByRole('button', { name: /Crear campaña/ }).click()
+
+    await expect(page).toHaveURL(/\/campaigns\/campaign-e2e(?:\?.*)?$/)
+    expect(createPayload).toMatchObject({
+      content_type: 'influencer_posts',
+      pricing_model: 'pay_per_post',
+      name: 'Launch campaign',
+      image_s3_key: 'tmp/campaigns/e2e/campaign-image.png',
+    })
+  })
+
+  test('shows a typed 422 error banner on step 7 submit failure', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await onboardedBrandUser.signIn(page)
+    await page.route('**/v1/campaigns', async (route) => {
+      await route.fulfill({
+        status: 422,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          code: 'validation_failed',
+          message: 'Validation failed',
+          details: { field_errors: { name: ['Name is required'] } },
+        }),
+      })
+    })
+
+    await completeWizardToStep7(page)
+    await page.getByRole('button', { name: /Crear campaña/ }).click()
+
+    await expect(
+      page.getByRole('alert').getByText(/Name is required/),
+    ).toBeVisible()
     await expect(page).toHaveURL(/\/campaigns\/new\?step=7$/)
   })
 })
