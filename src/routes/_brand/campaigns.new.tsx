@@ -10,6 +10,7 @@ import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
 import { WizardStep4Audience } from '#/features/campaigns/wizard/WizardStep4Audience'
+import { WizardStep5Compensation } from '#/features/campaigns/wizard/WizardStep5Compensation'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 
 const campaignWizardSearchSchema = z.object({
@@ -44,6 +45,9 @@ function CampaignsNewLayout() {
     (state) => state.step2.pricing_model,
   )
   const step4 = useCampaignWizardStore((state) => state.step4)
+  const step5CompensationType = useCampaignWizardStore(
+    (state) => state.step5.compensation_type,
+  )
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
   const handleExit = useCallback(() => {
@@ -102,6 +106,16 @@ function CampaignsNewLayout() {
       }
       store.markStepCompleted(4)
       void router.navigate({ to: '/campaigns/new', search: { step: 5 } })
+      return
+    }
+
+    if (step === 5) {
+      const store = useCampaignWizardStore.getState()
+      if (store.step5.compensation_type === null) {
+        return
+      }
+      store.markStepCompleted(5)
+      void router.navigate({ to: '/campaigns/new', search: { step: 6 } })
     }
   }, [router, step])
 
@@ -115,7 +129,9 @@ function CampaignsNewLayout() {
             step4.interests.length === 0 ||
             step4.creator_country === null ||
             step4.min_creator_tier_slug === null
-          : step !== 3
+          : step === 5
+            ? step5CompensationType === null
+            : step !== 3
 
   return (
     <WizardLayout
@@ -130,6 +146,7 @@ function CampaignsNewLayout() {
       {step === 1 ? <WizardStep1ContentType /> : null}
       {step === 2 ? <WizardStep2PricingModel /> : null}
       {step === 4 ? <WizardStep4Audience /> : null}
+      {step === 5 ? <WizardStep5Compensation /> : null}
     </WizardLayout>
   )
 }

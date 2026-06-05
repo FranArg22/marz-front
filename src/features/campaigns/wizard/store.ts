@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 
+import type { CampaignCompensationType } from '#/shared/api/generated/model/campaignCompensationType'
+
 export type SocialPlatform = 'tiktok' | 'instagram' | 'youtube'
 
 export type CampaignWizardState = {
@@ -20,7 +22,7 @@ export type CampaignWizardState = {
     min_creator_tier_slug: string | null
   }
   step5: {
-    compensation_type: 'payment' | null
+    compensation_type: CampaignCompensationType | null
     compensation_notes: string
     video_reuse_permission_default: boolean
   }
