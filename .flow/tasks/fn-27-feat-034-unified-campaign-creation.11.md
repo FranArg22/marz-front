@@ -36,8 +36,7 @@ Cuando `quota.isError`: el botón se mantiene habilitado (fail open — no penal
 - [ ] `pnpm typecheck` pasa.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.11; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
