@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { Users } from 'lucide-react'
 
+import { track } from '#/shared/analytics/track'
 import { useCreatorCountQuery } from './queries'
 import type { SocialPlatform } from './store'
 import { useDebouncedValue } from './hooks/useDebouncedValue'
@@ -42,6 +43,17 @@ export function MatchLiveBlock({
     !unavailable && typeof countData.count === 'number'
       ? creatorCountFormatter.format(countData.count)
       : '—'
+  const availableCount =
+    !unavailable && typeof countData.count === 'number' ? countData.count : null
+
+  useEffect(() => {
+    if (availableCount === null) return
+
+    track('campaign_wizard_match_count_seen', {
+      count: availableCount,
+      filters: debouncedFilters,
+    })
+  }, [availableCount, debouncedFilters])
 
   return (
     <aside

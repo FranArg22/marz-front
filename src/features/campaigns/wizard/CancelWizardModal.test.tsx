@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { getTrackedEvents, resetTrackedEvents } from '#/shared/analytics/track'
 import { WizardLayout } from './WizardLayout'
 import { useCampaignWizardStore } from './store'
 
@@ -76,6 +77,7 @@ describe('CancelWizardModal', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
     resetStore()
+    resetTrackedEvents()
   })
 
   afterEach(() => {
@@ -97,6 +99,15 @@ describe('CancelWizardModal', () => {
     await user.click(screen.getByRole('button', { name: /Cancelar/ }))
 
     expect(onCancel).toHaveBeenCalledOnce()
+    expect(getTrackedEvents()).toEqual([
+      expect.objectContaining({
+        event: 'campaign_wizard_cancelled',
+        payload: {
+          step_number_at_cancel: 3,
+          had_inputs: false,
+        },
+      }),
+    ])
     expect(
       screen.queryByRole('dialog', { name: /Salir del wizard/ }),
     ).not.toBeInTheDocument()
@@ -139,6 +150,15 @@ describe('CancelWizardModal', () => {
     expect(useCampaignWizardStore.getState().isDirty).toBe(false)
     expect(useCampaignWizardStore.getState().step3.imageBlobUrl).toBeNull()
     expect(onCancel).toHaveBeenCalledOnce()
+    expect(getTrackedEvents()).toEqual([
+      expect.objectContaining({
+        event: 'campaign_wizard_cancelled',
+        payload: {
+          step_number_at_cancel: 3,
+          had_inputs: true,
+        },
+      }),
+    ])
   })
 
   it('closes the modal and keeps the current wizard step when choosing Seguir editando', async () => {

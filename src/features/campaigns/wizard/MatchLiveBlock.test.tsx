@@ -1,6 +1,7 @@
 import { act, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { getTrackedEvents, resetTrackedEvents } from '#/shared/analytics/track'
 import { MatchLiveBlock } from './MatchLiveBlock'
 import { useCreatorCountQuery } from './queries'
 
@@ -14,6 +15,7 @@ const successHeaders = new Headers()
 describe('MatchLiveBlock', () => {
   beforeEach(() => {
     vi.useFakeTimers()
+    resetTrackedEvents()
     mockUseCreatorCountQuery.mockReturnValue({
       data: undefined,
       isPending: false,
@@ -83,6 +85,20 @@ describe('MatchLiveBlock', () => {
 
     expect(screen.getByText('1.234')).toBeInTheDocument()
     expect(screen.getByText('Creators disponibles')).toBeInTheDocument()
+    expect(getTrackedEvents()).toEqual([
+      expect.objectContaining({
+        event: 'campaign_wizard_match_count_seen',
+        payload: {
+          count: 1234,
+          filters: {
+            platforms: ['instagram'],
+            interests: ['beauty'],
+            creator_country: 'AR',
+            min_creator_tier_slug: 'micro',
+          },
+        },
+      }),
+    ])
   })
 
   it('keeps passing previous filters until the debounce delay completes', () => {

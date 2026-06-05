@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
+import { track } from '#/shared/analytics/track'
 import {
   Dialog,
   DialogContent,
@@ -16,19 +17,26 @@ interface CancelWizardModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onExit: () => void
+  step: number
 }
 
 export function CancelWizardModal({
   open,
   onOpenChange,
   onExit,
+  step,
 }: CancelWizardModalProps) {
   function handleKeepEditing() {
     onOpenChange(false)
   }
 
   function handleExit() {
-    useCampaignWizardStore.getState().reset()
+    const state = useCampaignWizardStore.getState()
+    track('campaign_wizard_cancelled', {
+      step_number_at_cancel: step,
+      had_inputs: state.isDirty,
+    })
+    state.reset()
     onExit()
   }
 

@@ -52,6 +52,13 @@ type AnalyticsEvent =
   | 'inbox_empty_viewed'
   | 'campaign_detail_viewed'
   | 'campaign_detail_tab_changed'
+  | 'campaign_wizard_step_entered'
+  | 'campaign_wizard_step_completed'
+  | 'campaign_wizard_submitted'
+  | 'campaign_wizard_created'
+  | 'campaign_wizard_failed'
+  | 'campaign_wizard_cancelled'
+  | 'campaign_wizard_match_count_seen'
   | 'campaign_wizard_pdf_rejected'
   | 'discovery_section_viewed'
   | 'discovery_match_contacted'
@@ -66,6 +73,8 @@ interface TrackedEvent {
 
 const buffer: TrackedEvent[] = []
 
+// For backend ingestion, prefer useIngestAnalyticsEvent from generated/analytics
+// once these event names are available in the generated AnalyticsEventName enum.
 export function track(
   event: AnalyticsEvent,
   payload?: Record<string, unknown>,

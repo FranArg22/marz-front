@@ -1,9 +1,10 @@
-import { useState  } from 'react'
-import type {ReactNode} from 'react';
+import { useState } from 'react'
+import type { ReactNode } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { track } from '#/shared/analytics/track'
 import { CancelWizardModal } from './CancelWizardModal'
 import { WizardStepIndicator } from './WizardStepIndicator'
 import { useCampaignWizardStore } from './store'
@@ -36,6 +37,10 @@ export function WizardLayout({
 
   function handleCancelClick() {
     if (!isDirty) {
+      track('campaign_wizard_cancelled', {
+        step_number_at_cancel: step,
+        had_inputs: false,
+      })
       onCancel()
       return
     }
@@ -88,6 +93,7 @@ export function WizardLayout({
         open={cancelModalOpen}
         onOpenChange={setCancelModalOpen}
         onExit={onCancel}
+        step={step}
       />
     </div>
   )

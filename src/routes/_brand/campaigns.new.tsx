@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
@@ -23,6 +23,7 @@ import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 import type { CampaignWizardState } from '#/features/campaigns/wizard/store'
 import { ApiError } from '#/shared/api/mutator'
 import type { createCampaignResponse } from '#/shared/api/generated/campaigns/campaigns'
+import { track } from '#/shared/analytics/track'
 
 type CreateCampaignMutate = (
   variables: CreateCampaignMutationVariables,
@@ -83,6 +84,10 @@ function CampaignsNewLayout() {
   )
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
+  useEffect(() => {
+    track('campaign_wizard_step_entered', { step_number: step })
+  }, [step])
+
   const handleExit = useCallback(() => {
     void router.navigate({ to: '/campaigns' })
   }, [router])
@@ -116,6 +121,7 @@ function CampaignsNewLayout() {
         return
       }
       store.markStepCompleted(1)
+      track('campaign_wizard_step_completed', { step_number: 1 })
       void router.navigate({ to: '/campaigns/new', search: { step: 2 } })
       return
     }
@@ -126,6 +132,7 @@ function CampaignsNewLayout() {
         return
       }
       store.markStepCompleted(2)
+      track('campaign_wizard_step_completed', { step_number: 2 })
       void router.navigate({ to: '/campaigns/new', search: { step: 3 } })
       return
     }
@@ -133,6 +140,7 @@ function CampaignsNewLayout() {
     if (step === 3) {
       const store = useCampaignWizardStore.getState()
       store.markStepCompleted(3)
+      track('campaign_wizard_step_completed', { step_number: 3 })
       void router.navigate({ to: '/campaigns/new', search: { step: 4 } })
       return
     }
@@ -148,6 +156,7 @@ function CampaignsNewLayout() {
         return
       }
       store.markStepCompleted(4)
+      track('campaign_wizard_step_completed', { step_number: 4 })
       void router.navigate({ to: '/campaigns/new', search: { step: 5 } })
       return
     }
@@ -158,6 +167,7 @@ function CampaignsNewLayout() {
         return
       }
       store.markStepCompleted(5)
+      track('campaign_wizard_step_completed', { step_number: 5 })
       void router.navigate({ to: '/campaigns/new', search: { step: 6 } })
       return
     }
@@ -168,6 +178,7 @@ function CampaignsNewLayout() {
         return
       }
       store.markStepCompleted(6)
+      track('campaign_wizard_step_completed', { step_number: 6 })
       void router.navigate({ to: '/campaigns/new', search: { step: 7 } })
       return
     }
@@ -256,20 +267,26 @@ export function submitCampaignWizard({
   }
 
   setSubmitError(null)
+  track('campaign_wizard_submitted', { completed_steps: state.completedSteps })
   mutate(
     { data: request },
     {
       onSuccess: (response: createCampaignResponse) => {
         if (response.status !== 201) {
-          setSubmitError(getCreateCampaignErrorMessage(response.data))
+          const message = getCreateCampaignErrorMessage(response.data)
+          track('campaign_wizard_failed', { reason: message })
+          setSubmitError(message)
           return
         }
 
+        track('campaign_wizard_created', { campaign_id: response.data.id })
         reset()
         navigateToCampaign(response.data.id)
       },
       onError: (error) => {
-        setSubmitError(getCreateCampaignErrorMessage(error))
+        const message = getCreateCampaignErrorMessage(error)
+        track('campaign_wizard_failed', { reason: message })
+        setSubmitError(message)
       },
     },
   )
