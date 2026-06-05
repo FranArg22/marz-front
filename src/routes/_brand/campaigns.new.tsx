@@ -6,8 +6,9 @@ import { Trans } from '@lingui/react/macro'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
+import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
+import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
-import { WizardTopbar } from '#/shared/ui/wizard/WizardTopbar'
 
 const campaignWizardSearchSchema = z.object({
   step: z.number().int().min(1).max(7).default(1),
@@ -34,26 +35,52 @@ export const Route = createFileRoute('/_brand/campaigns/new')({
 function CampaignsNewLayout() {
   const router = useRouter()
   const { step = 1 } = Route.useSearch()
-  const stepLabel = t`Paso ${step} de 7`
+  const step1ContentType = useCampaignWizardStore(
+    (state) => state.step1.content_type,
+  )
+  const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
   const handleExit = useCallback(() => {
     useCampaignWizardStore.getState().reset()
     void router.navigate({ to: '/campaigns' })
   }, [router])
 
+  const handleBack = useCallback(() => {
+    if (step === 1) {
+      return
+    }
+
+    void router.navigate({
+      to: '/campaigns/new',
+      search: { step: step - 1 },
+    })
+  }, [router, step])
+
+  const handleNext = useCallback(() => {
+    if (step === 1) {
+      const store = useCampaignWizardStore.getState()
+      if (store.step1.content_type === null) {
+        return
+      }
+      store.markStepCompleted(1)
+      void router.navigate({ to: '/campaigns/new', search: { step: 2 } })
+    }
+  }, [router, step])
+
+  const nextDisabled = step === 1 ? step1ContentType === null : true
+
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
-      <WizardTopbar
-        stepLabel={stepLabel}
-        onExit={handleExit}
-        exitLabel={t`Cancelar`}
-      />
-      <main className="flex flex-1 flex-col overflow-hidden">
-        <div className="flex flex-1 items-center justify-center px-6 text-sm text-muted-foreground">
-          <Trans>Wizard próximamente</Trans>
-        </div>
-      </main>
-    </div>
+    <WizardLayout
+      step={step}
+      totalSteps={7}
+      completedSteps={completedSteps}
+      onBack={handleBack}
+      onCancel={handleExit}
+      onNext={handleNext}
+      nextDisabled={nextDisabled}
+    >
+      {step === 1 ? <WizardStep1ContentType /> : null}
+    </WizardLayout>
   )
 }
 

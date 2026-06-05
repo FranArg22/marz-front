@@ -53,8 +53,7 @@ Barra horizontal de 7 segmentos. Cada segmento: activo (fill `--primary`), compl
 - [ ] `pnpm typecheck` pasa.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
