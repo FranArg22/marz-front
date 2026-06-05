@@ -52,6 +52,7 @@ type AnalyticsEvent =
   | 'inbox_empty_viewed'
   | 'campaign_detail_viewed'
   | 'campaign_detail_tab_changed'
+  | 'campaign_wizard_pdf_rejected'
   | 'discovery_section_viewed'
   | 'discovery_match_contacted'
   | 'discovery_application_decided'

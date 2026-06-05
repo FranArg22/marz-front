@@ -11,6 +11,7 @@ import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1C
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
 import { WizardStep4Audience } from '#/features/campaigns/wizard/WizardStep4Audience'
 import { WizardStep5Compensation } from '#/features/campaigns/wizard/WizardStep5Compensation'
+import { WizardStep6Content } from '#/features/campaigns/wizard/WizardStep6Content'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 
 const campaignWizardSearchSchema = z.object({
@@ -47,6 +48,9 @@ function CampaignsNewLayout() {
   const step4 = useCampaignWizardStore((state) => state.step4)
   const step5CompensationType = useCampaignWizardStore(
     (state) => state.step5.compensation_type,
+  )
+  const step6ContentGuidelines = useCampaignWizardStore(
+    (state) => state.step6.content_guidelines,
   )
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
@@ -116,6 +120,16 @@ function CampaignsNewLayout() {
       }
       store.markStepCompleted(5)
       void router.navigate({ to: '/campaigns/new', search: { step: 6 } })
+      return
+    }
+
+    if (step === 6) {
+      const store = useCampaignWizardStore.getState()
+      if (store.step6.content_guidelines.trim().length < 50) {
+        return
+      }
+      store.markStepCompleted(6)
+      void router.navigate({ to: '/campaigns/new', search: { step: 7 } })
     }
   }, [router, step])
 
@@ -131,7 +145,9 @@ function CampaignsNewLayout() {
             step4.min_creator_tier_slug === null
           : step === 5
             ? step5CompensationType === null
-            : step !== 3
+            : step === 6
+              ? step6ContentGuidelines.trim().length < 50
+              : step !== 3
 
   return (
     <WizardLayout
@@ -147,6 +163,7 @@ function CampaignsNewLayout() {
       {step === 2 ? <WizardStep2PricingModel /> : null}
       {step === 4 ? <WizardStep4Audience /> : null}
       {step === 5 ? <WizardStep5Compensation /> : null}
+      {step === 6 ? <WizardStep6Content /> : null}
     </WizardLayout>
   )
 }
