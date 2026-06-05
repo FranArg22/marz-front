@@ -20,6 +20,7 @@ export interface CampaignDetailResponse {
   name: string;
   objective: string;
   status: string;
+  version: number;
   budget: CampaignMoney;
   /** @nullable */
   deadline: string | null;

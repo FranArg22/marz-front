@@ -13918,6 +13918,7 @@
           "name",
           "objective",
           "status",
+          "version",
           "budget",
           "deadline",
           "platforms",
@@ -13946,6 +13947,10 @@
           },
           "status": {
             "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
           },
           "budget": {
             "$ref": "#/components/schemas/CampaignMoney"

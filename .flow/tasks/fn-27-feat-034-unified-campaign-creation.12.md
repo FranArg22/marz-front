@@ -69,8 +69,7 @@ El `If-Match` header debe enviarse con la `version` actual de la campaign. `useU
 - [ ] `pnpm typecheck` pasa.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.12; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

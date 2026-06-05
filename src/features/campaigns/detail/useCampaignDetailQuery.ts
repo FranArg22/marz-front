@@ -7,7 +7,7 @@ import { ApiError } from '#/shared/api/mutator'
 
 const CAMPAIGN_DETAIL_STALE_TIME = 60_000
 
-function campaignDetailQueryKey(campaignId: string) {
+export function campaignDetailQueryKey(campaignId: string) {
   return ['campaign', campaignId, 'detail'] as const
 }
 

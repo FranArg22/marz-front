@@ -328,6 +328,7 @@ export const GetCampaignDetailResponse = zod.object({
   "name": zod.string(),
   "objective": zod.string(),
   "status": zod.string(),
+  "version": zod.number(),
   "budget": zod.object({
   "amount": zod.string(),
   "currency": zod.string()
