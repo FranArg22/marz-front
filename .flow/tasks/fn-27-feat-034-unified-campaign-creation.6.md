@@ -68,8 +68,7 @@ Al hacer click en Continuar: `store.markStepCompleted(4)`, navegar a `?step=5`.
 - [ ] `pnpm typecheck` pasa.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

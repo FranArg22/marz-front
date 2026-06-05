@@ -9,6 +9,7 @@ import { Button } from '#/components/ui/button'
 import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
+import { WizardStep4Audience } from '#/features/campaigns/wizard/WizardStep4Audience'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 
 const campaignWizardSearchSchema = z.object({
@@ -42,6 +43,7 @@ function CampaignsNewLayout() {
   const step2PricingModel = useCampaignWizardStore(
     (state) => state.step2.pricing_model,
   )
+  const step4 = useCampaignWizardStore((state) => state.step4)
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
   const handleExit = useCallback(() => {
@@ -78,6 +80,28 @@ function CampaignsNewLayout() {
       }
       store.markStepCompleted(2)
       void router.navigate({ to: '/campaigns/new', search: { step: 3 } })
+      return
+    }
+
+    if (step === 3) {
+      const store = useCampaignWizardStore.getState()
+      store.markStepCompleted(3)
+      void router.navigate({ to: '/campaigns/new', search: { step: 4 } })
+      return
+    }
+
+    if (step === 4) {
+      const store = useCampaignWizardStore.getState()
+      if (
+        store.step4.platforms.length === 0 ||
+        store.step4.interests.length === 0 ||
+        store.step4.creator_country === null ||
+        store.step4.min_creator_tier_slug === null
+      ) {
+        return
+      }
+      store.markStepCompleted(4)
+      void router.navigate({ to: '/campaigns/new', search: { step: 5 } })
     }
   }, [router, step])
 
@@ -86,7 +110,12 @@ function CampaignsNewLayout() {
       ? step1ContentType === null
       : step === 2
         ? step2PricingModel === null
-        : true
+        : step === 4
+          ? step4.platforms.length === 0 ||
+            step4.interests.length === 0 ||
+            step4.creator_country === null ||
+            step4.min_creator_tier_slug === null
+          : step !== 3
 
   return (
     <WizardLayout
@@ -100,6 +129,7 @@ function CampaignsNewLayout() {
     >
       {step === 1 ? <WizardStep1ContentType /> : null}
       {step === 2 ? <WizardStep2PricingModel /> : null}
+      {step === 4 ? <WizardStep4Audience /> : null}
     </WizardLayout>
   )
 }
