@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { Button } from '#/components/ui/button'
 import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
+import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
 import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 
 const campaignWizardSearchSchema = z.object({
@@ -38,6 +39,9 @@ function CampaignsNewLayout() {
   const step1ContentType = useCampaignWizardStore(
     (state) => state.step1.content_type,
   )
+  const step2PricingModel = useCampaignWizardStore(
+    (state) => state.step2.pricing_model,
+  )
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
   const handleExit = useCallback(() => {
@@ -64,10 +68,25 @@ function CampaignsNewLayout() {
       }
       store.markStepCompleted(1)
       void router.navigate({ to: '/campaigns/new', search: { step: 2 } })
+      return
+    }
+
+    if (step === 2) {
+      const store = useCampaignWizardStore.getState()
+      if (store.step2.pricing_model === null) {
+        return
+      }
+      store.markStepCompleted(2)
+      void router.navigate({ to: '/campaigns/new', search: { step: 3 } })
     }
   }, [router, step])
 
-  const nextDisabled = step === 1 ? step1ContentType === null : true
+  const nextDisabled =
+    step === 1
+      ? step1ContentType === null
+      : step === 2
+        ? step2PricingModel === null
+        : true
 
   return (
     <WizardLayout
@@ -80,6 +99,7 @@ function CampaignsNewLayout() {
       nextDisabled={nextDisabled}
     >
       {step === 1 ? <WizardStep1ContentType /> : null}
+      {step === 2 ? <WizardStep2PricingModel /> : null}
     </WizardLayout>
   )
 }

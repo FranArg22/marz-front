@@ -38,4 +38,20 @@ test.describe('unified campaign wizard', () => {
     await expect(page).toHaveURL(/\/campaigns\/new\?step=2$/)
     await expect(page.getByText('Paso 2 de 7')).toBeVisible()
   })
+
+  test('selects content type and pricing model and navigates to step 3', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await onboardedBrandUser.signIn(page)
+
+    await page.goto('/campaigns/new')
+    await page.getByRole('radio', { name: /Influencers Posts/ }).click()
+    await page.getByRole('button', { name: /Continuar/ }).click()
+    await page.getByRole('radio', { name: /Pay per post/ }).click()
+    await page.getByRole('button', { name: /Continuar/ }).click()
+
+    await expect(page).toHaveURL(/\/campaigns\/new\?step=3$/)
+    await expect(page.getByText('Paso 3 de 7')).toBeVisible()
+  })
 })

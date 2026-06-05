@@ -39,8 +39,7 @@ Reutilizar el mismo componente de card seleccionable de F.3 si fue extraído com
 - [ ] `pnpm typecheck` pasa.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
