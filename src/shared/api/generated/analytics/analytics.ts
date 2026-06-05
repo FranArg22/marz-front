@@ -20,7 +20,7 @@ import type {
 import type {
   AnalyticsEventIngestRequest,
   AnalyticsEventIngestResponse,
-  Error
+  ErrorResponse
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -36,12 +36,12 @@ export type ingestAnalyticsEventResponse202 = {
 }
 
 export type ingestAnalyticsEventResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type ingestAnalyticsEventResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
@@ -77,7 +77,7 @@ export const ingestAnalyticsEvent = async (analyticsEventIngestRequest: Analytic
 
 
 
-export const getIngestAnalyticsEventMutationOptions = <TError = Error,
+export const getIngestAnalyticsEventMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ingestAnalyticsEvent>>, TError,{data: AnalyticsEventIngestRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof ingestAnalyticsEvent>>, TError,{data: AnalyticsEventIngestRequest}, TContext> => {
 
@@ -106,9 +106,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type IngestAnalyticsEventMutationResult = NonNullable<Awaited<ReturnType<typeof ingestAnalyticsEvent>>>
     export type IngestAnalyticsEventMutationBody = AnalyticsEventIngestRequest
-    export type IngestAnalyticsEventMutationError = Error
+    export type IngestAnalyticsEventMutationError = ErrorResponse
 
-    export const useIngestAnalyticsEvent = <TError = Error,
+    export const useIngestAnalyticsEvent = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ingestAnalyticsEvent>>, TError,{data: AnalyticsEventIngestRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof ingestAnalyticsEvent>>,

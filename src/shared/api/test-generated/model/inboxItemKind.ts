@@ -29,4 +29,5 @@ export const InboxItemKind = {
   application_sent_waiting: 'application_sent_waiting',
   match_suggested: 'match_suggested',
   invite_sent_waiting: 'invite_sent_waiting',
+  refund_delayed: 'refund_delayed',
 } as const;

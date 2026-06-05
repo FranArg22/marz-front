@@ -34,7 +34,7 @@ import type {
   CreatorInvitationDetailResponse,
   CreatorInvitationListResponse,
   DeclineCreatorInvitationResponse,
-  Error,
+  ErrorResponse,
   ExportCreatorEarningsCSVParams,
   GetCreatorEarningsParams,
   ListCreatorCampaignBoardParams,
@@ -56,22 +56,22 @@ export type listCreatorInvitationsResponse200 = {
 }
 
 export type listCreatorInvitationsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCreatorInvitationsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCreatorInvitationsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCreatorInvitationsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -121,7 +121,7 @@ export const getListCreatorInvitationsQueryKey = (params?: ListCreatorInvitation
     }
 
 
-export const getListCreatorInvitationsQueryOptions = <TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = Error>(params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListCreatorInvitationsQueryOptions = <TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -140,10 +140,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCreatorInvitationsQueryResult = NonNullable<Awaited<ReturnType<typeof listCreatorInvitations>>>
-export type ListCreatorInvitationsQueryError = Error
+export type ListCreatorInvitationsQueryError = ErrorResponse
 
 
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = Error>(
+export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
  params: undefined |  ListCreatorInvitationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreatorInvitations>>,
@@ -153,7 +153,7 @@ export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof list
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = Error>(
+export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
  params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreatorInvitations>>,
@@ -163,12 +163,12 @@ export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof list
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = Error>(
+export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
  params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = Error>(
+export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
  params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -191,27 +191,27 @@ export type listCreatorCampaignBoardResponse200 = {
 }
 
 export type listCreatorCampaignBoardResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCreatorCampaignBoardResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCreatorCampaignBoardResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCreatorCampaignBoardResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type listCreatorCampaignBoardResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -269,7 +269,7 @@ export const getListCreatorCampaignBoardQueryKey = (params?: ListCreatorCampaign
     }
 
 
-export const getListCreatorCampaignBoardQueryOptions = <TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = Error>(params?: ListCreatorCampaignBoardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListCreatorCampaignBoardQueryOptions = <TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = ErrorResponse>(params?: ListCreatorCampaignBoardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -288,10 +288,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCreatorCampaignBoardQueryResult = NonNullable<Awaited<ReturnType<typeof listCreatorCampaignBoard>>>
-export type ListCreatorCampaignBoardQueryError = Error
+export type ListCreatorCampaignBoardQueryError = ErrorResponse
 
 
-export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = Error>(
+export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = ErrorResponse>(
  params: undefined |  ListCreatorCampaignBoardParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreatorCampaignBoard>>,
@@ -301,7 +301,7 @@ export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof li
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = Error>(
+export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = ErrorResponse>(
  params?: ListCreatorCampaignBoardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreatorCampaignBoard>>,
@@ -311,12 +311,12 @@ export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof li
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = Error>(
+export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = ErrorResponse>(
  params?: ListCreatorCampaignBoardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = Error>(
+export function useListCreatorCampaignBoard<TData = Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError = ErrorResponse>(
  params?: ListCreatorCampaignBoardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorCampaignBoard>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -339,37 +339,37 @@ export type getCreatorCampaignBoardDetailResponse200 = {
 }
 
 export type getCreatorCampaignBoardDetailResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCreatorCampaignBoardDetailResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCreatorCampaignBoardDetailResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCreatorCampaignBoardDetailResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type getCreatorCampaignBoardDetailResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getCreatorCampaignBoardDetailResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type getCreatorCampaignBoardDetailResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -412,7 +412,7 @@ export const getGetCreatorCampaignBoardDetailQueryKey = (campaignId: string,) =>
     }
 
 
-export const getGetCreatorCampaignBoardDetailQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = Error>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCreatorCampaignBoardDetailQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = ErrorResponse>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -431,10 +431,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCreatorCampaignBoardDetailQueryResult = NonNullable<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>>
-export type GetCreatorCampaignBoardDetailQueryError = Error
+export type GetCreatorCampaignBoardDetailQueryError = ErrorResponse
 
 
-export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = Error>(
+export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = ErrorResponse>(
  campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>,
@@ -444,7 +444,7 @@ export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = Error>(
+export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>,
@@ -454,12 +454,12 @@ export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = Error>(
+export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = Error>(
+export function useGetCreatorCampaignBoardDetail<TData = Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorCampaignBoardDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -487,32 +487,32 @@ export type submitCreatorCampaignBoardApplicationResponse201 = {
 }
 
 export type submitCreatorCampaignBoardApplicationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type submitCreatorCampaignBoardApplicationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type submitCreatorCampaignBoardApplicationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type submitCreatorCampaignBoardApplicationResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type submitCreatorCampaignBoardApplicationResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type submitCreatorCampaignBoardApplicationResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -549,7 +549,7 @@ export const submitCreatorCampaignBoardApplication = async (campaignId: string,
 
 
 
-export const getSubmitCreatorCampaignBoardApplicationMutationOptions = <TError = Error,
+export const getSubmitCreatorCampaignBoardApplicationMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitCreatorCampaignBoardApplication>>, TError,{campaignId: string;data: SubmitCampaignApplicationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof submitCreatorCampaignBoardApplication>>, TError,{campaignId: string;data: SubmitCampaignApplicationRequest}, TContext> => {
 
@@ -578,9 +578,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SubmitCreatorCampaignBoardApplicationMutationResult = NonNullable<Awaited<ReturnType<typeof submitCreatorCampaignBoardApplication>>>
     export type SubmitCreatorCampaignBoardApplicationMutationBody = SubmitCampaignApplicationRequest
-    export type SubmitCreatorCampaignBoardApplicationMutationError = Error
+    export type SubmitCreatorCampaignBoardApplicationMutationError = ErrorResponse
 
-    export const useSubmitCreatorCampaignBoardApplication = <TError = Error,
+    export const useSubmitCreatorCampaignBoardApplication = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitCreatorCampaignBoardApplication>>, TError,{campaignId: string;data: SubmitCampaignApplicationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof submitCreatorCampaignBoardApplication>>,
@@ -596,17 +596,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type getCreatorEarningsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCreatorEarningsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCreatorEarningsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -656,7 +656,7 @@ export const getGetCreatorEarningsQueryKey = (params?: GetCreatorEarningsParams,
     }
 
 
-export const getGetCreatorEarningsQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = Error>(params?: GetCreatorEarningsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCreatorEarningsQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = ErrorResponse>(params?: GetCreatorEarningsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -675,10 +675,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCreatorEarningsQueryResult = NonNullable<Awaited<ReturnType<typeof getCreatorEarnings>>>
-export type GetCreatorEarningsQueryError = Error
+export type GetCreatorEarningsQueryError = ErrorResponse
 
 
-export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = Error>(
+export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = ErrorResponse>(
  params: undefined |  GetCreatorEarningsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorEarnings>>,
@@ -688,7 +688,7 @@ export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreat
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = Error>(
+export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = ErrorResponse>(
  params?: GetCreatorEarningsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorEarnings>>,
@@ -698,12 +698,12 @@ export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreat
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = Error>(
+export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = ErrorResponse>(
  params?: GetCreatorEarningsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = Error>(
+export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreatorEarnings>>, TError = ErrorResponse>(
  params?: GetCreatorEarningsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorEarnings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -726,22 +726,22 @@ export type exportCreatorEarningsCSVResponse200 = {
 }
 
 export type exportCreatorEarningsCSVResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type exportCreatorEarningsCSVResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type exportCreatorEarningsCSVResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type exportCreatorEarningsCSVResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -791,7 +791,7 @@ export const getExportCreatorEarningsCSVQueryKey = (params?: ExportCreatorEarnin
     }
 
 
-export const getExportCreatorEarningsCSVQueryOptions = <TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = Error>(params?: ExportCreatorEarningsCSVParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getExportCreatorEarningsCSVQueryOptions = <TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = ErrorResponse>(params?: ExportCreatorEarningsCSVParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -810,10 +810,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ExportCreatorEarningsCSVQueryResult = NonNullable<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>>
-export type ExportCreatorEarningsCSVQueryError = Error
+export type ExportCreatorEarningsCSVQueryError = ErrorResponse
 
 
-export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = Error>(
+export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = ErrorResponse>(
  params: undefined |  ExportCreatorEarningsCSVParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof exportCreatorEarningsCSV>>,
@@ -823,7 +823,7 @@ export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof ex
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = Error>(
+export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = ErrorResponse>(
  params?: ExportCreatorEarningsCSVParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof exportCreatorEarningsCSV>>,
@@ -833,12 +833,12 @@ export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof ex
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = Error>(
+export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = ErrorResponse>(
  params?: ExportCreatorEarningsCSVParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = Error>(
+export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError = ErrorResponse>(
  params?: ExportCreatorEarningsCSVParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof exportCreatorEarningsCSV>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -861,27 +861,27 @@ export type getCreatorInvitationResponse200 = {
 }
 
 export type getCreatorInvitationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type getCreatorInvitationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCreatorInvitationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCreatorInvitationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCreatorInvitationResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -924,7 +924,7 @@ export const getGetCreatorInvitationQueryKey = (inviteId: string,) => {
     }
 
 
-export const getGetCreatorInvitationQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = Error>(inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCreatorInvitationQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -943,10 +943,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCreatorInvitationQueryResult = NonNullable<Awaited<ReturnType<typeof getCreatorInvitation>>>
-export type GetCreatorInvitationQueryError = Error
+export type GetCreatorInvitationQueryError = ErrorResponse
 
 
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = Error>(
+export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
  inviteId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorInvitation>>,
@@ -956,7 +956,7 @@ export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCre
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = Error>(
+export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
  inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCreatorInvitation>>,
@@ -966,12 +966,12 @@ export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCre
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = Error>(
+export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
  inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = Error>(
+export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
  inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -994,32 +994,32 @@ export type acceptCreatorInvitationResponse200 = {
 }
 
 export type acceptCreatorInvitationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type acceptCreatorInvitationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type acceptCreatorInvitationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type acceptCreatorInvitationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type acceptCreatorInvitationResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type acceptCreatorInvitationResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -1054,7 +1054,7 @@ export const acceptCreatorInvitation = async (inviteId: string, options?: Reques
 
 
 
-export const getAcceptCreatorInvitationMutationOptions = <TError = Error,
+export const getAcceptCreatorInvitationMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext> => {
 
@@ -1083,9 +1083,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AcceptCreatorInvitationMutationResult = NonNullable<Awaited<ReturnType<typeof acceptCreatorInvitation>>>
 
-    export type AcceptCreatorInvitationMutationError = Error
+    export type AcceptCreatorInvitationMutationError = ErrorResponse
 
-    export const useAcceptCreatorInvitation = <TError = Error,
+    export const useAcceptCreatorInvitation = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof acceptCreatorInvitation>>,
@@ -1101,32 +1101,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type declineCreatorInvitationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type declineCreatorInvitationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type declineCreatorInvitationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type declineCreatorInvitationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type declineCreatorInvitationResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type declineCreatorInvitationResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -1161,7 +1161,7 @@ export const declineCreatorInvitation = async (inviteId: string, options?: Reque
 
 
 
-export const getDeclineCreatorInvitationMutationOptions = <TError = Error,
+export const getDeclineCreatorInvitationMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext> => {
 
@@ -1190,9 +1190,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type DeclineCreatorInvitationMutationResult = NonNullable<Awaited<ReturnType<typeof declineCreatorInvitation>>>
 
-    export type DeclineCreatorInvitationMutationError = Error
+    export type DeclineCreatorInvitationMutationError = ErrorResponse
 
-    export const useDeclineCreatorInvitation = <TError = Error,
+    export const useDeclineCreatorInvitation = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof declineCreatorInvitation>>,

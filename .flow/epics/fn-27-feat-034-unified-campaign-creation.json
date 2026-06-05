@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-feat-034-unified-campaign-creation-wizard",
+  "created_at": "2026-06-05T08:20:47.324016Z",
+  "depends_on_epics": [],
+  "id": "fn-27-feat-034-unified-campaign-creation",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-27-feat-034-unified-campaign-creation.md",
+  "status": "open",
+  "title": "FEAT-034 Unified Campaign Creation Wizard \u2014 Frontend",
+  "updated_at": "2026-06-05T08:27:50.082051Z"
+}

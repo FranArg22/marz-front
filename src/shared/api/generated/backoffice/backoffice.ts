@@ -24,7 +24,7 @@ import type {
 
 import type {
   BackofficeEmailMetricsResponse,
-  Error,
+  ErrorResponse,
   GetBackofficeEmailMetricsParams
 } from '../model';
 
@@ -44,22 +44,22 @@ export type getBackofficeEmailMetricsResponse200 = {
 }
 
 export type getBackofficeEmailMetricsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getBackofficeEmailMetricsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getBackofficeEmailMetricsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getBackofficeEmailMetricsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -109,7 +109,7 @@ export const getGetBackofficeEmailMetricsQueryKey = (params?: GetBackofficeEmail
     }
 
 
-export const getGetBackofficeEmailMetricsQueryOptions = <TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = Error>(params: GetBackofficeEmailMetricsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetBackofficeEmailMetricsQueryOptions = <TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = ErrorResponse>(params: GetBackofficeEmailMetricsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -128,10 +128,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetBackofficeEmailMetricsQueryResult = NonNullable<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>>
-export type GetBackofficeEmailMetricsQueryError = Error
+export type GetBackofficeEmailMetricsQueryError = ErrorResponse
 
 
-export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = Error>(
+export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = ErrorResponse>(
  params: GetBackofficeEmailMetricsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getBackofficeEmailMetrics>>,
@@ -141,7 +141,7 @@ export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof g
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = Error>(
+export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = ErrorResponse>(
  params: GetBackofficeEmailMetricsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getBackofficeEmailMetrics>>,
@@ -151,12 +151,12 @@ export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof g
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = Error>(
+export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = ErrorResponse>(
  params: GetBackofficeEmailMetricsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = Error>(
+export function useGetBackofficeEmailMetrics<TData = Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError = ErrorResponse>(
  params: GetBackofficeEmailMetricsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBackofficeEmailMetrics>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {

@@ -7,18 +7,54 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
-import type { CampaignBriefInput } from './campaignBriefInput';
-import type { CreateCampaignRequestObjective } from './createCampaignRequestObjective';
+import type { CampaignCompensationType } from './campaignCompensationType';
+import type { CampaignContentType } from './campaignContentType';
+import type { CampaignPricingModel } from './campaignPricingModel';
+import type { SocialPlatform } from './socialPlatform';
 
 export interface CreateCampaignRequest {
-  /** @maxLength 150 */
+  content_type: CampaignContentType;
+  pricing_model: CampaignPricingModel;
+  /**
+     * @minLength 1
+     * @maxLength 150
+     */
   name: string;
-  objective: CreateCampaignRequestObjective;
-  /** @maxLength 50 */
-  budget_amount: string;
-  /** @maxLength 3 */
-  budget_currency: string;
-  /** @nullable */
-  deadline?: string | null;
-  brief: CampaignBriefInput;
+  /**
+     * @minLength 1
+     * @maxLength 4000
+     */
+  description: string;
+  /** @maxLength 500 */
+  target_url: string;
+  /** @maxLength 500 */
+  image_s3_key: string;
+  /** @minItems 1 */
+  platforms: SocialPlatform[];
+  /** @minItems 1 */
+  interests: string[];
+  /**
+     * @minLength 2
+     * @maxLength 2
+     */
+  creator_country: string;
+  /** @minLength 1 */
+  min_creator_tier_slug: string;
+  compensation_type: CampaignCompensationType;
+  /**
+     * @maxLength 4000
+     * @nullable
+     */
+  compensation_notes?: string | null;
+  video_reuse_permission_default: boolean;
+  /**
+     * @minLength 1
+     * @maxLength 4000
+     */
+  content_guidelines: string;
+  /**
+     * @maxLength 500
+     * @nullable
+     */
+  brief_pdf_s3_key?: string | null;
 }

@@ -1,0 +1,1 @@
+Archivo completo reescrito. Cambios: (1) name maxLength corregido de 120 a 150 (el tipo generado CreateCampaignRequest tiene @maxLength 150); (2) description maxLength corregido de 2000 a 4000 (@maxLength 4000 en tipo generado); (3) target_url maxLength 500 documentado; (4) referencia explícita a los tipos generados como fuente de verdad de los límites.

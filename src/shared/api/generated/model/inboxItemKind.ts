@@ -26,4 +26,5 @@ export const InboxItemKind = {
   InboxItemKindApplicationSentWaiting: 'application_sent_waiting',
   InboxItemKindMatchSuggested: 'match_suggested',
   InboxItemKindInviteSentWaiting: 'invite_sent_waiting',
+  InboxItemKindRefundDelayed: 'refund_delayed',
 } as const;

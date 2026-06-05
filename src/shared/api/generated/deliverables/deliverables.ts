@@ -33,7 +33,7 @@ import type {
   CompleteDraftUploadRequest,
   ConversationDeliverablesResponse,
   DraftDTO,
-  Error,
+  ErrorResponse,
   ListChangeRequestsResponse,
   ListDraftsResponse,
   ListLinksParams,
@@ -61,37 +61,37 @@ export type requestDraftUploadResponse201 = {
 }
 
 export type requestDraftUploadResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type requestDraftUploadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type requestDraftUploadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type requestDraftUploadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type requestDraftUploadResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type requestDraftUploadResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type requestDraftUploadResponse503 = {
-  data: Error
+  data: ErrorResponse
   status: 503
 }
 
@@ -128,7 +128,7 @@ export const requestDraftUpload = async (id: string,
 
 
 
-export const getRequestDraftUploadMutationOptions = <TError = Error,
+export const getRequestDraftUploadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestDraftUpload>>, TError,{id: string;data: RequestDraftUploadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof requestDraftUpload>>, TError,{id: string;data: RequestDraftUploadRequest}, TContext> => {
 
@@ -157,9 +157,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RequestDraftUploadMutationResult = NonNullable<Awaited<ReturnType<typeof requestDraftUpload>>>
     export type RequestDraftUploadMutationBody = RequestDraftUploadRequest
-    export type RequestDraftUploadMutationError = Error
+    export type RequestDraftUploadMutationError = ErrorResponse
 
-    export const useRequestDraftUpload = <TError = Error,
+    export const useRequestDraftUpload = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestDraftUpload>>, TError,{id: string;data: RequestDraftUploadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof requestDraftUpload>>,
@@ -175,32 +175,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type completeDraftUploadResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type completeDraftUploadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type completeDraftUploadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type completeDraftUploadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type completeDraftUploadResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type completeDraftUploadResponse503 = {
-  data: Error
+  data: ErrorResponse
   status: 503
 }
 
@@ -239,7 +239,7 @@ export const completeDraftUpload = async (id: string,
 
 
 
-export const getCompleteDraftUploadMutationOptions = <TError = Error,
+export const getCompleteDraftUploadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeDraftUpload>>, TError,{id: string;intentId: string;data: CompleteDraftUploadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof completeDraftUpload>>, TError,{id: string;intentId: string;data: CompleteDraftUploadRequest}, TContext> => {
 
@@ -268,9 +268,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CompleteDraftUploadMutationResult = NonNullable<Awaited<ReturnType<typeof completeDraftUpload>>>
     export type CompleteDraftUploadMutationBody = CompleteDraftUploadRequest
-    export type CompleteDraftUploadMutationError = Error
+    export type CompleteDraftUploadMutationError = ErrorResponse
 
-    export const useCompleteDraftUpload = <TError = Error,
+    export const useCompleteDraftUpload = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeDraftUpload>>, TError,{id: string;intentId: string;data: CompleteDraftUploadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof completeDraftUpload>>,
@@ -286,22 +286,22 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type cancelDraftUploadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type cancelDraftUploadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type cancelDraftUploadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type cancelDraftUploadResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -338,7 +338,7 @@ export const cancelDraftUpload = async (id: string,
 
 
 
-export const getCancelDraftUploadMutationOptions = <TError = Error,
+export const getCancelDraftUploadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelDraftUpload>>, TError,{id: string;intentId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof cancelDraftUpload>>, TError,{id: string;intentId: string}, TContext> => {
 
@@ -367,9 +367,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CancelDraftUploadMutationResult = NonNullable<Awaited<ReturnType<typeof cancelDraftUpload>>>
 
-    export type CancelDraftUploadMutationError = Error
+    export type CancelDraftUploadMutationError = ErrorResponse
 
-    export const useCancelDraftUpload = <TError = Error,
+    export const useCancelDraftUpload = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelDraftUpload>>, TError,{id: string;intentId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof cancelDraftUpload>>,
@@ -385,22 +385,22 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type approveDraftResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type approveDraftResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type approveDraftResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type approveDraftResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -435,7 +435,7 @@ export const approveDraft = async (id: string, options?: RequestInit): Promise<a
 
 
 
-export const getApproveDraftMutationOptions = <TError = Error,
+export const getApproveDraftMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof approveDraft>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof approveDraft>>, TError,{id: string}, TContext> => {
 
@@ -464,9 +464,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ApproveDraftMutationResult = NonNullable<Awaited<ReturnType<typeof approveDraft>>>
 
-    export type ApproveDraftMutationError = Error
+    export type ApproveDraftMutationError = ErrorResponse
 
-    export const useApproveDraft = <TError = Error,
+    export const useApproveDraft = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof approveDraft>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof approveDraft>>,
@@ -482,27 +482,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type requestDraftChangesResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type requestDraftChangesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type requestDraftChangesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type requestDraftChangesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type requestDraftChangesResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -539,7 +539,7 @@ export const requestDraftChanges = async (id: string,
 
 
 
-export const getRequestDraftChangesMutationOptions = <TError = Error,
+export const getRequestDraftChangesMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestDraftChanges>>, TError,{id: string;data: RequestDraftChangesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof requestDraftChanges>>, TError,{id: string;data: RequestDraftChangesRequest}, TContext> => {
 
@@ -568,9 +568,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RequestDraftChangesMutationResult = NonNullable<Awaited<ReturnType<typeof requestDraftChanges>>>
     export type RequestDraftChangesMutationBody = RequestDraftChangesRequest
-    export type RequestDraftChangesMutationError = Error
+    export type RequestDraftChangesMutationError = ErrorResponse
 
-    export const useRequestDraftChanges = <TError = Error,
+    export const useRequestDraftChanges = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestDraftChanges>>, TError,{id: string;data: RequestDraftChangesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof requestDraftChanges>>,
@@ -586,17 +586,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type listChangeRequestsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listChangeRequestsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listChangeRequestsResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
@@ -639,7 +639,7 @@ export const getListChangeRequestsQueryKey = (id: string,) => {
     }
 
 
-export const getListChangeRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = Error>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListChangeRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -658,10 +658,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListChangeRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof listChangeRequests>>>
-export type ListChangeRequestsQueryError = Error
+export type ListChangeRequestsQueryError = ErrorResponse
 
 
-export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = Error>(
+export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = ErrorResponse>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listChangeRequests>>,
@@ -671,7 +671,7 @@ export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChan
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = Error>(
+export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listChangeRequests>>,
@@ -681,12 +681,12 @@ export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChan
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = Error>(
+export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = Error>(
+export function useListChangeRequests<TData = Awaited<ReturnType<typeof listChangeRequests>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listChangeRequests>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -709,17 +709,17 @@ export type listDraftsResponse200 = {
 }
 
 export type listDraftsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listDraftsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listDraftsResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
@@ -762,7 +762,7 @@ export const getListDraftsQueryKey = (id: string,) => {
     }
 
 
-export const getListDraftsQueryOptions = <TData = Awaited<ReturnType<typeof listDrafts>>, TError = Error>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListDraftsQueryOptions = <TData = Awaited<ReturnType<typeof listDrafts>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -781,10 +781,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListDraftsQueryResult = NonNullable<Awaited<ReturnType<typeof listDrafts>>>
-export type ListDraftsQueryError = Error
+export type ListDraftsQueryError = ErrorResponse
 
 
-export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = Error>(
+export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = ErrorResponse>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listDrafts>>,
@@ -794,7 +794,7 @@ export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = Error>(
+export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listDrafts>>,
@@ -804,12 +804,12 @@ export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = Error>(
+export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = Error>(
+export function useListDrafts<TData = Awaited<ReturnType<typeof listDrafts>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listDrafts>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -832,17 +832,17 @@ export type getConversationDeliverablesResponse200 = {
 }
 
 export type getConversationDeliverablesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getConversationDeliverablesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getConversationDeliverablesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
@@ -885,7 +885,7 @@ export const getGetConversationDeliverablesQueryKey = (id: string,) => {
     }
 
 
-export const getGetConversationDeliverablesQueryOptions = <TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = Error>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetConversationDeliverablesQueryOptions = <TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -904,10 +904,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetConversationDeliverablesQueryResult = NonNullable<Awaited<ReturnType<typeof getConversationDeliverables>>>
-export type GetConversationDeliverablesQueryError = Error
+export type GetConversationDeliverablesQueryError = ErrorResponse
 
 
-export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = Error>(
+export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = ErrorResponse>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getConversationDeliverables>>,
@@ -917,7 +917,7 @@ export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = Error>(
+export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getConversationDeliverables>>,
@@ -927,12 +927,12 @@ export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = Error>(
+export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = Error>(
+export function useGetConversationDeliverables<TData = Awaited<ReturnType<typeof getConversationDeliverables>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationDeliverables>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -955,27 +955,27 @@ export type submitLinkResponse201 = {
 }
 
 export type submitLinkResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type submitLinkResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type submitLinkResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type submitLinkResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type submitLinkResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -1011,7 +1011,7 @@ export const submitLink = async (submitLinkRequest: SubmitLinkRequest, options?:
 
 
 
-export const getSubmitLinkMutationOptions = <TError = Error,
+export const getSubmitLinkMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitLink>>, TError,{data: SubmitLinkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof submitLink>>, TError,{data: SubmitLinkRequest}, TContext> => {
 
@@ -1040,9 +1040,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SubmitLinkMutationResult = NonNullable<Awaited<ReturnType<typeof submitLink>>>
     export type SubmitLinkMutationBody = SubmitLinkRequest
-    export type SubmitLinkMutationError = Error
+    export type SubmitLinkMutationError = ErrorResponse
 
-    export const useSubmitLink = <TError = Error,
+    export const useSubmitLink = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitLink>>, TError,{data: SubmitLinkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof submitLink>>,
@@ -1058,17 +1058,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type listLinksResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listLinksResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listLinksResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
@@ -1118,7 +1118,7 @@ export const getListLinksQueryKey = (params?: ListLinksParams,) => {
     }
 
 
-export const getListLinksQueryOptions = <TData = Awaited<ReturnType<typeof listLinks>>, TError = Error>(params: ListLinksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListLinksQueryOptions = <TData = Awaited<ReturnType<typeof listLinks>>, TError = ErrorResponse>(params: ListLinksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1137,10 +1137,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListLinksQueryResult = NonNullable<Awaited<ReturnType<typeof listLinks>>>
-export type ListLinksQueryError = Error
+export type ListLinksQueryError = ErrorResponse
 
 
-export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = Error>(
+export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = ErrorResponse>(
  params: ListLinksParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listLinks>>,
@@ -1150,7 +1150,7 @@ export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = Error>(
+export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = ErrorResponse>(
  params: ListLinksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listLinks>>,
@@ -1160,12 +1160,12 @@ export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = Error>(
+export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = ErrorResponse>(
  params: ListLinksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = Error>(
+export function useListLinks<TData = Awaited<ReturnType<typeof listLinks>>, TError = ErrorResponse>(
  params: ListLinksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listLinks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1188,27 +1188,27 @@ export type approveLinkResponse200 = {
 }
 
 export type approveLinkResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type approveLinkResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type approveLinkResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type approveLinkResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type approveLinkResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -1245,7 +1245,7 @@ export const approveLink = async (linkId: string,
 
 
 
-export const getApproveLinkMutationOptions = <TError = Error,
+export const getApproveLinkMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof approveLink>>, TError,{linkId: string;data: ApproveLinkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof approveLink>>, TError,{linkId: string;data: ApproveLinkRequest}, TContext> => {
 
@@ -1274,9 +1274,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ApproveLinkMutationResult = NonNullable<Awaited<ReturnType<typeof approveLink>>>
     export type ApproveLinkMutationBody = ApproveLinkRequest
-    export type ApproveLinkMutationError = Error
+    export type ApproveLinkMutationError = ErrorResponse
 
-    export const useApproveLink = <TError = Error,
+    export const useApproveLink = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof approveLink>>, TError,{linkId: string;data: ApproveLinkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof approveLink>>,
@@ -1292,27 +1292,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type requestLinkChangesResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type requestLinkChangesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type requestLinkChangesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type requestLinkChangesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type requestLinkChangesResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
@@ -1349,7 +1349,7 @@ export const requestLinkChanges = async (linkId: string,
 
 
 
-export const getRequestLinkChangesMutationOptions = <TError = Error,
+export const getRequestLinkChangesMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestLinkChanges>>, TError,{linkId: string;data: RequestLinkChangesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof requestLinkChanges>>, TError,{linkId: string;data: RequestLinkChangesRequest}, TContext> => {
 
@@ -1378,9 +1378,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RequestLinkChangesMutationResult = NonNullable<Awaited<ReturnType<typeof requestLinkChanges>>>
     export type RequestLinkChangesMutationBody = RequestLinkChangesRequest
-    export type RequestLinkChangesMutationError = Error
+    export type RequestLinkChangesMutationError = ErrorResponse
 
-    export const useRequestLinkChanges = <TError = Error,
+    export const useRequestLinkChanges = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestLinkChanges>>, TError,{linkId: string;data: RequestLinkChangesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof requestLinkChanges>>,

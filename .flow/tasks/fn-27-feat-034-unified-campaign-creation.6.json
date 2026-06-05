@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-05T08:22:28.974009Z",
+  "depends_on": [
+    "fn-27-feat-034-unified-campaign-creation.1",
+    "fn-27-feat-034-unified-campaign-creation.2"
+  ],
+  "epic": "fn-27-feat-034-unified-campaign-creation",
+  "id": "fn-27-feat-034-unified-campaign-creation.6",
+  "priority": 6,
+  "spec_path": ".flow/tasks/fn-27-feat-034-unified-campaign-creation.6.md",
+  "status": "todo",
+  "title": "F.6 \u2014 Paso 4: Audience + Match en vivo (creator-count debounced)",
+  "updated_at": "2026-06-05T08:22:28.974030Z"
+}

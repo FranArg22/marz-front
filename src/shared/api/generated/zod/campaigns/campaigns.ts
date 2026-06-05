@@ -10,75 +10,6 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import * as zod from 'zod';
 
 
-export const initBriefBuilderBodyWebsiteUrlMax = 500;
-
-
-
-export const InitBriefBuilderBody = zod.object({
-  "brand_workspace_id": zod.uuid(),
-  "website_url": zod.url().max(initBriefBuilderBodyWebsiteUrlMax),
-  "description_text": zod.string().optional(),
-  "pdf": zod.instanceof(File).optional()
-})
-
-export const ProcessBriefBody = zod.object({
-  "processing_token": zod.uuid()
-})
-
-/**
- * Returns the current state of a brief-builder processing token. Used by
-the front to recover after a page reload during the wizard. Token TTL
-is 30min while pending/in_progress and 5min after completion.
-
- */
-export const GetBriefProcessingParams = zod.object({
-  "token": zod.uuid()
-})
-
-export const getBriefProcessingResponseBriefDraftBriefScoringDimensionsItemNameMax = 200;
-
-export const getBriefProcessingResponseBriefDraftBriefScoringDimensionsItemWeightPctMax = 100;
-
-export const getBriefProcessingResponseBriefDraftBriefHardFiltersItemFieldMax = 200;
-
-export const getBriefProcessingResponseBriefDraftBriefHardFiltersItemOperatorMax = 50;
-
-export const getBriefProcessingResponseBriefDraftBriefHardFiltersItemValueMax = 500;
-
-
-
-export const GetBriefProcessingResponse = zod.object({
-  "processing_token": zod.uuid(),
-  "state": zod.enum(['pending', 'in_progress', 'completed', 'partial']),
-  "brief_draft": zod.object({
-  "brief": zod.object({
-  "tone": zod.string().nullable(),
-  "key_messages": zod.array(zod.string()),
-  "do_list": zod.array(zod.string()),
-  "dont_list": zod.array(zod.string()),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions": zod.array(zod.object({
-  "name": zod.string().max(getBriefProcessingResponseBriefDraftBriefScoringDimensionsItemNameMax),
-  "weight_pct": zod.number().min(1).max(getBriefProcessingResponseBriefDraftBriefScoringDimensionsItemWeightPctMax)
-})).optional(),
-  "hard_filters": zod.array(zod.object({
-  "field": zod.string().max(getBriefProcessingResponseBriefDraftBriefHardFiltersItemFieldMax),
-  "operator": zod.string().max(getBriefProcessingResponseBriefDraftBriefHardFiltersItemOperatorMax),
-  "value": zod.string().max(getBriefProcessingResponseBriefDraftBriefHardFiltersItemValueMax)
-})),
-  "disqualifiers": zod.array(zod.string())
-}).describe('AI-generated brief content. Same shape used in the WS\n`campaigns.brief.processing.completed` event under `brief_draft.brief`.\n')
-}).nullish(),
-  "fields_filled_count": zod.number().nullish(),
-  "fields_empty_count": zod.number().nullish()
-}).describe('State of a brief-builder processing token. `brief_draft`,\n`fields_filled_count` and `fields_empty_count` are populated only when\n`state` is `completed` or `partial`; null\/zero otherwise.\n')
-
 export const listCampaignsQueryLimitDefault = 24;
 export const listCampaignsQueryLimitMax = 50;
 
@@ -89,7 +20,7 @@ export const listCampaignsQuerySearchMax = 100;
 export const ListCampaignsQueryParams = zod.object({
   "cursor": zod.string().optional(),
   "limit": zod.number().min(1).max(listCampaignsQueryLimitMax).default(listCampaignsQueryLimitDefault),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']).optional(),
+  "status": zod.enum(['active', 'paused', 'completed']).optional(),
   "search": zod.string().max(listCampaignsQuerySearchMax).optional()
 })
 
@@ -97,24 +28,11 @@ export const ListCampaignsHeader = zod.object({
   "X-Brand-Workspace-Id": zod.uuid()
 })
 
-export const listCampaignsResponseDataItemBudgetCurrencyMin = 3;
-export const listCampaignsResponseDataItemBudgetCurrencyMax = 3;
-
-
-
 export const ListCampaignsResponse = zod.object({
   "data": zod.array(zod.object({
   "campaign_id": zod.uuid(),
   "name": zod.string(),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "budget": zod.object({
-  "amount": zod.string(),
-  "currency": zod.string().min(listCampaignsResponseDataItemBudgetCurrencyMin).max(listCampaignsResponseDataItemBudgetCurrencyMax)
-}),
-  "deadline": zod.iso.datetime({}).nullish(),
-  "content_type": zod.union([zod.literal('influencer_posts'),zod.literal('ugc_videos'),zod.literal(null)]).nullish(),
-  "pricing_model": zod.union([zod.literal('fixed_per_video'),zod.literal('per_views'),zod.literal(null)]).nullish(),
+  "status": zod.enum(['active', 'paused', 'completed']),
   "created_at": zod.iso.datetime({}),
   "updated_at": zod.iso.datetime({})
 })),
@@ -127,112 +45,127 @@ export const CreateCampaignHeader = zod.object({
 
 export const createCampaignBodyNameMax = 150;
 
-export const createCampaignBodyBudgetAmountMax = 50;
+export const createCampaignBodyDescriptionMax = 4000;
 
-export const createCampaignBodyBudgetCurrencyMax = 3;
+export const createCampaignBodyTargetUrlMax = 500;
 
-export const createCampaignBodyBriefToneMax = 200;
+export const createCampaignBodyImageS3KeyMax = 500;
 
-export const createCampaignBodyBriefKeyMessagesItemMax = 500;
 
-export const createCampaignBodyBriefDoListItemMax = 500;
 
-export const createCampaignBodyBriefDontListItemMax = 500;
+export const createCampaignBodyCreatorCountryMin = 2;
+export const createCampaignBodyCreatorCountryMax = 2;
 
-export const createCampaignBodyBriefReferenceLinksItemMax = 500;
 
-export const createCampaignBodyBriefBriefSourceUrlMax = 500;
+export const createCampaignBodyCompensationNotesMax = 4000;
 
-export const createCampaignBodyBriefBriefPdfS3KeyMax = 500;
+export const createCampaignBodyContentGuidelinesMax = 4000;
 
-export const createCampaignBodyBriefIcpAgeMinMin = 0;
-export const createCampaignBodyBriefIcpAgeMinMax = 120;
-
-export const createCampaignBodyBriefIcpAgeMaxMin = 0;
-export const createCampaignBodyBriefIcpAgeMaxMax = 120;
-
-export const createCampaignBodyBriefIcpGendersItemMax = 50;
-
-export const createCampaignBodyBriefIcpCountriesItemMax = 2;
-
-export const createCampaignBodyBriefIcpPlatformsItemMax = 50;
-
-export const createCampaignBodyBriefIcpInterestsItemMax = 200;
-
-export const createCampaignBodyBriefScoringDimensionsItemNameMax = 200;
-
-export const createCampaignBodyBriefScoringDimensionsItemWeightPctMax = 100;
-
-export const createCampaignBodyBriefHardFiltersItemFieldMax = 200;
-
-export const createCampaignBodyBriefHardFiltersItemOperatorMax = 50;
-
-export const createCampaignBodyBriefHardFiltersItemValueMax = 500;
-
-export const createCampaignBodyBriefDisqualifiersItemMax = 500;
+export const createCampaignBodyBriefPdfS3KeyMax = 500;
 
 
 
 export const CreateCampaignBody = zod.object({
-  "name": zod.string().max(createCampaignBodyNameMax),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "budget_amount": zod.string().max(createCampaignBodyBudgetAmountMax),
-  "budget_currency": zod.string().max(createCampaignBodyBudgetCurrencyMax),
-  "deadline": zod.iso.datetime({}).nullish(),
-  "brief": zod.object({
-  "tone": zod.string().max(createCampaignBodyBriefToneMax).nullish(),
-  "key_messages": zod.array(zod.string().max(createCampaignBodyBriefKeyMessagesItemMax)).optional(),
-  "do_list": zod.array(zod.string().max(createCampaignBodyBriefDoListItemMax)).optional(),
-  "dont_list": zod.array(zod.string().max(createCampaignBodyBriefDontListItemMax)).optional(),
-  "reference_links": zod.array(zod.url().max(createCampaignBodyBriefReferenceLinksItemMax)).optional(),
-  "brief_source_url": zod.url().max(createCampaignBodyBriefBriefSourceUrlMax),
-  "brief_source_text": zod.string().nullish(),
-  "brief_pdf_s3_key": zod.string().max(createCampaignBodyBriefBriefPdfS3KeyMax).nullish(),
-  "icp_description": zod.string().nullish(),
-  "icp_age_min": zod.number().min(createCampaignBodyBriefIcpAgeMinMin).max(createCampaignBodyBriefIcpAgeMinMax).nullish(),
-  "icp_age_max": zod.number().min(createCampaignBodyBriefIcpAgeMaxMin).max(createCampaignBodyBriefIcpAgeMaxMax).nullish(),
-  "icp_genders": zod.array(zod.string().max(createCampaignBodyBriefIcpGendersItemMax)).optional(),
-  "icp_countries": zod.array(zod.string().max(createCampaignBodyBriefIcpCountriesItemMax)).optional(),
-  "icp_platforms": zod.array(zod.string().max(createCampaignBodyBriefIcpPlatformsItemMax)).optional(),
-  "icp_interests": zod.array(zod.string().max(createCampaignBodyBriefIcpInterestsItemMax)).optional(),
-  "scoring_dimensions": zod.array(zod.object({
-  "name": zod.string().max(createCampaignBodyBriefScoringDimensionsItemNameMax),
-  "weight_pct": zod.number().min(1).max(createCampaignBodyBriefScoringDimensionsItemWeightPctMax)
-})).optional(),
-  "hard_filters": zod.array(zod.object({
-  "field": zod.string().max(createCampaignBodyBriefHardFiltersItemFieldMax),
-  "operator": zod.string().max(createCampaignBodyBriefHardFiltersItemOperatorMax),
-  "value": zod.string().max(createCampaignBodyBriefHardFiltersItemValueMax)
-})),
-  "disqualifiers": zod.array(zod.string().max(createCampaignBodyBriefDisqualifiersItemMax)).optional()
-})
+  "content_type": zod.enum(['influencer_posts', 'ugc_videos']),
+  "pricing_model": zod.enum(['pay_per_post', 'cpm']),
+  "name": zod.string().min(1).max(createCampaignBodyNameMax),
+  "description": zod.string().min(1).max(createCampaignBodyDescriptionMax),
+  "target_url": zod.url().max(createCampaignBodyTargetUrlMax),
+  "image_s3_key": zod.string().max(createCampaignBodyImageS3KeyMax),
+  "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).min(1),
+  "interests": zod.array(zod.string()).min(1),
+  "creator_country": zod.string().min(createCampaignBodyCreatorCountryMin).max(createCampaignBodyCreatorCountryMax),
+  "min_creator_tier_slug": zod.string().min(1),
+  "compensation_type": zod.enum(['payment', 'product_trade', 'payment_plus_product']),
+  "compensation_notes": zod.string().max(createCampaignBodyCompensationNotesMax).nullish(),
+  "video_reuse_permission_default": zod.boolean(),
+  "content_guidelines": zod.string().min(1).max(createCampaignBodyContentGuidelinesMax),
+  "brief_pdf_s3_key": zod.string().max(createCampaignBodyBriefPdfS3KeyMax).nullish()
 })
 
+/**
+ * Updates mutable campaign fields. Sending `content_type`, `pricing_model`,
+`platforms`, `creator_country`, or `compensation_type` returns 422 with
+code `campaign.field_immutable`.
+
+ */
 export const UpdateCampaignParams = zod.object({
   "campaign_id": zod.uuid()
 })
 
 export const UpdateCampaignHeader = zod.object({
+  "If-Match": zod.string(),
   "X-Brand-Workspace-Id": zod.uuid()
 })
 
 export const updateCampaignBodyNameMax = 150;
 
+export const updateCampaignBodyDescriptionMax = 4000;
+
+export const updateCampaignBodyTargetUrlMax = 500;
+
+export const updateCampaignBodyImageS3KeyMax = 500;
+
+
+
+export const updateCampaignBodyCreatorCountryMin = 2;
+export const updateCampaignBodyCreatorCountryMax = 2;
+
+
+export const updateCampaignBodyCompensationNotesMax = 4000;
+
+export const updateCampaignBodyContentGuidelinesMax = 4000;
+
+export const updateCampaignBodyBriefPdfS3KeyMax = 500;
+
 
 
 export const UpdateCampaignBody = zod.object({
+  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).optional(),
+  "pricing_model": zod.enum(['pay_per_post', 'cpm']).optional(),
   "name": zod.string().min(1).max(updateCampaignBodyNameMax).optional(),
-  "deadline": zod.iso.datetime({}).optional(),
-  "budget_amount": zod.string().optional()
+  "description": zod.string().min(1).max(updateCampaignBodyDescriptionMax).optional(),
+  "target_url": zod.url().max(updateCampaignBodyTargetUrlMax).optional(),
+  "image_s3_key": zod.string().max(updateCampaignBodyImageS3KeyMax).optional(),
+  "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).min(1).optional(),
+  "interests": zod.array(zod.string()).min(1).optional(),
+  "creator_country": zod.string().min(updateCampaignBodyCreatorCountryMin).max(updateCampaignBodyCreatorCountryMax).optional(),
+  "min_creator_tier_slug": zod.string().min(1).optional(),
+  "compensation_type": zod.enum(['payment', 'product_trade', 'payment_plus_product']).optional(),
+  "compensation_notes": zod.string().max(updateCampaignBodyCompensationNotesMax).nullish(),
+  "video_reuse_permission_default": zod.boolean().optional(),
+  "content_guidelines": zod.string().min(1).max(updateCampaignBodyContentGuidelinesMax).optional(),
+  "brief_pdf_s3_key": zod.string().max(updateCampaignBodyBriefPdfS3KeyMax).nullish()
 })
 
+export const updateCampaignResponseCreatorCountryMin = 2;
+export const updateCampaignResponseCreatorCountryMax = 2;
+
+
+
 export const UpdateCampaignResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "updated_at": zod.iso.datetime({}),
-  "paused_at": zod.iso.datetime({}).nullish(),
-  "closed_at": zod.iso.datetime({}).nullish(),
-  "published_at": zod.iso.datetime({}).nullish()
+  "id": zod.uuid(),
+  "brand_workspace_id": zod.uuid(),
+  "status": zod.enum(['active', 'paused', 'completed']),
+  "version": zod.number(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "target_url": zod.string(),
+  "image_s3_key": zod.string(),
+  "content_type": zod.enum(['influencer_posts', 'ugc_videos']),
+  "pricing_model": zod.enum(['pay_per_post', 'cpm']),
+  "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])),
+  "interests": zod.array(zod.string()),
+  "creator_country": zod.string().min(updateCampaignResponseCreatorCountryMin).max(updateCampaignResponseCreatorCountryMax),
+  "min_creator_tier_slug": zod.string(),
+  "compensation_type": zod.enum(['payment', 'product_trade', 'payment_plus_product']),
+  "compensation_notes": zod.string().nullish(),
+  "video_reuse_permission_default": zod.boolean(),
+  "content_guidelines": zod.string(),
+  "brief_pdf_s3_key": zod.string().nullish(),
+  "created_by_account_id": zod.uuid().optional(),
+  "created_at": zod.iso.datetime({}),
+  "updated_at": zod.iso.datetime({})
 })
 
 export const PauseCampaignParams = zod.object({
@@ -245,7 +178,7 @@ export const PauseCampaignHeader = zod.object({
 
 export const PauseCampaignResponse = zod.object({
   "campaign_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
+  "status": zod.enum(['active', 'paused', 'completed']),
   "updated_at": zod.iso.datetime({}),
   "paused_at": zod.iso.datetime({}).nullish(),
   "closed_at": zod.iso.datetime({}).nullish(),
@@ -262,7 +195,7 @@ export const ResumeCampaignHeader = zod.object({
 
 export const ResumeCampaignResponse = zod.object({
   "campaign_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
+  "status": zod.enum(['active', 'paused', 'completed']),
   "updated_at": zod.iso.datetime({}),
   "paused_at": zod.iso.datetime({}).nullish(),
   "closed_at": zod.iso.datetime({}).nullish(),
@@ -279,7 +212,7 @@ export const CloseCampaignHeader = zod.object({
 
 export const CloseCampaignResponse = zod.object({
   "campaign_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
+  "status": zod.enum(['active', 'paused', 'completed']),
   "updated_at": zod.iso.datetime({}),
   "paused_at": zod.iso.datetime({}).nullish(),
   "closed_at": zod.iso.datetime({}).nullish(),
@@ -331,703 +264,54 @@ export const GetCampaignBriefResponse = zod.object({
   "disqualifiers": zod.array(zod.string()).optional()
 })
 
-export const GetCampaignConfigurationParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const GetCampaignConfigurationHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-
-export const getCampaignConfigurationResponseOperationalTargetingCountriesItemMin = 2;
-export const getCampaignConfigurationResponseOperationalTargetingCountriesItemMax = 2;
-
-export const getCampaignConfigurationResponseOperationalTargetingFollowerMinMin = 0;
-
-export const getCampaignConfigurationResponseOperationalTargetingFollowerMaxMin = 0;
-
-export const getCampaignConfigurationResponseOperationalTargetingAgeMinMin = 18;
-export const getCampaignConfigurationResponseOperationalTargetingAgeMinMax = 120;
-
-export const getCampaignConfigurationResponseOperationalTargetingAgeMaxMin = 18;
-export const getCampaignConfigurationResponseOperationalTargetingAgeMaxMax = 120;
-
-export const getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
-
-
-export const getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const GetCampaignConfigurationResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "brand_workspace_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "editable": zod.boolean(),
-  "block_reason": zod.enum(['brief_not_confirmed', 'already_active', 'not_draft', 'forbidden_role']).nullable(),
-  "current_step": zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review']),
-  "completed_steps": zod.array(zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review'])),
-  "configuration_complete": zod.boolean(),
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).nullable(),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views']).nullable(),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string().min(getCampaignConfigurationResponseOperationalTargetingCountriesItemMin).max(getCampaignConfigurationResponseOperationalTargetingCountriesItemMax)),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])),
-  "follower_min": zod.number().min(getCampaignConfigurationResponseOperationalTargetingFollowerMinMin).nullable(),
-  "follower_max": zod.number().min(getCampaignConfigurationResponseOperationalTargetingFollowerMaxMin).nullable(),
-  "genders": zod.array(zod.string()),
-  "age_min": zod.number().min(getCampaignConfigurationResponseOperationalTargetingAgeMinMin).max(getCampaignConfigurationResponseOperationalTargetingAgeMinMax).nullable(),
-  "age_max": zod.number().min(getCampaignConfigurationResponseOperationalTargetingAgeMaxMin).max(getCampaignConfigurationResponseOperationalTargetingAgeMaxMax).nullable(),
-  "interests": zod.array(zod.string()),
-  "content_languages": zod.array(zod.string()),
-  "source": zod.enum(['brief_prefill', 'manual']),
-  "adjusted_from_brief": zod.boolean()
-}),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid(),
-  "window_hours": zod.number().min(1).max(getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(getCampaignConfigurationResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(getCampaignConfigurationResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-})
-}),
-  "brief_summary": zod.object({
-  "confirmed_at": zod.iso.datetime({}),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions_count": zod.number(),
-  "hard_filters_count": zod.number(),
-  "disqualifiers_count": zod.number()
-}),
-  "plan": zod.object({
-  "workspace_plan": zod.enum(['free', 'paid']),
-  "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
-}),
-  "updated_at": zod.iso.datetime({})
-})
-
-export const UpdateCampaignConfigurationContentTypeParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const UpdateCampaignConfigurationContentTypeHeader = zod.object({
+export const CreateCampaignImageUploadPresignHeader = zod.object({
   "X-Brand-Workspace-Id": zod.uuid(),
   "Idempotency-Key": zod.uuid()
 })
 
+export const createCampaignImageUploadPresignBodySizeBytesMax = 5242880;
 
 
 
-export const UpdateCampaignConfigurationContentTypeBody = zod.object({
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos'])
+export const CreateCampaignImageUploadPresignBody = zod.object({
+  "content_type": zod.enum(['image/jpeg', 'image/png', 'image/webp']),
+  "size_bytes": zod.number().min(1).max(createCampaignImageUploadPresignBodySizeBytesMax).describe('Exact size in bytes; the presigned URL is signed with this Content-Length.')
 })
 
-
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingCountriesItemMin = 2;
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingCountriesItemMax = 2;
-
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingFollowerMinMin = 0;
-
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingFollowerMaxMin = 0;
-
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMinMin = 18;
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMinMax = 120;
-
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMaxMin = 18;
-export const updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMaxMax = 120;
-
-export const updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
+export const createCampaignImageUploadPresignResponseS3KeyRegExp = new RegExp('^tmp\/campaigns\/[^\/]+\/[^\/]+\\.(jpg|png|webp|pdf)$');
 
 
-export const updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const UpdateCampaignConfigurationContentTypeResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "brand_workspace_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "editable": zod.boolean(),
-  "block_reason": zod.enum(['brief_not_confirmed', 'already_active', 'not_draft', 'forbidden_role']).nullable(),
-  "current_step": zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review']),
-  "completed_steps": zod.array(zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review'])),
-  "configuration_complete": zod.boolean(),
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).nullable(),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views']).nullable(),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string().min(updateCampaignConfigurationContentTypeResponseOperationalTargetingCountriesItemMin).max(updateCampaignConfigurationContentTypeResponseOperationalTargetingCountriesItemMax)),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])),
-  "follower_min": zod.number().min(updateCampaignConfigurationContentTypeResponseOperationalTargetingFollowerMinMin).nullable(),
-  "follower_max": zod.number().min(updateCampaignConfigurationContentTypeResponseOperationalTargetingFollowerMaxMin).nullable(),
-  "genders": zod.array(zod.string()),
-  "age_min": zod.number().min(updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMinMin).max(updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMinMax).nullable(),
-  "age_max": zod.number().min(updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMaxMin).max(updateCampaignConfigurationContentTypeResponseOperationalTargetingAgeMaxMax).nullable(),
-  "interests": zod.array(zod.string()),
-  "content_languages": zod.array(zod.string()),
-  "source": zod.enum(['brief_prefill', 'manual']),
-  "adjusted_from_brief": zod.boolean()
-}),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid(),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(updateCampaignConfigurationContentTypeResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(updateCampaignConfigurationContentTypeResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-})
-}),
-  "brief_summary": zod.object({
-  "confirmed_at": zod.iso.datetime({}),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions_count": zod.number(),
-  "hard_filters_count": zod.number(),
-  "disqualifiers_count": zod.number()
-}),
-  "plan": zod.object({
-  "workspace_plan": zod.enum(['free', 'paid']),
-  "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
-}),
-  "updated_at": zod.iso.datetime({})
+export const CreateCampaignImageUploadPresignResponse = zod.object({
+  "upload_url": zod.url(),
+  "s3_key": zod.string().regex(createCampaignImageUploadPresignResponseS3KeyRegExp),
+  "expires_in": zod.literal(900),
+  "required_headers": zod.record(zod.string(), zod.string()),
+  "max_bytes": zod.union([zod.literal(5242880),zod.literal(10485760)])
 })
 
-export const UpdateCampaignConfigurationPricingModelParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const UpdateCampaignConfigurationPricingModelHeader = zod.object({
+export const CreateCampaignBriefPDFUploadPresignHeader = zod.object({
   "X-Brand-Workspace-Id": zod.uuid(),
   "Idempotency-Key": zod.uuid()
 })
 
+export const createCampaignBriefPDFUploadPresignBodySizeBytesMax = 10485760;
 
 
 
-export const UpdateCampaignConfigurationPricingModelBody = zod.object({
-  "configuration_version": zod.number().min(1),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views'])
+export const CreateCampaignBriefPDFUploadPresignBody = zod.object({
+  "content_type": zod.enum(['application/pdf']),
+  "size_bytes": zod.number().min(1).max(createCampaignBriefPDFUploadPresignBodySizeBytesMax).describe('Exact size in bytes; the presigned URL is signed with this Content-Length.')
 })
 
-
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingCountriesItemMin = 2;
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingCountriesItemMax = 2;
-
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingFollowerMinMin = 0;
-
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingFollowerMaxMin = 0;
-
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMinMin = 18;
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMinMax = 120;
-
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMaxMin = 18;
-export const updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMaxMax = 120;
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
-
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const UpdateCampaignConfigurationPricingModelResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "brand_workspace_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "editable": zod.boolean(),
-  "block_reason": zod.enum(['brief_not_confirmed', 'already_active', 'not_draft', 'forbidden_role']).nullable(),
-  "current_step": zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review']),
-  "completed_steps": zod.array(zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review'])),
-  "configuration_complete": zod.boolean(),
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).nullable(),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views']).nullable(),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string().min(updateCampaignConfigurationPricingModelResponseOperationalTargetingCountriesItemMin).max(updateCampaignConfigurationPricingModelResponseOperationalTargetingCountriesItemMax)),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])),
-  "follower_min": zod.number().min(updateCampaignConfigurationPricingModelResponseOperationalTargetingFollowerMinMin).nullable(),
-  "follower_max": zod.number().min(updateCampaignConfigurationPricingModelResponseOperationalTargetingFollowerMaxMin).nullable(),
-  "genders": zod.array(zod.string()),
-  "age_min": zod.number().min(updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMinMin).max(updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMinMax).nullable(),
-  "age_max": zod.number().min(updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMaxMin).max(updateCampaignConfigurationPricingModelResponseOperationalTargetingAgeMaxMax).nullable(),
-  "interests": zod.array(zod.string()),
-  "content_languages": zod.array(zod.string()),
-  "source": zod.enum(['brief_prefill', 'manual']),
-  "adjusted_from_brief": zod.boolean()
-}),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid(),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(updateCampaignConfigurationPricingModelResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(updateCampaignConfigurationPricingModelResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-})
-}),
-  "brief_summary": zod.object({
-  "confirmed_at": zod.iso.datetime({}),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions_count": zod.number(),
-  "hard_filters_count": zod.number(),
-  "disqualifiers_count": zod.number()
-}),
-  "plan": zod.object({
-  "workspace_plan": zod.enum(['free', 'paid']),
-  "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
-}),
-  "updated_at": zod.iso.datetime({})
-})
-
-export const UpdateCampaignConfigurationTargetingParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const UpdateCampaignConfigurationTargetingHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid(),
-  "Idempotency-Key": zod.uuid()
-})
-
-
-
-
-export const UpdateCampaignConfigurationTargetingBody = zod.object({
-  "configuration_version": zod.number().min(1),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string()).optional(),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])).optional(),
-  "follower_min": zod.number().nullish(),
-  "follower_max": zod.number().nullish(),
-  "genders": zod.array(zod.string()).optional(),
-  "age_min": zod.number().nullish(),
-  "age_max": zod.number().nullish(),
-  "interests": zod.array(zod.string()).optional(),
-  "content_languages": zod.array(zod.string()).optional()
-})
-})
-
-
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingCountriesItemMin = 2;
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingCountriesItemMax = 2;
-
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingFollowerMinMin = 0;
-
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingFollowerMaxMin = 0;
-
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMinMin = 18;
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMinMax = 120;
-
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMaxMin = 18;
-export const updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMaxMax = 120;
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
-
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const UpdateCampaignConfigurationTargetingResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "brand_workspace_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "editable": zod.boolean(),
-  "block_reason": zod.enum(['brief_not_confirmed', 'already_active', 'not_draft', 'forbidden_role']).nullable(),
-  "current_step": zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review']),
-  "completed_steps": zod.array(zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review'])),
-  "configuration_complete": zod.boolean(),
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).nullable(),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views']).nullable(),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string().min(updateCampaignConfigurationTargetingResponseOperationalTargetingCountriesItemMin).max(updateCampaignConfigurationTargetingResponseOperationalTargetingCountriesItemMax)),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])),
-  "follower_min": zod.number().min(updateCampaignConfigurationTargetingResponseOperationalTargetingFollowerMinMin).nullable(),
-  "follower_max": zod.number().min(updateCampaignConfigurationTargetingResponseOperationalTargetingFollowerMaxMin).nullable(),
-  "genders": zod.array(zod.string()),
-  "age_min": zod.number().min(updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMinMin).max(updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMinMax).nullable(),
-  "age_max": zod.number().min(updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMaxMin).max(updateCampaignConfigurationTargetingResponseOperationalTargetingAgeMaxMax).nullable(),
-  "interests": zod.array(zod.string()),
-  "content_languages": zod.array(zod.string()),
-  "source": zod.enum(['brief_prefill', 'manual']),
-  "adjusted_from_brief": zod.boolean()
-}),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid(),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(updateCampaignConfigurationTargetingResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(updateCampaignConfigurationTargetingResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-})
-}),
-  "brief_summary": zod.object({
-  "confirmed_at": zod.iso.datetime({}),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions_count": zod.number(),
-  "hard_filters_count": zod.number(),
-  "disqualifiers_count": zod.number()
-}),
-  "plan": zod.object({
-  "workspace_plan": zod.enum(['free', 'paid']),
-  "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
-}),
-  "updated_at": zod.iso.datetime({})
-})
-
-export const UpdateCampaignConfigurationBonusParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const UpdateCampaignConfigurationBonusHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid(),
-  "Idempotency-Key": zod.uuid()
-})
-
-
-export const updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
-
-
-export const updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const UpdateCampaignConfigurationBonusBody = zod.object({
-  "configuration_version": zod.number().min(1),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid().optional(),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(updateCampaignConfigurationBonusBodyBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}).optional(),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid().optional(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(updateCampaignConfigurationBonusBodyBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}).optional()
-})
-})
-
-
-export const updateCampaignConfigurationBonusResponseOperationalTargetingCountriesItemMin = 2;
-export const updateCampaignConfigurationBonusResponseOperationalTargetingCountriesItemMax = 2;
-
-export const updateCampaignConfigurationBonusResponseOperationalTargetingFollowerMinMin = 0;
-
-export const updateCampaignConfigurationBonusResponseOperationalTargetingFollowerMaxMin = 0;
-
-export const updateCampaignConfigurationBonusResponseOperationalTargetingAgeMinMin = 18;
-export const updateCampaignConfigurationBonusResponseOperationalTargetingAgeMinMax = 120;
-
-export const updateCampaignConfigurationBonusResponseOperationalTargetingAgeMaxMin = 18;
-export const updateCampaignConfigurationBonusResponseOperationalTargetingAgeMaxMax = 120;
-
-export const updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax = 3;
-
-
-export const updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax = 720;
-
-export const updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax = 100;
-
-export const updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin = 3;
-export const updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax = 3;
-
-
-
-export const UpdateCampaignConfigurationBonusResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "brand_workspace_id": zod.uuid(),
-  "status": zod.enum(['draft', 'active', 'paused', 'completed']),
-  "editable": zod.boolean(),
-  "block_reason": zod.enum(['brief_not_confirmed', 'already_active', 'not_draft', 'forbidden_role']).nullable(),
-  "current_step": zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review']),
-  "completed_steps": zod.array(zod.enum(['content_type', 'pricing_model', 'targeting', 'bonus', 'review'])),
-  "configuration_complete": zod.boolean(),
-  "configuration_version": zod.number().min(1),
-  "content_type": zod.enum(['influencer_posts', 'ugc_videos']).nullable(),
-  "pricing_model": zod.enum(['fixed_per_video', 'per_views']).nullable(),
-  "operational_targeting": zod.object({
-  "countries": zod.array(zod.string().min(updateCampaignConfigurationBonusResponseOperationalTargetingCountriesItemMin).max(updateCampaignConfigurationBonusResponseOperationalTargetingCountriesItemMax)),
-  "tiers": zod.array(zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity'])),
-  "follower_min": zod.number().min(updateCampaignConfigurationBonusResponseOperationalTargetingFollowerMinMin).nullable(),
-  "follower_max": zod.number().min(updateCampaignConfigurationBonusResponseOperationalTargetingFollowerMaxMin).nullable(),
-  "genders": zod.array(zod.string()),
-  "age_min": zod.number().min(updateCampaignConfigurationBonusResponseOperationalTargetingAgeMinMin).max(updateCampaignConfigurationBonusResponseOperationalTargetingAgeMinMax).nullable(),
-  "age_max": zod.number().min(updateCampaignConfigurationBonusResponseOperationalTargetingAgeMaxMin).max(updateCampaignConfigurationBonusResponseOperationalTargetingAgeMaxMax).nullable(),
-  "interests": zod.array(zod.string()),
-  "content_languages": zod.array(zod.string()),
-  "source": zod.enum(['brief_prefill', 'manual']),
-  "adjusted_from_brief": zod.boolean()
-}),
-  "bonus_config": zod.object({
-  "enabled": zod.boolean(),
-  "speed_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "windows": zod.array(zod.object({
-  "window_id": zod.uuid(),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMin).max(updateCampaignConfigurationBonusResponseBonusConfigSpeedBonusWindowsItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-}),
-  "performance_bonus": zod.object({
-  "enabled": zod.boolean(),
-  "milestones": zod.array(zod.object({
-  "milestone_id": zod.uuid(),
-  "views": zod.number().min(1),
-  "window_hours": zod.number().min(1).max(updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemWindowHoursMax),
-  "bonus": zod.object({
-  "type": zod.enum(['percentage', 'fixed']),
-  "percentage": zod.number().min(1).max(updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusPercentageMax).optional().describe('Required when type is percentage. Ignored otherwise.'),
-  "amount": zod.string().optional().describe('Decimal string strictly greater than 0. Required when type is fixed.'),
-  "currency": zod.string().min(updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMin).max(updateCampaignConfigurationBonusResponseBonusConfigPerformanceBonusMilestonesItemBonusCurrencyMax).optional().describe('ISO 4217 currency code matching the campaign\'s budget_currency. Required when type is fixed.')
-}).describe('Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign\'s `budget_currency`.\n')
-}))
-})
-}),
-  "brief_summary": zod.object({
-  "confirmed_at": zod.iso.datetime({}),
-  "objective": zod.enum(['brand_awareness', 'conversion', 'engagement', 'reach']),
-  "icp_description": zod.string().nullable(),
-  "icp_age_min": zod.number().nullable(),
-  "icp_age_max": zod.number().nullable(),
-  "icp_genders": zod.array(zod.string()),
-  "icp_countries": zod.array(zod.string()),
-  "icp_platforms": zod.array(zod.string()),
-  "icp_interests": zod.array(zod.string()),
-  "scoring_dimensions_count": zod.number(),
-  "hard_filters_count": zod.number(),
-  "disqualifiers_count": zod.number()
-}),
-  "plan": zod.object({
-  "workspace_plan": zod.enum(['free', 'paid']),
-  "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
-}),
-  "updated_at": zod.iso.datetime({})
-})
-
-export const ActivateCampaignConfigurationParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const ActivateCampaignConfigurationHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid(),
-  "Idempotency-Key": zod.uuid()
-})
-
-
-
-
-export const ActivateCampaignConfigurationBody = zod.object({
-  "configuration_version": zod.number().min(1)
-})
-
-
-
-
-export const ActivateCampaignConfigurationResponse = zod.object({
-  "campaign_id": zod.uuid(),
-  "status": zod.enum(['active']),
-  "activated_at": zod.iso.datetime({}),
-  "activated_by_account_id": zod.uuid(),
-  "configuration_version": zod.number().min(1),
-  "plan_allows_campaign_board": zod.boolean(),
-  "plan_allows_automatic_matching": zod.boolean()
+export const createCampaignBriefPDFUploadPresignResponseS3KeyRegExp = new RegExp('^tmp\/campaigns\/[^\/]+\/[^\/]+\\.(jpg|png|webp|pdf)$');
+
+
+export const CreateCampaignBriefPDFUploadPresignResponse = zod.object({
+  "upload_url": zod.url(),
+  "s3_key": zod.string().regex(createCampaignBriefPDFUploadPresignResponseS3KeyRegExp),
+  "expires_in": zod.literal(900),
+  "required_headers": zod.record(zod.string(), zod.string()),
+  "max_bytes": zod.union([zod.literal(5242880),zod.literal(10485760)])
 })
 
 export const GetCampaignDetailParams = zod.object({
