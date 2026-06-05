@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router'
 import {
   CalendarClock,
   CheckCircle2,
-  Eye,
   Megaphone,
   MessageSquare,
   MoreHorizontal,
@@ -81,16 +80,6 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
 
         <TooltipProvider>
           <div className="flex flex-wrap items-center gap-2">
-            <Button asChild variant="outline" size="sm">
-              <Link
-                to="/campaigns/$campaignId/brief"
-                params={{ campaignId: detail.campaign_id }}
-                search={{ tab: 'overview', section: 'matches' }}
-              >
-                <Eye className="size-3.5" aria-hidden="true" />
-                {t`Ver brief`}
-              </Link>
-            </Button>
             <Button asChild variant="outline" size="sm">
               <Link
                 to="/workspace"

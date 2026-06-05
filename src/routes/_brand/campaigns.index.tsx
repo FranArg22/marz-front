@@ -68,8 +68,6 @@ function CampaignsPage() {
               budget={campaign.budget}
               videos={campaign.videos}
               platforms={campaign.platforms}
-              configurationComplete={campaign.configurationComplete}
-              configurationCurrentStep={campaign.configurationCurrentStep}
             />
           ))}
         </div>

@@ -2,9 +2,14 @@ import { t } from '@lingui/core/macro'
 import { Link } from '@tanstack/react-router'
 
 import { Badge } from '#/components/ui/badge'
-import { ConfigurationPendingBadge } from '#/features/campaigns/configuration/components/ConfigurationPendingBadge'
-import { campaignDetailSearchDefaults } from '#/features/campaigns/configuration/hooks'
-import type { CampaignConfigurationStep } from '#/features/campaigns/configuration/hooks'
+
+// The parent route `/_brand/campaigns/$campaignId` declares a search schema
+// with required `tab`/`section` (defaulted via zod). TanStack Router's typed
+// Link API surfaces those as required, so we provide the defaults here.
+const campaignDetailSearchDefaults = {
+  tab: 'overview' as const,
+  section: 'matches' as const,
+}
 
 interface CampaignMiniCardProps {
   campaignId?: string
@@ -18,8 +23,6 @@ interface CampaignMiniCardProps {
     total: number
   }
   platforms: Array<string>
-  configurationComplete?: boolean | null
-  configurationCurrentStep?: CampaignConfigurationStep | null
 }
 
 function getStatusMeta(): Record<
@@ -43,8 +46,6 @@ export function CampaignMiniCard({
   budget,
   videos,
   platforms,
-  configurationComplete,
-  configurationCurrentStep,
 }: CampaignMiniCardProps) {
   const card = (
     <CampaignMiniCardContent
@@ -55,31 +56,8 @@ export function CampaignMiniCard({
       budget={budget}
       videos={videos}
       platforms={platforms}
-      isConfigurationPending={
-        status === 'draft' &&
-        configurationComplete === false &&
-        !!configurationCurrentStep
-      }
     />
   )
-
-  if (
-    campaignId &&
-    status === 'draft' &&
-    configurationComplete === false &&
-    configurationCurrentStep
-  ) {
-    return (
-      <Link
-        to="/campaigns/$campaignId/configuration/$step"
-        params={{ campaignId, step: configurationCurrentStep }}
-        search={campaignDetailSearchDefaults}
-        className="block rounded-2xl outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50"
-      >
-        {card}
-      </Link>
-    )
-  }
 
   if (campaignId) {
     return (
@@ -105,13 +83,7 @@ function CampaignMiniCardContent({
   budget,
   videos,
   platforms,
-  isConfigurationPending,
-}: Omit<
-  CampaignMiniCardProps,
-  'campaignId' | 'configurationComplete' | 'configurationCurrentStep'
-> & {
-  isConfigurationPending: boolean
-}) {
+}: Omit<CampaignMiniCardProps, 'campaignId'>) {
   const badge = getStatusMeta()[status]
   const pct =
     videos.total > 0 ? Math.round((videos.done / videos.total) * 100) : 0
@@ -128,7 +100,6 @@ function CampaignMiniCardContent({
           </div>
         </div>
         <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
-          {isConfigurationPending ? <ConfigurationPendingBadge /> : null}
           <Badge variant={badge.variant} className="rounded-full">
             {badge.label}
           </Badge>
@@ -153,12 +124,6 @@ function CampaignMiniCardContent({
         <span>{t`${pct}% complete`}</span>
         <span>{platforms.join(' · ')}</span>
       </footer>
-
-      {isConfigurationPending ? (
-        <div className="mt-3 rounded-xl bg-warning/10 px-3 py-2 text-sm font-medium text-warning">
-          {t`Retomar configuración`}
-        </div>
-      ) : null}
     </article>
   )
 }

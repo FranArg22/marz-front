@@ -1,13 +1,5 @@
-import { useEffect } from 'react'
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
-
-import {
-  PHASES,
-  getPhaseIndex,
-} from '#/features/campaigns/brief-builder/phases'
-import { useBriefBuilderStore } from '#/features/campaigns/brief-builder/store'
-import type { Phase } from '#/features/campaigns/brief-builder/store'
 
 const phaseParamSchema = z.object({
   phase: z.enum(['input', 'progress', 'review', 'confirm']),
@@ -19,26 +11,11 @@ export const Route = createFileRoute('/_brand/campaigns/new/$phase')({
     stringify: (params) => params,
   },
   beforeLoad: ({ params }) => {
-    const idx = getPhaseIndex(params.phase)
-    if (idx === -1) {
+    const parsed = phaseParamSchema.safeParse(params)
+    if (!parsed.success) {
       throw notFound()
     }
-    return { phaseIndex: idx }
+
+    throw redirect({ to: '/campaigns/new', search: { step: 1 } })
   },
-  component: BriefBuilderPhaseRoute,
 })
-
-function BriefBuilderPhaseRoute() {
-  const { phaseIndex } = Route.useRouteContext()
-
-  useEffect(() => {
-    useBriefBuilderStore.setState({
-      currentPhase: (phaseIndex + 1) as Phase,
-    })
-  }, [phaseIndex])
-
-  const currentPhase = PHASES[phaseIndex]!
-  const PhaseComponent = currentPhase.component
-
-  return <PhaseComponent />
-}

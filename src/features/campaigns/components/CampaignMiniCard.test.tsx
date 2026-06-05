@@ -39,8 +39,6 @@ function makeProps(
     budget: '$42K',
     videos: { done: 3, total: 8 },
     platforms: ['YouTube', 'Instagram'],
-    configurationComplete: false,
-    configurationCurrentStep: 'targeting',
     ...overrides,
   }
 }
@@ -64,18 +62,8 @@ async function renderLinkedCard(
     component: () => <div>Campaign detail</div>,
   })
 
-  const configurationRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    path: '/campaigns/$campaignId/configuration/$step',
-    component: () => <div>Campaign configuration</div>,
-  })
-
   const router = createRouter({
-    routeTree: rootRoute.addChildren([
-      sourceRoute,
-      campaignRoute,
-      configurationRoute,
-    ]),
+    routeTree: rootRoute.addChildren([sourceRoute, campaignRoute]),
     history: createMemoryHistory({ initialEntries: ['/source'] }),
   })
 
@@ -88,79 +76,16 @@ async function renderLinkedCard(
 }
 
 describe('CampaignMiniCard', () => {
-  it('shows pending configuration badge and CTA for incomplete drafts', () => {
+  it('renders campaign name and stats', () => {
     render(<CampaignMiniCard {...makeProps({ campaignId: undefined })} />)
 
-    expect(screen.getByText('Configuración pendiente')).toBeInTheDocument()
-    expect(screen.getByText('Retomar configuración')).toBeInTheDocument()
+    expect(screen.getByText('Summer Glow 2026')).toBeInTheDocument()
+    expect(screen.getByText('$42K')).toBeInTheDocument()
   })
 
-  it('does not show pending badge for complete drafts', () => {
-    render(
-      <CampaignMiniCard
-        {...makeProps({
-          campaignId: undefined,
-          configurationComplete: true,
-        })}
-      />,
-    )
-
-    expect(
-      screen.queryByText('Configuración pendiente'),
-    ).not.toBeInTheDocument()
-    expect(screen.queryByText('Retomar configuración')).not.toBeInTheDocument()
-  })
-
-  it('does not show pending badge for incomplete drafts without a current configuration step', () => {
-    render(
-      <CampaignMiniCard
-        {...makeProps({
-          campaignId: undefined,
-          configurationComplete: false,
-          configurationCurrentStep: null,
-        })}
-      />,
-    )
-
-    expect(
-      screen.queryByText('Configuración pendiente'),
-    ).not.toBeInTheDocument()
-    expect(screen.queryByText('Retomar configuración')).not.toBeInTheDocument()
-  })
-
-  it('does not show pending badge for active campaigns', () => {
-    render(
-      <CampaignMiniCard
-        {...makeProps({
-          campaignId: undefined,
-          status: 'active',
-          configurationComplete: false,
-        })}
-      />,
-    )
-
-    expect(
-      screen.queryByText('Configuración pendiente'),
-    ).not.toBeInTheDocument()
-    expect(screen.queryByText('Retomar configuración')).not.toBeInTheDocument()
-  })
-
-  it('navigates incomplete drafts to the current configuration step', async () => {
+  it('navigates to the campaign detail', async () => {
     const user = userEvent.setup()
     const { router } = await renderLinkedCard(makeProps())
-
-    await user.click(screen.getByRole('link', { name: /summer glow 2026/i }))
-
-    expect(router.state.location.pathname).toBe(
-      `/campaigns/${campaignId}/configuration/targeting`,
-    )
-  })
-
-  it('navigates complete drafts to the campaign detail', async () => {
-    const user = userEvent.setup()
-    const { router } = await renderLinkedCard(
-      makeProps({ configurationComplete: true }),
-    )
 
     await user.click(screen.getByRole('link', { name: /summer glow 2026/i }))
 

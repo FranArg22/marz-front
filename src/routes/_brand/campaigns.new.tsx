@@ -1,23 +1,31 @@
-import { useCallback, useEffect, useState } from 'react'
-import { createFileRoute, useParams, useRouter } from '@tanstack/react-router'
+import { useCallback } from 'react'
+import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
+import { z } from 'zod'
 
-import { BriefBuilderWizard } from '#/features/campaigns/brief-builder/BriefBuilderWizard'
-import { useBriefBuilderStore } from '#/features/campaigns/brief-builder/store'
 import { Button } from '#/components/ui/button'
+import { useCampaignWizardStore } from '#/features/campaigns/wizard/store'
 import { WizardTopbar } from '#/shared/ui/wizard/WizardTopbar'
-import {
-  PHASES,
-  getPhaseIndex,
-} from '#/features/campaigns/brief-builder/phases'
+
+const campaignWizardSearchSchema = z.object({
+  step: z.number().int().min(1).max(7).default(1),
+})
+
+type CampaignWizardSearch = {
+  step?: number
+}
 
 export const Route = createFileRoute('/_brand/campaigns/new')({
-  // RAFITA:BLOCKER: ServerMeBody no expone membership.role todavia.
-  // Cuando el backend agregue el campo, agregar beforeLoad con:
-  // if (me?.membership?.role !== 'owner') throw redirect({ to: '/campaigns' })
-  // Por ahora: el guard de kind=brand en _brand.tsx beforeLoad es suficiente.
+  validateSearch: (search): CampaignWizardSearch =>
+    campaignWizardSearchSchema.parse(search),
+  beforeLoad: ({ search }) => {
+    const step = search.step ?? 1
+    if (step > 1 && !useCampaignWizardStore.getState().canAccessStep(step)) {
+      throw redirect({ to: '/campaigns/new', search: { step: 1 } })
+    }
+  },
   component: CampaignsNewLayout,
   pendingComponent: CampaignsNewPending,
   errorComponent: CampaignsNewError,
@@ -25,45 +33,25 @@ export const Route = createFileRoute('/_brand/campaigns/new')({
 
 function CampaignsNewLayout() {
   const router = useRouter()
-  const [hasHydrated, setHasHydrated] = useState(() =>
-    useBriefBuilderStore.persist.hasHydrated(),
-  )
-  const params = useParams({ strict: false })
-  const phaseSlug = 'phase' in params ? params.phase : undefined
-  const currentIndex = phaseSlug ? getPhaseIndex(phaseSlug) : -1
-  const currentPhase = currentIndex + 1
-  const totalPhases = PHASES.length
-  const stepLabel =
-    currentIndex === -1 ? undefined : t`Fase ${currentPhase} de ${totalPhases}`
+  const { step = 1 } = Route.useSearch()
+  const stepLabel = t`Paso ${step} de 7`
 
   const handleExit = useCallback(() => {
-    useBriefBuilderStore.getState().reset()
+    useCampaignWizardStore.getState().reset()
     void router.navigate({ to: '/campaigns' })
   }, [router])
-
-  useEffect(() => {
-    let mounted = true
-    const unsubscribe = useBriefBuilderStore.persist.onFinishHydration(() => {
-      if (mounted) setHasHydrated(true)
-    })
-    void Promise.resolve(useBriefBuilderStore.persist.rehydrate()).then(() => {
-      if (mounted) setHasHydrated(true)
-    })
-    return () => {
-      mounted = false
-      unsubscribe()
-    }
-  }, [])
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
       <WizardTopbar
-        stepLabel={stepLabel ?? t`Nueva campaña`}
+        stepLabel={stepLabel}
         onExit={handleExit}
         exitLabel={t`Cancelar`}
       />
       <main className="flex flex-1 flex-col overflow-hidden">
-        {hasHydrated ? <BriefBuilderWizard /> : <CampaignsNewPending />}
+        <div className="flex flex-1 items-center justify-center px-6 text-sm text-muted-foreground">
+          <Trans>Wizard próximamente</Trans>
+        </div>
       </main>
     </div>
   )

@@ -94,8 +94,7 @@ type CampaignWizardState = {
 - [ ] E2E: navegar a `/campaigns/new` carga la ruta y muestra step 1; navegar a `/campaigns/new?step=3` sin completar pasos previos redirige a `?step=1`.
 
 ## Done summary
-TBD
-
+Implemented fn-27-feat-034-unified-campaign-creation.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

@@ -93,8 +93,6 @@ describe('route topbar integration', () => {
 
   afterEach(() => {
     vi.doUnmock('@tanstack/react-router')
-    vi.doUnmock('#/features/campaigns/brief-builder/BriefBuilderWizard')
-    vi.doUnmock('#/features/campaigns/components/CampaignBriefPage')
   })
 
   it('declares Campaigns list title and action in the shell topbar', async () => {
@@ -118,42 +116,6 @@ describe('route topbar integration', () => {
       'data-height',
       '56px',
     )
-  })
-
-  it.todo(
-    'declares campaign brief title and parent back link in the shell topbar',
-  )
-
-  it.skip('declares campaign brief title and parent back link in the shell topbar (legacy)', async () => {
-    mockParams = { campaignId: 'campaign-1' }
-    vi.doMock('#/features/campaigns/components/CampaignBriefPage', () => ({
-      CampaignBriefPage: ({ campaignId }: { campaignId: string }) => (
-        <main>Brief {campaignId}</main>
-      ),
-    }))
-
-    await renderRouteComponent(
-      () => import('./_brand/campaigns.$campaignId.brief'),
-    )
-
-    expect(await screen.findByText('Resumen del brief')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Volver' })).toHaveAttribute(
-      'href',
-      '/campaigns',
-    )
-    expect(screen.getByText('Brief campaign-1')).toBeInTheDocument()
-  })
-
-  it('renders brief builder topbar with step label and cancel action', async () => {
-    mockParams = { phase: 'review' }
-    vi.doMock('#/features/campaigns/brief-builder/BriefBuilderWizard', () => ({
-      BriefBuilderWizard: () => <main>Brief builder content</main>,
-    }))
-
-    await renderRouteComponent(() => import('./_brand/campaigns.new'))
-
-    expect(await screen.findByText('Fase 3 de 4')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Cancelar' })).toBeInTheDocument()
   })
 
   it.skip('resets contextual topbar state when moving through Campaigns, Chats, and Offers', async () => {
@@ -223,7 +185,6 @@ describe('route topbar integration', () => {
     const files = [
       'src/routes/_brand/campaigns.index.tsx',
       'src/routes/_brand/campaigns.new.tsx',
-      'src/routes/_brand/campaigns.$campaignId.brief.tsx',
       'src/routes/_creator/offers.tsx',
       'src/routes/workspace.tsx',
       'src/routes/workspace.index.tsx',

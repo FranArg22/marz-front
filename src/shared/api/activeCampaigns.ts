@@ -2,7 +2,7 @@ import {
   getListCampaignsQueryKey,
   useListCampaigns,
 } from '#/shared/api/generated/campaigns/campaigns'
-import { CampaignConfigurationStatus } from '#/shared/api/generated/model'
+import { CampaignStatus } from '#/shared/api/generated/model'
 
 export interface ActiveCampaign {
   id: string
@@ -14,13 +14,13 @@ export interface ActiveCampaign {
 
 export function getActiveCampaignsQueryKey() {
   return getListCampaignsQueryKey({
-    status: CampaignConfigurationStatus.active,
+    status: CampaignStatus.active,
   })
 }
 
 export function useActiveCampaigns(options?: { enabled?: boolean }) {
   return useListCampaigns(
-    { status: CampaignConfigurationStatus.active },
+    { status: CampaignStatus.active },
     {
       query: {
         enabled: options?.enabled ?? true,
@@ -30,8 +30,8 @@ export function useActiveCampaigns(options?: { enabled?: boolean }) {
             id: item.campaign_id,
             name: item.name,
             status: 'active' as const,
-            budget_currency: item.budget.currency,
-            budget_remaining: item.budget.amount,
+            budget_currency: 'USD',
+            budget_remaining: '',
           }))
         },
       },

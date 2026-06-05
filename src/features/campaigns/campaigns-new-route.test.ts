@@ -1,4 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import { redirect } from '@tanstack/react-router'
+
+import { useCampaignWizardStore } from './wizard/store'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -16,13 +19,36 @@ vi.mock('#/shared/api/generated/accounts/accounts', () => ({
 }))
 
 describe('/_brand/campaigns/new route', () => {
-  it('has no beforeLoad guard (delegates to _brand parent guard)', async () => {
+  it('validates the campaign wizard step search param', async () => {
     const { Route } = await import('#/routes/_brand/campaigns.new')
-    const options = Route.options as unknown as Record<string, unknown>
-    expect(options.beforeLoad).toBeUndefined()
+    const validateSearch = (
+      Route.options as unknown as {
+        validateSearch: (search: Record<string, unknown>) => unknown
+      }
+    ).validateSearch
+
+    expect(validateSearch({})).toEqual({ step: 1 })
+    expect(validateSearch({ step: 7 })).toEqual({ step: 7 })
+    expect(() => validateSearch({ step: 8 })).toThrow()
   })
 
-  // RAFITA:BLOCKER: cuando ServerMeBody exponga membership.role,
-  // agregar beforeLoad con redirect y habilitar este test:
-  // it('redirects to /campaigns when membership.role !== owner', ...)
+  it('redirects inaccessible steps back to step 1', async () => {
+    const { Route } = await import('#/routes/_brand/campaigns.new')
+    const beforeLoad = (
+      Route.options as unknown as {
+        beforeLoad: (options: { search: { step: number } }) => void
+      }
+    ).beforeLoad
+
+    useCampaignWizardStore.setState({ completedSteps: [] })
+
+    try {
+      beforeLoad({ search: { step: 3 } })
+      throw new Error('beforeLoad did not redirect')
+    } catch (error) {
+      expect(error).toEqual(
+        redirect({ to: '/campaigns/new', search: { step: 1 } }),
+      )
+    }
+  })
 })
