@@ -84,7 +84,6 @@ function CampaignsNewLayout() {
   const completedSteps = useCampaignWizardStore((state) => state.completedSteps)
 
   const handleExit = useCallback(() => {
-    useCampaignWizardStore.getState().reset()
     void router.navigate({ to: '/campaigns' })
   }, [router])
 

@@ -1,9 +1,12 @@
-import type { ReactNode } from 'react'
+import { useState  } from 'react'
+import type {ReactNode} from 'react';
 import { Trans } from '@lingui/react/macro'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { CancelWizardModal } from './CancelWizardModal'
 import { WizardStepIndicator } from './WizardStepIndicator'
+import { useCampaignWizardStore } from './store'
 
 interface WizardLayoutProps {
   step: number
@@ -28,6 +31,18 @@ export function WizardLayout({
   nextLabel,
   children,
 }: WizardLayoutProps) {
+  const [cancelModalOpen, setCancelModalOpen] = useState(false)
+  const isDirty = useCampaignWizardStore((state) => state.isDirty)
+
+  function handleCancelClick() {
+    if (!isDirty) {
+      onCancel()
+      return
+    }
+
+    setCancelModalOpen(true)
+  }
+
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground">
       <header className="flex shrink-0 flex-col gap-4 border-b border-border bg-background px-6 py-4">
@@ -37,7 +52,7 @@ export function WizardLayout({
               Paso {step} de {totalSteps}
             </Trans>
           </span>
-          <Button variant="outline" size="sm" onClick={onCancel}>
+          <Button variant="outline" size="sm" onClick={handleCancelClick}>
             <X aria-hidden="true" />
             <Trans>Cancelar</Trans>
           </Button>
@@ -68,6 +83,12 @@ export function WizardLayout({
           <ArrowRight aria-hidden="true" />
         </Button>
       </footer>
+
+      <CancelWizardModal
+        open={cancelModalOpen}
+        onOpenChange={setCancelModalOpen}
+        onExit={onCancel}
+      />
     </div>
   )
 }

@@ -152,6 +152,39 @@ test.describe('unified campaign wizard', () => {
     await expect(page.getByText('Paso 1 de 7')).toBeVisible()
   })
 
+  test('cancels a clean wizard without showing the exit modal', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await onboardedBrandUser.signIn(page)
+
+    await page.goto('/campaigns/new')
+    await page.getByRole('button', { name: /Cancelar/ }).click()
+
+    await expect(page).toHaveURL(/\/campaigns(?:\?.*)?$/)
+    await expect(
+      page.getByRole('dialog', { name: /Salir del wizard/ }),
+    ).toBeHidden()
+  })
+
+  test('confirms exiting a dirty wizard from step 1', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await onboardedBrandUser.signIn(page)
+
+    await page.goto('/campaigns/new')
+    await page.getByRole('radio', { name: /Influencers Posts/ }).click()
+    await page.getByRole('button', { name: /Cancelar/ }).click()
+
+    await expect(
+      page.getByRole('dialog', { name: /Salir del wizard/ }),
+    ).toBeVisible()
+    await page.getByRole('button', { name: /^Salir$/ }).click()
+
+    await expect(page).toHaveURL(/\/campaigns(?:\?.*)?$/)
+  })
+
   test('selects Influencers Posts and navigates to step 2', async ({
     page,
     onboardedBrandUser,
