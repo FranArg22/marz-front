@@ -7,9 +7,10 @@ export const MIN_CAMPAIGN_IMAGE_WIDTH = 1280
 export const MIN_CAMPAIGN_IMAGE_HEIGHT = 720
 export const MAX_CAMPAIGN_IMAGE_BYTES = 5 * 1024 * 1024
 
-// Misma tolerancia que el backend (image_validator.go): si el ratio ya está
-// dentro del margen, se sube el archivo original sin re-encodear.
-const RATIO_TOLERANCE = 0.01
+// Estrictamente más chica que la del backend (image_validator.go: 0.005):
+// si el ratio ya está dentro de este margen se sube el original sin
+// re-encodear; cualquier cosa fuera se recorta para que el backend la acepte.
+const RATIO_TOLERANCE = 0.004
 
 export type ImageCropErrorReason = 'too_small' | 'decode_failed'
 

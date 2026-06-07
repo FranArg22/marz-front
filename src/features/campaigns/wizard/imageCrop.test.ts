@@ -40,8 +40,12 @@ describe('isWithin16x9Tolerance', () => {
     expect(isWithin16x9Tolerance(1920, 1080)).toBe(true)
   })
 
-  it('accepts a ratio within the 1% tolerance', () => {
-    expect(isWithin16x9Tolerance(1920, 1085)).toBe(true)
+  it('accepts a ratio within tolerance', () => {
+    expect(isWithin16x9Tolerance(1920, 1082)).toBe(true)
+  })
+
+  it('rejects a ratio outside the front tolerance even if close', () => {
+    expect(isWithin16x9Tolerance(1920, 1085)).toBe(false)
   })
 
   it('rejects 4:3', () => {
