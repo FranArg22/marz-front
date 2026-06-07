@@ -88,7 +88,12 @@ describe('campaign wizard mutation wrappers', () => {
     await waitFor(() => {
       expect(mockCreateCampaign).toHaveBeenCalledWith(
         createCampaignRequest(),
-        { headers: { 'If-Match': 'v1' } },
+        {
+          headers: {
+            'If-Match': 'v1',
+            'Idempotency-Key': expect.any(String) as string,
+          },
+        },
       )
     })
   })
@@ -108,7 +113,12 @@ describe('campaign wizard mutation wrappers', () => {
       expect(mockUpdateCampaign).toHaveBeenCalledWith(
         'campaign-1',
         { name: 'Updated name' },
-        { headers: { 'If-Match': 'v7' } },
+        {
+          headers: {
+            'If-Match': 'v7',
+            'Idempotency-Key': expect.any(String) as string,
+          },
+        },
       )
     })
   })
@@ -147,10 +157,15 @@ describe('campaign wizard mutation wrappers', () => {
     result.current.mutate({ file })
 
     await waitFor(() => {
-      expect(mockCreateCampaignImageUploadPresign).toHaveBeenCalledWith({
-        content_type: 'image/png',
-        size_bytes: file.size,
-      })
+      expect(mockCreateCampaignImageUploadPresign).toHaveBeenCalledWith(
+        {
+          content_type: 'image/png',
+          size_bytes: file.size,
+        },
+        {
+          headers: { 'Idempotency-Key': expect.any(String) as string },
+        },
+      )
       expect(fetchMock).toHaveBeenCalled()
     })
   })
@@ -173,10 +188,15 @@ describe('campaign wizard mutation wrappers', () => {
     result.current.mutate({ file })
 
     await waitFor(() => {
-      expect(mockCreateCampaignBriefPDFUploadPresign).toHaveBeenCalledWith({
-        content_type: 'application/pdf',
-        size_bytes: file.size,
-      })
+      expect(mockCreateCampaignBriefPDFUploadPresign).toHaveBeenCalledWith(
+        {
+          content_type: 'application/pdf',
+          size_bytes: file.size,
+        },
+        {
+          headers: { 'Idempotency-Key': expect.any(String) as string },
+        },
+      )
       expect(fetchMock).toHaveBeenCalled()
     })
   })

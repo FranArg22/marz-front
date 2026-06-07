@@ -19,6 +19,7 @@ import type {
   CreateCampaignRequest,
   UpdateCampaignRequest,
 } from '#/shared/api/generated/model'
+import { generateIdempotencyKey } from '#/shared/api/idempotency'
 
 export type CreateCampaignMutationVariables = {
   data: CreateCampaignRequest
@@ -44,7 +45,10 @@ export function useCreateCampaignMutation() {
     mutationKey: ['campaign-wizard', 'create-campaign'],
     mutationFn: ({ data, ifMatch }) =>
       createCampaign(data, {
-        headers: buildIfMatchHeaders(ifMatch),
+        headers: {
+          ...buildIfMatchHeaders(ifMatch),
+          'Idempotency-Key': generateIdempotencyKey(),
+        },
       }),
   })
 }
@@ -58,7 +62,10 @@ export function useUpdateCampaignMutation() {
     mutationKey: ['campaign-wizard', 'update-campaign'],
     mutationFn: ({ campaignId, data, ifMatch }) =>
       updateCampaign(campaignId, data, {
-        headers: buildIfMatchHeaders(ifMatch),
+        headers: {
+          ...buildIfMatchHeaders(ifMatch),
+          'Idempotency-Key': generateIdempotencyKey(),
+        },
       }),
   })
 }
@@ -67,10 +74,13 @@ export function usePresignImageMutation() {
   return useMutation<CampaignPresignResponse, Error, PresignUploadVariables>({
     mutationKey: ['campaign-wizard', 'presign-image'],
     mutationFn: async ({ file }) => {
-      const response = await createCampaignImageUploadPresign({
-        content_type: file.type as CampaignImagePresignRequestContentType,
-        size_bytes: file.size,
-      })
+      const response = await createCampaignImageUploadPresign(
+        {
+          content_type: file.type as CampaignImagePresignRequestContentType,
+          size_bytes: file.size,
+        },
+        { headers: { 'Idempotency-Key': generateIdempotencyKey() } },
+      )
 
       return uploadFromPresign(file, response)
     },
@@ -81,10 +91,13 @@ export function usePresignBriefPdfMutation() {
   return useMutation<CampaignPresignResponse, Error, PresignUploadVariables>({
     mutationKey: ['campaign-wizard', 'presign-brief-pdf'],
     mutationFn: async ({ file }) => {
-      const response = await createCampaignBriefPDFUploadPresign({
-        content_type: file.type as CampaignBriefPDFPresignRequestContentType,
-        size_bytes: file.size,
-      })
+      const response = await createCampaignBriefPDFUploadPresign(
+        {
+          content_type: file.type as CampaignBriefPDFPresignRequestContentType,
+          size_bytes: file.size,
+        },
+        { headers: { 'Idempotency-Key': generateIdempotencyKey() } },
+      )
 
       return uploadFromPresign(file, response)
     },
