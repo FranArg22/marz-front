@@ -947,7 +947,7 @@ msgstr "Al continuar aceptás los Términos y la Política de privacidad."
 msgid "Alcanzaste el límite de tu plan ({planName}). Para crear más campañas, revisá los planes en billing."
 msgstr "Alcanzaste el límite de tu plan ({planName}). Para crear más campañas, revisá los planes en billing."
 
-#: src/routes/_brand/campaigns.new.tsx:355
+#: src/routes/_brand/campaigns.new.tsx:372
 msgid "Algo salió mal"
 msgstr "Algo salió mal"
 
@@ -1847,11 +1847,11 @@ msgstr "Coming up when the offers context lands."
 msgid "Compensación"
 msgstr "Compensación"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:57
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:67
 msgid "Completá la información principal que verán los creators antes de aplicar."
 msgstr "Completá la información principal que verán los creators antes de aplicar."
 
-#: src/routes/_brand/campaigns.new.tsx:265
+#: src/routes/_brand/campaigns.new.tsx:282
 msgid "Completá los datos requeridos antes de crear la campaña."
 msgstr "Completá los datos requeridos antes de crear la campaña."
 
@@ -2073,7 +2073,7 @@ msgstr "Creadores reales hablando de Marz"
 #~ msgstr "Creando tu campaña…"
 
 #: src/routes/_brand/campaigns.index.tsx:165
-#: src/routes/_brand/campaigns.new.tsx:231
+#: src/routes/_brand/campaigns.new.tsx:248
 msgid "Crear campaña"
 msgstr "Crear campaña"
 
@@ -2251,7 +2251,7 @@ msgstr "DeFi"
 #~ msgid "Definí cómo creators van a entregar el contenido para tu marca."
 #~ msgstr "Definí cómo creators van a entregar el contenido para tu marca."
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:54
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:64
 msgid "Definí el brief de la campaña"
 msgstr "Definí el brief de la campaña"
 
@@ -2307,7 +2307,7 @@ msgstr "Descalificadores"
 #~ msgstr "Describí tu campaña, público objetivo, objetivos…"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:182
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:82
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:92
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:143
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:396
 #: src/features/offers/components/OfferArchiveItem.tsx:290
@@ -2764,7 +2764,7 @@ msgstr "Elegir archivo"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:777
 #: src/features/campaigns/wizard/BriefPdfDropzone.tsx:77
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:120
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:136
 msgid "Eliminar"
 msgstr "Eliminar"
 
@@ -3032,7 +3032,7 @@ msgstr "Error al subir la imagen. Intentá de nuevo."
 #~ msgid "Error en el análisis"
 #~ msgstr "Error en el análisis"
 
-#: src/routes/_brand/campaigns.new.tsx:358
+#: src/routes/_brand/campaigns.new.tsx:375
 msgid "Error inesperado"
 msgstr "Error inesperado"
 
@@ -3811,8 +3811,8 @@ msgstr "Idiomas del contenido"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:420
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:429
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:456
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:111
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:145
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:127
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:161
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:150
 msgid "Imagen"
 msgstr "Imagen"
@@ -3902,6 +3902,10 @@ msgstr "Ingresá un monto mayor a 0."
 #: src/features/campaigns/brief-builder/schemas.ts:28
 #~ msgid "Ingresá una URL válida (ej: https://mimarca.com)"
 #~ msgstr "Ingresá una URL válida (ej: https://mimarca.com)"
+
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:120
+msgid "Ingresá una URL válida que empiece con https://"
+msgstr "Ingresá una URL válida que empiece con https://"
 
 #: src/features/chat/components/messageTimelineChrome.tsx:18
 msgid "Inicio de la conversación"
@@ -5036,8 +5040,8 @@ msgstr "No pudimos completar el onboarding."
 msgid "No pudimos confirmar la postulación. Intentá enviarla de nuevo."
 msgstr "No pudimos confirmar la postulación. Intentá enviarla de nuevo."
 
-#: src/routes/_brand/campaigns.new.tsx:309
-#: src/routes/_brand/campaigns.new.tsx:328
+#: src/routes/_brand/campaigns.new.tsx:326
+#: src/routes/_brand/campaigns.new.tsx:345
 msgid "No pudimos crear la campaña. Intentá de nuevo."
 msgstr "No pudimos crear la campaña. Intentá de nuevo."
 
@@ -5078,7 +5082,7 @@ msgid "No pudimos subir el PDF. Intentá de nuevo."
 msgstr "No pudimos subir el PDF. Intentá de nuevo."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:411
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:35
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:45
 msgid "No pudimos subir la imagen. Intentá de nuevo."
 msgstr "No pudimos subir la imagen. Intentá de nuevo."
 
@@ -5192,7 +5196,7 @@ msgid "No tenés un workspace asociado."
 msgstr "No tenés un workspace asociado."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:175
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:67
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:77
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:141
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
 msgid "Nombre"
@@ -5846,7 +5850,7 @@ msgstr "Platforms"
 #~ msgid "Play draft v{0}"
 #~ msgstr "Play draft v{0}"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:138
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:154
 msgid "PNG, JPG o WebP"
 msgstr "PNG, JPG o WebP"
 
@@ -6269,7 +6273,7 @@ msgstr "Reintentá para traer tus items pendientes."
 #: src/features/inbox/InboxPage.tsx:172
 #: src/features/offers/components/SendOfferSidesheet.tsx:404
 #: src/routes/_brand/campaigns.index.tsx:68
-#: src/routes/_brand/campaigns.new.tsx:362
+#: src/routes/_brand/campaigns.new.tsx:379
 #: src/routes/_brand/checkout-return.tsx:112
 msgid "Reintentar"
 msgstr "Reintentar"
@@ -6378,11 +6382,11 @@ msgid "Revisá la campaña"
 msgstr "Revisá la campaña"
 
 #. placeholder {0}: error.message
-#: src/routes/_brand/campaigns.new.tsx:306
+#: src/routes/_brand/campaigns.new.tsx:323
 msgid "Revisá los datos de la campaña: {0}"
 msgstr "Revisá los datos de la campaña: {0}"
 
-#: src/routes/_brand/campaigns.new.tsx:305
+#: src/routes/_brand/campaigns.new.tsx:322
 msgid "Revisá los datos de la campaña: {firstFieldError}"
 msgstr "Revisá los datos de la campaña: {firstFieldError}"
 
@@ -7088,17 +7092,17 @@ msgstr "Subí la foto de nuevo"
 msgid "Subí un video draft para revisión"
 msgstr "Subí un video draft para revisión"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:135
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:151
 msgid "Subí una imagen de campaña"
 msgstr "Subí una imagen de campaña"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:402
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:25
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:35
 msgid "Subí una imagen PNG, JPG o WebP."
 msgstr "Subí una imagen PNG, JPG o WebP."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:447
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:158
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:174
 msgid "Subiendo imagen..."
 msgstr "Subiendo imagen..."
 
@@ -7773,7 +7777,7 @@ msgstr "URL de IG / TikTok / YT"
 #~ msgstr "URL de la campaña"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:189
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:98
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:108
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:147
 msgid "URL objetivo"
 msgstr "URL objetivo"
@@ -8019,7 +8023,7 @@ msgid "Volver"
 msgstr "Volver"
 
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:131
-#: src/routes/_brand/campaigns.new.tsx:368
+#: src/routes/_brand/campaigns.new.tsx:385
 msgid "Volver a campañas"
 msgstr "Volver a campañas"
 

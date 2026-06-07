@@ -11,6 +11,16 @@ import { useCampaignWizardStore } from './store'
 
 const ACCEPTED_IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp'])
 
+export function isValidTargetUrl(value: string): boolean {
+  let url: URL
+  try {
+    url = new URL(value)
+  } catch {
+    return false
+  }
+  return url.protocol === 'http:' || url.protocol === 'https:'
+}
+
 export function WizardStep3Brief() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [imageError, setImageError] = useState<string | null>(null)
@@ -104,6 +114,12 @@ export function WizardStep3Brief() {
             placeholder="https://"
             onChange={(event) => setStep3({ target_url: event.target.value })}
           />
+          {step3.target_url.trim() !== '' &&
+          !isValidTargetUrl(step3.target_url.trim()) ? (
+            <p role="alert" className="text-sm text-destructive">
+              <Trans>Ingresá una URL válida que empiece con https://</Trans>
+            </p>
+          ) : null}
         </div>
 
         <div className="flex flex-col gap-3">

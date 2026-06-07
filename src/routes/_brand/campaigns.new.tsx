@@ -9,7 +9,10 @@ import { Button } from '#/components/ui/button'
 import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
-import { WizardStep3Brief } from '#/features/campaigns/wizard/WizardStep3Brief'
+import {
+  isValidTargetUrl,
+  WizardStep3Brief,
+} from '#/features/campaigns/wizard/WizardStep3Brief'
 import { WizardStep4Audience } from '#/features/campaigns/wizard/WizardStep4Audience'
 import { WizardStep5Compensation } from '#/features/campaigns/wizard/WizardStep5Compensation'
 import { WizardStep6Content } from '#/features/campaigns/wizard/WizardStep6Content'
@@ -143,7 +146,7 @@ function CampaignsNewLayout() {
       if (
         store.step3.name.trim() === '' ||
         store.step3.description.trim() === '' ||
-        store.step3.target_url.trim() === '' ||
+        !isValidTargetUrl(store.step3.target_url.trim()) ||
         store.step3.imageS3Key === null
       ) {
         return
@@ -217,7 +220,7 @@ function CampaignsNewLayout() {
         : step === 3
           ? step3.name.trim() === '' ||
             step3.description.trim() === '' ||
-            step3.target_url.trim() === '' ||
+            !isValidTargetUrl(step3.target_url.trim()) ||
             step3.imageS3Key === null
           : step === 4
             ? step4.platforms.length === 0 ||
