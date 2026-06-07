@@ -17,7 +17,7 @@ import type {
   CampaignImagePresignRequestContentType,
   CampaignPresignResponse,
   CreateCampaignRequest,
-  UpdateCampaignRequest
+  UpdateCampaignRequest,
 } from '#/shared/api/generated/model'
 
 export type CreateCampaignMutationVariables = {

@@ -75,6 +75,7 @@ function CampaignsNewLayout() {
   const step2PricingModel = useCampaignWizardStore(
     (state) => state.step2.pricing_model,
   )
+  const step3 = useCampaignWizardStore((state) => state.step3)
   const step4 = useCampaignWizardStore((state) => state.step4)
   const step5CompensationType = useCampaignWizardStore(
     (state) => state.step5.compensation_type,
@@ -139,6 +140,14 @@ function CampaignsNewLayout() {
 
     if (step === 3) {
       const store = useCampaignWizardStore.getState()
+      if (
+        store.step3.name.trim() === '' ||
+        store.step3.description.trim() === '' ||
+        store.step3.target_url.trim() === '' ||
+        store.step3.imageS3Key === null
+      ) {
+        return
+      }
       store.markStepCompleted(3)
       track('campaign_wizard_step_completed', { step_number: 3 })
       void router.navigate({ to: '/campaigns/new', search: { step: 4 } })
@@ -205,19 +214,24 @@ function CampaignsNewLayout() {
       ? step1ContentType === null
       : step === 2
         ? step2PricingModel === null
-        : step === 4
-          ? step4.platforms.length === 0 ||
-            step4.interests.length === 0 ||
-            step4.creator_country === null ||
-            step4.min_creator_tier_slug === null
-          : step === 5
-            ? step5CompensationType === null
-            : step === 6
-              ? step6ContentGuidelines.trim().length < 50
-              : step === 7
-                ? buildCreateCampaignRequest(wizardState) === null ||
-                  createCampaignMutation.isPending
-                : step !== 3
+        : step === 3
+          ? step3.name.trim() === '' ||
+            step3.description.trim() === '' ||
+            step3.target_url.trim() === '' ||
+            step3.imageS3Key === null
+          : step === 4
+            ? step4.platforms.length === 0 ||
+              step4.interests.length === 0 ||
+              step4.creator_country === null ||
+              step4.min_creator_tier_slug === null
+            : step === 5
+              ? step5CompensationType === null
+              : step === 6
+                ? step6ContentGuidelines.trim().length < 50
+                : step === 7
+                  ? buildCreateCampaignRequest(wizardState) === null ||
+                    createCampaignMutation.isPending
+                  : true
 
   return (
     <WizardLayout
