@@ -1847,7 +1847,7 @@ msgstr "Coming up when the offers context lands."
 msgid "Compensación"
 msgstr "Compensación"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:67
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:84
 msgid "Completá la información principal que verán los creators antes de aplicar."
 msgstr "Completá la información principal que verán los creators antes de aplicar."
 
@@ -2251,7 +2251,7 @@ msgstr "DeFi"
 #~ msgid "Definí cómo creators van a entregar el contenido para tu marca."
 #~ msgstr "Definí cómo creators van a entregar el contenido para tu marca."
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:64
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:81
 msgid "Definí el brief de la campaña"
 msgstr "Definí el brief de la campaña"
 
@@ -2307,7 +2307,7 @@ msgstr "Descalificadores"
 #~ msgstr "Describí tu campaña, público objetivo, objetivos…"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:182
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:92
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:109
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:143
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:396
 #: src/features/offers/components/OfferArchiveItem.tsx:290
@@ -2764,7 +2764,7 @@ msgstr "Elegir archivo"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:777
 #: src/features/campaigns/wizard/BriefPdfDropzone.tsx:77
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:136
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:159
 msgid "Eliminar"
 msgstr "Eliminar"
 
@@ -3811,8 +3811,8 @@ msgstr "Idiomas del contenido"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:420
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:429
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:456
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:127
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:161
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:150
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:184
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:150
 msgid "Imagen"
 msgstr "Imagen"
@@ -3903,7 +3903,7 @@ msgstr "Ingresá un monto mayor a 0."
 #~ msgid "Ingresá una URL válida (ej: https://mimarca.com)"
 #~ msgstr "Ingresá una URL válida (ej: https://mimarca.com)"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:120
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:143
 msgid "Ingresá una URL válida que empiece con https://"
 msgstr "Ingresá una URL válida que empiece con https://"
 
@@ -4093,6 +4093,14 @@ msgstr "La fecha límite tiene que ser al menos 48 horas después de la publicac
 #: src/features/offers/schemas/createOffer.ts:114
 msgid "La fecha tentativa de publicación tiene que ser al menos dentro de cuatro días"
 msgstr "La fecha tentativa de publicación tiene que ser al menos dentro de cuatro días"
+
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:58
+msgid "La imagen es muy chica: el recorte 16:9 necesita al menos 1280×720."
+msgstr "La imagen es muy chica: el recorte 16:9 necesita al menos 1280×720."
+
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:45
+msgid "La imagen supera el máximo de 5 MB."
+msgstr "La imagen supera el máximo de 5 MB."
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:219
 #~ msgid "La información proporcionada no fue suficiente para generar el brief completo. Llená los campos manualmente."
@@ -5082,7 +5090,7 @@ msgid "No pudimos subir el PDF. Intentá de nuevo."
 msgstr "No pudimos subir el PDF. Intentá de nuevo."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:411
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:45
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:61
 msgid "No pudimos subir la imagen. Intentá de nuevo."
 msgstr "No pudimos subir la imagen. Intentá de nuevo."
 
@@ -5196,7 +5204,7 @@ msgid "No tenés un workspace asociado."
 msgstr "No tenés un workspace asociado."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:175
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:77
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:94
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:141
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
 msgid "Nombre"
@@ -5850,7 +5858,7 @@ msgstr "Platforms"
 #~ msgid "Play draft v{0}"
 #~ msgstr "Play draft v{0}"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:154
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:177
 msgid "PNG, JPG o WebP"
 msgstr "PNG, JPG o WebP"
 
@@ -7092,17 +7100,17 @@ msgstr "Subí la foto de nuevo"
 msgid "Subí un video draft para revisión"
 msgstr "Subí un video draft para revisión"
 
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:151
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:174
 msgid "Subí una imagen de campaña"
 msgstr "Subí una imagen de campaña"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:402
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:35
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:40
 msgid "Subí una imagen PNG, JPG o WebP."
 msgstr "Subí una imagen PNG, JPG o WebP."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:447
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:174
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:197
 msgid "Subiendo imagen..."
 msgstr "Subiendo imagen..."
 
@@ -7777,7 +7785,7 @@ msgstr "URL de IG / TikTok / YT"
 #~ msgstr "URL de la campaña"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:189
-#: src/features/campaigns/wizard/WizardStep3Brief.tsx:108
+#: src/features/campaigns/wizard/WizardStep3Brief.tsx:125
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:147
 msgid "URL objetivo"
 msgstr "URL objetivo"

@@ -6,6 +6,11 @@ import { ImageUp, X } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Textarea } from '#/components/ui/textarea'
+import {
+  cropImageTo16x9,
+  ImageCropError,
+  MAX_CAMPAIGN_IMAGE_BYTES,
+} from './imageCrop'
 import { usePresignImageMutation } from './mutations'
 import { useCampaignWizardStore } from './store'
 
@@ -36,13 +41,25 @@ export function WizardStep3Brief() {
       return
     }
 
+    if (file.size > MAX_CAMPAIGN_IMAGE_BYTES) {
+      setImageError(t`La imagen supera el máximo de 5 MB.`)
+      return
+    }
+
     setImageError(null)
     try {
-      const presign = await presignImage.mutateAsync({ file })
-      setStep3({ imageFile: file, imageS3Key: presign.s3_key })
-    } catch {
+      const croppedFile = await cropImageTo16x9(file)
+      const presign = await presignImage.mutateAsync({ file: croppedFile })
+      setStep3({ imageFile: croppedFile, imageS3Key: presign.s3_key })
+    } catch (error) {
       setStep3({ imageFile: null, imageS3Key: null })
-      setImageError(t`No pudimos subir la imagen. Intentá de nuevo.`)
+      if (error instanceof ImageCropError && error.reason === 'too_small') {
+        setImageError(
+          t`La imagen es muy chica: el recorte 16:9 necesita al menos 1280×720.`,
+        )
+      } else {
+        setImageError(t`No pudimos subir la imagen. Intentá de nuevo.`)
+      }
       if (inputRef.current) {
         inputRef.current.value = ''
       }
