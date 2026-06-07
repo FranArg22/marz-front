@@ -59,8 +59,9 @@ type CampaignWizardData = Omit<
 
 function createInitialState(): CampaignWizardData {
   return {
-    step1: { content_type: null },
-    step2: { pricing_model: null },
+    // Única opción habilitada en MVP => preseleccionada (UGC/CPM: Próximamente).
+    step1: { content_type: 'influencer_posts' },
+    step2: { pricing_model: 'pay_per_post' },
     step3: {
       name: '',
       description: '',
