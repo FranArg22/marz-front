@@ -49,7 +49,7 @@ export function WizardLayout({
   }
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground">
+    <div className="flex h-full w-full flex-col overflow-hidden bg-background text-foreground">
       <header className="flex shrink-0 flex-col gap-4 border-b border-border bg-background px-6 py-4">
         <div className="flex items-center justify-between gap-4">
           <span className="text-sm font-medium text-muted-foreground">

@@ -330,7 +330,7 @@ export function getCreateCampaignErrorMessage(error: unknown): string {
 
 function CampaignsNewPending() {
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
+    <div className="flex h-full w-full flex-col overflow-hidden bg-background">
       <div className="flex h-14 items-center justify-between border-b px-6">
         <div className="h-4 w-24 animate-pulse rounded bg-muted" />
         <div className="h-8 w-20 animate-pulse rounded bg-muted" />
@@ -350,7 +350,7 @@ function CampaignsNewError({ error, reset }: ErrorComponentProps) {
   const router = useRouter()
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-background">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-background">
       <h2 className="text-lg font-semibold text-foreground">
         <Trans>Algo salió mal</Trans>
       </h2>
