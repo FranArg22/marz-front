@@ -113,6 +113,12 @@ export function WizardStep3Brief() {
             maxLength={500}
             placeholder="https://"
             onChange={(event) => setStep3({ target_url: event.target.value })}
+            onBlur={(event) => {
+              const value = event.target.value.trim()
+              if (value !== '' && !/^https?:\/\//i.test(value)) {
+                setStep3({ target_url: `https://${value}` })
+              }
+            }}
           />
           {step3.target_url.trim() !== '' &&
           !isValidTargetUrl(step3.target_url.trim()) ? (
