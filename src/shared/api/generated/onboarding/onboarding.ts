@@ -33,7 +33,7 @@ import type {
   BrandEnrichmentParams,
   BrandOnboardingPayload,
   CreatorOnboardingPayload,
-  Error,
+  ErrorResponse,
   MeResponse
 } from '../model';
 
@@ -50,27 +50,27 @@ export type completeBrandOnboardingResponse200 = {
 }
 
 export type completeBrandOnboardingResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type completeBrandOnboardingResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type completeBrandOnboardingResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type completeBrandOnboardingResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type completeBrandOnboardingResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -106,7 +106,7 @@ export const completeBrandOnboarding = async (brandOnboardingPayload: BrandOnboa
 
 
 
-export const getCompleteBrandOnboardingMutationOptions = <TError = Error,
+export const getCompleteBrandOnboardingMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeBrandOnboarding>>, TError,{data: BrandOnboardingPayload}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof completeBrandOnboarding>>, TError,{data: BrandOnboardingPayload}, TContext> => {
 
@@ -135,9 +135,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CompleteBrandOnboardingMutationResult = NonNullable<Awaited<ReturnType<typeof completeBrandOnboarding>>>
     export type CompleteBrandOnboardingMutationBody = BrandOnboardingPayload
-    export type CompleteBrandOnboardingMutationError = Error
+    export type CompleteBrandOnboardingMutationError = ErrorResponse
 
-    export const useCompleteBrandOnboarding = <TError = Error,
+    export const useCompleteBrandOnboarding = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeBrandOnboarding>>, TError,{data: BrandOnboardingPayload}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof completeBrandOnboarding>>,
@@ -153,27 +153,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type completeCreatorOnboardingResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type completeCreatorOnboardingResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type completeCreatorOnboardingResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type completeCreatorOnboardingResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type completeCreatorOnboardingResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -209,7 +209,7 @@ export const completeCreatorOnboarding = async (creatorOnboardingPayload: Creato
 
 
 
-export const getCompleteCreatorOnboardingMutationOptions = <TError = Error,
+export const getCompleteCreatorOnboardingMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeCreatorOnboarding>>, TError,{data: CreatorOnboardingPayload}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof completeCreatorOnboarding>>, TError,{data: CreatorOnboardingPayload}, TContext> => {
 
@@ -238,9 +238,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CompleteCreatorOnboardingMutationResult = NonNullable<Awaited<ReturnType<typeof completeCreatorOnboarding>>>
     export type CompleteCreatorOnboardingMutationBody = CreatorOnboardingPayload
-    export type CompleteCreatorOnboardingMutationError = Error
+    export type CompleteCreatorOnboardingMutationError = ErrorResponse
 
-    export const useCompleteCreatorOnboarding = <TError = Error,
+    export const useCompleteCreatorOnboarding = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof completeCreatorOnboarding>>, TError,{data: CreatorOnboardingPayload}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof completeCreatorOnboarding>>,
@@ -261,27 +261,27 @@ export type brandEnrichmentResponse204 = {
 }
 
 export type brandEnrichmentResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type brandEnrichmentResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type brandEnrichmentResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type brandEnrichmentResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
 export type brandEnrichmentResponse503 = {
-  data: Error
+  data: ErrorResponse
   status: 503
 }
 
@@ -331,7 +331,7 @@ export const getBrandEnrichmentQueryKey = (params?: BrandEnrichmentParams,) => {
     }
 
 
-export const getBrandEnrichmentQueryOptions = <TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = Error>(params: BrandEnrichmentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getBrandEnrichmentQueryOptions = <TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = ErrorResponse>(params: BrandEnrichmentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -350,10 +350,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type BrandEnrichmentQueryResult = NonNullable<Awaited<ReturnType<typeof brandEnrichment>>>
-export type BrandEnrichmentQueryError = Error
+export type BrandEnrichmentQueryError = ErrorResponse
 
 
-export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = Error>(
+export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = ErrorResponse>(
  params: BrandEnrichmentParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof brandEnrichment>>,
@@ -363,7 +363,7 @@ export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrich
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = Error>(
+export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = ErrorResponse>(
  params: BrandEnrichmentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof brandEnrichment>>,
@@ -373,12 +373,12 @@ export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrich
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = Error>(
+export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = ErrorResponse>(
  params: BrandEnrichmentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = Error>(
+export function useBrandEnrichment<TData = Awaited<ReturnType<typeof brandEnrichment>>, TError = ErrorResponse>(
  params: BrandEnrichmentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof brandEnrichment>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -401,32 +401,32 @@ export type presignCreatorAvatarResponse200 = {
 }
 
 export type presignCreatorAvatarResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type presignCreatorAvatarResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type presignCreatorAvatarResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type presignCreatorAvatarResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type presignCreatorAvatarResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type presignCreatorAvatarResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -462,7 +462,7 @@ export const presignCreatorAvatar = async (avatarPresignRequest: AvatarPresignRe
 
 
 
-export const getPresignCreatorAvatarMutationOptions = <TError = Error,
+export const getPresignCreatorAvatarMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof presignCreatorAvatar>>, TError,{data: AvatarPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof presignCreatorAvatar>>, TError,{data: AvatarPresignRequest}, TContext> => {
 
@@ -491,9 +491,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PresignCreatorAvatarMutationResult = NonNullable<Awaited<ReturnType<typeof presignCreatorAvatar>>>
     export type PresignCreatorAvatarMutationBody = AvatarPresignRequest
-    export type PresignCreatorAvatarMutationError = Error
+    export type PresignCreatorAvatarMutationError = ErrorResponse
 
-    export const usePresignCreatorAvatar = <TError = Error,
+    export const usePresignCreatorAvatar = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof presignCreatorAvatar>>, TError,{data: AvatarPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof presignCreatorAvatar>>,

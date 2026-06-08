@@ -7,11 +7,11 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
-import type { CampaignConfigurationStatus } from './campaignConfigurationStatus';
+import type { CampaignStatus } from './campaignStatus';
 
 export interface CampaignLifecycleResponse {
   campaign_id: string;
-  status: CampaignConfigurationStatus;
+  status: CampaignStatus;
   updated_at: string;
   /** @nullable */
   paused_at?: string | null;

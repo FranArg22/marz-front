@@ -2083,7 +2083,8 @@
           "application_received",
           "application_sent_waiting",
           "match_suggested",
-          "invite_sent_waiting"
+          "invite_sent_waiting",
+          "refund_delayed"
         ]
       },
       "InboxSourceRef": {

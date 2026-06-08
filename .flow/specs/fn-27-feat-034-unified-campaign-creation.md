@@ -1,0 +1,1 @@
+Línea de References actualizada para incluir brand/brand.ts (quota, creator-count) y analytics (track.ts existente + ingest API generada). El spec original solo mencionaba campaigns/campaigns.ts y lookups/lookups.ts.

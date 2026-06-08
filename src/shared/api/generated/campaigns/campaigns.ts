@@ -27,35 +27,30 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  ActivateCampaignConfigurationRequest,
-  ActivateCampaignConfigurationResponse,
-  BriefBuilderInitResponse,
-  BriefBuilderProcessRequest,
-  BriefBuilderProcessResponse,
-  BriefProcessingStateResponse,
+  Campaign,
   CampaignActiveListResponse,
   CampaignApplicationListResponse,
+  CampaignBriefPDFPresignRequest,
   CampaignBriefResponse,
-  CampaignConfigurationResponse,
   CampaignDetailResponse,
   CampaignDiscoverySummaryResponse,
+  CampaignImagePresignRequest,
   CampaignInviteListResponse,
   CampaignLifecycleResponse,
   CampaignListResponse,
   CampaignMatchListResponse,
   CampaignOverviewResponse,
   CampaignParticipantListResponse,
+  CampaignPresignResponse,
   CampaignVideoListResponse,
   ContactCampaignMatchRequest,
   CreateCampaignInviteRequest,
   CreateCampaignInviteResponse,
   CreateCampaignRequest,
-  CreateCampaignResponse,
   DiscoveryApplicationDecisionResponse,
   DiscoveryContactMatchResponse,
-  Error,
+  ErrorResponse,
   GetCampaignOverviewParams,
-  InitBriefBuilderBody,
   ListCampaignDiscoveryActiveParams,
   ListCampaignDiscoveryApplicationsParams,
   ListCampaignDiscoveryInvitesParams,
@@ -63,11 +58,7 @@ import type {
   ListCampaignsParams,
   ListCreatorsParams,
   ListVideosParams,
-  UpdateCampaignBonusRequest,
-  UpdateCampaignContentTypeRequest,
-  UpdateCampaignPricingModelRequest,
-  UpdateCampaignRequest,
-  UpdateCampaignTargetingRequest
+  UpdateCampaignRequest
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -77,382 +68,28 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
-export type initBriefBuilderResponse201 = {
-  data: BriefBuilderInitResponse
-  status: 201
-}
-
-export type initBriefBuilderResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type initBriefBuilderResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type initBriefBuilderResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type initBriefBuilderResponse413 = {
-  data: Error
-  status: 413
-}
-
-export type initBriefBuilderResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type initBriefBuilderResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type initBriefBuilderResponseSuccess = (initBriefBuilderResponse201) & {
-  headers: Headers;
-};
-export type initBriefBuilderResponseError = (initBriefBuilderResponse400 | initBriefBuilderResponse401 | initBriefBuilderResponse403 | initBriefBuilderResponse413 | initBriefBuilderResponse422 | initBriefBuilderResponse500) & {
-  headers: Headers;
-};
-
-export type initBriefBuilderResponse = (initBriefBuilderResponseSuccess | initBriefBuilderResponseError)
-
-export const getInitBriefBuilderUrl = () => {
-
-
-
-
-  return `/v1/campaigns/brief-builder/init`
-}
-
-export const initBriefBuilder = async (initBriefBuilderBody: InitBriefBuilderBody, options?: RequestInit): Promise<initBriefBuilderResponse> => {
-    const formData = new FormData();
-formData.append(`brand_workspace_id`, initBriefBuilderBody.brand_workspace_id);
-formData.append(`website_url`, initBriefBuilderBody.website_url);
-if(initBriefBuilderBody.description_text !== undefined) {
- formData.append(`description_text`, initBriefBuilderBody.description_text);
- }
-if(initBriefBuilderBody.pdf !== undefined) {
- formData.append(`pdf`, initBriefBuilderBody.pdf);
- }
-
-  return customFetch<initBriefBuilderResponse>(getInitBriefBuilderUrl(),
-  {
-    ...options,
-    method: 'POST'
-    ,
-    body:
-      formData,
-  }
-);}
-
-
-
-
-export const getInitBriefBuilderMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof initBriefBuilder>>, TError,{data: InitBriefBuilderBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof initBriefBuilder>>, TError,{data: InitBriefBuilderBody}, TContext> => {
-
-const mutationKey = ['initBriefBuilder'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof initBriefBuilder>>, {data: InitBriefBuilderBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  initBriefBuilder(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type InitBriefBuilderMutationResult = NonNullable<Awaited<ReturnType<typeof initBriefBuilder>>>
-    export type InitBriefBuilderMutationBody = InitBriefBuilderBody
-    export type InitBriefBuilderMutationError = Error
-
-    export const useInitBriefBuilder = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof initBriefBuilder>>, TError,{data: InitBriefBuilderBody}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof initBriefBuilder>>,
-        TError,
-        {data: InitBriefBuilderBody},
-        TContext
-      > => {
-      return useMutation(getInitBriefBuilderMutationOptions(options), queryClient);
-    }
-    export type processBriefResponse202 = {
-  data: BriefBuilderProcessResponse
-  status: 202
-}
-
-export type processBriefResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type processBriefResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type processBriefResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type processBriefResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type processBriefResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type processBriefResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type processBriefResponseSuccess = (processBriefResponse202) & {
-  headers: Headers;
-};
-export type processBriefResponseError = (processBriefResponse400 | processBriefResponse401 | processBriefResponse403 | processBriefResponse404 | processBriefResponse409 | processBriefResponse500) & {
-  headers: Headers;
-};
-
-export type processBriefResponse = (processBriefResponseSuccess | processBriefResponseError)
-
-export const getProcessBriefUrl = () => {
-
-
-
-
-  return `/v1/campaigns/brief-builder/process`
-}
-
-export const processBrief = async (briefBuilderProcessRequest: BriefBuilderProcessRequest, options?: RequestInit): Promise<processBriefResponse> => {
-
-  return customFetch<processBriefResponse>(getProcessBriefUrl(),
-  {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      briefBuilderProcessRequest,)
-  }
-);}
-
-
-
-
-export const getProcessBriefMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof processBrief>>, TError,{data: BriefBuilderProcessRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof processBrief>>, TError,{data: BriefBuilderProcessRequest}, TContext> => {
-
-const mutationKey = ['processBrief'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof processBrief>>, {data: BriefBuilderProcessRequest}> = (props) => {
-          const {data} = props ?? {};
-
-          return  processBrief(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type ProcessBriefMutationResult = NonNullable<Awaited<ReturnType<typeof processBrief>>>
-    export type ProcessBriefMutationBody = BriefBuilderProcessRequest
-    export type ProcessBriefMutationError = Error
-
-    export const useProcessBrief = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof processBrief>>, TError,{data: BriefBuilderProcessRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof processBrief>>,
-        TError,
-        {data: BriefBuilderProcessRequest},
-        TContext
-      > => {
-      return useMutation(getProcessBriefMutationOptions(options), queryClient);
-    }
-    /**
- * Returns the current state of a brief-builder processing token. Used by
-the front to recover after a page reload during the wizard. Token TTL
-is 30min while pending/in_progress and 5min after completion.
-
- */
-export type getBriefProcessingResponse200 = {
-  data: BriefProcessingStateResponse
-  status: 200
-}
-
-export type getBriefProcessingResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type getBriefProcessingResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type getBriefProcessingResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type getBriefProcessingResponseSuccess = (getBriefProcessingResponse200) & {
-  headers: Headers;
-};
-export type getBriefProcessingResponseError = (getBriefProcessingResponse401 | getBriefProcessingResponse403 | getBriefProcessingResponse404) & {
-  headers: Headers;
-};
-
-export type getBriefProcessingResponse = (getBriefProcessingResponseSuccess | getBriefProcessingResponseError)
-
-export const getGetBriefProcessingUrl = (token: string,) => {
-
-
-
-
-  return `/v1/campaigns/brief-builder/processing/${token}`
-}
-
-export const getBriefProcessing = async (token: string, options?: RequestInit): Promise<getBriefProcessingResponse> => {
-
-  return customFetch<getBriefProcessingResponse>(getGetBriefProcessingUrl(token),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetBriefProcessingQueryKey = (token: string,) => {
-    return [
-    `/v1/campaigns/brief-builder/processing/${token}`
-    ] as const;
-    }
-
-
-export const getGetBriefProcessingQueryOptions = <TData = Awaited<ReturnType<typeof getBriefProcessing>>, TError = Error>(token: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetBriefProcessingQueryKey(token);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getBriefProcessing>>> = ({ signal }) => getBriefProcessing(token, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(token), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetBriefProcessingQueryResult = NonNullable<Awaited<ReturnType<typeof getBriefProcessing>>>
-export type GetBriefProcessingQueryError = Error
-
-
-export function useGetBriefProcessing<TData = Awaited<ReturnType<typeof getBriefProcessing>>, TError = Error>(
- token: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getBriefProcessing>>,
-          TError,
-          Awaited<ReturnType<typeof getBriefProcessing>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBriefProcessing<TData = Awaited<ReturnType<typeof getBriefProcessing>>, TError = Error>(
- token: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getBriefProcessing>>,
-          TError,
-          Awaited<ReturnType<typeof getBriefProcessing>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBriefProcessing<TData = Awaited<ReturnType<typeof getBriefProcessing>>, TError = Error>(
- token: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useGetBriefProcessing<TData = Awaited<ReturnType<typeof getBriefProcessing>>, TError = Error>(
- token: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBriefProcessing>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetBriefProcessingQueryOptions(token,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
 export type listCampaignsResponse200 = {
   data: CampaignListResponse
   status: 200
 }
 
 export type listCampaignsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -502,7 +139,7 @@ export const getListCampaignsQueryKey = (params?: ListCampaignsParams,) => {
     }
 
 
-export const getListCampaignsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaigns>>, TError = Error>(params?: ListCampaignsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListCampaignsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaigns>>, TError = ErrorResponse>(params?: ListCampaignsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -521,10 +158,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignsQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaigns>>>
-export type ListCampaignsQueryError = Error
+export type ListCampaignsQueryError = ErrorResponse
 
 
-export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = Error>(
+export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = ErrorResponse>(
  params: undefined |  ListCampaignsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCampaigns>>,
@@ -534,7 +171,7 @@ export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = Error>(
+export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = ErrorResponse>(
  params?: ListCampaignsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCampaigns>>,
@@ -544,12 +181,12 @@ export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = Error>(
+export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = ErrorResponse>(
  params?: ListCampaignsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = Error>(
+export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns>>, TError = ErrorResponse>(
  params?: ListCampaignsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaigns>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -567,39 +204,44 @@ export function useListCampaigns<TData = Awaited<ReturnType<typeof listCampaigns
 
 
 export type createCampaignResponse201 = {
-  data: CreateCampaignResponse
+  data: Campaign
   status: 201
 }
 
 export type createCampaignResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type createCampaignResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type createCampaignResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
+export type createCampaignResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
 export type createCampaignResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type createCampaignResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
 export type createCampaignResponseSuccess = (createCampaignResponse201) & {
   headers: Headers;
 };
-export type createCampaignResponseError = (createCampaignResponse400 | createCampaignResponse401 | createCampaignResponse403 | createCampaignResponse422 | createCampaignResponse500) & {
+export type createCampaignResponseError = (createCampaignResponse400 | createCampaignResponse401 | createCampaignResponse403 | createCampaignResponse409 | createCampaignResponse422 | createCampaignResponse500) & {
   headers: Headers;
 };
 
@@ -628,7 +270,7 @@ export const createCampaign = async (createCampaignRequest: CreateCampaignReques
 
 
 
-export const getCreateCampaignMutationOptions = <TError = Error,
+export const getCreateCampaignMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaign>>, TError,{data: CreateCampaignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createCampaign>>, TError,{data: CreateCampaignRequest}, TContext> => {
 
@@ -657,9 +299,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CreateCampaignMutationResult = NonNullable<Awaited<ReturnType<typeof createCampaign>>>
     export type CreateCampaignMutationBody = CreateCampaignRequest
-    export type CreateCampaignMutationError = Error
+    export type CreateCampaignMutationError = ErrorResponse
 
-    export const useCreateCampaign = <TError = Error,
+    export const useCreateCampaign = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaign>>, TError,{data: CreateCampaignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createCampaign>>,
@@ -669,50 +311,56 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getCreateCampaignMutationOptions(options), queryClient);
     }
-    export type updateCampaignResponse200 = {
-  data: CampaignLifecycleResponse
+    /**
+ * Updates mutable campaign fields. Sending `content_type`, `pricing_model`,
+`platforms`, `creator_country`, or `compensation_type` returns 422 with
+code `campaign.field_immutable`.
+
+ */
+export type updateCampaignResponse200 = {
+  data: Campaign
   status: 200
 }
 
 export type updateCampaignResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type updateCampaignResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type updateCampaignResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type updateCampaignResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
-export type updateCampaignResponse409 = {
-  data: Error
-  status: 409
+export type updateCampaignResponse412 = {
+  data: ErrorResponse
+  status: 412
 }
 
 export type updateCampaignResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type updateCampaignResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
 export type updateCampaignResponseSuccess = (updateCampaignResponse200) & {
   headers: Headers;
 };
-export type updateCampaignResponseError = (updateCampaignResponse400 | updateCampaignResponse401 | updateCampaignResponse403 | updateCampaignResponse404 | updateCampaignResponse409 | updateCampaignResponse422 | updateCampaignResponse500) & {
+export type updateCampaignResponseError = (updateCampaignResponse400 | updateCampaignResponse401 | updateCampaignResponse403 | updateCampaignResponse404 | updateCampaignResponse412 | updateCampaignResponse422 | updateCampaignResponse500) & {
   headers: Headers;
 };
 
@@ -742,7 +390,7 @@ export const updateCampaign = async (campaignId: string,
 
 
 
-export const getUpdateCampaignMutationOptions = <TError = Error,
+export const getUpdateCampaignMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaign>>, TError,{campaignId: string;data: UpdateCampaignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof updateCampaign>>, TError,{campaignId: string;data: UpdateCampaignRequest}, TContext> => {
 
@@ -771,9 +419,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type UpdateCampaignMutationResult = NonNullable<Awaited<ReturnType<typeof updateCampaign>>>
     export type UpdateCampaignMutationBody = UpdateCampaignRequest
-    export type UpdateCampaignMutationError = Error
+    export type UpdateCampaignMutationError = ErrorResponse
 
-    export const useUpdateCampaign = <TError = Error,
+    export const useUpdateCampaign = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaign>>, TError,{campaignId: string;data: UpdateCampaignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof updateCampaign>>,
@@ -789,32 +437,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type pauseCampaignResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type pauseCampaignResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type pauseCampaignResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type pauseCampaignResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type pauseCampaignResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type pauseCampaignResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -849,7 +497,7 @@ export const pauseCampaign = async (campaignId: string, options?: RequestInit): 
 
 
 
-export const getPauseCampaignMutationOptions = <TError = Error,
+export const getPauseCampaignMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof pauseCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof pauseCampaign>>, TError,{campaignId: string}, TContext> => {
 
@@ -878,9 +526,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PauseCampaignMutationResult = NonNullable<Awaited<ReturnType<typeof pauseCampaign>>>
 
-    export type PauseCampaignMutationError = Error
+    export type PauseCampaignMutationError = ErrorResponse
 
-    export const usePauseCampaign = <TError = Error,
+    export const usePauseCampaign = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof pauseCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof pauseCampaign>>,
@@ -896,32 +544,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type resumeCampaignResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type resumeCampaignResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type resumeCampaignResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type resumeCampaignResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type resumeCampaignResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type resumeCampaignResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -956,7 +604,7 @@ export const resumeCampaign = async (campaignId: string, options?: RequestInit):
 
 
 
-export const getResumeCampaignMutationOptions = <TError = Error,
+export const getResumeCampaignMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof resumeCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof resumeCampaign>>, TError,{campaignId: string}, TContext> => {
 
@@ -985,9 +633,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ResumeCampaignMutationResult = NonNullable<Awaited<ReturnType<typeof resumeCampaign>>>
 
-    export type ResumeCampaignMutationError = Error
+    export type ResumeCampaignMutationError = ErrorResponse
 
-    export const useResumeCampaign = <TError = Error,
+    export const useResumeCampaign = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof resumeCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof resumeCampaign>>,
@@ -1003,32 +651,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type closeCampaignResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type closeCampaignResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type closeCampaignResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type closeCampaignResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type closeCampaignResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type closeCampaignResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -1063,7 +711,7 @@ export const closeCampaign = async (campaignId: string, options?: RequestInit): 
 
 
 
-export const getCloseCampaignMutationOptions = <TError = Error,
+export const getCloseCampaignMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof closeCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof closeCampaign>>, TError,{campaignId: string}, TContext> => {
 
@@ -1092,9 +740,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CloseCampaignMutationResult = NonNullable<Awaited<ReturnType<typeof closeCampaign>>>
 
-    export type CloseCampaignMutationError = Error
+    export type CloseCampaignMutationError = ErrorResponse
 
-    export const useCloseCampaign = <TError = Error,
+    export const useCloseCampaign = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof closeCampaign>>, TError,{campaignId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof closeCampaign>>,
@@ -1110,22 +758,22 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type getCampaignBriefResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCampaignBriefResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCampaignBriefResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCampaignBriefResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -1168,7 +816,7 @@ export const getGetCampaignBriefQueryKey = (campaignId: string,) => {
     }
 
 
-export const getGetCampaignBriefQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = Error>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCampaignBriefQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = ErrorResponse>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1187,10 +835,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCampaignBriefQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignBrief>>>
-export type GetCampaignBriefQueryError = Error
+export type GetCampaignBriefQueryError = ErrorResponse
 
 
-export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = Error>(
+export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = ErrorResponse>(
  campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignBrief>>,
@@ -1200,7 +848,7 @@ export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaig
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = Error>(
+export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignBrief>>,
@@ -1210,12 +858,12 @@ export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaig
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = Error>(
+export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = Error>(
+export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaignBrief>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignBrief>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1232,678 +880,73 @@ export function useGetCampaignBrief<TData = Awaited<ReturnType<typeof getCampaig
 
 
 
-export type getCampaignConfigurationResponse200 = {
-  data: CampaignConfigurationResponse
+export type createCampaignImageUploadPresignResponse200 = {
+  data: CampaignPresignResponse
   status: 200
 }
 
-export type getCampaignConfigurationResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type getCampaignConfigurationResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type getCampaignConfigurationResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type getCampaignConfigurationResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type getCampaignConfigurationResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type getCampaignConfigurationResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type getCampaignConfigurationResponseSuccess = (getCampaignConfigurationResponse200) & {
-  headers: Headers;
-};
-export type getCampaignConfigurationResponseError = (getCampaignConfigurationResponse401 | getCampaignConfigurationResponse403 | getCampaignConfigurationResponse404 | getCampaignConfigurationResponse409 | getCampaignConfigurationResponse422 | getCampaignConfigurationResponse500) & {
-  headers: Headers;
-};
-
-export type getCampaignConfigurationResponse = (getCampaignConfigurationResponseSuccess | getCampaignConfigurationResponseError)
-
-export const getGetCampaignConfigurationUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/configuration`
-}
-
-export const getCampaignConfiguration = async (campaignId: string, options?: RequestInit): Promise<getCampaignConfigurationResponse> => {
-
-  return customFetch<getCampaignConfigurationResponse>(getGetCampaignConfigurationUrl(campaignId),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetCampaignConfigurationQueryKey = (campaignId: string,) => {
-    return [
-    `/v1/campaigns/${campaignId}/configuration`
-    ] as const;
-    }
-
-
-export const getGetCampaignConfigurationQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignConfiguration>>, TError = Error>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetCampaignConfigurationQueryKey(campaignId);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCampaignConfiguration>>> = ({ signal }) => getCampaignConfiguration(campaignId, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetCampaignConfigurationQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignConfiguration>>>
-export type GetCampaignConfigurationQueryError = Error
-
-
-export function useGetCampaignConfiguration<TData = Awaited<ReturnType<typeof getCampaignConfiguration>>, TError = Error>(
- campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCampaignConfiguration>>,
-          TError,
-          Awaited<ReturnType<typeof getCampaignConfiguration>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignConfiguration<TData = Awaited<ReturnType<typeof getCampaignConfiguration>>, TError = Error>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCampaignConfiguration>>,
-          TError,
-          Awaited<ReturnType<typeof getCampaignConfiguration>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignConfiguration<TData = Awaited<ReturnType<typeof getCampaignConfiguration>>, TError = Error>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useGetCampaignConfiguration<TData = Awaited<ReturnType<typeof getCampaignConfiguration>>, TError = Error>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignConfiguration>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetCampaignConfigurationQueryOptions(campaignId,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type updateCampaignConfigurationContentTypeResponse200 = {
-  data: CampaignConfigurationResponse
-  status: 200
-}
-
-export type updateCampaignConfigurationContentTypeResponse400 = {
-  data: Error
+export type createCampaignImageUploadPresignResponse400 = {
+  data: ErrorResponse
   status: 400
 }
 
-export type updateCampaignConfigurationContentTypeResponse401 = {
-  data: Error
+export type createCampaignImageUploadPresignResponse401 = {
+  data: ErrorResponse
   status: 401
 }
 
-export type updateCampaignConfigurationContentTypeResponse403 = {
-  data: Error
+export type createCampaignImageUploadPresignResponse403 = {
+  data: ErrorResponse
   status: 403
 }
 
-export type updateCampaignConfigurationContentTypeResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type updateCampaignConfigurationContentTypeResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type updateCampaignConfigurationContentTypeResponse422 = {
-  data: Error
+export type createCampaignImageUploadPresignResponse422 = {
+  data: ErrorResponse
   status: 422
 }
 
-export type updateCampaignConfigurationContentTypeResponse500 = {
-  data: Error
+export type createCampaignImageUploadPresignResponse500 = {
+  data: ErrorResponse
   status: 500
 }
 
-export type updateCampaignConfigurationContentTypeResponseSuccess = (updateCampaignConfigurationContentTypeResponse200) & {
+export type createCampaignImageUploadPresignResponseSuccess = (createCampaignImageUploadPresignResponse200) & {
   headers: Headers;
 };
-export type updateCampaignConfigurationContentTypeResponseError = (updateCampaignConfigurationContentTypeResponse400 | updateCampaignConfigurationContentTypeResponse401 | updateCampaignConfigurationContentTypeResponse403 | updateCampaignConfigurationContentTypeResponse404 | updateCampaignConfigurationContentTypeResponse409 | updateCampaignConfigurationContentTypeResponse422 | updateCampaignConfigurationContentTypeResponse500) & {
-  headers: Headers;
-};
-
-export type updateCampaignConfigurationContentTypeResponse = (updateCampaignConfigurationContentTypeResponseSuccess | updateCampaignConfigurationContentTypeResponseError)
-
-export const getUpdateCampaignConfigurationContentTypeUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/configuration/content_type`
-}
-
-export const updateCampaignConfigurationContentType = async (campaignId: string,
-    updateCampaignContentTypeRequest: UpdateCampaignContentTypeRequest, options?: RequestInit): Promise<updateCampaignConfigurationContentTypeResponse> => {
-
-  return customFetch<updateCampaignConfigurationContentTypeResponse>(getUpdateCampaignConfigurationContentTypeUrl(campaignId),
-  {
-    ...options,
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateCampaignContentTypeRequest,)
-  }
-);}
-
-
-
-
-export const getUpdateCampaignConfigurationContentTypeMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>, TError,{campaignId: string;data: UpdateCampaignContentTypeRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>, TError,{campaignId: string;data: UpdateCampaignContentTypeRequest}, TContext> => {
-
-const mutationKey = ['updateCampaignConfigurationContentType'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>, {campaignId: string;data: UpdateCampaignContentTypeRequest}> = (props) => {
-          const {campaignId,data} = props ?? {};
-
-          return  updateCampaignConfigurationContentType(campaignId,data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateCampaignConfigurationContentTypeMutationResult = NonNullable<Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>>
-    export type UpdateCampaignConfigurationContentTypeMutationBody = UpdateCampaignContentTypeRequest
-    export type UpdateCampaignConfigurationContentTypeMutationError = Error
-
-    export const useUpdateCampaignConfigurationContentType = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>, TError,{campaignId: string;data: UpdateCampaignContentTypeRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateCampaignConfigurationContentType>>,
-        TError,
-        {campaignId: string;data: UpdateCampaignContentTypeRequest},
-        TContext
-      > => {
-      return useMutation(getUpdateCampaignConfigurationContentTypeMutationOptions(options), queryClient);
-    }
-    export type updateCampaignConfigurationPricingModelResponse200 = {
-  data: CampaignConfigurationResponse
-  status: 200
-}
-
-export type updateCampaignConfigurationPricingModelResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type updateCampaignConfigurationPricingModelResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type updateCampaignConfigurationPricingModelResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type updateCampaignConfigurationPricingModelResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type updateCampaignConfigurationPricingModelResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type updateCampaignConfigurationPricingModelResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type updateCampaignConfigurationPricingModelResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type updateCampaignConfigurationPricingModelResponseSuccess = (updateCampaignConfigurationPricingModelResponse200) & {
-  headers: Headers;
-};
-export type updateCampaignConfigurationPricingModelResponseError = (updateCampaignConfigurationPricingModelResponse400 | updateCampaignConfigurationPricingModelResponse401 | updateCampaignConfigurationPricingModelResponse403 | updateCampaignConfigurationPricingModelResponse404 | updateCampaignConfigurationPricingModelResponse409 | updateCampaignConfigurationPricingModelResponse422 | updateCampaignConfigurationPricingModelResponse500) & {
+export type createCampaignImageUploadPresignResponseError = (createCampaignImageUploadPresignResponse400 | createCampaignImageUploadPresignResponse401 | createCampaignImageUploadPresignResponse403 | createCampaignImageUploadPresignResponse422 | createCampaignImageUploadPresignResponse500) & {
   headers: Headers;
 };
 
-export type updateCampaignConfigurationPricingModelResponse = (updateCampaignConfigurationPricingModelResponseSuccess | updateCampaignConfigurationPricingModelResponseError)
+export type createCampaignImageUploadPresignResponse = (createCampaignImageUploadPresignResponseSuccess | createCampaignImageUploadPresignResponseError)
 
-export const getUpdateCampaignConfigurationPricingModelUrl = (campaignId: string,) => {
-
-
+export const getCreateCampaignImageUploadPresignUrl = () => {
 
 
-  return `/v1/campaigns/${campaignId}/configuration/pricing_model`
+
+
+  return `/v1/campaigns/uploads/image-presign`
 }
 
-export const updateCampaignConfigurationPricingModel = async (campaignId: string,
-    updateCampaignPricingModelRequest: UpdateCampaignPricingModelRequest, options?: RequestInit): Promise<updateCampaignConfigurationPricingModelResponse> => {
+export const createCampaignImageUploadPresign = async (campaignImagePresignRequest: CampaignImagePresignRequest, options?: RequestInit): Promise<createCampaignImageUploadPresignResponse> => {
 
-  return customFetch<updateCampaignConfigurationPricingModelResponse>(getUpdateCampaignConfigurationPricingModelUrl(campaignId),
-  {
-    ...options,
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateCampaignPricingModelRequest,)
-  }
-);}
-
-
-
-
-export const getUpdateCampaignConfigurationPricingModelMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>, TError,{campaignId: string;data: UpdateCampaignPricingModelRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>, TError,{campaignId: string;data: UpdateCampaignPricingModelRequest}, TContext> => {
-
-const mutationKey = ['updateCampaignConfigurationPricingModel'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>, {campaignId: string;data: UpdateCampaignPricingModelRequest}> = (props) => {
-          const {campaignId,data} = props ?? {};
-
-          return  updateCampaignConfigurationPricingModel(campaignId,data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateCampaignConfigurationPricingModelMutationResult = NonNullable<Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>>
-    export type UpdateCampaignConfigurationPricingModelMutationBody = UpdateCampaignPricingModelRequest
-    export type UpdateCampaignConfigurationPricingModelMutationError = Error
-
-    export const useUpdateCampaignConfigurationPricingModel = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>, TError,{campaignId: string;data: UpdateCampaignPricingModelRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateCampaignConfigurationPricingModel>>,
-        TError,
-        {campaignId: string;data: UpdateCampaignPricingModelRequest},
-        TContext
-      > => {
-      return useMutation(getUpdateCampaignConfigurationPricingModelMutationOptions(options), queryClient);
-    }
-    export type updateCampaignConfigurationTargetingResponse200 = {
-  data: CampaignConfigurationResponse
-  status: 200
-}
-
-export type updateCampaignConfigurationTargetingResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type updateCampaignConfigurationTargetingResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type updateCampaignConfigurationTargetingResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type updateCampaignConfigurationTargetingResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type updateCampaignConfigurationTargetingResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type updateCampaignConfigurationTargetingResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type updateCampaignConfigurationTargetingResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type updateCampaignConfigurationTargetingResponseSuccess = (updateCampaignConfigurationTargetingResponse200) & {
-  headers: Headers;
-};
-export type updateCampaignConfigurationTargetingResponseError = (updateCampaignConfigurationTargetingResponse400 | updateCampaignConfigurationTargetingResponse401 | updateCampaignConfigurationTargetingResponse403 | updateCampaignConfigurationTargetingResponse404 | updateCampaignConfigurationTargetingResponse409 | updateCampaignConfigurationTargetingResponse422 | updateCampaignConfigurationTargetingResponse500) & {
-  headers: Headers;
-};
-
-export type updateCampaignConfigurationTargetingResponse = (updateCampaignConfigurationTargetingResponseSuccess | updateCampaignConfigurationTargetingResponseError)
-
-export const getUpdateCampaignConfigurationTargetingUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/configuration/targeting`
-}
-
-export const updateCampaignConfigurationTargeting = async (campaignId: string,
-    updateCampaignTargetingRequest: UpdateCampaignTargetingRequest, options?: RequestInit): Promise<updateCampaignConfigurationTargetingResponse> => {
-
-  return customFetch<updateCampaignConfigurationTargetingResponse>(getUpdateCampaignConfigurationTargetingUrl(campaignId),
-  {
-    ...options,
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateCampaignTargetingRequest,)
-  }
-);}
-
-
-
-
-export const getUpdateCampaignConfigurationTargetingMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>, TError,{campaignId: string;data: UpdateCampaignTargetingRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>, TError,{campaignId: string;data: UpdateCampaignTargetingRequest}, TContext> => {
-
-const mutationKey = ['updateCampaignConfigurationTargeting'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>, {campaignId: string;data: UpdateCampaignTargetingRequest}> = (props) => {
-          const {campaignId,data} = props ?? {};
-
-          return  updateCampaignConfigurationTargeting(campaignId,data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateCampaignConfigurationTargetingMutationResult = NonNullable<Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>>
-    export type UpdateCampaignConfigurationTargetingMutationBody = UpdateCampaignTargetingRequest
-    export type UpdateCampaignConfigurationTargetingMutationError = Error
-
-    export const useUpdateCampaignConfigurationTargeting = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>, TError,{campaignId: string;data: UpdateCampaignTargetingRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateCampaignConfigurationTargeting>>,
-        TError,
-        {campaignId: string;data: UpdateCampaignTargetingRequest},
-        TContext
-      > => {
-      return useMutation(getUpdateCampaignConfigurationTargetingMutationOptions(options), queryClient);
-    }
-    export type updateCampaignConfigurationBonusResponse200 = {
-  data: CampaignConfigurationResponse
-  status: 200
-}
-
-export type updateCampaignConfigurationBonusResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type updateCampaignConfigurationBonusResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type updateCampaignConfigurationBonusResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type updateCampaignConfigurationBonusResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type updateCampaignConfigurationBonusResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type updateCampaignConfigurationBonusResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type updateCampaignConfigurationBonusResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type updateCampaignConfigurationBonusResponseSuccess = (updateCampaignConfigurationBonusResponse200) & {
-  headers: Headers;
-};
-export type updateCampaignConfigurationBonusResponseError = (updateCampaignConfigurationBonusResponse400 | updateCampaignConfigurationBonusResponse401 | updateCampaignConfigurationBonusResponse403 | updateCampaignConfigurationBonusResponse404 | updateCampaignConfigurationBonusResponse409 | updateCampaignConfigurationBonusResponse422 | updateCampaignConfigurationBonusResponse500) & {
-  headers: Headers;
-};
-
-export type updateCampaignConfigurationBonusResponse = (updateCampaignConfigurationBonusResponseSuccess | updateCampaignConfigurationBonusResponseError)
-
-export const getUpdateCampaignConfigurationBonusUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/configuration/bonus`
-}
-
-export const updateCampaignConfigurationBonus = async (campaignId: string,
-    updateCampaignBonusRequest: UpdateCampaignBonusRequest, options?: RequestInit): Promise<updateCampaignConfigurationBonusResponse> => {
-
-  return customFetch<updateCampaignConfigurationBonusResponse>(getUpdateCampaignConfigurationBonusUrl(campaignId),
-  {
-    ...options,
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateCampaignBonusRequest,)
-  }
-);}
-
-
-
-
-export const getUpdateCampaignConfigurationBonusMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>, TError,{campaignId: string;data: UpdateCampaignBonusRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>, TError,{campaignId: string;data: UpdateCampaignBonusRequest}, TContext> => {
-
-const mutationKey = ['updateCampaignConfigurationBonus'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>, {campaignId: string;data: UpdateCampaignBonusRequest}> = (props) => {
-          const {campaignId,data} = props ?? {};
-
-          return  updateCampaignConfigurationBonus(campaignId,data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateCampaignConfigurationBonusMutationResult = NonNullable<Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>>
-    export type UpdateCampaignConfigurationBonusMutationBody = UpdateCampaignBonusRequest
-    export type UpdateCampaignConfigurationBonusMutationError = Error
-
-    export const useUpdateCampaignConfigurationBonus = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>, TError,{campaignId: string;data: UpdateCampaignBonusRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateCampaignConfigurationBonus>>,
-        TError,
-        {campaignId: string;data: UpdateCampaignBonusRequest},
-        TContext
-      > => {
-      return useMutation(getUpdateCampaignConfigurationBonusMutationOptions(options), queryClient);
-    }
-    export type activateCampaignConfigurationResponse200 = {
-  data: ActivateCampaignConfigurationResponse
-  status: 200
-}
-
-export type activateCampaignConfigurationResponse400 = {
-  data: Error
-  status: 400
-}
-
-export type activateCampaignConfigurationResponse401 = {
-  data: Error
-  status: 401
-}
-
-export type activateCampaignConfigurationResponse403 = {
-  data: Error
-  status: 403
-}
-
-export type activateCampaignConfigurationResponse404 = {
-  data: Error
-  status: 404
-}
-
-export type activateCampaignConfigurationResponse409 = {
-  data: Error
-  status: 409
-}
-
-export type activateCampaignConfigurationResponse422 = {
-  data: Error
-  status: 422
-}
-
-export type activateCampaignConfigurationResponse500 = {
-  data: Error
-  status: 500
-}
-
-export type activateCampaignConfigurationResponseSuccess = (activateCampaignConfigurationResponse200) & {
-  headers: Headers;
-};
-export type activateCampaignConfigurationResponseError = (activateCampaignConfigurationResponse400 | activateCampaignConfigurationResponse401 | activateCampaignConfigurationResponse403 | activateCampaignConfigurationResponse404 | activateCampaignConfigurationResponse409 | activateCampaignConfigurationResponse422 | activateCampaignConfigurationResponse500) & {
-  headers: Headers;
-};
-
-export type activateCampaignConfigurationResponse = (activateCampaignConfigurationResponseSuccess | activateCampaignConfigurationResponseError)
-
-export const getActivateCampaignConfigurationUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/configuration/activate`
-}
-
-export const activateCampaignConfiguration = async (campaignId: string,
-    activateCampaignConfigurationRequest: ActivateCampaignConfigurationRequest, options?: RequestInit): Promise<activateCampaignConfigurationResponse> => {
-
-  return customFetch<activateCampaignConfigurationResponse>(getActivateCampaignConfigurationUrl(campaignId),
+  return customFetch<createCampaignImageUploadPresignResponse>(getCreateCampaignImageUploadPresignUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      activateCampaignConfigurationRequest,)
+      campaignImagePresignRequest,)
   }
 );}
 
 
 
 
-export const getActivateCampaignConfigurationMutationOptions = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof activateCampaignConfiguration>>, TError,{campaignId: string;data: ActivateCampaignConfigurationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof activateCampaignConfiguration>>, TError,{campaignId: string;data: ActivateCampaignConfigurationRequest}, TContext> => {
+export const getCreateCampaignImageUploadPresignMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignImageUploadPresign>>, TError,{data: CampaignImagePresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createCampaignImageUploadPresign>>, TError,{data: CampaignImagePresignRequest}, TContext> => {
 
-const mutationKey = ['activateCampaignConfiguration'];
+const mutationKey = ['createCampaignImageUploadPresign'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -1913,10 +956,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof activateCampaignConfiguration>>, {campaignId: string;data: ActivateCampaignConfigurationRequest}> = (props) => {
-          const {campaignId,data} = props ?? {};
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCampaignImageUploadPresign>>, {data: CampaignImagePresignRequest}> = (props) => {
+          const {data} = props ?? {};
 
-          return  activateCampaignConfiguration(campaignId,data,requestOptions)
+          return  createCampaignImageUploadPresign(data,requestOptions)
         }
 
 
@@ -1926,19 +969,122 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ActivateCampaignConfigurationMutationResult = NonNullable<Awaited<ReturnType<typeof activateCampaignConfiguration>>>
-    export type ActivateCampaignConfigurationMutationBody = ActivateCampaignConfigurationRequest
-    export type ActivateCampaignConfigurationMutationError = Error
+    export type CreateCampaignImageUploadPresignMutationResult = NonNullable<Awaited<ReturnType<typeof createCampaignImageUploadPresign>>>
+    export type CreateCampaignImageUploadPresignMutationBody = CampaignImagePresignRequest
+    export type CreateCampaignImageUploadPresignMutationError = ErrorResponse
 
-    export const useActivateCampaignConfiguration = <TError = Error,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof activateCampaignConfiguration>>, TError,{campaignId: string;data: ActivateCampaignConfigurationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+    export const useCreateCampaignImageUploadPresign = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignImageUploadPresign>>, TError,{data: CampaignImagePresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof activateCampaignConfiguration>>,
+        Awaited<ReturnType<typeof createCampaignImageUploadPresign>>,
         TError,
-        {campaignId: string;data: ActivateCampaignConfigurationRequest},
+        {data: CampaignImagePresignRequest},
         TContext
       > => {
-      return useMutation(getActivateCampaignConfigurationMutationOptions(options), queryClient);
+      return useMutation(getCreateCampaignImageUploadPresignMutationOptions(options), queryClient);
+    }
+    export type createCampaignBriefPDFUploadPresignResponse200 = {
+  data: CampaignPresignResponse
+  status: 200
+}
+
+export type createCampaignBriefPDFUploadPresignResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createCampaignBriefPDFUploadPresignResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createCampaignBriefPDFUploadPresignResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type createCampaignBriefPDFUploadPresignResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type createCampaignBriefPDFUploadPresignResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type createCampaignBriefPDFUploadPresignResponseSuccess = (createCampaignBriefPDFUploadPresignResponse200) & {
+  headers: Headers;
+};
+export type createCampaignBriefPDFUploadPresignResponseError = (createCampaignBriefPDFUploadPresignResponse400 | createCampaignBriefPDFUploadPresignResponse401 | createCampaignBriefPDFUploadPresignResponse403 | createCampaignBriefPDFUploadPresignResponse422 | createCampaignBriefPDFUploadPresignResponse500) & {
+  headers: Headers;
+};
+
+export type createCampaignBriefPDFUploadPresignResponse = (createCampaignBriefPDFUploadPresignResponseSuccess | createCampaignBriefPDFUploadPresignResponseError)
+
+export const getCreateCampaignBriefPDFUploadPresignUrl = () => {
+
+
+
+
+  return `/v1/campaigns/uploads/brief-pdf-presign`
+}
+
+export const createCampaignBriefPDFUploadPresign = async (campaignBriefPDFPresignRequest: CampaignBriefPDFPresignRequest, options?: RequestInit): Promise<createCampaignBriefPDFUploadPresignResponse> => {
+
+  return customFetch<createCampaignBriefPDFUploadPresignResponse>(getCreateCampaignBriefPDFUploadPresignUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      campaignBriefPDFPresignRequest,)
+  }
+);}
+
+
+
+
+export const getCreateCampaignBriefPDFUploadPresignMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>, TError,{data: CampaignBriefPDFPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>, TError,{data: CampaignBriefPDFPresignRequest}, TContext> => {
+
+const mutationKey = ['createCampaignBriefPDFUploadPresign'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>, {data: CampaignBriefPDFPresignRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createCampaignBriefPDFUploadPresign(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateCampaignBriefPDFUploadPresignMutationResult = NonNullable<Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>>
+    export type CreateCampaignBriefPDFUploadPresignMutationBody = CampaignBriefPDFPresignRequest
+    export type CreateCampaignBriefPDFUploadPresignMutationError = ErrorResponse
+
+    export const useCreateCampaignBriefPDFUploadPresign = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>, TError,{data: CampaignBriefPDFPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createCampaignBriefPDFUploadPresign>>,
+        TError,
+        {data: CampaignBriefPDFPresignRequest},
+        TContext
+      > => {
+      return useMutation(getCreateCampaignBriefPDFUploadPresignMutationOptions(options), queryClient);
     }
     export type getCampaignDetailResponse200 = {
   data: CampaignDetailResponse
@@ -1946,27 +1092,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type getCampaignDetailResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCampaignDetailResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCampaignDetailResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCampaignDetailResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getCampaignDetailResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2009,7 +1155,7 @@ export const getGetCampaignDetailQueryKey = (campaignId: string,) => {
     }
 
 
-export const getGetCampaignDetailQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = Error>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCampaignDetailQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = ErrorResponse>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2028,10 +1174,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCampaignDetailQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignDetail>>>
-export type GetCampaignDetailQueryError = Error
+export type GetCampaignDetailQueryError = ErrorResponse
 
 
-export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = Error>(
+export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = ErrorResponse>(
  campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignDetail>>,
@@ -2041,7 +1187,7 @@ export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampai
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = Error>(
+export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignDetail>>,
@@ -2051,12 +1197,12 @@ export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampai
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = Error>(
+export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = Error>(
+export function useGetCampaignDetail<TData = Awaited<ReturnType<typeof getCampaignDetail>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDetail>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -2079,27 +1225,27 @@ export type getCampaignOverviewResponse200 = {
 }
 
 export type getCampaignOverviewResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCampaignOverviewResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCampaignOverviewResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCampaignOverviewResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getCampaignOverviewResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2152,7 +1298,7 @@ export const getGetCampaignOverviewQueryKey = (campaignId: string,
     }
 
 
-export const getGetCampaignOverviewQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = Error>(campaignId: string,
+export const getGetCampaignOverviewQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = ErrorResponse>(campaignId: string,
     params?: GetCampaignOverviewParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignOverview>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -2172,10 +1318,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCampaignOverviewQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignOverview>>>
-export type GetCampaignOverviewQueryError = Error
+export type GetCampaignOverviewQueryError = ErrorResponse
 
 
-export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = Error>(
+export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = ErrorResponse>(
  campaignId: string,
     params: undefined |  GetCampaignOverviewParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignOverview>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2186,7 +1332,7 @@ export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCamp
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = Error>(
+export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = ErrorResponse>(
  campaignId: string,
     params?: GetCampaignOverviewParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignOverview>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2197,13 +1343,13 @@ export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCamp
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = Error>(
+export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = ErrorResponse>(
  campaignId: string,
     params?: GetCampaignOverviewParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignOverview>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = Error>(
+export function useGetCampaignOverview<TData = Awaited<ReturnType<typeof getCampaignOverview>>, TError = ErrorResponse>(
  campaignId: string,
     params?: GetCampaignOverviewParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignOverview>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -2227,27 +1373,27 @@ export type listVideosResponse200 = {
 }
 
 export type listVideosResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listVideosResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listVideosResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listVideosResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listVideosResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2297,7 +1443,7 @@ export const getListVideosQueryKey = (params?: ListVideosParams,) => {
     }
 
 
-export const getListVideosQueryOptions = <TData = Awaited<ReturnType<typeof listVideos>>, TError = Error>(params?: ListVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListVideosQueryOptions = <TData = Awaited<ReturnType<typeof listVideos>>, TError = ErrorResponse>(params?: ListVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2316,10 +1462,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListVideosQueryResult = NonNullable<Awaited<ReturnType<typeof listVideos>>>
-export type ListVideosQueryError = Error
+export type ListVideosQueryError = ErrorResponse
 
 
-export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = Error>(
+export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = ErrorResponse>(
  params: undefined |  ListVideosParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listVideos>>,
@@ -2329,7 +1475,7 @@ export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = Error>(
+export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = ErrorResponse>(
  params?: ListVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listVideos>>,
@@ -2339,12 +1485,12 @@ export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = Error>(
+export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = ErrorResponse>(
  params?: ListVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = Error>(
+export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TError = ErrorResponse>(
  params?: ListVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -2367,27 +1513,27 @@ export type getCampaignDiscoverySummaryResponse200 = {
 }
 
 export type getCampaignDiscoverySummaryResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getCampaignDiscoverySummaryResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getCampaignDiscoverySummaryResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getCampaignDiscoverySummaryResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getCampaignDiscoverySummaryResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2430,7 +1576,7 @@ export const getGetCampaignDiscoverySummaryQueryKey = (campaignId: string,) => {
     }
 
 
-export const getGetCampaignDiscoverySummaryQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = Error>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetCampaignDiscoverySummaryQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2449,10 +1595,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetCampaignDiscoverySummaryQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>>
-export type GetCampaignDiscoverySummaryQueryError = Error
+export type GetCampaignDiscoverySummaryQueryError = ErrorResponse
 
 
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = Error>(
+export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
  campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignDiscoverySummary>>,
@@ -2462,7 +1608,7 @@ export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = Error>(
+export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getCampaignDiscoverySummary>>,
@@ -2472,12 +1618,12 @@ export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = Error>(
+export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = Error>(
+export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
  campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -2500,27 +1646,27 @@ export type listCampaignDiscoveryMatchesResponse200 = {
 }
 
 export type listCampaignDiscoveryMatchesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignDiscoveryMatchesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignDiscoveryMatchesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCampaignDiscoveryMatchesResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignDiscoveryMatchesResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2573,7 +1719,7 @@ export const getListCampaignDiscoveryMatchesQueryKey = (campaignId: string,
     }
 
 
-export const getListCampaignDiscoveryMatchesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = Error>(campaignId: string,
+export const getListCampaignDiscoveryMatchesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(campaignId: string,
     params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -2593,10 +1739,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignDiscoveryMatchesQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>>
-export type ListCampaignDiscoveryMatchesQueryError = Error
+export type ListCampaignDiscoveryMatchesQueryError = ErrorResponse
 
 
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = Error>(
+export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
  campaignId: string,
     params: undefined |  ListCampaignDiscoveryMatchesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2607,7 +1753,7 @@ export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = Error>(
+export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2618,13 +1764,13 @@ export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = Error>(
+export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = Error>(
+export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -2648,27 +1794,27 @@ export type listCampaignDiscoveryApplicationsResponse200 = {
 }
 
 export type listCampaignDiscoveryApplicationsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignDiscoveryApplicationsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignDiscoveryApplicationsResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCampaignDiscoveryApplicationsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignDiscoveryApplicationsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2721,7 +1867,7 @@ export const getListCampaignDiscoveryApplicationsQueryKey = (campaignId: string,
     }
 
 
-export const getListCampaignDiscoveryApplicationsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = Error>(campaignId: string,
+export const getListCampaignDiscoveryApplicationsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(campaignId: string,
     params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -2741,10 +1887,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignDiscoveryApplicationsQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>>
-export type ListCampaignDiscoveryApplicationsQueryError = Error
+export type ListCampaignDiscoveryApplicationsQueryError = ErrorResponse
 
 
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = Error>(
+export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
  campaignId: string,
     params: undefined |  ListCampaignDiscoveryApplicationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2755,7 +1901,7 @@ export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = Error>(
+export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2766,13 +1912,13 @@ export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = Error>(
+export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = Error>(
+export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -2796,27 +1942,27 @@ export type listCampaignDiscoveryInvitesResponse200 = {
 }
 
 export type listCampaignDiscoveryInvitesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignDiscoveryInvitesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignDiscoveryInvitesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCampaignDiscoveryInvitesResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignDiscoveryInvitesResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -2869,7 +2015,7 @@ export const getListCampaignDiscoveryInvitesQueryKey = (campaignId: string,
     }
 
 
-export const getListCampaignDiscoveryInvitesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = Error>(campaignId: string,
+export const getListCampaignDiscoveryInvitesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(campaignId: string,
     params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -2889,10 +2035,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignDiscoveryInvitesQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>>
-export type ListCampaignDiscoveryInvitesQueryError = Error
+export type ListCampaignDiscoveryInvitesQueryError = ErrorResponse
 
 
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = Error>(
+export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
  campaignId: string,
     params: undefined |  ListCampaignDiscoveryInvitesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2903,7 +2049,7 @@ export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = Error>(
+export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2914,13 +2060,13 @@ export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = Error>(
+export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = Error>(
+export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -2944,27 +2090,27 @@ export type listCampaignDiscoveryActiveResponse200 = {
 }
 
 export type listCampaignDiscoveryActiveResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignDiscoveryActiveResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignDiscoveryActiveResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCampaignDiscoveryActiveResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignDiscoveryActiveResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -3017,7 +2163,7 @@ export const getListCampaignDiscoveryActiveQueryKey = (campaignId: string,
     }
 
 
-export const getListCampaignDiscoveryActiveQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = Error>(campaignId: string,
+export const getListCampaignDiscoveryActiveQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(campaignId: string,
     params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -3037,10 +2183,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignDiscoveryActiveQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>>
-export type ListCampaignDiscoveryActiveQueryError = Error
+export type ListCampaignDiscoveryActiveQueryError = ErrorResponse
 
 
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = Error>(
+export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
  campaignId: string,
     params: undefined |  ListCampaignDiscoveryActiveParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -3051,7 +2197,7 @@ export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = Error>(
+export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -3062,13 +2208,13 @@ export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = Error>(
+export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = Error>(
+export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
  campaignId: string,
     params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -3092,27 +2238,27 @@ export type listCreatorsResponse200 = {
 }
 
 export type listCreatorsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCreatorsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCreatorsResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCreatorsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCreatorsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -3162,7 +2308,7 @@ export const getListCreatorsQueryKey = (params?: ListCreatorsParams,) => {
     }
 
 
-export const getListCreatorsQueryOptions = <TData = Awaited<ReturnType<typeof listCreators>>, TError = Error>(params?: ListCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListCreatorsQueryOptions = <TData = Awaited<ReturnType<typeof listCreators>>, TError = ErrorResponse>(params?: ListCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -3181,10 +2327,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCreatorsQueryResult = NonNullable<Awaited<ReturnType<typeof listCreators>>>
-export type ListCreatorsQueryError = Error
+export type ListCreatorsQueryError = ErrorResponse
 
 
-export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = Error>(
+export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = ErrorResponse>(
  params: undefined |  ListCreatorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreators>>,
@@ -3194,7 +2340,7 @@ export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = Error>(
+export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = ErrorResponse>(
  params?: ListCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listCreators>>,
@@ -3204,12 +2350,12 @@ export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = Error>(
+export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = ErrorResponse>(
  params?: ListCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = Error>(
+export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>, TError = ErrorResponse>(
  params?: ListCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -3232,37 +2378,37 @@ export type contactCampaignDiscoveryMatchResponse200 = {
 }
 
 export type contactCampaignDiscoveryMatchResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type contactCampaignDiscoveryMatchResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type contactCampaignDiscoveryMatchResponse402 = {
-  data: Error
+  data: ErrorResponse
   status: 402
 }
 
 export type contactCampaignDiscoveryMatchResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type contactCampaignDiscoveryMatchResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type contactCampaignDiscoveryMatchResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type contactCampaignDiscoveryMatchResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -3301,7 +2447,7 @@ export const contactCampaignDiscoveryMatch = async (campaignId: string,
 
 
 
-export const getContactCampaignDiscoveryMatchMutationOptions = <TError = Error,
+export const getContactCampaignDiscoveryMatchMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof contactCampaignDiscoveryMatch>>, TError,{campaignId: string;matchId: string;data: ContactCampaignMatchRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof contactCampaignDiscoveryMatch>>, TError,{campaignId: string;matchId: string;data: ContactCampaignMatchRequest}, TContext> => {
 
@@ -3330,9 +2476,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ContactCampaignDiscoveryMatchMutationResult = NonNullable<Awaited<ReturnType<typeof contactCampaignDiscoveryMatch>>>
     export type ContactCampaignDiscoveryMatchMutationBody = ContactCampaignMatchRequest
-    export type ContactCampaignDiscoveryMatchMutationError = Error
+    export type ContactCampaignDiscoveryMatchMutationError = ErrorResponse
 
-    export const useContactCampaignDiscoveryMatch = <TError = Error,
+    export const useContactCampaignDiscoveryMatch = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof contactCampaignDiscoveryMatch>>, TError,{campaignId: string;matchId: string;data: ContactCampaignMatchRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof contactCampaignDiscoveryMatch>>,
@@ -3348,37 +2494,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type acceptCampaignDiscoveryApplicationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type acceptCampaignDiscoveryApplicationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type acceptCampaignDiscoveryApplicationResponse402 = {
-  data: Error
+  data: ErrorResponse
   status: 402
 }
 
 export type acceptCampaignDiscoveryApplicationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type acceptCampaignDiscoveryApplicationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type acceptCampaignDiscoveryApplicationResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type acceptCampaignDiscoveryApplicationResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -3415,7 +2561,7 @@ export const acceptCampaignDiscoveryApplication = async (campaignId: string,
 
 
 
-export const getAcceptCampaignDiscoveryApplicationMutationOptions = <TError = Error,
+export const getAcceptCampaignDiscoveryApplicationMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof acceptCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext> => {
 
@@ -3444,9 +2590,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AcceptCampaignDiscoveryApplicationMutationResult = NonNullable<Awaited<ReturnType<typeof acceptCampaignDiscoveryApplication>>>
 
-    export type AcceptCampaignDiscoveryApplicationMutationError = Error
+    export type AcceptCampaignDiscoveryApplicationMutationError = ErrorResponse
 
-    export const useAcceptCampaignDiscoveryApplication = <TError = Error,
+    export const useAcceptCampaignDiscoveryApplication = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof acceptCampaignDiscoveryApplication>>,
@@ -3462,37 +2608,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type rejectCampaignDiscoveryApplicationResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type rejectCampaignDiscoveryApplicationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type rejectCampaignDiscoveryApplicationResponse402 = {
-  data: Error
+  data: ErrorResponse
   status: 402
 }
 
 export type rejectCampaignDiscoveryApplicationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type rejectCampaignDiscoveryApplicationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type rejectCampaignDiscoveryApplicationResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type rejectCampaignDiscoveryApplicationResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -3529,7 +2675,7 @@ export const rejectCampaignDiscoveryApplication = async (campaignId: string,
 
 
 
-export const getRejectCampaignDiscoveryApplicationMutationOptions = <TError = Error,
+export const getRejectCampaignDiscoveryApplicationMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof rejectCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext> => {
 
@@ -3558,9 +2704,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RejectCampaignDiscoveryApplicationMutationResult = NonNullable<Awaited<ReturnType<typeof rejectCampaignDiscoveryApplication>>>
 
-    export type RejectCampaignDiscoveryApplicationMutationError = Error
+    export type RejectCampaignDiscoveryApplicationMutationError = ErrorResponse
 
-    export const useRejectCampaignDiscoveryApplication = <TError = Error,
+    export const useRejectCampaignDiscoveryApplication = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectCampaignDiscoveryApplication>>, TError,{campaignId: string;applicationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof rejectCampaignDiscoveryApplication>>,
@@ -3576,37 +2722,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type createCampaignDiscoveryInviteResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type createCampaignDiscoveryInviteResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type createCampaignDiscoveryInviteResponse402 = {
-  data: Error
+  data: ErrorResponse
   status: 402
 }
 
 export type createCampaignDiscoveryInviteResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type createCampaignDiscoveryInviteResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type createCampaignDiscoveryInviteResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type createCampaignDiscoveryInviteResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -3643,7 +2789,7 @@ export const createCampaignDiscoveryInvite = async (campaignId: string,
 
 
 
-export const getCreateCampaignDiscoveryInviteMutationOptions = <TError = Error,
+export const getCreateCampaignDiscoveryInviteMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignDiscoveryInvite>>, TError,{campaignId: string;data: CreateCampaignInviteRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createCampaignDiscoveryInvite>>, TError,{campaignId: string;data: CreateCampaignInviteRequest}, TContext> => {
 
@@ -3672,9 +2818,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CreateCampaignDiscoveryInviteMutationResult = NonNullable<Awaited<ReturnType<typeof createCampaignDiscoveryInvite>>>
     export type CreateCampaignDiscoveryInviteMutationBody = CreateCampaignInviteRequest
-    export type CreateCampaignDiscoveryInviteMutationError = Error
+    export type CreateCampaignDiscoveryInviteMutationError = ErrorResponse
 
-    export const useCreateCampaignDiscoveryInvite = <TError = Error,
+    export const useCreateCampaignDiscoveryInvite = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCampaignDiscoveryInvite>>, TError,{campaignId: string;data: CreateCampaignInviteRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createCampaignDiscoveryInvite>>,

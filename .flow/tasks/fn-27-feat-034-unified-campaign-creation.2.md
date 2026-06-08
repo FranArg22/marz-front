@@ -1,0 +1,7 @@
+Archivo completo reescrito. Cambios: (1) quota hook está en brand/brand.ts (useGetCampaignQuota), no en campaigns/campaigns.ts — corregido con path exacto; (2) creator-count hook está en brand/brand.ts (useGetDiscoveryCreatorCount), no en campaigns — corregido; (3) tipo CampaignQuota renombrado a CampaignQuotaResponse (nombre real del tipo generado); (4) nombres de hooks Orval generados referenciados correctamente (useCreateCampaign, useCreateCampaignImageUploadPresign, useCreateCampaignBriefPDFUploadPresign, etc.); (5) agregada nota sobre el mapping store.creator_country → API param country; (6) detalle de If-Match via request options headers.
+## Done summary
+Implemented fn-27-feat-034-unified-campaign-creation.2; derive, quality gates and task review passed.
+## Evidence
+- Commits:
+- Tests:
+- PRs:

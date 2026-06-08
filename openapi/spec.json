@@ -87,6 +87,146 @@
         }
       }
     },
+    "/api/v1/interests": {
+      "get": {
+        "operationId": "listInterests",
+        "tags": [
+          "lookups"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterestsLookupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/countries": {
+      "get": {
+        "operationId": "listCountries",
+        "tags": [
+          "lookups"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "active",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountriesLookupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creator-tiers": {
+      "get": {
+        "operationId": "listCreatorTiers",
+        "tags": [
+          "lookups"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatorTiersLookupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/me": {
       "get": {
         "operationId": "me",
@@ -3845,285 +3985,6 @@
         }
       }
     },
-    "/v1/campaigns/brief-builder/init": {
-      "post": {
-        "operationId": "initBriefBuilder",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "brand_workspace_id",
-                  "website_url"
-                ],
-                "properties": {
-                  "brand_workspace_id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "website_url": {
-                    "type": "string",
-                    "format": "uri",
-                    "maxLength": 500
-                  },
-                  "description_text": {
-                    "type": "string"
-                  },
-                  "pdf": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BriefBuilderInitResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_body. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "413": {
-            "description": "Payload Too Large. Possible codes: pdf_too_large. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: invalid_website_url, description_required, pdf_unreadable. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: init_failed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/brief-builder/process": {
-      "post": {
-        "operationId": "processBrief",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BriefBuilderProcessRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Accepted",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BriefBuilderProcessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_body. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: token_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: already_processed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: process_failed. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/brief-builder/processing/{token}": {
-      "get": {
-        "operationId": "getBriefProcessing",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "description": "Returns the current state of a brief-builder processing token. Used by\nthe front to recover after a page reload during the wizard. Token TTL\nis 30min while pending/in_progress and 5min after completion.\n",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BriefProcessingStateResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_brand_owner.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: token_not_found (expired or never existed).",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/campaigns": {
       "get": {
         "operationId": "listCampaigns",
@@ -4169,7 +4030,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "$ref": "#/components/schemas/CampaignConfigurationStatus"
+              "$ref": "#/components/schemas/CampaignStatus"
             }
           },
           {
@@ -4272,7 +4133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateCampaignResponse"
+                  "$ref": "#/components/schemas/CampaignResponse"
                 }
               }
             }
@@ -4307,12 +4168,22 @@
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: brief_validation_failed, validation_failed. See §4.1.8.",
+          "409": {
+            "description": "Conflict. Possible codes: campaign.plan_limit_reached, idempotency.key_mismatch. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.failed, campaign.invalid_lookup_value, campaign.upload_not_found, campaign.upload_validation_failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -4341,6 +4212,7 @@
             "bearerAuth": []
           }
         ],
+        "description": "Updates mutable campaign fields. Sending `content_type`, `pricing_model`,\n`platforms`, `creator_country`, or `compensation_type` returns 422 with\ncode `campaign.field_immutable`.\n",
         "parameters": [
           {
             "name": "campaign_id",
@@ -4349,6 +4221,14 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -4377,7 +4257,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CampaignLifecycleResponse"
+                  "$ref": "#/components/schemas/CampaignResponse"
                 }
               }
             }
@@ -4422,22 +4302,22 @@
               }
             }
           },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_status_invalid. See §4.1.8.",
+          "412": {
+            "description": "Precondition Failed. Possible codes: concurrency.version_mismatch. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Unprocessable Entity. Possible codes: validation_failed, brand_workspace_required. See §4.1.8.",
+            "description": "Unprocessable Entity. Possible codes: campaign.field_immutable, validation.failed, campaign.invalid_lookup_value, campaign.upload_not_found, campaign.upload_validation_failed. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -4846,650 +4726,9 @@
         }
       }
     },
-    "/v1/campaigns/{campaign_id}/configuration": {
-      "get": {
-        "operationId": "getCampaignConfiguration",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignConfigurationResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role, auth.onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/configuration/content_type": {
-      "patch": {
-        "operationId": "updateCampaignConfigurationContentType",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignContentTypeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignConfigurationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, missing_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_version_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.content_type, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/configuration/pricing_model": {
-      "patch": {
-        "operationId": "updateCampaignConfigurationPricingModel",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignPricingModelRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignConfigurationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, missing_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_version_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.pricing_model, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/configuration/targeting": {
-      "patch": {
-        "operationId": "updateCampaignConfigurationTargeting",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignTargetingRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignConfigurationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, missing_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_version_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.follower_range, validation.age_range, validation.country_code, validation.language_code, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/configuration/bonus": {
-      "patch": {
-        "operationId": "updateCampaignConfigurationBonus",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignBonusRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignConfigurationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, missing_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_version_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.bonus_pct, validation.bonus_fixed, validation.bonus_kind, validation.bonus_currency, validation.speed_windows, validation.performance_milestones, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/configuration/activate": {
+    "/v1/campaigns/uploads/image-presign": {
       "post": {
-        "operationId": "activateCampaignConfiguration",
+        "operationId": "createCampaignImageUploadPresign",
         "tags": [
           "campaigns"
         ],
@@ -5499,15 +4738,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "X-Brand-Workspace-Id",
             "in": "header",
@@ -5532,24 +4762,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivateCampaignConfigurationRequest"
+                "$ref": "#/components/schemas/CampaignImagePresignRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK. Returned for first activation and idempotent replay.",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ActivateCampaignConfigurationResponse"
+                  "$ref": "#/components/schemas/CampaignPresignResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, missing_idempotency_key. See §4.1.8.",
+            "description": "Bad Request. Possible codes: invalid_body, missing_idempotency_key, invalid_idempotency_key, body_too_large. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5559,7 +4789,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Possible codes: token_invalid, auth.unauthenticated. See §4.1.8.",
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5569,47 +4799,126 @@
             }
           },
           "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
+            "description": "Forbidden. Possible codes: auth.forbidden. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: campaign_not_configurable, configuration_incomplete, campaign.no_supported_platforms, configuration_version_conflict, idempotency_conflict. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "example": {
-                  "error": {
-                    "code": "campaign.no_supported_platforms",
-                    "message": "Campaign has no supported platforms"
-                  }
                 }
               }
             }
           },
           "422": {
-            "description": "Unprocessable Entity. Possible codes: brand_workspace_required. See §4.1.8.",
+            "description": "Unprocessable Entity. Possible codes: validation.failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/campaigns/uploads/brief-pdf-presign": {
+      "post": {
+        "operationId": "createCampaignBriefPDFUploadPresign",
+        "tags": [
+          "campaigns"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignBriefPDFPresignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignPresignResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, missing_idempotency_key, invalid_idempotency_key, body_too_large. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: auth.forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -8150,6 +7459,180 @@
         }
       }
     },
+    "/v1/brand-workspaces/{brand_workspace_id}/campaign-quota": {
+      "get": {
+        "operationId": "getCampaignQuota",
+        "tags": [
+          "brand",
+          "campaigns"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "brand_workspace_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignQuotaResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: auth.forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/creator-count": {
+      "get": {
+        "operationId": "getDiscoveryCreatorCount",
+        "tags": [
+          "brand",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "platforms",
+            "in": "query",
+            "required": true,
+            "description": "Creator platforms. Repeated values and comma-separated values are accepted by the API.",
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/components/schemas/SocialPlatform"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "interests",
+            "in": "query",
+            "required": true,
+            "description": "Creator interests. Repeated values and comma-separated values are accepted by the API.",
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          },
+          {
+            "name": "min_creator_tier_slug",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. count is null when available is false.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatorCountResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: auth.forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/brand-workspaces/{brand_workspace_id}/payments/spending/export.csv": {
       "get": {
         "operationId": "exportBrandWorkspacePaymentsSpendingCSV",
@@ -9323,6 +8806,106 @@
           }
         }
       },
+      "InterestLookupItem": {
+        "type": "object",
+        "required": [
+          "slug",
+          "label_es"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          }
+        }
+      },
+      "InterestsLookupResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterestLookupItem"
+            }
+          }
+        }
+      },
+      "CountryLookupItem": {
+        "type": "object",
+        "required": [
+          "code",
+          "label_es"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "label_es": {
+            "type": "string"
+          }
+        }
+      },
+      "CountriesLookupResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryLookupItem"
+            }
+          }
+        }
+      },
+      "CreatorTierLookupItem": {
+        "type": "object",
+        "required": [
+          "slug",
+          "label_es",
+          "followers_min"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          },
+          "followers_min": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "CreatorTiersLookupResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreatorTierLookupItem"
+            }
+          }
+        }
+      },
       "OfferDraftStatus": {
         "type": "object",
         "required": [
@@ -9574,7 +9157,8 @@
           "application_received",
           "application_sent_waiting",
           "match_suggested",
-          "invite_sent_waiting"
+          "invite_sent_waiting",
+          "refund_delayed"
         ],
         "x-enum-varnames": [
           "InboxItemKindMessageReply",
@@ -9590,7 +9174,8 @@
           "InboxItemKindApplicationReceived",
           "InboxItemKindApplicationSentWaiting",
           "InboxItemKindMatchSuggested",
-          "InboxItemKindInviteSentWaiting"
+          "InboxItemKindInviteSentWaiting",
+          "InboxItemKindRefundDelayed"
         ]
       },
       "InboxInlineActionActor": {
@@ -11168,6 +10753,95 @@
             "format": "int64",
             "description": "Tamaño máximo del archivo en bytes",
             "example": 5242880
+          }
+        }
+      },
+      "CampaignImagePresignRequest": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "image/jpeg",
+              "image/png",
+              "image/webp"
+            ]
+          },
+          "size_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 5242880,
+            "description": "Exact size in bytes; the presigned URL is signed with this Content-Length."
+          }
+        }
+      },
+      "CampaignBriefPDFPresignRequest": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "application/pdf"
+            ]
+          },
+          "size_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 10485760,
+            "description": "Exact size in bytes; the presigned URL is signed with this Content-Length."
+          }
+        }
+      },
+      "CampaignPresignResponse": {
+        "type": "object",
+        "required": [
+          "upload_url",
+          "s3_key",
+          "expires_in",
+          "required_headers",
+          "max_bytes"
+        ],
+        "properties": {
+          "upload_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "s3_key": {
+            "type": "string",
+            "pattern": "^tmp/campaigns/[^/]+/[^/]+\\.(jpg|png|webp|pdf)$"
+          },
+          "expires_in": {
+            "type": "integer",
+            "enum": [
+              900
+            ]
+          },
+          "required_headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "Content-Type": "image/png"
+            }
+          },
+          "max_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "enum": [
+              5242880,
+              10485760
+            ]
           }
         }
       },
@@ -13481,6 +13155,9 @@
         }
       },
       "Error": {
+        "$ref": "#/components/schemas/ErrorResponse"
+      },
+      "ErrorResponse": {
         "type": "object",
         "required": [
           "error"
@@ -13529,441 +13206,353 @@
           }
         }
       },
-      "BriefBuilderInitResponse": {
-        "type": "object",
-        "required": [
-          "processing_token"
-        ],
-        "properties": {
-          "processing_token": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "pdf_s3_key": {
-            "type": "string",
-            "description": "S3 key of the uploaded PDF, when a pdf was provided. Echo back as `brief_pdf_s3_key` in `POST /v1/campaigns`."
-          }
-        }
+      "CampaignStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "paused",
+          "completed"
+        ]
       },
-      "BriefBuilderProcessRequest": {
-        "type": "object",
-        "required": [
-          "processing_token"
-        ],
-        "properties": {
-          "processing_token": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
+      "CampaignCompensationType": {
+        "type": "string",
+        "enum": [
+          "payment",
+          "product_trade",
+          "payment_plus_product"
+        ]
       },
-      "BriefBuilderProcessResponse": {
+      "Campaign": {
         "type": "object",
         "required": [
-          "processing_token"
-        ],
-        "properties": {
-          "processing_token": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
-      "BriefProcessingStateResponse": {
-        "type": "object",
-        "description": "State of a brief-builder processing token. `brief_draft`,\n`fields_filled_count` and `fields_empty_count` are populated only when\n`state` is `completed` or `partial`; null/zero otherwise.\n",
-        "required": [
-          "processing_token",
-          "state"
-        ],
-        "properties": {
-          "processing_token": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "state": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "in_progress",
-              "completed",
-              "partial"
-            ]
-          },
-          "brief_draft": {
-            "nullable": true,
-            "$ref": "#/components/schemas/BriefDraftEnvelope"
-          },
-          "fields_filled_count": {
-            "type": "integer",
-            "nullable": true
-          },
-          "fields_empty_count": {
-            "type": "integer",
-            "nullable": true
-          }
-        }
-      },
-      "BriefDraftEnvelope": {
-        "type": "object",
-        "required": [
-          "brief"
-        ],
-        "properties": {
-          "brief": {
-            "$ref": "#/components/schemas/BriefDraft"
-          }
-        }
-      },
-      "BriefDraft": {
-        "type": "object",
-        "description": "AI-generated brief content. Same shape used in the WS\n`campaigns.brief.processing.completed` event under `brief_draft.brief`.\n",
-        "required": [
-          "tone",
-          "key_messages",
-          "do_list",
-          "dont_list",
-          "icp_description",
-          "icp_age_min",
-          "icp_age_max",
-          "icp_genders",
-          "icp_countries",
-          "icp_platforms",
-          "icp_interests",
-          "hard_filters",
-          "disqualifiers"
-        ],
-        "properties": {
-          "tone": {
-            "type": "string",
-            "nullable": true
-          },
-          "key_messages": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "do_list": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "dont_list": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_description": {
-            "type": "string",
-            "nullable": true
-          },
-          "icp_age_min": {
-            "type": "integer",
-            "nullable": true
-          },
-          "icp_age_max": {
-            "type": "integer",
-            "nullable": true
-          },
-          "icp_genders": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_countries": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_platforms": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_interests": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "scoring_dimensions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BriefScoringDimension"
-            }
-          },
-          "hard_filters": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BriefHardFilter"
-            }
-          },
-          "disqualifiers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "BriefScoringDimension": {
-        "type": "object",
-        "required": [
+          "id",
+          "brand_workspace_id",
+          "status",
+          "version",
           "name",
-          "weight_pct"
+          "description",
+          "target_url",
+          "image_s3_key",
+          "content_type",
+          "pricing_model",
+          "platforms",
+          "interests",
+          "creator_country",
+          "min_creator_tier_slug",
+          "compensation_type",
+          "video_reuse_permission_default",
+          "content_guidelines",
+          "created_at",
+          "updated_at"
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CampaignStatus"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "target_url": {
+            "type": "string"
+          },
+          "image_s3_key": {
+            "type": "string"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/CampaignContentType"
+          },
+          "pricing_model": {
+            "$ref": "#/components/schemas/CampaignPricingModel"
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialPlatform"
+            }
+          },
+          "interests": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "creator_country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "min_creator_tier_slug": {
+            "type": "string"
+          },
+          "compensation_type": {
+            "$ref": "#/components/schemas/CampaignCompensationType"
+          },
+          "compensation_notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_reuse_permission_default": {
+            "type": "boolean"
+          },
+          "content_guidelines": {
+            "type": "string"
+          },
+          "brief_pdf_s3_key": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_by_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CampaignResponse": {
+        "$ref": "#/components/schemas/Campaign"
+      },
+      "CreateCampaignRequest": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "pricing_model",
+          "name",
+          "description",
+          "target_url",
+          "image_s3_key",
+          "platforms",
+          "interests",
+          "creator_country",
+          "min_creator_tier_slug",
+          "compensation_type",
+          "video_reuse_permission_default",
+          "content_guidelines"
+        ],
+        "properties": {
+          "content_type": {
+            "$ref": "#/components/schemas/CampaignContentType"
+          },
+          "pricing_model": {
+            "$ref": "#/components/schemas/CampaignPricingModel"
+          },
           "name": {
             "type": "string",
-            "maxLength": 200
+            "minLength": 1,
+            "maxLength": 150
           },
-          "weight_pct": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 100
-          }
-        }
-      },
-      "BriefHardFilter": {
-        "type": "object",
-        "required": [
-          "field",
-          "operator",
-          "value"
-        ],
-        "properties": {
-          "field": {
+          "description": {
             "type": "string",
-            "maxLength": 200
+            "minLength": 1,
+            "maxLength": 4000
           },
-          "operator": {
-            "type": "string",
-            "maxLength": 50
-          },
-          "value": {
-            "type": "string",
-            "maxLength": 500
-          }
-        }
-      },
-      "CampaignBriefInput": {
-        "type": "object",
-        "required": [
-          "brief_source_url",
-          "hard_filters"
-        ],
-        "properties": {
-          "tone": {
-            "type": "string",
-            "nullable": true,
-            "maxLength": 200
-          },
-          "key_messages": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 500
-            }
-          },
-          "do_list": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 500
-            }
-          },
-          "dont_list": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 500
-            }
-          },
-          "reference_links": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uri",
-              "maxLength": 500
-            }
-          },
-          "brief_source_url": {
+          "target_url": {
             "type": "string",
             "format": "uri",
             "maxLength": 500
           },
-          "brief_source_text": {
+          "image_s3_key": {
             "type": "string",
-            "nullable": true
+            "maxLength": 500
+          },
+          "platforms": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/SocialPlatform"
+            }
+          },
+          "interests": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "creator_country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "min_creator_tier_slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "compensation_type": {
+            "$ref": "#/components/schemas/CampaignCompensationType"
+          },
+          "compensation_notes": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4000
+          },
+          "video_reuse_permission_default": {
+            "type": "boolean"
+          },
+          "content_guidelines": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
           },
           "brief_pdf_s3_key": {
             "type": "string",
             "nullable": true,
             "maxLength": 500
-          },
-          "icp_description": {
-            "type": "string",
-            "nullable": true
-          },
-          "icp_age_min": {
-            "type": "integer",
-            "nullable": true,
-            "minimum": 0,
-            "maximum": 120
-          },
-          "icp_age_max": {
-            "type": "integer",
-            "nullable": true,
-            "minimum": 0,
-            "maximum": 120
-          },
-          "icp_genders": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 50
-            }
-          },
-          "icp_countries": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 2
-            }
-          },
-          "icp_platforms": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 50
-            }
-          },
-          "icp_interests": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 200
-            }
-          },
-          "scoring_dimensions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BriefScoringDimension"
-            }
-          },
-          "hard_filters": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BriefHardFilter"
-            }
-          },
-          "disqualifiers": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 500
-            }
           }
         }
       },
-      "CreateCampaignRequest": {
+      "UpdateCampaignRequest": {
         "type": "object",
-        "required": [
-          "name",
-          "objective",
-          "budget_amount",
-          "budget_currency",
-          "brief"
-        ],
         "properties": {
+          "content_type": {
+            "$ref": "#/components/schemas/CampaignContentType"
+          },
+          "pricing_model": {
+            "$ref": "#/components/schemas/CampaignPricingModel"
+          },
           "name": {
             "type": "string",
+            "minLength": 1,
             "maxLength": 150
           },
-          "objective": {
+          "description": {
             "type": "string",
-            "enum": [
-              "brand_awareness",
-              "conversion",
-              "engagement",
-              "reach"
-            ]
+            "minLength": 1,
+            "maxLength": 4000
           },
-          "budget_amount": {
+          "target_url": {
             "type": "string",
-            "maxLength": 50
+            "format": "uri",
+            "maxLength": 500
           },
-          "budget_currency": {
+          "image_s3_key": {
             "type": "string",
-            "maxLength": 3
+            "maxLength": 500
           },
-          "deadline": {
+          "platforms": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/SocialPlatform"
+            }
+          },
+          "interests": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "creator_country": {
             "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "minLength": 2,
+            "maxLength": 2
           },
-          "brief": {
-            "$ref": "#/components/schemas/CampaignBriefInput"
+          "min_creator_tier_slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "compensation_type": {
+            "$ref": "#/components/schemas/CampaignCompensationType"
+          },
+          "compensation_notes": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4000
+          },
+          "video_reuse_permission_default": {
+            "type": "boolean"
+          },
+          "content_guidelines": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "brief_pdf_s3_key": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
           }
         }
       },
-      "CreateCampaignResponse": {
+      "CampaignQuotaResponse": {
         "type": "object",
         "required": [
-          "campaign_id",
-          "status",
-          "created_at",
-          "brief"
+          "plan",
+          "subscription_status",
+          "max_active_campaigns",
+          "current_active_count",
+          "can_create_more",
+          "publish_to_board"
         ],
         "properties": {
-          "campaign_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
+          "plan": {
             "type": "string"
           },
-          "created_at": {
+          "subscription_status": {
             "type": "string"
           },
-          "brief": {
-            "$ref": "#/components/schemas/CampaignBriefResponse"
+          "max_active_campaigns": {
+            "type": "integer"
+          },
+          "current_active_count": {
+            "type": "integer"
+          },
+          "can_create_more": {
+            "type": "boolean"
+          },
+          "publish_to_board": {
+            "type": "boolean"
           }
         }
       },
-      "CampaignConfigurationStep": {
-        "type": "string",
-        "enum": [
-          "content_type",
-          "pricing_model",
-          "targeting",
-          "bonus",
-          "review"
-        ]
-      },
-      "CampaignConfigurationStatus": {
-        "type": "string",
-        "enum": [
-          "draft",
-          "active",
-          "paused",
-          "completed"
-        ]
+      "CreatorCountResponse": {
+        "type": "object",
+        "required": [
+          "count",
+          "available",
+          "computed_at"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "nullable": true
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "CampaignListItem": {
         "type": "object",
         "required": [
           "campaign_id",
           "name",
-          "objective",
           "status",
-          "budget",
           "created_at",
           "updated_at"
         ],
@@ -13975,57 +13564,8 @@
           "name": {
             "type": "string"
           },
-          "objective": {
-            "type": "string",
-            "enum": [
-              "brand_awareness",
-              "conversion",
-              "engagement",
-              "reach"
-            ]
-          },
           "status": {
-            "$ref": "#/components/schemas/CampaignConfigurationStatus"
-          },
-          "budget": {
-            "type": "object",
-            "required": [
-              "amount",
-              "currency"
-            ],
-            "properties": {
-              "amount": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string",
-                "minLength": 3,
-                "maxLength": 3
-              }
-            }
-          },
-          "deadline": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "content_type": {
-            "type": "string",
-            "nullable": true,
-            "enum": [
-              "influencer_posts",
-              "ugc_videos",
-              null
-            ]
-          },
-          "pricing_model": {
-            "type": "string",
-            "nullable": true,
-            "enum": [
-              "fixed_per_video",
-              "per_views",
-              null
-            ]
+            "$ref": "#/components/schemas/CampaignStatus"
           },
           "created_at": {
             "type": "string",
@@ -14055,23 +13595,6 @@
           }
         }
       },
-      "UpdateCampaignRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 150
-          },
-          "deadline": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "budget_amount": {
-            "type": "string"
-          }
-        }
-      },
       "CampaignLifecycleResponse": {
         "type": "object",
         "required": [
@@ -14085,7 +13608,7 @@
             "format": "uuid"
           },
           "status": {
-            "$ref": "#/components/schemas/CampaignConfigurationStatus"
+            "$ref": "#/components/schemas/CampaignStatus"
           },
           "updated_at": {
             "type": "string",
@@ -14108,15 +13631,6 @@
           }
         }
       },
-      "CampaignConfigurationBlockReason": {
-        "type": "string",
-        "enum": [
-          "brief_not_confirmed",
-          "already_active",
-          "not_draft",
-          "forbidden_role"
-        ]
-      },
       "CampaignContentType": {
         "type": "string",
         "enum": [
@@ -14127,688 +13641,9 @@
       "CampaignPricingModel": {
         "type": "string",
         "enum": [
-          "fixed_per_video",
-          "per_views"
+          "pay_per_post",
+          "cpm"
         ]
-      },
-      "CampaignOperationalTargetingTier": {
-        "type": "string",
-        "enum": [
-          "emergent",
-          "growing",
-          "consolidated",
-          "reference",
-          "massive",
-          "celebrity"
-        ]
-      },
-      "CampaignOperationalTargeting": {
-        "type": "object",
-        "required": [
-          "countries",
-          "tiers",
-          "follower_min",
-          "follower_max",
-          "genders",
-          "age_min",
-          "age_max",
-          "interests",
-          "content_languages",
-          "source",
-          "adjusted_from_brief"
-        ],
-        "properties": {
-          "countries": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 2,
-              "maxLength": 2
-            }
-          },
-          "tiers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignOperationalTargetingTier"
-            }
-          },
-          "follower_min": {
-            "type": "integer",
-            "minimum": 0,
-            "nullable": true
-          },
-          "follower_max": {
-            "type": "integer",
-            "minimum": 0,
-            "nullable": true
-          },
-          "genders": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "age_min": {
-            "type": "integer",
-            "minimum": 18,
-            "maximum": 120,
-            "nullable": true
-          },
-          "age_max": {
-            "type": "integer",
-            "minimum": 18,
-            "maximum": 120,
-            "nullable": true
-          },
-          "interests": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "content_languages": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "source": {
-            "type": "string",
-            "enum": [
-              "brief_prefill",
-              "manual"
-            ]
-          },
-          "adjusted_from_brief": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CampaignBonusConfig": {
-        "type": "object",
-        "required": [
-          "enabled",
-          "speed_bonus",
-          "performance_bonus"
-        ],
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "speed_bonus": {
-            "$ref": "#/components/schemas/CampaignSpeedBonusConfig"
-          },
-          "performance_bonus": {
-            "$ref": "#/components/schemas/CampaignPerformanceBonusConfig"
-          }
-        }
-      },
-      "CampaignSpeedBonusConfig": {
-        "type": "object",
-        "required": [
-          "enabled",
-          "windows"
-        ],
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "windows": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignSpeedBonusWindow"
-            }
-          }
-        }
-      },
-      "CampaignSpeedBonusWindow": {
-        "type": "object",
-        "required": [
-          "window_id",
-          "window_hours",
-          "bonus"
-        ],
-        "properties": {
-          "window_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "window_hours": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 720
-          },
-          "bonus": {
-            "$ref": "#/components/schemas/CampaignBonusAmount"
-          }
-        }
-      },
-      "CampaignPerformanceBonusConfig": {
-        "type": "object",
-        "required": [
-          "enabled",
-          "milestones"
-        ],
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "milestones": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignPerformanceBonusMilestone"
-            }
-          }
-        }
-      },
-      "CampaignPerformanceBonusMilestone": {
-        "type": "object",
-        "required": [
-          "milestone_id",
-          "views",
-          "window_hours",
-          "bonus"
-        ],
-        "properties": {
-          "milestone_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "views": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "window_hours": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 720
-          },
-          "bonus": {
-            "$ref": "#/components/schemas/CampaignBonusAmount"
-          }
-        }
-      },
-      "CampaignBonusAmount": {
-        "type": "object",
-        "description": "Bonus amount discriminated by `type`. When `type` is `percentage`, the\n`percentage` field is required and must be between 1 and 100. When\n`type` is `fixed`, `amount` and `currency` are required; `currency`\nmust match the campaign's `budget_currency`.\n",
-        "required": [
-          "type"
-        ],
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "percentage",
-              "fixed"
-            ]
-          },
-          "percentage": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 100,
-            "description": "Required when type is percentage. Ignored otherwise."
-          },
-          "amount": {
-            "type": "string",
-            "description": "Decimal string strictly greater than 0. Required when type is fixed."
-          },
-          "currency": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 3,
-            "description": "ISO 4217 currency code matching the campaign's budget_currency. Required when type is fixed."
-          }
-        }
-      },
-      "CampaignConfigurationBriefSummary": {
-        "type": "object",
-        "required": [
-          "confirmed_at",
-          "objective",
-          "icp_description",
-          "icp_age_min",
-          "icp_age_max",
-          "icp_genders",
-          "icp_countries",
-          "icp_platforms",
-          "icp_interests",
-          "scoring_dimensions_count",
-          "hard_filters_count",
-          "disqualifiers_count"
-        ],
-        "properties": {
-          "confirmed_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "objective": {
-            "type": "string",
-            "enum": [
-              "brand_awareness",
-              "conversion",
-              "engagement",
-              "reach"
-            ]
-          },
-          "icp_description": {
-            "type": "string",
-            "nullable": true
-          },
-          "icp_age_min": {
-            "type": "integer",
-            "nullable": true
-          },
-          "icp_age_max": {
-            "type": "integer",
-            "nullable": true
-          },
-          "icp_genders": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_countries": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_platforms": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "icp_interests": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "scoring_dimensions_count": {
-            "type": "integer"
-          },
-          "hard_filters_count": {
-            "type": "integer"
-          },
-          "disqualifiers_count": {
-            "type": "integer"
-          }
-        }
-      },
-      "CampaignConfigurationPlan": {
-        "type": "object",
-        "required": [
-          "workspace_plan",
-          "allows_campaign_board",
-          "allows_automatic_matching"
-        ],
-        "properties": {
-          "workspace_plan": {
-            "type": "string",
-            "enum": [
-              "free",
-              "paid"
-            ]
-          },
-          "allows_campaign_board": {
-            "type": "boolean"
-          },
-          "allows_automatic_matching": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CampaignConfigurationResponse": {
-        "type": "object",
-        "required": [
-          "campaign_id",
-          "brand_workspace_id",
-          "status",
-          "editable",
-          "block_reason",
-          "current_step",
-          "completed_steps",
-          "configuration_complete",
-          "configuration_version",
-          "content_type",
-          "pricing_model",
-          "operational_targeting",
-          "bonus_config",
-          "brief_summary",
-          "plan",
-          "updated_at"
-        ],
-        "properties": {
-          "campaign_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "brand_workspace_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "$ref": "#/components/schemas/CampaignConfigurationStatus"
-          },
-          "editable": {
-            "type": "boolean"
-          },
-          "block_reason": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CampaignConfigurationBlockReason"
-              }
-            ],
-            "nullable": true
-          },
-          "current_step": {
-            "$ref": "#/components/schemas/CampaignConfigurationStep"
-          },
-          "completed_steps": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignConfigurationStep"
-            }
-          },
-          "configuration_complete": {
-            "type": "boolean"
-          },
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "content_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CampaignContentType"
-              }
-            ],
-            "nullable": true
-          },
-          "pricing_model": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CampaignPricingModel"
-              }
-            ],
-            "nullable": true
-          },
-          "operational_targeting": {
-            "$ref": "#/components/schemas/CampaignOperationalTargeting"
-          },
-          "bonus_config": {
-            "$ref": "#/components/schemas/CampaignBonusConfig"
-          },
-          "brief_summary": {
-            "$ref": "#/components/schemas/CampaignConfigurationBriefSummary"
-          },
-          "plan": {
-            "$ref": "#/components/schemas/CampaignConfigurationPlan"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "UpdateCampaignContentTypeRequest": {
-        "type": "object",
-        "required": [
-          "configuration_version",
-          "content_type"
-        ],
-        "properties": {
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "content_type": {
-            "$ref": "#/components/schemas/CampaignContentType"
-          }
-        }
-      },
-      "UpdateCampaignPricingModelRequest": {
-        "type": "object",
-        "required": [
-          "configuration_version",
-          "pricing_model"
-        ],
-        "properties": {
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "pricing_model": {
-            "$ref": "#/components/schemas/CampaignPricingModel"
-          }
-        }
-      },
-      "UpdateCampaignTargetingRequest": {
-        "type": "object",
-        "required": [
-          "configuration_version",
-          "operational_targeting"
-        ],
-        "properties": {
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "operational_targeting": {
-            "type": "object",
-            "properties": {
-              "countries": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "tiers": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CampaignOperationalTargetingTier"
-                }
-              },
-              "follower_min": {
-                "type": "integer",
-                "nullable": true
-              },
-              "follower_max": {
-                "type": "integer",
-                "nullable": true
-              },
-              "genders": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "age_min": {
-                "type": "integer",
-                "nullable": true
-              },
-              "age_max": {
-                "type": "integer",
-                "nullable": true
-              },
-              "interests": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "content_languages": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "UpdateCampaignBonusRequest": {
-        "type": "object",
-        "required": [
-          "configuration_version",
-          "bonus_config"
-        ],
-        "properties": {
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "bonus_config": {
-            "type": "object",
-            "required": [
-              "enabled"
-            ],
-            "properties": {
-              "enabled": {
-                "type": "boolean"
-              },
-              "speed_bonus": {
-                "$ref": "#/components/schemas/UpdateCampaignSpeedBonusConfig"
-              },
-              "performance_bonus": {
-                "$ref": "#/components/schemas/UpdateCampaignPerformanceBonusConfig"
-              }
-            }
-          }
-        }
-      },
-      "UpdateCampaignSpeedBonusConfig": {
-        "type": "object",
-        "required": [
-          "enabled",
-          "windows"
-        ],
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "windows": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "window_hours",
-                "bonus"
-              ],
-              "properties": {
-                "window_id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "window_hours": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 720
-                },
-                "bonus": {
-                  "$ref": "#/components/schemas/CampaignBonusAmount"
-                }
-              }
-            }
-          }
-        }
-      },
-      "UpdateCampaignPerformanceBonusConfig": {
-        "type": "object",
-        "required": [
-          "enabled",
-          "milestones"
-        ],
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "milestones": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "views",
-                "window_hours",
-                "bonus"
-              ],
-              "properties": {
-                "milestone_id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "views": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "window_hours": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 720
-                },
-                "bonus": {
-                  "$ref": "#/components/schemas/CampaignBonusAmount"
-                }
-              }
-            }
-          }
-        }
-      },
-      "ActivateCampaignConfigurationRequest": {
-        "type": "object",
-        "required": [
-          "configuration_version"
-        ],
-        "properties": {
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          }
-        }
-      },
-      "ActivateCampaignConfigurationResponse": {
-        "type": "object",
-        "required": [
-          "campaign_id",
-          "status",
-          "activated_at",
-          "activated_by_account_id",
-          "configuration_version",
-          "plan_allows_campaign_board",
-          "plan_allows_automatic_matching"
-        ],
-        "properties": {
-          "campaign_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "active"
-            ]
-          },
-          "activated_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "activated_by_account_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "configuration_version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "plan_allows_campaign_board": {
-            "type": "boolean"
-          },
-          "plan_allows_automatic_matching": {
-            "type": "boolean"
-          }
-        }
       },
       "ConversationListResponse": {
         "type": "object",
@@ -14924,6 +13759,46 @@
           },
           "author_is_self": {
             "type": "boolean"
+          }
+        }
+      },
+      "BriefScoringDimension": {
+        "type": "object",
+        "required": [
+          "name",
+          "weight_pct"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "weight_pct": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        }
+      },
+      "BriefHardFilter": {
+        "type": "object",
+        "required": [
+          "field",
+          "operator",
+          "value"
+        ],
+        "properties": {
+          "field": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "operator": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 500
           }
         }
       },
@@ -15043,6 +13918,7 @@
           "name",
           "objective",
           "status",
+          "version",
           "budget",
           "deadline",
           "platforms",
@@ -15071,6 +13947,10 @@
           },
           "status": {
             "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
           },
           "budget": {
             "$ref": "#/components/schemas/CampaignMoney"

@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-05T08:22:38.153378Z",
+  "depends_on": [
+    "fn-27-feat-034-unified-campaign-creation.1"
+  ],
+  "epic": "fn-27-feat-034-unified-campaign-creation",
+  "id": "fn-27-feat-034-unified-campaign-creation.10",
+  "priority": 10,
+  "spec_path": ".flow/tasks/fn-27-feat-034-unified-campaign-creation.10.md",
+  "status": "todo",
+  "title": "F.10 \u2014 Cancelar wizard (modal Salir/Seguir + reset store)",
+  "updated_at": "2026-06-05T08:22:38.153399Z"
+}

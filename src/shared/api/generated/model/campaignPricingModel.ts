@@ -12,6 +12,6 @@ export type CampaignPricingModel = typeof CampaignPricingModel[keyof typeof Camp
 
 
 export const CampaignPricingModel = {
-  fixed_per_video: 'fixed_per_video',
-  per_views: 'per_views',
+  pay_per_post: 'pay_per_post',
+  cpm: 'cpm',
 } as const;

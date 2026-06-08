@@ -7,24 +7,12 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
-import type { CampaignConfigurationStatus } from './campaignConfigurationStatus';
-import type { CampaignListItemBudget } from './campaignListItemBudget';
-import type { CampaignListItemContentType } from './campaignListItemContentType';
-import type { CampaignListItemObjective } from './campaignListItemObjective';
-import type { CampaignListItemPricingModel } from './campaignListItemPricingModel';
+import type { CampaignStatus } from './campaignStatus';
 
 export interface CampaignListItem {
   campaign_id: string;
   name: string;
-  objective: CampaignListItemObjective;
-  status: CampaignConfigurationStatus;
-  budget: CampaignListItemBudget;
-  /** @nullable */
-  deadline?: string | null;
-  /** @nullable */
-  content_type?: CampaignListItemContentType;
-  /** @nullable */
-  pricing_model?: CampaignListItemPricingModel;
+  status: CampaignStatus;
   created_at: string;
   updated_at: string;
 }

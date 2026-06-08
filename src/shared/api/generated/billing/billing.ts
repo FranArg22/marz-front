@@ -18,7 +18,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  Error,
+  ErrorResponse,
   ReceiveStripeWebhookBody
 } from '../model';
 
@@ -43,17 +43,17 @@ export type receiveStripeWebhookResponse200 = {
 }
 
 export type receiveStripeWebhookResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type receiveStripeWebhookResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type receiveStripeWebhookResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -89,7 +89,7 @@ export const receiveStripeWebhook = async (receiveStripeWebhookBody: ReceiveStri
 
 
 
-export const getReceiveStripeWebhookMutationOptions = <TError = Error,
+export const getReceiveStripeWebhookMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receiveStripeWebhook>>, TError,{data: ReceiveStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof receiveStripeWebhook>>, TError,{data: ReceiveStripeWebhookBody}, TContext> => {
 
@@ -118,9 +118,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ReceiveStripeWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof receiveStripeWebhook>>>
     export type ReceiveStripeWebhookMutationBody = ReceiveStripeWebhookBody
-    export type ReceiveStripeWebhookMutationError = Error
+    export type ReceiveStripeWebhookMutationError = ErrorResponse
 
-    export const useReceiveStripeWebhook = <TError = Error,
+    export const useReceiveStripeWebhook = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receiveStripeWebhook>>, TError,{data: ReceiveStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof receiveStripeWebhook>>,

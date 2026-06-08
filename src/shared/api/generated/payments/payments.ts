@@ -27,7 +27,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  Error,
+  ErrorResponse,
   PaymentSuggestionResponse,
   ReceivePaymentsStripeWebhookBody
 } from '../model';
@@ -45,27 +45,27 @@ export type getPaymentSuggestionResponse200 = {
 }
 
 export type getPaymentSuggestionResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getPaymentSuggestionResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getPaymentSuggestionResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getPaymentSuggestionResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type getPaymentSuggestionResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
@@ -108,7 +108,7 @@ export const getGetPaymentSuggestionQueryKey = (deliverableId: string,) => {
     }
 
 
-export const getGetPaymentSuggestionQueryOptions = <TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = Error>(deliverableId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetPaymentSuggestionQueryOptions = <TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = ErrorResponse>(deliverableId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -127,10 +127,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetPaymentSuggestionQueryResult = NonNullable<Awaited<ReturnType<typeof getPaymentSuggestion>>>
-export type GetPaymentSuggestionQueryError = Error
+export type GetPaymentSuggestionQueryError = ErrorResponse
 
 
-export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = Error>(
+export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = ErrorResponse>(
  deliverableId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getPaymentSuggestion>>,
@@ -140,7 +140,7 @@ export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPay
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = Error>(
+export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = ErrorResponse>(
  deliverableId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getPaymentSuggestion>>,
@@ -150,12 +150,12 @@ export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPay
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = Error>(
+export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = ErrorResponse>(
  deliverableId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = Error>(
+export function useGetPaymentSuggestion<TData = Awaited<ReturnType<typeof getPaymentSuggestion>>, TError = ErrorResponse>(
  deliverableId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPaymentSuggestion>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -186,12 +186,12 @@ export type receivePaymentsStripeWebhookResponse200 = {
 }
 
 export type receivePaymentsStripeWebhookResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type receivePaymentsStripeWebhookResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -227,7 +227,7 @@ export const receivePaymentsStripeWebhook = async (receivePaymentsStripeWebhookB
 
 
 
-export const getReceivePaymentsStripeWebhookMutationOptions = <TError = Error,
+export const getReceivePaymentsStripeWebhookMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext> => {
 
@@ -256,9 +256,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ReceivePaymentsStripeWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>>
     export type ReceivePaymentsStripeWebhookMutationBody = ReceivePaymentsStripeWebhookBody
-    export type ReceivePaymentsStripeWebhookMutationError = Error
+    export type ReceivePaymentsStripeWebhookMutationError = ErrorResponse
 
-    export const useReceivePaymentsStripeWebhook = <TError = Error,
+    export const useReceivePaymentsStripeWebhook = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>, TError,{data: ReceivePaymentsStripeWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof receivePaymentsStripeWebhook>>,

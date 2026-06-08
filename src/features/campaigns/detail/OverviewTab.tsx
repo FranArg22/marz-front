@@ -1,10 +1,14 @@
 import { t } from '@lingui/core/macro'
 import { AlertCircle, ClipboardList } from 'lucide-react'
 
-import type { CampaignOverviewResponse } from '#/shared/api/generated/model'
+import type {
+  CampaignDetailResponse,
+  CampaignOverviewResponse,
+} from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 
 import { CreatorsPreview } from './overview/CreatorsPreview'
+import { CampaignInlineEditor } from './overview/CampaignInlineEditor'
 import { DetailsBlock } from './overview/DetailsBlock'
 import { RecentActivity } from './overview/RecentActivity'
 import { StatsBlock } from './overview/StatsBlock'
@@ -12,9 +16,10 @@ import { useCampaignOverviewQuery } from './useCampaignOverviewQuery'
 
 interface OverviewTabProps {
   campaignId: string
+  detail: CampaignDetailResponse
 }
 
-export function OverviewTab({ campaignId }: OverviewTabProps) {
+export function OverviewTab({ campaignId, detail }: OverviewTabProps) {
   const overviewQuery = useCampaignOverviewQuery(campaignId, {
     activityLimit: 5,
   })
@@ -27,12 +32,22 @@ export function OverviewTab({ campaignId }: OverviewTabProps) {
     return <OverviewError error={overviewQuery.error} />
   }
 
-  return <OverviewContent overview={overviewQuery.data} />
+  return <OverviewContent overview={overviewQuery.data} detail={detail} />
 }
 
-function OverviewContent({ overview }: { overview: CampaignOverviewResponse }) {
+function OverviewContent({
+  overview,
+  detail,
+}: {
+  overview: CampaignOverviewResponse
+  detail: CampaignDetailResponse
+}) {
   return (
     <div className="space-y-5">
+      <CampaignInlineEditor
+        campaignId={overview.campaign.campaign_id}
+        campaign={detail}
+      />
       <StatsBlock overview={overview} />
       <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-4">
         <div className="space-y-4">

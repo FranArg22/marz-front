@@ -3,9 +3,16 @@ import { Trans } from '@lingui/react/macro'
 import { Megaphone, Plus } from 'lucide-react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Button } from '#/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '#/components/ui/tooltip'
 import { CampaignMiniCard } from '#/features/campaigns/components/CampaignMiniCard'
 import { useCampaignsList } from '#/features/campaigns/hooks/useCampaignsList'
+import { useCampaignQuotaQuery } from '#/features/campaigns/wizard/queries'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import { useBrandSession } from '#/features/identity/session/BrandSessionContext'
 
 export const Route = createFileRoute('/_brand/campaigns/')({
   component: CampaignsPage,
@@ -16,14 +23,22 @@ const campaignDateFormatter = new Intl.DateTimeFormat('es-AR', {
   day: 'numeric',
 })
 
-function CampaignsPage() {
+export function CampaignsPage() {
   const campaignsTopbarConfig = {
     breadcrumb: [{ icon: Megaphone, label: t`Campañas` }],
   }
   useRouteTopbar(campaignsTopbarConfig)
 
+  const { brandWorkspace } = useBrandSession()
   const campaignsQuery = useCampaignsList()
+  const quotaQuery = useCampaignQuotaQuery(brandWorkspace.id)
   const campaigns = campaignsQuery.data ?? []
+  const campaignQuota =
+    quotaQuery.data?.status === 200 ? quotaQuery.data.data : undefined
+  const isCampaignCreationBlocked =
+    campaignQuota?.can_create_more === false &&
+    !quotaQuery.isLoading &&
+    !quotaQuery.isError
 
   return (
     <div className="p-6">
@@ -31,12 +46,10 @@ function CampaignsPage() {
         <h1 className="text-2xl font-semibold">
           <Trans>Campaigns</Trans>
         </h1>
-        <Button asChild>
-          <Link to="/campaigns/new">
-            <Plus className="size-4" />
-            <Trans>Nueva campaña</Trans>
-          </Link>
-        </Button>
+        <CampaignCreateCta
+          isBlocked={isCampaignCreationBlocked}
+          plan={campaignQuota?.plan}
+        />
       </div>
 
       {campaignsQuery.isLoading ? (
@@ -68,14 +81,59 @@ function CampaignsPage() {
               budget={campaign.budget}
               videos={campaign.videos}
               platforms={campaign.platforms}
-              configurationComplete={campaign.configurationComplete}
-              configurationCurrentStep={campaign.configurationCurrentStep}
             />
           ))}
         </div>
       ) : (
         <CampaignsEmptyState />
       )}
+    </div>
+  )
+}
+
+function CampaignCreateCta({
+  isBlocked,
+  plan,
+}: {
+  isBlocked: boolean
+  plan: string | undefined
+}) {
+  if (!isBlocked) {
+    return (
+      <Button asChild>
+        <Link to="/campaigns/new">
+          <Plus className="size-4" />
+          <Trans>Nueva campaña</Trans>
+        </Link>
+      </Button>
+    )
+  }
+
+  const planName = plan ?? t`plan actual`
+
+  return (
+    <div className="flex items-center gap-2">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <span className="inline-flex" tabIndex={0}>
+            <Button disabled>
+              <Plus className="size-4" />
+              <Trans>Nueva campaña</Trans>
+            </Button>
+          </span>
+        </TooltipTrigger>
+        <TooltipContent className="max-w-xs leading-relaxed">
+          <Trans>
+            Alcanzaste el límite de tu plan ({planName}). Para crear más
+            campañas, revisá los planes en billing.
+          </Trans>
+        </TooltipContent>
+      </Tooltip>
+      <Button asChild variant="outline">
+        <Link to="/billing">
+          <Trans>Ver planes</Trans>
+        </Link>
+      </Button>
     </div>
   )
 }

@@ -31,7 +31,7 @@ import type {
   CampaignOffersResponse,
   ConversationOffersResponse,
   CreateOfferRequest,
-  Error,
+  ErrorResponse,
   GetConversationOffersParams,
   ListCampaignOffersParams,
   MarkPaidOfferRequest,
@@ -62,47 +62,47 @@ export type createOfferResponse201 = {
 }
 
 export type createOfferResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type createOfferResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type createOfferResponse402 = {
-  data: Error
+  data: ErrorResponse
   status: 402
 }
 
 export type createOfferResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type createOfferResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type createOfferResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type createOfferResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type createOfferResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
 export type createOfferResponse502 = {
-  data: Error
+  data: ErrorResponse
   status: 502
 }
 
@@ -138,7 +138,7 @@ export const createOffer = async (createOfferRequest: CreateOfferRequest, option
 
 
 
-export const getCreateOfferMutationOptions = <TError = Error,
+export const getCreateOfferMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createOffer>>, TError,{data: CreateOfferRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createOffer>>, TError,{data: CreateOfferRequest}, TContext> => {
 
@@ -167,9 +167,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CreateOfferMutationResult = NonNullable<Awaited<ReturnType<typeof createOffer>>>
     export type CreateOfferMutationBody = CreateOfferRequest
-    export type CreateOfferMutationError = Error
+    export type CreateOfferMutationError = ErrorResponse
 
-    export const useCreateOffer = <TError = Error,
+    export const useCreateOffer = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createOffer>>, TError,{data: CreateOfferRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createOffer>>,
@@ -185,27 +185,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type getOfferDraftStatusResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getOfferDraftStatusResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getOfferDraftStatusResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getOfferDraftStatusResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getOfferDraftStatusResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -248,7 +248,7 @@ export const getGetOfferDraftStatusQueryKey = (offerDraftId: string,) => {
     }
 
 
-export const getGetOfferDraftStatusQueryOptions = <TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = Error>(offerDraftId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetOfferDraftStatusQueryOptions = <TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = ErrorResponse>(offerDraftId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -267,10 +267,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetOfferDraftStatusQueryResult = NonNullable<Awaited<ReturnType<typeof getOfferDraftStatus>>>
-export type GetOfferDraftStatusQueryError = Error
+export type GetOfferDraftStatusQueryError = ErrorResponse
 
 
-export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = Error>(
+export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = ErrorResponse>(
  offerDraftId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOfferDraftStatus>>,
@@ -280,7 +280,7 @@ export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOffe
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = Error>(
+export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = ErrorResponse>(
  offerDraftId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOfferDraftStatus>>,
@@ -290,12 +290,12 @@ export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOffe
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = Error>(
+export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = ErrorResponse>(
  offerDraftId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = Error>(
+export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOfferDraftStatus>>, TError = ErrorResponse>(
  offerDraftId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOfferDraftStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -318,22 +318,22 @@ export type getOfferResponse200 = {
 }
 
 export type getOfferResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getOfferResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getOfferResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getOfferResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -376,7 +376,7 @@ export const getGetOfferQueryKey = (id: string,) => {
     }
 
 
-export const getGetOfferQueryOptions = <TData = Awaited<ReturnType<typeof getOffer>>, TError = Error>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetOfferQueryOptions = <TData = Awaited<ReturnType<typeof getOffer>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -395,10 +395,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetOfferQueryResult = NonNullable<Awaited<ReturnType<typeof getOffer>>>
-export type GetOfferQueryError = Error
+export type GetOfferQueryError = ErrorResponse
 
 
-export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = Error>(
+export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = ErrorResponse>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOffer>>,
@@ -408,7 +408,7 @@ export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = Error>(
+export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOffer>>,
@@ -418,12 +418,12 @@ export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = Error>(
+export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = Error>(
+export function useGetOffer<TData = Awaited<ReturnType<typeof getOffer>>, TError = ErrorResponse>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOffer>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -446,7 +446,7 @@ export type acceptOfferResponse200 = {
 }
 
 export type acceptOfferResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
@@ -456,22 +456,22 @@ export type acceptOfferResponse402 = {
 }
 
 export type acceptOfferResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type acceptOfferResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type acceptOfferResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type acceptOfferResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -506,7 +506,7 @@ export const acceptOffer = async (id: string, options?: RequestInit): Promise<ac
 
 
 
-export const getAcceptOfferMutationOptions = <TError = Error | AcceptOffer402,
+export const getAcceptOfferMutationOptions = <TError = ErrorResponse | AcceptOffer402,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptOffer>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof acceptOffer>>, TError,{id: string}, TContext> => {
 
@@ -535,9 +535,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AcceptOfferMutationResult = NonNullable<Awaited<ReturnType<typeof acceptOffer>>>
 
-    export type AcceptOfferMutationError = Error | AcceptOffer402
+    export type AcceptOfferMutationError = ErrorResponse | AcceptOffer402
 
-    export const useAcceptOffer = <TError = Error | AcceptOffer402,
+    export const useAcceptOffer = <TError = ErrorResponse | AcceptOffer402,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptOffer>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof acceptOffer>>,
@@ -553,32 +553,32 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type rejectOfferResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type rejectOfferResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type rejectOfferResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type rejectOfferResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type rejectOfferResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type rejectOfferResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -615,7 +615,7 @@ export const rejectOffer = async (id: string,
 
 
 
-export const getRejectOfferMutationOptions = <TError = Error,
+export const getRejectOfferMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectOffer>>, TError,{id: string;data: RejectOfferBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof rejectOffer>>, TError,{id: string;data: RejectOfferBody}, TContext> => {
 
@@ -644,9 +644,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RejectOfferMutationResult = NonNullable<Awaited<ReturnType<typeof rejectOffer>>>
     export type RejectOfferMutationBody = RejectOfferBody
-    export type RejectOfferMutationError = Error
+    export type RejectOfferMutationError = ErrorResponse
 
-    export const useRejectOffer = <TError = Error,
+    export const useRejectOffer = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectOffer>>, TError,{id: string;data: RejectOfferBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof rejectOffer>>,
@@ -662,37 +662,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type cancelOfferResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type cancelOfferResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type cancelOfferResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type cancelOfferResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type cancelOfferResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type cancelOfferResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type cancelOfferResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -727,7 +727,7 @@ export const cancelOffer = async (id: string, options?: RequestInit): Promise<ca
 
 
 
-export const getCancelOfferMutationOptions = <TError = Error,
+export const getCancelOfferMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelOffer>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof cancelOffer>>, TError,{id: string}, TContext> => {
 
@@ -756,9 +756,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CancelOfferMutationResult = NonNullable<Awaited<ReturnType<typeof cancelOffer>>>
 
-    export type CancelOfferMutationError = Error
+    export type CancelOfferMutationError = ErrorResponse
 
-    export const useCancelOffer = <TError = Error,
+    export const useCancelOffer = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelOffer>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof cancelOffer>>,
@@ -774,37 +774,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type markOfferPaidResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type markOfferPaidResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type markOfferPaidResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type markOfferPaidResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type markOfferPaidResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type markOfferPaidResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type markOfferPaidResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -841,7 +841,7 @@ export const markOfferPaid = async (id: string,
 
 
 
-export const getMarkOfferPaidMutationOptions = <TError = Error,
+export const getMarkOfferPaidMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markOfferPaid>>, TError,{id: string;data: MarkPaidOfferRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof markOfferPaid>>, TError,{id: string;data: MarkPaidOfferRequest}, TContext> => {
 
@@ -870,9 +870,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type MarkOfferPaidMutationResult = NonNullable<Awaited<ReturnType<typeof markOfferPaid>>>
     export type MarkOfferPaidMutationBody = MarkPaidOfferRequest
-    export type MarkOfferPaidMutationError = Error
+    export type MarkOfferPaidMutationError = ErrorResponse
 
-    export const useMarkOfferPaid = <TError = Error,
+    export const useMarkOfferPaid = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markOfferPaid>>, TError,{id: string;data: MarkPaidOfferRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof markOfferPaid>>,
@@ -888,27 +888,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type listCampaignOffersResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listCampaignOffersResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listCampaignOffersResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listCampaignOffersResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listCampaignOffersResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -961,7 +961,7 @@ export const getListCampaignOffersQueryKey = (id: string,
     }
 
 
-export const getListCampaignOffersQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = Error>(id: string,
+export const getListCampaignOffersQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = ErrorResponse>(id: string,
     params?: ListCampaignOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -981,10 +981,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListCampaignOffersQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignOffers>>>
-export type ListCampaignOffersQueryError = Error
+export type ListCampaignOffersQueryError = ErrorResponse
 
 
-export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = Error>(
+export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = ErrorResponse>(
  id: string,
     params: undefined |  ListCampaignOffersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignOffers>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -995,7 +995,7 @@ export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCamp
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = Error>(
+export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = ErrorResponse>(
  id: string,
     params?: ListCampaignOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignOffers>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -1006,13 +1006,13 @@ export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCamp
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = Error>(
+export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = ErrorResponse>(
  id: string,
     params?: ListCampaignOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = Error>(
+export function useListCampaignOffers<TData = Awaited<ReturnType<typeof listCampaignOffers>>, TError = ErrorResponse>(
  id: string,
     params?: ListCampaignOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -1036,27 +1036,27 @@ export type getConversationOffersResponse200 = {
 }
 
 export type getConversationOffersResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getConversationOffersResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getConversationOffersResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getConversationOffersResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type getConversationOffersResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -1109,7 +1109,7 @@ export const getGetConversationOffersQueryKey = (conversationId: string,
     }
 
 
-export const getGetConversationOffersQueryOptions = <TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = Error>(conversationId: string,
+export const getGetConversationOffersQueryOptions = <TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = ErrorResponse>(conversationId: string,
     params?: GetConversationOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -1129,10 +1129,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetConversationOffersQueryResult = NonNullable<Awaited<ReturnType<typeof getConversationOffers>>>
-export type GetConversationOffersQueryError = Error
+export type GetConversationOffersQueryError = ErrorResponse
 
 
-export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = Error>(
+export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = ErrorResponse>(
  conversationId: string,
     params: undefined |  GetConversationOffersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationOffers>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -1143,7 +1143,7 @@ export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getCo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = Error>(
+export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = ErrorResponse>(
  conversationId: string,
     params?: GetConversationOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationOffers>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -1154,13 +1154,13 @@ export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getCo
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = Error>(
+export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = ErrorResponse>(
  conversationId: string,
     params?: GetConversationOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = Error>(
+export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getConversationOffers>>, TError = ErrorResponse>(
  conversationId: string,
     params?: GetConversationOffersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversationOffers>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient

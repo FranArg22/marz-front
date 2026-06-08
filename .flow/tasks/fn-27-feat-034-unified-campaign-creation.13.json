@@ -1,0 +1,23 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-05T08:22:38.828684Z",
+  "depends_on": [
+    "fn-27-feat-034-unified-campaign-creation.3",
+    "fn-27-feat-034-unified-campaign-creation.4",
+    "fn-27-feat-034-unified-campaign-creation.5",
+    "fn-27-feat-034-unified-campaign-creation.6",
+    "fn-27-feat-034-unified-campaign-creation.7",
+    "fn-27-feat-034-unified-campaign-creation.8",
+    "fn-27-feat-034-unified-campaign-creation.9",
+    "fn-27-feat-034-unified-campaign-creation.10"
+  ],
+  "epic": "fn-27-feat-034-unified-campaign-creation",
+  "id": "fn-27-feat-034-unified-campaign-creation.13",
+  "priority": 13,
+  "spec_path": ".flow/tasks/fn-27-feat-034-unified-campaign-creation.13.md",
+  "status": "todo",
+  "title": "F.13 \u2014 Analytics client track() + integraci\u00f3n en wizard",
+  "updated_at": "2026-06-05T08:22:38.828704Z"
+}

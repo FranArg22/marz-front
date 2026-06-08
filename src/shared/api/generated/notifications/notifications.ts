@@ -27,7 +27,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  Error,
+  ErrorResponse,
   InboxResponse,
   ListInboxParams,
   MarkInboxItemReadRequest,
@@ -49,27 +49,27 @@ export type listInboxResponse200 = {
 }
 
 export type listInboxResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listInboxResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listInboxResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listInboxResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listInboxResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -119,7 +119,7 @@ export const getListInboxQueryKey = (params?: ListInboxParams,) => {
     }
 
 
-export const getListInboxQueryOptions = <TData = Awaited<ReturnType<typeof listInbox>>, TError = Error>(params?: ListInboxParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListInboxQueryOptions = <TData = Awaited<ReturnType<typeof listInbox>>, TError = ErrorResponse>(params?: ListInboxParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -138,10 +138,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListInboxQueryResult = NonNullable<Awaited<ReturnType<typeof listInbox>>>
-export type ListInboxQueryError = Error
+export type ListInboxQueryError = ErrorResponse
 
 
-export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = Error>(
+export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = ErrorResponse>(
  params: undefined |  ListInboxParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listInbox>>,
@@ -151,7 +151,7 @@ export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = Error>(
+export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = ErrorResponse>(
  params?: ListInboxParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listInbox>>,
@@ -161,12 +161,12 @@ export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = Error>(
+export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = ErrorResponse>(
  params?: ListInboxParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = Error>(
+export function useListInbox<TData = Awaited<ReturnType<typeof listInbox>>, TError = ErrorResponse>(
  params?: ListInboxParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listInbox>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -189,37 +189,37 @@ export type markInboxReadResponse200 = {
 }
 
 export type markInboxReadResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type markInboxReadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type markInboxReadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type markInboxReadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type markInboxReadResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type markInboxReadResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type markInboxReadResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -255,7 +255,7 @@ export const markInboxRead = async (markInboxReadRequest?: MarkInboxReadRequest,
 
 
 
-export const getMarkInboxReadMutationOptions = <TError = Error,
+export const getMarkInboxReadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markInboxRead>>, TError,{data: MarkInboxReadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof markInboxRead>>, TError,{data: MarkInboxReadRequest}, TContext> => {
 
@@ -284,9 +284,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type MarkInboxReadMutationResult = NonNullable<Awaited<ReturnType<typeof markInboxRead>>>
     export type MarkInboxReadMutationBody = MarkInboxReadRequest
-    export type MarkInboxReadMutationError = Error
+    export type MarkInboxReadMutationError = ErrorResponse
 
-    export const useMarkInboxRead = <TError = Error,
+    export const useMarkInboxRead = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markInboxRead>>, TError,{data: MarkInboxReadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof markInboxRead>>,
@@ -302,37 +302,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type markInboxItemReadResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type markInboxItemReadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type markInboxItemReadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type markInboxItemReadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type markInboxItemReadResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type markInboxItemReadResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type markInboxItemReadResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -369,7 +369,7 @@ export const markInboxItemRead = async (itemId: string,
 
 
 
-export const getMarkInboxItemReadMutationOptions = <TError = Error,
+export const getMarkInboxItemReadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markInboxItemRead>>, TError,{itemId: string;data: MarkInboxItemReadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof markInboxItemRead>>, TError,{itemId: string;data: MarkInboxItemReadRequest}, TContext> => {
 
@@ -398,9 +398,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type MarkInboxItemReadMutationResult = NonNullable<Awaited<ReturnType<typeof markInboxItemRead>>>
     export type MarkInboxItemReadMutationBody = MarkInboxItemReadRequest
-    export type MarkInboxItemReadMutationError = Error
+    export type MarkInboxItemReadMutationError = ErrorResponse
 
-    export const useMarkInboxItemRead = <TError = Error,
+    export const useMarkInboxItemRead = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markInboxItemRead>>, TError,{itemId: string;data: MarkInboxItemReadRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof markInboxItemRead>>,

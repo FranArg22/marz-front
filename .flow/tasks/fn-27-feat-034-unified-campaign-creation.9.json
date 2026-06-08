@@ -1,0 +1,21 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-05T08:22:29.683474Z",
+  "depends_on": [
+    "fn-27-feat-034-unified-campaign-creation.3",
+    "fn-27-feat-034-unified-campaign-creation.4",
+    "fn-27-feat-034-unified-campaign-creation.5",
+    "fn-27-feat-034-unified-campaign-creation.6",
+    "fn-27-feat-034-unified-campaign-creation.7",
+    "fn-27-feat-034-unified-campaign-creation.8"
+  ],
+  "epic": "fn-27-feat-034-unified-campaign-creation",
+  "id": "fn-27-feat-034-unified-campaign-creation.9",
+  "priority": 9,
+  "spec_path": ".flow/tasks/fn-27-feat-034-unified-campaign-creation.9.md",
+  "status": "todo",
+  "title": "F.9 \u2014 Paso 7: Review + submit (POST /campaigns + errores tipados)",
+  "updated_at": "2026-06-05T08:22:29.683496Z"
+}

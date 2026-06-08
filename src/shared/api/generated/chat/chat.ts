@@ -29,7 +29,7 @@ import type {
 import type {
   ConversationDetail,
   ConversationListResponse,
-  Error,
+  ErrorResponse,
   ListConversationsParams,
   ListMessagesParams,
   MarkReadResponse,
@@ -51,27 +51,27 @@ export type listConversationsResponse200 = {
 }
 
 export type listConversationsResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listConversationsResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listConversationsResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type listConversationsResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listConversationsResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -121,7 +121,7 @@ export const getListConversationsQueryKey = (params?: ListConversationsParams,) 
     }
 
 
-export const getListConversationsQueryOptions = <TData = Awaited<ReturnType<typeof listConversations>>, TError = Error>(params?: ListConversationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListConversationsQueryOptions = <TData = Awaited<ReturnType<typeof listConversations>>, TError = ErrorResponse>(params?: ListConversationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -140,10 +140,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListConversationsQueryResult = NonNullable<Awaited<ReturnType<typeof listConversations>>>
-export type ListConversationsQueryError = Error
+export type ListConversationsQueryError = ErrorResponse
 
 
-export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = Error>(
+export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = ErrorResponse>(
  params: undefined |  ListConversationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listConversations>>,
@@ -153,7 +153,7 @@ export function useListConversations<TData = Awaited<ReturnType<typeof listConve
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = Error>(
+export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = ErrorResponse>(
  params?: ListConversationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listConversations>>,
@@ -163,12 +163,12 @@ export function useListConversations<TData = Awaited<ReturnType<typeof listConve
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = Error>(
+export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = ErrorResponse>(
  params?: ListConversationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = Error>(
+export function useListConversations<TData = Awaited<ReturnType<typeof listConversations>>, TError = ErrorResponse>(
  params?: ListConversationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listConversations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -191,22 +191,22 @@ export type getConversationResponse200 = {
 }
 
 export type getConversationResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type getConversationResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type getConversationResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type getConversationResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -249,7 +249,7 @@ export const getGetConversationQueryKey = (conversationId: string,) => {
     }
 
 
-export const getGetConversationQueryOptions = <TData = Awaited<ReturnType<typeof getConversation>>, TError = Error>(conversationId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getGetConversationQueryOptions = <TData = Awaited<ReturnType<typeof getConversation>>, TError = ErrorResponse>(conversationId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -268,10 +268,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetConversationQueryResult = NonNullable<Awaited<ReturnType<typeof getConversation>>>
-export type GetConversationQueryError = Error
+export type GetConversationQueryError = ErrorResponse
 
 
-export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = Error>(
+export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = ErrorResponse>(
  conversationId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getConversation>>,
@@ -281,7 +281,7 @@ export function useGetConversation<TData = Awaited<ReturnType<typeof getConversa
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = Error>(
+export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = ErrorResponse>(
  conversationId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getConversation>>,
@@ -291,12 +291,12 @@ export function useGetConversation<TData = Awaited<ReturnType<typeof getConversa
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = Error>(
+export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = ErrorResponse>(
  conversationId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = Error>(
+export function useGetConversation<TData = Awaited<ReturnType<typeof getConversation>>, TError = ErrorResponse>(
  conversationId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConversation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -319,37 +319,37 @@ export type sendMessageResponse201 = {
 }
 
 export type sendMessageResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type sendMessageResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type sendMessageResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type sendMessageResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type sendMessageResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type sendMessageResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type sendMessageResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -386,7 +386,7 @@ export const sendMessage = async (conversationId: string,
 
 
 
-export const getSendMessageMutationOptions = <TError = Error,
+export const getSendMessageMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sendMessage>>, TError,{conversationId: string;data: MessageSendRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof sendMessage>>, TError,{conversationId: string;data: MessageSendRequest}, TContext> => {
 
@@ -415,9 +415,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SendMessageMutationResult = NonNullable<Awaited<ReturnType<typeof sendMessage>>>
     export type SendMessageMutationBody = MessageSendRequest
-    export type SendMessageMutationError = Error
+    export type SendMessageMutationError = ErrorResponse
 
-    export const useSendMessage = <TError = Error,
+    export const useSendMessage = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sendMessage>>, TError,{conversationId: string;data: MessageSendRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof sendMessage>>,
@@ -433,27 +433,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type listMessagesResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type listMessagesResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type listMessagesResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type listMessagesResponse422 = {
-  data: Error
+  data: ErrorResponse
   status: 422
 }
 
 export type listMessagesResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -506,7 +506,7 @@ export const getListMessagesQueryKey = (conversationId: string,
     }
 
 
-export const getListMessagesQueryOptions = <TData = Awaited<ReturnType<typeof listMessages>>, TError = Error>(conversationId: string,
+export const getListMessagesQueryOptions = <TData = Awaited<ReturnType<typeof listMessages>>, TError = ErrorResponse>(conversationId: string,
     params?: ListMessagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listMessages>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
@@ -526,10 +526,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListMessagesQueryResult = NonNullable<Awaited<ReturnType<typeof listMessages>>>
-export type ListMessagesQueryError = Error
+export type ListMessagesQueryError = ErrorResponse
 
 
-export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = Error>(
+export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = ErrorResponse>(
  conversationId: string,
     params: undefined |  ListMessagesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listMessages>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -540,7 +540,7 @@ export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = Error>(
+export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = ErrorResponse>(
  conversationId: string,
     params?: ListMessagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listMessages>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -551,13 +551,13 @@ export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = Error>(
+export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = ErrorResponse>(
  conversationId: string,
     params?: ListMessagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listMessages>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = Error>(
+export function useListMessages<TData = Awaited<ReturnType<typeof listMessages>>, TError = ErrorResponse>(
  conversationId: string,
     params?: ListMessagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listMessages>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -581,22 +581,22 @@ export type markReadResponse200 = {
 }
 
 export type markReadResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type markReadResponse403 = {
-  data: Error
+  data: ErrorResponse
   status: 403
 }
 
 export type markReadResponse404 = {
-  data: Error
+  data: ErrorResponse
   status: 404
 }
 
 export type markReadResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -631,7 +631,7 @@ export const markRead = async (conversationId: string, options?: RequestInit): P
 
 
 
-export const getMarkReadMutationOptions = <TError = Error,
+export const getMarkReadMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markRead>>, TError,{conversationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof markRead>>, TError,{conversationId: string}, TContext> => {
 
@@ -660,9 +660,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type MarkReadMutationResult = NonNullable<Awaited<ReturnType<typeof markRead>>>
 
-    export type MarkReadMutationError = Error
+    export type MarkReadMutationError = ErrorResponse
 
-    export const useMarkRead = <TError = Error,
+    export const useMarkRead = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof markRead>>, TError,{conversationId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof markRead>>,

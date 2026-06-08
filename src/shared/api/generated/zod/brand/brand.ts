@@ -97,6 +97,40 @@ export const GetBrandWorkspacePaymentsSpendingResponse = zod.object({
 })
 })
 
+export const GetCampaignQuotaParams = zod.object({
+  "brand_workspace_id": zod.uuid()
+})
+
+export const GetCampaignQuotaResponse = zod.object({
+  "plan": zod.string(),
+  "subscription_status": zod.string(),
+  "max_active_campaigns": zod.number(),
+  "current_active_count": zod.number(),
+  "can_create_more": zod.boolean(),
+  "publish_to_board": zod.boolean()
+})
+
+
+
+export const getDiscoveryCreatorCountQueryCountryMin = 2;
+export const getDiscoveryCreatorCountQueryCountryMax = 2;
+
+
+
+
+export const GetDiscoveryCreatorCountQueryParams = zod.object({
+  "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).min(1).describe('Creator platforms. Repeated values and comma-separated values are accepted by the API.'),
+  "interests": zod.array(zod.string()).min(1).describe('Creator interests. Repeated values and comma-separated values are accepted by the API.'),
+  "country": zod.string().min(getDiscoveryCreatorCountQueryCountryMin).max(getDiscoveryCreatorCountQueryCountryMax),
+  "min_creator_tier_slug": zod.string().min(1)
+})
+
+export const GetDiscoveryCreatorCountResponse = zod.object({
+  "count": zod.number().nullable(),
+  "available": zod.boolean(),
+  "computed_at": zod.iso.datetime({})
+})
+
 export const ExportBrandWorkspacePaymentsSpendingCSVParams = zod.object({
   "brand_workspace_id": zod.uuid()
 })

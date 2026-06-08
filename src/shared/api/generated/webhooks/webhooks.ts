@@ -20,7 +20,7 @@ import type {
 import type {
   ClerkWebhook200,
   ClerkWebhookBody,
-  Error,
+  ErrorResponse,
   SESWebhookResponse,
   SNSSignedWebhookRequest
 } from '../model';
@@ -38,22 +38,22 @@ export type clerkWebhookResponse200 = {
 }
 
 export type clerkWebhookResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type clerkWebhookResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type clerkWebhookResponse429 = {
-  data: Error
+  data: ErrorResponse
   status: 429
 }
 
 export type clerkWebhookResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -89,7 +89,7 @@ export const clerkWebhook = async (clerkWebhookBody: ClerkWebhookBody, options?:
 
 
 
-export const getClerkWebhookMutationOptions = <TError = Error,
+export const getClerkWebhookMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clerkWebhook>>, TError,{data: ClerkWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof clerkWebhook>>, TError,{data: ClerkWebhookBody}, TContext> => {
 
@@ -118,9 +118,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ClerkWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof clerkWebhook>>>
     export type ClerkWebhookMutationBody = ClerkWebhookBody
-    export type ClerkWebhookMutationError = Error
+    export type ClerkWebhookMutationError = ErrorResponse
 
-    export const useClerkWebhook = <TError = Error,
+    export const useClerkWebhook = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clerkWebhook>>, TError,{data: ClerkWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof clerkWebhook>>,
@@ -136,22 +136,22 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 }
 
 export type sesWebhookResponse400 = {
-  data: Error
+  data: ErrorResponse
   status: 400
 }
 
 export type sesWebhookResponse401 = {
-  data: Error
+  data: ErrorResponse
   status: 401
 }
 
 export type sesWebhookResponse409 = {
-  data: Error
+  data: ErrorResponse
   status: 409
 }
 
 export type sesWebhookResponse500 = {
-  data: Error
+  data: ErrorResponse
   status: 500
 }
 
@@ -187,7 +187,7 @@ export const sesWebhook = async (sNSSignedWebhookRequest: SNSSignedWebhookReques
 
 
 
-export const getSesWebhookMutationOptions = <TError = Error,
+export const getSesWebhookMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sesWebhook>>, TError,{data: SNSSignedWebhookRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof sesWebhook>>, TError,{data: SNSSignedWebhookRequest}, TContext> => {
 
@@ -216,9 +216,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SesWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof sesWebhook>>>
     export type SesWebhookMutationBody = SNSSignedWebhookRequest
-    export type SesWebhookMutationError = Error
+    export type SesWebhookMutationError = ErrorResponse
 
-    export const useSesWebhook = <TError = Error,
+    export const useSesWebhook = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sesWebhook>>, TError,{data: SNSSignedWebhookRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof sesWebhook>>,
