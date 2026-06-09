@@ -188,8 +188,7 @@ El botón va en la sección superior de la página (junto a los filtros o el enc
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.11; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
