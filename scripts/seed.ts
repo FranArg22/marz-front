@@ -35,10 +35,9 @@ import {
   ensureUser,
   loadEnvLocal,
   openSignedInBrowser,
-  readEnv
-  
+  readEnv,
 } from './lib/test-user.ts'
-import type {EnsuredUser} from './lib/test-user.ts';
+import type { EnsuredUser } from './lib/test-user.ts'
 
 loadEnvLocal(resolve(import.meta.dirname, '..'))
 
@@ -185,6 +184,28 @@ if (brand && plan !== 'free' && brandWorkspaceId) {
   )
 } else if (brand && plan !== 'free' && !brandWorkspaceId) {
   console.warn(`   WARN: salteo el plan "${plan}" — falta brand_workspace_id.`)
+}
+
+// Una campaña activa para la brand: sin campaña no se puede mandar oferta en el
+// chat (el flujo discovery invite->accept abre conversación pero no crea campaña).
+if (brand && brandWorkspaceId) {
+  console.log('2b. Crear campaña activa para la brand...')
+  const camp = await back<{ campaign_id: string; status: string }>(
+    env,
+    '/v1/test/campaigns/campaigns/upsert',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        brand_workspace_id: brandWorkspaceId,
+        campaign_key: `seed-${seedRunId}`,
+        name: 'Campaña Demo Seed',
+        status: 'active',
+        content_type: 'ugc_videos',
+        target_platforms: ['instagram', 'tiktok'],
+      }),
+    },
+  )
+  console.log(`   campaign_id: ${camp.campaign_id} (${camp.status})`)
 }
 
 if (creator && wantDiscoverable) {
