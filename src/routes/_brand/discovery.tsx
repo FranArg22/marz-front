@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
-import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
+import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
 import {
@@ -89,7 +90,9 @@ function DiscoveryRoute() {
           {t`Filtros`}
         </Button>
       </div>
-      {/* Chips placeholder - implementado en task .5 */}
+      <DiscoveryFilterChips
+        onOpenFilterPanel={() => setFilterPanelOpen(true)}
+      />
       <DiscoveryGrid
         params={{ ...appliedFilters, sort: activeSort }}
         renderCard={(card) => (

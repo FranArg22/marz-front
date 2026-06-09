@@ -84,8 +84,7 @@ En `src/routes/_brand/discovery.tsx`, montar `<DiscoveryFilterChips onOpenFilter
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

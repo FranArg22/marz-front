@@ -35,7 +35,33 @@ export const useDiscoveryFiltersStore = create<DiscoveryFiltersStore>()(
 )
 
 export function countActiveFilters(filters: DiscoveryFilters): number {
-  return Object.values(filters).filter(
-    (value) => !Array.isArray(value) || value.length > 0,
-  ).length
+  let count = 0
+
+  if (filters.platforms?.length) count += 1
+  if (filters.gender) count += 1
+  if (filters.countries?.length) count += 1
+  if (filters.age_buckets?.length) count += 1
+  if (filters.interests?.length) count += 1
+  if (filters.content_types?.length) count += 1
+  if (
+    filters.followers_min !== undefined ||
+    filters.followers_max !== undefined
+  )
+    count += 1
+  if (filters.engagement_rate_min !== undefined) count += 1
+  if (
+    filters.avg_views_min !== undefined ||
+    filters.avg_views_max !== undefined
+  )
+    count += 1
+  if (hasStringValue(filters.cpm_min) || hasStringValue(filters.cpm_max))
+    count += 1
+  if (hasStringValue(filters.price_min) || hasStringValue(filters.price_max))
+    count += 1
+
+  return count
+}
+
+function hasStringValue(value: string | undefined): boolean {
+  return value !== undefined && value !== ''
 }
