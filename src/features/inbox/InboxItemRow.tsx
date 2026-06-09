@@ -19,6 +19,7 @@ import {
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
 import { InboxDraftReviewPopover } from './InboxDraftReviewPopover'
+import { ConnectionRequestInboxItem } from './ConnectionRequestInboxItem'
 
 import type { InboxItem, InboxResponse } from './api/inbox'
 import { isKnownRouterHref } from './routerHref'
@@ -40,6 +41,8 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
   const counterpartName = item.counterpart?.display_name ?? item.meta.primary
   const avatarUrl = item.counterpart?.avatar_url
   const isWaiting = item.section === 'waiting'
+  const isConnectionRequest =
+    String(item.kind) === 'connection_request_received'
   const markRead = useMarkInboxItemReadMutation()
   const analyticsPayload = createInboxItemAnalyticsPayload({
     accountKind,
@@ -113,6 +116,10 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
         },
       },
     )
+  }
+
+  if (isConnectionRequest) {
+    return <ConnectionRequestInboxItem accountKind={accountKind} item={item} />
   }
 
   return (

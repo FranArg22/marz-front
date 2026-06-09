@@ -186,8 +186,7 @@ export function ConnectionRequestInboxItem({ item }: ConnectionRequestInboxItemP
 - [ ] Los otros kinds de inbox siguen funcionando sin cambios.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.10; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
