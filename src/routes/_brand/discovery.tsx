@@ -1,8 +1,11 @@
 import { t } from '@lingui/core/macro'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Compass } from 'lucide-react'
-import { createFileRoute } from '@tanstack/react-router'
+import { useEffect } from 'react'
 import { z } from 'zod'
 
+import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
 import {
   GetDiscoveryCreatorsAgeBucketsItem,
@@ -42,6 +45,24 @@ export const Route = createFileRoute('/_brand/discovery')({
 
 function DiscoveryRoute() {
   useRouteTopbar({ breadcrumb: [{ icon: Compass, label: t`Discovery` }] })
+  const search = Route.useSearch()
+  const navigate = useNavigate({ from: '/discovery' })
+  const { appliedFilters, activeSort } = useDiscoveryFiltersStore()
+
+  useEffect(() => {
+    const { sort, ...filters } = search
+    useDiscoveryFiltersStore.setState({
+      appliedFilters: filters,
+      activeSort: sort ?? 'recommended',
+    })
+  }, [])
+
+  useEffect(() => {
+    void navigate({
+      search: () => ({ ...appliedFilters, sort: activeSort }),
+      replace: true,
+    })
+  }, [appliedFilters, activeSort, navigate])
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden p-6">
@@ -54,8 +75,12 @@ function DiscoveryRoute() {
         </h2>
       </div>
       {/* Chips placeholder - implementado en task .5 */}
-      {/* Grid placeholder - implementado en task .3 */}
-      <div className="flex-1 rounded-2xl border border-dashed border-border bg-card" />
+      <DiscoveryGrid
+        params={{ ...appliedFilters, sort: activeSort }}
+        renderCard={(card) => (
+          <div key={card.account_id}>{card.display_name}</div>
+        )}
+      />
     </div>
   )
 }

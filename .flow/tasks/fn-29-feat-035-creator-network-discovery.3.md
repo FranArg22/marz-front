@@ -201,8 +201,7 @@ Nota: El `useEffect` de sync URL → store al montar usa el array vacío `[]` in
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
