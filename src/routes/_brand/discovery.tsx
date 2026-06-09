@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
+import { CreatorCard } from '#/features/discovery/network/components/CreatorCard'
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import type { DiscoveryCreatorCard } from '#/shared/api/generated/model'
 import {
   GetDiscoveryCreatorsAgeBucketsItem,
   GetDiscoveryCreatorsCreatorType,
@@ -56,7 +58,14 @@ function DiscoveryRoute() {
   const search = Route.useSearch()
   const navigate = useNavigate({ from: '/discovery' })
   const [filterPanelOpen, setFilterPanelOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState<DiscoveryCreatorCard | null>(
+    null,
+  )
+  const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const { appliedFilters, activeSort } = useDiscoveryFiltersStore()
+
+  void selectedCard
+  void inviteModalOpen
 
   useEffect(() => {
     const { sort, ...filters } = search
@@ -96,7 +105,13 @@ function DiscoveryRoute() {
       <DiscoveryGrid
         params={{ ...appliedFilters, sort: activeSort }}
         renderCard={(card) => (
-          <div key={card.account_id}>{card.display_name}</div>
+          <CreatorCard
+            card={card}
+            onInvite={(card) => {
+              setSelectedCard(card)
+              setInviteModalOpen(true)
+            }}
+          />
         )}
       />
       <DiscoveryFilterPanel

@@ -290,8 +290,7 @@ Agregar estado local `selectedCard` y `inviteModalOpen` (se usan en task .7).
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
