@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro'
-import { Mail, Users } from 'lucide-react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Compass, Mail, Users } from 'lucide-react'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useCallback, useMemo, useState } from 'react'
 import { z } from 'zod'
 
@@ -92,8 +92,8 @@ function BrandCreatorsRoute() {
   )
 
   const clearFilters = useCallback(() => updateFilters({}), [updateFilters])
-  const goToCampaigns = useCallback(() => {
-    void navigate({ to: '/campaigns' })
+  const goToDiscovery = useCallback(() => {
+    void navigate({ to: '/discovery' })
   }, [navigate])
 
   const activeFilters = hasActiveFilters(filters)
@@ -116,23 +116,31 @@ function BrandCreatorsRoute() {
             {t`All creators across your campaigns`}
           </h2>
         </div>
-        {allowsEmailInvites ? (
-          <>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setEmailInviteOpen(true)}
-            >
-              <Mail className="size-4" aria-hidden />
-              {t`Invitar por email`}
-            </Button>
-            <EmailInviteModal
-              open={emailInviteOpen}
-              onOpenChange={setEmailInviteOpen}
-            />
-          </>
-        ) : null}
+        <div className="flex flex-wrap items-center gap-2">
+          <Button type="button" variant="outline" size="sm" asChild>
+            <Link to="/discovery">
+              <Compass className="size-4" aria-hidden />
+              {t`Descubrir creators`}
+            </Link>
+          </Button>
+          {allowsEmailInvites ? (
+            <>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setEmailInviteOpen(true)}
+              >
+                <Mail className="size-4" aria-hidden />
+                {t`Invitar por email`}
+              </Button>
+              <EmailInviteModal
+                open={emailInviteOpen}
+                onOpenChange={setEmailInviteOpen}
+              />
+            </>
+          ) : null}
+        </div>
       </div>
 
       <CreatorsFilters params={filters} onParamsChange={updateFilters} />
@@ -143,7 +151,7 @@ function BrandCreatorsRoute() {
         onParamsChange={updateTableParams}
         hasActiveFilters={activeFilters}
         onClearFilters={clearFilters}
-        onFindCreators={goToCampaigns}
+        onFindCreators={goToDiscovery}
       />
     </section>
   )

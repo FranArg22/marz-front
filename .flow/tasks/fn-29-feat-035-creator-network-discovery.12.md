@@ -57,8 +57,7 @@ Verificar que el ícono `Compass` esté disponible en Lucide (ya se usa en `navi
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.12; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
