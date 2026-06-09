@@ -106,11 +106,16 @@ function DiscoveryRoute() {
     })
   }, [appliedFilters, activeSort, navigate])
 
+  // El backend omite plan_capabilities para brands sin plan pago (aunque el
+  // contrato lo marque required); al venir de brand_workspace?. queda
+  // posiblemente undefined, así el acceso defensivo no es redundante.
+  const planCapabilities =
+    meQuery.data?.status === 200
+      ? meQuery.data.data.brand_workspace?.plan_capabilities
+      : undefined
   const allowsDiscovery =
     meQuery.data?.status === 200
-      ? Boolean(
-          meQuery.data.data.brand_workspace?.plan_capabilities.allows_discovery,
-        )
+      ? Boolean(planCapabilities?.allows_discovery)
       : true
 
   if (meQuery.isPending) {
