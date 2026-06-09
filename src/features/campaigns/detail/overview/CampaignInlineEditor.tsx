@@ -82,21 +82,16 @@ export function CampaignInlineEditor({
   }, [campaign])
 
   const saveField = async (field: EditableField, value: unknown) => {
-    const version = currentCampaign.version
-    if (typeof version !== 'number') {
-      setBanner({
-        kind: 'error',
-        message: t`No pudimos guardar porque falta la versión actual de la campaña.`,
-      })
-      return false
-    }
-
     setBanner(null)
+    // version proviene del PATCH response después del primer guardado.
+    const version = currentCampaign.version
+    const ifMatch = typeof version === 'number' ? String(version) : '*'
+
     const response = await updateCampaign
       .mutateAsync({
         campaignId,
         data: { [field]: value } as UpdateCampaignRequest,
-        ifMatch: String(version),
+        ifMatch,
       })
       .catch((error: unknown) => {
         setBanner(buildBannerFromError(error))

@@ -9,7 +9,6 @@ type CampaignDetail = ReturnType<typeof makeCampaignDetail>
 function makeCampaignDetail(
   overrides: Partial<{
     name: string
-    version: number
     image_s3_key: string
   }> = {},
 ) {
@@ -20,7 +19,6 @@ function makeCampaignDetail(
     name: overrides.name ?? 'Campaña inline original',
     objective: 'Brand awareness',
     status: 'active',
-    version: overrides.version ?? 7,
     budget: { amount: '42000', currency: 'USD' },
     deadline: '2026-06-30T00:00:00Z',
     platforms: ['instagram'],
@@ -54,6 +52,38 @@ function makeCampaignDetail(
       overrides.image_s3_key ?? 'tmp/campaigns/e2e/original-image.png',
     content_type: 'ugc_videos',
     pricing_model: 'pay_per_post',
+    interests: ['beauty'],
+    creator_country: 'AR',
+    min_creator_tier_slug: 'micro',
+    compensation_type: 'payment',
+    compensation_notes: 'Notas de compensación',
+    video_reuse_permission_default: true,
+    content_guidelines: 'Guidelines originales para creators.',
+    brief_pdf_s3_key: null,
+    created_at: '2026-05-09T10:00:00Z',
+    updated_at: '2026-05-09T10:00:00Z',
+  }
+}
+
+function makePatchCampaign(
+  overrides: Partial<{
+    name: string
+    image_s3_key: string
+  }> = {},
+) {
+  return {
+    id: campaignId,
+    brand_workspace_id: brandWorkspaceId,
+    status: 'active',
+    version: 8,
+    name: overrides.name ?? 'Campaña inline actualizada',
+    description: 'Descripción original de la campaña',
+    target_url: 'https://example.com',
+    image_s3_key:
+      overrides.image_s3_key ?? 'tmp/campaigns/e2e/original-image.png',
+    content_type: 'ugc_videos',
+    pricing_model: 'pay_per_post',
+    platforms: ['instagram'],
     interests: ['beauty'],
     creator_country: 'AR',
     min_creator_tier_slug: 'micro',
@@ -117,6 +147,14 @@ async function mockCampaignReadModels(
   page: Page,
   getCampaign: () => CampaignDetail,
 ) {
+  await page.route(`**/v1/campaigns/${campaignId}/detail`, async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(getCampaign()),
+    })
+  })
+
   await page.route(`**/v1/campaigns/${campaignId}/overview**`, async (route) => {
     await route.fulfill({
       status: 200,
@@ -146,14 +184,16 @@ test.describe('campaign detail inline edit', () => {
       if (route.request().method() === 'PATCH') {
         patchBody = route.request().postDataJSON()
         ifMatch = route.request().headers()['if-match'] ?? null
+        const updatedCampaign = makePatchCampaign({
+          name: 'Campaña inline actualizada',
+        })
         campaign = makeCampaignDetail({
           name: 'Campaña inline actualizada',
-          version: 8,
         })
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify(campaign),
+          body: JSON.stringify(updatedCampaign),
         })
         return
       }
@@ -176,7 +216,7 @@ test.describe('campaign detail inline edit', () => {
 
     await expect(page.getByText('Campaña inline actualizada')).toBeVisible()
     expect(patchBody).toEqual({ name: 'Campaña inline actualizada' })
-    expect(ifMatch).toBe('7')
+    expect(ifMatch).toBe('*')
   })
 
   test('replaces image through presign, upload, PATCH, and UI update', async ({
@@ -213,14 +253,16 @@ test.describe('campaign detail inline edit', () => {
       if (route.request().method() === 'PATCH') {
         patchBody = route.request().postDataJSON()
         ifMatch = route.request().headers()['if-match'] ?? null
+        const updatedCampaign = makePatchCampaign({
+          image_s3_key: 'tmp/campaigns/e2e/campaign-inline-image.png',
+        })
         campaign = makeCampaignDetail({
           image_s3_key: 'tmp/campaigns/e2e/campaign-inline-image.png',
-          version: 8,
         })
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify(campaign),
+          body: JSON.stringify(updatedCampaign),
         })
         return
       }
@@ -250,7 +292,7 @@ test.describe('campaign detail inline edit', () => {
     expect(patchBody).toEqual({
       image_s3_key: 'tmp/campaigns/e2e/campaign-inline-image.png',
     })
-    expect(ifMatch).toBe('7')
+    expect(ifMatch).toBe('*')
   })
 
   test('shows concurrency banner with reload action when PATCH returns 412', async ({
@@ -300,6 +342,6 @@ test.describe('campaign detail inline edit', () => {
       ),
     ).toBeVisible()
     await expect(page.getByRole('button', { name: /Recargar/ })).toBeVisible()
-    expect(ifMatch).toBe('7')
+    expect(ifMatch).toBe('*')
   })
 })

@@ -256,8 +256,7 @@ No tocar estos. No introducir nuevos failures.
 - [ ] Smoke manual: abrir el listado de creators existente (Discovery grid), verificar que renderiza sin errores.
 
 ## Done summary
-TBD
-
+Implemented fn-28-feat-036-extract-creators-bc-frontend.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
