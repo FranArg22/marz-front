@@ -192,8 +192,7 @@ onOpenChange(false)
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.8; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

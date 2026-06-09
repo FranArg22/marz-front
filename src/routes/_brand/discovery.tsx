@@ -9,6 +9,7 @@ import { CreatorCard } from '#/features/discovery/network/components/CreatorCard
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { InviteBulkModal } from '#/features/discovery/network/components/InviteBulkModal'
 import { InviteSingleModal } from '#/features/discovery/network/components/InviteSingleModal'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
@@ -63,8 +64,17 @@ function DiscoveryRoute() {
     null,
   )
   const [inviteModalOpen, setInviteModalOpen] = useState(false)
-  const { appliedFilters, activeSort } = useDiscoveryFiltersStore()
+  const [bulkModalOpen, setBulkModalOpen] = useState(false)
+  const {
+    appliedFilters,
+    activeSort,
+    selectedAccountIds,
+    selectionMode,
+    toggleSelectionMode,
+    toggleSelect,
+  } = useDiscoveryFiltersStore()
   const appliedParams = { ...appliedFilters, sort: activeSort }
+  const selectedAccountIdList = Array.from(selectedAccountIds)
 
   useEffect(() => {
     const { sort, ...filters } = search
@@ -92,10 +102,18 @@ function DiscoveryRoute() {
           {t`Explorá la red de creators`}
         </h2>
       </div>
-      <div>
+      <div className="flex items-center gap-2">
         <Button type="button" onClick={() => setFilterPanelOpen(true)}>
           <SlidersHorizontal className="size-4" aria-hidden />
           {t`Filtros`}
+        </Button>
+        <Button
+          type="button"
+          variant={selectionMode ? 'secondary' : 'outline'}
+          size="sm"
+          onClick={toggleSelectionMode}
+        >
+          {selectionMode ? t`Cancelar selección` : t`Seleccionar`}
         </Button>
       </div>
       <DiscoveryFilterChips
@@ -110,8 +128,23 @@ function DiscoveryRoute() {
               setSelectedCard(card)
               setInviteModalOpen(true)
             }}
+            selected={selectedAccountIds.has(card.account_id)}
+            selectionMode={selectionMode}
+            onToggleSelect={toggleSelect}
           />
         )}
+      />
+      {selectionMode && selectedAccountIds.size > 0 ? (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+          <Button type="button" onClick={() => setBulkModalOpen(true)}>
+            {t`Invitar (${selectedAccountIds.size})`}
+          </Button>
+        </div>
+      ) : null}
+      <InviteBulkModal
+        open={bulkModalOpen}
+        onOpenChange={setBulkModalOpen}
+        accountIds={selectedAccountIdList}
       />
       <InviteSingleModal
         open={inviteModalOpen}

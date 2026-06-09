@@ -80,8 +80,12 @@ export function CreatorCard({
           type="checkbox"
           className="absolute top-3 right-3 size-4"
           checked={selected}
-          disabled={!canInvite && !selected}
-          onChange={() => onToggleSelect?.(card.account_id)}
+          disabled={!canInvite}
+          onChange={() => {
+            if (canInvite) {
+              onToggleSelect?.(card.account_id)
+            }
+          }}
           aria-label={t`Seleccionar ${card.display_name}`}
         />
       ) : null}

@@ -10,11 +10,16 @@ type DiscoveryFiltersStore = {
   pendingFilters: DiscoveryFilters
   appliedFilters: DiscoveryFilters
   activeSort: GetDiscoveryCreatorsParams['sort']
+  selectedAccountIds: Set<string>
+  selectionMode: boolean
   setPendingFilters: (filters: DiscoveryFilters) => void
   applyFilters: () => void
   resetPendingFilters: () => void
   clearFilters: () => void
   setSort: (sort: GetDiscoveryCreatorsParams['sort']) => void
+  toggleSelectionMode: () => void
+  toggleSelect: (accountId: string) => void
+  clearSelection: () => void
 }
 
 const EMPTY_FILTERS: DiscoveryFilters = {}
@@ -24,6 +29,8 @@ export const useDiscoveryFiltersStore = create<DiscoveryFiltersStore>()(
     pendingFilters: EMPTY_FILTERS,
     appliedFilters: EMPTY_FILTERS,
     activeSort: 'recommended',
+    selectedAccountIds: new Set<string>(),
+    selectionMode: false,
     setPendingFilters: (filters) => set({ pendingFilters: filters }),
     applyFilters: () =>
       set((state) => ({ appliedFilters: state.pendingFilters })),
@@ -31,6 +38,22 @@ export const useDiscoveryFiltersStore = create<DiscoveryFiltersStore>()(
       set((state) => ({ pendingFilters: state.appliedFilters })),
     clearFilters: () => set({ pendingFilters: EMPTY_FILTERS }),
     setSort: (sort) => set({ activeSort: sort }),
+    toggleSelectionMode: () =>
+      set((state) => ({
+        selectionMode: !state.selectionMode,
+        selectedAccountIds: new Set<string>(),
+      })),
+    toggleSelect: (accountId) =>
+      set((state) => {
+        const selectedAccountIds = new Set(state.selectedAccountIds)
+        if (selectedAccountIds.has(accountId)) {
+          selectedAccountIds.delete(accountId)
+        } else {
+          selectedAccountIds.add(accountId)
+        }
+        return { selectedAccountIds }
+      }),
+    clearSelection: () => set({ selectedAccountIds: new Set<string>() }),
   }),
 )
 
