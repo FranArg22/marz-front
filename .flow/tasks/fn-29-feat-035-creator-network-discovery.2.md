@@ -147,8 +147,7 @@ Verificar con `pnpm typecheck` después de escribir el schema.
 - [ ] La carpeta `src/features/discovery/network/{store,components,hooks}/` existe.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
