@@ -35,7 +35,7 @@ export function useCreateConnectionRequestMutation(
           throw new ApiError(
             response.status,
             'create_connection_request_error',
-            'Create connection request failed',
+            'Create connection request failed', // eslint-disable-line lingui/no-unlocalized-strings -- developer-facing error
           )
         }
 

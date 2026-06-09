@@ -45,6 +45,8 @@ export function CreatorCard({
 }: CreatorCardProps) {
   const navigate = useNavigate()
   const { kind, conversation_id } = card.pair_state
+  const name = card.display_name
+  const age = card.age
   const visibleTags = card.tags.slice(0, 3)
   const hiddenTagCount = card.tags.length - visibleTags.length
   const canInvite =
@@ -86,7 +88,7 @@ export function CreatorCard({
               onToggleSelect?.(card.account_id)
             }
           }}
-          aria-label={t`Seleccionar ${card.display_name}`}
+          aria-label={t`Seleccionar ${name}`}
         />
       ) : null}
 
@@ -105,7 +107,7 @@ export function CreatorCard({
             <MapPin className="size-3 shrink-0" aria-hidden />
             <span>{card.country}</span>
             <span aria-hidden>·</span>
-            <span>{t`${card.age} años`}</span>
+            <span>{t`${age} años`}</span>
           </Badge>
         </div>
       </div>

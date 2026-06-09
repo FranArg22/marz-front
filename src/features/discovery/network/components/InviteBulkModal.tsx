@@ -47,6 +47,7 @@ export function InviteBulkModal({
   const idempotency = useIdempotencyKey<CreateConnectionRequestsBulkRequest>(
     (data) => data.creator_account_ids.join(','),
   )
+  const count = accountIds.length
 
   const mutation = useCreateDiscoveryConnectionRequestsBulk<ApiError>({
     mutation: {
@@ -60,7 +61,7 @@ export function InviteBulkModal({
           throw new ApiError(
             response.status,
             'create_connection_requests_bulk_error',
-            'Create bulk connection requests failed',
+            'Create bulk connection requests failed', // eslint-disable-line lingui/no-unlocalized-strings -- developer-facing error
           )
         }
 
@@ -127,7 +128,7 @@ export function InviteBulkModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{t`Invitar a ${accountIds.length} creators`}</DialogTitle>
+          <DialogTitle>{t`Invitar a ${count} creators`}</DialogTitle>
         </DialogHeader>
 
         <p className="text-sm text-muted-foreground">

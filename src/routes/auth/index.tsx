@@ -1,10 +1,54 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { Trans } from '@lingui/react/macro'
 
 import { MagicLinkRequestForm } from '#/features/identity/auth/components/MagicLinkRequestForm'
 import { useAuthGuard } from '#/features/identity/auth/hooks/useAuthGuard'
+import { getMeQueryKey } from '#/shared/api/generated/accounts/accounts'
+import type { meResponse } from '#/shared/api/generated/accounts/accounts'
+import { getServerMe } from '#/shared/auth/getServerMe'
+import type { ServerMeBody } from '#/shared/auth/getServerMe'
+
+const STALE_TIME = 30_000
+type RouteMe = meResponse['data'] | ServerMeBody
 
 export const Route = createFileRoute('/auth/')({
+  // Resolve the session in beforeLoad so an authenticated user is redirected
+  // before the login form renders (no auth flash). Also intercepts the
+  // transient /auth bounce on the post-checkout return — a redirect thrown
+  // here never renders this route. Mirrors the / and /onboarding guards.
+  beforeLoad: async ({ context }) => {
+    const { queryClient } = context
+
+    const cached = queryClient.getQueryData<meResponse>(getMeQueryKey())
+    const cachedMe = cached && cached.status === 200 ? cached.data : undefined
+    const cacheAge =
+      queryClient.getQueryState(getMeQueryKey())?.dataUpdatedAt ?? 0
+    const isFresh = cachedMe && Date.now() - cacheAge < STALE_TIME
+
+    let me: RouteMe | null = null
+    if (isFresh) {
+      me = cachedMe
+    } else {
+      const result = await getServerMe()
+      if (result.ok) {
+        me = result.body
+        queryClient.setQueryData(
+          getMeQueryKey(),
+          { data: me, status: 200 },
+          { updatedAt: Date.now() },
+        )
+      }
+    }
+
+    if (!me) return
+
+    if (me.onboarding_status === 'onboarded') {
+      throw redirect({ to: me.kind === 'brand' ? '/campaigns' : '/offers' })
+    }
+    if (me.redirect_to) {
+      throw redirect({ to: me.redirect_to })
+    }
+  },
   component: AuthPage,
 })
 

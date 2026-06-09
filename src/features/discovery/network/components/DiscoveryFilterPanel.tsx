@@ -34,6 +34,7 @@ interface DiscoveryFilterPanelProps {
   onClose: () => void
 }
 
+/* eslint-disable lingui/no-unlocalized-strings -- brand names, country names, and static labels */
 const PLATFORM_OPTIONS = [
   { value: SocialPlatform.instagram, label: 'Instagram' },
   { value: SocialPlatform.tiktok, label: 'TikTok' },
@@ -53,6 +54,7 @@ const GENDER_OPTIONS = [
   { value: GetDiscoveryCreatorsGender.female, label: 'Femenino' },
   { value: GetDiscoveryCreatorsGender.non_binary, label: 'No binario' },
 ]
+/* eslint-enable lingui/no-unlocalized-strings */
 
 const AGE_OPTIONS = [
   GetDiscoveryCreatorsAgeBucketsItem['18-24'],

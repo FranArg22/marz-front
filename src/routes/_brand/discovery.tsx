@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Compass, Loader2, SlidersHorizontal } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
@@ -78,7 +78,13 @@ function DiscoveryRoute() {
   } = useDiscoveryFiltersStore()
   const appliedParams = { ...appliedFilters, sort: activeSort }
   const selectedAccountIdList = Array.from(selectedAccountIds)
+  const selectedCount = selectedAccountIdList.length
 
+  const hydrated = useRef(false)
+
+  // URL -> store: source of truth on mount and on browser back/forward
+  // (search params change). Reacting to `search` keeps the store in sync
+  // with navigation that bypasses the store (e.g. shared filtered links).
   useEffect(() => {
     const { sort, ...filters } = search
     useDiscoveryFiltersStore.setState({
@@ -86,9 +92,14 @@ function DiscoveryRoute() {
       pendingFilters: filters,
       activeSort: sort ?? 'recommended',
     })
-  }, [])
+    hydrated.current = true
+  }, [search])
 
+  // store -> URL: mirror applied filters back into the URL, but never before
+  // the initial hydration ran, or we would clobber a shared filtered URL with
+  // the empty closure defaults.
   useEffect(() => {
+    if (!hydrated.current) return
     void navigate({
       search: () => ({ ...appliedFilters, sort: activeSort }),
       replace: true,
@@ -146,8 +157,8 @@ function DiscoveryRoute() {
         renderCard={(card) => (
           <CreatorCard
             card={card}
-            onInvite={(card) => {
-              setSelectedCard(card)
+            onInvite={(c) => {
+              setSelectedCard(c)
               setInviteModalOpen(true)
             }}
             selected={selectedAccountIds.has(card.account_id)}
@@ -159,7 +170,7 @@ function DiscoveryRoute() {
       {selectionMode && selectedAccountIds.size > 0 ? (
         <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
           <Button type="button" onClick={() => setBulkModalOpen(true)}>
-            {t`Invitar (${selectedAccountIds.size})`}
+            {t`Invitar (${selectedCount})`}
           </Button>
         </div>
       ) : null}

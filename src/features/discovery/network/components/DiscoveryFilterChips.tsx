@@ -34,6 +34,7 @@ type FilterChipItem = {
   label: string
 }
 
+/* eslint-disable lingui/no-unlocalized-strings -- brand names and static labels, not translatable */
 const PLATFORM_LABELS: Record<SocialPlatform, string> = {
   [SocialPlatform.instagram]: 'Instagram',
   [SocialPlatform.tiktok]: 'TikTok',
@@ -45,6 +46,7 @@ const GENDER_LABELS: Record<GetDiscoveryCreatorsGender, string> = {
   [GetDiscoveryCreatorsGender.female]: 'Femenino',
   [GetDiscoveryCreatorsGender.non_binary]: 'No binario',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 const RANGE_KEYS: Record<
   Extract<ChipKey, 'followers' | 'avg_views' | 'cpm' | 'price'>,
@@ -155,46 +157,52 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
   const chips: FilterChipItem[] = []
 
   if (filters.platforms?.length) {
+    const platformList = filters.platforms
+      .map((platform) => PLATFORM_LABELS[platform])
+      .join(', ')
     chips.push({
       key: 'platforms',
-      label: t`Plataformas: ${filters.platforms
-        .map((platform) => PLATFORM_LABELS[platform])
-        .join(', ')}`,
+      label: t`Plataformas: ${platformList}`,
     })
   }
 
   if (filters.gender) {
+    const genderLabel = GENDER_LABELS[filters.gender]
     chips.push({
       key: 'gender',
-      label: t`Género: ${GENDER_LABELS[filters.gender]}`,
+      label: t`Género: ${genderLabel}`,
     })
   }
 
   if (filters.countries?.length) {
+    const countryList = filters.countries.join(', ')
     chips.push({
       key: 'countries',
-      label: t`Países: ${filters.countries.join(', ')}`,
+      label: t`Países: ${countryList}`,
     })
   }
 
   if (filters.age_buckets?.length) {
+    const ageList = filters.age_buckets.join(', ')
     chips.push({
       key: 'age_buckets',
-      label: t`Edad: ${filters.age_buckets.join(', ')}`,
+      label: t`Edad: ${ageList}`,
     })
   }
 
   if (filters.interests?.length) {
+    const interestList = filters.interests.join(', ')
     chips.push({
       key: 'interests',
-      label: t`Intereses: ${filters.interests.join(', ')}`,
+      label: t`Intereses: ${interestList}`,
     })
   }
 
   if (filters.content_types?.length) {
+    const contentList = filters.content_types.join(', ')
     chips.push({
       key: 'content_types',
-      label: t`Contenido: ${filters.content_types.join(', ')}`,
+      label: t`Contenido: ${contentList}`,
     })
   }
 
@@ -202,20 +210,22 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     filters.followers_min !== undefined ||
     filters.followers_max !== undefined
   ) {
+    const followersRange = formatRange(
+      filters.followers_min,
+      filters.followers_max,
+      formatCompactNumber,
+    )
     chips.push({
       key: 'followers',
-      label: t`Seguidores: ${formatRange(
-        filters.followers_min,
-        filters.followers_max,
-        formatCompactNumber,
-      )}`,
+      label: t`Seguidores: ${followersRange}`,
     })
   }
 
   if (filters.engagement_rate_min !== undefined) {
+    const erMin = filters.engagement_rate_min
     chips.push({
       key: 'engagement_rate',
-      label: t`ER: ≥${filters.engagement_rate_min}%`,
+      label: t`ER: ≥${erMin}%`,
     })
   }
 
@@ -223,35 +233,38 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     filters.avg_views_min !== undefined ||
     filters.avg_views_max !== undefined
   ) {
+    const viewsRange = formatRange(
+      filters.avg_views_min,
+      filters.avg_views_max,
+      formatCompactNumber,
+    )
     chips.push({
       key: 'avg_views',
-      label: t`Vistas: ${formatRange(
-        filters.avg_views_min,
-        filters.avg_views_max,
-        formatCompactNumber,
-      )}`,
+      label: t`Vistas: ${viewsRange}`,
     })
   }
 
   if (hasValue(filters.cpm_min) || hasValue(filters.cpm_max)) {
+    const cpmRange = formatStringRange(
+      filters.cpm_min,
+      filters.cpm_max,
+      formatMoney,
+    )
     chips.push({
       key: 'cpm',
-      label: t`CPM: ${formatStringRange(
-        filters.cpm_min,
-        filters.cpm_max,
-        formatMoney,
-      )}`,
+      label: t`CPM: ${cpmRange}`,
     })
   }
 
   if (hasValue(filters.price_min) || hasValue(filters.price_max)) {
+    const priceRange = formatStringRange(
+      filters.price_min,
+      filters.price_max,
+      formatMoney,
+    )
     chips.push({
       key: 'price',
-      label: t`Precio: ${formatStringRange(
-        filters.price_min,
-        filters.price_max,
-        formatMoney,
-      )}`,
+      label: t`Precio: ${priceRange}`,
     })
   }
 
@@ -280,6 +293,7 @@ function formatRange<T extends string | number>(
 
 function formatCompactNumber(value: number): string {
   if (Math.abs(value) >= 1_000_000) {
+    // eslint-disable-next-line lingui/no-unlocalized-strings -- numeric suffix, not UI copy
     return `${formatRounded(value / 1_000_000)}M`
   }
 

@@ -39,6 +39,7 @@ export function InviteSingleModal({
   const mutation = useCreateConnectionRequestMutation(appliedParams)
   const { isPending, isSuccess, mutate, reset } = mutation
   const pairState = card?.pair_state
+  const name = card?.display_name ?? ''
 
   useEffect(() => {
     if (open && !wasOpenRef.current) {
@@ -77,7 +78,7 @@ export function InviteSingleModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{t`Invitar a ${card?.display_name ?? ''}`}</DialogTitle>
+          <DialogTitle>{t`Invitar a ${name}`}</DialogTitle>
         </DialogHeader>
 
         {pairState?.kind === DiscoveryCreatePairKindEnum.connection_rejected ||

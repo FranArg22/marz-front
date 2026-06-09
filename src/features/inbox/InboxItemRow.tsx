@@ -3,6 +3,7 @@ import { useRouter } from '@tanstack/react-router'
 import { ArrowUpRight, Loader2, MailOpen } from 'lucide-react'
 
 import { useMe } from '#/shared/api/generated/accounts/accounts'
+import { InboxItemKind } from '#/shared/api/generated/model'
 
 import { InboxMessagePreviewPopover } from './InboxMessagePreviewPopover'
 import type { MouseEvent } from 'react'
@@ -42,7 +43,7 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
   const avatarUrl = item.counterpart?.avatar_url
   const isWaiting = item.section === 'waiting'
   const isConnectionRequest =
-    String(item.kind) === 'connection_request_received'
+    item.kind === InboxItemKind.InboxItemKindConnectionRequestReceived
   const markRead = useMarkInboxItemReadMutation()
   const analyticsPayload = createInboxItemAnalyticsPayload({
     accountKind,
@@ -119,7 +120,7 @@ export function InboxItemRow({ accountKind, item }: InboxItemRowProps) {
   }
 
   if (isConnectionRequest) {
-    return <ConnectionRequestInboxItem accountKind={accountKind} item={item} />
+    return <ConnectionRequestInboxItem item={item} />
   }
 
   return (

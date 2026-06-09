@@ -13,11 +13,10 @@ import {
 import { useGetDiscoveryConnectionRequest } from '#/shared/api/generated/discovery/discovery'
 import { ApiError } from '#/shared/api/mutator'
 
-import type { InboxItem, InboxResponse } from './api/inbox'
+import type { InboxItem } from './api/inbox'
 import { inboxQueryKey } from './api/inbox'
 
 interface ConnectionRequestInboxItemProps {
-  accountKind: InboxResponse['account_kind']
   item: InboxItem
 }
 

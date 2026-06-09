@@ -57,14 +57,15 @@ export function EmailInviteModal({
           throw new ApiError(
             response.status,
             'create_email_invite_error',
-            'Create email invite failed',
+            'Create email invite failed', // eslint-disable-line lingui/no-unlocalized-strings -- developer-facing error
           )
         }
 
         return response
       },
       onSuccess: (_response, variables) => {
-        toast.success(t`Invitación enviada a ${variables.data.invited_email}`)
+        const invitedEmail = variables.data.invited_email
+        toast.success(t`Invitación enviada a ${invitedEmail}`)
         resetForm()
         onOpenChange(false)
       },
@@ -128,7 +129,7 @@ export function EmailInviteModal({
                 setEmail(event.target.value)
                 setEmailError(null)
               }}
-              placeholder="creator@ejemplo.com"
+              placeholder="creator@ejemplo.com" // eslint-disable-line lingui/no-unlocalized-strings -- placeholder email, not UI copy
               aria-invalid={Boolean(emailError)}
               aria-describedby={emailError ? 'invite-email-error' : undefined}
             />
