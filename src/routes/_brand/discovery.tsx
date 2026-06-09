@@ -9,6 +9,7 @@ import { CreatorCard } from '#/features/discovery/network/components/CreatorCard
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { InviteSingleModal } from '#/features/discovery/network/components/InviteSingleModal'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
 import type { DiscoveryCreatorCard } from '#/shared/api/generated/model'
@@ -63,9 +64,7 @@ function DiscoveryRoute() {
   )
   const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const { appliedFilters, activeSort } = useDiscoveryFiltersStore()
-
-  void selectedCard
-  void inviteModalOpen
+  const appliedParams = { ...appliedFilters, sort: activeSort }
 
   useEffect(() => {
     const { sort, ...filters } = search
@@ -103,7 +102,7 @@ function DiscoveryRoute() {
         onOpenFilterPanel={() => setFilterPanelOpen(true)}
       />
       <DiscoveryGrid
-        params={{ ...appliedFilters, sort: activeSort }}
+        params={appliedParams}
         renderCard={(card) => (
           <CreatorCard
             card={card}
@@ -113,6 +112,12 @@ function DiscoveryRoute() {
             }}
           />
         )}
+      />
+      <InviteSingleModal
+        open={inviteModalOpen}
+        onOpenChange={setInviteModalOpen}
+        card={selectedCard}
+        appliedParams={appliedParams}
       />
       <DiscoveryFilterPanel
         open={filterPanelOpen}
