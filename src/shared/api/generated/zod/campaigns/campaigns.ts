@@ -358,7 +358,8 @@ export const GetCampaignDetailResponse = zod.object({
   "allows_email_invites": zod.boolean(),
   "allows_in_platform_invites": zod.boolean(),
   "allows_campaign_board": zod.boolean(),
-  "allows_automatic_matching": zod.boolean()
+  "allows_automatic_matching": zod.boolean(),
+  "allows_discovery": zod.boolean()
 }),
   "created_at": zod.iso.datetime({}),
   "updated_at": zod.iso.datetime({})
@@ -505,223 +506,6 @@ export const ListVideosResponse = zod.object({
   "total_visible": zod.number()
 })
 
-export const GetCampaignDiscoverySummaryParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const GetCampaignDiscoverySummaryHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const GetCampaignDiscoverySummaryResponse = zod.object({
-  "counts": zod.object({
-  "matches": zod.number(),
-  "applications": zod.number(),
-  "active": zod.number(),
-  "invited": zod.number()
-}),
-  "default_section": zod.string(),
-  "availability": zod.object({
-  "message": zod.string().nullable(),
-  "can_add_email": zod.boolean(),
-  "can_add_handle": zod.boolean(),
-  "can_view_matches": zod.boolean()
-})
-})
-
-export const ListCampaignDiscoveryMatchesParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const listCampaignDiscoveryMatchesQueryLimitDefault = 24;
-export const listCampaignDiscoveryMatchesQueryLimitMax = 50;
-
-
-
-export const ListCampaignDiscoveryMatchesQueryParams = zod.object({
-  "cursor": zod.string().optional(),
-  "limit": zod.number().min(1).max(listCampaignDiscoveryMatchesQueryLimitMax).default(listCampaignDiscoveryMatchesQueryLimitDefault),
-  "sort": zod.enum(['match_score', 'followers', 'engagement_pct', 'cpm_amount', 'fee_amount']).optional(),
-  "direction": zod.enum(['asc', 'desc']).optional()
-})
-
-export const ListCampaignDiscoveryMatchesHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const ListCampaignDiscoveryMatchesResponse = zod.object({
-  "data": zod.array(zod.object({
-  "match_id": zod.uuid(),
-  "creator": zod.object({
-  "account_id": zod.uuid(),
-  "profile_id": zod.uuid(),
-  "display_name": zod.string(),
-  "handle": zod.string(),
-  "avatar_url": zod.string().nullable(),
-  "preview_url": zod.string().nullable(),
-  "niche": zod.string().nullable(),
-  "platforms": zod.array(zod.object({
-  "platform": zod.string(),
-  "handle": zod.string(),
-  "followers": zod.number().nullable()
-}))
-}),
-  "score_pct": zod.number(),
-  "reason": zod.object({
-  "summary": zod.string(),
-  "signals": zod.array(zod.string())
-}),
-  "mismatch_reason": zod.string().nullable(),
-  "metrics": zod.object({
-  "followers": zod.number().nullable(),
-  "engagement_pct": zod.string().nullable(),
-  "cpm_amount": zod.string().nullable(),
-  "fee_amount": zod.string().nullable()
-}),
-  "status": zod.string(),
-  "can_contact": zod.boolean()
-})),
-  "next_cursor": zod.string().nullable()
-})
-
-export const ListCampaignDiscoveryApplicationsParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const listCampaignDiscoveryApplicationsQueryLimitDefault = 24;
-export const listCampaignDiscoveryApplicationsQueryLimitMax = 50;
-
-
-
-export const ListCampaignDiscoveryApplicationsQueryParams = zod.object({
-  "cursor": zod.string().optional(),
-  "limit": zod.number().min(1).max(listCampaignDiscoveryApplicationsQueryLimitMax).default(listCampaignDiscoveryApplicationsQueryLimitDefault),
-  "status": zod.enum(['submitted', 'accepted', 'rejected', 'withdrawn']).optional()
-})
-
-export const ListCampaignDiscoveryApplicationsHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const ListCampaignDiscoveryApplicationsResponse = zod.object({
-  "data": zod.array(zod.object({
-  "application_id": zod.uuid(),
-  "creator": zod.object({
-  "account_id": zod.uuid(),
-  "profile_id": zod.uuid(),
-  "display_name": zod.string(),
-  "handle": zod.string(),
-  "avatar_url": zod.string().nullable(),
-  "preview_url": zod.string().nullable(),
-  "niche": zod.string().nullable(),
-  "platforms": zod.array(zod.object({
-  "platform": zod.string(),
-  "handle": zod.string(),
-  "followers": zod.number().nullable()
-}))
-}),
-  "message": zod.string(),
-  "mismatch_reason": zod.string().nullable(),
-  "status": zod.string(),
-  "created_at": zod.iso.datetime({}),
-  "decided_at": zod.iso.datetime({}).nullable(),
-  "can_accept": zod.boolean(),
-  "can_reject": zod.boolean()
-})),
-  "next_cursor": zod.string().nullable()
-})
-
-export const ListCampaignDiscoveryInvitesParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const listCampaignDiscoveryInvitesQueryLimitDefault = 24;
-export const listCampaignDiscoveryInvitesQueryLimitMax = 50;
-
-
-
-export const ListCampaignDiscoveryInvitesQueryParams = zod.object({
-  "cursor": zod.string().optional(),
-  "limit": zod.number().min(1).max(listCampaignDiscoveryInvitesQueryLimitMax).default(listCampaignDiscoveryInvitesQueryLimitDefault),
-  "status": zod.enum(['sent', 'accepted', 'declined', 'expired']).optional()
-})
-
-export const ListCampaignDiscoveryInvitesHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const ListCampaignDiscoveryInvitesResponse = zod.object({
-  "data": zod.array(zod.object({
-  "invite_id": zod.uuid(),
-  "mode": zod.enum(['email', 'in_platform']),
-  "invited_email": zod.email().nullable(),
-  "creator": zod.object({
-  "account_id": zod.uuid(),
-  "profile_id": zod.uuid(),
-  "display_name": zod.string(),
-  "handle": zod.string(),
-  "avatar_url": zod.string().nullable(),
-  "preview_url": zod.string().nullable(),
-  "niche": zod.string().nullable(),
-  "platforms": zod.array(zod.object({
-  "platform": zod.string(),
-  "handle": zod.string(),
-  "followers": zod.number().nullable()
-}))
-}).nullable(),
-  "invited_handle": zod.string().nullable(),
-  "status": zod.string(),
-  "expires_at": zod.iso.datetime({}),
-  "created_at": zod.iso.datetime({}),
-  "accepted_at": zod.iso.datetime({}).nullable()
-})),
-  "next_cursor": zod.string().nullable()
-})
-
-export const ListCampaignDiscoveryActiveParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const listCampaignDiscoveryActiveQueryLimitDefault = 24;
-export const listCampaignDiscoveryActiveQueryLimitMax = 50;
-
-
-
-export const ListCampaignDiscoveryActiveQueryParams = zod.object({
-  "cursor": zod.string().optional(),
-  "limit": zod.number().min(1).max(listCampaignDiscoveryActiveQueryLimitMax).default(listCampaignDiscoveryActiveQueryLimitDefault)
-})
-
-export const ListCampaignDiscoveryActiveHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const ListCampaignDiscoveryActiveResponse = zod.object({
-  "data": zod.array(zod.object({
-  "active_id": zod.uuid().describe('Stable per-campaign item key. Equal to the creator account id because a campaign can have only one active participant row per creator.'),
-  "creator": zod.object({
-  "account_id": zod.uuid(),
-  "profile_id": zod.uuid(),
-  "display_name": zod.string(),
-  "handle": zod.string(),
-  "avatar_url": zod.string().nullable(),
-  "preview_url": zod.string().nullable(),
-  "niche": zod.string().nullable(),
-  "platforms": zod.array(zod.object({
-  "platform": zod.string(),
-  "handle": zod.string(),
-  "followers": zod.number().nullable()
-}))
-}),
-  "source": zod.string(),
-  "status": zod.string(),
-  "conversation_id": zod.uuid().nullable(),
-  "latest_offer_id": zod.uuid().nullable(),
-  "last_activity_at": zod.iso.datetime({}).nullable()
-})),
-  "next_cursor": zod.string().nullable()
-})
-
 export const listCreatorsQueryLimitDefault = 24;
 export const listCreatorsQueryLimitMax = 50;
 
@@ -774,6 +558,54 @@ export const ListCreatorsResponse = zod.object({
 })),
   "next_cursor": zod.string().nullable(),
   "total_visible": zod.number()
+})
+
+export const ListCampaignApplicationsParams = zod.object({
+  "campaign_id": zod.uuid()
+})
+
+export const listCampaignApplicationsQueryLimitDefault = 24;
+export const listCampaignApplicationsQueryLimitMax = 50;
+
+
+
+export const ListCampaignApplicationsQueryParams = zod.object({
+  "cursor": zod.string().optional(),
+  "limit": zod.number().min(1).max(listCampaignApplicationsQueryLimitMax).default(listCampaignApplicationsQueryLimitDefault),
+  "status": zod.enum(['submitted', 'accepted', 'rejected', 'withdrawn']).optional()
+})
+
+export const ListCampaignApplicationsHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid()
+})
+
+export const ListCampaignApplicationsResponse = zod.object({
+  "items": zod.array(zod.object({
+  "application_id": zod.uuid(),
+  "creator": zod.object({
+  "account_id": zod.uuid(),
+  "profile_id": zod.uuid(),
+  "display_name": zod.string(),
+  "handle": zod.string(),
+  "avatar_url": zod.string().nullable(),
+  "preview_url": zod.string().nullable(),
+  "niche": zod.string().nullable(),
+  "platforms": zod.array(zod.object({
+  "platform": zod.string(),
+  "handle": zod.string(),
+  "followers": zod.number().nullable()
+}))
+}),
+  "message": zod.string(),
+  "mismatch_reason": zod.string().nullable(),
+  "status": zod.string(),
+  "created_at": zod.iso.datetime({}),
+  "decided_at": zod.iso.datetime({}).nullable(),
+  "can_accept": zod.boolean(),
+  "can_reject": zod.boolean()
+})),
+  "next_cursor": zod.string().nullable(),
+  "total": zod.number()
 })
 
 export const ContactCampaignDiscoveryMatchParams = zod.object({

@@ -28,17 +28,13 @@ import type {
 
 import type {
   Campaign,
-  CampaignActiveListResponse,
   CampaignApplicationListResponse,
   CampaignBriefPDFPresignRequest,
   CampaignBriefResponse,
   CampaignDetailResponse,
-  CampaignDiscoverySummaryResponse,
   CampaignImagePresignRequest,
-  CampaignInviteListResponse,
   CampaignLifecycleResponse,
   CampaignListResponse,
-  CampaignMatchListResponse,
   CampaignOverviewResponse,
   CampaignParticipantListResponse,
   CampaignPresignResponse,
@@ -51,10 +47,7 @@ import type {
   DiscoveryContactMatchResponse,
   ErrorResponse,
   GetCampaignOverviewParams,
-  ListCampaignDiscoveryActiveParams,
-  ListCampaignDiscoveryApplicationsParams,
-  ListCampaignDiscoveryInvitesParams,
-  ListCampaignDiscoveryMatchesParams,
+  ListCampaignApplicationsParams,
   ListCampaignsParams,
   ListCreatorsParams,
   ListVideosParams,
@@ -1507,731 +1500,6 @@ export function useListVideos<TData = Awaited<ReturnType<typeof listVideos>>, TE
 
 
 
-export type getCampaignDiscoverySummaryResponse200 = {
-  data: CampaignDiscoverySummaryResponse
-  status: 200
-}
-
-export type getCampaignDiscoverySummaryResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type getCampaignDiscoverySummaryResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type getCampaignDiscoverySummaryResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type getCampaignDiscoverySummaryResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type getCampaignDiscoverySummaryResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type getCampaignDiscoverySummaryResponseSuccess = (getCampaignDiscoverySummaryResponse200) & {
-  headers: Headers;
-};
-export type getCampaignDiscoverySummaryResponseError = (getCampaignDiscoverySummaryResponse401 | getCampaignDiscoverySummaryResponse403 | getCampaignDiscoverySummaryResponse404 | getCampaignDiscoverySummaryResponse422 | getCampaignDiscoverySummaryResponse500) & {
-  headers: Headers;
-};
-
-export type getCampaignDiscoverySummaryResponse = (getCampaignDiscoverySummaryResponseSuccess | getCampaignDiscoverySummaryResponseError)
-
-export const getGetCampaignDiscoverySummaryUrl = (campaignId: string,) => {
-
-
-
-
-  return `/v1/campaigns/${campaignId}/discovery/summary`
-}
-
-export const getCampaignDiscoverySummary = async (campaignId: string, options?: RequestInit): Promise<getCampaignDiscoverySummaryResponse> => {
-
-  return customFetch<getCampaignDiscoverySummaryResponse>(getGetCampaignDiscoverySummaryUrl(campaignId),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetCampaignDiscoverySummaryQueryKey = (campaignId: string,) => {
-    return [
-    `/v1/campaigns/${campaignId}/discovery/summary`
-    ] as const;
-    }
-
-
-export const getGetCampaignDiscoverySummaryQueryOptions = <TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetCampaignDiscoverySummaryQueryKey(campaignId);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>> = ({ signal }) => getCampaignDiscoverySummary(campaignId, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetCampaignDiscoverySummaryQueryResult = NonNullable<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>>
-export type GetCampaignDiscoverySummaryQueryError = ErrorResponse
-
-
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
- campaignId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCampaignDiscoverySummary>>,
-          TError,
-          Awaited<ReturnType<typeof getCampaignDiscoverySummary>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCampaignDiscoverySummary>>,
-          TError,
-          Awaited<ReturnType<typeof getCampaignDiscoverySummary>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useGetCampaignDiscoverySummary<TData = Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError = ErrorResponse>(
- campaignId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCampaignDiscoverySummary>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetCampaignDiscoverySummaryQueryOptions(campaignId,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type listCampaignDiscoveryMatchesResponse200 = {
-  data: CampaignMatchListResponse
-  status: 200
-}
-
-export type listCampaignDiscoveryMatchesResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type listCampaignDiscoveryMatchesResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type listCampaignDiscoveryMatchesResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type listCampaignDiscoveryMatchesResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type listCampaignDiscoveryMatchesResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type listCampaignDiscoveryMatchesResponseSuccess = (listCampaignDiscoveryMatchesResponse200) & {
-  headers: Headers;
-};
-export type listCampaignDiscoveryMatchesResponseError = (listCampaignDiscoveryMatchesResponse401 | listCampaignDiscoveryMatchesResponse403 | listCampaignDiscoveryMatchesResponse404 | listCampaignDiscoveryMatchesResponse422 | listCampaignDiscoveryMatchesResponse500) & {
-  headers: Headers;
-};
-
-export type listCampaignDiscoveryMatchesResponse = (listCampaignDiscoveryMatchesResponseSuccess | listCampaignDiscoveryMatchesResponseError)
-
-export const getListCampaignDiscoveryMatchesUrl = (campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/campaigns/${campaignId}/discovery/matches?${stringifiedParams}` : `/v1/campaigns/${campaignId}/discovery/matches`
-}
-
-export const listCampaignDiscoveryMatches = async (campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams, options?: RequestInit): Promise<listCampaignDiscoveryMatchesResponse> => {
-
-  return customFetch<listCampaignDiscoveryMatchesResponse>(getListCampaignDiscoveryMatchesUrl(campaignId,params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getListCampaignDiscoveryMatchesQueryKey = (campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams,) => {
-    return [
-    `/v1/campaigns/${campaignId}/discovery/matches`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getListCampaignDiscoveryMatchesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListCampaignDiscoveryMatchesQueryKey(campaignId,params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>> = ({ signal }) => listCampaignDiscoveryMatches(campaignId,params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListCampaignDiscoveryMatchesQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>>
-export type ListCampaignDiscoveryMatchesQueryError = ErrorResponse
-
-
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
- campaignId: string,
-    params: undefined |  ListCampaignDiscoveryMatchesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useListCampaignDiscoveryMatches<TData = Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryMatchesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryMatches>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListCampaignDiscoveryMatchesQueryOptions(campaignId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type listCampaignDiscoveryApplicationsResponse200 = {
-  data: CampaignApplicationListResponse
-  status: 200
-}
-
-export type listCampaignDiscoveryApplicationsResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type listCampaignDiscoveryApplicationsResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type listCampaignDiscoveryApplicationsResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type listCampaignDiscoveryApplicationsResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type listCampaignDiscoveryApplicationsResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type listCampaignDiscoveryApplicationsResponseSuccess = (listCampaignDiscoveryApplicationsResponse200) & {
-  headers: Headers;
-};
-export type listCampaignDiscoveryApplicationsResponseError = (listCampaignDiscoveryApplicationsResponse401 | listCampaignDiscoveryApplicationsResponse403 | listCampaignDiscoveryApplicationsResponse404 | listCampaignDiscoveryApplicationsResponse422 | listCampaignDiscoveryApplicationsResponse500) & {
-  headers: Headers;
-};
-
-export type listCampaignDiscoveryApplicationsResponse = (listCampaignDiscoveryApplicationsResponseSuccess | listCampaignDiscoveryApplicationsResponseError)
-
-export const getListCampaignDiscoveryApplicationsUrl = (campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/campaigns/${campaignId}/discovery/applications?${stringifiedParams}` : `/v1/campaigns/${campaignId}/discovery/applications`
-}
-
-export const listCampaignDiscoveryApplications = async (campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams, options?: RequestInit): Promise<listCampaignDiscoveryApplicationsResponse> => {
-
-  return customFetch<listCampaignDiscoveryApplicationsResponse>(getListCampaignDiscoveryApplicationsUrl(campaignId,params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getListCampaignDiscoveryApplicationsQueryKey = (campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams,) => {
-    return [
-    `/v1/campaigns/${campaignId}/discovery/applications`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getListCampaignDiscoveryApplicationsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListCampaignDiscoveryApplicationsQueryKey(campaignId,params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>> = ({ signal }) => listCampaignDiscoveryApplications(campaignId,params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListCampaignDiscoveryApplicationsQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>>
-export type ListCampaignDiscoveryApplicationsQueryError = ErrorResponse
-
-
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
- campaignId: string,
-    params: undefined |  ListCampaignDiscoveryApplicationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useListCampaignDiscoveryApplications<TData = Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListCampaignDiscoveryApplicationsQueryOptions(campaignId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type listCampaignDiscoveryInvitesResponse200 = {
-  data: CampaignInviteListResponse
-  status: 200
-}
-
-export type listCampaignDiscoveryInvitesResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type listCampaignDiscoveryInvitesResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type listCampaignDiscoveryInvitesResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type listCampaignDiscoveryInvitesResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type listCampaignDiscoveryInvitesResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type listCampaignDiscoveryInvitesResponseSuccess = (listCampaignDiscoveryInvitesResponse200) & {
-  headers: Headers;
-};
-export type listCampaignDiscoveryInvitesResponseError = (listCampaignDiscoveryInvitesResponse401 | listCampaignDiscoveryInvitesResponse403 | listCampaignDiscoveryInvitesResponse404 | listCampaignDiscoveryInvitesResponse422 | listCampaignDiscoveryInvitesResponse500) & {
-  headers: Headers;
-};
-
-export type listCampaignDiscoveryInvitesResponse = (listCampaignDiscoveryInvitesResponseSuccess | listCampaignDiscoveryInvitesResponseError)
-
-export const getListCampaignDiscoveryInvitesUrl = (campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/campaigns/${campaignId}/discovery/invites?${stringifiedParams}` : `/v1/campaigns/${campaignId}/discovery/invites`
-}
-
-export const listCampaignDiscoveryInvites = async (campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams, options?: RequestInit): Promise<listCampaignDiscoveryInvitesResponse> => {
-
-  return customFetch<listCampaignDiscoveryInvitesResponse>(getListCampaignDiscoveryInvitesUrl(campaignId,params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getListCampaignDiscoveryInvitesQueryKey = (campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams,) => {
-    return [
-    `/v1/campaigns/${campaignId}/discovery/invites`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getListCampaignDiscoveryInvitesQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListCampaignDiscoveryInvitesQueryKey(campaignId,params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>> = ({ signal }) => listCampaignDiscoveryInvites(campaignId,params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListCampaignDiscoveryInvitesQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>>
-export type ListCampaignDiscoveryInvitesQueryError = ErrorResponse
-
-
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
- campaignId: string,
-    params: undefined |  ListCampaignDiscoveryInvitesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useListCampaignDiscoveryInvites<TData = Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryInvitesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryInvites>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListCampaignDiscoveryInvitesQueryOptions(campaignId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type listCampaignDiscoveryActiveResponse200 = {
-  data: CampaignActiveListResponse
-  status: 200
-}
-
-export type listCampaignDiscoveryActiveResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type listCampaignDiscoveryActiveResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type listCampaignDiscoveryActiveResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type listCampaignDiscoveryActiveResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type listCampaignDiscoveryActiveResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type listCampaignDiscoveryActiveResponseSuccess = (listCampaignDiscoveryActiveResponse200) & {
-  headers: Headers;
-};
-export type listCampaignDiscoveryActiveResponseError = (listCampaignDiscoveryActiveResponse401 | listCampaignDiscoveryActiveResponse403 | listCampaignDiscoveryActiveResponse404 | listCampaignDiscoveryActiveResponse422 | listCampaignDiscoveryActiveResponse500) & {
-  headers: Headers;
-};
-
-export type listCampaignDiscoveryActiveResponse = (listCampaignDiscoveryActiveResponseSuccess | listCampaignDiscoveryActiveResponseError)
-
-export const getListCampaignDiscoveryActiveUrl = (campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/campaigns/${campaignId}/discovery/active?${stringifiedParams}` : `/v1/campaigns/${campaignId}/discovery/active`
-}
-
-export const listCampaignDiscoveryActive = async (campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams, options?: RequestInit): Promise<listCampaignDiscoveryActiveResponse> => {
-
-  return customFetch<listCampaignDiscoveryActiveResponse>(getListCampaignDiscoveryActiveUrl(campaignId,params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getListCampaignDiscoveryActiveQueryKey = (campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams,) => {
-    return [
-    `/v1/campaigns/${campaignId}/discovery/active`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getListCampaignDiscoveryActiveQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListCampaignDiscoveryActiveQueryKey(campaignId,params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>> = ({ signal }) => listCampaignDiscoveryActive(campaignId,params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListCampaignDiscoveryActiveQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>>
-export type ListCampaignDiscoveryActiveQueryError = ErrorResponse
-
-
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
- campaignId: string,
-    params: undefined |  ListCampaignDiscoveryActiveParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryActive>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryActive>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCampaignDiscoveryActive>>,
-          TError,
-          Awaited<ReturnType<typeof listCampaignDiscoveryActive>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useListCampaignDiscoveryActive<TData = Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError = ErrorResponse>(
- campaignId: string,
-    params?: ListCampaignDiscoveryActiveParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignDiscoveryActive>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListCampaignDiscoveryActiveQueryOptions(campaignId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
 export type listCreatorsResponse200 = {
   data: CampaignParticipantListResponse
   status: 200
@@ -2361,6 +1629,154 @@ export function useListCreators<TData = Awaited<ReturnType<typeof listCreators>>
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getListCreatorsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type listCampaignApplicationsResponse200 = {
+  data: CampaignApplicationListResponse
+  status: 200
+}
+
+export type listCampaignApplicationsResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type listCampaignApplicationsResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type listCampaignApplicationsResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type listCampaignApplicationsResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type listCampaignApplicationsResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type listCampaignApplicationsResponseSuccess = (listCampaignApplicationsResponse200) & {
+  headers: Headers;
+};
+export type listCampaignApplicationsResponseError = (listCampaignApplicationsResponse401 | listCampaignApplicationsResponse403 | listCampaignApplicationsResponse404 | listCampaignApplicationsResponse422 | listCampaignApplicationsResponse500) & {
+  headers: Headers;
+};
+
+export type listCampaignApplicationsResponse = (listCampaignApplicationsResponseSuccess | listCampaignApplicationsResponseError)
+
+export const getListCampaignApplicationsUrl = (campaignId: string,
+    params?: ListCampaignApplicationsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/campaigns/${campaignId}/applications?${stringifiedParams}` : `/v1/campaigns/${campaignId}/applications`
+}
+
+export const listCampaignApplications = async (campaignId: string,
+    params?: ListCampaignApplicationsParams, options?: RequestInit): Promise<listCampaignApplicationsResponse> => {
+
+  return customFetch<listCampaignApplicationsResponse>(getListCampaignApplicationsUrl(campaignId,params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListCampaignApplicationsQueryKey = (campaignId: string,
+    params?: ListCampaignApplicationsParams,) => {
+    return [
+    `/v1/campaigns/${campaignId}/applications`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListCampaignApplicationsQueryOptions = <TData = Awaited<ReturnType<typeof listCampaignApplications>>, TError = ErrorResponse>(campaignId: string,
+    params?: ListCampaignApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListCampaignApplicationsQueryKey(campaignId,params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCampaignApplications>>> = ({ signal }) => listCampaignApplications(campaignId,params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: !!(campaignId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListCampaignApplicationsQueryResult = NonNullable<Awaited<ReturnType<typeof listCampaignApplications>>>
+export type ListCampaignApplicationsQueryError = ErrorResponse
+
+
+export function useListCampaignApplications<TData = Awaited<ReturnType<typeof listCampaignApplications>>, TError = ErrorResponse>(
+ campaignId: string,
+    params: undefined |  ListCampaignApplicationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listCampaignApplications>>,
+          TError,
+          Awaited<ReturnType<typeof listCampaignApplications>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListCampaignApplications<TData = Awaited<ReturnType<typeof listCampaignApplications>>, TError = ErrorResponse>(
+ campaignId: string,
+    params?: ListCampaignApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listCampaignApplications>>,
+          TError,
+          Awaited<ReturnType<typeof listCampaignApplications>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListCampaignApplications<TData = Awaited<ReturnType<typeof listCampaignApplications>>, TError = ErrorResponse>(
+ campaignId: string,
+    params?: ListCampaignApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useListCampaignApplications<TData = Awaited<ReturnType<typeof listCampaignApplications>>, TError = ErrorResponse>(
+ campaignId: string,
+    params?: ListCampaignApplicationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCampaignApplications>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListCampaignApplicationsQueryOptions(campaignId,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

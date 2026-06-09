@@ -59,6 +59,13 @@ export const MeResponse = zod.object({
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
   "plan": zod.string(),
+  "plan_capabilities": zod.object({
+  "allows_email_invites": zod.boolean(),
+  "allows_in_platform_invites": zod.boolean(),
+  "allows_campaign_board": zod.boolean(),
+  "allows_automatic_matching": zod.boolean(),
+  "allows_discovery": zod.boolean()
+}),
   "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 }).and(zod.object({
@@ -119,6 +126,13 @@ export const SelectKindResponse = zod.object({
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
   "plan": zod.string(),
+  "plan_capabilities": zod.object({
+  "allows_email_invites": zod.boolean(),
+  "allows_in_platform_invites": zod.boolean(),
+  "allows_campaign_board": zod.boolean(),
+  "allows_automatic_matching": zod.boolean(),
+  "allows_discovery": zod.boolean()
+}),
   "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })

@@ -8,14 +8,12 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-/**
- * @nullable
- */
-export type CreatorOnboardingPayloadGender = typeof CreatorOnboardingPayloadGender[keyof typeof CreatorOnboardingPayloadGender] | null;
-
-
-export const CreatorOnboardingPayloadGender = {
-  male: 'male',
-  female: 'female',
-  non_binary: 'non_binary',
-} as const;
+export interface CreateEmailInviteRequest {
+  /** @maxLength 320 */
+  invited_email: string;
+  /**
+     * @maxLength 1000
+     * @nullable
+     */
+  note?: string | null;
+}

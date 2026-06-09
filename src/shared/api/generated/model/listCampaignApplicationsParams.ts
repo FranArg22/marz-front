@@ -7,15 +7,14 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
+import type { ListCampaignApplicationsStatus } from './listCampaignApplicationsStatus';
 
+export type ListCampaignApplicationsParams = {
+cursor?: string;
 /**
- * @nullable
+ * @minimum 1
+ * @maximum 50
  */
-export type CreatorOnboardingPayloadGender = typeof CreatorOnboardingPayloadGender[keyof typeof CreatorOnboardingPayloadGender] | null;
-
-
-export const CreatorOnboardingPayloadGender = {
-  male: 'male',
-  female: 'female',
-  non_binary: 'non_binary',
-} as const;
+limit?: number;
+status?: ListCampaignApplicationsStatus;
+};

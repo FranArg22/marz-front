@@ -13,4 +13,5 @@ export interface CampaignPlanCapabilities {
   allows_in_platform_invites: boolean;
   allows_campaign_board: boolean;
   allows_automatic_matching: boolean;
+  allows_discovery: boolean;
 }

@@ -103,6 +103,13 @@ export const CompleteBrandOnboardingResponse = zod.object({
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
   "plan": zod.string(),
+  "plan_capabilities": zod.object({
+  "allows_email_invites": zod.boolean(),
+  "allows_in_platform_invites": zod.boolean(),
+  "allows_campaign_board": zod.boolean(),
+  "allows_automatic_matching": zod.boolean(),
+  "allows_discovery": zod.boolean()
+}),
   "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })
@@ -159,7 +166,7 @@ export const CompleteCreatorOnboardingBody = zod.object({
   "avatar_s3_key": zod.string().max(completeCreatorOnboardingBodyAvatarS3KeyMax),
   "birthday": zod.iso.date(),
   "whatsapp_e164": zod.string().regex(completeCreatorOnboardingBodyWhatsappE164RegExp),
-  "gender": zod.enum(['male', 'female', 'non_binary', 'prefer_not_say']).nullish(),
+  "gender": zod.enum(['male', 'female', 'non_binary']).nullish(),
   "experience_level": zod.enum(['none', '1_to_5', '6_to_20', '20_plus_primary']),
   "channels": zod.array(zod.object({
   "platform": zod.string().max(completeCreatorOnboardingBodyChannelsItemPlatformMax),
@@ -231,6 +238,13 @@ export const CompleteCreatorOnboardingResponse = zod.object({
   "logo_url": zod.url().nullish(),
   "website_url": zod.url().nullish(),
   "plan": zod.string(),
+  "plan_capabilities": zod.object({
+  "allows_email_invites": zod.boolean(),
+  "allows_in_platform_invites": zod.boolean(),
+  "allows_campaign_board": zod.boolean(),
+  "allows_automatic_matching": zod.boolean(),
+  "allows_discovery": zod.boolean()
+}),
   "trial_consumed": zod.boolean().optional().describe('Whether this workspace has already consumed its trial allotment. Server-managed:\nflips to true the first time a paid subscription starts in trial, and stays true\nforever — preventing repeated trial reactivations after downgrade or cancellation.\n')
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })

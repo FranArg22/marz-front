@@ -8,14 +8,13 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-/**
- * @nullable
- */
-export type CreatorOnboardingPayloadGender = typeof CreatorOnboardingPayloadGender[keyof typeof CreatorOnboardingPayloadGender] | null;
-
-
-export const CreatorOnboardingPayloadGender = {
-  male: 'male',
-  female: 'female',
-  non_binary: 'non_binary',
-} as const;
+export interface DiscoveryCreatorPlatformStats {
+  platform: string;
+  handle: string;
+  followers: number;
+  engagement_rate: number;
+  cpm_amount: string;
+  cpm_currency: string;
+  min_price_amount: string;
+  price_currency: string;
+}

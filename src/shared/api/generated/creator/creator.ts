@@ -27,6 +27,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AcceptConnectionRequestResponse,
   AcceptCreatorInvitationResponse,
   CreatorCampaignBoardDetailResponse,
   CreatorCampaignBoardResponse,
@@ -39,6 +40,7 @@ import type {
   GetCreatorEarningsParams,
   ListCreatorCampaignBoardParams,
   ListCreatorInvitationsParams,
+  RejectConnectionRequestResponse,
   SubmitCampaignApplicationRequest,
   SubmitCampaignApplicationResponse
 } from '../model';
@@ -855,7 +857,221 @@ export function useExportCreatorEarningsCSV<TData = Awaited<ReturnType<typeof ex
 
 
 
-export type getCreatorInvitationResponse200 = {
+export type acceptDiscoveryConnectionRequestResponse200 = {
+  data: AcceptConnectionRequestResponse
+  status: 200
+}
+
+export type acceptDiscoveryConnectionRequestResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type acceptDiscoveryConnectionRequestResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type acceptDiscoveryConnectionRequestResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type acceptDiscoveryConnectionRequestResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type acceptDiscoveryConnectionRequestResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type acceptDiscoveryConnectionRequestResponse410 = {
+  data: ErrorResponse
+  status: 410
+}
+
+export type acceptDiscoveryConnectionRequestResponseSuccess = (acceptDiscoveryConnectionRequestResponse200) & {
+  headers: Headers;
+};
+export type acceptDiscoveryConnectionRequestResponseError = (acceptDiscoveryConnectionRequestResponse400 | acceptDiscoveryConnectionRequestResponse401 | acceptDiscoveryConnectionRequestResponse403 | acceptDiscoveryConnectionRequestResponse404 | acceptDiscoveryConnectionRequestResponse409 | acceptDiscoveryConnectionRequestResponse410) & {
+  headers: Headers;
+};
+
+export type acceptDiscoveryConnectionRequestResponse = (acceptDiscoveryConnectionRequestResponseSuccess | acceptDiscoveryConnectionRequestResponseError)
+
+export const getAcceptDiscoveryConnectionRequestUrl = (id: string,) => {
+
+
+
+
+  return `/v1/discovery/connection-requests/${id}/accept`
+}
+
+export const acceptDiscoveryConnectionRequest = async (id: string, options?: RequestInit): Promise<acceptDiscoveryConnectionRequestResponse> => {
+
+  return customFetch<acceptDiscoveryConnectionRequestResponse>(getAcceptDiscoveryConnectionRequestUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+export const getAcceptDiscoveryConnectionRequestMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['acceptDiscoveryConnectionRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  acceptDiscoveryConnectionRequest(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AcceptDiscoveryConnectionRequestMutationResult = NonNullable<Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>>
+
+    export type AcceptDiscoveryConnectionRequestMutationError = ErrorResponse
+
+    export const useAcceptDiscoveryConnectionRequest = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof acceptDiscoveryConnectionRequest>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+      return useMutation(getAcceptDiscoveryConnectionRequestMutationOptions(options), queryClient);
+    }
+    export type rejectDiscoveryConnectionRequestResponse200 = {
+  data: RejectConnectionRequestResponse
+  status: 200
+}
+
+export type rejectDiscoveryConnectionRequestResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type rejectDiscoveryConnectionRequestResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type rejectDiscoveryConnectionRequestResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type rejectDiscoveryConnectionRequestResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type rejectDiscoveryConnectionRequestResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type rejectDiscoveryConnectionRequestResponse410 = {
+  data: ErrorResponse
+  status: 410
+}
+
+export type rejectDiscoveryConnectionRequestResponseSuccess = (rejectDiscoveryConnectionRequestResponse200) & {
+  headers: Headers;
+};
+export type rejectDiscoveryConnectionRequestResponseError = (rejectDiscoveryConnectionRequestResponse400 | rejectDiscoveryConnectionRequestResponse401 | rejectDiscoveryConnectionRequestResponse403 | rejectDiscoveryConnectionRequestResponse404 | rejectDiscoveryConnectionRequestResponse409 | rejectDiscoveryConnectionRequestResponse410) & {
+  headers: Headers;
+};
+
+export type rejectDiscoveryConnectionRequestResponse = (rejectDiscoveryConnectionRequestResponseSuccess | rejectDiscoveryConnectionRequestResponseError)
+
+export const getRejectDiscoveryConnectionRequestUrl = (id: string,) => {
+
+
+
+
+  return `/v1/discovery/connection-requests/${id}/reject`
+}
+
+export const rejectDiscoveryConnectionRequest = async (id: string, options?: RequestInit): Promise<rejectDiscoveryConnectionRequestResponse> => {
+
+  return customFetch<rejectDiscoveryConnectionRequestResponse>(getRejectDiscoveryConnectionRequestUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+export const getRejectDiscoveryConnectionRequestMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['rejectDiscoveryConnectionRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  rejectDiscoveryConnectionRequest(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RejectDiscoveryConnectionRequestMutationResult = NonNullable<Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>>
+
+    export type RejectDiscoveryConnectionRequestMutationError = ErrorResponse
+
+    export const useRejectDiscoveryConnectionRequest = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof rejectDiscoveryConnectionRequest>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+      return useMutation(getRejectDiscoveryConnectionRequestMutationOptions(options), queryClient);
+    }
+    export type getCreatorInvitationResponse200 = {
   data: CreatorInvitationDetailResponse
   status: 200
 }

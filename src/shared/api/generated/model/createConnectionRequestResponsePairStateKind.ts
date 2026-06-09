@@ -8,14 +8,9 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-/**
- * @nullable
- */
-export type CreatorOnboardingPayloadGender = typeof CreatorOnboardingPayloadGender[keyof typeof CreatorOnboardingPayloadGender] | null;
+export type CreateConnectionRequestResponsePairStateKind = typeof CreateConnectionRequestResponsePairStateKind[keyof typeof CreateConnectionRequestResponsePairStateKind];
 
 
-export const CreatorOnboardingPayloadGender = {
-  male: 'male',
-  female: 'female',
-  non_binary: 'non_binary',
+export const CreateConnectionRequestResponsePairStateKind = {
+  connection_pending: 'connection_pending',
 } as const;

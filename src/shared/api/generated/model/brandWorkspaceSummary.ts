@@ -7,6 +7,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
+import type { CampaignPlanCapabilities } from './campaignPlanCapabilities';
 
 /**
  * Active brand workspace for the authenticated account. Present only when
@@ -24,6 +25,7 @@ export interface BrandWorkspaceSummary {
   /** @nullable */
   website_url?: string | null;
   plan: string;
+  plan_capabilities: CampaignPlanCapabilities;
   /** Whether this workspace has already consumed its trial allotment. Server-managed:
   flips to true the first time a paid subscription starts in trial, and stays true
   forever — preventing repeated trial reactivations after downgrade or cancellation.

@@ -10,7 +10,8 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import type { CampaignApplicationListItem } from './campaignApplicationListItem';
 
 export interface CampaignApplicationListResponse {
-  data: CampaignApplicationListItem[];
+  items: CampaignApplicationListItem[];
   /** @nullable */
   next_cursor: string | null;
+  total: number;
 }

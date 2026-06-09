@@ -8,14 +8,12 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-/**
- * @nullable
- */
-export type CreatorOnboardingPayloadGender = typeof CreatorOnboardingPayloadGender[keyof typeof CreatorOnboardingPayloadGender] | null;
+export type ListCampaignApplicationsStatus = typeof ListCampaignApplicationsStatus[keyof typeof ListCampaignApplicationsStatus];
 
 
-export const CreatorOnboardingPayloadGender = {
-  male: 'male',
-  female: 'female',
-  non_binary: 'non_binary',
+export const ListCampaignApplicationsStatus = {
+  submitted: 'submitted',
+  accepted: 'accepted',
+  rejected: 'rejected',
+  withdrawn: 'withdrawn',
 } as const;
