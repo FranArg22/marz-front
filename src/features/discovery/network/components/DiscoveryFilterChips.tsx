@@ -36,7 +36,7 @@ type FilterChipItem = {
 
 /* eslint-disable lingui/no-unlocalized-strings -- brand names and static labels, not translatable */
 const PLATFORM_LABELS: Record<SocialPlatform, string> = {
-  [SocialPlatform.instagram]: 'Instagram',
+  [SocialPlatform.instagram]: 'IG',
   [SocialPlatform.tiktok]: 'TikTok',
   [SocialPlatform.youtube]: 'YouTube',
 }
@@ -98,31 +98,36 @@ export function DiscoveryFilterChips({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      {activeCount > 0 && (
-        <button
-          type="button"
-          onClick={onOpenFilterPanel}
-          className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-surface-hover"
-        >
-          <SlidersHorizontal className="size-3.5" aria-hidden />
-          {t`Filtros (${activeCount})`}
-        </button>
-      )}
+    <div className="flex items-center gap-2 rounded-full border border-border bg-background px-2 py-1.5 shadow-sm">
+      <button
+        type="button"
+        onClick={onOpenFilterPanel}
+        className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-foreground transition-colors hover:bg-surface-hover"
+      >
+        <SlidersHorizontal className="size-3.5" aria-hidden />
+        {t`Filtros`}
+        {activeCount > 0 ? (
+          <span className="inline-flex min-w-4 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-semibold text-primary-foreground">
+            {activeCount}
+          </span>
+        ) : null}
+      </button>
 
-      {chips.map((chip) => (
-        <FilterChip
-          key={chip.key}
-          label={chip.label}
-          onRemove={() => removeChip(chip.key)}
-        />
-      ))}
+      <div className="flex flex-1 items-center gap-2 overflow-x-auto">
+        {chips.map((chip) => (
+          <FilterChip
+            key={chip.key}
+            label={chip.label}
+            onRemove={() => removeChip(chip.key)}
+          />
+        ))}
+      </div>
 
       {activeCount > 0 && (
         <button
           type="button"
           onClick={clearFilters}
-          className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+          className="shrink-0 px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           {t`Limpiar`}
         </button>
@@ -139,7 +144,7 @@ function FilterChip({
   onRemove: () => void
 }) {
   return (
-    <span className="inline-flex h-8 max-w-full items-center gap-1.5 rounded-full border border-border bg-muted px-3 text-xs font-medium text-foreground">
+    <span className="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 text-xs font-medium text-secondary-foreground">
       <span className="truncate">{label}</span>
       <button
         type="button"
@@ -159,10 +164,10 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
   if (filters.platforms?.length) {
     const platformList = filters.platforms
       .map((platform) => PLATFORM_LABELS[platform])
-      .join(', ')
+      .join(' + ')
     chips.push({
       key: 'platforms',
-      label: t`Plataformas: ${platformList}`,
+      label: platformList,
     })
   }
 
@@ -170,7 +175,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const genderLabel = GENDER_LABELS[filters.gender]
     chips.push({
       key: 'gender',
-      label: t`Género: ${genderLabel}`,
+      label: genderLabel,
     })
   }
 
@@ -178,7 +183,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const countryList = filters.countries.join(', ')
     chips.push({
       key: 'countries',
-      label: t`Países: ${countryList}`,
+      label: countryList,
     })
   }
 
@@ -186,7 +191,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const ageList = filters.age_buckets.join(', ')
     chips.push({
       key: 'age_buckets',
-      label: t`Edad: ${ageList}`,
+      label: ageList,
     })
   }
 
@@ -194,7 +199,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const interestList = filters.interests.join(', ')
     chips.push({
       key: 'interests',
-      label: t`Intereses: ${interestList}`,
+      label: interestList,
     })
   }
 
@@ -202,7 +207,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const contentList = filters.content_types.join(', ')
     chips.push({
       key: 'content_types',
-      label: t`Contenido: ${contentList}`,
+      label: contentList,
     })
   }
 
@@ -217,7 +222,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     )
     chips.push({
       key: 'followers',
-      label: t`Seguidores: ${followersRange}`,
+      label: t`${followersRange} seguidores`,
     })
   }
 
@@ -225,7 +230,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     const erMin = filters.engagement_rate_min
     chips.push({
       key: 'engagement_rate',
-      label: t`ER: ≥${erMin}%`,
+      label: t`+${erMin}% ER`,
     })
   }
 
@@ -240,7 +245,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     )
     chips.push({
       key: 'avg_views',
-      label: t`Vistas: ${viewsRange}`,
+      label: t`${viewsRange} vistas`,
     })
   }
 
@@ -252,7 +257,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     )
     chips.push({
       key: 'cpm',
-      label: t`CPM: ${cpmRange}`,
+      label: t`${cpmRange} CPM`,
     })
   }
 
@@ -264,7 +269,7 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
     )
     chips.push({
       key: 'price',
-      label: t`Precio: ${priceRange}`,
+      label: priceRange,
     })
   }
 
@@ -277,15 +282,17 @@ function formatRange<T extends string | number>(
   formatValue: (value: T) => string,
 ): string {
   if (min !== undefined && max !== undefined) {
-    return `${formatValue(min)}–${formatValue(max)}`
+    return `${formatValue(min)}-${formatValue(max)}`
   }
 
   if (min !== undefined) {
-    return `≥${formatValue(min)}`
+    const minLabel = formatValue(min)
+    return t`Desde ${minLabel}`
   }
 
   if (max !== undefined) {
-    return `≤${formatValue(max)}`
+    const maxLabel = formatValue(max)
+    return t`Hasta ${maxLabel}`
   }
 
   return ''

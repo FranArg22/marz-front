@@ -55,14 +55,15 @@ describe('CreatorCard pair-state CTA mapping', () => {
     expect(screen.queryByText('Ir al chat')).not.toBeInTheDocument()
   })
 
-  it('connection_pending: invite is disabled and labelled as sent', () => {
+  it('connection_pending: no invite action, shows sent state badge', () => {
     render(
       <CreatorCard card={makeCard('connection_pending')} onInvite={vi.fn()} />,
     )
 
     expect(
-      screen.getByRole('button', { name: 'Invitación enviada' }),
-    ).toBeDisabled()
+      screen.queryByRole('button', { name: /Invitar/ }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByText('Invitación enviada')).toBeInTheDocument()
   })
 
   it('connection_rejected: re-invite is enabled with a warning tooltip', async () => {
@@ -101,6 +102,9 @@ describe('CreatorCard pair-state CTA mapping', () => {
 
     const chatButton = screen.getByRole('button', { name: 'Ir al chat' })
     expect(chatButton).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /Invitar/ }),
+    ).not.toBeInTheDocument()
     await user.click(chatButton)
 
     expect(navigate).toHaveBeenCalledWith({
@@ -109,7 +113,7 @@ describe('CreatorCard pair-state CTA mapping', () => {
     })
   })
 
-  it('active_collaboration: invite disabled, chat CTA present', () => {
+  it('active_collaboration: no invite action, chat CTA present', () => {
     render(
       <CreatorCard
         card={makeCard('active_collaboration', 'conv-9')}
@@ -117,18 +121,28 @@ describe('CreatorCard pair-state CTA mapping', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: 'Colaborando' })).toBeDisabled()
+    expect(screen.getByText('Colaborando')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /Invitar/ }),
+    ).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Ir al chat' })).toBeInTheDocument()
   })
 
-  it('does not call onInvite when the invite button is disabled', async () => {
+  it('selection mode: toggles selection for an invitable creator', async () => {
     const user = userEvent.setup()
-    const onInvite = vi.fn()
+    const onToggleSelect = vi.fn()
     render(
-      <CreatorCard card={makeCard('connection_pending')} onInvite={onInvite} />,
+      <CreatorCard
+        card={makeCard('no_contact')}
+        onInvite={vi.fn()}
+        selectionMode
+        onToggleSelect={onToggleSelect}
+      />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Invitación enviada' }))
-    expect(onInvite).not.toHaveBeenCalled()
+    await user.click(
+      screen.getByRole('button', { name: /Seleccionar Creator One/ }),
+    )
+    expect(onToggleSelect).toHaveBeenCalledWith('acc-1')
   })
 })

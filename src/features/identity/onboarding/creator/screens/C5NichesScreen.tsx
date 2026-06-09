@@ -1,24 +1,7 @@
 import { t } from '@lingui/core/macro'
 import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/components'
+import { NICHE_OPTIONS } from '#/shared/catalog/creatorTaxonomy'
 import { useCreatorOnboardingStore } from '../store'
-
-const NICHE_OPTIONS: { value: string; label: () => string }[] = [
-  { value: 'fintech', label: () => t`Fintech` },
-  { value: 'tech', label: () => t`Tech` },
-  { value: 'gaming', label: () => t`Gaming` },
-  { value: 'comedy', label: () => t`Comedy` },
-  { value: 'lifestyle', label: () => t`Lifestyle` },
-  { value: 'business', label: () => t`Business` },
-  { value: 'productivity', label: () => t`Productividad` },
-  { value: 'fitness', label: () => t`Fitness` },
-  { value: 'personal_finance', label: () => t`Finanzas personales` },
-  { value: 'crypto', label: () => t`Crypto` },
-  { value: 'food', label: () => t`Food` },
-  { value: 'travel', label: () => t`Travel` },
-  { value: 'beauty', label: () => t`Beauty` },
-  { value: 'fashion', label: () => t`Moda` },
-  { value: 'parenting', label: () => t`Parenting` },
-]
 
 export function C5NichesScreen() {
   const store = useCreatorOnboardingStore()

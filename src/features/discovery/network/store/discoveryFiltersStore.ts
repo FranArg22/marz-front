@@ -28,7 +28,7 @@ export const useDiscoveryFiltersStore = create<DiscoveryFiltersStore>()(
   (set) => ({
     pendingFilters: EMPTY_FILTERS,
     appliedFilters: EMPTY_FILTERS,
-    activeSort: 'recommended',
+    activeSort: 'er_desc',
     selectedAccountIds: new Set<string>(),
     selectionMode: false,
     setPendingFilters: (filters) => set({ pendingFilters: filters }),

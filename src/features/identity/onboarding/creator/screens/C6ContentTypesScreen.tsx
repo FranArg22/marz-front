@@ -15,38 +15,32 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { OnboardingContentTypeChip } from '#/features/identity/onboarding/shared/components'
+import { CONTENT_TYPE_OPTIONS as SHARED_CONTENT_TYPE_OPTIONS } from '#/shared/catalog/creatorTaxonomy'
 import { useCreatorOnboardingStore } from '../store'
+
+const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
+  unboxing: PackageOpen,
+  reviews: Star,
+  product_demos: LayoutTemplate,
+  lifestyle: Sparkles,
+  storytelling: BookOpen,
+  video_ads: Megaphone,
+  faceless_clipping: Scissors,
+  tutorials: GraduationCap,
+  interviews: Mic,
+  humor_sketches: Laugh,
+  day_in_the_life: Sun,
+  behind_the_scenes: Clapperboard,
+}
 
 const CONTENT_TYPE_OPTIONS: {
   value: string
   label: () => string
   icon: LucideIcon
-}[] = [
-  { value: 'unboxing', label: () => t`Unboxing`, icon: PackageOpen },
-  { value: 'reviews', label: () => t`Reviews`, icon: Star },
-  {
-    value: 'product_demos',
-    label: () => t`Product demos`,
-    icon: LayoutTemplate,
-  },
-  { value: 'lifestyle', label: () => t`Lifestyle`, icon: Sparkles },
-  { value: 'storytelling', label: () => t`Storytelling`, icon: BookOpen },
-  { value: 'video_ads', label: () => t`Video Ads`, icon: Megaphone },
-  {
-    value: 'faceless_clipping',
-    label: () => t`Faceless / Clipping`,
-    icon: Scissors,
-  },
-  { value: 'tutorials', label: () => t`Tutoriales`, icon: GraduationCap },
-  { value: 'interviews', label: () => t`Entrevistas`, icon: Mic },
-  { value: 'humor_sketches', label: () => t`Humor / Sketches`, icon: Laugh },
-  { value: 'day_in_the_life', label: () => t`Day in the life`, icon: Sun },
-  {
-    value: 'behind_the_scenes',
-    label: () => t`Behind the scenes`,
-    icon: Clapperboard,
-  },
-]
+}[] = SHARED_CONTENT_TYPE_OPTIONS.flatMap((option) => {
+  const icon = CONTENT_TYPE_ICONS[option.value]
+  return icon ? [{ ...option, icon }] : []
+})
 
 export function C6ContentTypesScreen() {
   const store = useCreatorOnboardingStore()

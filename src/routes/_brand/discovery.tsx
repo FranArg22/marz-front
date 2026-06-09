@@ -1,10 +1,9 @@
 import { t } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Compass, Loader2, SlidersHorizontal } from 'lucide-react'
+import { Compass, Loader2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { z } from 'zod'
 
-import { Button } from '#/components/ui/button'
 import { CreatorCard } from '#/features/discovery/network/components/CreatorCard'
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
@@ -24,29 +23,42 @@ import {
   SocialPlatform,
 } from '#/shared/api/generated/model'
 
+// TanStack parsea un único valor en la URL como escalar (`?countries=AR` →
+// `'AR'`, no `['AR']`) y los números como `number`. Normalizamos a array y a
+// string para que compartir/recargar una URL filtrada re-hidrate todos los
+// filtros en vez de descartarlos en el `.catch(undefined)`.
+const arrayParam = <T extends z.ZodTypeAny>(inner: T) =>
+  z
+    .preprocess(
+      (v) => (v == null ? undefined : Array.isArray(v) ? v : [v]),
+      z.array(inner).optional(),
+    )
+    .catch(undefined)
+
+const stringParam = z
+  .preprocess((v) => (v == null ? undefined : String(v)), z.string().optional())
+  .catch(undefined)
+
 const discoverySearchSchema = z.object({
-  platforms: z.array(z.enum(SocialPlatform)).optional().catch(undefined),
+  platforms: arrayParam(z.enum(SocialPlatform)),
   creator_type: z
     .enum(GetDiscoveryCreatorsCreatorType)
     .optional()
     .catch(undefined),
-  countries: z.array(z.string()).optional().catch(undefined),
+  countries: arrayParam(z.string()),
   gender: z.enum(GetDiscoveryCreatorsGender).optional().catch(undefined),
-  age_buckets: z
-    .array(z.enum(GetDiscoveryCreatorsAgeBucketsItem))
-    .optional()
-    .catch(undefined),
-  interests: z.array(z.string()).optional().catch(undefined),
-  content_types: z.array(z.string()).optional().catch(undefined),
-  followers_min: z.number().int().optional().catch(undefined),
-  followers_max: z.number().int().optional().catch(undefined),
-  engagement_rate_min: z.number().optional().catch(undefined),
-  avg_views_min: z.number().int().optional().catch(undefined),
-  avg_views_max: z.number().int().optional().catch(undefined),
-  cpm_min: z.string().optional().catch(undefined),
-  cpm_max: z.string().optional().catch(undefined),
-  price_min: z.string().optional().catch(undefined),
-  price_max: z.string().optional().catch(undefined),
+  age_buckets: arrayParam(z.enum(GetDiscoveryCreatorsAgeBucketsItem)),
+  interests: arrayParam(z.string()),
+  content_types: arrayParam(z.string()),
+  followers_min: z.coerce.number().int().optional().catch(undefined),
+  followers_max: z.coerce.number().int().optional().catch(undefined),
+  engagement_rate_min: z.coerce.number().optional().catch(undefined),
+  avg_views_min: z.coerce.number().int().optional().catch(undefined),
+  avg_views_max: z.coerce.number().int().optional().catch(undefined),
+  cpm_min: stringParam,
+  cpm_max: stringParam,
+  price_min: stringParam,
+  price_max: stringParam,
   sort: z.enum(GetDiscoveryCreatorsSort).optional().catch(undefined),
 })
 
@@ -73,12 +85,10 @@ function DiscoveryRoute() {
     activeSort,
     selectedAccountIds,
     selectionMode,
-    toggleSelectionMode,
     toggleSelect,
   } = useDiscoveryFiltersStore()
   const appliedParams = { ...appliedFilters, sort: activeSort }
   const selectedAccountIdList = Array.from(selectedAccountIds)
-  const selectedCount = selectedAccountIdList.length
 
   const hydrated = useRef(false)
 
@@ -90,7 +100,7 @@ function DiscoveryRoute() {
     useDiscoveryFiltersStore.setState({
       appliedFilters: filters,
       pendingFilters: filters,
-      activeSort: sort ?? 'recommended',
+      activeSort: sort && sort !== 'recommended' ? sort : 'er_desc',
     })
     hydrated.current = true
   }, [search])
@@ -106,17 +116,19 @@ function DiscoveryRoute() {
     })
   }, [appliedFilters, activeSort, navigate])
 
-  // El backend omite plan_capabilities para brands sin plan pago (aunque el
-  // contrato lo marque required); al venir de brand_workspace?. queda
-  // posiblemente undefined, así el acceso defensivo no es redundante.
+  // El layout/SSR siembra un me liviano (getServerMe) que NO trae
+  // plan_capabilities; al venir de brand_workspace?. queda posiblemente
+  // undefined. Solo gateamos a upsell cuando plan_capabilities está PRESENTE y
+  // allows_discovery es false; si está ausente (me liviano, todavía no se sabe)
+  // asumimos permitido para no flashear el upsell en la carga inicial ni al
+  // navegar/filtrar (cuando la URL se actualiza y re-siembra el me liviano).
   const planCapabilities =
     meQuery.data?.status === 200
       ? meQuery.data.data.brand_workspace?.plan_capabilities
       : undefined
-  const allowsDiscovery =
-    meQuery.data?.status === 200
-      ? Boolean(planCapabilities?.allows_discovery)
-      : true
+  const allowsDiscovery = planCapabilities
+    ? planCapabilities.allows_discovery
+    : true
 
   if (meQuery.isPending) {
     return (
@@ -133,32 +145,17 @@ function DiscoveryRoute() {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden p-6">
       <div>
-        <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-          {t`Discovery`}
+        <h1 className="text-2xl font-bold text-foreground">{t`Discovery`}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t`Descubrí creadores UGC e influencers para invitar a tus campañas.`}
         </p>
-        <h2 className="mt-1 text-lg font-semibold text-foreground">
-          {t`Explorá la red de creators`}
-        </h2>
-      </div>
-      <div className="flex items-center gap-2">
-        <Button type="button" onClick={() => setFilterPanelOpen(true)}>
-          <SlidersHorizontal className="size-4" aria-hidden />
-          {t`Filtros`}
-        </Button>
-        <Button
-          type="button"
-          variant={selectionMode ? 'secondary' : 'outline'}
-          size="sm"
-          onClick={toggleSelectionMode}
-        >
-          {selectionMode ? t`Cancelar selección` : t`Seleccionar`}
-        </Button>
       </div>
       <DiscoveryFilterChips
         onOpenFilterPanel={() => setFilterPanelOpen(true)}
       />
       <DiscoveryGrid
         params={appliedParams}
+        onBulkInvite={() => setBulkModalOpen(true)}
         renderCard={(card) => (
           <CreatorCard
             card={card}
@@ -172,13 +169,6 @@ function DiscoveryRoute() {
           />
         )}
       />
-      {selectionMode && selectedAccountIds.size > 0 ? (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-          <Button type="button" onClick={() => setBulkModalOpen(true)}>
-            {t`Invitar (${selectedCount})`}
-          </Button>
-        </div>
-      ) : null}
       <InviteBulkModal
         open={bulkModalOpen}
         onOpenChange={setBulkModalOpen}
