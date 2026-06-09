@@ -10,14 +10,9 @@ import {
 } from '#/shared/api/generated/model'
 
 const campaignDetailTabSchema = z
-  .enum(['overview', 'discovery', 'creators', 'videos', 'analytics'])
+  .enum(['overview', 'applications', 'creators', 'videos', 'analytics'])
   .default('overview')
   .catch('overview')
-
-const campaignDetailSectionSchema = z
-  .enum(['matches', 'applications', 'active', 'invited'])
-  .default('matches')
-  .catch('matches')
 
 const campaignDetailStatusSchema = z
   .union([z.enum(ListCreatorsStatus), z.enum(DeliverableStatus)])
@@ -31,7 +26,6 @@ const campaignParticipantsPlatformSchema = z
 
 export const campaignDetailSearchSchema = z.object({
   tab: campaignDetailTabSchema,
-  section: campaignDetailSectionSchema,
   q: z.string().optional().catch(undefined),
   status: campaignDetailStatusSchema,
   platform: campaignParticipantsPlatformSchema,

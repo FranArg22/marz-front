@@ -8,7 +8,6 @@ import {
   trackCampaignDetailTabChanged,
   trackCampaignDetailViewed,
 } from './tracking'
-import { trackDiscoverySectionViewed } from '#/shared/analytics/discoveryTracking'
 
 const mockNavigate = vi.fn()
 
@@ -28,10 +27,6 @@ vi.mock('@tanstack/react-router', () => ({
 vi.mock('./tracking', () => ({
   trackCampaignDetailTabChanged: vi.fn(),
   trackCampaignDetailViewed: vi.fn(),
-}))
-
-vi.mock('#/shared/analytics/discoveryTracking', () => ({
-  trackDiscoverySectionViewed: vi.fn(),
 }))
 
 vi.mock('./useCampaignTopicSubscription', () => ({
@@ -62,12 +57,14 @@ vi.mock('./CampaignDetailTabs', () => ({
     onTabChange,
   }: {
     activeTab: string
-    onTabChange: (tab: 'overview' | 'discovery' | 'creators' | 'videos') => void
+    onTabChange: (
+      tab: 'overview' | 'applications' | 'creators' | 'videos',
+    ) => void
   }) => (
     <nav aria-label="tabs">
       <span>{activeTab}</span>
-      <button type="button" onClick={() => onTabChange('discovery')}>
-        Discovery
+      <button type="button" onClick={() => onTabChange('applications')}>
+        Applications
       </button>
       <button type="button" onClick={() => onTabChange('videos')}>
         Videos
@@ -80,8 +77,8 @@ vi.mock('./OverviewTab', () => ({
   OverviewTab: () => <div>Overview tab</div>,
 }))
 
-vi.mock('#/features/discovery/campaign-detail/DiscoveryTab', () => ({
-  DiscoveryTab: () => <div>Discovery tab</div>,
+vi.mock('#/features/discovery/campaign-detail/ApplicationsTab', () => ({
+  ApplicationsTab: () => <div>Applications tab</div>,
 }))
 
 vi.mock('./creators/CreatorsTab', () => ({
@@ -103,7 +100,7 @@ describe('CampaignDetailPage tracking', () => {
     rerender(
       <CampaignDetailPage
         campaignId="campaign-1"
-        search={{ tab: 'overview', section: 'matches' }}
+        search={{ tab: 'overview' }}
       />,
     )
 
@@ -124,42 +121,11 @@ describe('CampaignDetailPage tracking', () => {
       to: 'videos',
     })
   })
-
-  it('tracks discovery section views once per section', () => {
-    const { rerender } = renderCampaignDetailPage({
-      tab: 'discovery',
-      section: 'matches',
-    })
-
-    rerender(
-      <CampaignDetailPage
-        campaignId="campaign-1"
-        search={{ tab: 'discovery', section: 'matches' }}
-      />,
-    )
-    rerender(
-      <CampaignDetailPage
-        campaignId="campaign-1"
-        search={{ tab: 'discovery', section: 'applications' }}
-      />,
-    )
-
-    expect(trackDiscoverySectionViewed).toHaveBeenCalledTimes(2)
-    expect(trackDiscoverySectionViewed).toHaveBeenNthCalledWith(1, {
-      campaignId: 'campaign-1',
-      section: 'matches',
-    })
-    expect(trackDiscoverySectionViewed).toHaveBeenNthCalledWith(2, {
-      campaignId: 'campaign-1',
-      section: 'applications',
-    })
-  })
 })
 
 function renderCampaignDetailPage(
   search: ComponentProps<typeof CampaignDetailPage>['search'] = {
     tab: 'overview',
-    section: 'matches',
   },
 ) {
   return render(<CampaignDetailPage campaignId="campaign-1" search={search} />)

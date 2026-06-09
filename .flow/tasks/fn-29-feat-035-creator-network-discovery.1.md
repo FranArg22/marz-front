@@ -239,8 +239,7 @@ Verificar antes de borrar que no hay imports en otro lugar. Si algún archivo ti
 - [ ] No quedan imports de `listCampaignDiscoveryMatches`, `listCampaignDiscoveryInvites`, `listCampaignDiscoveryActive`, `getCampaignDiscoverySummary`, `listCampaignDiscoveryApplications` (función vieja) en src/.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

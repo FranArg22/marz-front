@@ -1,11 +1,11 @@
 import { t } from '@lingui/core/macro'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { AlertCircle, ClipboardList } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
-import { DiscoveryTab } from '#/features/discovery/campaign-detail/DiscoveryTab'
+import { ApplicationsTab } from '#/features/discovery/campaign-detail/ApplicationsTab'
 import { ListCreatorsStatus } from '#/shared/api/generated/model'
 import type {
   CampaignDetailResponse,
@@ -14,7 +14,6 @@ import type {
   SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
-import { trackDiscoverySectionViewed } from '#/shared/analytics/discoveryTracking'
 
 import {
   CampaignDetailHeader,
@@ -39,7 +38,6 @@ import { useCampaignTopicSubscription } from './useCampaignTopicSubscription'
 
 export interface CampaignDetailSearch {
   tab: CampaignDetailTabId
-  section: 'matches' | 'applications' | 'active' | 'invited'
   q?: string
   status?: ListCreatorsStatus | DeliverableStatus
   platform?: SocialPlatform
@@ -61,22 +59,10 @@ export function CampaignDetailPage({
   const detailQuery = useCampaignDetailQuery(campaignId)
   useCampaignTopicSubscription(campaignId)
   const navigate = useNavigate({ from: '/campaigns/$campaignId' })
-  const lastTrackedDiscoverySectionRef = useRef<string | null>(null)
 
   useEffect(() => {
     trackCampaignDetailViewed(campaignId)
   }, [campaignId])
-
-  useEffect(() => {
-    if (search.tab !== 'discovery') return
-    const sectionKey = `${campaignId}:${search.section}`
-    if (lastTrackedDiscoverySectionRef.current === sectionKey) return
-    lastTrackedDiscoverySectionRef.current = sectionKey
-    trackDiscoverySectionViewed({
-      campaignId,
-      section: search.section,
-    })
-  }, [campaignId, search.section, search.tab])
 
   const handleTabChange = (tab: CampaignDetailNavigableTab) => {
     if (tab === search.tab) return
@@ -201,14 +187,8 @@ function CampaignDetailBody({
     return <OverviewTab campaignId={campaignId} detail={detail} />
   }
 
-  if (tab === 'discovery') {
-    return (
-      <DiscoveryTab
-        campaignId={campaignId}
-        planCapabilities={planCapabilities}
-        search={search}
-      />
-    )
+  if (tab === 'applications') {
+    return <ApplicationsTab campaignId={campaignId} />
   }
 
   if (tab === 'creators') {

@@ -256,6 +256,7 @@ function makeCampaign(overrides: Partial<Campaign> = {}): TestCampaign {
     plan_capabilities: {
       allows_automatic_matching: true,
       allows_campaign_board: true,
+      allows_discovery: true,
       allows_email_invites: true,
       allows_in_platform_invites: true,
     },

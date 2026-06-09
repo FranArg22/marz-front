@@ -4,11 +4,10 @@ import { Link } from '@tanstack/react-router'
 import { Badge } from '#/components/ui/badge'
 
 // The parent route `/_brand/campaigns/$campaignId` declares a search schema
-// with required `tab`/`section` (defaulted via zod). TanStack Router's typed
-// Link API surfaces those as required, so we provide the defaults here.
+// with a defaulted `tab`. TanStack Router's typed Link API surfaces it as
+// required, so we provide the default here.
 const campaignDetailSearchDefaults = {
   tab: 'overview' as const,
-  section: 'matches' as const,
 }
 
 interface CampaignMiniCardProps {

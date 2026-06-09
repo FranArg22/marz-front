@@ -4,14 +4,11 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import type {
   CampaignActivityItem,
-  CampaignDiscoveryCounts,
-  CampaignDiscoverySummaryResponse,
   CampaignOverviewResponse,
 } from '#/shared/api/generated/model'
 import { useWebSocket } from '#/shared/ws/useWebSocket'
 import type { DomainEventEnvelope, EventHandler } from '#/shared/ws/events'
 
-import type { DiscoverySection } from './tracking'
 import { matchesCreatorsQueryForCampaign } from './creators/useCampaignParticipantsQuery'
 import { matchesVideosQueryForCampaign } from './videos/useCampaignVideosQuery'
 import { campaignOverviewQueryKey } from './useCampaignOverviewQuery'
@@ -24,14 +21,6 @@ const CAMPAIGN_EVENT_TYPES = {
   activityCreated: 'campaigns.activity.created',
 } as const
 
-function getCampaignDiscoveryQueryKey(
-  campaignId: string,
-  section: DiscoverySection | 'summary',
-  params?: Record<string, unknown>,
-) {
-  return ['campaign', campaignId, 'discovery', section, params ?? {}] as const
-}
-
 interface CampaignRefreshPayload {
   campaign_id: string
   reason?: string
@@ -39,9 +28,8 @@ interface CampaignRefreshPayload {
 
 interface CampaignDiscoveryUpdatedPayload extends CampaignRefreshPayload {
   changed?: {
-    section?: DiscoverySection
+    section?: string
   }
-  counts?: Partial<CampaignDiscoveryCounts>
 }
 
 interface CampaignActivityCreatedPayload extends CampaignRefreshPayload {
@@ -137,29 +125,9 @@ function handleDiscoveryUpdated(
 ) {
   if (envelope.payload.campaign_id !== campaignId) return
 
-  const summaryKey = getCampaignDiscoveryQueryKey(campaignId, 'summary')
-  if (envelope.payload.counts) {
-    queryClient.setQueryData<CampaignDiscoverySummaryResponse>(
-      summaryKey,
-      (old) => {
-        if (!old) return old
-        return {
-          ...old,
-          counts: {
-            ...old.counts,
-            ...envelope.payload.counts,
-          },
-        }
-      },
-    )
-  } else {
-    void queryClient.invalidateQueries({ queryKey: summaryKey })
-  }
-
-  const changedSection = envelope.payload.changed?.section
-  if (changedSection) {
+  if (envelope.payload.changed?.section === 'applications') {
     void queryClient.invalidateQueries({
-      queryKey: ['campaign', campaignId, 'discovery', changedSection],
+      queryKey: ['campaign', campaignId, 'applications'],
     })
   }
 }

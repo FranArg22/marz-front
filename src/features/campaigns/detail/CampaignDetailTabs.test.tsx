@@ -38,9 +38,9 @@ describe('CampaignDetailTabs', () => {
       <CampaignDetailTabs activeTab="overview" onTabChange={onTabChange} />,
     )
 
-    await user.click(screen.getByRole('button', { name: /discovery/i }))
+    await user.click(screen.getByRole('button', { name: /postulaciones/i }))
 
-    expect(onTabChange).toHaveBeenCalledWith('discovery')
+    expect(onTabChange).toHaveBeenCalledWith('applications')
   })
 
   it('is axe-clean', async () => {

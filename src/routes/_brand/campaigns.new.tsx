@@ -205,7 +205,7 @@ function CampaignsNewLayout() {
           void router.navigate({
             to: '/campaigns/$campaignId',
             params: { campaignId },
-            search: { tab: 'overview', section: 'matches' },
+            search: { tab: 'overview' },
           })
         },
       })

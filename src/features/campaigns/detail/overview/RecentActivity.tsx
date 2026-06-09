@@ -109,7 +109,7 @@ function EmptyActivity({ campaignId }: { campaignId: string }) {
         <Link
           to="/campaigns/$campaignId"
           params={{ campaignId }}
-          search={{ tab: 'creators', section: 'matches' }}
+          search={{ tab: 'creators' }}
         >
           {t`Ver creators`}
           <ArrowRight className="size-3.5" aria-hidden="true" />

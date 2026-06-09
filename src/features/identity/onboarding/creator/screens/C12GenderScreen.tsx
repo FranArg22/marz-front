@@ -1,12 +1,11 @@
 import { t } from '@lingui/core/macro'
 import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/components'
-import type { CreatorOnboardingPayloadGender as Gender } from '#/shared/api/generated/model/creatorOnboardingPayloadGender'
 import { CreatorOnboardingPayloadGender } from '#/shared/api/generated/model/creatorOnboardingPayloadGender'
 import { useCreatorOnboardingStore } from '../store'
 
-type NonNullGender = Exclude<Gender, null>
+type GenderOption = 'male' | 'female' | 'non_binary' | 'prefer_not_say'
 
-const GENDER_OPTIONS: { value: NonNullGender; label: () => string }[] = [
+const GENDER_OPTIONS: { value: GenderOption; label: () => string }[] = [
   { value: CreatorOnboardingPayloadGender.male, label: () => t`Masculino` },
   { value: CreatorOnboardingPayloadGender.female, label: () => t`Femenino` },
   {
@@ -14,7 +13,7 @@ const GENDER_OPTIONS: { value: NonNullGender; label: () => string }[] = [
     label: () => t`No binario`,
   },
   {
-    value: CreatorOnboardingPayloadGender.prefer_not_say,
+    value: 'prefer_not_say',
     label: () => t`Prefiero no decir`,
   },
 ]
