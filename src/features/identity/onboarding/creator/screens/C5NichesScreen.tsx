@@ -1,11 +1,19 @@
 import { t } from '@lingui/core/macro'
 import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/components'
-import { NICHE_OPTIONS } from '#/shared/catalog/creatorTaxonomy'
+import { useListInterests } from '#/shared/api/generated/lookups/lookups'
 import { useCreatorOnboardingStore } from '../store'
 
 export function C5NichesScreen() {
   const store = useCreatorOnboardingStore()
   const selected = store.niches ?? []
+  const interestsQuery = useListInterests()
+  const options =
+    interestsQuery.data?.status === 200
+      ? interestsQuery.data.data.items.map((interest) => ({
+          value: interest.slug,
+          label: interest.label_es,
+        }))
+      : []
 
   const toggle = (value: string) => {
     if (selected.includes(value)) {
@@ -29,10 +37,10 @@ export function C5NichesScreen() {
         </p>
       </div>
       <div className="flex max-w-[720px] flex-wrap justify-center gap-2">
-        {NICHE_OPTIONS.map((o) => (
+        {options.map((o) => (
           <OnboardingOptionChip
             key={o.value}
-            label={o.label()}
+            label={o.label}
             selected={selected.includes(o.value)}
             onToggle={() => toggle(o.value)}
           />

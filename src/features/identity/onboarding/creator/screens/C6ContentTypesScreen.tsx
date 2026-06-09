@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { OnboardingContentTypeChip } from '#/features/identity/onboarding/shared/components'
-import { CONTENT_TYPE_OPTIONS as SHARED_CONTENT_TYPE_OPTIONS } from '#/shared/catalog/creatorTaxonomy'
+import { useListContentTypes } from '#/shared/api/generated/lookups/lookups'
 import { useCreatorOnboardingStore } from '../store'
 
 const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
@@ -33,18 +33,18 @@ const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
   behind_the_scenes: Clapperboard,
 }
 
-const CONTENT_TYPE_OPTIONS: {
-  value: string
-  label: () => string
-  icon: LucideIcon
-}[] = SHARED_CONTENT_TYPE_OPTIONS.flatMap((option) => {
-  const icon = CONTENT_TYPE_ICONS[option.value]
-  return icon ? [{ ...option, icon }] : []
-})
-
 export function C6ContentTypesScreen() {
   const store = useCreatorOnboardingStore()
   const selected = store.content_types ?? []
+  const contentTypesQuery = useListContentTypes()
+  const options =
+    contentTypesQuery.data?.status === 200
+      ? contentTypesQuery.data.data.items.map((contentType) => ({
+          value: contentType.slug,
+          label: contentType.label_es,
+          icon: CONTENT_TYPE_ICONS[contentType.slug] ?? Sparkles,
+        }))
+      : []
 
   const toggle = (value: string) => {
     if (selected.includes(value)) {
@@ -68,10 +68,10 @@ export function C6ContentTypesScreen() {
         </p>
       </div>
       <div className="flex max-w-[800px] flex-wrap justify-center gap-2.5">
-        {CONTENT_TYPE_OPTIONS.map((o) => (
+        {options.map((o) => (
           <OnboardingContentTypeChip
             key={o.value}
-            label={o.label()}
+            label={o.label}
             icon={o.icon}
             selected={selected.includes(o.value)}
             onToggle={() => toggle(o.value)}
@@ -81,7 +81,7 @@ export function C6ContentTypesScreen() {
       <p className="text-[11px] text-muted-foreground" aria-live="polite">
         {(() => {
           const n = selected.length
-          const total = CONTENT_TYPE_OPTIONS.length
+          const total = options.length
           return t`${n} de ${total} seleccionados`
         })()}
       </p>

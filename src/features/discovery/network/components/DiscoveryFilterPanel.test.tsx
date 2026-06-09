@@ -13,6 +13,27 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
+vi.mock('#/shared/api/generated/lookups/lookups', () => ({
+  useListCountries: vi.fn(() => ({
+    data: {
+      status: 200,
+      data: { items: [{ code: 'AR', label_es: 'Argentina' }] },
+    },
+  })),
+  useListInterests: vi.fn(() => ({
+    data: {
+      status: 200,
+      data: { items: [{ slug: 'beauty', label_es: 'Belleza' }] },
+    },
+  })),
+  useListContentTypes: vi.fn(() => ({
+    data: {
+      status: 200,
+      data: { items: [{ slug: 'reviews', label_es: 'Reviews' }] },
+    },
+  })),
+}))
+
 function resetStore(pendingFilters = {}) {
   useDiscoveryFiltersStore.setState({
     pendingFilters,

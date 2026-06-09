@@ -23,6 +23,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ContentTypesLookupResponse,
   CountriesLookupResponse,
   CreatorTiersLookupResponse,
   ErrorResponse,
@@ -139,6 +140,119 @@ export function useListInterests<TData = Awaited<ReturnType<typeof listInterests
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getListInterestsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type listContentTypesResponse200 = {
+  data: ContentTypesLookupResponse
+  status: 200
+}
+
+export type listContentTypesResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type listContentTypesResponseSuccess = (listContentTypesResponse200) & {
+  headers: Headers;
+};
+export type listContentTypesResponseError = (listContentTypesResponse401) & {
+  headers: Headers;
+};
+
+export type listContentTypesResponse = (listContentTypesResponseSuccess | listContentTypesResponseError)
+
+export const getListContentTypesUrl = () => {
+
+
+
+
+  return `/api/v1/content-types`
+}
+
+export const listContentTypes = async ( options?: RequestInit): Promise<listContentTypesResponse> => {
+
+  return customFetch<listContentTypesResponse>(getListContentTypesUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListContentTypesQueryKey = () => {
+    return [
+    `/api/v1/content-types`
+    ] as const;
+    }
+
+
+export const getListContentTypesQueryOptions = <TData = Awaited<ReturnType<typeof listContentTypes>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListContentTypesQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listContentTypes>>> = ({ signal }) => listContentTypes({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListContentTypesQueryResult = NonNullable<Awaited<ReturnType<typeof listContentTypes>>>
+export type ListContentTypesQueryError = ErrorResponse
+
+
+export function useListContentTypes<TData = Awaited<ReturnType<typeof listContentTypes>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listContentTypes>>,
+          TError,
+          Awaited<ReturnType<typeof listContentTypes>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListContentTypes<TData = Awaited<ReturnType<typeof listContentTypes>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listContentTypes>>,
+          TError,
+          Awaited<ReturnType<typeof listContentTypes>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListContentTypes<TData = Awaited<ReturnType<typeof listContentTypes>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useListContentTypes<TData = Awaited<ReturnType<typeof listContentTypes>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listContentTypes>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListContentTypesQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

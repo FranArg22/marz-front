@@ -26,9 +26,10 @@ import {
   SocialPlatform,
 } from '#/shared/api/generated/model'
 import {
-  CONTENT_TYPE_OPTIONS,
-  NICHE_OPTIONS,
-} from '#/shared/catalog/creatorTaxonomy'
+  useListContentTypes,
+  useListCountries,
+  useListInterests,
+} from '#/shared/api/generated/lookups/lookups'
 
 interface DiscoveryFilterPanelProps {
   open: boolean
@@ -40,14 +41,6 @@ const PLATFORM_OPTIONS = [
   { value: SocialPlatform.instagram, label: 'Instagram' },
   { value: SocialPlatform.tiktok, label: 'TikTok' },
   { value: SocialPlatform.youtube, label: 'YouTube' },
-]
-
-const COUNTRY_OPTIONS = [
-  { value: 'AR', label: 'Argentina' },
-  { value: 'CO', label: 'Colombia' },
-  { value: 'MX', label: 'México' },
-  { value: 'ES', label: 'España' },
-  { value: 'CL', label: 'Chile' },
 ]
 
 /* eslint-enable lingui/no-unlocalized-strings */
@@ -113,14 +106,31 @@ export function DiscoveryFilterPanel({
     }
   }
 
-  const interestOptions = NICHE_OPTIONS.map(({ value, label }) => ({
-    value,
-    label: label(),
-  }))
-  const contentTypeOptions = CONTENT_TYPE_OPTIONS.map(({ value, label }) => ({
-    value,
-    label: label(),
-  }))
+  const countriesQuery = useListCountries({ active: true })
+  const interestsQuery = useListInterests()
+  const contentTypesQuery = useListContentTypes()
+
+  const countryOptions =
+    countriesQuery.data?.status === 200
+      ? countriesQuery.data.data.items.map((country) => ({
+          value: country.code,
+          label: country.label_es,
+        }))
+      : []
+  const interestOptions =
+    interestsQuery.data?.status === 200
+      ? interestsQuery.data.data.items.map((interest) => ({
+          value: interest.slug,
+          label: interest.label_es,
+        }))
+      : []
+  const contentTypeOptions =
+    contentTypesQuery.data?.status === 200
+      ? contentTypesQuery.data.data.items.map((contentType) => ({
+          value: contentType.slug,
+          label: contentType.label_es,
+        }))
+      : []
 
   const validationErrors = getValidationErrors(pendingFilters)
   const hasValidationError = validationErrors.length > 0
@@ -168,7 +178,7 @@ export function DiscoveryFilterPanel({
                 <FieldGroup label={t`País`}>
                   <MultiSelectDropdown
                     placeholder={t`Seleccioná países`}
-                    options={COUNTRY_OPTIONS}
+                    options={countryOptions}
                     values={pendingFilters.countries ?? []}
                     onToggle={(value) =>
                       toggleArrayValue(

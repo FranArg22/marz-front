@@ -17,6 +17,13 @@ export const ListInterestsResponse = zod.object({
 }))
 })
 
+export const ListContentTypesResponse = zod.object({
+  "items": zod.array(zod.object({
+  "slug": zod.string(),
+  "label_es": zod.string()
+}))
+})
+
 export const listCountriesQueryActiveDefault = true;
 
 export const ListCountriesQueryParams = zod.object({

@@ -36,7 +36,7 @@ export const ListInboxResponse = zod.object({
   "action_items": zod.array(zod.object({
   "id": zod.uuid(),
   "section": zod.enum(['action', 'waiting']),
-  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed']),
+  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
   "status": zod.enum(['pending', 'read', 'resolved', 'closed']),
   "campaign": zod.object({
   "id": zod.uuid(),
@@ -87,7 +87,7 @@ export const ListInboxResponse = zod.object({
   "waiting_items": zod.array(zod.object({
   "id": zod.uuid(),
   "section": zod.enum(['action', 'waiting']),
-  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed']),
+  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
   "status": zod.enum(['pending', 'read', 'resolved', 'closed']),
   "campaign": zod.object({
   "id": zod.uuid(),

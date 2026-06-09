@@ -130,6 +130,49 @@
         }
       }
     },
+    "/api/v1/content-types": {
+      "get": {
+        "operationId": "listContentTypes",
+        "tags": [
+          "lookups"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTypesLookupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/countries": {
       "get": {
         "operationId": "listCountries",
@@ -9363,6 +9406,37 @@
           }
         }
       },
+      "ContentTypeLookupItem": {
+        "type": "object",
+        "required": [
+          "slug",
+          "label_es"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentTypesLookupResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentTypeLookupItem"
+            }
+          }
+        }
+      },
       "CountryLookupItem": {
         "type": "object",
         "required": [
@@ -9684,7 +9758,9 @@
           "application_sent_waiting",
           "match_suggested",
           "invite_sent_waiting",
-          "refund_delayed"
+          "refund_delayed",
+          "connection_request_received",
+          "connection_request_accepted"
         ],
         "x-enum-varnames": [
           "InboxItemKindMessageReply",
@@ -9701,7 +9777,9 @@
           "InboxItemKindApplicationSentWaiting",
           "InboxItemKindMatchSuggested",
           "InboxItemKindInviteSentWaiting",
-          "InboxItemKindRefundDelayed"
+          "InboxItemKindRefundDelayed",
+          "InboxItemKindConnectionRequestReceived",
+          "InboxItemKindConnectionRequestAccepted"
         ]
       },
       "InboxInlineActionActor": {

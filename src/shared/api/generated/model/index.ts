@@ -135,6 +135,8 @@ export * from './connectionRequestDetailResponse';
 export * from './connectionRequestDetailResponseBrandWorkspace';
 export * from './connectionRequestDetailResponseStatus';
 export * from './contactCampaignMatchRequest';
+export * from './contentTypeLookupItem';
+export * from './contentTypesLookupResponse';
 export * from './conversationCounterpart';
 export * from './conversationCounterpartKind';
 export * from './conversationDeliverablesResponse';
