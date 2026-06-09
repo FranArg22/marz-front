@@ -1,14 +1,17 @@
 import { t } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Compass } from 'lucide-react'
-import { useEffect } from 'react'
+import { Compass, SlidersHorizontal } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
+import { Button } from '#/components/ui/button'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
 import {
   GetDiscoveryCreatorsAgeBucketsItem,
+  GetDiscoveryCreatorsCreatorType,
   GetDiscoveryCreatorsGender,
   GetDiscoveryCreatorsSort,
   SocialPlatform,
@@ -16,6 +19,10 @@ import {
 
 const discoverySearchSchema = z.object({
   platforms: z.array(z.enum(SocialPlatform)).optional().catch(undefined),
+  creator_type: z
+    .enum(GetDiscoveryCreatorsCreatorType)
+    .optional()
+    .catch(undefined),
   countries: z.array(z.string()).optional().catch(undefined),
   gender: z.enum(GetDiscoveryCreatorsGender).optional().catch(undefined),
   age_buckets: z
@@ -47,12 +54,14 @@ function DiscoveryRoute() {
   useRouteTopbar({ breadcrumb: [{ icon: Compass, label: t`Discovery` }] })
   const search = Route.useSearch()
   const navigate = useNavigate({ from: '/discovery' })
+  const [filterPanelOpen, setFilterPanelOpen] = useState(false)
   const { appliedFilters, activeSort } = useDiscoveryFiltersStore()
 
   useEffect(() => {
     const { sort, ...filters } = search
     useDiscoveryFiltersStore.setState({
       appliedFilters: filters,
+      pendingFilters: filters,
       activeSort: sort ?? 'recommended',
     })
   }, [])
@@ -74,12 +83,22 @@ function DiscoveryRoute() {
           {t`Explorá la red de creators`}
         </h2>
       </div>
+      <div>
+        <Button type="button" onClick={() => setFilterPanelOpen(true)}>
+          <SlidersHorizontal className="size-4" aria-hidden />
+          {t`Filtros`}
+        </Button>
+      </div>
       {/* Chips placeholder - implementado en task .5 */}
       <DiscoveryGrid
         params={{ ...appliedFilters, sort: activeSort }}
         renderCard={(card) => (
           <div key={card.account_id}>{card.display_name}</div>
         )}
+      />
+      <DiscoveryFilterPanel
+        open={filterPanelOpen}
+        onClose={() => setFilterPanelOpen(false)}
       />
     </div>
   )

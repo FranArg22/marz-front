@@ -101,8 +101,7 @@ En `src/routes/_brand/discovery.tsx`, agregar:
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

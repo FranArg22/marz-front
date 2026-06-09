@@ -29,8 +29,7 @@ export const useDiscoveryFiltersStore = create<DiscoveryFiltersStore>()(
       set((state) => ({ appliedFilters: state.pendingFilters })),
     resetPendingFilters: () =>
       set((state) => ({ pendingFilters: state.appliedFilters })),
-    clearFilters: () =>
-      set({ pendingFilters: EMPTY_FILTERS, appliedFilters: EMPTY_FILTERS }),
+    clearFilters: () => set({ pendingFilters: EMPTY_FILTERS }),
     setSort: (sort) => set({ activeSort: sort }),
   }),
 )
