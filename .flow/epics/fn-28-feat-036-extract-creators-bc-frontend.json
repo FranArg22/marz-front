@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-feat-036-extract-creators-bc",
+  "created_at": "2026-06-09T01:08:04.193305Z",
+  "depends_on_epics": [],
+  "id": "fn-28-feat-036-extract-creators-bc-frontend",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-28-feat-036-extract-creators-bc-frontend.md",
+  "status": "open",
+  "title": "FEAT-036 Extract creators BC \u2014 frontend",
+  "updated_at": "2026-06-09T01:29:20.407184Z"
+}
