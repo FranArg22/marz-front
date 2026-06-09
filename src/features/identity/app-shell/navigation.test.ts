@@ -25,6 +25,7 @@ describe('shellNavigationConfig', () => {
       'campaigns',
       'payments',
       'creators',
+      'discovery',
       'videos',
       'analytics',
     ])
@@ -34,6 +35,7 @@ describe('shellNavigationConfig', () => {
       'campaigns',
       'payments',
       'creators',
+      'discovery',
       'videos',
     ])
   })
@@ -69,6 +71,17 @@ describe('shellNavigationConfig', () => {
     expect(brandPayments?.href).toBe('/payments')
     expect(brandPayments?.label()).toBe('Payments & Spending')
     expect(creatorPayments).toBeUndefined()
+  })
+
+  it('defines discovery for brand navigation with compass icon', () => {
+    const brandDiscovery = brandItems.find((item) => item.id === 'discovery')
+    const creatorDiscovery = creatorItems.find((item) => item.id === 'discovery')
+
+    expect(brandDiscovery?.id).toBe('discovery')
+    expect(brandDiscovery?.icon).toBe('compass')
+    expect(brandDiscovery?.href).toBe('/discovery')
+    expect(brandDiscovery?.label()).toBe('Discovery')
+    expect(creatorDiscovery).toBeUndefined()
   })
 
   it('keeps disabled items non-navigable', () => {
@@ -110,6 +123,15 @@ describe('resolveActiveSidebarItem', () => {
     )
     expect(resolveActiveSidebarItem(brandItems, '/campaigns/new')?.id).toBe(
       'campaigns',
+    )
+  })
+
+  it('resolves discovery for /discovery descendants', () => {
+    expect(resolveActiveSidebarItem(brandItems, '/discovery')?.id).toBe(
+      'discovery',
+    )
+    expect(resolveActiveSidebarItem(brandItems, '/discovery/saved')?.id).toBe(
+      'discovery',
     )
   })
 

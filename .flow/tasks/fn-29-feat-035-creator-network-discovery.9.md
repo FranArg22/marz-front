@@ -114,8 +114,7 @@ Para el candado en el sidebar (plan free), el componente `AppSidebarItem.tsx` ya
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-29-feat-035-creator-network-discovery.9; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

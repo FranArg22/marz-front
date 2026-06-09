@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Compass, SlidersHorizontal } from 'lucide-react'
+import { Compass, Loader2, SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
@@ -9,10 +9,12 @@ import { CreatorCard } from '#/features/discovery/network/components/CreatorCard
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
+import { DiscoveryUpsell } from '#/features/discovery/network/components/DiscoveryUpsell'
 import { InviteBulkModal } from '#/features/discovery/network/components/InviteBulkModal'
 import { InviteSingleModal } from '#/features/discovery/network/components/InviteSingleModal'
 import { useDiscoveryFiltersStore } from '#/features/discovery/network/store/discoveryFiltersStore'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import { useMe } from '#/shared/api/generated/accounts/accounts'
 import type { DiscoveryCreatorCard } from '#/shared/api/generated/model'
 import {
   GetDiscoveryCreatorsAgeBucketsItem,
@@ -56,6 +58,7 @@ export const Route = createFileRoute('/_brand/discovery')({
 })
 
 function DiscoveryRoute() {
+  const meQuery = useMe()
   useRouteTopbar({ breadcrumb: [{ icon: Compass, label: t`Discovery` }] })
   const search = Route.useSearch()
   const navigate = useNavigate({ from: '/discovery' })
@@ -91,6 +94,25 @@ function DiscoveryRoute() {
       replace: true,
     })
   }, [appliedFilters, activeSort, navigate])
+
+  const allowsDiscovery =
+    meQuery.data?.status === 200
+      ? Boolean(
+          meQuery.data.data.brand_workspace?.plan_capabilities.allows_discovery,
+        )
+      : true
+
+  if (meQuery.isPending) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Loader2 className="size-6 animate-spin" aria-hidden />
+      </div>
+    )
+  }
+
+  if (!allowsDiscovery) {
+    return <DiscoveryUpsell />
+  }
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden p-6">
