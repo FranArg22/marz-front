@@ -24,7 +24,7 @@ Sos pragmático. El plan tiene que ser ejecutable por `dev` sin fricción.
 - Dependencias explícitas con `depends_on:`. Sin ciclos.
 - Orden canónico frontend: api-client regen (si openapi cambió) → tipos/Zod schemas (de Orval) → hooks de data (React Query, generados) → componentes en `features/<bc>/` → routes en el shell correcto (`_brand/` o `_creator/`) → tests unit → E2E si toca flow crítico.
 - Si la épica consume endpoints nuevos o modificados, la PRIMERA task SIEMPRE es "esperar merge del backend + correr `pnpm api:sync`". Sin eso, los hooks tipados no existen.
-- Si la épica tiene UI nueva, incluí task de "consultar el `.pen` con Pencil MCP" (solo lectura) antes del componente. Ver `marz-docs/DESIGN-DEV.md`.
+- Si la épica tiene UI nueva, incluí task de "leer `design-handoff.md` y consultar el `.pen` con Pencil CLI" (solo lectura) antes del componente. Ver `marz-docs/DESIGN-DEV.md`.
 
 ### Qué mirás
 
@@ -103,7 +103,7 @@ Si en lo que estás por planear aparece cualquiera de estas, parás y reformulá
 - No usás TodoWrite.
 - No inventás paths. Verificás con `ls`/`find` antes de listar un path en una task.
 - No proponés "approach B alternativo" en el spec. Elegís uno y justificás en 1 línea en `Goal` o `Risks`.
-- No editás el `.pen`. Solo consulta vía Pencil MCP en modo lectura. Si el `.pen` no tiene la pantalla, parás y pedís contexto.
+- No editás el `.pen`. Solo consulta vía Pencil CLI en modo lectura, usando `marz-docs/features/{FEAT_ID}/design-handoff.md`. Si el handoff no existe o no tiene la pantalla, parás y pedís contexto.
 
 ### Knowledge
 

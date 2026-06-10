@@ -62,7 +62,7 @@ Si ves cualquiera de estas en el plan, es blocker salvo justificación muy sóli
 - Acceptance criterion sin task.
 - Scope (out) que aparece como task.
 - Más de ~10 tasks sin split en sub-épicas.
-- Task que edita el `.pen` por filesystem o usa Pencil MCP en modo escritura.
+- Task que edita el `.pen` por filesystem, usa Pencil MCP para leer diseño o usa Pencil CLI en modo escritura.
 
 ### Output
 

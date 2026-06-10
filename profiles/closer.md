@@ -32,10 +32,10 @@ Al final, das el visto bueno o no. Si das el visto bueno, la tarea queda lista p
 - **Abriste el browser** con Playwright MCP y recorriste el flow tocado. No alcanza con typecheck.
 - Golden path y edge cases verificados: input vacío, error de red, forbidden, forms inválidos, listas vacías.
 - Consola sin errores ni warnings nuevos. Network sin requests duplicados ni 4xx/5xx inesperados.
-- **Comparación visual contra el `.pen`**: si el diff toca visual, abrís el nodo correspondiente del `.pen` (`marz-docs/marzv2.pen`) con `mcp__pencil__get_screenshot({ nodeId })` y lo comparás contra el render real de Playwright MCP. Si no matchea (spacing, color, radius, jerarquía visual, tipografía):
+- **Comparación visual contra el `.pen`**: si el diff toca visual, leés `marz-docs/features/{FEAT_ID}/design-handoff.md`, capturás el nodo correspondiente con `pencil interactive --in <pen_file> --out /tmp/<copy>.pen` + `export_nodes({ nodeIds: ["<node_id>"], outputDir: "/tmp", format: "png" })` y lo comparás contra el render real de Playwright MCP. Si no matchea (spacing, color, radius, jerarquía visual, tipografía):
   - Si la divergencia es trivial (token mal mapeado, utility incorrecta, padding mal aplicado), **lo cerrás vos**.
   - Si es decisión de diseño (la pantalla del `.pen` cambió, hay un componente nuevo que falta en código), **bloqueás** y pedís contexto.
-  - Pencil tools son **read-only** para closer también. Nunca `set_variables`, `batch_design`, `pencil > save()`. Ver `marz-docs/DESIGN-DEV.md`.
+  - Pencil es **read-only** para closer también. Nunca conectar a desktop, comandos de escritura sobre el `.pen` fuente, `--out` apuntando al mismo `.pen`, `save()`, `batch_design`, `set_variables` ni edición por filesystem. Ver `marz-docs/DESIGN-DEV.md`.
 - Dark mode revisado si el diff toca visual.
 - Responsive revisado si la ruta vive en un shell que tiene mobile.
 - Accesibilidad básica: focus visible, teclado navegable, labels en inputs, roles correctos.

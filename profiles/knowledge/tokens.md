@@ -4,7 +4,7 @@ Tokens del design system + Tailwind v4 + dark mode. Cargar cuando estilizas comp
 
 ## Source of truth
 
-Los tokens nacen en `marz-design/marzv2.pen` (encriptado, solo accesible via MCP `pencil`). Se replican **a mano** en `src/styles.css` con naming shadcn (`--background`, `--foreground`, `--primary`, `--radius`, etc.) en light + dark.
+Los tokens nacen en el `.pen` indicado por `marz-docs/features/{FEAT_ID}/design-handoff.md` (encriptado, solo accesible via Pencil CLI). Se replican **a mano** en `src/styles.css` con naming shadcn (`--background`, `--foreground`, `--primary`, `--radius`, etc.) en light + dark.
 
 No hay export automático. Cuando cambien en el `.pen`, replicar.
 

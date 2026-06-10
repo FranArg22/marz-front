@@ -10,7 +10,7 @@
 - Si vas a tocar autenticación, sesión, `account.kind` o login → leé `auth.md`.
 - Si vas a tocar WebSocket, eventos de dominio o `DomainEventEnvelope` → leé `ws.md`.
 - Si vas a tocar estado global, Zustand o estado de cliente → leé `state.md`.
-- Si vas a tocar diseño, layouts, componentes visuales o shadcn → leé `design.md` Y `marz-docs/DESIGN-DEV.md` (reglas de lectura del `.pen` y Pencil MCP — read-only para devs).
+- Si vas a tocar diseño, layouts, componentes visuales o shadcn → leé `design.md`, `marz-docs/DESIGN-DEV.md` y el `design-handoff.md` de la feature (reglas de lectura del `.pen` con Pencil CLI — read-only para devs).
 - Si vas a tocar tokens, colores, radios, tipografía o `styles.css` → leé `tokens.md`.
 - Si vas a escribir o modificar tests (Vitest, Testing Library) → leé `testing.md`.
 - Si tu task toca UI, ruta nueva, interacción visible, form o cualquier cambio que se vea en el browser → leé `playwright.md` (sección 2: MCP). Verificación obligatoria antes de declarar done.

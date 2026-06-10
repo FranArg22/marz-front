@@ -4,17 +4,17 @@ Cómo trabajar con el design system de Marz. Cargar SIEMPRE que reproduzcas un d
 
 ## Lectura obligatoria
 
-**Antes de tocar UI**, leer `Read('/Users/rodrigoperrote/Proyects/marz/marzv2/marz-docs/DESIGN-DEV.md')`. Define qué tools MCP de Pencil podés usar (todas read-only) y cuáles tenés prohibidas. Sin haberlo leído, no abrís el `.pen`.
+**Antes de tocar UI**, leer `marz-docs/DESIGN-DEV.md`. Define el contrato de handoff por feature y cómo leer `.pen` con Pencil CLI en modo read-only. Sin haberlo leído, no abrís el `.pen`.
 
 ## Source of truth
 
 ```
-/Users/rodrigoperrote/Proyects/marz/marzv2/marz-docs/marzv2.pen
+marz-docs/features/{FEAT_ID}/design-handoff.md
 ```
 
-Único archivo de diseño activo. `../marzv2.lib.pen` es referencia histórica, no tocar.
+Cada feature con UI declara su diseño en un handoff propio. El handoff apunta al `.pen` concreto (`pen_file`) y a los `node_id` de pantallas/componentes. `marz-docs/marzv2.pen` es fallback solo si el handoff lo declara explícitamente.
 
-**El `.pen` está encriptado.** No se lee con `Read`, `Grep`, `cat` o `head`. Solo via tools MCP de `pencil`.
+**El `.pen` está encriptado.** No se lee con `Read`, `Grep`, `cat` o `head`. Se lee con Pencil CLI, usando los nodos declarados por el handoff.
 
 ## Documento de contexto
 
@@ -28,29 +28,29 @@ Cómo trabajar con el design system de Marz. Cargar SIEMPRE que reproduzcas un d
 
 Es la guía de alto nivel. Siempre conviene refrescarlo al empezar tarea de UI nueva.
 
-## Tools MCP de pencil
+## Pencil CLI
 
-Cargá las tools antes de usarlas con `ToolSearch query: "select:mcp__pencil__get_editor_state,mcp__pencil__open_document,mcp__pencil__batch_get,mcp__pencil__get_screenshot,mcp__pencil__get_variables,mcp__pencil__get_guidelines"`.
+No usar Pencil MCP para leer diseño. Usar `pencil interactive` en modo headless sobre el `pen_file` del handoff, con `--out` apuntando siempre a `/tmp`.
 
 ### Flujo estándar
 
-1. **`mcp__pencil__get_editor_state({ include_schema: true })`** — primero. Devuelve el archivo activo, selección actual, lista de componentes reusables y schema del .pen.
+1. Leer `marz-docs/features/{FEAT_ID}/design-handoff.md`.
 
-2. **`mcp__pencil__open_document(path)`** — solo si no hay editor activo. Path del archivo de Marz: `'/Users/rodrigoperrote/Proyects/marz/marzv2/marz-docs/marzv2.pen'`. Si ya hay un editor activo con otro archivo, **no abrir** otro — podés desplazar la sesión de diseño (regla de DESIGN-DEV.md).
+2. Confirmar `pen_file`, `screens[].node_id`, temas y viewport.
 
-3. **`mcp__pencil__get_variables()`** — leer tokens del design system. Hacelo antes de diseñar para no hardcodear.
+3. Abrir `pencil interactive --in <pen_file> --out /tmp/marz-{FEAT_ID}-read.pen`.
 
-4. **`mcp__pencil__get_screenshot({ filePath, nodeId })`** — render de un node específico. Útil para entender cómo se ve sin parsear JSON.
+4. Ejecutar `get_variables()` para tokens.
 
-5. **`mcp__pencil__batch_get({ filePath, nodeIds, readDepth })`** — leer árbol de un node con todas sus props. **`readDepth` bajo (3-6)**, alto cuelga el desktop. Para listar componentes reusables del documento: `patterns: [{ reusable: true }], readDepth: 1`.
+5. Ejecutar `batch_get({ nodeIds: ["<node_id>"], readDepth: 2, resolveVariables: true })` para estructura/código del diseño.
 
-6. **`mcp__pencil__get_guidelines(category, name, params)`** — guías oficiales de uso del MCP. Cargar cuando hagas batch_design.
+6. Ejecutar `export_nodes({ nodeIds: ["<node_id>"], outputDir: "/tmp", format: "png" })` para screenshot PNG.
 
 ### Reproducir una pantalla
 
-1. `get_editor_state` para ver qué archivo está activo y qué nodes top-level hay.
-2. `get_screenshot({ nodeId: 'XYZ' })` para verla.
-3. `batch_get({ nodeIds: ['XYZ'], readDepth: 6, resolveVariables: true })` para extraer textos, layout, colores con valores resueltos.
+1. Leer el handoff del feature.
+2. Abrir `pencil interactive --in <pen_file> --out /tmp/marz-{FEAT_ID}-read.pen`.
+3. Ejecutar `batch_get` y `export_nodes` sobre el `node_id` declarado.
 4. Mapear al stack: utilities Tailwind, tokens del `.pen` ya replicados en `src/styles.css`, componentes shadcn/`shared/ui/` cuando existen.
 5. Si el componente reusable del `.pen` (ej. `OnboardingTierCard`, `OnboardingFooter`) ya tiene equivalente en código, **usar el equivalente**, no rehacer.
 
@@ -66,7 +66,7 @@ Los strings dentro del `.pen` son placeholders del diseño (ej. "María", "Nuban
 
 Los tokens nacen en el `.pen` y se replican **a mano** en `src/styles.css` con naming shadcn. Cuando cambien:
 
-1. `mcp__pencil__get_variables()` para obtener los nuevos valores.
+1. Ejecutar `get_variables()` en `pencil interactive --in <pen_file> --out /tmp/...pen` para obtener los nuevos valores.
 2. Editar `src/styles.css` para reflejar.
 3. Probar light + dark.
 
@@ -75,11 +75,14 @@ No hay export automático. Detalle en `tokens.md`.
 ## NO
 
 - Usar `Read`, `Grep`, `Write`, `Edit` contra el `.pen`.
-- Usar el CLI de pencil en modo headless (`--in`, `--out`). Solo modo interactivo si hay que guardar manualmente:
+- Usar Pencil MCP para leer diseños.
+- Usar el CLI de pencil en modo interactivo o con comandos de escritura:
   ```
   pencil interactive --app desktop --in marzv2.pen
+  pencil interactive --in marz-docs/features/FEAT-XXX/design.pen --out marz-docs/features/FEAT-XXX/design.pen
+  pencil > batch_design(...)
+  pencil > set_variables(...)
   pencil > save()
-  pencil > exit()
   ```
 - Modificar el `.pen` desde acá. **Solo lectura desde marz-front.** Si hay que diseñar, lo hace el equipo de diseño.
 - Hardcodear colores/radios del `.pen`. Siempre via token CSS replicado en `src/styles.css`.

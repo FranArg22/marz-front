@@ -17,7 +17,7 @@ Agente de desarrollo senior frontend para `marz-front`. TanStack Start + React +
 - **Una cosa a la vez**: un bug fix no trae refactors. Un refactor no trae features. Si ves algo roto aparte, lo reportás, no lo arreglás en el mismo cambio.
 - **Root cause over symptom**: no bypaseás checks (`--no-verify`, eslint-disable, `@ts-ignore`) para hacer pasar. Arreglás la causa.
 - **No tocar shadcn primitives** (`src/components/ui/`). Si querés cambio global, hacé wrapper en `shared/ui/`.
-- **Diseño es read-only**. El `.pen` (`marz-docs/marzv2.pen`) se lee con Pencil MCP (`get_editor_state`, `get_screenshot`, `batch_get` con `readDepth` bajo, `get_variables`). Prohibido: `set_variables`, `batch_design`, `replace_all_matching_properties`, `pencil > save()`, editar el `.pen` por filesystem. Si encontrás un bug de diseño (token mal definido, hardcode en el `.pen`), lo reportás — no lo parcheás. Ver `marz-docs/DESIGN-DEV.md`.
+- **Diseño es read-only**. Si una feature tiene UI, primero leés `marz-docs/features/{FEAT_ID}/design-handoff.md`; ese handoff declara el `pen_file` y los `node_id` a usar. El `.pen` se lee con `pencil interactive --in <pen_file> --out /tmp/<copy>.pen`, usando `batch_get`, `get_variables` y `export_nodes`; nunca con Pencil MCP. Prohibido: escribir el `.pen` fuente, conectar a desktop, usar `--out` apuntando al mismo `.pen`, ejecutar `save()`, `batch_design`, `set_variables`, o editar el `.pen` por filesystem. Si encontrás un bug de diseño (token mal definido, hardcode en el `.pen`), lo reportás — no lo parcheás. Ver `marz-docs/DESIGN-DEV.md`.
 
 ### Probar tu propio código
 
@@ -41,7 +41,7 @@ Agente de desarrollo senior frontend para `marz-front`. TanStack Start + React +
 
 1. Leer el spec / issue. Si toca contrato de API, esperar que backend mergee y correr `pnpm api:sync`.
 2. Identificar bounded context afectado. La feature vive en `src/features/<bc>/`. Si necesita algo de otro BC, mover a `shared/` o esperar evento.
-3. **Consultar el diseño en el `.pen`** si la feature tiene UI. Leer `marz-docs/DESIGN-DEV.md` primero si no lo hiciste. Después: `mcp__pencil__get_editor_state` para ubicar el nodo, `mcp__pencil__get_screenshot({ nodeId })` para capturar el render esperado, `mcp__pencil__batch_get({ nodeIds, readDepth: 3-6, resolveVariables: true })` para extraer estructura/tokens. Solo lectura. Si el `.pen` no tiene la pantalla todavía, parar y pedir contexto — no inventar.
+3. **Consultar el diseño en el `.pen`** si la feature tiene UI. Leer `marz-docs/DESIGN-DEV.md` y `marz-docs/features/{FEAT_ID}/design-handoff.md` primero. Después abrir `pencil interactive --in <pen_file> --out /tmp/<copy>.pen`, ejecutar `batch_get({ nodeIds: ["<node_id>"], readDepth: 2, resolveVariables: true })` para estructura/tokens, `get_variables()` si hay cambios de tokens, y `export_nodes({ nodeIds: ["<node_id>"], outputDir: "/tmp", format: "png" })` para screenshot. Solo lectura sobre el archivo fuente. Si no hay handoff o falta la pantalla, parar y pedir contexto — no inventar.
 4. Definir route en `src/routes/_brand/` o `src/routes/_creator/` según el shell.
 5. Componente de feature en `features/<bc>/components/`. Composición desde la route.
 6. Si hay form: TanStack Form + Zod schema generado por Orval.
