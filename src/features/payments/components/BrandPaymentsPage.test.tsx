@@ -135,6 +135,10 @@ describe('BrandPaymentsPage', () => {
     expect(screen.getByText('$184,250.00')).toBeInTheDocument()
     expect(screen.getByText('$42,820.00')).toBeInTheDocument()
     expect(screen.getByText('$8,430.00')).toBeInTheDocument()
+    expect(
+      screen.getByText('Ofertas pendientes de aceptar'),
+    ).toBeInTheDocument()
+    expect(screen.getByText('5')).toBeInTheDocument()
     expect(screen.getByText('$3,200.00')).toBeInTheDocument()
     expect(screen.queryByText(/currency/i)).not.toBeInTheDocument()
 
@@ -449,10 +453,9 @@ function makeResponse(options?: {
       total_spent: options?.totalSpent ?? '184250',
       period_spend: '42820',
       pending_approval: '8430',
-      next_debit: {
+      pending_offers: {
+        count: 5,
         amount: '3200',
-        estimated_date: '2026-05-16T00:00:00Z',
-        date_available: true,
       },
     },
     monthly_spend: [
@@ -473,6 +476,11 @@ function makeResponse(options?: {
         amount: '10200',
         percentage: '45',
       },
+    ],
+    stage_breakdown: [
+      { stage: 'pending_acceptance', amount: '3200' },
+      { stage: 'committed', amount: '12000' },
+      { stage: 'paid', amount: '27620' },
     ],
     filters: {
       period: '30d',

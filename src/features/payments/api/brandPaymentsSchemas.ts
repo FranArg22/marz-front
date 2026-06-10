@@ -25,9 +25,8 @@ export type BrandPaymentsSearch = z.infer<typeof brandPaymentsSearchSchema>
 // a single import surface.
 export type {
   BrandPaymentsSpendingSummary as BrandPaymentsSummary,
-  BrandPaymentsSpendingSummaryNextDebit as BrandPaymentsNextDebit,
   BrandPaymentsSpendingBucket as BrandPaymentsMonthlySpend,
-  BrandPaymentsSpendingCampaign as BrandPaymentsCampaignBreakdown,
+  BrandPaymentsSpendingStage as BrandPaymentsStageBreakdown,
   BrandPaymentsSpendingFilters as BrandPaymentsFilters,
   BrandPaymentsSpendingPayments as BrandPaymentsPageData,
   BrandPaymentHistoryRow,

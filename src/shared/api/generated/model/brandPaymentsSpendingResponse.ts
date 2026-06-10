@@ -11,12 +11,15 @@ import type { BrandPaymentsSpendingBucket } from './brandPaymentsSpendingBucket'
 import type { BrandPaymentsSpendingCampaign } from './brandPaymentsSpendingCampaign';
 import type { BrandPaymentsSpendingFilters } from './brandPaymentsSpendingFilters';
 import type { BrandPaymentsSpendingPayments } from './brandPaymentsSpendingPayments';
+import type { BrandPaymentsSpendingStage } from './brandPaymentsSpendingStage';
 import type { BrandPaymentsSpendingSummary } from './brandPaymentsSpendingSummary';
 
 export interface BrandPaymentsSpendingResponse {
   summary: BrandPaymentsSpendingSummary;
   monthly_spend: BrandPaymentsSpendingBucket[];
   campaign_breakdown: BrandPaymentsSpendingCampaign[];
+  /** Three-stage funnel for the spending donut (pending_acceptance, committed, paid). */
+  stage_breakdown: BrandPaymentsSpendingStage[];
   filters: BrandPaymentsSpendingFilters;
   payments: BrandPaymentsSpendingPayments;
 }

@@ -1,13 +1,8 @@
 import { t } from '@lingui/core/macro'
-import {
-  CalendarClock,
-  CircleDollarSign,
-  Clock3,
-  WalletCards,
-} from 'lucide-react'
+import { CircleDollarSign, Clock3, Send, WalletCards } from 'lucide-react'
 
 import type { BrandPaymentsSummary } from '../api/brandPaymentsSchemas'
-import { formatPaymentDate, formatUsd } from './paymentFormatting'
+import { formatUsd } from './paymentFormatting'
 
 interface PaymentKpiGridProps {
   summary: BrandPaymentsSummary
@@ -37,13 +32,11 @@ export function PaymentKpiGrid({ summary }: PaymentKpiGridProps) {
       Icon: Clock3,
     },
     {
-      key: 'next_debit',
-      label: t`Next debit`,
-      value: formatUsd(summary.next_debit.amount),
-      detail: summary.next_debit.date_available
-        ? formatPaymentDate(summary.next_debit.estimated_date ?? '')
-        : t`Fecha no disponible`,
-      Icon: CalendarClock,
+      key: 'pending_offers',
+      label: t`Ofertas pendientes de aceptar`,
+      value: String(summary.pending_offers.count),
+      detail: formatUsd(summary.pending_offers.amount),
+      Icon: Send,
     },
   ]
 

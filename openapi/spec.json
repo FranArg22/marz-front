@@ -12649,7 +12649,7 @@
           "total_spent",
           "period_spend",
           "pending_approval",
-          "next_debit"
+          "pending_offers"
         ],
         "properties": {
           "total_spent": {
@@ -12667,28 +12667,49 @@
             "description": "USD decimal string.",
             "pattern": "^\\d+\\.\\d{2}$"
           },
-          "next_debit": {
-            "type": "object",
-            "required": [
-              "amount",
-              "estimated_date",
-              "date_available"
-            ],
-            "properties": {
-              "amount": {
-                "type": "string",
-                "description": "USD decimal string.",
-                "pattern": "^\\d+\\.\\d{2}$"
-              },
-              "estimated_date": {
-                "type": "string",
-                "format": "date-time",
-                "nullable": true
-              },
-              "date_available": {
-                "type": "boolean"
-              }
-            }
+          "pending_offers": {
+            "$ref": "#/components/schemas/BrandPaymentsSpendingPendingOffers"
+          }
+        }
+      },
+      "BrandPaymentsSpendingPendingOffers": {
+        "type": "object",
+        "description": "Sent offers awaiting acceptance. Current state, not period-filtered.",
+        "required": [
+          "count",
+          "amount"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "amount": {
+            "type": "string",
+            "description": "USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
+          }
+        }
+      },
+      "BrandPaymentsSpendingStage": {
+        "type": "object",
+        "required": [
+          "stage",
+          "amount"
+        ],
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": [
+              "pending_acceptance",
+              "committed",
+              "paid"
+            ]
+          },
+          "amount": {
+            "type": "string",
+            "description": "USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
           }
         }
       },
@@ -12887,6 +12908,7 @@
           "summary",
           "monthly_spend",
           "campaign_breakdown",
+          "stage_breakdown",
           "filters",
           "payments"
         ],
@@ -12904,6 +12926,13 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BrandPaymentsSpendingCampaign"
+            }
+          },
+          "stage_breakdown": {
+            "type": "array",
+            "description": "Three-stage funnel for the spending donut (pending_acceptance, committed, paid).",
+            "items": {
+              "$ref": "#/components/schemas/BrandPaymentsSpendingStage"
             }
           },
           "filters": {

@@ -43,14 +43,15 @@ describe('useBrandPaymentsSpendingQuery', () => {
         total_spent: '0',
         period_spend: '0',
         pending_approval: '0',
-        next_debit: {
-          amount: '0',
-          estimated_date: null,
-          date_available: false,
-        },
+        pending_offers: { count: 0, amount: '0' },
       },
       monthly_spend: [],
       campaign_breakdown: [],
+      stage_breakdown: [
+        { stage: 'pending_acceptance', amount: '0' },
+        { stage: 'committed', amount: '0' },
+        { stage: 'paid', amount: '0' },
+      ],
       filters: {
         period: '30d',
         campaign_id: null,
@@ -97,14 +98,15 @@ describe('useBrandPaymentsSpendingQuery', () => {
           total_spent: '0',
           period_spend: '0',
           pending_approval: '0',
-          next_debit: {
-            amount: '0',
-            estimated_date: null,
-            date_available: false,
-          },
+          pending_offers: { count: 0, amount: '0' },
         },
         monthly_spend: [],
         campaign_breakdown: [],
+        stage_breakdown: [
+          { stage: 'pending_acceptance', amount: '0' },
+          { stage: 'committed', amount: '0' },
+          { stage: 'paid', amount: '0' },
+        ],
         filters: {
           period: '30d',
           campaign_id: null,
@@ -119,14 +121,15 @@ describe('useBrandPaymentsSpendingQuery', () => {
           total_spent: '0',
           period_spend: '0',
           pending_approval: '0',
-          next_debit: {
-            amount: '0',
-            estimated_date: null,
-            date_available: false,
-          },
+          pending_offers: { count: 0, amount: '0' },
         },
         monthly_spend: [],
         campaign_breakdown: [],
+        stage_breakdown: [
+          { stage: 'pending_acceptance', amount: '0' },
+          { stage: 'committed', amount: '0' },
+          { stage: 'paid', amount: '0' },
+        ],
         filters: {
           period: '30d',
           campaign_id: null,

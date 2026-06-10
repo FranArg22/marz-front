@@ -28,11 +28,11 @@ import { useExportBrandPaymentsCsvMutation } from '../hooks/useExportBrandPaymen
 import { BrandPaymentsFilters } from './BrandPaymentsFilters'
 import type { BrandPaymentsFilterOptions } from './BrandPaymentsFilters'
 import { BrandPaymentsTable } from './BrandPaymentsTable'
-import { CampaignSpendDonut } from './CampaignSpendDonut'
 import { MonthlySpendBarChart } from './MonthlySpendBarChart'
 import { PaymentKpiGrid } from './PaymentKpiGrid'
 import { PaymentsEmptyState } from './PaymentsEmptyState'
 import { PaymentsPeriodSegmentedControl } from './PaymentsPeriodSegmentedControl'
+import { StageSpendDonut } from './StageSpendDonut'
 
 interface BrandPaymentsPageProps {
   filters: BrandPaymentsSearch
@@ -211,10 +211,7 @@ export function BrandPaymentsPage({
 
           <div className="flex gap-4">
             <MonthlySpendBarChart data={visibleResponse.monthly_spend} />
-            <CampaignSpendDonut
-              data={visibleResponse.campaign_breakdown}
-              totalAmount={visibleResponse.summary.period_spend}
-            />
+            <StageSpendDonut data={visibleResponse.stage_breakdown} />
           </div>
 
           <section className="overflow-hidden rounded-lg border border-border bg-card">

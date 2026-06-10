@@ -8,13 +8,11 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export type BrandPaymentsSpendingSummaryNextDebit = {
-  /**
-     * USD decimal string.
-     * @pattern ^\d+\.\d{2}$
-     */
-  amount: string;
-  /** @nullable */
-  estimated_date: string | null;
-  date_available: boolean;
-};
+export type BrandPaymentsSpendingStageStage = typeof BrandPaymentsSpendingStageStage[keyof typeof BrandPaymentsSpendingStageStage];
+
+
+export const BrandPaymentsSpendingStageStage = {
+  pending_acceptance: 'pending_acceptance',
+  committed: 'committed',
+  paid: 'paid',
+} as const;

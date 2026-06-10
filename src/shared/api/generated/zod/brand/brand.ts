@@ -34,11 +34,14 @@ export const GetBrandWorkspacePaymentsSpendingQueryParams = zod.object({
 export const getBrandWorkspacePaymentsSpendingResponseSummaryTotalSpentRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseSummaryPeriodSpendRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseSummaryPendingApprovalRegExp = new RegExp('^\\d+\\.\\d{2}$');
-export const getBrandWorkspacePaymentsSpendingResponseSummaryNextDebitAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getBrandWorkspacePaymentsSpendingResponseSummaryPendingOffersCountMin = 0;
+
+export const getBrandWorkspacePaymentsSpendingResponseSummaryPendingOffersAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseMonthlySpendItemMonthRegExp = new RegExp('^\\d{4}-\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseMonthlySpendItemAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseCampaignBreakdownItemAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseCampaignBreakdownItemPercentageRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getBrandWorkspacePaymentsSpendingResponseStageBreakdownItemAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
 export const getBrandWorkspacePaymentsSpendingResponseFiltersLimitMax = 100;
 
 export const getBrandWorkspacePaymentsSpendingResponsePaymentsItemsItemAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
@@ -51,11 +54,10 @@ export const GetBrandWorkspacePaymentsSpendingResponse = zod.object({
   "total_spent": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseSummaryTotalSpentRegExp).describe('USD decimal string.'),
   "period_spend": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseSummaryPeriodSpendRegExp).describe('USD decimal string.'),
   "pending_approval": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseSummaryPendingApprovalRegExp).describe('USD decimal string.'),
-  "next_debit": zod.object({
-  "amount": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseSummaryNextDebitAmountRegExp).describe('USD decimal string.'),
-  "estimated_date": zod.iso.datetime({}).nullable(),
-  "date_available": zod.boolean()
-})
+  "pending_offers": zod.object({
+  "count": zod.number().min(getBrandWorkspacePaymentsSpendingResponseSummaryPendingOffersCountMin),
+  "amount": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseSummaryPendingOffersAmountRegExp).describe('USD decimal string.')
+}).describe('Sent offers awaiting acceptance. Current state, not period-filtered.')
 }),
   "monthly_spend": zod.array(zod.object({
   "month": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseMonthlySpendItemMonthRegExp),
@@ -67,6 +69,10 @@ export const GetBrandWorkspacePaymentsSpendingResponse = zod.object({
   "amount": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseCampaignBreakdownItemAmountRegExp).describe('USD decimal string.'),
   "percentage": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseCampaignBreakdownItemPercentageRegExp)
 })),
+  "stage_breakdown": zod.array(zod.object({
+  "stage": zod.enum(['pending_acceptance', 'committed', 'paid']),
+  "amount": zod.string().regex(getBrandWorkspacePaymentsSpendingResponseStageBreakdownItemAmountRegExp).describe('USD decimal string.')
+})).describe('Three-stage funnel for the spending donut (pending_acceptance, committed, paid).'),
   "filters": zod.object({
   "period": zod.enum(['30d', '90d', '12m', 'all']),
   "campaign_id": zod.uuid().nullable(),
