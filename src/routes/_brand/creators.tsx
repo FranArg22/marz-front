@@ -97,13 +97,13 @@ function BrandCreatorsRoute() {
   }, [navigate])
 
   const activeFilters = hasActiveFilters(filters)
-  const allowsEmailInvites =
+  // El backend omite plan_capabilities para brands sin plan pago (y el me
+  // liviano del SSR tampoco lo trae), así que el acceso defensivo no es redundante.
+  const planCapabilities =
     meQuery.data?.status === 200
-      ? Boolean(
-          meQuery.data.data.brand_workspace?.plan_capabilities
-            .allows_email_invites,
-        )
-      : false
+      ? meQuery.data.data.brand_workspace?.plan_capabilities
+      : undefined
+  const allowsEmailInvites = Boolean(planCapabilities?.allows_email_invites)
 
   return (
     <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
