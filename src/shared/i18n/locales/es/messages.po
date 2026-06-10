@@ -1015,7 +1015,7 @@ msgstr "Algo salió mal"
 #: src/features/inbox/ConnectionRequestInboxItem.tsx:55
 #: src/features/inbox/ConnectionRequestInboxItem.tsx:67
 #: src/features/offers/components/CancelOfferDialog.tsx:107
-#: src/features/payments/components/MarkAsPaidDialog.tsx:89
+#: src/features/payments/components/MarkAsPaidDialog.tsx:103
 msgid "Algo salió mal. Intentá de nuevo."
 msgstr "Algo salió mal. Intentá de nuevo."
 
@@ -1644,7 +1644,7 @@ msgstr "Cancelando…"
 #: src/features/discovery/network/components/InviteSingleModal.tsx:135
 #: src/features/inbox/InboxInlineActionPopover.tsx:625
 #: src/features/offers/components/SendOfferSidesheet.tsx:792
-#: src/features/payments/components/MarkAsPaidDialog.tsx:128
+#: src/features/payments/components/MarkAsPaidDialog.tsx:142
 msgid "Cancelar"
 msgstr "Cancelar"
 
@@ -2014,7 +2014,7 @@ msgstr "Configuración de la oferta"
 #~ msgid "Configurar campaña"
 #~ msgstr "Configurar campaña"
 
-#: src/features/payments/components/MarkAsPaidDialog.tsx:101
+#: src/features/payments/components/MarkAsPaidDialog.tsx:115
 msgid "Confirmá el monto pagado por esta oferta."
 msgstr "Confirmá el monto pagado por esta oferta."
 
@@ -2026,7 +2026,7 @@ msgstr "Confirmá el monto pagado por esta oferta."
 msgid "Confirmá los datos antes de crear la campaña. Podés editar cada bloque desde su paso correspondiente."
 msgstr "Confirmá los datos antes de crear la campaña. Podés editar cada bloque desde su paso correspondiente."
 
-#: src/features/payments/components/MarkAsPaidDialog.tsx:135
+#: src/features/payments/components/MarkAsPaidDialog.tsx:149
 msgid "Confirmando…"
 msgstr "Confirmando…"
 
@@ -2786,7 +2786,7 @@ msgstr "El cobro se realiza cuando el creator acepta"
 msgid "El código de seguridad de tu tarjeta es incorrecto."
 msgstr "El código de seguridad de tu tarjeta es incorrecto."
 
-#: src/features/offers/components/NextStep.tsx:129
+#: src/features/offers/components/NextStep.tsx:142
 msgid "El creator está analizando la oferta"
 msgstr "El creator está analizando la oferta"
 
@@ -3099,7 +3099,7 @@ msgstr "Entre 3 y 30 caracteres: letras, números y guion bajo."
 msgid "Entregable"
 msgstr "Entregable"
 
-#: src/features/offers/components/NextStep.tsx:107
+#: src/features/offers/components/NextStep.tsx:119
 msgid "Entregable completado"
 msgstr "Entregable completado"
 
@@ -3204,7 +3204,7 @@ msgstr "Enviar una oferta a {creatorName}"
 #~ msgid "Error al cargar el brief. Intentá de nuevo más tarde."
 #~ msgstr "Error al cargar el brief. Intentá de nuevo más tarde."
 
-#: src/features/offers/components/ConversationOffersPanel.tsx:101
+#: src/features/offers/components/ConversationOffersPanel.tsx:109
 msgid "Error al cargar entregables"
 msgstr "Error al cargar entregables"
 
@@ -3270,11 +3270,11 @@ msgstr "Escribiendo..."
 #~ msgid "Español"
 #~ msgstr "Español"
 
-#: src/features/offers/components/NextStep.tsx:48
+#: src/features/offers/components/NextStep.tsx:52
 msgid "Esperando aprobación del draft"
 msgstr "Esperando aprobación del draft"
 
-#: src/features/offers/components/NextStep.tsx:88
+#: src/features/offers/components/NextStep.tsx:92
 msgid "Esperando aprobación del link"
 msgstr "Esperando aprobación del link"
 
@@ -3286,19 +3286,19 @@ msgstr "Esperando confirmación…"
 msgid "Esperando draft"
 msgstr "Esperando draft"
 
-#: src/features/offers/components/NextStep.tsx:101
+#: src/features/offers/components/NextStep.tsx:113
 msgid "Esperando el pago"
 msgstr "Esperando el pago"
 
-#: src/features/offers/components/NextStep.tsx:68
+#: src/features/offers/components/NextStep.tsx:72
 msgid "Esperando los cambios del creator"
 msgstr "Esperando los cambios del creator"
 
-#: src/features/offers/components/NextStep.tsx:80
+#: src/features/offers/components/NextStep.tsx:84
 msgid "Esperando que el creator publique el link"
 msgstr "Esperando que el creator publique el link"
 
-#: src/features/offers/components/NextStep.tsx:56
+#: src/features/offers/components/NextStep.tsx:60
 msgid "Esperando que el creator suba el draft"
 msgstr "Esperando que el creator suba el draft"
 
@@ -4735,8 +4735,8 @@ msgid "Marcar como leído"
 msgstr "Marcar como leído"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:310
-#: src/features/payments/components/MarkAsPaidDialog.tsx:99
-#: src/features/payments/components/MarkAsPaidDialog.tsx:136
+#: src/features/payments/components/MarkAsPaidDialog.tsx:113
+#: src/features/payments/components/MarkAsPaidDialog.tsx:150
 msgid "Marcar como pagado"
 msgstr "Marcar como pagado"
 
@@ -5063,7 +5063,7 @@ msgstr "Monthly paid earnings"
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:173
 #: src/features/offers/components/SendOfferSidesheet.tsx:491
 #: src/features/payments/components/BrandPaymentsTable.tsx:52
-#: src/features/payments/components/MarkAsPaidDialog.tsx:107
+#: src/features/payments/components/MarkAsPaidDialog.tsx:121
 msgid "Monto"
 msgstr "Monto"
 
@@ -5088,7 +5088,7 @@ msgstr "Monto fijo"
 msgid "Monto máximo"
 msgstr "Monto máximo"
 
-#: src/features/payments/components/MarkAsPaidDialog.tsx:109
+#: src/features/payments/components/MarkAsPaidDialog.tsx:123
 msgid "Monto pagado"
 msgstr "Monto pagado"
 
@@ -5666,7 +5666,7 @@ msgstr "Oferta actual"
 
 #: src/features/chat/components/systemEvents/OfferCancelledCard.tsx:26
 #: src/features/chat/components/systemEvents/OfferCancelledCard.tsx:29
-#: src/features/offers/components/NextStep.tsx:153
+#: src/features/offers/components/NextStep.tsx:166
 msgid "Oferta cancelada"
 msgstr "Oferta cancelada"
 
@@ -5674,7 +5674,7 @@ msgstr "Oferta cancelada"
 msgid "Oferta cancelada tras aceptación"
 msgstr "Oferta cancelada tras aceptación"
 
-#: src/features/offers/components/NextStep.tsx:163
+#: src/features/offers/components/NextStep.tsx:176
 msgid "Oferta completada"
 msgstr "Oferta completada"
 
@@ -5689,13 +5689,13 @@ msgstr "Oferta de {formattedAmount}, {modeLabel}, {inlineStatus}, enviada el {se
 msgid "Oferta enviada"
 msgstr "Oferta enviada"
 
-#: src/features/offers/components/NextStep.tsx:145
+#: src/features/offers/components/NextStep.tsx:158
 msgid "Oferta expirada"
 msgstr "Oferta expirada"
 
 #: src/features/chat/components/systemEvents/OfferRejectedCard.tsx:18
 #: src/features/chat/components/systemEvents/OfferRejectedCard.tsx:20
-#: src/features/offers/components/NextStep.tsx:137
+#: src/features/offers/components/NextStep.tsx:150
 msgid "Oferta rechazada"
 msgstr "Oferta rechazada"
 
@@ -6425,6 +6425,10 @@ msgstr "Probé sin muchos resultados"
 #: src/features/campaigns/brief-builder/hooks/useBriefBuilderWS.ts:36
 #~ msgid "Procesando descripción"
 #~ msgstr "Procesando descripción"
+
+#: src/features/offers/components/NextStep.tsx:107
+msgid "Procesando el pago"
+msgstr "Procesando el pago"
 
 #: src/shared/catalog/creatorTaxonomy.ts:40
 #~ msgid "Product demos"
@@ -7687,15 +7691,15 @@ msgstr "Tech LatAm"
 msgid "Tendencias"
 msgstr "Tendencias"
 
-#: src/features/offers/components/NextStep.tsx:63
+#: src/features/offers/components/NextStep.tsx:67
 msgid "Tenés cambios para aplicar"
 msgstr "Tenés cambios para aplicar"
 
-#: src/features/offers/components/NextStep.tsx:96
+#: src/features/offers/components/NextStep.tsx:102
 msgid "Tenés que marcar como pagado"
 msgstr "Tenés que marcar como pagado"
 
-#: src/features/offers/components/NextStep.tsx:75
+#: src/features/offers/components/NextStep.tsx:79
 msgid "Tenés que publicar el link"
 msgstr "Tenés que publicar el link"
 
@@ -7703,19 +7707,19 @@ msgstr "Tenés que publicar el link"
 msgid "Tenés que ser mayor de 18 años para usar Marz."
 msgstr "Tenés que ser mayor de 18 años para usar Marz."
 
-#: src/features/offers/components/NextStep.tsx:54
+#: src/features/offers/components/NextStep.tsx:58
 msgid "Tenés que subir el draft"
 msgstr "Tenés que subir el draft"
 
-#: src/features/offers/components/NextStep.tsx:46
+#: src/features/offers/components/NextStep.tsx:50
 msgid "Tenés un draft para revisar"
 msgstr "Tenés un draft para revisar"
 
-#: src/features/offers/components/NextStep.tsx:86
+#: src/features/offers/components/NextStep.tsx:90
 msgid "Tenés un link para revisar"
 msgstr "Tenés un link para revisar"
 
-#: src/features/offers/components/NextStep.tsx:124
+#: src/features/offers/components/NextStep.tsx:137
 msgid "Tenés una oferta para revisar"
 msgstr "Tenés una oferta para revisar"
 
@@ -8071,6 +8075,10 @@ msgstr "Tu pago se procesó pero todavía no vemos la suscripción activa."
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:155
 msgid "Tu plan actual permite invitaciones por email."
 msgstr "Tu plan actual permite invitaciones por email."
+
+#: src/features/payments/components/MarkAsPaidDialog.tsx:98
+msgid "Tu plan liquida los pagos automáticamente; no hace falta marcar como pagado."
+msgstr "Tu plan liquida los pagos automáticamente; no hace falta marcar como pagado."
 
 #: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:60
 msgid "Tu plan no permite invitaciones in-platform. Usá email o actualizá el plan."

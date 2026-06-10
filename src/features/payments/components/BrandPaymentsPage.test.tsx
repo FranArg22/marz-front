@@ -134,9 +134,9 @@ describe('BrandPaymentsPage', () => {
 
     expect(screen.getByText('$184,250.00')).toBeInTheDocument()
     expect(screen.getByText('$42,820.00')).toBeInTheDocument()
-    expect(screen.getByText('$8,430.00')).toBeInTheDocument()
+    expect(screen.getByText('$12,000.00')).toBeInTheDocument()
     expect(
-      screen.getByText('Ofertas pendientes de aceptar'),
+      screen.getByText('Ofertas enviadas'),
     ).toBeInTheDocument()
     expect(screen.getByText('5')).toBeInTheDocument()
     expect(screen.getByText('$3,200.00')).toBeInTheDocument()
@@ -218,7 +218,7 @@ describe('BrandPaymentsPage', () => {
       paymentsAnalytics.trackBrandPaymentsFilterChanged,
     ).toHaveBeenCalledWith({ filter: 'campaign', has_value: true })
 
-    await user.click(screen.getByRole('combobox', { name: /creator/i }))
+    await user.click(screen.getByRole('combobox', { name: /creador/i }))
     await user.click(screen.getByRole('option', { name: 'Lara Pérez (@lara)' }))
     expect(
       paymentsAnalytics.trackBrandPaymentsFilterChanged,
@@ -282,7 +282,7 @@ describe('BrandPaymentsPage', () => {
     })
     renderPage(makeResponse())
 
-    await user.click(screen.getByRole('button', { name: 'Export CSV' }))
+    await user.click(screen.getByRole('button', { name: 'Exportar CSV' }))
 
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalled()
@@ -319,7 +319,7 @@ describe('BrandPaymentsPage', () => {
     })
     renderPage(makeResponse())
 
-    fireEvent.click(screen.getByRole('button', { name: 'Export CSV' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Exportar CSV' }))
 
     await waitFor(() => {
       expect(clickedDownloads[0]).toMatch(
@@ -343,7 +343,7 @@ describe('BrandPaymentsPage', () => {
     })
     renderPage(makeResponse())
 
-    await user.click(screen.getByRole('button', { name: 'Export CSV' }))
+    await user.click(screen.getByRole('button', { name: 'Exportar CSV' }))
 
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith(
@@ -369,7 +369,7 @@ describe('BrandPaymentsPage', () => {
     })
     renderPage(makeResponse())
 
-    await user.click(screen.getByRole('button', { name: 'Export CSV' }))
+    await user.click(screen.getByRole('button', { name: 'Exportar CSV' }))
 
     expect(toast.info).toHaveBeenCalledWith(
       'No hay pagos para exportar con estos filtros.',
@@ -393,7 +393,7 @@ describe('BrandPaymentsPage', () => {
     })
     renderPage(makeResponse())
 
-    await user.click(screen.getByRole('button', { name: 'Export CSV' }))
+    await user.click(screen.getByRole('button', { name: 'Exportar CSV' }))
 
     expect(toast.error).toHaveBeenCalledWith(
       'El export excede el límite. Contactá al administrador (Marz) para obtenerlo manualmente.',

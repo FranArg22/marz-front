@@ -95,4 +95,27 @@ describe('MarkAsPaidDialog', () => {
     ).toBeInTheDocument()
     expect(onOpenChange).not.toHaveBeenCalledWith(false)
   })
+
+  it('shows a sensible message on 403 mark_paid_not_allowed_on_paid_plan', async () => {
+    const user = userEvent.setup()
+    mockMutate.mockImplementationOnce((_variables, options) => {
+      options.onError(
+        new ApiError(
+          403,
+          'mark_paid_not_allowed_on_paid_plan',
+          'Not allowed on paid plan',
+        ),
+      )
+    })
+    const { onOpenChange } = renderDialog()
+
+    await user.click(screen.getByRole('button', { name: 'Marcar como pagado' }))
+
+    expect(
+      await screen.findByText(
+        'Tu plan liquida los pagos automáticamente; no hace falta marcar como pagado.',
+      ),
+    ).toBeInTheDocument()
+    expect(onOpenChange).not.toHaveBeenCalledWith(false)
+  })
 })

@@ -16,6 +16,9 @@ interface NextStepProps {
   offer: OfferDetailDTO | null
   sessionKind: 'brand' | 'creator'
   deliverables?: DeliverableDTO[]
+  // Paid plans auto-close on link approval (settled via Stripe), so the brand
+  // never performs a manual "mark as paid" step. Free plans still do.
+  isFreePlan?: boolean
 }
 
 // Sistema de tonos:
@@ -34,6 +37,7 @@ interface NextStepMeta {
 function deriveDeliverableStep(
   deliverable: DeliverableDTO | undefined,
   sessionKind: 'brand' | 'creator',
+  isFreePlan: boolean,
 ): NextStepMeta | null {
   if (!deliverable) return null
 
@@ -91,17 +95,25 @@ function deriveDeliverableStep(
           }
     case 'link_approved':
     case 'completed':
-      return sessionKind === 'brand'
-        ? {
-            label: t`Tenés que marcar como pagado`,
-            tone: 'action',
-            icon: CircleDollarSign,
-          }
-        : {
-            label: t`Esperando el pago`,
-            tone: 'waiting',
-            icon: Hourglass,
-          }
+      if (sessionKind === 'brand') {
+        // Paid plans settle automatically; no manual mark-as-paid prompt.
+        return isFreePlan
+          ? {
+              label: t`Tenés que marcar como pagado`,
+              tone: 'action',
+              icon: CircleDollarSign,
+            }
+          : {
+              label: t`Procesando el pago`,
+              tone: 'waiting',
+              icon: Hourglass,
+            }
+      }
+      return {
+        label: t`Esperando el pago`,
+        tone: 'waiting',
+        icon: Hourglass,
+      }
     case 'paid':
       return {
         label: t`Entregable completado`,
@@ -117,6 +129,7 @@ function getNextStepMeta(
   offer: OfferDetailDTO,
   sessionKind: 'brand' | 'creator',
   deliverables: DeliverableDTO[],
+  isFreePlan: boolean,
 ): NextStepMeta | null {
   if (offer.status === 'sent') {
     return sessionKind === 'creator'
@@ -165,7 +178,7 @@ function getNextStepMeta(
       icon: CheckCircle2,
     }
   }
-  return deriveDeliverableStep(active, sessionKind)
+  return deriveDeliverableStep(active, sessionKind, isFreePlan)
 }
 
 const EMPTY_DELIVERABLES: DeliverableDTO[] = []
@@ -183,10 +196,11 @@ export function NextStep({
   offer,
   sessionKind,
   deliverables = EMPTY_DELIVERABLES,
+  isFreePlan = true,
 }: NextStepProps) {
   if (!offer) return null
 
-  const meta = getNextStepMeta(offer, sessionKind, deliverables)
+  const meta = getNextStepMeta(offer, sessionKind, deliverables, isFreePlan)
   if (!meta) return null
 
   const Icon = meta.icon

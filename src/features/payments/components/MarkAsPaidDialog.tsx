@@ -86,6 +86,20 @@ export function MarkAsPaidDialog({
             return
           }
 
+          // Paid plans settle automatically; the backend rejects manual
+          // mark-as-paid. The CTA is hidden for these plans, but guard the
+          // path defensively so the brand sees a sensible message.
+          if (
+            error instanceof ApiError &&
+            error.status === 403 &&
+            error.code === 'mark_paid_not_allowed_on_paid_plan'
+          ) {
+            setInlineError(
+              t`Tu plan liquida los pagos automáticamente; no hace falta marcar como pagado.`,
+            )
+            return
+          }
+
           setInlineError(t`Algo salió mal. Intentá de nuevo.`)
         },
       },

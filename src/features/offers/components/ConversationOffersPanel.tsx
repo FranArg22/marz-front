@@ -7,6 +7,7 @@ import { useGetConversationDeliverablesQuery } from '#/features/deliverables/api
 import { useMe } from '#/shared/api/generated/accounts/accounts'
 import type { MarkAsPaidOffer } from '#/shared/payments/markAsPaidEligibility'
 import type { CanSendOfferMeta } from '#/shared/types/offerMeta'
+import { getWorkspacePlan } from '#/features/offers/utils/workspacePlan'
 import { CurrentOfferBlock } from './CurrentOfferBlock'
 import { NextStep } from './NextStep'
 import { OffersArchiveBlock } from './OffersArchiveBlock'
@@ -45,6 +46,12 @@ export function ConversationOffersPanel({
   const meQuery = useMe()
   const actorKind =
     meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
+  const isFreePlan =
+    getWorkspacePlan(
+      meQuery.data?.status === 200
+        ? meQuery.data.data.brand_workspace?.plan
+        : undefined,
+    ) === 'free'
 
   // Scope deliverables to the offers-context current offer. The deliverables
   // read derives its own "current offer", which lags after a new offer is sent
@@ -65,6 +72,7 @@ export function ConversationOffersPanel({
           offer={current}
           sessionKind={sessionKind}
           deliverables={deliverables}
+          isFreePlan={isFreePlan}
         />
       }
       offerSlot={

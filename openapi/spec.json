@@ -2596,7 +2596,7 @@
             }
           },
           "403": {
-            "description": "Forbidden. Possible codes: forbidden_role, forbidden_workspace.",
+            "description": "Forbidden. Possible codes: forbidden_role, forbidden_workspace, mark_paid_not_allowed_on_paid_plan.",
             "content": {
               "application/json": {
                 "schema": {
