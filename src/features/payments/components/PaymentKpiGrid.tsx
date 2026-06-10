@@ -1,39 +1,48 @@
 import { t } from '@lingui/core/macro'
 import { CircleDollarSign, Clock3, Send, WalletCards } from 'lucide-react'
 
-import type { BrandPaymentsSummary } from '../api/brandPaymentsSchemas'
+import type {
+  BrandPaymentsStageBreakdown,
+  BrandPaymentsSummary,
+} from '../api/brandPaymentsSchemas'
 import { formatUsd } from './paymentFormatting'
 
 interface PaymentKpiGridProps {
   summary: BrandPaymentsSummary
+  stageBreakdown: BrandPaymentsStageBreakdown[]
 }
 
-export function PaymentKpiGrid({ summary }: PaymentKpiGridProps) {
+export function PaymentKpiGrid({
+  summary,
+  stageBreakdown,
+}: PaymentKpiGridProps) {
+  const committedAmount =
+    stageBreakdown.find((stage) => stage.stage === 'committed')?.amount ?? '0'
   const kpis = [
     {
       key: 'total_spent',
-      label: t`Total spent`,
+      label: t`Gasto total`,
       value: formatUsd(summary.total_spent),
       detail: t`Todos los pagos históricos`,
       Icon: CircleDollarSign,
     },
     {
       key: 'period_spend',
-      label: t`Period spend`,
+      label: t`Gasto del período`,
       value: formatUsd(summary.period_spend),
       detail: t`Según el periodo seleccionado`,
       Icon: WalletCards,
     },
     {
-      key: 'pending_approval',
-      label: t`Pending approval`,
-      value: formatUsd(summary.pending_approval),
-      detail: t`Deliverables pendientes`,
+      key: 'in_progress',
+      label: t`Ofertas en curso`,
+      value: formatUsd(committedAmount),
+      detail: t`Aceptadas, pendientes de pago`,
       Icon: Clock3,
     },
     {
       key: 'pending_offers',
-      label: t`Ofertas pendientes de aceptar`,
+      label: t`Ofertas enviadas`,
       value: String(summary.pending_offers.count),
       detail: formatUsd(summary.pending_offers.amount),
       Icon: Send,

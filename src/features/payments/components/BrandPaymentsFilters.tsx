@@ -81,7 +81,7 @@ export function BrandPaymentsFilters({
       </Select>
 
       <label className="sr-only" htmlFor="brand-payments-creator">
-        {t`Filtrar por creator`}
+        {t`Filtrar por creador`}
       </label>
       <Select
         value={filters.creatorId ?? allCreatorsValue}
@@ -97,12 +97,12 @@ export function BrandPaymentsFilters({
           className="h-8 rounded-full border-0 bg-input px-3 text-xs"
         >
           <User className="size-3 text-muted-foreground" aria-hidden />
-          <SelectValue placeholder={t`Cualquier creator`} />
+          <SelectValue placeholder={t`Cualquier creador`} />
         </SelectTrigger>
         <SelectContent>
           <SelectItem
             value={allCreatorsValue}
-          >{t`Cualquier creator`}</SelectItem>
+          >{t`Cualquier creador`}</SelectItem>
           {options.creators.map((creator) => (
             <SelectItem
               key={creator.creator_account_id}
@@ -142,6 +142,6 @@ function getCreatorLabel(creator: BrandPaymentsCreatorFilter): string {
   return (
     creator.creator_display_name ||
     creator.creator_handle ||
-    t`Creator sin nombre`
+    t`Creador sin nombre`
   )
 }

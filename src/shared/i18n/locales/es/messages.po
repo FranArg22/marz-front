@@ -747,6 +747,10 @@ msgstr "Aceptada"
 msgid "Aceptada (pagada)"
 msgstr "Aceptada (pagada)"
 
+#: src/features/payments/components/PaymentKpiGrid.tsx:40
+msgid "Aceptadas, pendientes de pago"
+msgstr "Aceptadas, pendientes de pago"
+
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:18
 msgid "Aceptado"
 msgstr "Aceptado"
@@ -1028,8 +1032,8 @@ msgstr "Algunas campañas filtran por género de creador. Opcional."
 #~ msgstr "Alinea inversión con performance real."
 
 #: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:19
-msgid "All"
-msgstr "All"
+#~ msgid "All"
+#~ msgstr "All"
 
 #: src/features/inbox/InboxToolbar.tsx:107
 #: src/features/inbox/InboxToolbar.tsx:110
@@ -1719,7 +1723,7 @@ msgstr "Cargando link actual"
 msgid "Cargando overview"
 msgstr "Cargando overview"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:348
+#: src/features/payments/components/BrandPaymentsPage.tsx:351
 msgid "Cargando pagos"
 msgstr "Cargando pagos"
 
@@ -1958,7 +1962,7 @@ msgstr "Completado"
 msgid "Completed"
 msgstr "Completed"
 
-#: src/features/payments/components/StageSpendDonut.tsx:127
+#: src/features/payments/components/StageSpendDonut.tsx:124
 msgid "Comprometido"
 msgstr "Comprometido"
 
@@ -2168,8 +2172,14 @@ msgstr "Creá una invitación para esta campaña."
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:154
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:124
+#: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr "Creador"
+
+#: src/features/payments/components/BrandPaymentsFilters.tsx:145
+#: src/features/payments/components/BrandPaymentsTable.tsx:81
+msgid "Creador sin nombre"
+msgstr "Creador sin nombre"
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:122
 #~ msgid "CREADORES"
@@ -2198,7 +2208,6 @@ msgstr "Crear campaña"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:215
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:173
-#: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creator"
 msgstr "Creator"
 
@@ -2208,8 +2217,8 @@ msgstr "Creator actions"
 
 #: src/features/payments/components/BrandPaymentsFilters.tsx:145
 #: src/features/payments/components/BrandPaymentsTable.tsx:81
-msgid "Creator sin nombre"
-msgstr "Creator sin nombre"
+#~ msgid "Creator sin nombre"
+#~ msgstr "Creator sin nombre"
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:145
 msgid "creator@ejemplo.com"
@@ -2272,16 +2281,25 @@ msgstr "Cuadrada, cara visible, sin filtros locos. Usamos la misma que marcas ve
 
 #: src/features/payments/components/BrandPaymentsFilters.tsx:100
 #: src/features/payments/components/BrandPaymentsFilters.tsx:105
-msgid "Cualquier creator"
-msgstr "Cualquier creator"
+msgid "Cualquier creador"
+msgstr "Cualquier creador"
+
+#: src/features/payments/components/BrandPaymentsFilters.tsx:100
+#: src/features/payments/components/BrandPaymentsFilters.tsx:105
+#~ msgid "Cualquier creator"
+#~ msgstr "Cualquier creator"
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:294
 #~ msgid "Cuando aceptes una aplicación o invitación, el creator va a aparecer acá."
 #~ msgstr "Cuando aceptes una aplicación o invitación, el creator va a aparecer acá."
 
 #: src/features/payments/components/PaymentsEmptyState.tsx:14
-msgid "Cuando declares pagos a creators, el historial y el análisis van a aparecer acá."
-msgstr "Cuando declares pagos a creators, el historial y el análisis van a aparecer acá."
+msgid "Cuando declares pagos a creadores, el historial y el análisis van a aparecer acá."
+msgstr "Cuando declares pagos a creadores, el historial y el análisis van a aparecer acá."
+
+#: src/features/payments/components/PaymentsEmptyState.tsx:14
+#~ msgid "Cuando declares pagos a creators, el historial y el análisis van a aparecer acá."
+#~ msgstr "Cuando declares pagos a creators, el historial y el análisis van a aparecer acá."
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:167
 #~ msgid "Cuando el brief tenga perfiles compatibles, van a aparecer en esta lista."
@@ -2392,7 +2410,6 @@ msgid "Definí los guidelines de contenido"
 msgstr "Definí los guidelines de contenido"
 
 #: src/features/earnings/components/PendingBonusCard.tsx:34
-#: src/features/payments/components/BrandPaymentsTable.tsx:49
 msgid "Deliverable"
 msgstr "Deliverable"
 
@@ -2407,8 +2424,8 @@ msgid "Deliverables"
 msgstr "Deliverables"
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:31
-msgid "Deliverables pendientes"
-msgstr "Deliverables pendientes"
+#~ msgid "Deliverables pendientes"
+#~ msgstr "Deliverables pendientes"
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:585
 msgid "Desactivá el switch si cada plataforma necesita contenido y monto propios."
@@ -3078,6 +3095,7 @@ msgid "Entre 3 y 30 caracteres: letras, números y guion bajo."
 msgstr "Entre 3 y 30 caracteres: letras, números y guion bajo."
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:167
+#: src/features/payments/components/BrandPaymentsTable.tsx:49
 msgid "Entregable"
 msgstr "Entregable"
 
@@ -3475,14 +3493,15 @@ msgstr "Expired"
 #~ msgstr "Explorá la red de creators"
 
 #: src/features/payments/components/BrandPaymentsPage.tsx:189
-msgid "Export CSV"
-msgstr "Export CSV"
+#~ msgid "Export CSV"
+#~ msgstr "Export CSV"
 
 #: src/features/earnings/components/EarningsSearchExportBar.tsx:150
 msgid "Exportando..."
 msgstr "Exportando..."
 
 #: src/features/earnings/components/EarningsSearchExportBar.tsx:150
+#: src/features/payments/components/BrandPaymentsPage.tsx:189
 msgid "Exportar CSV"
 msgstr "Exportar CSV"
 
@@ -3603,8 +3622,12 @@ msgid "Filtrar por campaña"
 msgstr "Filtrar por campaña"
 
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
-msgid "Filtrar por creator"
-msgstr "Filtrar por creator"
+msgid "Filtrar por creador"
+msgstr "Filtrar por creador"
+
+#: src/features/payments/components/BrandPaymentsFilters.tsx:84
+#~ msgid "Filtrar por creator"
+#~ msgstr "Filtrar por creator"
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:108
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:147
@@ -3736,6 +3759,10 @@ msgstr "gaming"
 msgid "Gaming"
 msgstr "Gaming"
 
+#: src/features/payments/components/PaymentKpiGrid.tsx:31
+msgid "Gasto del período"
+msgstr "Gasto del período"
+
 #: src/features/payments/components/MonthlySpendBarChart.tsx:22
 msgid "Gasto mensual en USD"
 msgstr "Gasto mensual en USD"
@@ -3751,6 +3778,10 @@ msgstr "Gasto por etapa"
 #: src/features/payments/components/MonthlySpendBarChart.tsx:28
 msgid "Gasto por mes"
 msgstr "Gasto por mes"
+
+#: src/features/payments/components/PaymentKpiGrid.tsx:24
+msgid "Gasto total"
+msgstr "Gasto total"
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:107
 msgid "Gastronomía"
@@ -4308,7 +4339,7 @@ msgstr "jun"
 msgid "Junio"
 msgstr "Junio"
 
-#: src/features/payments/components/PaymentKpiGrid.tsx:44
+#: src/features/payments/components/PaymentKpiGrid.tsx:53
 msgid "KPIs de pagos"
 msgstr "KPIs de pagos"
 
@@ -5278,7 +5309,7 @@ msgstr "No pudimos cambiar el método de pago, intentá de nuevo"
 msgid "No pudimos cargar el brief"
 msgstr "No pudimos cargar el brief"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:247
+#: src/features/payments/components/BrandPaymentsPage.tsx:250
 msgid "No pudimos cargar el dashboard de pagos."
 msgstr "No pudimos cargar el dashboard de pagos."
 
@@ -5681,9 +5712,17 @@ msgstr "Oferta vencida"
 msgid "Ofertas anteriores"
 msgstr "Ofertas anteriores"
 
+#: src/features/payments/components/PaymentKpiGrid.tsx:38
+msgid "Ofertas en curso"
+msgstr "Ofertas en curso"
+
+#: src/features/payments/components/PaymentKpiGrid.tsx:45
+msgid "Ofertas enviadas"
+msgstr "Ofertas enviadas"
+
 #: src/features/payments/components/PaymentKpiGrid.tsx:36
-msgid "Ofertas pendientes de aceptar"
-msgstr "Ofertas pendientes de aceptar"
+#~ msgid "Ofertas pendientes de aceptar"
+#~ msgstr "Ofertas pendientes de aceptar"
 
 #: src/features/offers/components/OfferAcceptedCardIn.tsx:26
 #: src/features/offers/components/OfferAcceptedCardOut.tsx:26
@@ -5824,7 +5863,7 @@ msgid "Pagada en total"
 msgstr "Pagada en total"
 
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:24
-#: src/features/payments/components/StageSpendDonut.tsx:129
+#: src/features/payments/components/StageSpendDonut.tsx:126
 msgid "Pagado"
 msgstr "Pagado"
 
@@ -5885,8 +5924,12 @@ msgid "Pagos a creators"
 msgstr "Pagos a creators"
 
 #: src/features/payments/components/BrandPaymentsPage.tsx:173
-msgid "Pagos realizados a creators y análisis de gastos por campaña."
-msgstr "Pagos realizados a creators y análisis de gastos por campaña."
+msgid "Pagos realizados a creadores y análisis de gastos por campaña."
+msgstr "Pagos realizados a creadores y análisis de gastos por campaña."
+
+#: src/features/payments/components/BrandPaymentsPage.tsx:173
+#~ msgid "Pagos realizados a creators y análisis de gastos por campaña."
+#~ msgstr "Pagos realizados a creators y análisis de gastos por campaña."
 
 #: src/features/payments/components/BrandPaymentsPage.tsx:170
 msgid "Pagos y gastos"
@@ -6044,7 +6087,7 @@ msgstr "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 msgid "Pendiente"
 msgstr "Pendiente"
 
-#: src/features/payments/components/StageSpendDonut.tsx:125
+#: src/features/payments/components/StageSpendDonut.tsx:122
 msgid "Pendiente de aceptar"
 msgstr "Pendiente de aceptar"
 
@@ -6060,8 +6103,8 @@ msgid "Pending"
 msgstr "Pending"
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:29
-msgid "Pending approval"
-msgstr "Pending approval"
+#~ msgid "Pending approval"
+#~ msgstr "Pending approval"
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:46
 msgid "Pending payout"
@@ -6097,8 +6140,8 @@ msgstr "Performance"
 #~ msgstr "Performance Bonus"
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:22
-msgid "Period spend"
-msgstr "Period spend"
+#~ msgid "Period spend"
+#~ msgstr "Period spend"
 
 #: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:31
 msgid "Periodo de gastos"
@@ -6932,7 +6975,7 @@ msgstr "Seguidores"
 msgid "Seguir editando"
 msgstr "Seguir editando"
 
-#: src/features/payments/components/PaymentKpiGrid.tsx:24
+#: src/features/payments/components/PaymentKpiGrid.tsx:33
 msgid "Según el periodo seleccionado"
 msgstr "Según el periodo seleccionado"
 
@@ -7804,6 +7847,7 @@ msgstr "Tipo de creador"
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:14
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:231
+#: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:19
 msgid "Todas"
 msgstr "Todas"
 
@@ -7895,7 +7939,7 @@ msgstr "Todo lo de Starter, +:"
 #~ msgid "Todos"
 #~ msgstr "Todos"
 
-#: src/features/payments/components/PaymentKpiGrid.tsx:17
+#: src/features/payments/components/PaymentKpiGrid.tsx:26
 msgid "Todos los pagos históricos"
 msgstr "Todos los pagos históricos"
 
@@ -7950,8 +7994,8 @@ msgid "Total earned"
 msgstr "Total earned"
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:15
-msgid "Total spent"
-msgstr "Total spent"
+#~ msgid "Total spent"
+#~ msgstr "Total spent"
 
 #: src/features/earnings/components/EarningsPage.tsx:132
 msgid "Track your payments and pending bonuses"

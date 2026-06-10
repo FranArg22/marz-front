@@ -170,7 +170,7 @@ export function BrandPaymentsPage({
             {t`Pagos y gastos`}
           </h1>
           <p className="text-xs text-muted-foreground">
-            {t`Pagos realizados a creators y análisis de gastos por campaña.`}
+            {t`Pagos realizados a creadores y análisis de gastos por campaña.`}
           </p>
         </div>
         <PaymentsPeriodSegmentedControl
@@ -186,7 +186,7 @@ export function BrandPaymentsPage({
           className="rounded-full"
         >
           <Download className="size-4" aria-hidden />
-          {t`Export CSV`}
+          {t`Exportar CSV`}
         </Button>
         <Button
           type="button"
@@ -207,7 +207,10 @@ export function BrandPaymentsPage({
 
       {visibleResponse ? (
         <div className="flex flex-col gap-5">
-          <PaymentKpiGrid summary={visibleResponse.summary} />
+          <PaymentKpiGrid
+            summary={visibleResponse.summary}
+            stageBreakdown={visibleResponse.stage_breakdown}
+          />
 
           <div className="flex gap-4">
             <MonthlySpendBarChart data={visibleResponse.monthly_spend} />

@@ -40,13 +40,13 @@ export function BrandPaymentsTable({
               {t`Fecha`}
             </th>
             <th scope="col" className="px-4 py-3">
-              {t`Creator`}
+              {t`Creador`}
             </th>
             <th scope="col" className="px-4 py-3">
               {t`Campaña`}
             </th>
             <th scope="col" className="px-4 py-3">
-              {t`Deliverable`}
+              {t`Entregable`}
             </th>
             <th scope="col" className="w-[130px] px-4 py-3 text-right">
               {t`Monto`}
@@ -78,7 +78,7 @@ export function BrandPaymentsTable({
                   </div>
                   <div className="min-w-0">
                     <div className="truncate text-xs font-medium text-foreground">
-                      {row.creator_display_name || t`Creator sin nombre`}
+                      {row.creator_display_name || t`Creador sin nombre`}
                     </div>
                     {row.creator_handle ? (
                       <div className="truncate text-[11px] text-muted-foreground">

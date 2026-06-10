@@ -16,7 +16,7 @@ function getPeriodOptions(): Array<{ value: PaymentsPeriod; label: string }> {
     { value: '30d', label: t`30d` },
     { value: '90d', label: t`90d` },
     { value: '12m', label: t`12m` },
-    { value: 'all', label: t`All` },
+    { value: 'all', label: t`Todas` },
     /* eslint-enable lingui/no-unlocalized-strings */
   ]
 }
