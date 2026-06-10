@@ -40,7 +40,6 @@ export function CampaignSpendDonut({
             campaign_name: t`Otros`,
             amount: '0',
             percentage: '100',
-            bucket: 'others' as const,
           },
         ]
 
@@ -112,7 +111,7 @@ export function CampaignSpendDonut({
 
         <ul className="min-w-0 flex-1 space-y-2">
           {visibleData.map((item, index) => {
-            const isOthers = item.bucket === 'others'
+            const isOthers = item.campaign_id === null
             return (
               <li
                 key={`${item.campaign_id ?? 'others'}-${item.campaign_name}`}
@@ -153,6 +152,6 @@ export function CampaignSpendDonut({
 }
 
 function getCampaignLabel(item: BrandPaymentsCampaignBreakdown): string {
-  if (item.bucket === 'others') return t`Otros`
+  if (item.campaign_id === null) return t`Otros`
   return item.campaign_name
 }

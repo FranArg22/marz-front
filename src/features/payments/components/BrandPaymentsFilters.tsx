@@ -11,9 +11,15 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import type {
-  BrandPaymentsFilters as BrandPaymentsFilterOptions,
+  BrandPaymentsCampaignFilter,
+  BrandPaymentsCreatorFilter,
   BrandPaymentsSearch,
 } from '../api/brandPaymentsSchemas'
+
+export interface BrandPaymentsFilterOptions {
+  campaigns: BrandPaymentsCampaignFilter[]
+  creators: BrandPaymentsCreatorFilter[]
+}
 
 interface BrandPaymentsFiltersProps {
   filters: BrandPaymentsSearch
@@ -68,7 +74,7 @@ export function BrandPaymentsFilters({
           </SelectItem>
           {options.campaigns.map((campaign) => (
             <SelectItem key={campaign.campaign_id} value={campaign.campaign_id}>
-              {campaign.campaign_name ?? t`Campaña sin nombre`}
+              {campaign.campaign_name || t`Campaña sin nombre`}
             </SelectItem>
           ))}
         </SelectContent>
@@ -129,11 +135,13 @@ export function BrandPaymentsFilters({
   )
 }
 
-function getCreatorLabel(
-  creator: BrandPaymentsFilterOptions['creators'][number],
-): string {
-  if (creator.display_name && creator.handle) {
-    return `${creator.display_name} (${creator.handle})`
+function getCreatorLabel(creator: BrandPaymentsCreatorFilter): string {
+  if (creator.creator_display_name && creator.creator_handle) {
+    return `${creator.creator_display_name} (${creator.creator_handle})`
   }
-  return creator.display_name ?? creator.handle ?? t`Creator sin nombre`
+  return (
+    creator.creator_display_name ||
+    creator.creator_handle ||
+    t`Creator sin nombre`
+  )
 }

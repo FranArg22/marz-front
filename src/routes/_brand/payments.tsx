@@ -34,7 +34,7 @@ function BrandPaymentsRoute() {
       onFiltersChange={handleFiltersChange}
       onOpenPayment={(row) => {
         trackBrandPaymentOpened({
-          declared_payment_id: row.highlight.id,
+          declared_payment_id: row.id,
           conversation_id: row.conversation_id,
         })
         void router.navigate({
@@ -42,7 +42,7 @@ function BrandPaymentsRoute() {
           params: { conversationId: row.conversation_id },
           search: {
             filter: 'all',
-            highlightPaymentId: row.highlight.id,
+            highlightPaymentId: row.id,
           },
         })
       }}

@@ -423,49 +423,36 @@ function mockAnchorClick(downloads: string[] = []) {
 
 function makeResponse(options?: {
   totalSpent?: string
-  rows?: BrandPaymentsSpendingResponse['payments']['data']
+  rows?: BrandPaymentsSpendingResponse['payments']['items']
 }): BrandPaymentsSpendingResponse {
   const rows = options?.rows ?? [
     {
       id: 'payment-1',
       declared_at: '2026-04-28T12:00:00Z',
-      creator: {
-        account_id: '22222222-2222-4222-8222-222222222222',
-        display_name: 'Lara Pérez',
-        handle: '@lara',
-      },
-      campaign: {
-        id: '11111111-1111-4111-8111-111111111111',
-        name: 'Summer Glow Launch',
-      },
-      deliverable: {
-        id: 'deliverable-1',
-        label: 'IG Reel · #2',
-        platform: 'instagram',
-        format: 'reel',
-      },
+      creator_account_id: '22222222-2222-4222-8222-222222222222',
+      creator_display_name: 'Lara Pérez',
+      creator_handle: '@lara',
+      campaign_id: '11111111-1111-4111-8111-111111111111',
+      campaign_name: 'Summer Glow Launch',
+      deliverable_id: 'deliverable-1',
+      deliverable_label: 'IG Reel · #2',
+      platform: 'instagram',
+      format: 'reel',
+      offer_id: 'offer-1',
       amount: '4575',
       conversation_id: 'conversation-1',
-      highlight: { kind: 'payment', id: 'payment-1' },
     },
   ]
 
   return {
-    brand_workspace_id: 'workspace-1',
-    period: {
-      value: '30d',
-      start_at: '2026-04-09T00:00:00Z',
-      end_at: '2026-05-09T00:00:00Z',
-    },
     summary: {
       total_spent: options?.totalSpent ?? '184250',
       period_spend: '42820',
       pending_approval: '8430',
       next_debit: {
         amount: '3200',
-        date: '2026-05-16T00:00:00Z',
+        estimated_date: '2026-05-16T00:00:00Z',
         date_available: true,
-        source: 'payment_obligations',
       },
     },
     monthly_spend: [
@@ -479,34 +466,25 @@ function makeResponse(options?: {
         campaign_name: 'Summer Glow Launch',
         amount: '64500',
         percentage: '55',
-        bucket: 'campaign',
       },
       {
         campaign_id: null,
         campaign_name: 'Others',
         amount: '10200',
         percentage: '45',
-        bucket: 'others',
       },
     ],
     filters: {
-      campaigns: [
-        {
-          campaign_id: '11111111-1111-4111-8111-111111111111',
-          campaign_name: 'Summer Glow Launch',
-        },
-      ],
-      creators: [
-        {
-          creator_account_id: '22222222-2222-4222-8222-222222222222',
-          display_name: 'Lara Pérez',
-          handle: '@lara',
-        },
-      ],
+      period: '30d',
+      campaign_id: null,
+      creator_account_id: null,
+      q: '',
+      limit: 50,
     },
     payments: {
-      data: rows,
+      items: rows,
       next_cursor: null,
+      has_more: false,
       total_visible: rows.length,
     },
   }

@@ -18,6 +18,7 @@ import {
 import type {
   BrandPaymentHistoryRow,
   BrandPaymentsSearch,
+  BrandPaymentsSpendingResponse,
 } from '../api/brandPaymentsSchemas'
 import {
   getBrandPaymentsSpendingQueryKey,
@@ -25,6 +26,7 @@ import {
 } from '../hooks/useBrandPaymentsSpendingQuery'
 import { useExportBrandPaymentsCsvMutation } from '../hooks/useExportBrandPaymentsCsvMutation'
 import { BrandPaymentsFilters } from './BrandPaymentsFilters'
+import type { BrandPaymentsFilterOptions } from './BrandPaymentsFilters'
 import { BrandPaymentsTable } from './BrandPaymentsTable'
 import { CampaignSpendDonut } from './CampaignSpendDonut'
 import { MonthlySpendBarChart } from './MonthlySpendBarChart'
@@ -50,8 +52,12 @@ export function BrandPaymentsPage({
   const pages = spendingQuery.data?.pages ?? []
   const visibleResponse = pages[0]
   const visibleRows = useMemo(
-    () => pages.flatMap((page) => page.payments.data),
+    () => pages.flatMap((page) => page.payments.items),
     [pages],
+  )
+  const filterOptions = useMemo(
+    () => deriveFilterOptions(visibleResponse, visibleRows),
+    [visibleResponse, visibleRows],
   )
   const nextCursor = pages.at(-1)?.payments.next_cursor ?? null
   const hasActiveResultFilters = Boolean(
@@ -214,7 +220,7 @@ export function BrandPaymentsPage({
           <section className="overflow-hidden rounded-lg border border-border bg-card">
             <BrandPaymentsFilters
               filters={filters}
-              options={visibleResponse.filters}
+              options={filterOptions}
               onChange={handleFiltersChange}
             />
             {visibleRows.length === 0 ? (
@@ -246,6 +252,45 @@ export function BrandPaymentsPage({
       ) : null}
     </main>
   )
+}
+
+function deriveFilterOptions(
+  response: BrandPaymentsSpendingResponse | undefined,
+  rows: BrandPaymentHistoryRow[],
+): BrandPaymentsFilterOptions {
+  const campaigns = new Map<string, string>()
+  for (const item of response?.campaign_breakdown ?? []) {
+    if (item.campaign_id) campaigns.set(item.campaign_id, item.campaign_name)
+  }
+  for (const row of rows) {
+    if (!campaigns.has(row.campaign_id)) {
+      campaigns.set(row.campaign_id, row.campaign_name)
+    }
+  }
+
+  const creators = new Map<
+    string,
+    { creator_display_name: string; creator_handle: string | null }
+  >()
+  for (const row of rows) {
+    if (!creators.has(row.creator_account_id)) {
+      creators.set(row.creator_account_id, {
+        creator_display_name: row.creator_display_name,
+        creator_handle: row.creator_handle,
+      })
+    }
+  }
+
+  return {
+    campaigns: [...campaigns].map(([campaign_id, campaign_name]) => ({
+      campaign_id,
+      campaign_name,
+    })),
+    creators: [...creators].map(([creator_account_id, value]) => ({
+      creator_account_id,
+      ...value,
+    })),
+  }
 }
 
 export function getCsvFilename(

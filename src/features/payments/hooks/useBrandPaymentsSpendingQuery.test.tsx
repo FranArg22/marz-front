@@ -39,27 +39,26 @@ describe('useBrandPaymentsSpendingQuery', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockGetBrandPaymentsSpending.mockResolvedValue({
-      brand_workspace_id: 'workspace-1',
-      period: {
-        value: '30d',
-        start_at: null,
-        end_at: '2026-05-09T00:00:00Z',
-      },
       summary: {
         total_spent: '0',
         period_spend: '0',
         pending_approval: '0',
         next_debit: {
           amount: '0',
-          date: null,
+          estimated_date: null,
           date_available: false,
-          source: 'payment_obligations',
         },
       },
       monthly_spend: [],
       campaign_breakdown: [],
-      filters: { campaigns: [], creators: [] },
-      payments: { data: [], next_cursor: null, total_visible: 0 },
+      filters: {
+        period: '30d',
+        campaign_id: null,
+        creator_account_id: null,
+        q: '',
+        limit: 50,
+      },
+      payments: { items: [], next_cursor: null, has_more: false, total_visible: 0 },
     })
   })
 
@@ -94,50 +93,48 @@ describe('useBrandPaymentsSpendingQuery', () => {
   it('passes cursor to the server function for keyset pagination', async () => {
     mockGetBrandPaymentsSpending
       .mockResolvedValueOnce({
-        brand_workspace_id: 'workspace-1',
-        period: {
-          value: '30d',
-          start_at: null,
-          end_at: '2026-05-09T00:00:00Z',
-        },
         summary: {
           total_spent: '0',
           period_spend: '0',
           pending_approval: '0',
           next_debit: {
             amount: '0',
-            date: null,
+            estimated_date: null,
             date_available: false,
-            source: 'payment_obligations',
           },
         },
         monthly_spend: [],
         campaign_breakdown: [],
-        filters: { campaigns: [], creators: [] },
-        payments: { data: [], next_cursor: 'cursor-2', total_visible: 0 },
+        filters: {
+          period: '30d',
+          campaign_id: null,
+          creator_account_id: null,
+          q: '',
+          limit: 50,
+        },
+        payments: { items: [], next_cursor: 'cursor-2', has_more: false, total_visible: 0 },
       })
       .mockResolvedValueOnce({
-        brand_workspace_id: 'workspace-1',
-        period: {
-          value: '30d',
-          start_at: null,
-          end_at: '2026-05-09T00:00:00Z',
-        },
         summary: {
           total_spent: '0',
           period_spend: '0',
           pending_approval: '0',
           next_debit: {
             amount: '0',
-            date: null,
+            estimated_date: null,
             date_available: false,
-            source: 'payment_obligations',
           },
         },
         monthly_spend: [],
         campaign_breakdown: [],
-        filters: { campaigns: [], creators: [] },
-        payments: { data: [], next_cursor: null, total_visible: 0 },
+        filters: {
+          period: '30d',
+          campaign_id: null,
+          creator_account_id: null,
+          q: '',
+          limit: 50,
+        },
+        payments: { items: [], next_cursor: null, has_more: false, total_visible: 0 },
       })
 
     const { result } = renderHook(

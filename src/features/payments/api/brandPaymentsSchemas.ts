@@ -19,89 +19,30 @@ export const exportBrandPaymentsCsvInputSchema =
   })
 
 export type BrandPaymentsSearch = z.infer<typeof brandPaymentsSearchSchema>
-export interface BrandPaymentsPeriod {
-  value: BrandPaymentsSearch['period']
-  start_at: string | null
-  end_at: string
-}
 
-export interface BrandPaymentsNextDebit {
-  amount: string
-  date: string | null
-  date_available: boolean
-  source: 'payment_obligations'
-}
-
-export interface BrandPaymentsSummary {
-  total_spent: string
-  period_spend: string
-  pending_approval: string
-  next_debit: BrandPaymentsNextDebit
-}
-
-export interface BrandPaymentsMonthlySpend {
-  month: string
-  amount: string
-}
-
-export interface BrandPaymentsCampaignBreakdown {
-  campaign_id: string | null
-  campaign_name: string
-  amount: string
-  percentage: string
-  bucket: 'campaign' | 'others'
-}
+// Types below mirror the API contract (source of truth): the Orval-generated
+// models in `#/shared/api/generated/model`. Re-exported here so feature code has
+// a single import surface.
+export type {
+  BrandPaymentsSpendingSummary as BrandPaymentsSummary,
+  BrandPaymentsSpendingSummaryNextDebit as BrandPaymentsNextDebit,
+  BrandPaymentsSpendingBucket as BrandPaymentsMonthlySpend,
+  BrandPaymentsSpendingCampaign as BrandPaymentsCampaignBreakdown,
+  BrandPaymentsSpendingFilters as BrandPaymentsFilters,
+  BrandPaymentsSpendingPayments as BrandPaymentsPageData,
+  BrandPaymentHistoryRow,
+  BrandPaymentsSpendingResponse,
+} from '#/shared/api/generated/model'
 
 export interface BrandPaymentsCampaignFilter {
   campaign_id: string
-  campaign_name: string | null
+  campaign_name: string
 }
 
 export interface BrandPaymentsCreatorFilter {
   creator_account_id: string
-  display_name: string | null
-  handle: string | null
-}
-
-export interface BrandPaymentHistoryRow {
-  id: string
-  declared_at: string
-  creator: {
-    account_id: string
-    display_name: string | null
-    handle: string | null
-  }
-  campaign: { id: string; name: string | null }
-  deliverable: {
-    id: string
-    label: string
-    platform: string
-    format: string
-  }
-  amount: string
-  conversation_id: string
-  highlight: { kind: 'payment'; id: string }
-}
-
-export interface BrandPaymentsFilters {
-  campaigns: BrandPaymentsCampaignFilter[]
-  creators: BrandPaymentsCreatorFilter[]
-}
-
-export interface BrandPaymentsPageData {
-  data: BrandPaymentHistoryRow[]
-  next_cursor: string | null
-  total_visible: number
-}
-
-export interface BrandPaymentsSpendingResponse {
-  brand_workspace_id: string
-  period: BrandPaymentsPeriod
-  summary: BrandPaymentsSummary
-  monthly_spend: BrandPaymentsMonthlySpend[]
-  campaign_breakdown: BrandPaymentsCampaignBreakdown[]
-  filters: BrandPaymentsFilters
-  payments: BrandPaymentsPageData
+  creator_display_name: string
+  creator_handle: string | null
 }
 
 export function normalizeBrandPaymentsFilters(

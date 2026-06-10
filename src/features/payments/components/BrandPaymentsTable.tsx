@@ -78,21 +78,21 @@ export function BrandPaymentsTable({
                   </div>
                   <div className="min-w-0">
                     <div className="truncate text-xs font-medium text-foreground">
-                      {row.creator.display_name ?? t`Creator sin nombre`}
+                      {row.creator_display_name || t`Creator sin nombre`}
                     </div>
-                    {row.creator.handle ? (
+                    {row.creator_handle ? (
                       <div className="truncate text-[11px] text-muted-foreground">
-                        {row.creator.handle}
+                        {row.creator_handle}
                       </div>
                     ) : null}
                   </div>
                 </div>
               </td>
               <td className="truncate px-4 py-3 text-xs text-foreground">
-                {row.campaign.name ?? t`Campaña sin nombre`}
+                {row.campaign_name || t`Campaña sin nombre`}
               </td>
               <td className="truncate px-4 py-3 text-xs text-muted-foreground">
-                {row.deliverable.label}
+                {row.deliverable_label}
               </td>
               <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-foreground">
                 {formatUsd(row.amount)}
@@ -124,7 +124,7 @@ export function BrandPaymentsTable({
 }
 
 function getCreatorInitials(row: BrandPaymentHistoryRow): string {
-  const label = row.creator.display_name ?? row.creator.handle ?? ''
+  const label = row.creator_display_name || row.creator_handle || ''
   const initials = label
     .split(/\s+/)
     .filter(Boolean)

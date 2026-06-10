@@ -41,7 +41,7 @@ export function PaymentKpiGrid({ summary }: PaymentKpiGridProps) {
       label: t`Next debit`,
       value: formatUsd(summary.next_debit.amount),
       detail: summary.next_debit.date_available
-        ? formatPaymentDate(summary.next_debit.date ?? '')
+        ? formatPaymentDate(summary.next_debit.estimated_date ?? '')
         : t`Fecha no disponible`,
       Icon: CalendarClock,
     },

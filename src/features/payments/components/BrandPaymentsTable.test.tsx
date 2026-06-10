@@ -74,23 +74,17 @@ function makeRow(): BrandPaymentHistoryRow {
   return {
     id: 'payment-1',
     declared_at: '2026-04-28T12:00:00Z',
-    creator: {
-      account_id: '22222222-2222-4222-8222-222222222222',
-      display_name: 'Lara Pérez',
-      handle: '@lara',
-    },
-    campaign: {
-      id: '11111111-1111-4111-8111-111111111111',
-      name: 'Summer Glow Launch',
-    },
-    deliverable: {
-      id: 'deliverable-1',
-      label: 'IG Reel · #2',
-      platform: 'instagram',
-      format: 'reel',
-    },
+    creator_account_id: '22222222-2222-4222-8222-222222222222',
+    creator_display_name: 'Lara Pérez',
+    creator_handle: '@lara',
+    campaign_id: '11111111-1111-4111-8111-111111111111',
+    campaign_name: 'Summer Glow Launch',
+    deliverable_id: 'deliverable-1',
+    deliverable_label: 'IG Reel · #2',
+    platform: 'instagram',
+    format: 'reel',
+    offer_id: 'offer-1',
     amount: '4575',
     conversation_id: 'conversation-1',
-    highlight: { kind: 'payment', id: 'payment-1' },
   }
 }
