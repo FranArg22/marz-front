@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-09T07:25:03.162292Z",
+  "depends_on": [
+    "fn-29-feat-035-creator-network-discovery.1"
+  ],
+  "epic": "fn-29-feat-035-creator-network-discovery",
+  "id": "fn-29-feat-035-creator-network-discovery.10",
+  "priority": 10,
+  "spec_path": ".flow/tasks/fn-29-feat-035-creator-network-discovery.10.md",
+  "status": "todo",
+  "title": "Inbox del creator: render connection_request_received",
+  "updated_at": "2026-06-09T07:25:03.162313Z"
+}

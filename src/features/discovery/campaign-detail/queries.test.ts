@@ -1,62 +1,32 @@
-import { describe, expect, it, vi } from 'vitest'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { describe, expect, it, vi } from 'vitest'
 
 import {
-  getCampaignDiscoveryQueryKey,
-  normalizeDiscoverySort,
-  toMatchSortParam,
-  useCampaignMatchesQuery,
+  getCampaignApplicationsQueryKey,
+  useCampaignApplicationsQuery,
 } from './queries'
 
 vi.mock('@tanstack/react-query', () => ({
   useInfiniteQuery: vi.fn(() => ({})),
-  useQuery: vi.fn(() => ({})),
 }))
 
-describe('discovery campaign detail queries', () => {
+describe('campaign applications queries', () => {
   it('uses hierarchical query keys with params', () => {
     expect(
-      getCampaignDiscoveryQueryKey('campaign-1', 'matches', {
-        sort: 'followers',
+      getCampaignApplicationsQueryKey('campaign-1', {
+        limit: 12,
       }),
-    ).toEqual([
-      'campaign',
-      'campaign-1',
-      'discovery',
-      'matches',
-      { sort: 'followers' },
-    ])
+    ).toEqual(['campaign', 'campaign-1', 'applications', { limit: 12 }])
   })
 
-  it('normalizes unknown match sort values to match score', () => {
-    expect(normalizeDiscoverySort(undefined)).toBe('match_score')
-    expect(normalizeDiscoverySort('bad-sort')).toBe('match_score')
-    expect(normalizeDiscoverySort('followers')).toBe('followers')
-  })
-
-  it('preserves sort only for the matches section', () => {
-    expect(normalizeDiscoverySort('followers', 'matches')).toBe('followers')
-    expect(normalizeDiscoverySort('followers', 'applications')).toBeUndefined()
-    expect(normalizeDiscoverySort('followers', 'invited')).toBeUndefined()
-    expect(normalizeDiscoverySort('followers', 'active')).toBeUndefined()
-  })
-
-  it('maps URL sort values to API sort values', () => {
-    expect(toMatchSortParam('match_score')).toBe('match_score')
-    expect(toMatchSortParam('followers')).toBe('followers')
-    expect(toMatchSortParam('fee')).toBe('fee_amount')
-    expect(toMatchSortParam('engagement')).toBe('engagement_pct')
-  })
-
-  it('disables campaign matches query when matches cannot be viewed', () => {
-    useCampaignMatchesQuery({
-      campaignId: 'campaign-1',
-      sort: 'match_score',
-      enabled: false,
-    })
+  it('configures an infinite applications query', () => {
+    useCampaignApplicationsQuery('campaign-1')
 
     expect(useInfiniteQuery).toHaveBeenCalledWith(
-      expect.objectContaining({ enabled: false }),
+      expect.objectContaining({
+        queryKey: ['campaign', 'campaign-1', 'applications', { limit: 12 }],
+        initialPageParam: undefined,
+      }),
     )
   })
 })

@@ -15,42 +15,36 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { OnboardingContentTypeChip } from '#/features/identity/onboarding/shared/components'
+import { useListContentTypes } from '#/shared/api/generated/lookups/lookups'
 import { useCreatorOnboardingStore } from '../store'
 
-const CONTENT_TYPE_OPTIONS: {
-  value: string
-  label: () => string
-  icon: LucideIcon
-}[] = [
-  { value: 'unboxing', label: () => t`Unboxing`, icon: PackageOpen },
-  { value: 'reviews', label: () => t`Reviews`, icon: Star },
-  {
-    value: 'product_demos',
-    label: () => t`Product demos`,
-    icon: LayoutTemplate,
-  },
-  { value: 'lifestyle', label: () => t`Lifestyle`, icon: Sparkles },
-  { value: 'storytelling', label: () => t`Storytelling`, icon: BookOpen },
-  { value: 'video_ads', label: () => t`Video Ads`, icon: Megaphone },
-  {
-    value: 'faceless_clipping',
-    label: () => t`Faceless / Clipping`,
-    icon: Scissors,
-  },
-  { value: 'tutorials', label: () => t`Tutoriales`, icon: GraduationCap },
-  { value: 'interviews', label: () => t`Entrevistas`, icon: Mic },
-  { value: 'humor_sketches', label: () => t`Humor / Sketches`, icon: Laugh },
-  { value: 'day_in_the_life', label: () => t`Day in the life`, icon: Sun },
-  {
-    value: 'behind_the_scenes',
-    label: () => t`Behind the scenes`,
-    icon: Clapperboard,
-  },
-]
+const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
+  unboxing: PackageOpen,
+  reviews: Star,
+  product_demos: LayoutTemplate,
+  lifestyle: Sparkles,
+  storytelling: BookOpen,
+  video_ads: Megaphone,
+  faceless_clipping: Scissors,
+  tutorials: GraduationCap,
+  interviews: Mic,
+  humor_sketches: Laugh,
+  day_in_the_life: Sun,
+  behind_the_scenes: Clapperboard,
+}
 
 export function C6ContentTypesScreen() {
   const store = useCreatorOnboardingStore()
   const selected = store.content_types ?? []
+  const contentTypesQuery = useListContentTypes()
+  const options =
+    contentTypesQuery.data?.status === 200
+      ? contentTypesQuery.data.data.items.map((contentType) => ({
+          value: contentType.slug,
+          label: contentType.label_es,
+          icon: CONTENT_TYPE_ICONS[contentType.slug] ?? Sparkles,
+        }))
+      : []
 
   const toggle = (value: string) => {
     if (selected.includes(value)) {
@@ -74,10 +68,10 @@ export function C6ContentTypesScreen() {
         </p>
       </div>
       <div className="flex max-w-[800px] flex-wrap justify-center gap-2.5">
-        {CONTENT_TYPE_OPTIONS.map((o) => (
+        {options.map((o) => (
           <OnboardingContentTypeChip
             key={o.value}
-            label={o.label()}
+            label={o.label}
             icon={o.icon}
             selected={selected.includes(o.value)}
             onToggle={() => toggle(o.value)}
@@ -87,7 +81,7 @@ export function C6ContentTypesScreen() {
       <p className="text-[11px] text-muted-foreground" aria-live="polite">
         {(() => {
           const n = selected.length
-          const total = CONTENT_TYPE_OPTIONS.length
+          const total = options.length
           return t`${n} de ${total} seleccionados`
         })()}
       </p>

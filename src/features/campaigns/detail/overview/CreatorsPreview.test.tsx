@@ -44,7 +44,7 @@ describe('CreatorsPreview', () => {
     expect(screen.getByText('1/3 entregables')).toBeInTheDocument()
   })
 
-  it('shows empty state CTA to Discovery when there are no creators', () => {
+  it('shows empty state CTA to applications when there are no creators', () => {
     render(<CreatorsPreview campaignId="campaign-1" creators={[]} />)
 
     expect(
@@ -53,7 +53,7 @@ describe('CreatorsPreview', () => {
       }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: /ir a discovery/i }),
+      screen.getByRole('link', { name: /ver postulaciones/i }),
     ).toBeInTheDocument()
   })
 

@@ -44,7 +44,7 @@ export function CreatorsPreview({
           <Link
             to="/campaigns/$campaignId"
             params={{ campaignId }}
-            search={{ tab: 'creators', section: 'matches' }}
+            search={{ tab: 'creators' }}
           >
             {t`Ver creators`}
             <ArrowRight className="size-3.5" aria-hidden="true" />
@@ -108,16 +108,16 @@ function EmptyCreators({ campaignId }: { campaignId: string }) {
         {t`Todavía no hay creators participantes`}
       </h3>
       <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
-        {t`Explorá Discovery para contactar perfiles y sumar participantes a esta campaña.`}
+        {t`Revisá las postulaciones entrantes para sumar participantes a esta campaña.`}
       </p>
       <Button asChild size="sm" className="mt-4">
         <Link
           to="/campaigns/$campaignId"
           params={{ campaignId }}
-          search={{ tab: 'discovery', section: 'matches' }}
+          search={{ tab: 'applications' }}
         >
           <Search className="size-3.5" aria-hidden="true" />
-          {t`Ir a Discovery`}
+          {t`Ver postulaciones`}
         </Link>
       </Button>
     </div>

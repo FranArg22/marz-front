@@ -118,6 +118,32 @@ describe('CampaignInlineEditor', () => {
     expect(screen.getByText('Versión 8')).toBeInTheDocument()
   })
 
+  it('saves with If-Match wildcard when version is absent from the campaign prop', async () => {
+    const user = userEvent.setup()
+    mutateUpdateCampaign.mockResolvedValue({
+      status: 200,
+      data: makeCampaign({ name: 'Nueva campaña', version: 1 }),
+      headers: new Headers(),
+    })
+    const campaignWithoutVersion: TestCampaign = {
+      ...makeCampaign(),
+      version: undefined,
+    }
+    renderEditor(campaignWithoutVersion)
+
+    await user.click(screen.getByRole('button', { name: /nombre/i }))
+    const input = screen.getByRole('textbox', { name: /^nombre$/i })
+    await user.clear(input)
+    await user.type(input, 'Nueva campaña')
+    await user.click(screen.getByRole('button', { name: /^guardar$/i }))
+
+    expect(mutateUpdateCampaign).toHaveBeenCalledWith({
+      campaignId: 'campaign-1',
+      data: { name: 'Nueva campaña' },
+      ifMatch: '*',
+    })
+  })
+
   it('uploads an image before saving image_s3_key', async () => {
     const user = userEvent.setup()
     mutateUpdateCampaign.mockResolvedValue({
@@ -230,6 +256,7 @@ function makeCampaign(overrides: Partial<Campaign> = {}): TestCampaign {
     plan_capabilities: {
       allows_automatic_matching: true,
       allows_campaign_board: true,
+      allows_discovery: true,
       allows_email_invites: true,
       allows_in_platform_invites: true,
     },

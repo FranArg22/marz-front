@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-feat-035-creator-network-discovery",
+  "created_at": "2026-06-09T07:23:22.388472Z",
+  "depends_on_epics": [],
+  "id": "fn-29-feat-035-creator-network-discovery",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-29-feat-035-creator-network-discovery.md",
+  "status": "done",
+  "title": "FEAT-035 Creator Network Discovery \u2014 Frontend",
+  "updated_at": "2026-06-09T13:41:32.299642Z"
+}

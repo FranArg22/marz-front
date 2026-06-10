@@ -2,28 +2,14 @@ import { t } from '@lingui/core/macro'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
+import { matchesCreatorsQueryForCampaign } from '#/features/campaigns/detail/creators/useCampaignParticipantsQuery'
 import {
   acceptCampaignDiscoveryApplication,
-  contactCampaignDiscoveryMatch,
-  createCampaignDiscoveryInvite,
   rejectCampaignDiscoveryApplication,
 } from '#/shared/api/generated/campaigns/campaigns'
-import type {
-  ContactCampaignMatchRequest,
-  CreateCampaignInviteRequest,
-  DiscoveryApplicationDecisionResponse,
-} from '#/shared/api/generated/model'
-import {
-  trackDiscoveryApplicationDecided,
-  trackDiscoveryInviteCreated,
-  trackDiscoveryMatchContacted,
-} from '#/shared/analytics/discoveryTracking'
-import { ApiError } from '#/shared/api/mutator'
+import type { DiscoveryApplicationDecisionResponse } from '#/shared/api/generated/model'
 import { useIdempotencyKey, withIdempotencyKey } from '#/shared/api/idempotency'
-
-import { matchesCreatorsQueryForCampaign } from '#/features/campaigns/detail/creators/useCampaignParticipantsQuery'
-
-import { getCampaignDiscoveryQueryKey } from './queries'
+import { ApiError } from '#/shared/api/mutator'
 
 type NavigateToConversation = (conversationId: string) => void
 
@@ -31,51 +17,8 @@ interface MutationOptions {
   onConversationReady?: NavigateToConversation
 }
 
-export function useContactMatch(
-  campaignId: string,
-  options: MutationOptions = {},
-) {
-  const queryClient = useQueryClient()
-  const idempotency = useIdempotencyKey<ContactMatchVariables>(
-    ({ matchId, data }) => JSON.stringify({ matchId, data }),
-  )
-
-  return useMutation({
-    mutationFn: async (variables: ContactMatchVariables) => {
-      const response = await contactCampaignDiscoveryMatch(
-        campaignId,
-        variables.matchId,
-        variables.data,
-        withIdempotencyKey(idempotency.get(variables)),
-      )
-
-      if (response.status !== 200) {
-        throw new ApiError(
-          response.status,
-          'contact_match_error',
-          'Contact match request failed',
-        )
-      }
-      return response.data
-    },
-    onSuccess: async (_data, variables) => {
-      idempotency.reset()
-      trackDiscoveryMatchContacted({
-        campaignId,
-        mode: variables.data.invite?.mode,
-      })
-      await queryClient.invalidateQueries({
-        queryKey: ['campaign', campaignId, 'discovery'],
-      })
-      await invalidateDiscovery(queryClient, campaignId)
-    },
-    onError: (error) => {
-      const existingConversationId = handleDiscoveryMutationError(error)
-      if (existingConversationId) {
-        options.onConversationReady?.(existingConversationId)
-      }
-    },
-  })
+interface ApplicationVariables {
+  applicationId: string
 }
 
 export function useAcceptApplication(
@@ -106,14 +49,9 @@ export function useAcceptApplication(
     },
     onSuccess: async (data: DiscoveryApplicationDecisionResponse) => {
       idempotency.reset()
-      trackDiscoveryApplicationDecided({
-        campaignId,
-        decision: 'accept',
+      await invalidateApplications(queryClient, campaignId, {
+        participants: true,
       })
-      await queryClient.invalidateQueries({
-        queryKey: ['campaign', campaignId, 'discovery'],
-      })
-      await invalidateDiscovery(queryClient, campaignId, { participants: true })
       if (data.conversation?.id) {
         options.onConversationReady?.(data.conversation.id)
       }
@@ -152,75 +90,20 @@ export function useRejectApplication(campaignId: string) {
     },
     onSuccess: async () => {
       idempotency.reset()
-      trackDiscoveryApplicationDecided({
-        campaignId,
-        decision: 'reject',
-      })
-      await queryClient.invalidateQueries({
-        queryKey: ['campaign', campaignId, 'discovery'],
-      })
-      await invalidateDiscovery(queryClient, campaignId)
+      await invalidateApplications(queryClient, campaignId)
     },
     onError: handleDiscoveryMutationError,
   })
 }
 
-export function useCreateCampaignInvite(campaignId: string) {
-  const queryClient = useQueryClient()
-  const idempotency = useIdempotencyKey<CreateCampaignInviteRequest>((data) =>
-    JSON.stringify(data),
-  )
-
-  return useMutation({
-    mutationFn: async (data: CreateCampaignInviteRequest) => {
-      const response = await createCampaignDiscoveryInvite(
-        campaignId,
-        data,
-        withIdempotencyKey(idempotency.get(data)),
-      )
-
-      if (response.status !== 201) {
-        throw new ApiError(
-          response.status,
-          'create_invite_error',
-          'Create invite request failed',
-        )
-      }
-      return response.data
-    },
-    onSuccess: async (_data, variables) => {
-      idempotency.reset()
-      trackDiscoveryInviteCreated({
-        campaignId,
-        mode: variables.mode,
-      })
-      toast.success(t`Invitación enviada`)
-      await queryClient.invalidateQueries({
-        queryKey: ['campaign', campaignId, 'discovery'],
-      })
-      await invalidateDiscovery(queryClient, campaignId)
-    },
-    onError: handleDiscoveryMutationError,
-  })
-}
-
-interface ContactMatchVariables {
-  matchId: string
-  data: ContactCampaignMatchRequest
-}
-
-interface ApplicationVariables {
-  applicationId: string
-}
-
-async function invalidateDiscovery(
+async function invalidateApplications(
   queryClient: ReturnType<typeof useQueryClient>,
   campaignId: string,
   options: { participants?: boolean } = {},
 ) {
   await Promise.all([
     queryClient.invalidateQueries({
-      queryKey: getCampaignDiscoveryQueryKey(campaignId, 'summary'),
+      queryKey: ['campaign', campaignId, 'applications'],
     }),
     options.participants
       ? queryClient.invalidateQueries({
@@ -237,35 +120,13 @@ export function handleDiscoveryMutationError(error: unknown) {
   }
 
   if (error.status === 409) {
-    if (error.code === 'plan_does_not_allow_in_platform_invite') {
-      toast.error(
-        t`Tu plan no permite invitaciones in-platform. Usá email o actualizá el plan.`,
-      )
-      return undefined
-    }
     if (error.code === 'conversation_already_exists') {
       const conversationId = getConversationId(error)
-      if (conversationId) {
-        toast.info(t`Ya existe una conversación con este creator.`)
-        return conversationId
-      }
       toast.info(t`Ya existe una conversación con este creator.`)
-      return undefined
-    }
-    if (error.code === 'invite_duplicate') {
-      toast.info(t`La invitación ya fue enviada.`)
-      return undefined
-    }
-    if (error.code === 'campaign_not_discoverable') {
-      toast.error(t`Esta campaña no está disponible para Discovery.`)
-      return undefined
+      return conversationId
     }
     if (error.code === 'application_not_actionable') {
       toast.error(t`Esta aplicación ya no se puede modificar.`)
-      return undefined
-    }
-    if (error.code === 'match_not_actionable') {
-      toast.error(t`Este match ya no se puede contactar.`)
       return undefined
     }
   }

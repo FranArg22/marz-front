@@ -6,7 +6,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type {
   CampaignActivityItem,
-  CampaignDiscoverySummaryResponse,
   CampaignOverviewResponse,
 } from '#/shared/api/generated/model'
 
@@ -89,28 +88,9 @@ describe('useCampaignTopicSubscription', () => {
     })
   })
 
-  it('patches discovery summary counts and invalidates only the changed section', () => {
+  it('invalidates applications when discovery applications change', () => {
     mockWsStatus = 'open'
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
-    const summary: CampaignDiscoverySummaryResponse = {
-      counts: {
-        matches: 3,
-        applications: 1,
-        active: 0,
-        invited: 2,
-      },
-      default_section: 'matches',
-      availability: {
-        message: null,
-        can_add_email: true,
-        can_add_handle: true,
-        can_view_matches: true,
-      },
-    }
-    queryClient.setQueryData(
-      ['campaign', 'campaign-1', 'discovery', 'summary', {}],
-      summary,
-    )
 
     renderHook(() => useCampaignTopicSubscription('campaign-1'), {
       wrapper: createWrapper(queryClient),
@@ -127,46 +107,18 @@ describe('useCampaignTopicSubscription', () => {
         payload: {
           campaign_id: 'campaign-1',
           changed: { section: 'applications' },
-          counts: { applications: 2 },
         },
       })
     })
 
-    expect(
-      queryClient.getQueryData<CampaignDiscoverySummaryResponse>([
-        'campaign',
-        'campaign-1',
-        'discovery',
-        'summary',
-        {},
-      ])?.counts.applications,
-    ).toBe(2)
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: ['campaign', 'campaign-1', 'discovery', 'applications'],
+      queryKey: ['campaign', 'campaign-1', 'applications'],
     })
   })
 
-  it('dedupes websocket events before patching cache', () => {
+  it('dedupes websocket events before invalidating applications', () => {
     mockWsStatus = 'open'
-    const summary: CampaignDiscoverySummaryResponse = {
-      counts: {
-        matches: 3,
-        applications: 1,
-        active: 0,
-        invited: 2,
-      },
-      default_section: 'matches',
-      availability: {
-        message: null,
-        can_add_email: true,
-        can_add_handle: true,
-        can_view_matches: true,
-      },
-    }
-    queryClient.setQueryData(
-      ['campaign', 'campaign-1', 'discovery', 'summary', {}],
-      summary,
-    )
+    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
 
     renderHook(() => useCampaignTopicSubscription('campaign-1'), {
       wrapper: createWrapper(queryClient),
@@ -181,7 +133,7 @@ describe('useCampaignTopicSubscription', () => {
       occurred_at: '2026-05-09T00:00:00Z',
       payload: {
         campaign_id: 'campaign-1',
-        counts: { applications: 2 },
+        changed: { section: 'applications' },
       },
     }
 
@@ -191,20 +143,12 @@ describe('useCampaignTopicSubscription', () => {
         ...event,
         payload: {
           campaign_id: 'campaign-1',
-          counts: { applications: 9 },
+          changed: { section: 'applications' },
         },
       })
     })
 
-    expect(
-      queryClient.getQueryData<CampaignDiscoverySummaryResponse>([
-        'campaign',
-        'campaign-1',
-        'discovery',
-        'summary',
-        {},
-      ])?.counts.applications,
-    ).toBe(2)
+    expect(invalidateSpy).toHaveBeenCalledTimes(1)
   })
 
   it('prepends activity when the overview cache exists', () => {

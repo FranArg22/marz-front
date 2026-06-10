@@ -38,11 +38,19 @@ import type {
   BillingSubscriptionPaymentMethodSelection,
   BrandPaymentsSpendingResponse,
   CampaignQuotaResponse,
+  CreateConnectionRequestRequest,
+  CreateConnectionRequestResponse,
+  CreateConnectionRequestsBulkRequest,
+  CreateConnectionRequestsBulkResponse,
+  CreateEmailInviteRequest,
+  CreateEmailInviteResponse,
   CreatorCountResponse,
+  DiscoveryCreatorsResponse,
   ErrorResponse,
   ExportBrandWorkspacePaymentsSpendingCSVParams,
   GetBrandWorkspacePaymentsSpendingParams,
-  GetDiscoveryCreatorCountParams
+  GetDiscoveryCreatorCountParams,
+  GetDiscoveryCreatorsParams
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -313,7 +321,459 @@ export function useGetCampaignQuota<TData = Awaited<ReturnType<typeof getCampaig
 
 
 
-export type getDiscoveryCreatorCountResponse200 = {
+export type getDiscoveryCreatorsResponse200 = {
+  data: DiscoveryCreatorsResponse
+  status: 200
+}
+
+export type getDiscoveryCreatorsResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getDiscoveryCreatorsResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getDiscoveryCreatorsResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getDiscoveryCreatorsResponseSuccess = (getDiscoveryCreatorsResponse200) & {
+  headers: Headers;
+};
+export type getDiscoveryCreatorsResponseError = (getDiscoveryCreatorsResponse401 | getDiscoveryCreatorsResponse403 | getDiscoveryCreatorsResponse422) & {
+  headers: Headers;
+};
+
+export type getDiscoveryCreatorsResponse = (getDiscoveryCreatorsResponseSuccess | getDiscoveryCreatorsResponseError)
+
+export const getGetDiscoveryCreatorsUrl = (params?: GetDiscoveryCreatorsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    const explodeParameters = ["platforms","countries","age_buckets","interests","content_types"];
+
+    if (Array.isArray(value) && explodeParameters.includes(key)) {
+      value.forEach((v) => {
+        normalizedParams.append(key, v === null ? 'null' : v.toString());
+      });
+      return;
+    }
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/discovery/creators?${stringifiedParams}` : `/v1/discovery/creators`
+}
+
+export const getDiscoveryCreators = async (params?: GetDiscoveryCreatorsParams, options?: RequestInit): Promise<getDiscoveryCreatorsResponse> => {
+
+  return customFetch<getDiscoveryCreatorsResponse>(getGetDiscoveryCreatorsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetDiscoveryCreatorsQueryKey = (params?: GetDiscoveryCreatorsParams,) => {
+    return [
+    `/v1/discovery/creators`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetDiscoveryCreatorsQueryOptions = <TData = Awaited<ReturnType<typeof getDiscoveryCreators>>, TError = ErrorResponse>(params?: GetDiscoveryCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetDiscoveryCreatorsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDiscoveryCreators>>> = ({ signal }) => getDiscoveryCreators(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetDiscoveryCreatorsQueryResult = NonNullable<Awaited<ReturnType<typeof getDiscoveryCreators>>>
+export type GetDiscoveryCreatorsQueryError = ErrorResponse
+
+
+export function useGetDiscoveryCreators<TData = Awaited<ReturnType<typeof getDiscoveryCreators>>, TError = ErrorResponse>(
+ params: undefined |  GetDiscoveryCreatorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDiscoveryCreators>>,
+          TError,
+          Awaited<ReturnType<typeof getDiscoveryCreators>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetDiscoveryCreators<TData = Awaited<ReturnType<typeof getDiscoveryCreators>>, TError = ErrorResponse>(
+ params?: GetDiscoveryCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDiscoveryCreators>>,
+          TError,
+          Awaited<ReturnType<typeof getDiscoveryCreators>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetDiscoveryCreators<TData = Awaited<ReturnType<typeof getDiscoveryCreators>>, TError = ErrorResponse>(
+ params?: GetDiscoveryCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetDiscoveryCreators<TData = Awaited<ReturnType<typeof getDiscoveryCreators>>, TError = ErrorResponse>(
+ params?: GetDiscoveryCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDiscoveryCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetDiscoveryCreatorsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type createDiscoveryConnectionRequestResponse201 = {
+  data: CreateConnectionRequestResponse
+  status: 201
+}
+
+export type createDiscoveryConnectionRequestResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createDiscoveryConnectionRequestResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createDiscoveryConnectionRequestResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type createDiscoveryConnectionRequestResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type createDiscoveryConnectionRequestResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type createDiscoveryConnectionRequestResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type createDiscoveryConnectionRequestResponseSuccess = (createDiscoveryConnectionRequestResponse201) & {
+  headers: Headers;
+};
+export type createDiscoveryConnectionRequestResponseError = (createDiscoveryConnectionRequestResponse400 | createDiscoveryConnectionRequestResponse401 | createDiscoveryConnectionRequestResponse403 | createDiscoveryConnectionRequestResponse404 | createDiscoveryConnectionRequestResponse409 | createDiscoveryConnectionRequestResponse422) & {
+  headers: Headers;
+};
+
+export type createDiscoveryConnectionRequestResponse = (createDiscoveryConnectionRequestResponseSuccess | createDiscoveryConnectionRequestResponseError)
+
+export const getCreateDiscoveryConnectionRequestUrl = () => {
+
+
+
+
+  return `/v1/discovery/connection-requests`
+}
+
+export const createDiscoveryConnectionRequest = async (createConnectionRequestRequest: CreateConnectionRequestRequest, options?: RequestInit): Promise<createDiscoveryConnectionRequestResponse> => {
+
+  return customFetch<createDiscoveryConnectionRequestResponse>(getCreateDiscoveryConnectionRequestUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createConnectionRequestRequest,)
+  }
+);}
+
+
+
+
+export const getCreateDiscoveryConnectionRequestMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>, TError,{data: CreateConnectionRequestRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>, TError,{data: CreateConnectionRequestRequest}, TContext> => {
+
+const mutationKey = ['createDiscoveryConnectionRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>, {data: CreateConnectionRequestRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createDiscoveryConnectionRequest(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateDiscoveryConnectionRequestMutationResult = NonNullable<Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>>
+    export type CreateDiscoveryConnectionRequestMutationBody = CreateConnectionRequestRequest
+    export type CreateDiscoveryConnectionRequestMutationError = ErrorResponse
+
+    export const useCreateDiscoveryConnectionRequest = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>, TError,{data: CreateConnectionRequestRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createDiscoveryConnectionRequest>>,
+        TError,
+        {data: CreateConnectionRequestRequest},
+        TContext
+      > => {
+      return useMutation(getCreateDiscoveryConnectionRequestMutationOptions(options), queryClient);
+    }
+    export type createDiscoveryConnectionRequestsBulkResponse201 = {
+  data: CreateConnectionRequestsBulkResponse
+  status: 201
+}
+
+export type createDiscoveryConnectionRequestsBulkResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createDiscoveryConnectionRequestsBulkResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createDiscoveryConnectionRequestsBulkResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type createDiscoveryConnectionRequestsBulkResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type createDiscoveryConnectionRequestsBulkResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type createDiscoveryConnectionRequestsBulkResponseSuccess = (createDiscoveryConnectionRequestsBulkResponse201) & {
+  headers: Headers;
+};
+export type createDiscoveryConnectionRequestsBulkResponseError = (createDiscoveryConnectionRequestsBulkResponse400 | createDiscoveryConnectionRequestsBulkResponse401 | createDiscoveryConnectionRequestsBulkResponse403 | createDiscoveryConnectionRequestsBulkResponse409 | createDiscoveryConnectionRequestsBulkResponse422) & {
+  headers: Headers;
+};
+
+export type createDiscoveryConnectionRequestsBulkResponse = (createDiscoveryConnectionRequestsBulkResponseSuccess | createDiscoveryConnectionRequestsBulkResponseError)
+
+export const getCreateDiscoveryConnectionRequestsBulkUrl = () => {
+
+
+
+
+  return `/v1/discovery/connection-requests/bulk`
+}
+
+export const createDiscoveryConnectionRequestsBulk = async (createConnectionRequestsBulkRequest: CreateConnectionRequestsBulkRequest, options?: RequestInit): Promise<createDiscoveryConnectionRequestsBulkResponse> => {
+
+  return customFetch<createDiscoveryConnectionRequestsBulkResponse>(getCreateDiscoveryConnectionRequestsBulkUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createConnectionRequestsBulkRequest,)
+  }
+);}
+
+
+
+
+export const getCreateDiscoveryConnectionRequestsBulkMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>, TError,{data: CreateConnectionRequestsBulkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>, TError,{data: CreateConnectionRequestsBulkRequest}, TContext> => {
+
+const mutationKey = ['createDiscoveryConnectionRequestsBulk'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>, {data: CreateConnectionRequestsBulkRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createDiscoveryConnectionRequestsBulk(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateDiscoveryConnectionRequestsBulkMutationResult = NonNullable<Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>>
+    export type CreateDiscoveryConnectionRequestsBulkMutationBody = CreateConnectionRequestsBulkRequest
+    export type CreateDiscoveryConnectionRequestsBulkMutationError = ErrorResponse
+
+    export const useCreateDiscoveryConnectionRequestsBulk = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>, TError,{data: CreateConnectionRequestsBulkRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createDiscoveryConnectionRequestsBulk>>,
+        TError,
+        {data: CreateConnectionRequestsBulkRequest},
+        TContext
+      > => {
+      return useMutation(getCreateDiscoveryConnectionRequestsBulkMutationOptions(options), queryClient);
+    }
+    export type createDiscoveryEmailInviteResponse201 = {
+  data: CreateEmailInviteResponse
+  status: 201
+}
+
+export type createDiscoveryEmailInviteResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createDiscoveryEmailInviteResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createDiscoveryEmailInviteResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type createDiscoveryEmailInviteResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type createDiscoveryEmailInviteResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type createDiscoveryEmailInviteResponseSuccess = (createDiscoveryEmailInviteResponse201) & {
+  headers: Headers;
+};
+export type createDiscoveryEmailInviteResponseError = (createDiscoveryEmailInviteResponse400 | createDiscoveryEmailInviteResponse401 | createDiscoveryEmailInviteResponse403 | createDiscoveryEmailInviteResponse409 | createDiscoveryEmailInviteResponse422) & {
+  headers: Headers;
+};
+
+export type createDiscoveryEmailInviteResponse = (createDiscoveryEmailInviteResponseSuccess | createDiscoveryEmailInviteResponseError)
+
+export const getCreateDiscoveryEmailInviteUrl = () => {
+
+
+
+
+  return `/v1/discovery/email-invites`
+}
+
+export const createDiscoveryEmailInvite = async (createEmailInviteRequest: CreateEmailInviteRequest, options?: RequestInit): Promise<createDiscoveryEmailInviteResponse> => {
+
+  return customFetch<createDiscoveryEmailInviteResponse>(getCreateDiscoveryEmailInviteUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createEmailInviteRequest,)
+  }
+);}
+
+
+
+
+export const getCreateDiscoveryEmailInviteMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryEmailInvite>>, TError,{data: CreateEmailInviteRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryEmailInvite>>, TError,{data: CreateEmailInviteRequest}, TContext> => {
+
+const mutationKey = ['createDiscoveryEmailInvite'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createDiscoveryEmailInvite>>, {data: CreateEmailInviteRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createDiscoveryEmailInvite(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateDiscoveryEmailInviteMutationResult = NonNullable<Awaited<ReturnType<typeof createDiscoveryEmailInvite>>>
+    export type CreateDiscoveryEmailInviteMutationBody = CreateEmailInviteRequest
+    export type CreateDiscoveryEmailInviteMutationError = ErrorResponse
+
+    export const useCreateDiscoveryEmailInvite = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createDiscoveryEmailInvite>>, TError,{data: CreateEmailInviteRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createDiscoveryEmailInvite>>,
+        TError,
+        {data: CreateEmailInviteRequest},
+        TContext
+      > => {
+      return useMutation(getCreateDiscoveryEmailInviteMutationOptions(options), queryClient);
+    }
+    export type getDiscoveryCreatorCountResponse200 = {
   data: CreatorCountResponse
   status: 200
 }

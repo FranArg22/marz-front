@@ -360,6 +360,25 @@ export const ExportCreatorEarningsCSVQueryParams = zod.object({
   "q": zod.string().max(exportCreatorEarningsCSVQueryQMax).optional()
 })
 
+export const AcceptDiscoveryConnectionRequestParams = zod.object({
+  "id": zod.uuid()
+})
+
+export const AcceptDiscoveryConnectionRequestResponse = zod.object({
+  "connection_request_id": zod.uuid(),
+  "status": zod.enum(['accepted']),
+  "conversation_id": zod.uuid()
+})
+
+export const RejectDiscoveryConnectionRequestParams = zod.object({
+  "id": zod.uuid()
+})
+
+export const RejectDiscoveryConnectionRequestResponse = zod.object({
+  "connection_request_id": zod.uuid(),
+  "status": zod.enum(['rejected'])
+})
+
 export const GetCreatorInvitationParams = zod.object({
   "invite_id": zod.uuid()
 })

@@ -26,8 +26,7 @@ describe('campaign detail search schema', () => {
   it('keeps optional filter params', () => {
     expect(
       campaignDetailSearchSchema.parse({
-        tab: 'discovery',
-        section: 'matches',
+        tab: 'applications',
         q: 'aria',
         status: 'active',
         platform: 'instagram',
@@ -35,8 +34,7 @@ describe('campaign detail search schema', () => {
         sort: 'score',
       }),
     ).toEqual({
-      tab: 'discovery',
-      section: 'matches',
+      tab: 'applications',
       q: 'aria',
       status: 'active',
       platform: 'instagram',
@@ -71,22 +69,11 @@ describe('campaign detail search schema', () => {
     })
   })
 
-  it('defaults discovery section to matches', () => {
+  it('accepts the applications tab', () => {
     expect(
-      campaignDetailSearchSchema.parse({ tab: 'discovery' }),
+      campaignDetailSearchSchema.parse({ tab: 'applications' }),
     ).toMatchObject({
-      section: 'matches',
-    })
-  })
-
-  it('accepts the active discovery section', () => {
-    expect(
-      campaignDetailSearchSchema.parse({
-        tab: 'discovery',
-        section: 'active',
-      }),
-    ).toMatchObject({
-      section: 'active',
+      tab: 'applications',
     })
   })
 })

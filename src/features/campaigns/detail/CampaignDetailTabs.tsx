@@ -1,12 +1,18 @@
 import { t } from '@lingui/core/macro'
-import { BarChart3, Compass, LayoutGrid, Users, Video } from 'lucide-react'
+import {
+  BarChart3,
+  ClipboardList,
+  LayoutGrid,
+  Users,
+  Video,
+} from 'lucide-react'
 
 import { CampaignWorkspaceTabs } from '#/features/campaigns/components/CampaignWorkspaceTabs'
 
 function getCampaignDetailTabs() {
   return [
     { id: 'overview', label: t`Overview`, icon: LayoutGrid },
-    { id: 'discovery', label: t`Discovery`, icon: Compass },
+    { id: 'applications', label: t`Postulaciones`, icon: ClipboardList },
     { id: 'creators', label: t`Creators`, icon: Users },
     { id: 'videos', label: t`Videos`, icon: Video },
     {
@@ -21,7 +27,7 @@ function getCampaignDetailTabs() {
 
 export type CampaignDetailTabId =
   | 'overview'
-  | 'discovery'
+  | 'applications'
   | 'creators'
   | 'videos'
   | 'analytics'
@@ -57,7 +63,7 @@ function isCampaignDetailNavigableTab(
 ): tab is Exclude<CampaignDetailTabId, 'analytics'> {
   return (
     tab === 'overview' ||
-    tab === 'discovery' ||
+    tab === 'applications' ||
     tab === 'creators' ||
     tab === 'videos'
   )

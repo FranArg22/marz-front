@@ -27,4 +27,6 @@ export const InboxItemKind = {
   InboxItemKindMatchSuggested: 'match_suggested',
   InboxItemKindInviteSentWaiting: 'invite_sent_waiting',
   InboxItemKindRefundDelayed: 'refund_delayed',
+  InboxItemKindConnectionRequestReceived: 'connection_request_received',
+  InboxItemKindConnectionRequestAccepted: 'connection_request_accepted',
 } as const;

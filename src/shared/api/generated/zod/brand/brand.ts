@@ -110,6 +110,126 @@ export const GetCampaignQuotaResponse = zod.object({
   "publish_to_board": zod.boolean()
 })
 
+export const getDiscoveryCreatorsQueryCreatorTypeDefault = `all`;
+export const getDiscoveryCreatorsQueryCountriesItemMin = 2;
+export const getDiscoveryCreatorsQueryCountriesItemMax = 2;
+
+export const getDiscoveryCreatorsQueryFollowersMinMin = 0;
+
+export const getDiscoveryCreatorsQueryFollowersMaxMin = 0;
+
+export const getDiscoveryCreatorsQueryEngagementRateMinMin = 0;
+
+export const getDiscoveryCreatorsQueryAvgViewsMinMin = 0;
+
+export const getDiscoveryCreatorsQueryAvgViewsMaxMin = 0;
+
+export const getDiscoveryCreatorsQuerySortDefault = `recommended`;
+export const getDiscoveryCreatorsQueryLimitDefault = 24;
+export const getDiscoveryCreatorsQueryLimitMax = 50;
+
+
+
+export const GetDiscoveryCreatorsQueryParams = zod.object({
+  "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
+  "creator_type": zod.enum(['all', 'influencer']).default(getDiscoveryCreatorsQueryCreatorTypeDefault),
+  "countries": zod.array(zod.string().min(getDiscoveryCreatorsQueryCountriesItemMin).max(getDiscoveryCreatorsQueryCountriesItemMax)).optional(),
+  "gender": zod.enum(['male', 'female', 'non_binary']).optional(),
+  "age_buckets": zod.array(zod.enum(['18-24', '25-34', '35-44', '45-54', '55+'])).optional(),
+  "interests": zod.array(zod.string()).optional(),
+  "content_types": zod.array(zod.string()).optional(),
+  "followers_min": zod.number().min(getDiscoveryCreatorsQueryFollowersMinMin).optional(),
+  "followers_max": zod.number().min(getDiscoveryCreatorsQueryFollowersMaxMin).optional(),
+  "engagement_rate_min": zod.number().min(getDiscoveryCreatorsQueryEngagementRateMinMin).optional(),
+  "avg_views_min": zod.number().min(getDiscoveryCreatorsQueryAvgViewsMinMin).optional(),
+  "avg_views_max": zod.number().min(getDiscoveryCreatorsQueryAvgViewsMaxMin).optional(),
+  "cpm_min": zod.string().optional(),
+  "cpm_max": zod.string().optional(),
+  "price_min": zod.string().optional(),
+  "price_max": zod.string().optional(),
+  "sort": zod.enum(['recommended', 'reach_desc', 'er_desc', 'price_asc']).default(getDiscoveryCreatorsQuerySortDefault),
+  "cursor": zod.string().optional(),
+  "limit": zod.number().min(1).max(getDiscoveryCreatorsQueryLimitMax).default(getDiscoveryCreatorsQueryLimitDefault)
+})
+
+export const GetDiscoveryCreatorsHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid()
+})
+
+export const GetDiscoveryCreatorsResponse = zod.object({
+  "items": zod.array(zod.object({
+  "account_id": zod.uuid(),
+  "display_name": zod.string(),
+  "avatar_url": zod.string(),
+  "country": zod.string(),
+  "age": zod.number(),
+  "tags": zod.array(zod.string()),
+  "platforms": zod.array(zod.object({
+  "platform": zod.string(),
+  "handle": zod.string(),
+  "followers": zod.number(),
+  "engagement_rate": zod.number(),
+  "cpm_amount": zod.string(),
+  "cpm_currency": zod.string(),
+  "min_price_amount": zod.string(),
+  "price_currency": zod.string()
+})),
+  "pair_state": zod.object({
+  "kind": zod.enum(['active_collaboration', 'open_conversation', 'connection_pending', 'connection_rejected', 'connection_expired', 'no_contact']),
+  "conversation_id": zod.uuid().nullable(),
+  "last_connection_request_id": zod.uuid().nullable()
+})
+})),
+  "next_cursor": zod.string().nullable(),
+  "total": zod.number()
+})
+
+export const CreateDiscoveryConnectionRequestHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid(),
+  "Idempotency-Key": zod.uuid()
+})
+
+export const createDiscoveryConnectionRequestBodyNoteMax = 1000;
+
+
+
+export const CreateDiscoveryConnectionRequestBody = zod.object({
+  "creator_account_id": zod.uuid(),
+  "note": zod.string().max(createDiscoveryConnectionRequestBodyNoteMax).nullish()
+})
+
+export const CreateDiscoveryConnectionRequestsBulkHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid(),
+  "Idempotency-Key": zod.uuid()
+})
+
+export const createDiscoveryConnectionRequestsBulkBodyCreatorAccountIdsMax = 100;
+
+export const createDiscoveryConnectionRequestsBulkBodyNoteMax = 1000;
+
+
+
+export const CreateDiscoveryConnectionRequestsBulkBody = zod.object({
+  "creator_account_ids": zod.array(zod.uuid()).min(1).max(createDiscoveryConnectionRequestsBulkBodyCreatorAccountIdsMax),
+  "note": zod.string().max(createDiscoveryConnectionRequestsBulkBodyNoteMax).nullish()
+})
+
+export const CreateDiscoveryEmailInviteHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid(),
+  "Idempotency-Key": zod.uuid()
+})
+
+export const createDiscoveryEmailInviteBodyInvitedEmailMax = 320;
+
+export const createDiscoveryEmailInviteBodyNoteMax = 1000;
+
+
+
+export const CreateDiscoveryEmailInviteBody = zod.object({
+  "invited_email": zod.email().max(createDiscoveryEmailInviteBodyInvitedEmailMax),
+  "note": zod.string().max(createDiscoveryEmailInviteBodyNoteMax).nullish()
+})
+
 
 
 export const getDiscoveryCreatorCountQueryCountryMin = 2;

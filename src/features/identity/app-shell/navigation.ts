@@ -49,6 +49,12 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       href: '/creators',
     },
     {
+      id: 'discovery',
+      label: () => t`Discovery`,
+      icon: 'compass',
+      href: '/discovery',
+    },
+    {
       id: 'videos',
       label: () => t`Videos`,
       icon: 'video',

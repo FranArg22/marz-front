@@ -176,7 +176,14 @@ export async function ensureUser(
         ? { workspace_name: fullName }
         : {
             display_name: fullName,
-            handle: deriveHandle(fullName),
+            // El handle es único global (creators_profiles_handle_key); deriveHandle
+            // solo del nombre colisiona entre runs con el mismo fullName. Sufijo
+            // determinístico del clerkUserId (único por usuario) lo hace único y
+            // estable para re-runs con el mismo email.
+            handle: `${deriveHandle(fullName)}${clerkUserId
+              .replace(/[^a-z0-9]/gi, '')
+              .slice(-6)
+              .toLowerCase()}`,
           }),
     }),
   })

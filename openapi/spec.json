@@ -130,6 +130,49 @@
         }
       }
     },
+    "/api/v1/content-types": {
+      "get": {
+        "operationId": "listContentTypes",
+        "tags": [
+          "lookups"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTypesLookupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/countries": {
       "get": {
         "operationId": "listCountries",
@@ -5285,606 +5328,6 @@
         }
       }
     },
-    "/v1/campaigns/{campaign_id}/discovery/summary": {
-      "get": {
-        "operationId": "getCampaignDiscoverySummary",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignDiscoverySummaryResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/discovery/matches": {
-      "get": {
-        "operationId": "listCampaignDiscoveryMatches",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "default": 24
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "match_score",
-                "followers",
-                "engagement_pct",
-                "cpm_amount",
-                "fee_amount"
-              ]
-            }
-          },
-          {
-            "name": "direction",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignMatchListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/discovery/applications": {
-      "get": {
-        "operationId": "listCampaignDiscoveryApplications",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "default": 24
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "submitted",
-                "accepted",
-                "rejected",
-                "withdrawn"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignApplicationListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/discovery/invites": {
-      "get": {
-        "operationId": "listCampaignDiscoveryInvites",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "default": 24
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/InviteStatus"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignInviteListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/campaigns/{campaign_id}/discovery/active": {
-      "get": {
-        "operationId": "listCampaignDiscoveryActive",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "default": 24
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignActiveListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/creators": {
       "get": {
         "operationId": "listCreators",
@@ -5974,6 +5417,134 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CampaignParticipantListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: campaign_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required, campaign_id_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/campaigns/{campaign_id}/applications": {
+      "get": {
+        "operationId": "listCampaignApplications",
+        "tags": [
+          "campaigns"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 24
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "submitted",
+                "accepted",
+                "rejected",
+                "withdrawn"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignApplicationListResponse"
                 }
               }
             }
@@ -7526,6 +7097,1004 @@
         }
       }
     },
+    "/v1/discovery/creators": {
+      "get": {
+        "operationId": "getDiscoveryCreators",
+        "tags": [
+          "brand",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "platforms",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SocialPlatform"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "creator_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "influencer"
+              ],
+              "default": "all"
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "male",
+                "female",
+                "non_binary"
+              ]
+            }
+          },
+          {
+            "name": "age_buckets",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "18-24",
+                  "25-34",
+                  "35-44",
+                  "45-54",
+                  "55+"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "interests",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "content_types",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "followers_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "followers_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "engagement_rate_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "avg_views_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "avg_views_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "cpm_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpm_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "recommended",
+                "reach_desc",
+                "er_desc",
+                "price_asc"
+              ],
+              "default": "recommended"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 24
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoveryCreatorsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, capability_denied. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_filters. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/connection-requests": {
+      "post": {
+        "operationId": "createDiscoveryConnectionRequest",
+        "tags": [
+          "brand",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateConnectionRequestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateConnectionRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: missing_idempotency_key, invalid_idempotency_key, validation.creator_account_id_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, capability_denied. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: creator_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: already_pending, has_conversation, has_active_offer, idempotency_conflict. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/discovery/brand-creator-state/recompute": {
+      "post": {
+        "operationId": "adminRecomputeDiscoveryBrandCreatorState",
+        "tags": [
+          "admin",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRecomputeDiscoveryBrandCreatorStateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRecomputeDiscoveryBrandCreatorStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: brand_workspace_id_required, creator_account_id_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/connection-requests/bulk": {
+      "post": {
+        "operationId": "createDiscoveryConnectionRequestsBulk",
+        "tags": [
+          "brand",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateConnectionRequestsBulkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateConnectionRequestsBulkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: missing_idempotency_key, invalid_idempotency_key, validation.creator_account_ids_size. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, capability_denied. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: idempotency_conflict. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/email-invites": {
+      "post": {
+        "operationId": "createDiscoveryEmailInvite",
+        "tags": [
+          "brand",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailInviteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEmailInviteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: missing_idempotency_key, invalid_idempotency_key. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, capability_denied. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: already_pending, idempotency_conflict. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: brand_workspace_required, invalid_email, validation.note_too_long. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/email-invites/by-token/{token}": {
+      "get": {
+        "operationId": "getEmailInviteByToken",
+        "tags": [
+          "discovery"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailInviteByTokenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: email_invite_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/connection-requests/{id}": {
+      "get": {
+        "operationId": "getDiscoveryConnectionRequest",
+        "tags": [
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRequestDetailResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: connection_request_id_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: connection_request_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/connection-requests/{id}/accept": {
+      "post": {
+        "operationId": "acceptDiscoveryConnectionRequest",
+        "tags": [
+          "creator",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptConnectionRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: connection_request_id_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_recipient. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: connection_request_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: invalid_state. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone. Possible codes: expired. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/discovery/connection-requests/{id}/reject": {
+      "post": {
+        "operationId": "rejectDiscoveryConnectionRequest",
+        "tags": [
+          "creator",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RejectConnectionRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: connection_request_id_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_recipient. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: connection_request_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: invalid_state. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone. Possible codes: expired. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/discovery/creator-count": {
       "get": {
         "operationId": "getDiscoveryCreatorCount",
@@ -8837,6 +9406,37 @@
           }
         }
       },
+      "ContentTypeLookupItem": {
+        "type": "object",
+        "required": [
+          "slug",
+          "label_es"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentTypesLookupResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentTypeLookupItem"
+            }
+          }
+        }
+      },
       "CountryLookupItem": {
         "type": "object",
         "required": [
@@ -9158,7 +9758,9 @@
           "application_sent_waiting",
           "match_suggested",
           "invite_sent_waiting",
-          "refund_delayed"
+          "refund_delayed",
+          "connection_request_received",
+          "connection_request_accepted"
         ],
         "x-enum-varnames": [
           "InboxItemKindMessageReply",
@@ -9175,7 +9777,9 @@
           "InboxItemKindApplicationSentWaiting",
           "InboxItemKindMatchSuggested",
           "InboxItemKindInviteSentWaiting",
-          "InboxItemKindRefundDelayed"
+          "InboxItemKindRefundDelayed",
+          "InboxItemKindConnectionRequestReceived",
+          "InboxItemKindConnectionRequestAccepted"
         ]
       },
       "InboxInlineActionActor": {
@@ -10132,7 +10736,8 @@
         "required": [
           "id",
           "name",
-          "plan"
+          "plan",
+          "plan_capabilities"
         ],
         "properties": {
           "id": {
@@ -10154,6 +10759,9 @@
           },
           "plan": {
             "type": "string"
+          },
+          "plan_capabilities": {
+            "$ref": "#/components/schemas/CampaignPlanCapabilities"
           },
           "trial_consumed": {
             "type": "boolean",
@@ -10528,8 +11136,7 @@
             "enum": [
               "male",
               "female",
-              "non_binary",
-              "prefer_not_say"
+              "non_binary"
             ],
             "nullable": true
           },
@@ -13547,6 +14154,511 @@
           }
         }
       },
+      "DiscoveryCreatorsResponse": {
+        "type": "object",
+        "required": [
+          "items",
+          "next_cursor",
+          "total"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DiscoveryCreatorCard"
+            }
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "DiscoveryCreatorCard": {
+        "type": "object",
+        "required": [
+          "account_id",
+          "display_name",
+          "avatar_url",
+          "country",
+          "age",
+          "tags",
+          "platforms",
+          "pair_state"
+        ],
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DiscoveryCreatorPlatformStats"
+            }
+          },
+          "pair_state": {
+            "$ref": "#/components/schemas/DiscoveryCreatorPairState"
+          }
+        }
+      },
+      "DiscoveryCreatorPlatformStats": {
+        "type": "object",
+        "required": [
+          "platform",
+          "handle",
+          "followers",
+          "engagement_rate",
+          "cpm_amount",
+          "cpm_currency",
+          "min_price_amount",
+          "price_currency"
+        ],
+        "properties": {
+          "platform": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "followers": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "engagement_rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "cpm_amount": {
+            "type": "string"
+          },
+          "cpm_currency": {
+            "type": "string"
+          },
+          "min_price_amount": {
+            "type": "string"
+          },
+          "price_currency": {
+            "type": "string"
+          }
+        }
+      },
+      "DiscoveryCreatorPairState": {
+        "type": "object",
+        "required": [
+          "kind",
+          "conversation_id",
+          "last_connection_request_id"
+        ],
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/DiscoveryCreatePairKindEnum"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "last_connection_request_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        }
+      },
+      "DiscoveryCreatePairKindEnum": {
+        "type": "string",
+        "enum": [
+          "active_collaboration",
+          "open_conversation",
+          "connection_pending",
+          "connection_rejected",
+          "connection_expired",
+          "no_contact"
+        ]
+      },
+      "AdminRecomputeDiscoveryBrandCreatorStateRequest": {
+        "type": "object",
+        "required": [
+          "brand_workspace_id"
+        ],
+        "properties": {
+          "brand_workspace_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "AdminRecomputeDiscoveryBrandCreatorStateResponse": {
+        "type": "object",
+        "required": [
+          "recomputed"
+        ],
+        "properties": {
+          "recomputed": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "CreateConnectionRequestRequest": {
+        "type": "object",
+        "required": [
+          "creator_account_id"
+        ],
+        "properties": {
+          "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          }
+        }
+      },
+      "CreateConnectionRequestResponse": {
+        "type": "object",
+        "required": [
+          "connection_request_id",
+          "status",
+          "expires_at",
+          "pair_state_kind"
+        ],
+        "properties": {
+          "connection_request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending"
+            ]
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pair_state_kind": {
+            "type": "string",
+            "enum": [
+              "connection_pending"
+            ]
+          }
+        }
+      },
+      "CreateConnectionRequestsBulkRequest": {
+        "type": "object",
+        "required": [
+          "creator_account_ids"
+        ],
+        "properties": {
+          "creator_account_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "note": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          }
+        }
+      },
+      "CreateConnectionRequestsBulkResponse": {
+        "type": "object",
+        "required": [
+          "created",
+          "skipped",
+          "summary"
+        ],
+        "properties": {
+          "created": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "creator_account_id",
+                "connection_request_id",
+                "expires_at"
+              ],
+              "properties": {
+                "creator_account_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "connection_request_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "creator_account_id",
+                "reason"
+              ],
+              "properties": {
+                "creator_account_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "already_pending",
+                    "has_conversation",
+                    "has_active_offer",
+                    "creator_not_found"
+                  ]
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "required": [
+              "created_count",
+              "skipped_count"
+            ],
+            "properties": {
+              "created_count": {
+                "type": "integer"
+              },
+              "skipped_count": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "CreateEmailInviteRequest": {
+        "type": "object",
+        "required": [
+          "invited_email"
+        ],
+        "properties": {
+          "invited_email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 320
+          },
+          "note": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          }
+        }
+      },
+      "CreateEmailInviteResponse": {
+        "type": "object",
+        "required": [
+          "email_invite_id",
+          "status",
+          "expires_at"
+        ],
+        "properties": {
+          "email_invite_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending"
+            ]
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EmailInviteByTokenResponse": {
+        "type": "object",
+        "required": [
+          "brand_workspace",
+          "note",
+          "status"
+        ],
+        "properties": {
+          "brand_workspace": {
+            "type": "object",
+            "required": [
+              "name",
+              "logo_url"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "logo_url": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "onboarded",
+              "expired"
+            ]
+          }
+        }
+      },
+      "ConnectionRequestDetailResponse": {
+        "type": "object",
+        "required": [
+          "connection_request_id",
+          "status",
+          "brand_workspace",
+          "note",
+          "created_at",
+          "expires_at",
+          "decided_at"
+        ],
+        "properties": {
+          "connection_request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "expired"
+            ]
+          },
+          "brand_workspace": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "logo_url"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "logo_url": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "AcceptConnectionRequestResponse": {
+        "type": "object",
+        "required": [
+          "connection_request_id",
+          "status",
+          "conversation_id"
+        ],
+        "properties": {
+          "connection_request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "accepted"
+            ]
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "RejectConnectionRequestResponse": {
+        "type": "object",
+        "required": [
+          "connection_request_id",
+          "status"
+        ],
+        "properties": {
+          "connection_request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "rejected"
+            ]
+          }
+        }
+      },
       "CampaignListItem": {
         "type": "object",
         "required": [
@@ -13918,7 +15030,6 @@
           "name",
           "objective",
           "status",
-          "version",
           "budget",
           "deadline",
           "platforms",
@@ -13947,10 +15058,6 @@
           },
           "status": {
             "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
           },
           "budget": {
             "$ref": "#/components/schemas/CampaignMoney"
@@ -14195,187 +15302,15 @@
           }
         }
       },
-      "CampaignDiscoverySummaryResponse": {
-        "type": "object",
-        "required": [
-          "counts",
-          "default_section",
-          "availability"
-        ],
-        "properties": {
-          "counts": {
-            "$ref": "#/components/schemas/CampaignDiscoveryCounts"
-          },
-          "default_section": {
-            "type": "string"
-          },
-          "availability": {
-            "$ref": "#/components/schemas/CampaignDiscoveryAvailability"
-          }
-        }
-      },
-      "CampaignDiscoveryCounts": {
-        "type": "object",
-        "required": [
-          "matches",
-          "applications",
-          "active",
-          "invited"
-        ],
-        "properties": {
-          "matches": {
-            "type": "integer"
-          },
-          "applications": {
-            "type": "integer"
-          },
-          "active": {
-            "type": "integer"
-          },
-          "invited": {
-            "type": "integer"
-          }
-        }
-      },
-      "CampaignDiscoveryAvailability": {
-        "type": "object",
-        "required": [
-          "message",
-          "can_add_email",
-          "can_add_handle",
-          "can_view_matches"
-        ],
-        "properties": {
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "can_add_email": {
-            "type": "boolean"
-          },
-          "can_add_handle": {
-            "type": "boolean"
-          },
-          "can_view_matches": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CampaignMatchListResponse": {
-        "type": "object",
-        "required": [
-          "data",
-          "next_cursor"
-        ],
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignMatchCard"
-            }
-          },
-          "next_cursor": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "CampaignMatchCard": {
-        "type": "object",
-        "required": [
-          "match_id",
-          "creator",
-          "score_pct",
-          "reason",
-          "mismatch_reason",
-          "metrics",
-          "status",
-          "can_contact"
-        ],
-        "properties": {
-          "match_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "creator": {
-            "$ref": "#/components/schemas/CreatorCardListSummary"
-          },
-          "score_pct": {
-            "type": "number",
-            "format": "double"
-          },
-          "reason": {
-            "$ref": "#/components/schemas/CampaignMatchReason"
-          },
-          "mismatch_reason": {
-            "type": "string",
-            "nullable": true
-          },
-          "metrics": {
-            "$ref": "#/components/schemas/CampaignMatchMetrics"
-          },
-          "status": {
-            "type": "string"
-          },
-          "can_contact": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CampaignMatchReason": {
-        "type": "object",
-        "required": [
-          "summary",
-          "signals"
-        ],
-        "properties": {
-          "summary": {
-            "type": "string"
-          },
-          "signals": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "CampaignMatchMetrics": {
-        "type": "object",
-        "required": [
-          "followers",
-          "engagement_pct",
-          "cpm_amount",
-          "fee_amount"
-        ],
-        "properties": {
-          "followers": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "engagement_pct": {
-            "type": "string",
-            "nullable": true
-          },
-          "cpm_amount": {
-            "type": "string",
-            "nullable": true
-          },
-          "fee_amount": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
       "CampaignApplicationListResponse": {
         "type": "object",
         "required": [
-          "data",
-          "next_cursor"
+          "items",
+          "next_cursor",
+          "total"
         ],
         "properties": {
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CampaignApplicationListItem"
@@ -14384,6 +15319,9 @@
           "next_cursor": {
             "type": "string",
             "nullable": true
+          },
+          "total": {
+            "type": "integer"
           }
         }
       },
@@ -14432,147 +15370,6 @@
           },
           "can_reject": {
             "type": "boolean"
-          }
-        }
-      },
-      "CampaignInviteListResponse": {
-        "type": "object",
-        "required": [
-          "data",
-          "next_cursor"
-        ],
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignInviteListItem"
-            }
-          },
-          "next_cursor": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "CampaignInviteListItem": {
-        "type": "object",
-        "required": [
-          "invite_id",
-          "mode",
-          "invited_email",
-          "creator",
-          "invited_handle",
-          "status",
-          "expires_at",
-          "created_at",
-          "accepted_at"
-        ],
-        "properties": {
-          "invite_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "mode": {
-            "type": "string",
-            "enum": [
-              "email",
-              "in_platform"
-            ]
-          },
-          "invited_email": {
-            "type": "string",
-            "format": "email",
-            "nullable": true
-          },
-          "creator": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CreatorCardListSummary"
-              }
-            ],
-            "nullable": true
-          },
-          "invited_handle": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string"
-          },
-          "expires_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "accepted_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        }
-      },
-      "CampaignActiveListResponse": {
-        "type": "object",
-        "required": [
-          "data",
-          "next_cursor"
-        ],
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignActiveListItem"
-            }
-          },
-          "next_cursor": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "CampaignActiveListItem": {
-        "type": "object",
-        "required": [
-          "active_id",
-          "creator",
-          "source",
-          "status",
-          "conversation_id",
-          "latest_offer_id",
-          "last_activity_at"
-        ],
-        "properties": {
-          "active_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Stable per-campaign item key. Equal to the creator account id because a campaign can have only one active participant row per creator."
-          },
-          "creator": {
-            "$ref": "#/components/schemas/CreatorCardListSummary"
-          },
-          "source": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "conversation_id": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
-          },
-          "latest_offer_id": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
-          },
-          "last_activity_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           }
         }
       },
@@ -15929,7 +16726,8 @@
           "allows_email_invites",
           "allows_in_platform_invites",
           "allows_campaign_board",
-          "allows_automatic_matching"
+          "allows_automatic_matching",
+          "allows_discovery"
         ],
         "properties": {
           "allows_email_invites": {
@@ -15942,6 +16740,9 @@
             "type": "boolean"
           },
           "allows_automatic_matching": {
+            "type": "boolean"
+          },
+          "allows_discovery": {
             "type": "boolean"
           }
         }

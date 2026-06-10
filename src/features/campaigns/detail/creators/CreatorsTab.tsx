@@ -86,8 +86,7 @@ export function CreatorsTab({
     void navigate({
       search: (previous) => ({
         ...previous,
-        tab: 'discovery',
-        section: 'matches',
+        tab: 'applications',
         q: undefined,
         status: undefined,
         platform: undefined,

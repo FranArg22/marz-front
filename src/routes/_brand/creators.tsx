@@ -1,9 +1,10 @@
 import { t } from '@lingui/core/macro'
-import { Users } from 'lucide-react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Compass, Mail, Users } from 'lucide-react'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useCallback, useMemo, useState } from 'react'
 import { z } from 'zod'
 
+import { Button } from '#/components/ui/button'
 import { CampaignCreatorsTable } from '#/features/campaigns/detail/CampaignCreatorsTable'
 import {
   CreatorsFilters,
@@ -11,7 +12,9 @@ import {
 } from '#/features/campaigns/detail/creators/CreatorsFilters'
 import type { CreatorsFilterParams } from '#/features/campaigns/detail/creators/CreatorsFilters'
 import type { CampaignParticipantsParams } from '#/features/campaigns/detail/creators/useCampaignParticipantsQuery'
+import { EmailInviteModal } from '#/features/discovery/network/components/EmailInviteModal'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import { useMe } from '#/shared/api/generated/accounts/accounts'
 import {
   ListCreatorsStatus,
   SocialPlatform,
@@ -31,9 +34,11 @@ export const Route = createFileRoute('/_brand/creators')({
 })
 
 function BrandCreatorsRoute() {
+  const meQuery = useMe()
   const search = Route.useSearch()
   const navigate = useNavigate({ from: '/creators' })
   const [cursor, setCursor] = useState<string | undefined>(undefined)
+  const [emailInviteOpen, setEmailInviteOpen] = useState(false)
 
   useRouteTopbar({ breadcrumb: [{ icon: Users, label: t`Creators` }] })
 
@@ -87,21 +92,55 @@ function BrandCreatorsRoute() {
   )
 
   const clearFilters = useCallback(() => updateFilters({}), [updateFilters])
-  const goToCampaigns = useCallback(() => {
-    void navigate({ to: '/campaigns' })
+  const goToDiscovery = useCallback(() => {
+    void navigate({ to: '/discovery' })
   }, [navigate])
 
   const activeFilters = hasActiveFilters(filters)
+  // El backend omite plan_capabilities para brands sin plan pago (y el me
+  // liviano del SSR tampoco lo trae), así que el acceso defensivo no es redundante.
+  const planCapabilities =
+    meQuery.data?.status === 200
+      ? meQuery.data.data.brand_workspace?.plan_capabilities
+      : undefined
+  const allowsEmailInvites = Boolean(planCapabilities?.allows_email_invites)
 
   return (
     <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
-      <div>
-        <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-          {t`Creators`}
-        </p>
-        <h2 className="mt-1 text-lg font-semibold text-foreground">
-          {t`All creators across your campaigns`}
-        </h2>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
+            {t`Creators`}
+          </p>
+          <h2 className="mt-1 text-lg font-semibold text-foreground">
+            {t`All creators across your campaigns`}
+          </h2>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button type="button" variant="outline" size="sm" asChild>
+            <Link to="/discovery">
+              <Compass className="size-4" aria-hidden />
+              {t`Descubrir creators`}
+            </Link>
+          </Button>
+          {allowsEmailInvites ? (
+            <>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setEmailInviteOpen(true)}
+              >
+                <Mail className="size-4" aria-hidden />
+                {t`Invitar por email`}
+              </Button>
+              <EmailInviteModal
+                open={emailInviteOpen}
+                onOpenChange={setEmailInviteOpen}
+              />
+            </>
+          ) : null}
+        </div>
       </div>
 
       <CreatorsFilters params={filters} onParamsChange={updateFilters} />
@@ -112,7 +151,7 @@ function BrandCreatorsRoute() {
         onParamsChange={updateTableParams}
         hasActiveFilters={activeFilters}
         onClearFilters={clearFilters}
-        onFindCreators={goToCampaigns}
+        onFindCreators={goToDiscovery}
       />
     </section>
   )
