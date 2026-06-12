@@ -25,6 +25,7 @@ Sos pragmático. El plan tiene que ser ejecutable por `dev` sin fricción.
 - Orden canónico frontend: api-client regen (si openapi cambió) → tipos/Zod schemas (de Orval) → hooks de data (React Query, generados) → componentes en `features/<bc>/` → routes en el shell correcto (`_brand/` o `_creator/`) → tests unit → E2E si toca flow crítico.
 - Si la épica consume endpoints nuevos o modificados, la PRIMERA task SIEMPRE es "esperar merge del backend + correr `pnpm api:sync`". Sin eso, los hooks tipados no existen.
 - Si la épica tiene UI nueva, incluí task de "leer `design-handoff.md` y consultar el `.pen` con Pencil CLI" (solo lectura) antes del componente. Ver `marz-docs/DESIGN-DEV.md`.
+- **Toda task que toque UI** (componentes, layouts, pantallas, estilos visuales, tokens) lleva en el cuerpo, como **primera línea**, el marcador literal `> ESTA TAREA REQUIERE MIRAR EL DISEÑO`. Es la señal para que `dev`/`closer` lean el `.pen` con Pencil CLI (read-only, vía `design-handoff.md`) antes de implementar o comparar. Las tasks sin UI (api-sync, schemas, hooks de data, tests no-visuales) NO lo llevan.
 
 ### Qué mirás
 
@@ -79,6 +80,12 @@ verify: <comando shell>
 ```
 
 Body: pasos numerados sobre archivos concretos (`src/features/<bc>/...`, `src/routes/_brand/...`, `src/routes/_creator/...`, `src/shared/...`). Cada paso menciona el path.
+
+Si la task toca UI, la **primera línea del body** (antes de los pasos) es el marcador literal:
+
+```
+> ESTA TAREA REQUIERE MIRAR EL DISEÑO
+```
 
 ### Señales de alarma automáticas
 
