@@ -6,9 +6,9 @@ type CreatorChannel = CreatorOnboardingPayload['channels'][number]
 type CreatorRateCard = CreatorChannel['rate_cards'][number]
 
 const FORMATS_BY_PLATFORM: Record<string, readonly string[]> = {
-  instagram: ['ig_reel', 'ig_story', 'ig_post'],
-  tiktok: ['tiktok_post'],
-  youtube: ['yt_short', 'yt_long', 'yt_podcast'],
+  instagram: ['ig_reel'],
+  tiktok: ['tiktok_video'],
+  youtube: ['yt_short'],
 }
 
 const creatorChannelsRefinement = (

@@ -22,6 +22,7 @@ export function formatOfferPlatform(platform: string, format: string): string {
     ig_story: t`Story`,
     ig_post: t`Post`,
     tiktok_post: t`Post`,
+    tiktok_video: t`Video`,
   }
   const p = platformLabels[platform] ?? platform
   const f = formatLabels[format] ?? format

@@ -294,6 +294,7 @@ export interface FileRoutesByTo {
   '/auth/link-invalid': typeof AuthLinkInvalidRoute
   '/auth': typeof AuthIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
+  '/campaigns/new': typeof BrandCampaignsNewRoute
   '/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
   '/onboarding/brand/$step': typeof OnboardingBrandStepRoute
   '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
@@ -303,7 +304,6 @@ export interface FileRoutesByTo {
   '/onboarding/brand': typeof OnboardingBrandIndexRoute
   '/onboarding/creator': typeof OnboardingCreatorIndexRoute
   '/campaigns/$campaignId': typeof BrandCampaignsCampaignIdIndexRoute
-  '/campaigns/new': typeof BrandCampaignsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -405,6 +405,7 @@ export interface FileRouteTypes {
     | '/auth/link-invalid'
     | '/auth'
     | '/workspace'
+    | '/campaigns/new'
     | '/discover/campaigns'
     | '/onboarding/brand/$step'
     | '/onboarding/brand/billing-callback'
@@ -414,7 +415,6 @@ export interface FileRouteTypes {
     | '/onboarding/brand'
     | '/onboarding/creator'
     | '/campaigns/$campaignId'
-    | '/campaigns/new'
   id:
     | '__root__'
     | '/'
@@ -624,18 +624,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandPaymentsRouteImport
       parentRoute: typeof BrandRoute
     }
-    '/_brand/creators': {
-      id: '/_brand/creators'
-      path: '/creators'
-      fullPath: '/creators'
-      preLoaderRoute: typeof BrandCreatorsRouteImport
-      parentRoute: typeof BrandRoute
-    }
     '/_brand/discovery': {
       id: '/_brand/discovery'
       path: '/discovery'
       fullPath: '/discovery'
       preLoaderRoute: typeof BrandDiscoveryRouteImport
+      parentRoute: typeof BrandRoute
+    }
+    '/_brand/creators': {
+      id: '/_brand/creators'
+      path: '/creators'
+      fullPath: '/creators'
+      preLoaderRoute: typeof BrandCreatorsRouteImport
       parentRoute: typeof BrandRoute
     }
     '/_brand/checkout-return': {

@@ -28,12 +28,8 @@ const PLATFORM_LABELS: Record<string, () => string> = {
 
 const FORMAT_LABELS: Record<string, () => string> = {
   ig_reel: () => 'Reel',
-  ig_story: () => 'Story',
-  ig_post: () => 'Post',
-  tiktok_post: () => 'Post',
+  tiktok_video: () => 'Video',
   yt_short: () => 'Short',
-  yt_long: () => t`Video largo`,
-  yt_podcast: () => 'Podcast',
 }
 /* eslint-enable lingui/no-unlocalized-strings */
 

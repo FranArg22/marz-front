@@ -23,17 +23,9 @@ const PLATFORMS = [
 
 const FORMATS_BY_PLATFORM: Record<string, { value: string; label: string }[]> =
   {
-    instagram: [
-      { value: 'ig_reel', label: 'Reel' },
-      { value: 'ig_story', label: 'Story' },
-      { value: 'ig_post', label: 'Post' },
-    ],
-    tiktok: [{ value: 'tiktok_post', label: 'Post' }],
-    youtube: [
-      { value: 'yt_short', label: 'Short' },
-      { value: 'yt_long', label: 'Video largo' },
-      { value: 'yt_podcast', label: 'Podcast' },
-    ],
+    instagram: [{ value: 'ig_reel', label: 'Reel' }],
+    tiktok: [{ value: 'tiktok_video', label: 'Video' }],
+    youtube: [{ value: 'yt_short', label: 'Short' }],
   }
 /* eslint-enable lingui/no-unlocalized-strings */
 
