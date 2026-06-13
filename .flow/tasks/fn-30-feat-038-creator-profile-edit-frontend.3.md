@@ -78,8 +78,7 @@ El form está dirty si cualquiera de los 4 valores difiere del `data.collaborati
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
