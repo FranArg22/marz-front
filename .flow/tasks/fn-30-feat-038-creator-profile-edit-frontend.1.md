@@ -169,8 +169,7 @@ Los stubs de secciones pueden renderizar `<SectionSaveBar isDirty={false} isSubm
 - [ ] Unit test de `validateSearch`: `section` inválido → `'general'`; sin `section` → `'general'`; `section='billetera'` → `'billetera'`.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
