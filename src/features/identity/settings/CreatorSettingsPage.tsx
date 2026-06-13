@@ -5,6 +5,7 @@ import { useGetMyCreatorSettings } from '#/shared/api/generated/creator/creator'
 import type { CreatorSettingsResponse } from '#/shared/api/generated/model'
 import type { SettingsSection } from '#/routes/_creator/settings'
 
+import { GeneralSection } from './GeneralSection'
 import { SectionSaveBar } from './SectionSaveBar'
 import { SettingsSidebar } from './SettingsSidebar'
 
@@ -105,10 +106,6 @@ function SectionFrame({
       />
     </section>
   )
-}
-
-function GeneralSection({ data: _data }: CreatorSettingsSectionProps) {
-  return <SectionFrame title={t`General`} />
 }
 
 function CollaborationSection({ data: _data }: CreatorSettingsSectionProps) {
