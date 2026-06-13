@@ -73,8 +73,7 @@ Fixture: `onboardedCreatorUser` de `src/test/e2e/support/fixtures.ts`.
 - [ ] `reject_invalid_avatar` verifica atomicidad: avatar inválido bloquea también el guardado de contacto (no hay cambio parcial)
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

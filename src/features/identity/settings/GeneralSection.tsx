@@ -71,6 +71,7 @@ export function GeneralSection({ data }: GeneralSectionProps) {
   const setAvatar = useSetMyCreatorAvatar()
   const updateContact = useUpdateMyCreatorProfileContact()
   const [pendingFile, setPendingFile] = useState<File | null>(null)
+  const [invalidFileError, setInvalidFileError] = useState<string | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string>(data.avatar_url)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -80,6 +81,7 @@ export function GeneralSection({ data }: GeneralSectionProps) {
   useEffect(() => {
     setAvatarPreview(data.avatar_url)
     setPendingFile(null)
+    setInvalidFileError(null)
   }, [data.avatar_url])
 
   const form = useAppForm({
@@ -111,12 +113,18 @@ export function GeneralSection({ data }: GeneralSectionProps) {
   const isDirty = pendingFile !== null || hasContactChanges(values, data)
   const handleFileSelected = useCallback(async (file: File) => {
     if (file.size > MAX_BYTES) {
-      toast.error(t`El archivo supera los 5MB permitidos.`)
+      const message = t`El archivo supera los 5MB permitidos.`
+      toast.error(message)
+      setInvalidFileError(message)
+      setSaveError(message)
       return
     }
 
     if (!ACCEPTED_TYPES[file.type]) {
-      toast.error(t`Solo se permiten imágenes JPEG, PNG o WebP.`)
+      const message = t`Solo se permiten imágenes JPEG, PNG o WebP.`
+      toast.error(message)
+      setInvalidFileError(message)
+      setSaveError(message)
       return
     }
 
@@ -124,9 +132,13 @@ export function GeneralSection({ data }: GeneralSectionProps) {
       const preview = await fileToDataUrl(file)
       setAvatarPreview(preview)
       setPendingFile(file)
+      setInvalidFileError(null)
       setSaveError(null)
     } catch {
-      toast.error(t`No pudimos leer la imagen. Intentá de nuevo.`)
+      const message = t`No pudimos leer la imagen. Intentá de nuevo.`
+      toast.error(message)
+      setInvalidFileError(message)
+      setSaveError(message)
     }
   }, [])
 
@@ -135,13 +147,18 @@ export function GeneralSection({ data }: GeneralSectionProps) {
 
     setIsSubmitting(true)
     try {
+      if (invalidFileError) {
+        setSaveError(invalidFileError)
+        return
+      }
+
       await form.handleSubmit()
     } catch (error) {
       setSaveError(extractErrorMessage(error))
     } finally {
       setIsSubmitting(false)
     }
-  }, [form, isSubmitting])
+  }, [form, invalidFileError, isSubmitting])
 
   return (
     <section className="flex min-h-full flex-col">
