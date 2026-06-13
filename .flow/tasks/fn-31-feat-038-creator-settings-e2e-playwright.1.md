@@ -48,8 +48,7 @@ El fixture crea un creator con `onboardFull('creator')`: perfil completo, al men
 - [ ] `page.route` no se usa para los happy paths (solo para el check 403 vía `page.request`)
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
