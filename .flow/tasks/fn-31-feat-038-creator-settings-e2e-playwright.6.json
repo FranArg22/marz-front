@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-13T09:11:06.136546Z",
+  "depends_on": [
+    "fn-31-feat-038-creator-settings-e2e-playwright.1"
+  ],
+  "epic": "fn-31-feat-038-creator-settings-e2e-playwright",
+  "id": "fn-31-feat-038-creator-settings-e2e-playwright.6",
+  "priority": 2,
+  "spec_path": ".flow/tasks/fn-31-feat-038-creator-settings-e2e-playwright.6.md",
+  "status": "todo",
+  "title": "E2E wallet \u2014 cuenta de cobro (ESC-19 a ESC-22)",
+  "updated_at": "2026-06-13T09:14:03.346349Z"
+}
