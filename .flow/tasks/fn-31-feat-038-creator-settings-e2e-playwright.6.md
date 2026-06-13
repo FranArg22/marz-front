@@ -74,8 +74,7 @@ Helpers del archivo existente que conviene reutilizar como funciones locales: `s
 - [ ] `replace_payout_account` realiza una segunda operación PUT exitosa sobre la misma cuenta
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
