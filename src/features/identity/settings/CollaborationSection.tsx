@@ -97,7 +97,6 @@ export function CollaborationSection({ data }: CollaborationSectionProps) {
   const [saveError, setSaveError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const defaultValues = useMemo(() => toFormValues(data), [data])
-  const creatorKinds = useMemo(() => getCreatorKinds(), [])
 
   const form = useAppForm({
     defaultValues,
@@ -256,6 +255,7 @@ function CreatorKindChips({
   error?: string
 }) {
   const hintId = 'creator-kind-min-hint'
+  const creatorKinds = useMemo(() => getCreatorKinds(), [])
 
   return (
     <FieldGroup
