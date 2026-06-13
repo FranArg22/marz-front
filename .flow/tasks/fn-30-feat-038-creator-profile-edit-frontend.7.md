@@ -102,8 +102,7 @@ Si se crean más de 3 interacciones de la misma pantalla, extraer a `src/test/e2
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.7; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
