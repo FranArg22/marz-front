@@ -62,8 +62,7 @@ Referencia de implementación de happy paths: `src/test/e2e/suites/identity/crea
 - [ ] `reject_invalid_rate` y `edit_ugc_rate` (paso de monto 0) verifican bloqueo en la UI
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
