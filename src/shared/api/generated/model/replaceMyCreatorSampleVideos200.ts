@@ -7,8 +7,8 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
+import type { CreatorSampleVideo } from './creatorSampleVideo';
 
-export interface BestVideo {
-  /** @maxLength 500 */
-  url: string;
-}
+export type ReplaceMyCreatorSampleVideos200 = {
+  sample_videos: CreatorSampleVideo[];
+};

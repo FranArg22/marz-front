@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-13T07:09:54.403045Z",
+  "depends_on": [
+    "fn-30-feat-038-creator-profile-edit-frontend.1"
+  ],
+  "epic": "fn-30-feat-038-creator-profile-edit-frontend",
+  "id": "fn-30-feat-038-creator-profile-edit-frontend.5",
+  "priority": 5,
+  "spec_path": ".flow/tasks/fn-30-feat-038-creator-profile-edit-frontend.5.md",
+  "status": "todo",
+  "title": "PortfolioSection",
+  "updated_at": "2026-06-13T07:13:46.558463Z"
+}

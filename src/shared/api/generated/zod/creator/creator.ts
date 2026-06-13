@@ -350,6 +350,255 @@ export const GetCreatorEarningsResponse = zod.object({
 })
 })
 
+export const getMyPayoutAccountResponseAccountOneHolderNameMax = 200;
+
+export const getMyPayoutAccountResponseAccountOneProviderNameMax = 200;
+
+export const getMyPayoutAccountResponseAccountOneIdentifierMax = 200;
+
+export const getMyPayoutAccountResponseAccountOneCountryMin = 2;
+export const getMyPayoutAccountResponseAccountOneCountryMax = 2;
+
+
+
+export const GetMyPayoutAccountResponse = zod.object({
+  "account": zod.object({
+  "id": zod.uuid(),
+  "account_type": zod.enum(['bank', 'external_app']),
+  "holder_name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneHolderNameMax),
+  "provider_name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneProviderNameMax),
+  "identifier": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneIdentifierMax),
+  "country": zod.string().min(getMyPayoutAccountResponseAccountOneCountryMin).max(getMyPayoutAccountResponseAccountOneCountryMax),
+  "status": zod.enum(['active']),
+  "updated_at": zod.iso.datetime({})
+}).nullable()
+})
+
+export const upsertMyPayoutAccountBodyHolderNameMax = 200;
+
+export const upsertMyPayoutAccountBodyProviderNameMax = 200;
+
+export const upsertMyPayoutAccountBodyIdentifierMax = 200;
+
+export const upsertMyPayoutAccountBodyCountryMin = 2;
+export const upsertMyPayoutAccountBodyCountryMax = 2;
+
+
+
+export const UpsertMyPayoutAccountBody = zod.object({
+  "account_type": zod.enum(['bank', 'external_app']),
+  "holder_name": zod.string().min(1).max(upsertMyPayoutAccountBodyHolderNameMax),
+  "provider_name": zod.string().min(1).max(upsertMyPayoutAccountBodyProviderNameMax),
+  "identifier": zod.string().min(1).max(upsertMyPayoutAccountBodyIdentifierMax),
+  "country": zod.string().min(upsertMyPayoutAccountBodyCountryMin).max(upsertMyPayoutAccountBodyCountryMax)
+})
+
+export const upsertMyPayoutAccountResponseAccountHolderNameMax = 200;
+
+export const upsertMyPayoutAccountResponseAccountProviderNameMax = 200;
+
+export const upsertMyPayoutAccountResponseAccountIdentifierMax = 200;
+
+export const upsertMyPayoutAccountResponseAccountCountryMin = 2;
+export const upsertMyPayoutAccountResponseAccountCountryMax = 2;
+
+
+
+export const UpsertMyPayoutAccountResponse = zod.object({
+  "account": zod.object({
+  "id": zod.uuid(),
+  "account_type": zod.enum(['bank', 'external_app']),
+  "holder_name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountHolderNameMax),
+  "provider_name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountProviderNameMax),
+  "identifier": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountIdentifierMax),
+  "country": zod.string().min(upsertMyPayoutAccountResponseAccountCountryMin).max(upsertMyPayoutAccountResponseAccountCountryMax),
+  "status": zod.enum(['active']),
+  "updated_at": zod.iso.datetime({})
+})
+})
+
+export const getMyCreatorSettingsResponseContactCountryMin = 2;
+export const getMyCreatorSettingsResponseContactCountryMax = 2;
+
+export const getMyCreatorSettingsResponseChannelsItemRatesItemCurrencyMin = 3;
+export const getMyCreatorSettingsResponseChannelsItemRatesItemCurrencyMax = 3;
+
+export const getMyCreatorSettingsResponseUgcRateCurrencyMin = 3;
+export const getMyCreatorSettingsResponseUgcRateCurrencyMax = 3;
+
+export const getMyCreatorSettingsResponseSampleVideosItemUrlMax = 500;
+
+export const getMyCreatorSettingsResponseSampleVideosMin = 0;
+export const getMyCreatorSettingsResponseSampleVideosMax = 3;
+
+
+
+export const GetMyCreatorSettingsResponse = zod.object({
+  "contact": zod.object({
+  "full_name": zod.string(),
+  "email": zod.email(),
+  "phone_e164": zod.string().nullable(),
+  "birthday": zod.iso.date().nullable(),
+  "country": zod.string().min(getMyCreatorSettingsResponseContactCountryMin).max(getMyCreatorSettingsResponseContactCountryMax).nullable(),
+  "city": zod.string().nullable(),
+  "shipping_address": zod.string().nullable()
+}),
+  "avatar_url": zod.string(),
+  "collaboration": zod.object({
+  "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])),
+  "niches": zod.array(zod.string()),
+  "content_types": zod.array(zod.string()),
+  "barter_preference": zod.boolean()
+}),
+  "channels": zod.array(zod.object({
+  "channel_id": zod.uuid(),
+  "platform": zod.enum(['instagram', 'tiktok', 'youtube']),
+  "handle": zod.string(),
+  "external_url": zod.string().nullable(),
+  "followers": zod.number().nullable(),
+  "rates": zod.array(zod.object({
+  "format": zod.enum(['ig_reel', 'tiktok_video', 'yt_short']),
+  "amount": zod.string(),
+  "currency": zod.string().min(getMyCreatorSettingsResponseChannelsItemRatesItemCurrencyMin).max(getMyCreatorSettingsResponseChannelsItemRatesItemCurrencyMax)
+}))
+})),
+  "ugc_rate": zod.object({
+  "amount": zod.string(),
+  "currency": zod.string().min(getMyCreatorSettingsResponseUgcRateCurrencyMin).max(getMyCreatorSettingsResponseUgcRateCurrencyMax)
+}).nullable(),
+  "sample_videos": zod.array(zod.object({
+  "url": zod.url().max(getMyCreatorSettingsResponseSampleVideosItemUrlMax)
+})).min(getMyCreatorSettingsResponseSampleVideosMin).max(getMyCreatorSettingsResponseSampleVideosMax)
+})
+
+export const setMyCreatorAvatarBodyS3KeyMax = 500;
+
+
+
+export const SetMyCreatorAvatarBody = zod.object({
+  "s3_key": zod.string().max(setMyCreatorAvatarBodyS3KeyMax)
+})
+
+export const SetMyCreatorAvatarResponse = zod.object({
+  "avatar_url": zod.string()
+})
+
+export const UpdateMyCreatorRatesBody = zod.object({
+  "channel_rates": zod.array(zod.object({
+  "channel_id": zod.uuid(),
+  "format": zod.enum(['ig_reel', 'tiktok_video', 'yt_short']),
+  "amount": zod.string()
+})).optional(),
+  "ugc_rate_amount": zod.string().optional()
+})
+
+export const updateMyCreatorRatesResponseChannelsItemRatesItemCurrencyMin = 3;
+export const updateMyCreatorRatesResponseChannelsItemRatesItemCurrencyMax = 3;
+
+export const updateMyCreatorRatesResponseUgcRateCurrencyMin = 3;
+export const updateMyCreatorRatesResponseUgcRateCurrencyMax = 3;
+
+
+
+export const UpdateMyCreatorRatesResponse = zod.object({
+  "channels": zod.array(zod.object({
+  "channel_id": zod.uuid(),
+  "platform": zod.enum(['instagram', 'tiktok', 'youtube']),
+  "handle": zod.string(),
+  "external_url": zod.string().nullable(),
+  "followers": zod.number().nullable(),
+  "rates": zod.array(zod.object({
+  "format": zod.enum(['ig_reel', 'tiktok_video', 'yt_short']),
+  "amount": zod.string(),
+  "currency": zod.string().min(updateMyCreatorRatesResponseChannelsItemRatesItemCurrencyMin).max(updateMyCreatorRatesResponseChannelsItemRatesItemCurrencyMax)
+}))
+})),
+  "ugc_rate": zod.object({
+  "amount": zod.string(),
+  "currency": zod.string().min(updateMyCreatorRatesResponseUgcRateCurrencyMin).max(updateMyCreatorRatesResponseUgcRateCurrencyMax)
+}).nullable()
+})
+
+export const replaceMyCreatorSampleVideosBodyVideosItemUrlMax = 500;
+
+export const replaceMyCreatorSampleVideosBodyVideosMin = 0;
+export const replaceMyCreatorSampleVideosBodyVideosMax = 3;
+
+
+
+export const ReplaceMyCreatorSampleVideosBody = zod.object({
+  "videos": zod.array(zod.object({
+  "url": zod.url().max(replaceMyCreatorSampleVideosBodyVideosItemUrlMax)
+})).min(replaceMyCreatorSampleVideosBodyVideosMin).max(replaceMyCreatorSampleVideosBodyVideosMax)
+})
+
+export const replaceMyCreatorSampleVideosResponseSampleVideosItemUrlMax = 500;
+
+
+
+export const ReplaceMyCreatorSampleVideosResponse = zod.object({
+  "sample_videos": zod.array(zod.object({
+  "url": zod.url().max(replaceMyCreatorSampleVideosResponseSampleVideosItemUrlMax)
+}))
+})
+
+export const updateMyCreatorProfileContactBodyFullNameMax = 200;
+
+export const updateMyCreatorProfileContactBodyPhoneE164RegExp = new RegExp('^\\+[1-9]\\d{1,14}$');
+export const updateMyCreatorProfileContactBodyCountryMin = 2;
+export const updateMyCreatorProfileContactBodyCountryMax = 2;
+
+export const updateMyCreatorProfileContactBodyCityMax = 200;
+
+export const updateMyCreatorProfileContactBodyShippingAddressMax = 500;
+
+
+
+export const UpdateMyCreatorProfileContactBody = zod.object({
+  "full_name": zod.string().min(1).max(updateMyCreatorProfileContactBodyFullNameMax).optional(),
+  "phone_e164": zod.string().regex(updateMyCreatorProfileContactBodyPhoneE164RegExp).optional(),
+  "birthday": zod.iso.date().optional(),
+  "country": zod.string().min(updateMyCreatorProfileContactBodyCountryMin).max(updateMyCreatorProfileContactBodyCountryMax).optional(),
+  "city": zod.string().min(1).max(updateMyCreatorProfileContactBodyCityMax).optional(),
+  "shipping_address": zod.string().min(1).max(updateMyCreatorProfileContactBodyShippingAddressMax).optional()
+})
+
+export const updateMyCreatorProfileContactResponseCountryMin = 2;
+export const updateMyCreatorProfileContactResponseCountryMax = 2;
+
+
+
+export const UpdateMyCreatorProfileContactResponse = zod.object({
+  "full_name": zod.string(),
+  "email": zod.email(),
+  "phone_e164": zod.string().nullable(),
+  "birthday": zod.iso.date().nullable(),
+  "country": zod.string().min(updateMyCreatorProfileContactResponseCountryMin).max(updateMyCreatorProfileContactResponseCountryMax).nullable(),
+  "city": zod.string().nullable(),
+  "shipping_address": zod.string().nullable()
+})
+
+export const updateMyCreatorProfileCollaborationBodyCreatorKindsMax = 2;
+
+export const updateMyCreatorProfileCollaborationBodyNichesMax = 5;
+
+
+
+
+export const UpdateMyCreatorProfileCollaborationBody = zod.object({
+  "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])).min(1).max(updateMyCreatorProfileCollaborationBodyCreatorKindsMax).optional(),
+  "niches": zod.array(zod.string()).min(1).max(updateMyCreatorProfileCollaborationBodyNichesMax).optional(),
+  "content_types": zod.array(zod.string()).min(1).optional(),
+  "barter_preference": zod.boolean().optional()
+})
+
+export const UpdateMyCreatorProfileCollaborationResponse = zod.object({
+  "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])),
+  "niches": zod.array(zod.string()),
+  "content_types": zod.array(zod.string()),
+  "barter_preference": zod.boolean()
+})
+
 export const exportCreatorEarningsCSVQueryPeriodDefault = `30d`;
 export const exportCreatorEarningsCSVQueryQMax = 120;
 

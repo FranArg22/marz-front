@@ -7,8 +7,10 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
+import type { UpdateCreatorRatesRequestChannelRatesItemFormat } from './updateCreatorRatesRequestChannelRatesItemFormat';
 
-export interface BestVideo {
-  /** @maxLength 500 */
-  url: string;
-}
+export type UpdateCreatorRatesRequestChannelRatesItem = {
+  channel_id: string;
+  format: UpdateCreatorRatesRequestChannelRatesItemFormat;
+  amount: string;
+};

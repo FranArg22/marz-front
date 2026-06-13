@@ -8,7 +8,11 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export interface BestVideo {
-  /** @maxLength 500 */
-  url: string;
-}
+export type CreatorRateCardFormat = typeof CreatorRateCardFormat[keyof typeof CreatorRateCardFormat];
+
+
+export const CreatorRateCardFormat = {
+  ig_reel: 'ig_reel',
+  tiktok_video: 'tiktok_video',
+  yt_short: 'yt_short',
+} as const;
