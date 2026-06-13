@@ -35,7 +35,7 @@ const sentItem: ArchivedOfferItem = {
       {
         position: 1,
         platform: 'youtube',
-        format: 'yt_long',
+        format: 'yt_short',
         quantity: 1,
         amount: '2800.00',
       },

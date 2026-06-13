@@ -21,12 +21,14 @@ const PLATFORMS = [
   { value: 'youtube', label: 'YouTube' },
 ] as const
 
-const FORMATS_BY_PLATFORM: Record<string, { value: string; label: string }[]> =
-  {
-    instagram: [{ value: 'ig_reel', label: 'Reel' }],
-    tiktok: [{ value: 'tiktok_video', label: 'Video' }],
-    youtube: [{ value: 'yt_short', label: 'Short' }],
-  }
+type RateCardFormat = CreatorRateCard['format']
+type FormatOption = { value: RateCardFormat; label: string }
+
+const FORMATS_BY_PLATFORM: Record<string, FormatOption[]> = {
+  instagram: [{ value: 'ig_reel', label: 'Reel' }],
+  tiktok: [{ value: 'tiktok_video', label: 'Video' }],
+  youtube: [{ value: 'yt_short', label: 'Short' }],
+}
 /* eslint-enable lingui/no-unlocalized-strings */
 
 function emptyChannel(platform: string): CreatorChannel {
@@ -41,7 +43,7 @@ function emptyChannel(platform: string): CreatorChannel {
   }
 }
 
-function emptyRateCard(format: string): CreatorRateCard {
+function emptyRateCard(format: RateCardFormat): CreatorRateCard {
   return { format, rate_amount: '', rate_currency: 'USD' }
 }
 
@@ -51,7 +53,7 @@ function hasAmount(rc: CreatorRateCard): boolean {
 
 function buildSummary(
   channel: CreatorChannel,
-  formats: { value: string; label: string }[],
+  formats: FormatOption[],
 ): { text: string; missing: boolean } {
   const cards = channel.rate_cards
   if (cards.length === 0) return { text: '', missing: false }
@@ -154,7 +156,7 @@ function ChannelHeader({
 
 interface RateCardListProps {
   rateCards: CreatorRateCard[]
-  formats: { value: string; label: string }[]
+  formats: FormatOption[]
   onUpdate: (cardIndex: number, patch: Partial<CreatorRateCard>) => void
   onRemove: (cardIndex: number) => void
 }
@@ -224,14 +226,14 @@ function RateCardList({
 interface ChannelBodyProps {
   channel: CreatorChannel
   usedPlatforms: Set<string>
-  availableFormats: { value: string; label: string }[]
-  formats: { value: string; label: string }[]
+  availableFormats: FormatOption[]
+  formats: FormatOption[]
   onChangePlatform: (platform: string) => void
   onSetPrimary: () => void
   onUpdateHandle: (handle: string) => void
   onUpdateRateCard: (cardIndex: number, patch: Partial<CreatorRateCard>) => void
   onRemoveRateCard: (cardIndex: number) => void
-  onAddRateCard: (format: string) => void
+  onAddRateCard: (format: RateCardFormat) => void
 }
 
 function ChannelBody({
@@ -310,7 +312,10 @@ function ChannelBody({
       )}
 
       {availableFormats.length > 0 && (
-        <Select value="" onValueChange={onAddRateCard}>
+        <Select
+          value=""
+          onValueChange={(value) => onAddRateCard(value as RateCardFormat)}
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder={t`Agregar tarifa...`} />
           </SelectTrigger>
@@ -395,7 +400,7 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
   )
 
   const addRateCard = useCallback(
-    (channelIndex: number, format: string) => {
+    (channelIndex: number, format: RateCardFormat) => {
       const channel = channels[channelIndex]!
       const next = [...channel.rate_cards, emptyRateCard(format)]
       updateChannel(channelIndex, { rate_cards: next })

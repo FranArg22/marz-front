@@ -27,9 +27,9 @@ function validPayload(): CreatorOnboardingPayload {
       },
     ],
     best_videos: [
-      { url: 'https://example.com/1', kind: 'organic' },
-      { url: 'https://example.com/2', kind: 'branded' },
-      { url: 'https://example.com/3', kind: 'organic' },
+      { url: 'https://example.com/1' },
+      { url: 'https://example.com/2' },
+      { url: 'https://example.com/3' },
     ],
   }
 }
@@ -100,8 +100,8 @@ describe('CreatorOnboardingPayloadSchema', () => {
   it('accepts fewer than 3 best_videos (optional)', () => {
     const payload = validPayload()
     payload.best_videos = [
-      { url: 'https://example.com/1', kind: 'organic' },
-      { url: 'https://example.com/2', kind: 'organic' },
+      { url: 'https://example.com/1' },
+      { url: 'https://example.com/2' },
     ]
     const result = CreatorOnboardingPayloadSchema.safeParse(payload)
     expect(result.success).toBe(true)
@@ -117,10 +117,10 @@ describe('CreatorOnboardingPayloadSchema', () => {
   it('rejects more than 3 best_videos', () => {
     const payload = validPayload()
     payload.best_videos = [
-      { url: 'https://example.com/1', kind: 'organic' },
-      { url: 'https://example.com/2', kind: 'organic' },
-      { url: 'https://example.com/3', kind: 'organic' },
-      { url: 'https://example.com/4', kind: 'organic' },
+      { url: 'https://example.com/1' },
+      { url: 'https://example.com/2' },
+      { url: 'https://example.com/3' },
+      { url: 'https://example.com/4' },
     ]
     const result = CreatorOnboardingPayloadSchema.safeParse(payload)
     expect(result.success).toBe(false)
