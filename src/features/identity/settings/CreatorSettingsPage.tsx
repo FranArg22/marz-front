@@ -7,6 +7,7 @@ import type { SettingsSection } from '#/routes/_creator/settings'
 
 import { CollaborationSection } from './CollaborationSection'
 import { GeneralSection } from './GeneralSection'
+import { PortfolioSection } from './PortfolioSection'
 import { RatesSection } from './RatesSection'
 import { SectionSaveBar } from './SectionSaveBar'
 import { SettingsSidebar } from './SettingsSidebar'
@@ -14,10 +15,6 @@ import { SettingsSidebar } from './SettingsSidebar'
 interface CreatorSettingsPageProps {
   activeSection: SettingsSection
   onSectionChange: (section: SettingsSection) => void
-}
-
-interface CreatorSettingsSectionProps {
-  data: CreatorSettingsResponse
 }
 
 export function CreatorSettingsPage({
@@ -108,10 +105,6 @@ function SectionFrame({
       />
     </section>
   )
-}
-
-function PortfolioSection({ data: _data }: CreatorSettingsSectionProps) {
-  return <SectionFrame title={t`Portfolio`} />
 }
 
 function WalletSection() {

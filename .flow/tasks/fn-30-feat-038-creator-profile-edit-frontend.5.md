@@ -80,8 +80,7 @@ Hay cambios si el estado actual de los slots difiere de la inicialización. Comp
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
