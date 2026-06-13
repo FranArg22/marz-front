@@ -100,8 +100,7 @@ async function callApi(page: Page, method: string, path: string, token?: string)
 - [ ] Los assertions verifican el status code HTTP (401 o 403) — no navegan a pantallas UI
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.7; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
