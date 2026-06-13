@@ -7,6 +7,7 @@ import type { SettingsSection } from '#/routes/_creator/settings'
 
 import { CollaborationSection } from './CollaborationSection'
 import { GeneralSection } from './GeneralSection'
+import { RatesSection } from './RatesSection'
 import { SectionSaveBar } from './SectionSaveBar'
 import { SettingsSidebar } from './SettingsSidebar'
 
@@ -107,10 +108,6 @@ function SectionFrame({
       />
     </section>
   )
-}
-
-function RatesSection({ data: _data }: CreatorSettingsSectionProps) {
-  return <SectionFrame title={t`Redes y tarifas`} />
 }
 
 function PortfolioSection({ data: _data }: CreatorSettingsSectionProps) {

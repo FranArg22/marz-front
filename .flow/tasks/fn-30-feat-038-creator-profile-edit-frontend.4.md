@@ -103,8 +103,7 @@ Hay cambios si `changedChannelRates.length > 0` O si `ugcRateAmount` cambió.
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
