@@ -40,8 +40,7 @@ La sección Portfolio siempre muestra exactamente 3 slots de video. Un slot con 
 - [ ] `reject_invalid_url` verifica el error de validación en la UI
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
