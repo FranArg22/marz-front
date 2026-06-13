@@ -110,8 +110,7 @@ import {
 - [ ] `pnpm typecheck` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-038-creator-profile-edit-frontend.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

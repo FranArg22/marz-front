@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro'
 import type React from 'react'
 
+import { WalletSection } from '#/features/payments/settings/WalletSection'
 import { useGetMyCreatorSettings } from '#/shared/api/generated/creator/creator'
 import type { CreatorSettingsResponse } from '#/shared/api/generated/model'
 import type { SettingsSection } from '#/routes/_creator/settings'
@@ -9,7 +10,6 @@ import { CollaborationSection } from './CollaborationSection'
 import { GeneralSection } from './GeneralSection'
 import { PortfolioSection } from './PortfolioSection'
 import { RatesSection } from './RatesSection'
-import { SectionSaveBar } from './SectionSaveBar'
 import { SettingsSidebar } from './SettingsSidebar'
 
 interface CreatorSettingsPageProps {
@@ -84,29 +84,4 @@ function SettingsErrorBanner() {
       {t`No pudimos cargar tus ajustes. Intentá nuevamente en unos minutos.`}
     </div>
   )
-}
-
-function SectionFrame({
-  title,
-  children,
-}: {
-  title: string
-  children?: React.ReactNode
-}) {
-  return (
-    <section className="flex min-h-full flex-col">
-      <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
-      <div className="mt-6 flex-1">{children}</div>
-      <SectionSaveBar
-        isDirty={false}
-        isSubmitting={false}
-        error={null}
-        onSave={() => {}}
-      />
-    </section>
-  )
-}
-
-function WalletSection() {
-  return <SectionFrame title={t`Billetera`} />
 }
