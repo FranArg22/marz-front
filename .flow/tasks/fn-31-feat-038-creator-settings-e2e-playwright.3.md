@@ -65,8 +65,7 @@ Fixture: `onboardedCreatorUser` de `src/test/e2e/support/fixtures.ts`.
 - [ ] Los tests de bloqueo verifican la UI (no solo que el API devuelve 422)
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-038-creator-settings-e2e-playwright.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
