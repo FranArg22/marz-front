@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import { AppSidebar } from './AppSidebar'
 import { AppShellContextProvider } from './AppShellContext'
 import type { AppShellAccountKind } from './AppShellContext'
-import { AppTopbar } from './AppTopbar'
 import { TopbarProvider } from './TopbarContext'
 
 interface AppShellProps {
@@ -28,7 +27,6 @@ export function AppShell({
         >
           <AppSidebar accountKind={accountKind} pathname={pathname} />
           <div className="flex min-w-0 flex-1 flex-col">
-            <AppTopbar />
             <main className="min-w-0 flex-1 overflow-hidden">{children}</main>
           </div>
         </div>
