@@ -208,7 +208,7 @@ describe('AppSidebar', () => {
         ),
       ).toBeInTheDocument()
     }
-    expect(brandSidebar).toHaveTextContent('?')
+    expect(within(brandSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)
 
     unmount()
     renderSidebar('/workspace', 'creator')
@@ -236,7 +236,7 @@ describe('AppSidebar', () => {
         name: 'Payments & Spending',
       }),
     ).not.toBeInTheDocument()
-    expect(creatorSidebar).toHaveTextContent('?')
+    expect(within(creatorSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)
   })
 
   it('uses the 72px sidebar rail width', async () => {
