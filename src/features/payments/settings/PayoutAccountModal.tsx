@@ -2,9 +2,11 @@ import { useMemo } from 'react'
 import { useStore } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
+import { CircleCheck } from 'lucide-react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
+import { ToggleGroup, ToggleGroupItem } from '#/components/ui/toggle-group'
 import {
   Dialog,
   DialogContent,
@@ -82,7 +84,6 @@ function PayoutAccountModalContent({
     },
   })
 
-  const accountType = useStore(form.store, (state) => state.values.account_type)
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
   return (
@@ -92,7 +93,7 @@ function PayoutAccountModalContent({
           {account ? t`Editar cuenta de cobro` : t`Agregar cuenta de cobro`}
         </DialogTitle>
         <DialogDescription>
-          {t`Definí dónde querés recibir tus pagos de Marz.`}
+          {t`Cargá una cuenta bancaria o externa que pueda recibir transferencias en USD.`}
         </DialogDescription>
       </DialogHeader>
 
@@ -103,27 +104,37 @@ function PayoutAccountModalContent({
           void form.handleSubmit()
         }}
       >
-        <div className="grid gap-5">
-          <form.AppField name="account_type">
-            {(field) => (
-              <field.SelectField
-                label={t`Tipo de cuenta`}
-                required
-                options={[
-                  { value: 'bank', label: t`Banco` },
-                  {
-                    value: 'external_app',
-                    label: t`Aplicación o billetera virtual`,
-                  },
-                ]}
-              />
-            )}
-          </form.AppField>
+        <form.AppField name="account_type">
+          {(field) => (
+            <ToggleGroup
+              type="single"
+              variant="outline"
+              value={field.state.value}
+              onValueChange={(value) => {
+                if (value)
+                  field.handleChange(
+                    value as PayoutAccountValues['account_type'],
+                  )
+              }}
+              className="w-full"
+              aria-label={t`Tipo de cuenta`}
+            >
+              <ToggleGroupItem value="bank" className="flex-1">
+                {t`Banco`}
+              </ToggleGroupItem>
+              <ToggleGroupItem value="external_app" className="flex-1">
+                {t`App externa`}
+              </ToggleGroupItem>
+            </ToggleGroup>
+          )}
+        </form.AppField>
 
+        <div className="grid gap-5">
           <form.AppField name="holder_name">
             {(field) => (
               <field.TextField
                 label={t`Titular de la cuenta`}
+                placeholder={t`Nombre legal o razón social`}
                 required
                 maxLength={200}
                 autoComplete="name"
@@ -134,7 +145,8 @@ function PayoutAccountModalContent({
           <form.AppField name="provider_name">
             {(field) => (
               <field.TextField
-                label={accountType === 'bank' ? t`Banco` : t`Proveedor`}
+                label={t`Banco o proveedor`}
+                placeholder={t`Banco Galicia, Wise, Payoneer...`}
                 required
                 maxLength={200}
               />
@@ -144,7 +156,8 @@ function PayoutAccountModalContent({
           <form.AppField name="identifier">
             {(field) => (
               <field.TextField
-                label={t`Identificador (CBU, IBAN, email, alias...)`}
+                label={t`Identificador`}
+                placeholder={t`CBU, IBAN, email o alias de cuenta`}
                 required
                 maxLength={200}
               />
@@ -154,7 +167,7 @@ function PayoutAccountModalContent({
           <form.AppField name="country">
             {(field) => (
               <field.SelectField
-                label={t`País`}
+                label={t`País de la cuenta`}
                 required
                 placeholder={t`Seleccioná un país`}
                 options={COUNTRIES.map((country) => ({
@@ -166,9 +179,20 @@ function PayoutAccountModalContent({
           </form.AppField>
         </div>
 
-        <p className="rounded-md border border-border bg-muted px-3 py-2 text-sm text-muted-foreground">
-          {t`Marz transfiere en USD. Tu banco o proveedor se encarga de la conversión a moneda local si aplica.`}
-        </p>
+        <div className="flex items-start gap-3 rounded-md border border-primary/30 bg-primary/10 px-3 py-3">
+          <CircleCheck
+            className="mt-0.5 size-5 shrink-0 text-primary"
+            aria-hidden
+          />
+          <div className="space-y-0.5">
+            <p className="text-sm font-medium text-foreground">
+              {t`La cuenta debe recibir USD`}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {t`Por ahora solo hacemos transferencias en dólares estadounidenses.`}
+            </p>
+          </div>
+        </div>
 
         <DialogFooter>
           <Button
@@ -180,7 +204,7 @@ function PayoutAccountModalContent({
             {t`Cancelar`}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? t`Guardando...` : t`Guardar`}
+            {isSubmitting ? t`Guardando...` : t`Guardar cuenta`}
           </Button>
         </DialogFooter>
       </form>

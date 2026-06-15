@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
 
+import { Badge } from '#/components/ui/badge'
 import { Input } from '#/components/ui/input'
-import { Label } from '#/components/ui/label'
 import {
   getGetMyCreatorSettingsQueryKey,
   useUpdateMyCreatorRates,
@@ -18,6 +18,7 @@ import type {
 } from '#/shared/api/generated/model'
 
 import { SectionSaveBar } from './SectionSaveBar'
+import { SettingsCard, SettingsRow } from './SettingsCard'
 
 const DELETE_RATE_MESSAGE =
   'No se puede eliminar una tarifa declarada; ingresá un monto válido o dejá el valor anterior'
@@ -112,46 +113,52 @@ export function RatesSection({ data }: RatesSectionProps) {
           void handleSave()
         }}
       >
-        <div className="flex-1 space-y-6">
-          {data.channels.map((channel) => {
-            const format = PLATFORM_FORMATS[channel.platform]
-            const rateKey = getRateKey(channel.channel_id, format)
+        <div className="flex-1">
+          <SettingsCard
+            title={t`Redes y tarifas`}
+            description={t`Conectá tus cuentas y cargá tarifas por formato. Las marcas ven rangos, no tu precio directo.`}
+          >
+            {data.channels.map((channel, index) => {
+              const format = PLATFORM_FORMATS[channel.platform]
+              const rateKey = getRateKey(channel.channel_id, format)
 
-            return (
-              <ChannelRatesCard
-                key={channel.channel_id}
-                channel={channel}
-                format={format}
-                amount={values.channelRates[rateKey] ?? ''}
-                error={errors.channelRates[rateKey]}
-                onAmountChange={(amount) => {
-                  setValues((current) => ({
-                    ...current,
-                    channelRates: {
-                      ...current.channelRates,
-                      [rateKey]: amount,
-                    },
-                  }))
-                  setErrors((current) => ({
-                    ...current,
-                    channelRates: omitKey(current.channelRates, rateKey),
-                  }))
-                }}
-              />
-            )
-          })}
+              return (
+                <ChannelRows
+                  key={channel.channel_id}
+                  channel={channel}
+                  format={format}
+                  isPrimary={index === 0}
+                  amount={values.channelRates[rateKey] ?? ''}
+                  error={errors.channelRates[rateKey]}
+                  onAmountChange={(amount) => {
+                    setValues((current) => ({
+                      ...current,
+                      channelRates: {
+                        ...current.channelRates,
+                        [rateKey]: amount,
+                      },
+                    }))
+                    setErrors((current) => ({
+                      ...current,
+                      channelRates: omitKey(current.channelRates, rateKey),
+                    }))
+                  }}
+                />
+              )
+            })}
 
-          <UgcRateRow
-            amount={values.ugcRateAmount}
-            error={errors.ugcRateAmount}
-            onAmountChange={(amount) => {
-              setValues((current) => ({ ...current, ugcRateAmount: amount }))
-              setErrors((current) => ({
-                ...current,
-                ugcRateAmount: undefined,
-              }))
-            }}
-          />
+            <UgcRateRow
+              amount={values.ugcRateAmount}
+              error={errors.ugcRateAmount}
+              onAmountChange={(amount) => {
+                setValues((current) => ({ ...current, ugcRateAmount: amount }))
+                setErrors((current) => ({
+                  ...current,
+                  ugcRateAmount: undefined,
+                }))
+              }}
+            />
+          </SettingsCard>
         </div>
 
         <SectionSaveBar
@@ -165,15 +172,17 @@ export function RatesSection({ data }: RatesSectionProps) {
   )
 }
 
-function ChannelRatesCard({
+function ChannelRows({
   channel,
   format,
+  isPrimary,
   amount,
   error,
   onAmountChange,
 }: {
   channel: CreatorSettingsChannel
   format: CreatorSettingsRateFormat
+  isPrimary: boolean
   amount: string
   error?: string
   onAmountChange: (amount: string) => void
@@ -181,20 +190,24 @@ function ChannelRatesCard({
   const inputId = `rate-${channel.channel_id}-${format}`
 
   return (
-    <div className="rounded-md border border-border bg-card p-4">
-      <div className="grid gap-3 md:grid-cols-3">
-        <ReadOnlyMetric
-          label={t`Plataforma`}
-          value={platformLabel(channel.platform)}
-        />
-        <ReadOnlyMetric label={t`Handle`} value={channel.handle} />
-        <ReadOnlyMetric
-          label={t`Seguidores`}
-          value={formatFollowers(channel.followers)}
-        />
-      </div>
-      <div className="mt-4 max-w-sm space-y-2">
-        <Label htmlFor={inputId}>{formatLabel(format)}</Label>
+    <>
+      <SettingsRow
+        label={platformLabel(channel.platform)}
+        hint={
+          channel.followers === null
+            ? undefined
+            : t`${formatFollowers(channel.followers)} seguidores`
+        }
+      >
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-sm text-muted-foreground">
+            @{channel.handle}
+          </span>
+          {isPrimary ? <Badge variant="outline">{t`Principal`}</Badge> : null}
+        </div>
+      </SettingsRow>
+
+      <SettingsRow label={formatLabel(format)}>
         <div className="flex items-center gap-2">
           <Input
             id={inputId}
@@ -204,16 +217,17 @@ function ChannelRatesCard({
             onChange={(event) => onAmountChange(event.target.value)}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? `${inputId}-error` : undefined}
+            aria-label={formatLabel(format)}
           />
           <span className="text-sm font-medium text-muted-foreground">USD</span>
         </div>
         {error ? (
-          <p id={`${inputId}-error`} className="text-sm text-destructive">
+          <p id={`${inputId}-error`} className="mt-1 text-sm text-destructive">
             {error}
           </p>
         ) : null}
-      </div>
-    </div>
+      </SettingsRow>
+    </>
   )
 }
 
@@ -229,39 +243,29 @@ function UgcRateRow({
   const inputId = 'ugc-rate-amount'
 
   return (
-    <div className="rounded-md border border-border bg-card p-4">
-      <div className="max-w-sm space-y-2">
-        <Label htmlFor={inputId}>{t`Tarifa UGC`}</Label>
-        <div className="flex items-center gap-2">
-          <Input
-            id={inputId}
-            type="text"
-            inputMode="decimal"
-            value={amount}
-            onChange={(event) => onAmountChange(event.target.value)}
-            aria-invalid={Boolean(error)}
-            aria-describedby={error ? `${inputId}-error` : undefined}
-          />
-          <span className="text-sm font-medium text-muted-foreground">USD</span>
-        </div>
-        {error ? (
-          <p id={`${inputId}-error`} className="text-sm text-destructive">
-            {error}
-          </p>
-        ) : null}
+    <SettingsRow
+      label={t`UGC`}
+      hint={t`Contenido para uso de marca, sin publicación en tu feed.`}
+    >
+      <div className="flex items-center gap-2">
+        <Input
+          id={inputId}
+          type="text"
+          inputMode="decimal"
+          value={amount}
+          onChange={(event) => onAmountChange(event.target.value)}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${inputId}-error` : undefined}
+          aria-label={t`Tarifa UGC`}
+        />
+        <span className="text-sm font-medium text-muted-foreground">USD</span>
       </div>
-    </div>
-  )
-}
-
-function ReadOnlyMetric({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="text-xs font-medium uppercase text-muted-foreground">
-        {label}
-      </p>
-      <p className="mt-1 text-sm text-foreground">{value}</p>
-    </div>
+      {error ? (
+        <p id={`${inputId}-error`} className="mt-1 text-sm text-destructive">
+          {error}
+        </p>
+      ) : null}
+    </SettingsRow>
   )
 }
 

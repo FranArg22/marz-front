@@ -15,6 +15,9 @@ export function WalletSection() {
   return (
     <section className="flex min-h-full flex-col">
       <h1 className="text-2xl font-semibold text-foreground">{t`Billetera`}</h1>
+      <p className="mt-1 text-sm text-muted-foreground">
+        {t`Cargá una cuenta bancaria o una cuenta externa para recibir pagos sin conectar Stripe.`}
+      </p>
       <div className="mt-6">
         <PayoutAccountCard
           account={account}

@@ -8,7 +8,6 @@ import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
-import { Label } from '#/components/ui/label'
 import type {
   AvatarPresignRequestContentType,
   CreatorSettingsResponse,
@@ -23,6 +22,7 @@ import { usePresignCreatorAvatar } from '#/shared/api/generated/onboarding/onboa
 import { useAppForm } from '#/shared/ui/form'
 
 import { SectionSaveBar } from './SectionSaveBar'
+import { SettingsCard, SettingsRow } from './SettingsCard'
 
 const MAX_BYTES = 5 * 1024 * 1024
 
@@ -170,93 +170,91 @@ export function GeneralSection({ data }: GeneralSectionProps) {
           void handleSave()
         }}
       >
-        <div className="flex-1 space-y-8">
-          <AvatarField
-            preview={avatarPreview}
-            onFileSelected={handleFileSelected}
-          />
+        <div className="flex-1">
+          <SettingsCard
+            title={t`Perfil`}
+            description={t`Datos privados y de contacto del creador.`}
+          >
+            <SettingsRow label={t`Foto de perfil`}>
+              <AvatarField
+                preview={avatarPreview}
+                onFileSelected={handleFileSelected}
+              />
+            </SettingsRow>
 
-          <div className="grid gap-5 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="creator-settings-email">{t`Email`}</Label>
+            <SettingsRow label={t`Nombre completo`} required>
+              <form.AppField name="full_name">
+                {(field) => <field.TextField autoComplete="name" />}
+              </form.AppField>
+            </SettingsRow>
+
+            <SettingsRow
+              label={t`Email`}
+              hint={t`Para login y notificaciones.`}
+            >
               <Input
                 id="creator-settings-email"
                 value={data.contact.email}
                 disabled
                 aria-label={t`Email`}
               />
-            </div>
+            </SettingsRow>
 
-            <form.AppField name="full_name">
-              {(field) => (
-                <field.TextField
-                  label={t`Nombre completo`}
-                  required
-                  autoComplete="name"
-                />
-              )}
-            </form.AppField>
-
-            <form.AppField name="phone_e164">
-              {(field) => (
-                <field.TextField
-                  label={t`Teléfono`}
-                  placeholder="+5491123456789"
-                  autoComplete="tel"
-                />
-              )}
-            </form.AppField>
-
-            <form.AppField
-              name="birthday"
-              validators={{
-                onSubmit: ({ value }) =>
-                  value && !isAtLeast18(value)
-                    ? t`Tenés que ser mayor de 18 años.`
-                    : undefined,
-              }}
-            >
-              {(field) => (
-                <field.TextField
-                  label={t`Fecha de nacimiento`}
-                  type="date"
-                  autoComplete="bday"
-                />
-              )}
-            </form.AppField>
-
-            <form.AppField name="country">
-              {(field) => (
-                <field.TextField
-                  label={t`País`}
-                  placeholder="AR"
-                  maxLength={2}
-                  autoComplete="country"
-                />
-              )}
-            </form.AppField>
-
-            <form.AppField name="city">
-              {(field) => (
-                <field.TextField
-                  label={t`Ciudad`}
-                  autoComplete="address-level2"
-                />
-              )}
-            </form.AppField>
-
-            <div className="md:col-span-2">
-              <form.AppField name="shipping_address">
+            <SettingsRow label={t`Teléfono`} hint={t`Con código de país.`}>
+              <form.AppField name="phone_e164">
                 {(field) => (
-                  <field.TextareaField
-                    label={t`Dirección de envío`}
-                    autoComplete="street-address"
-                    rows={3}
+                  <field.TextField
+                    placeholder="+5491123456789"
+                    autoComplete="tel"
                   />
                 )}
               </form.AppField>
-            </div>
-          </div>
+            </SettingsRow>
+
+            <SettingsRow label={t`Fecha de cumpleaños`}>
+              <form.AppField
+                name="birthday"
+                validators={{
+                  onSubmit: ({ value }) =>
+                    value && !isAtLeast18(value)
+                      ? t`Tenés que ser mayor de 18 años.`
+                      : undefined,
+                }}
+              >
+                {(field) => <field.TextField type="date" autoComplete="bday" />}
+              </form.AppField>
+            </SettingsRow>
+
+            <SettingsRow label={t`País`}>
+              <form.AppField name="country">
+                {(field) => (
+                  <field.TextField
+                    placeholder="AR"
+                    maxLength={2}
+                    autoComplete="country"
+                  />
+                )}
+              </form.AppField>
+            </SettingsRow>
+
+            <SettingsRow label={t`Ciudad`}>
+              <form.AppField name="city">
+                {(field) => <field.TextField autoComplete="address-level2" />}
+              </form.AppField>
+            </SettingsRow>
+
+            <SettingsRow
+              label={t`Dirección para envíos`}
+              hint={t`Para productos y canjes.`}
+              align="start"
+            >
+              <form.AppField name="shipping_address">
+                {(field) => (
+                  <field.TextareaField autoComplete="street-address" rows={3} />
+                )}
+              </form.AppField>
+            </SettingsRow>
+          </SettingsCard>
         </div>
 
         <SectionSaveBar

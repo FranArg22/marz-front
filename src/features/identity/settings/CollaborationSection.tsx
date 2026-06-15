@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import { useStore } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
@@ -22,7 +21,6 @@ import type { LucideIcon } from 'lucide-react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
-import { Label } from '#/components/ui/label'
 import { Switch } from '#/components/ui/switch'
 import { cn } from '#/lib/utils'
 import {
@@ -45,6 +43,7 @@ import {
 } from '#/shared/ui/form'
 
 import { SectionSaveBar } from './SectionSaveBar'
+import { SettingsCard, SettingsRow } from './SettingsCard'
 
 function getCreatorKinds() {
   return [
@@ -185,51 +184,65 @@ export function CollaborationSection({ data }: CollaborationSectionProps) {
           void handleSave()
         }}
       >
-        <div className="flex-1 space-y-8">
-          <form.AppField name="creator_kinds">
-            {(field) => (
-              <CreatorKindChips
-                value={field.state.value}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                error={getFieldError(field)}
-              />
-            )}
-          </form.AppField>
+        <div className="flex-1 space-y-6">
+          <SettingsCard
+            title={t`Tipo de creador`}
+            description={t`¿Cómo trabajás con las marcas?`}
+          >
+            <form.AppField name="creator_kinds">
+              {(field) => (
+                <CreatorKindChips
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={getFieldError(field)}
+                />
+              )}
+            </form.AppField>
+          </SettingsCard>
 
-          <form.AppField name="niches">
-            {(field) => (
-              <InterestsPicker
-                value={field.state.value}
-                options={interestOptions}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                error={getFieldError(field)}
-              />
-            )}
-          </form.AppField>
+          <SettingsCard title={t`Intereses`}>
+            <form.AppField name="niches">
+              {(field) => (
+                <InterestsPicker
+                  value={field.state.value}
+                  options={interestOptions}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={getFieldError(field)}
+                />
+              )}
+            </form.AppField>
+          </SettingsCard>
 
-          <form.AppField name="content_types">
-            {(field) => (
-              <ContentTypesPicker
-                value={field.state.value}
-                options={contentTypeOptions}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                error={getFieldError(field)}
-              />
-            )}
-          </form.AppField>
+          <SettingsCard title={t`Tipos de contenido`}>
+            <form.AppField name="content_types">
+              {(field) => (
+                <ContentTypesPicker
+                  value={field.state.value}
+                  options={contentTypeOptions}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={getFieldError(field)}
+                />
+              )}
+            </form.AppField>
+          </SettingsCard>
 
-          <form.AppField name="barter_preference">
-            {(field) => (
-              <BarterToggle
-                value={field.state.value}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-              />
-            )}
-          </form.AppField>
+          <SettingsCard
+            title={t`Canjes`}
+            description={t`Preferencias comerciales visibles para marcas.`}
+          >
+            <form.AppField name="barter_preference">
+              {(field) => (
+                <BarterToggle
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                />
+              )}
+            </form.AppField>
+          </SettingsCard>
         </div>
 
         <SectionSaveBar
@@ -258,12 +271,7 @@ function CreatorKindChips({
   const creatorKinds = useMemo(() => getCreatorKinds(), [])
 
   return (
-    <FieldGroup
-      label={t`Tipo de colaboración`}
-      hint={t`Debe seleccionar al menos uno`}
-      error={error}
-      hintId={hintId}
-    >
+    <div className="px-6 py-4">
       <div className="flex flex-wrap gap-2">
         {creatorKinds.map((option) => {
           const selected = value.includes(option.value)
@@ -286,7 +294,16 @@ function CreatorKindChips({
           )
         })}
       </div>
-    </FieldGroup>
+      <p
+        id={hintId}
+        className={cn(
+          'mt-2 text-xs',
+          error ? 'text-destructive' : 'text-muted-foreground',
+        )}
+      >
+        {error ?? t`Debe seleccionar al menos uno`}
+      </p>
+    </div>
   )
 }
 
@@ -303,11 +320,16 @@ function InterestsPicker({
   onBlur: () => void
   error?: string
 }) {
+  const selectedLabels = useMemo(
+    () => selectedOptionLabels(options, value),
+    [options, value],
+  )
+
   return (
-    <FieldGroup
-      label={t`Nichos`}
-      hint={t`${value.length} de 5 seleccionados`}
-      error={error}
+    <SettingsRow
+      label={t`Seleccionados`}
+      hint={selectedLabels ?? t`${value.length} de 5 seleccionados`}
+      align="start"
     >
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
@@ -337,7 +359,8 @@ function InterestsPicker({
           )
         })}
       </div>
-    </FieldGroup>
+      {error ? <p className="mt-2 text-xs text-destructive">{error}</p> : null}
+    </SettingsRow>
   )
 }
 
@@ -354,11 +377,16 @@ function ContentTypesPicker({
   onBlur: () => void
   error?: string
 }) {
+  const selectedLabels = useMemo(
+    () => selectedOptionLabels(options, value),
+    [options, value],
+  )
+
   return (
-    <FieldGroup
-      label={t`Tipos de contenido`}
-      hint={t`${value.length} seleccionados`}
-      error={error}
+    <SettingsRow
+      label={t`Seleccionados`}
+      hint={selectedLabels ?? t`${value.length} seleccionados`}
+      align="start"
     >
       <div className="flex flex-wrap gap-2.5">
         {options.map((option) => {
@@ -384,7 +412,8 @@ function ContentTypesPicker({
           )
         })}
       </div>
-    </FieldGroup>
+      {error ? <p className="mt-2 text-xs text-destructive">{error}</p> : null}
+    </SettingsRow>
   )
 }
 
@@ -398,54 +427,19 @@ function BarterToggle({
   onBlur: () => void
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-md border border-border bg-card px-4 py-3">
-      <div className="space-y-1">
-        <Label htmlFor="barter-preference">{t`Acepto canjes`}</Label>
-        <p className="text-sm text-muted-foreground">
-          {t`Las marcas pueden proponerte colaboraciones con producto como compensación.`}
-        </p>
+    <SettingsRow
+      label={t`Acepta colaboraciones únicamente por canje`}
+      hint={t`Al activarlo, además de las campañas pagas, también podés recibir ofertas por canjes.`}
+    >
+      <div className="flex md:justify-end">
+        <Switch
+          id="barter-preference"
+          checked={value}
+          onCheckedChange={onChange}
+          onBlur={onBlur}
+        />
       </div>
-      <Switch
-        id="barter-preference"
-        checked={value}
-        onCheckedChange={onChange}
-        onBlur={onBlur}
-      />
-    </div>
-  )
-}
-
-function FieldGroup({
-  label,
-  hint,
-  error,
-  hintId,
-  children,
-}: {
-  label: string
-  hint: string
-  error?: string
-  hintId?: string
-  children: ReactNode
-}) {
-  return (
-    <div className="space-y-3">
-      <div className="space-y-1">
-        <Label className="text-sm font-medium text-muted-foreground">
-          {label}
-        </Label>
-        <p
-          id={hintId}
-          className={cn(
-            'text-xs',
-            error ? 'text-destructive' : 'text-muted-foreground',
-          )}
-        >
-          {error ?? hint}
-        </p>
-      </div>
-      {children}
-    </div>
+    </SettingsRow>
   )
 }
 
@@ -502,6 +496,15 @@ function toggleValue<T extends string>(values: T[], value: T): T[] {
   return values.includes(value)
     ? values.filter((item) => item !== value)
     : [...values, value]
+}
+
+function selectedOptionLabels(
+  options: Option[],
+  selected: string[],
+): string | undefined {
+  if (selected.length === 0) return undefined
+  const byValue = new Map(options.map((option) => [option.value, option.label]))
+  return selected.map((value) => byValue.get(value) ?? value).join(', ')
 }
 
 function mergeSelectedOptions(options: Option[], selected: string[]): Option[] {

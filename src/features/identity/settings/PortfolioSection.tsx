@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
+import { Trash2 } from 'lucide-react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
-import { Label } from '#/components/ui/label'
 import {
   getGetMyCreatorSettingsQueryKey,
   useReplaceMyCreatorSampleVideos,
@@ -13,6 +13,7 @@ import {
 import type { CreatorSettingsResponse } from '#/shared/api/generated/model'
 
 import { SectionSaveBar } from './SectionSaveBar'
+import { SettingsCard } from './SettingsCard'
 
 type SlotsState = [string, string, string]
 type SlotErrors = [string | undefined, string | undefined, string | undefined]
@@ -77,6 +78,9 @@ export function PortfolioSection({ data }: PortfolioSectionProps) {
   return (
     <section className="flex min-h-full flex-col">
       <h1 className="text-2xl font-semibold text-foreground">{t`Portfolio`}</h1>
+      <p className="mt-1 text-sm text-muted-foreground">
+        {t`Cargá links públicos de videos para que las marcas vean ejemplos concretos de tu trabajo.`}
+      </p>
       <form
         className="mt-6 flex flex-1 flex-col"
         onSubmit={(event) => {
@@ -84,24 +88,29 @@ export function PortfolioSection({ data }: PortfolioSectionProps) {
           void handleSave()
         }}
       >
-        <div className="flex-1 space-y-4">
-          {SLOT_INDEXES.map((index) => (
-            <SampleVideoSlot
-              key={index}
-              index={index}
-              url={slots[index]}
-              error={errors[index]}
-              initiallyFilled={initialSlots[index].trim() !== ''}
-              onChange={(nextUrl) => {
-                setSlots((current) => replaceSlot(current, index, nextUrl))
-                setSaveError(null)
-              }}
-              onRemove={() => {
-                setSlots((current) => replaceSlot(current, index, ''))
-                setSaveError(null)
-              }}
-            />
-          ))}
+        <div className="flex-1">
+          <SettingsCard
+            title={t`Videos de muestra`}
+            description={t`Cargá hasta 3 videos públicos que representen tu trabajo.`}
+          >
+            {SLOT_INDEXES.map((index) => (
+              <SampleVideoSlot
+                key={index}
+                index={index}
+                url={slots[index]}
+                error={errors[index]}
+                initiallyFilled={initialSlots[index].trim() !== ''}
+                onChange={(nextUrl) => {
+                  setSlots((current) => replaceSlot(current, index, nextUrl))
+                  setSaveError(null)
+                }}
+                onRemove={() => {
+                  setSlots((current) => replaceSlot(current, index, ''))
+                  setSaveError(null)
+                }}
+              />
+            ))}
+          </SettingsCard>
         </div>
 
         <SectionSaveBar
@@ -132,54 +141,62 @@ function SampleVideoSlot({
 }) {
   const inputId = `sample-video-${index}`
   const trimmedUrl = url.trim()
-  const showReadOnlyUrl = initiallyFilled && trimmedUrl !== ''
+  const isFilled = trimmedUrl !== ''
+  const showReadOnlyUrl = initiallyFilled && isFilled
 
   return (
-    <div className="rounded-md border border-border bg-card p-4">
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-        <div className="min-w-0 flex-1 space-y-2">
-          <div className="flex items-center gap-2">
-            <p className="text-sm font-medium text-foreground">
-              {t`Video ${index + 1}`}
-            </p>
-            {trimmedUrl === '' ? (
-              <span className="rounded-sm bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                {t`Pendiente`}
-              </span>
-            ) : null}
-          </div>
-
-          {showReadOnlyUrl ? (
-            <p className="break-all text-sm text-muted-foreground">
-              {trimmedUrl}
-            </p>
+    <div className="px-6 py-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-foreground">
+          {t`Video ${index + 1}`}
+        </p>
+        <div className="flex items-center gap-2">
+          {isFilled ? (
+            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+              {t`Listo`}
+            </span>
           ) : (
-            <div className="max-w-xl space-y-2">
-              <Label htmlFor={inputId}>{t`URL del video`}</Label>
-              <Input
-                id={inputId}
-                type="text"
-                inputMode="url"
-                value={url}
-                placeholder="https://..."
-                onChange={(event) => onChange(event.target.value)}
-                aria-invalid={Boolean(error)}
-                aria-describedby={error ? `${inputId}-error` : undefined}
-              />
-            </div>
+            <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+              {t`Pendiente`}
+            </span>
           )}
-
-          {error ? (
-            <p id={`${inputId}-error`} className="text-sm text-destructive">
-              {error}
-            </p>
+          {isFilled ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={onRemove}
+            >
+              <Trash2 className="size-4 text-destructive" />
+              {t`Quitar link`}
+            </Button>
           ) : null}
         </div>
+      </div>
 
-        {trimmedUrl !== '' ? (
-          <Button type="button" variant="outline" onClick={onRemove}>
-            {t`Quitar link`}
-          </Button>
+      <div className="mt-3">
+        {showReadOnlyUrl ? (
+          <div className="flex h-9 w-full items-center break-all rounded-md border border-border bg-background px-3 text-sm text-muted-foreground">
+            {trimmedUrl}
+          </div>
+        ) : (
+          <Input
+            id={inputId}
+            type="text"
+            inputMode="url"
+            value={url}
+            placeholder={t`Pegá un link público de TikTok, Instagram, YouTube u otra plataforma`}
+            onChange={(event) => onChange(event.target.value)}
+            aria-label={t`URL del video ${index + 1}`}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? `${inputId}-error` : undefined}
+          />
+        )}
+
+        {error ? (
+          <p id={`${inputId}-error`} className="mt-2 text-sm text-destructive">
+            {error}
+          </p>
         ) : null}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react'
+import { Check, Loader2 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
@@ -34,8 +34,12 @@ export function SectionSaveBar({
           </Button>
         ) : null}
         <Button type="button" onClick={onSave} disabled={!canSave}>
-          {isSubmitting ? <Loader2 className="size-4 animate-spin" /> : null}
-          {isSubmitting ? t`Guardando...` : t`Guardar`}
+          {isSubmitting ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Check className="size-4" />
+          )}
+          {isSubmitting ? t`Guardando...` : t`Guardar cambios`}
         </Button>
       </div>
       {error ? (
