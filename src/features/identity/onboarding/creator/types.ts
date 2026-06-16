@@ -1,25 +1,8 @@
-import type { BestVideoKind } from '#/shared/api/generated/model/bestVideoKind'
+import type { BestVideo } from '#/shared/api/generated/model/bestVideo'
+import type { CreatorChannel } from '#/shared/api/generated/model/creatorChannel'
+import type { CreatorRateCard } from '#/shared/api/generated/model/creatorRateCard'
 
-export interface CreatorRateCard {
-  format: string
-  rate_amount: string
-  rate_currency: string
-}
-
-export interface CreatorChannel {
-  platform: string
-  external_handle: string
-  external_url?: string | null
-  followers?: number | null
-  verified: boolean
-  is_primary: boolean
-  rate_cards: CreatorRateCard[]
-}
-
-export interface BestVideo {
-  url: string
-  kind: BestVideoKind
-}
+export type { BestVideo, CreatorChannel, CreatorRateCard }
 
 const CreatorOnboardingPayloadGender = {
   male: 'male',

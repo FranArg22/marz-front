@@ -73,9 +73,9 @@ const VALID_STATE = {
     },
   ],
   best_videos: [
-    { url: 'https://example.com/1', kind: 'organic' },
-    { url: 'https://example.com/2', kind: 'branded' },
-    { url: 'https://example.com/3', kind: 'organic' },
+    { url: 'https://example.com/1' },
+    { url: 'https://example.com/2' },
+    { url: 'https://example.com/3' },
   ],
 }
 

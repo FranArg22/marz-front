@@ -67,7 +67,7 @@ const sameContentOffer: OfferDTO = {
     {
       position: 1,
       platform: 'youtube',
-      format: 'yt_long',
+      format: 'yt_short',
       quantity: 1,
       amount: '4500.00',
     },
@@ -82,7 +82,7 @@ const perPlatformOffer: OfferDTO = {
     {
       position: 1,
       platform: 'youtube',
-      format: 'yt_long',
+      format: 'yt_short',
       quantity: 1,
       amount: '2000.00',
     },
@@ -102,7 +102,7 @@ function makeDeliverables(statuses: DeliverableStatus[]): DeliverableDTO[] {
     offer_id: 'offer-1',
     offer_stage_id: null,
     platform: 'youtube',
-    format: 'yt_long',
+    format: 'yt_short',
     status,
     deadline: null,
     current_version: null,
