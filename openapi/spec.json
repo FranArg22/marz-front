@@ -13571,13 +13571,16 @@
       },
       "PayoutAccount": {
         "type": "object",
+        "description": "ACH payout account. Wire transfers are not supported.",
         "required": [
           "id",
+          "type",
+          "name",
+          "account_holder_name",
+          "account_number",
           "account_type",
-          "holder_name",
-          "provider_name",
-          "identifier",
-          "country",
+          "routing_number",
+          "address",
           "status",
           "updated_at"
         ],
@@ -13586,32 +13589,44 @@
             "type": "string",
             "format": "uuid"
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ach"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Account name / label."
+          },
+          "account_holder_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "account_number": {
+            "type": "string",
+            "pattern": "^\\d{1,17}$"
+          },
           "account_type": {
             "type": "string",
             "enum": [
-              "bank",
-              "external_app"
+              "checking",
+              "savings",
+              "business"
             ]
           },
-          "holder_name": {
+          "routing_number": {
+            "type": "string",
+            "pattern": "^\\d{9}$",
+            "description": "US ABA routing number (9 digits)."
+          },
+          "address": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 200
-          },
-          "provider_name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
-          "identifier": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
-          "country": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
+            "maxLength": 500
           },
           "status": {
             "type": "string",
@@ -13628,39 +13643,53 @@
       "UpsertPayoutAccountRequest": {
         "type": "object",
         "required": [
+          "type",
+          "name",
+          "account_holder_name",
+          "account_number",
           "account_type",
-          "holder_name",
-          "provider_name",
-          "identifier",
-          "country"
+          "routing_number",
+          "address"
         ],
         "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "ach"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Account name / label."
+          },
+          "account_holder_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "account_number": {
+            "type": "string",
+            "pattern": "^\\d{1,17}$"
+          },
           "account_type": {
             "type": "string",
             "enum": [
-              "bank",
-              "external_app"
+              "checking",
+              "savings",
+              "business"
             ]
           },
-          "holder_name": {
+          "routing_number": {
+            "type": "string",
+            "pattern": "^\\d{9}$",
+            "description": "US ABA routing number (9 digits)."
+          },
+          "address": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 200
-          },
-          "provider_name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
-          "identifier": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
-          "country": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
+            "maxLength": 500
           }
         }
       },

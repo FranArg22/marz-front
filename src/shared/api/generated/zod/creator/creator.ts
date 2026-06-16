@@ -350,71 +350,74 @@ export const GetCreatorEarningsResponse = zod.object({
 })
 })
 
-export const getMyPayoutAccountResponseAccountOneHolderNameMax = 200;
+export const getMyPayoutAccountResponseAccountOneNameMax = 200;
 
-export const getMyPayoutAccountResponseAccountOneProviderNameMax = 200;
+export const getMyPayoutAccountResponseAccountOneAccountHolderNameMax = 200;
 
-export const getMyPayoutAccountResponseAccountOneIdentifierMax = 200;
-
-export const getMyPayoutAccountResponseAccountOneCountryMin = 2;
-export const getMyPayoutAccountResponseAccountOneCountryMax = 2;
+export const getMyPayoutAccountResponseAccountOneAccountNumberRegExp = new RegExp('^\\d{1,17}$');
+export const getMyPayoutAccountResponseAccountOneRoutingNumberRegExp = new RegExp('^\\d{9}$');
+export const getMyPayoutAccountResponseAccountOneAddressMax = 500;
 
 
 
 export const GetMyPayoutAccountResponse = zod.object({
   "account": zod.object({
   "id": zod.uuid(),
-  "account_type": zod.enum(['bank', 'external_app']),
-  "holder_name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneHolderNameMax),
-  "provider_name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneProviderNameMax),
-  "identifier": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneIdentifierMax),
-  "country": zod.string().min(getMyPayoutAccountResponseAccountOneCountryMin).max(getMyPayoutAccountResponseAccountOneCountryMax),
+  "type": zod.enum(['ach']),
+  "name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneNameMax).describe('Account name \/ label.'),
+  "account_holder_name": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneAccountHolderNameMax),
+  "account_number": zod.string().regex(getMyPayoutAccountResponseAccountOneAccountNumberRegExp),
+  "account_type": zod.enum(['checking', 'savings', 'business']),
+  "routing_number": zod.string().regex(getMyPayoutAccountResponseAccountOneRoutingNumberRegExp).describe('US ABA routing number (9 digits).'),
+  "address": zod.string().min(1).max(getMyPayoutAccountResponseAccountOneAddressMax),
   "status": zod.enum(['active']),
   "updated_at": zod.iso.datetime({})
-}).nullable()
+}).describe('ACH payout account. Wire transfers are not supported.').nullable()
 })
 
-export const upsertMyPayoutAccountBodyHolderNameMax = 200;
+export const upsertMyPayoutAccountBodyNameMax = 200;
 
-export const upsertMyPayoutAccountBodyProviderNameMax = 200;
+export const upsertMyPayoutAccountBodyAccountHolderNameMax = 200;
 
-export const upsertMyPayoutAccountBodyIdentifierMax = 200;
-
-export const upsertMyPayoutAccountBodyCountryMin = 2;
-export const upsertMyPayoutAccountBodyCountryMax = 2;
+export const upsertMyPayoutAccountBodyAccountNumberRegExp = new RegExp('^\\d{1,17}$');
+export const upsertMyPayoutAccountBodyRoutingNumberRegExp = new RegExp('^\\d{9}$');
+export const upsertMyPayoutAccountBodyAddressMax = 500;
 
 
 
 export const UpsertMyPayoutAccountBody = zod.object({
-  "account_type": zod.enum(['bank', 'external_app']),
-  "holder_name": zod.string().min(1).max(upsertMyPayoutAccountBodyHolderNameMax),
-  "provider_name": zod.string().min(1).max(upsertMyPayoutAccountBodyProviderNameMax),
-  "identifier": zod.string().min(1).max(upsertMyPayoutAccountBodyIdentifierMax),
-  "country": zod.string().min(upsertMyPayoutAccountBodyCountryMin).max(upsertMyPayoutAccountBodyCountryMax)
+  "type": zod.enum(['ach']),
+  "name": zod.string().min(1).max(upsertMyPayoutAccountBodyNameMax).describe('Account name \/ label.'),
+  "account_holder_name": zod.string().min(1).max(upsertMyPayoutAccountBodyAccountHolderNameMax),
+  "account_number": zod.string().regex(upsertMyPayoutAccountBodyAccountNumberRegExp),
+  "account_type": zod.enum(['checking', 'savings', 'business']),
+  "routing_number": zod.string().regex(upsertMyPayoutAccountBodyRoutingNumberRegExp).describe('US ABA routing number (9 digits).'),
+  "address": zod.string().min(1).max(upsertMyPayoutAccountBodyAddressMax)
 })
 
-export const upsertMyPayoutAccountResponseAccountHolderNameMax = 200;
+export const upsertMyPayoutAccountResponseAccountNameMax = 200;
 
-export const upsertMyPayoutAccountResponseAccountProviderNameMax = 200;
+export const upsertMyPayoutAccountResponseAccountAccountHolderNameMax = 200;
 
-export const upsertMyPayoutAccountResponseAccountIdentifierMax = 200;
-
-export const upsertMyPayoutAccountResponseAccountCountryMin = 2;
-export const upsertMyPayoutAccountResponseAccountCountryMax = 2;
+export const upsertMyPayoutAccountResponseAccountAccountNumberRegExp = new RegExp('^\\d{1,17}$');
+export const upsertMyPayoutAccountResponseAccountRoutingNumberRegExp = new RegExp('^\\d{9}$');
+export const upsertMyPayoutAccountResponseAccountAddressMax = 500;
 
 
 
 export const UpsertMyPayoutAccountResponse = zod.object({
   "account": zod.object({
   "id": zod.uuid(),
-  "account_type": zod.enum(['bank', 'external_app']),
-  "holder_name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountHolderNameMax),
-  "provider_name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountProviderNameMax),
-  "identifier": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountIdentifierMax),
-  "country": zod.string().min(upsertMyPayoutAccountResponseAccountCountryMin).max(upsertMyPayoutAccountResponseAccountCountryMax),
+  "type": zod.enum(['ach']),
+  "name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountNameMax).describe('Account name \/ label.'),
+  "account_holder_name": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountAccountHolderNameMax),
+  "account_number": zod.string().regex(upsertMyPayoutAccountResponseAccountAccountNumberRegExp),
+  "account_type": zod.enum(['checking', 'savings', 'business']),
+  "routing_number": zod.string().regex(upsertMyPayoutAccountResponseAccountRoutingNumberRegExp).describe('US ABA routing number (9 digits).'),
+  "address": zod.string().min(1).max(upsertMyPayoutAccountResponseAccountAddressMax),
   "status": zod.enum(['active']),
   "updated_at": zod.iso.datetime({})
-})
+}).describe('ACH payout account. Wire transfers are not supported.')
 })
 
 export const getMyCreatorSettingsResponseContactCountryMin = 2;

@@ -8,27 +8,32 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import type { UpsertPayoutAccountRequestAccountType } from './upsertPayoutAccountRequestAccountType';
+import type { UpsertPayoutAccountRequestType } from './upsertPayoutAccountRequestType';
 
 export interface UpsertPayoutAccountRequest {
+  type: UpsertPayoutAccountRequestType;
+  /**
+     * Account name / label.
+     * @minLength 1
+     * @maxLength 200
+     */
+  name: string;
+  /**
+     * @minLength 1
+     * @maxLength 200
+     */
+  account_holder_name: string;
+  /** @pattern ^\d{1,17}$ */
+  account_number: string;
   account_type: UpsertPayoutAccountRequestAccountType;
   /**
-     * @minLength 1
-     * @maxLength 200
+     * US ABA routing number (9 digits).
+     * @pattern ^\d{9}$
      */
-  holder_name: string;
+  routing_number: string;
   /**
      * @minLength 1
-     * @maxLength 200
+     * @maxLength 500
      */
-  provider_name: string;
-  /**
-     * @minLength 1
-     * @maxLength 200
-     */
-  identifier: string;
-  /**
-     * @minLength 2
-     * @maxLength 2
-     */
-  country: string;
+  address: string;
 }

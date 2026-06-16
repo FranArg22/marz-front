@@ -15,26 +15,15 @@ test.describe('Creator settings — wallet', () => {
 
     const dialog = page.getByRole('dialog')
     await expect(dialog).toBeVisible()
-    await expect(dialog.getByLabel('Tipo de cuenta')).toBeVisible()
-    await expect(dialog.getByText('Banco')).toBeVisible()
-    await expect(
-      dialog.getByText('Aplicación o billetera virtual'),
-    ).toBeVisible()
+    await expect(dialog.getByLabel('Nombre de la cuenta')).toBeVisible()
     await expect(dialog.getByLabel('Titular de la cuenta')).toBeVisible()
-    await expect(dialog.getByLabel('Banco')).toBeVisible()
-    await expect(
-      dialog.getByLabel('Identificador (CBU, IBAN, email, alias...)'),
-    ).toBeVisible()
-    await expect(dialog.getByLabel('País')).toBeVisible()
-    await expect(dialog.getByText(/Marz transfiere en USD/)).toBeVisible()
+    await expect(dialog.getByLabel('Número de cuenta')).toBeVisible()
+    await expect(dialog.getByLabel('Tipo de cuenta')).toBeVisible()
+    await expect(dialog.getByLabel('Routing number (ABA)')).toBeVisible()
+    await expect(dialog.getByLabel('Dirección')).toBeVisible()
+    await expect(dialog.getByText(/Solo transferencias ACH/)).toBeVisible()
 
-    await selectOption(page, 'Tipo de cuenta', 'Banco')
-    await dialog.getByLabel('Titular de la cuenta').fill('Test Creator')
-    await dialog.getByLabel('Banco').fill('Banco Test')
-    await dialog
-      .getByLabel('Identificador (CBU, IBAN, email, alias...)')
-      .fill(`test-alias-${Date.now()}`)
-    await selectOption(page, 'País', 'Argentina')
+    await fillAchForm(page, dialog)
 
     await Promise.all([
       waitForPayoutAccountPut(page),
@@ -58,7 +47,7 @@ test.describe('Creator settings — wallet', () => {
     await dialog.getByRole('button', { name: 'Guardar' }).click()
 
     await expect(
-      dialog.getByText(/Titular|required|requerido|Invalid|Too small/i),
+      dialog.getByText(/required|requerido|Invalid|Too small/i).first(),
     ).toBeVisible()
     await expect(dialog).toBeVisible()
   })
@@ -94,11 +83,13 @@ test.describe('Creator settings — wallet', () => {
   }) => {
     await onboardedCreatorUser.signIn(page)
     await seedPayoutAccount(page, {
-      account_type: 'bank',
-      holder_name: 'E2E Creator Wallet',
-      provider_name: 'Banco Wallet',
-      identifier: `wallet-bank-${Date.now()}`,
-      country: 'AR',
+      type: 'ach',
+      name: 'Cuenta inicial',
+      account_holder_name: 'E2E Creator Wallet',
+      account_number: '11112222',
+      account_type: 'checking',
+      routing_number: '021000021',
+      address: '1 Main St, New York',
     })
 
     await page.goto('/settings?section=billetera')
@@ -110,11 +101,8 @@ test.describe('Creator settings — wallet', () => {
     const dialog = page.getByRole('dialog')
     await expect(dialog).toBeVisible()
 
-    await selectOption(page, 'Tipo de cuenta', 'Aplicación o billetera virtual')
-    await dialog.getByLabel('Proveedor').fill('Wallet Test')
-    await dialog
-      .getByLabel('Identificador (CBU, IBAN, email, alias...)')
-      .fill(`wallet-app-${Date.now()}`)
+    await dialog.getByLabel('Nombre de la cuenta').fill('Cuenta nueva')
+    await dialog.getByLabel('Número de cuenta').fill('99998888')
 
     await Promise.all([
       waitForPayoutAccountPut(page),
@@ -122,9 +110,7 @@ test.describe('Creator settings — wallet', () => {
     ])
 
     await expect(dialog).toBeHidden()
-    await expect(
-      page.getByText('Aplicación o billetera virtual').first(),
-    ).toBeVisible()
+    await expect(page.getByText('Cuenta nueva').first()).toBeVisible()
   })
 
   test('creator_settings.wallet.payout_account_private', async ({
@@ -154,6 +140,15 @@ async function gotoWalletSettings(
   await user.signIn(page)
   await page.goto('/settings?section=billetera')
   await expect(page.getByRole('heading', { name: 'Billetera' })).toBeVisible()
+}
+
+async function fillAchForm(page: Page, dialog: ReturnType<Page['getByRole']>) {
+  await dialog.getByLabel('Nombre de la cuenta').fill('Cuenta principal')
+  await dialog.getByLabel('Titular de la cuenta').fill('Test Creator')
+  await dialog.getByLabel('Número de cuenta').fill('12345678')
+  await selectOption(page, 'Tipo de cuenta', 'Checking')
+  await dialog.getByLabel('Routing number (ABA)').fill('021000021')
+  await dialog.getByLabel('Dirección').fill('1 Main St, New York')
 }
 
 async function selectOption(page: Page, label: string, option: string) {
@@ -207,11 +202,13 @@ async function mockInitialEmptyPayoutAccount(page: Page) {
 async function seedPayoutAccount(
   page: Page,
   data: {
-    account_type: 'bank' | 'external_app'
-    holder_name: string
-    provider_name: string
-    identifier: string
-    country: string
+    type: 'ach'
+    name: string
+    account_holder_name: string
+    account_number: string
+    account_type: 'checking' | 'savings' | 'business'
+    routing_number: string
+    address: string
   },
 ) {
   const token = await getClerkSessionToken(page)

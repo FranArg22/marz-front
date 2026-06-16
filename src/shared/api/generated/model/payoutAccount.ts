@@ -9,30 +9,38 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 import type { PayoutAccountAccountType } from './payoutAccountAccountType';
 import type { PayoutAccountStatus } from './payoutAccountStatus';
+import type { PayoutAccountType } from './payoutAccountType';
 
+/**
+ * ACH payout account. Wire transfers are not supported.
+ */
 export interface PayoutAccount {
   id: string;
+  type: PayoutAccountType;
+  /**
+     * Account name / label.
+     * @minLength 1
+     * @maxLength 200
+     */
+  name: string;
+  /**
+     * @minLength 1
+     * @maxLength 200
+     */
+  account_holder_name: string;
+  /** @pattern ^\d{1,17}$ */
+  account_number: string;
   account_type: PayoutAccountAccountType;
   /**
-     * @minLength 1
-     * @maxLength 200
+     * US ABA routing number (9 digits).
+     * @pattern ^\d{9}$
      */
-  holder_name: string;
+  routing_number: string;
   /**
      * @minLength 1
-     * @maxLength 200
+     * @maxLength 500
      */
-  provider_name: string;
-  /**
-     * @minLength 1
-     * @maxLength 200
-     */
-  identifier: string;
-  /**
-     * @minLength 2
-     * @maxLength 2
-     */
-  country: string;
+  address: string;
   status: PayoutAccountStatus;
   updated_at: string;
 }

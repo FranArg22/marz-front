@@ -8,11 +8,9 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export type UpsertPayoutAccountRequestAccountType = typeof UpsertPayoutAccountRequestAccountType[keyof typeof UpsertPayoutAccountRequestAccountType];
+export type UpsertPayoutAccountRequestType = typeof UpsertPayoutAccountRequestType[keyof typeof UpsertPayoutAccountRequestType];
 
 
-export const UpsertPayoutAccountRequestAccountType = {
-  checking: 'checking',
-  savings: 'savings',
-  business: 'business',
+export const UpsertPayoutAccountRequestType = {
+  ach: 'ach',
 } as const;

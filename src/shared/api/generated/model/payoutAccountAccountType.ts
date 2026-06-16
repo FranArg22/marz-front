@@ -12,6 +12,7 @@ export type PayoutAccountAccountType = typeof PayoutAccountAccountType[keyof typ
 
 
 export const PayoutAccountAccountType = {
-  bank: 'bank',
-  external_app: 'external_app',
+  checking: 'checking',
+  savings: 'savings',
+  business: 'business',
 } as const;

@@ -144,11 +144,13 @@ async function seedWalletAndPortfolio(page: Page) {
       method: 'PUT',
       headers,
       data: {
-        account_type: 'bank',
-        holder_name: 'E2E Creator',
-        provider_name: 'Banco Marz',
-        identifier: 'e2e-alias-creator-settings',
-        country: 'AR',
+        type: 'ach',
+        name: 'E2E Creator account',
+        account_holder_name: 'E2E Creator',
+        account_number: '12345678',
+        account_type: 'checking',
+        routing_number: '021000021',
+        address: '1 Main St, New York',
       },
     },
   )

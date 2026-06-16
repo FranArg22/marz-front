@@ -1,17 +1,9 @@
-import type { ReactNode } from 'react'
 import { t } from '@lingui/core/macro'
-import {
-  CheckCircle2,
-  CircleAlert,
-  Landmark,
-  Pencil,
-  Smartphone,
-} from 'lucide-react'
+import { CheckCircle2, CircleAlert, Landmark, Pencil } from 'lucide-react'
 
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import type { PayoutAccount } from '#/shared/api/generated/model'
-import { COUNTRIES } from '#/features/identity/onboarding/creator/countries'
 
 import {
   SettingsCard,
@@ -23,6 +15,13 @@ interface PayoutAccountCardProps {
   isLoading: boolean
   onEdit: () => void
 }
+
+const ACCOUNT_TYPE_LABELS: Record<PayoutAccount['account_type'], () => string> =
+  {
+    checking: () => t`Checking`,
+    savings: () => t`Savings`,
+    business: () => t`Business`,
+  }
 
 export function PayoutAccountCard({
   account,
@@ -36,7 +35,7 @@ export function PayoutAccountCard({
       <div className="space-y-6">
         <SettingsCard
           title={t`Cuenta de cobro`}
-          description={t`Guardá los datos donde querés recibir tus transferencias.`}
+          description={t`Guardá los datos donde querés recibir tus transferencias ACH.`}
         >
           <div className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-3">
@@ -61,28 +60,22 @@ export function PayoutAccountCard({
 
         <SettingsCard
           title={t`Qué datos puede cargar`}
-          description={t`Aceptá una cuenta bancaria tradicional o una cuenta externa como Wise, Payoneer, Mercado Pago u otra app similar.`}
+          description={t`Por ahora solo aceptamos cuentas bancarias de Estados Unidos vía transferencia ACH.`}
         >
-          <DataTypeRow
-            icon={
-              <Landmark
-                className="mt-0.5 size-5 shrink-0 text-muted-foreground"
-                aria-hidden
-              />
-            }
-            title={t`Cuenta bancaria`}
-            description={t`Titular, banco, país, moneda y CBU/IBAN/número de cuenta.`}
-          />
-          <DataTypeRow
-            icon={
-              <Smartphone
-                className="mt-0.5 size-5 shrink-0 text-muted-foreground"
-                aria-hidden
-              />
-            }
-            title={t`App de cobro`}
-            description={t`Proveedor, email o identificador de cuenta y moneda de recepción.`}
-          />
+          <div className="flex items-start gap-3 px-6 py-4">
+            <Landmark
+              className="mt-0.5 size-5 shrink-0 text-muted-foreground"
+              aria-hidden
+            />
+            <div className="space-y-1">
+              <p className="text-sm font-medium text-foreground">
+                {t`Cuenta bancaria (ACH)`}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {t`Nombre de la cuenta, titular, número de cuenta, tipo, routing number y dirección.`}
+              </p>
+            </div>
+          </div>
         </SettingsCard>
       </div>
     )
@@ -125,10 +118,10 @@ export function PayoutAccountCard({
         <header className="flex items-start justify-between gap-3 px-6 py-5">
           <div>
             <h2 className="text-base font-semibold text-foreground">
-              {account.provider_name}
+              {account.name}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              {t`Cuenta externa en USD configurada para pagos manuales.`}
+              {t`Cuenta bancaria de EE. UU. (ACH) en USD para pagos manuales.`}
             </p>
           </div>
           <Badge variant="secondary" className="mt-0.5 shrink-0">
@@ -136,37 +129,25 @@ export function PayoutAccountCard({
           </Badge>
         </header>
         <div className="divide-y divide-border border-t border-border">
-          <PayoutAccountDetail label={t`Titular`} value={account.holder_name} />
           <PayoutAccountDetail
-            label={t`Identificador`}
-            value={account.identifier}
+            label={t`Titular`}
+            value={account.account_holder_name}
           />
           <PayoutAccountDetail
-            label={t`País / moneda`}
-            value={formatCountryCurrency(account.country)}
+            label={t`Número de cuenta`}
+            value={maskAccountNumber(account.account_number)}
           />
+          <PayoutAccountDetail
+            label={t`Tipo de cuenta`}
+            value={accountTypeLabel(account.account_type)}
+          />
+          <PayoutAccountDetail
+            label={t`Routing number`}
+            value={account.routing_number}
+          />
+          <PayoutAccountDetail label={t`Dirección`} value={account.address} />
         </div>
       </section>
-    </div>
-  )
-}
-
-function DataTypeRow({
-  icon,
-  title,
-  description,
-}: {
-  icon: ReactNode
-  title: string
-  description: string
-}) {
-  return (
-    <div className="flex items-start gap-3 px-6 py-4">
-      {icon}
-      <div className="space-y-1">
-        <p className="text-sm font-medium text-foreground">{title}</p>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
     </div>
   )
 }
@@ -206,14 +187,17 @@ function PayoutAccountDetail({
   )
 }
 
-function accountSummary(account: PayoutAccount) {
-  return [account.provider_name, account.identifier, t`USD`]
-    .filter(Boolean)
-    .join(' · ')
+function accountTypeLabel(accountType: PayoutAccount['account_type']) {
+  return ACCOUNT_TYPE_LABELS[accountType]()
 }
 
-function formatCountryCurrency(country: string) {
-  const match = COUNTRIES.find((item) => item.code === country.toUpperCase())
-  const name = match ? match.name : country.toUpperCase()
-  return `${name} · ${t`USD`}`
+function maskAccountNumber(accountNumber: string) {
+  const last4 = accountNumber.slice(-4)
+  return `•••• ${last4}`
+}
+
+function accountSummary(account: PayoutAccount) {
+  return [account.name, maskAccountNumber(account.account_number), t`USD`]
+    .filter(Boolean)
+    .join(' · ')
 }

@@ -6,7 +6,6 @@ import { CircleCheck } from 'lucide-react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
-import { ToggleGroup, ToggleGroupItem } from '#/components/ui/toggle-group'
 import {
   Dialog,
   DialogContent,
@@ -23,15 +22,21 @@ import type {
   PayoutAccount,
   UpsertPayoutAccountRequest,
 } from '#/shared/api/generated/model'
-import { COUNTRIES } from '#/features/identity/onboarding/creator/countries'
 import { useAppForm } from '#/shared/ui/form'
 
+const ACCOUNT_TYPE_OPTIONS = [
+  { value: 'checking', label: () => t`Checking` },
+  { value: 'savings', label: () => t`Savings` },
+  { value: 'business', label: () => t`Business` },
+] as const
+
 export const PayoutAccountSchema = z.object({
-  account_type: z.enum(['bank', 'external_app']),
-  holder_name: z.string().min(1).max(200),
-  provider_name: z.string().min(1).max(200),
-  identifier: z.string().min(1).max(200),
-  country: z.string().length(2),
+  name: z.string().min(1).max(200),
+  account_holder_name: z.string().min(1).max(200),
+  account_number: z.string().regex(/^\d{1,17}$/),
+  account_type: z.enum(['checking', 'savings', 'business']),
+  routing_number: z.string().regex(/^\d{9}$/),
+  address: z.string().min(1).max(500),
 })
 
 type PayoutAccountValues = z.infer<typeof PayoutAccountSchema>
@@ -93,7 +98,7 @@ function PayoutAccountModalContent({
           {account ? t`Editar cuenta de cobro` : t`Agregar cuenta de cobro`}
         </DialogTitle>
         <DialogDescription>
-          {t`Cargá una cuenta bancaria o externa que pueda recibir transferencias en USD.`}
+          {t`Cargá una cuenta bancaria de Estados Unidos para recibir transferencias ACH en USD.`}
         </DialogDescription>
       </DialogHeader>
 
@@ -104,33 +109,19 @@ function PayoutAccountModalContent({
           void form.handleSubmit()
         }}
       >
-        <form.AppField name="account_type">
-          {(field) => (
-            <ToggleGroup
-              type="single"
-              variant="outline"
-              value={field.state.value}
-              onValueChange={(value) => {
-                if (value)
-                  field.handleChange(
-                    value as PayoutAccountValues['account_type'],
-                  )
-              }}
-              className="w-full"
-              aria-label={t`Tipo de cuenta`}
-            >
-              <ToggleGroupItem value="bank" className="flex-1">
-                {t`Banco`}
-              </ToggleGroupItem>
-              <ToggleGroupItem value="external_app" className="flex-1">
-                {t`App externa`}
-              </ToggleGroupItem>
-            </ToggleGroup>
-          )}
-        </form.AppField>
-
         <div className="grid gap-5">
-          <form.AppField name="holder_name">
+          <form.AppField name="name">
+            {(field) => (
+              <field.TextField
+                label={t`Nombre de la cuenta`}
+                placeholder={t`Ej. Cuenta principal`}
+                required
+                maxLength={200}
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name="account_holder_name">
             {(field) => (
               <field.TextField
                 label={t`Titular de la cuenta`}
@@ -142,38 +133,52 @@ function PayoutAccountModalContent({
             )}
           </form.AppField>
 
-          <form.AppField name="provider_name">
+          <form.AppField name="account_number">
             {(field) => (
               <field.TextField
-                label={t`Banco o proveedor`}
-                placeholder={t`Banco Galicia, Wise, Payoneer...`}
+                label={t`Número de cuenta`}
+                placeholder={t`Solo dígitos`}
                 required
-                maxLength={200}
+                inputMode="numeric"
+                maxLength={17}
               />
             )}
           </form.AppField>
 
-          <form.AppField name="identifier">
-            {(field) => (
-              <field.TextField
-                label={t`Identificador`}
-                placeholder={t`CBU, IBAN, email o alias de cuenta`}
-                required
-                maxLength={200}
-              />
-            )}
-          </form.AppField>
-
-          <form.AppField name="country">
+          <form.AppField name="account_type">
             {(field) => (
               <field.SelectField
-                label={t`País de la cuenta`}
+                label={t`Tipo de cuenta`}
                 required
-                placeholder={t`Seleccioná un país`}
-                options={COUNTRIES.map((country) => ({
-                  value: country.code,
-                  label: country.name,
+                placeholder={t`Seleccioná un tipo`}
+                options={ACCOUNT_TYPE_OPTIONS.map((option) => ({
+                  value: option.value,
+                  label: option.label(),
                 }))}
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name="routing_number">
+            {(field) => (
+              <field.TextField
+                label={t`Routing number (ABA)`}
+                placeholder={t`9 dígitos`}
+                required
+                inputMode="numeric"
+                maxLength={9}
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name="address">
+            {(field) => (
+              <field.TextField
+                label={t`Dirección`}
+                placeholder={t`Dirección del titular de la cuenta`}
+                required
+                maxLength={500}
+                autoComplete="street-address"
               />
             )}
           </form.AppField>
@@ -186,10 +191,10 @@ function PayoutAccountModalContent({
           />
           <div className="space-y-0.5">
             <p className="text-sm font-medium text-foreground">
-              {t`La cuenta debe recibir USD`}
+              {t`Solo transferencias ACH en USD`}
             </p>
             <p className="text-sm text-muted-foreground">
-              {t`Por ahora solo hacemos transferencias en dólares estadounidenses.`}
+              {t`Por ahora solo soportamos cuentas bancarias de Estados Unidos vía ACH.`}
             </p>
           </div>
         </div>
@@ -214,20 +219,23 @@ function PayoutAccountModalContent({
 
 function toFormValues(account: PayoutAccount | null): PayoutAccountValues {
   return {
-    account_type: account?.account_type ?? 'bank',
-    holder_name: account?.holder_name ?? '',
-    provider_name: account?.provider_name ?? '',
-    identifier: account?.identifier ?? '',
-    country: account?.country ?? '',
+    name: account?.name ?? '',
+    account_holder_name: account?.account_holder_name ?? '',
+    account_number: account?.account_number ?? '',
+    account_type: account?.account_type ?? 'checking',
+    routing_number: account?.routing_number ?? '',
+    address: account?.address ?? '',
   }
 }
 
 function toPayload(value: PayoutAccountValues): UpsertPayoutAccountRequest {
   return {
+    type: 'ach',
+    name: value.name.trim(),
+    account_holder_name: value.account_holder_name.trim(),
+    account_number: value.account_number.trim(),
     account_type: value.account_type,
-    holder_name: value.holder_name.trim(),
-    provider_name: value.provider_name.trim(),
-    identifier: value.identifier.trim(),
-    country: value.country.toUpperCase(),
+    routing_number: value.routing_number.trim(),
+    address: value.address.trim(),
   }
 }
