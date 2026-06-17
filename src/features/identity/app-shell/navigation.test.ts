@@ -27,6 +27,7 @@ describe('shellNavigationConfig', () => {
       'creators',
       'discovery',
       'videos',
+      'settings',
       'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
@@ -37,6 +38,7 @@ describe('shellNavigationConfig', () => {
       'creators',
       'discovery',
       'videos',
+      'settings',
     ])
   })
 
@@ -82,6 +84,17 @@ describe('shellNavigationConfig', () => {
     expect(brandDiscovery?.href).toBe('/discovery')
     expect(brandDiscovery?.label()).toBe('Discovery')
     expect(creatorDiscovery).toBeUndefined()
+  })
+
+  it('defines settings only for brand navigation with settings icon', () => {
+    const brandSettings = brandItems.find((item) => item.id === 'settings')
+    const creatorSettings = creatorItems.find((item) => item.id === 'settings')
+
+    expect(brandSettings?.id).toBe('settings')
+    expect(brandSettings?.icon).toBe('settings')
+    expect(brandSettings?.href).toBe('/ajustes')
+    expect(brandSettings?.label()).toBe('Ajustes')
+    expect(creatorSettings).toBeUndefined()
   })
 
   it('keeps disabled items non-navigable', () => {
@@ -133,6 +146,15 @@ describe('resolveActiveSidebarItem', () => {
     expect(resolveActiveSidebarItem(brandItems, '/discovery/saved')?.id).toBe(
       'discovery',
     )
+  })
+
+  it('resolves settings for /ajustes descendants', () => {
+    expect(resolveActiveSidebarItem(brandItems, '/ajustes')?.id).toBe(
+      'settings',
+    )
+    expect(
+      resolveActiveSidebarItem(brandItems, '/ajustes/suscripcion')?.id,
+    ).toBe('settings')
   })
 
   it('returns null when no enabled item matches', () => {

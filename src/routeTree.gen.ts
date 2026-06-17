@@ -35,9 +35,11 @@ import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
 import { Route as BrandCheckoutReturnRouteImport } from './routes/_brand/checkout-return'
 import { Route as BrandCampaignsRouteImport } from './routes/_brand/campaigns'
 import { Route as BrandBillingRouteImport } from './routes/_brand/billing'
+import { Route as BrandAjustesRouteImport } from './routes/_brand/ajustes'
 import { Route as OnboardingCreatorIndexRouteImport } from './routes/onboarding/creator.index'
 import { Route as OnboardingBrandIndexRouteImport } from './routes/onboarding/brand.index'
 import { Route as BrandCampaignsIndexRouteImport } from './routes/_brand/campaigns.index'
+import { Route as BrandAjustesIndexRouteImport } from './routes/_brand/ajustes.index'
 import { Route as WorkspaceConversationsConversationIdRouteImport } from './routes/workspace.conversations.$conversationId'
 import { Route as OnboardingCreatorStepRouteImport } from './routes/onboarding/creator.$step'
 import { Route as OnboardingBrandBillingCallbackRouteImport } from './routes/onboarding/brand.billing-callback'
@@ -45,6 +47,8 @@ import { Route as OnboardingBrandStepRouteImport } from './routes/onboarding/bra
 import { Route as CreatorDiscoverCampaignsRouteImport } from './routes/_creator/discover.campaigns'
 import { Route as BrandCampaignsNewRouteImport } from './routes/_brand/campaigns.new'
 import { Route as BrandCampaignsCampaignIdRouteImport } from './routes/_brand/campaigns.$campaignId'
+import { Route as BrandAjustesSuscripcionRouteImport } from './routes/_brand/ajustes.suscripcion'
+import { Route as BrandAjustesGeneralRouteImport } from './routes/_brand/ajustes.general'
 import { Route as BrandCampaignsCampaignIdIndexRouteImport } from './routes/_brand/campaigns.$campaignId.index'
 
 const WorkspaceRoute = WorkspaceRouteImport.update({
@@ -175,6 +179,11 @@ const BrandBillingRoute = BrandBillingRouteImport.update({
   path: '/billing',
   getParentRoute: () => BrandRoute,
 } as any)
+const BrandAjustesRoute = BrandAjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
+  getParentRoute: () => BrandRoute,
+} as any)
 const OnboardingCreatorIndexRoute = OnboardingCreatorIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -189,6 +198,11 @@ const BrandCampaignsIndexRoute = BrandCampaignsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BrandCampaignsRoute,
+} as any)
+const BrandAjustesIndexRoute = BrandAjustesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BrandAjustesRoute,
 } as any)
 const WorkspaceConversationsConversationIdRoute =
   WorkspaceConversationsConversationIdRouteImport.update({
@@ -229,6 +243,16 @@ const BrandCampaignsCampaignIdRoute =
     path: '/$campaignId',
     getParentRoute: () => BrandCampaignsRoute,
   } as any)
+const BrandAjustesSuscripcionRoute = BrandAjustesSuscripcionRouteImport.update({
+  id: '/suscripcion',
+  path: '/suscripcion',
+  getParentRoute: () => BrandAjustesRoute,
+} as any)
+const BrandAjustesGeneralRoute = BrandAjustesGeneralRouteImport.update({
+  id: '/general',
+  path: '/general',
+  getParentRoute: () => BrandAjustesRoute,
+} as any)
 const BrandCampaignsCampaignIdIndexRoute =
   BrandCampaignsCampaignIdIndexRouteImport.update({
     id: '/',
@@ -244,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/ajustes': typeof BrandAjustesRouteWithChildren
   '/billing': typeof BrandBillingRoute
   '/campaigns': typeof BrandCampaignsRouteWithChildren
   '/checkout-return': typeof BrandCheckoutReturnRoute
@@ -261,6 +286,8 @@ export interface FileRoutesByFullPath {
   '/onboarding/creator': typeof OnboardingCreatorRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
+  '/ajustes/general': typeof BrandAjustesGeneralRoute
+  '/ajustes/suscripcion': typeof BrandAjustesSuscripcionRoute
   '/campaigns/$campaignId': typeof BrandCampaignsCampaignIdRouteWithChildren
   '/campaigns/new': typeof BrandCampaignsNewRoute
   '/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
@@ -268,6 +295,7 @@ export interface FileRoutesByFullPath {
   '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
+  '/ajustes/': typeof BrandAjustesIndexRoute
   '/campaigns/': typeof BrandCampaignsIndexRoute
   '/onboarding/brand/': typeof OnboardingBrandIndexRoute
   '/onboarding/creator/': typeof OnboardingCreatorIndexRoute
@@ -294,12 +322,15 @@ export interface FileRoutesByTo {
   '/auth/link-invalid': typeof AuthLinkInvalidRoute
   '/auth': typeof AuthIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
+  '/ajustes/general': typeof BrandAjustesGeneralRoute
+  '/ajustes/suscripcion': typeof BrandAjustesSuscripcionRoute
   '/campaigns/new': typeof BrandCampaignsNewRoute
   '/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
   '/onboarding/brand/$step': typeof OnboardingBrandStepRoute
   '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
+  '/ajustes': typeof BrandAjustesIndexRoute
   '/campaigns': typeof BrandCampaignsIndexRoute
   '/onboarding/brand': typeof OnboardingBrandIndexRoute
   '/onboarding/creator': typeof OnboardingCreatorIndexRoute
@@ -316,6 +347,7 @@ export interface FileRoutesById {
   '/health': typeof HealthRoute
   '/inbox': typeof InboxRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/_brand/ajustes': typeof BrandAjustesRouteWithChildren
   '/_brand/billing': typeof BrandBillingRoute
   '/_brand/campaigns': typeof BrandCampaignsRouteWithChildren
   '/_brand/checkout-return': typeof BrandCheckoutReturnRoute
@@ -333,6 +365,8 @@ export interface FileRoutesById {
   '/onboarding/creator': typeof OnboardingCreatorRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
+  '/_brand/ajustes/general': typeof BrandAjustesGeneralRoute
+  '/_brand/ajustes/suscripcion': typeof BrandAjustesSuscripcionRoute
   '/_brand/campaigns/$campaignId': typeof BrandCampaignsCampaignIdRouteWithChildren
   '/_brand/campaigns/new': typeof BrandCampaignsNewRoute
   '/_creator/discover/campaigns': typeof CreatorDiscoverCampaignsRoute
@@ -340,6 +374,7 @@ export interface FileRoutesById {
   '/onboarding/brand/billing-callback': typeof OnboardingBrandBillingCallbackRoute
   '/onboarding/creator/$step': typeof OnboardingCreatorStepRoute
   '/workspace/conversations/$conversationId': typeof WorkspaceConversationsConversationIdRoute
+  '/_brand/ajustes/': typeof BrandAjustesIndexRoute
   '/_brand/campaigns/': typeof BrandCampaignsIndexRoute
   '/onboarding/brand/': typeof OnboardingBrandIndexRoute
   '/onboarding/creator/': typeof OnboardingCreatorIndexRoute
@@ -355,6 +390,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/ajustes'
     | '/billing'
     | '/campaigns'
     | '/checkout-return'
@@ -372,6 +408,8 @@ export interface FileRouteTypes {
     | '/onboarding/creator'
     | '/auth/'
     | '/workspace/'
+    | '/ajustes/general'
+    | '/ajustes/suscripcion'
     | '/campaigns/$campaignId'
     | '/campaigns/new'
     | '/discover/campaigns'
@@ -379,6 +417,7 @@ export interface FileRouteTypes {
     | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
+    | '/ajustes/'
     | '/campaigns/'
     | '/onboarding/brand/'
     | '/onboarding/creator/'
@@ -405,12 +444,15 @@ export interface FileRouteTypes {
     | '/auth/link-invalid'
     | '/auth'
     | '/workspace'
+    | '/ajustes/general'
+    | '/ajustes/suscripcion'
     | '/campaigns/new'
     | '/discover/campaigns'
     | '/onboarding/brand/$step'
     | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
+    | '/ajustes'
     | '/campaigns'
     | '/onboarding/brand'
     | '/onboarding/creator'
@@ -426,6 +468,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/inbox'
     | '/workspace'
+    | '/_brand/ajustes'
     | '/_brand/billing'
     | '/_brand/campaigns'
     | '/_brand/checkout-return'
@@ -443,6 +486,8 @@ export interface FileRouteTypes {
     | '/onboarding/creator'
     | '/auth/'
     | '/workspace/'
+    | '/_brand/ajustes/general'
+    | '/_brand/ajustes/suscripcion'
     | '/_brand/campaigns/$campaignId'
     | '/_brand/campaigns/new'
     | '/_creator/discover/campaigns'
@@ -450,6 +495,7 @@ export interface FileRouteTypes {
     | '/onboarding/brand/billing-callback'
     | '/onboarding/creator/$step'
     | '/workspace/conversations/$conversationId'
+    | '/_brand/ajustes/'
     | '/_brand/campaigns/'
     | '/onboarding/brand/'
     | '/onboarding/creator/'
@@ -659,6 +705,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandBillingRouteImport
       parentRoute: typeof BrandRoute
     }
+    '/_brand/ajustes': {
+      id: '/_brand/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof BrandAjustesRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/onboarding/creator/': {
       id: '/onboarding/creator/'
       path: '/'
@@ -679,6 +732,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/campaigns/'
       preLoaderRoute: typeof BrandCampaignsIndexRouteImport
       parentRoute: typeof BrandCampaignsRoute
+    }
+    '/_brand/ajustes/': {
+      id: '/_brand/ajustes/'
+      path: '/'
+      fullPath: '/ajustes/'
+      preLoaderRoute: typeof BrandAjustesIndexRouteImport
+      parentRoute: typeof BrandAjustesRoute
     }
     '/workspace/conversations/$conversationId': {
       id: '/workspace/conversations/$conversationId'
@@ -729,6 +789,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandCampaignsCampaignIdRouteImport
       parentRoute: typeof BrandCampaignsRoute
     }
+    '/_brand/ajustes/suscripcion': {
+      id: '/_brand/ajustes/suscripcion'
+      path: '/suscripcion'
+      fullPath: '/ajustes/suscripcion'
+      preLoaderRoute: typeof BrandAjustesSuscripcionRouteImport
+      parentRoute: typeof BrandAjustesRoute
+    }
+    '/_brand/ajustes/general': {
+      id: '/_brand/ajustes/general'
+      path: '/general'
+      fullPath: '/ajustes/general'
+      preLoaderRoute: typeof BrandAjustesGeneralRouteImport
+      parentRoute: typeof BrandAjustesRoute
+    }
     '/_brand/campaigns/$campaignId/': {
       id: '/_brand/campaigns/$campaignId/'
       path: '/'
@@ -738,6 +812,22 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BrandAjustesRouteChildren {
+  BrandAjustesGeneralRoute: typeof BrandAjustesGeneralRoute
+  BrandAjustesSuscripcionRoute: typeof BrandAjustesSuscripcionRoute
+  BrandAjustesIndexRoute: typeof BrandAjustesIndexRoute
+}
+
+const BrandAjustesRouteChildren: BrandAjustesRouteChildren = {
+  BrandAjustesGeneralRoute: BrandAjustesGeneralRoute,
+  BrandAjustesSuscripcionRoute: BrandAjustesSuscripcionRoute,
+  BrandAjustesIndexRoute: BrandAjustesIndexRoute,
+}
+
+const BrandAjustesRouteWithChildren = BrandAjustesRoute._addFileChildren(
+  BrandAjustesRouteChildren,
+)
 
 interface BrandCampaignsCampaignIdRouteChildren {
   BrandCampaignsCampaignIdIndexRoute: typeof BrandCampaignsCampaignIdIndexRoute
@@ -770,6 +860,7 @@ const BrandCampaignsRouteWithChildren = BrandCampaignsRoute._addFileChildren(
 )
 
 interface BrandRouteChildren {
+  BrandAjustesRoute: typeof BrandAjustesRouteWithChildren
   BrandBillingRoute: typeof BrandBillingRoute
   BrandCampaignsRoute: typeof BrandCampaignsRouteWithChildren
   BrandCheckoutReturnRoute: typeof BrandCheckoutReturnRoute
@@ -780,6 +871,7 @@ interface BrandRouteChildren {
 }
 
 const BrandRouteChildren: BrandRouteChildren = {
+  BrandAjustesRoute: BrandAjustesRouteWithChildren,
   BrandBillingRoute: BrandBillingRoute,
   BrandCampaignsRoute: BrandCampaignsRouteWithChildren,
   BrandCheckoutReturnRoute: BrandCheckoutReturnRoute,
