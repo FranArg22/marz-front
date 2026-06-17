@@ -71,12 +71,12 @@ describe('GeneralSection', () => {
       'Ada Lovelace',
     )
     expect(screen.getByLabelText('Teléfono')).toHaveValue('+5491123456789')
-    expect(screen.getByLabelText('Fecha de nacimiento')).toHaveValue(
+    expect(screen.getByLabelText('Fecha de cumpleaños')).toHaveValue(
       '1990-01-01',
     )
     expect(screen.getByLabelText('País')).toHaveValue('AR')
     expect(screen.getByLabelText('Ciudad')).toHaveValue('Buenos Aires')
-    expect(screen.getByLabelText('Dirección de envío')).toHaveValue('Calle 123')
+    expect(screen.getByLabelText('Dirección para envíos')).toHaveValue('Calle 123')
     expect(screen.getByLabelText('Email')).toBeDisabled()
     expect(screen.getByAltText('Preview de avatar')).toHaveAttribute(
       'src',
@@ -196,8 +196,8 @@ describe('GeneralSection', () => {
     const user = userEvent.setup()
     renderGeneralSection()
 
-    await user.clear(screen.getByLabelText('Fecha de nacimiento'))
-    await user.type(screen.getByLabelText('Fecha de nacimiento'), '2010-01-01')
+    await user.clear(screen.getByLabelText('Fecha de cumpleaños'))
+    await user.type(screen.getByLabelText('Fecha de cumpleaños'), '2010-01-01')
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(

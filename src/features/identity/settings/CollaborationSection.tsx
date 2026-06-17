@@ -434,6 +434,7 @@ function BarterToggle({
       <div className="flex md:justify-end">
         <Switch
           id="barter-preference"
+          aria-label={t`Acepta colaboraciones únicamente por canje`}
           checked={value}
           onCheckedChange={onChange}
           onBlur={onBlur}

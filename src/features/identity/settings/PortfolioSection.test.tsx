@@ -44,7 +44,7 @@ describe('PortfolioSection', () => {
       screen.getByText('https://videos.example.com/one'),
     ).toBeInTheDocument()
     expect(screen.getAllByText('Pendiente')).toHaveLength(2)
-    expect(screen.getAllByLabelText('URL del video')).toHaveLength(2)
+    expect(screen.getAllByLabelText(/^URL del video/)).toHaveLength(2)
     expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
@@ -52,7 +52,7 @@ describe('PortfolioSection', () => {
     const user = userEvent.setup()
     renderPortfolioSection()
 
-    await user.type(screen.getAllByLabelText('URL del video')[0]!, 'not-a-url')
+    await user.type(screen.getAllByLabelText(/^URL del video/)[0]!, 'not-a-url')
 
     expect(
       screen.getByText('Ingresá una URL válida que empiece con http:// o https://'),
@@ -68,7 +68,7 @@ describe('PortfolioSection', () => {
     renderPortfolioSection()
 
     await user.type(
-      screen.getAllByLabelText('URL del video')[0]!,
+      screen.getAllByLabelText(/^URL del video/)[0]!,
       'https://videos.example.com/new',
     )
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))

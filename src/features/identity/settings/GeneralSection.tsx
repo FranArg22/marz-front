@@ -184,7 +184,12 @@ export function GeneralSection({ data }: GeneralSectionProps) {
 
             <SettingsRow label={t`Nombre completo`} required>
               <form.AppField name="full_name">
-                {(field) => <field.TextField autoComplete="name" />}
+                {(field) => (
+                  <field.TextField
+                    aria-label={t`Nombre completo`}
+                    autoComplete="name"
+                  />
+                )}
               </form.AppField>
             </SettingsRow>
 
@@ -204,6 +209,7 @@ export function GeneralSection({ data }: GeneralSectionProps) {
               <form.AppField name="phone_e164">
                 {(field) => (
                   <field.TextField
+                    aria-label={t`Teléfono`}
                     placeholder="+5491123456789"
                     autoComplete="tel"
                   />
@@ -221,7 +227,13 @@ export function GeneralSection({ data }: GeneralSectionProps) {
                       : undefined,
                 }}
               >
-                {(field) => <field.TextField type="date" autoComplete="bday" />}
+                {(field) => (
+                  <field.TextField
+                    aria-label={t`Fecha de cumpleaños`}
+                    type="date"
+                    autoComplete="bday"
+                  />
+                )}
               </form.AppField>
             </SettingsRow>
 
@@ -229,6 +241,7 @@ export function GeneralSection({ data }: GeneralSectionProps) {
               <form.AppField name="country">
                 {(field) => (
                   <field.TextField
+                    aria-label={t`País`}
                     placeholder="AR"
                     maxLength={2}
                     autoComplete="country"
@@ -239,7 +252,12 @@ export function GeneralSection({ data }: GeneralSectionProps) {
 
             <SettingsRow label={t`Ciudad`}>
               <form.AppField name="city">
-                {(field) => <field.TextField autoComplete="address-level2" />}
+                {(field) => (
+                  <field.TextField
+                    aria-label={t`Ciudad`}
+                    autoComplete="address-level2"
+                  />
+                )}
               </form.AppField>
             </SettingsRow>
 
@@ -250,7 +268,11 @@ export function GeneralSection({ data }: GeneralSectionProps) {
             >
               <form.AppField name="shipping_address">
                 {(field) => (
-                  <field.TextareaField autoComplete="street-address" rows={3} />
+                  <field.TextareaField
+                    aria-label={t`Dirección para envíos`}
+                    autoComplete="street-address"
+                    rows={3}
+                  />
                 )}
               </form.AppField>
             </SettingsRow>

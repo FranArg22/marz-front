@@ -77,7 +77,7 @@ describe('RatesSection', () => {
     renderRatesSection()
 
     expect(screen.getByText('@ada')).toBeInTheDocument()
-    expect(screen.getByText('12,345')).toBeInTheDocument()
+    expect(screen.getByText(/12,345/)).toBeInTheDocument()
     expect(screen.queryByRole('textbox', { name: 'Handle' })).not.toBeInTheDocument()
     expect(
       screen.queryByRole('textbox', { name: 'Seguidores' }),
@@ -196,7 +196,7 @@ function creatorSettings(): CreatorSettingsResponse {
       {
         channel_id: 'ig-1',
         platform: 'instagram',
-        handle: '@ada',
+        handle: 'ada',
         external_url: 'https://instagram.com/ada',
         followers: 12345,
         rates: [{ format: 'ig_reel', amount: '120.50', currency: 'USD' }],
@@ -204,7 +204,7 @@ function creatorSettings(): CreatorSettingsResponse {
       {
         channel_id: 'tt-1',
         platform: 'tiktok',
-        handle: '@ada.tt',
+        handle: 'ada.tt',
         external_url: null,
         followers: null,
         rates: [],
