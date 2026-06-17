@@ -216,6 +216,7 @@ export function PaymentMethodsCard({
               <Button
                 type="button"
                 variant="outline"
+                data-testid="settings.subscription.manage_stripe_button"
                 onClick={handleManage}
                 disabled={portalMutation.isPending}
               >

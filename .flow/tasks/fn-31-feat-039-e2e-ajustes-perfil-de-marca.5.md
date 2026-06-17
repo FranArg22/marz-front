@@ -162,8 +162,7 @@ pnpm typecheck
 - [ ] `pnpm quality-gates` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-039-e2e-ajustes-perfil-de-marca.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
