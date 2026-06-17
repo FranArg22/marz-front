@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T05:22:38.962557Z",
+  "depends_on": [
+    "fn-31-feat-039-e2e-ajustes-perfil-de-marca.3"
+  ],
+  "epic": "fn-31-feat-039-e2e-ajustes-perfil-de-marca",
+  "id": "fn-31-feat-039-e2e-ajustes-perfil-de-marca.4",
+  "priority": 4,
+  "spec_path": ".flow/tasks/fn-31-feat-039-e2e-ajustes-perfil-de-marca.4.md",
+  "status": "todo",
+  "title": "E2E brand-settings-general.spec.ts \u2014 logo upload, clear, S3 missing, no-diff",
+  "updated_at": "2026-06-17T05:27:26.715849Z"
+}
