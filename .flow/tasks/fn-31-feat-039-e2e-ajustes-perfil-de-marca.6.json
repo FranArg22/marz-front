@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T05:22:44.715290Z",
+  "depends_on": [
+    "fn-31-feat-039-e2e-ajustes-perfil-de-marca.5"
+  ],
+  "epic": "fn-31-feat-039-e2e-ajustes-perfil-de-marca",
+  "id": "fn-31-feat-039-e2e-ajustes-perfil-de-marca.6",
+  "priority": 6,
+  "spec_path": ".flow/tasks/fn-31-feat-039-e2e-ajustes-perfil-de-marca.6.md",
+  "status": "todo",
+  "title": "E2E brand-settings-subscription.spec.ts \u2014 upgrade modal, Stripe portal, checkout",
+  "updated_at": "2026-06-17T05:27:27.103759Z"
+}

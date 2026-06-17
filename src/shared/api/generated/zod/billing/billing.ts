@@ -10,6 +10,36 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import * as zod from 'zod';
 
 
+export const GetPlanUsageResponse = zod.object({
+  "campaigns_active": zod.object({
+  "current": zod.number().nullish(),
+  "limit": zod.number().nullish(),
+  "available": zod.boolean()
+}),
+  "creators_active": zod.object({
+  "current": zod.number().nullish(),
+  "limit": zod.number().nullish(),
+  "available": zod.boolean()
+}),
+  "invitations": zod.object({
+  "current": zod.number().nullish(),
+  "limit": zod.number().nullish(),
+  "cycle_resets_at": zod.iso.datetime({}).nullish(),
+  "available": zod.boolean()
+})
+})
+
+export const CreateBillingCheckoutSessionHeader = zod.object({
+  "Idempotency-Key": zod.uuid()
+})
+
+export const CreateBillingCheckoutSessionBody = zod.object({
+  "plan": zod.enum(['starter', 'growth', 'scale']),
+  "interval": zod.enum(['monthly', 'yearly']),
+  "success_url": zod.url(),
+  "cancel_url": zod.url()
+})
+
 /**
  * Webhook endpoint invoked by Stripe to deliver subscription/customer events. Authenticated
 via the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by

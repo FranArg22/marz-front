@@ -92,6 +92,7 @@ interface PlanCardProps {
   onSelect: () => void
   highlightLabel?: string
   onCta: () => void
+  ctaDisabled?: boolean
 }
 
 export function PlanCard({
@@ -102,6 +103,7 @@ export function PlanCard({
   onSelect,
   highlightLabel,
   onCta,
+  ctaDisabled = false,
 }: PlanCardProps) {
   const intervalLabel = interval === 'year' ? t`/mo · anual` : t`/mo`
 
@@ -171,15 +173,18 @@ export function PlanCard({
       {/* CTA button */}
       <button
         type="button"
+        disabled={ctaDisabled}
         onClick={(e) => {
           e.stopPropagation()
           onCta()
         }}
         className={cn(
           'flex h-10 w-full items-center justify-center rounded-[var(--radius-md)] text-[12px] font-semibold transition-colors',
-          selected
-            ? 'bg-primary text-primary-foreground'
-            : 'border border-[var(--border-strong)] bg-card text-foreground hover:bg-muted',
+          ctaDisabled
+            ? 'cursor-not-allowed opacity-60'
+            : selected
+              ? 'bg-primary text-primary-foreground'
+              : 'border border-[var(--border-strong)] bg-card text-foreground hover:bg-muted',
         )}
       >
         {ctaLabel}

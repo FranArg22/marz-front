@@ -1072,6 +1072,249 @@
         }
       }
     },
+    "/v1/brand-workspaces/me/logo:presign": {
+      "post": {
+        "operationId": "presignBrandLogo",
+        "tags": [
+          "identity"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoPresignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoPresignResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, body_too_large, content_type_required, content_length_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: unsupported_content_type, invalid_size. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: presign_failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/brand-workspaces/me/settings": {
+      "get": {
+        "operationId": "getBrandSettings",
+        "tags": [
+          "identity"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandSettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner, not_onboarded. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchBrandSettings",
+        "tags": [
+          "identity"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchBrandSettingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandSettingsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, body_too_large. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner, not_onboarded. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation_failed, object_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: s3_unavailable, patch_failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/webhooks/clerk": {
       "post": {
         "operationId": "clerkWebhook",
@@ -9282,6 +9525,71 @@
         }
       }
     },
+    "/v1/billing/plan-usage": {
+      "get": {
+        "operationId": "getPlanUsage",
+        "tags": [
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanUsageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner, not_onboarded. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: workspace_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/billing/portal-sessions": {
       "post": {
         "operationId": "createBillingPortalSession",
@@ -9358,6 +9666,122 @@
           },
           "422": {
             "description": "Unprocessable Entity. Possible codes: validation.invalid_url. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway. Possible codes: stripe_unavailable. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/billing/checkout-sessions": {
+      "post": {
+        "operationId": "createBillingCheckoutSession",
+        "tags": [
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckoutSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: missing_idempotency_key, invalid_idempotency_key, invalid_body. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: forbidden_role, onboarding_incomplete, already_subscribed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Possible codes: idempotency_conflict. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_plan, validation.invalid_interval, validation.invalid_url. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -11262,6 +11686,82 @@
           }
         }
       },
+      "BrandSettingsResponse": {
+        "type": "object",
+        "required": [
+          "profile",
+          "brand"
+        ],
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/BrandSettingsProfile"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/BrandSettingsBrand"
+          }
+        }
+      },
+      "BrandSettingsProfile": {
+        "type": "object",
+        "required": [
+          "full_name",
+          "email"
+        ],
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone_e164": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "BrandSettingsBrand": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "website_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "logo_url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PatchBrandSettingsRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "phone_e164": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "website_url": {
+            "type": "string"
+          },
+          "logo_s3_key": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "BrandWorkspaceSummary": {
         "type": "object",
         "description": "Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated /v1/brand-workspaces endpoint will replace this embedding.\n",
@@ -12286,6 +12786,53 @@
             "format": "int64",
             "description": "Tamaño máximo del archivo en bytes",
             "example": 5242880
+          }
+        }
+      },
+      "LogoPresignRequest": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "content_length"
+        ],
+        "properties": {
+          "content_type": {
+            "type": "string"
+          },
+          "content_length": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "LogoPresignResponse": {
+        "type": "object",
+        "required": [
+          "upload_url",
+          "s3_key",
+          "expires_in",
+          "required_headers",
+          "max_bytes"
+        ],
+        "properties": {
+          "upload_url": {
+            "type": "string"
+          },
+          "s3_key": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "integer"
+          },
+          "required_headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "max_bytes": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -14695,6 +15242,68 @@
           }
         }
       },
+      "PlanUsageResponse": {
+        "type": "object",
+        "required": [
+          "campaigns_active",
+          "creators_active",
+          "invitations"
+        ],
+        "properties": {
+          "campaigns_active": {
+            "$ref": "#/components/schemas/PlanUsageMetric"
+          },
+          "creators_active": {
+            "$ref": "#/components/schemas/PlanUsageMetric"
+          },
+          "invitations": {
+            "$ref": "#/components/schemas/PlanUsageInvitations"
+          }
+        }
+      },
+      "PlanUsageMetric": {
+        "type": "object",
+        "required": [
+          "available"
+        ],
+        "properties": {
+          "current": {
+            "type": "integer",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "nullable": true
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PlanUsageInvitations": {
+        "type": "object",
+        "required": [
+          "available"
+        ],
+        "properties": {
+          "current": {
+            "type": "integer",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "nullable": true
+          },
+          "cycle_resets_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
       "BillingPortalSessionRequest": {
         "type": "object",
         "properties": {
@@ -14720,6 +15329,52 @@
           "expires_at": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "CreateCheckoutSessionRequest": {
+        "type": "object",
+        "required": [
+          "plan",
+          "interval",
+          "success_url",
+          "cancel_url"
+        ],
+        "properties": {
+          "plan": {
+            "type": "string",
+            "enum": [
+              "starter",
+              "growth",
+              "scale"
+            ]
+          },
+          "interval": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "yearly"
+            ]
+          },
+          "success_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "cancel_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "CheckoutSessionResponse": {
+        "type": "object",
+        "required": [
+          "checkout_url"
+        ],
+        "properties": {
+          "checkout_url": {
+            "type": "string",
+            "format": "uri"
           }
         }
       },

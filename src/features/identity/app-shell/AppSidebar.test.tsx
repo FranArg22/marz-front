@@ -41,6 +41,12 @@ function renderSidebar(
     component: () => null,
   })
 
+  const settingsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/ajustes',
+    component: () => null,
+  })
+
   const offersRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: '/offers',
@@ -58,6 +64,7 @@ function renderSidebar(
       workspaceRoute,
       inboxRoute,
       paymentsRoute,
+      settingsRoute,
       offersRoute,
       earningsRoute,
     ]),
@@ -141,6 +148,24 @@ describe('AppSidebar', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('renders settings for brand only and marks it active by pathname', async () => {
+    const { unmount } = renderSidebar('/ajustes', 'brand')
+
+    const settingsLink = await screen.findByRole('link', {
+      name: 'Ajustes',
+    })
+
+    expect(settingsLink).toHaveAttribute('href', '/ajustes')
+    expect(settingsLink).toHaveAttribute('aria-current', 'page')
+
+    unmount()
+    renderSidebar('/workspace', 'creator')
+
+    expect(
+      screen.queryByRole('link', { name: 'Ajustes' }),
+    ).not.toBeInTheDocument()
+  })
+
   it('shows the enabled item label tooltip on hover and focus', async () => {
     const user = userEvent.setup()
     const { unmount } = renderSidebar('/workspace')
@@ -193,11 +218,12 @@ describe('AppSidebar', () => {
       'Campaigns',
       'Creators',
       'Videos',
+      'Ajustes',
       'Analytics',
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos/.test(
+          /Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos|Ajustes/.test(
             name,
           )
             ? 'link'

@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T03:29:31.610954Z",
+  "depends_on": [],
+  "epic": "fn-30-feat-039-ajustes-perfil-de-marca",
+  "id": "fn-30-feat-039-ajustes-perfil-de-marca.1",
+  "priority": 10,
+  "spec_path": ".flow/tasks/fn-30-feat-039-ajustes-perfil-de-marca.1.md",
+  "status": "todo",
+  "title": "Commit del cliente API generado (openapi + identity + modelos FEAT-039)",
+  "updated_at": "2026-06-17T03:29:31.610974Z"
+}

@@ -54,17 +54,19 @@ function wrapper({ children }: { children: ReactNode }) {
 
 function setSession({
   kind = 'brand' as 'brand' | 'creator',
+  plan = 'growth',
   sub,
   isLoading = false,
   isError = false,
 }: {
   kind?: 'brand' | 'creator'
+  plan?: string
   sub?: Record<string, unknown> | null
   isLoading?: boolean
   isError?: boolean
 }) {
   useMeMock.mockReturnValue({
-    data: { status: 200, data: { kind } },
+    data: { status: 200, data: { kind, brand_workspace: { plan } } },
   })
   useBillingSubscriptionMock.mockReturnValue({
     data: sub ? { status: 200, data: sub } : undefined,
@@ -204,7 +206,7 @@ describe('BillingTopbarPill', () => {
     )
   })
 
-  it('navigates to /billing on canceled_pending click', async () => {
+  it('navigates to subscription settings on canceled_pending click', async () => {
     setSession({
       sub: {
         status: 'canceled',
@@ -217,7 +219,7 @@ describe('BillingTopbarPill', () => {
     render(<BillingTopbarPill />, { wrapper })
     await user.click(screen.getByRole('button'))
 
-    expect(mockNavigate).toHaveBeenCalledWith({ to: '/billing' })
+    expect(mockNavigate).toHaveBeenCalledWith({ to: '/ajustes/suscripcion' })
     expect(portalMutateMock).not.toHaveBeenCalled()
   })
 })

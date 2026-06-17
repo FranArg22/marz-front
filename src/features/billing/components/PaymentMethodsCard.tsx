@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { Label } from '#/components/ui/label'
+import type { BillingPaymentMethodList } from '#/shared/api/generated/model/billingPaymentMethodList'
 
 import { trackBillingEvent } from '../analytics'
 import {
@@ -30,8 +31,18 @@ const SAME_AS_SUBSCRIPTION = '__same__'
 // charged on and the card used to pay creators. Cards are stored in Stripe (add
 // via the setup Checkout, remove/manage via the Stripe portal); here the brand
 // just routes which saved card pays what.
-export function PaymentMethodsCard() {
-  const query = useOffersPaymentMethods()
+interface PaymentMethodsCardProps {
+  paymentMethods?: BillingPaymentMethodList
+  usePrefetchedPaymentMethods?: boolean
+  returnUrl?: string
+}
+
+export function PaymentMethodsCard({
+  paymentMethods,
+  usePrefetchedPaymentMethods = false,
+  returnUrl = '/ajustes/suscripcion',
+}: PaymentMethodsCardProps) {
+  const query = useOffersPaymentMethods(!usePrefetchedPaymentMethods)
   const setSubscription = useSetSubscriptionPaymentMethod()
   const setOffers = useSetOffersPaymentMethod()
   const setupMutation = useCreateOffersSetupSession()
@@ -41,7 +52,11 @@ export function PaymentMethodsCard() {
     trackBillingEvent('offers_payment_method_viewed')
   }, [])
 
-  const list = query.data?.status === 200 ? query.data.data : undefined
+  const list = usePrefetchedPaymentMethods
+    ? paymentMethods
+    : query.data?.status === 200
+      ? query.data.data
+      : undefined
   const cards = list?.payment_methods ?? []
   const subscriptionValue =
     cards.find((card) => card.is_subscription_default)
@@ -88,8 +103,8 @@ export function PaymentMethodsCard() {
     setupMutation.mutate(
       {
         data: {
-          success_url: `${window.location.origin}/billing`,
-          cancel_url: `${window.location.origin}/billing`,
+          success_url: `${window.location.origin}${returnUrl}`,
+          cancel_url: `${window.location.origin}${returnUrl}`,
         },
       },
       {
@@ -107,7 +122,7 @@ export function PaymentMethodsCard() {
     if (portalMutation.isPending) return
     trackBillingEvent('offers_payment_method_portal_opened')
     portalMutation.mutate(
-      { data: { return_url: `${window.location.origin}/billing` } },
+      { data: { return_url: `${window.location.origin}${returnUrl}` } },
       {
         onSuccess: (response) => {
           if (response.status === 201) {
@@ -136,7 +151,7 @@ export function PaymentMethodsCard() {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
-        {query.isLoading ? (
+        {!usePrefetchedPaymentMethods && query.isLoading ? (
           <Loader2 aria-hidden="true" className="size-4 animate-spin" />
         ) : (
           <>
@@ -201,6 +216,7 @@ export function PaymentMethodsCard() {
               <Button
                 type="button"
                 variant="outline"
+                data-testid="settings.subscription.manage_stripe_button"
                 onClick={handleManage}
                 disabled={portalMutation.isPending}
               >

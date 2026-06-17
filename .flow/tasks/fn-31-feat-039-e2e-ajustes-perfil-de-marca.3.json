@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T05:22:34.452807Z",
+  "depends_on": [
+    "fn-31-feat-039-e2e-ajustes-perfil-de-marca.1"
+  ],
+  "epic": "fn-31-feat-039-e2e-ajustes-perfil-de-marca",
+  "id": "fn-31-feat-039-e2e-ajustes-perfil-de-marca.3",
+  "priority": 3,
+  "spec_path": ".flow/tasks/fn-31-feat-039-e2e-ajustes-perfil-de-marca.3.md",
+  "status": "todo",
+  "title": "E2E brand-settings-general.spec.ts \u2014 prefill, save, validaciones, email read-only",
+  "updated_at": "2026-06-17T05:27:26.515301Z"
+}

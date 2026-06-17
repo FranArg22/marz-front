@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T05:22:45.133374Z",
+  "depends_on": [],
+  "epic": "fn-31-feat-039-e2e-ajustes-perfil-de-marca",
+  "id": "fn-31-feat-039-e2e-ajustes-perfil-de-marca.8",
+  "priority": 8,
+  "spec_path": ".flow/tasks/fn-31-feat-039-e2e-ajustes-perfil-de-marca.8.md",
+  "status": "todo",
+  "title": "E2E plan limits \u2014 modificar campaign-list-quota (ESC-20) e investigar offers gate (ESC-21)",
+  "updated_at": "2026-06-17T05:27:27.490510Z"
+}

@@ -48,7 +48,7 @@ test.describe('Campaign list quota gating', () => {
     ).toBeDisabled()
     await expect(page.getByRole('link', { name: 'Ver planes' })).toHaveAttribute(
       'href',
-      '/billing',
+      '/ajustes/suscripcion',
     )
   })
 })
