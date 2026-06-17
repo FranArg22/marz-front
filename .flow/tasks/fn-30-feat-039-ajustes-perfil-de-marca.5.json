@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T03:29:48.205328Z",
+  "depends_on": [
+    "fn-30-feat-039-ajustes-perfil-de-marca.4"
+  ],
+  "epic": "fn-30-feat-039-ajustes-perfil-de-marca",
+  "id": "fn-30-feat-039-ajustes-perfil-de-marca.5",
+  "priority": 40,
+  "spec_path": ".flow/tasks/fn-30-feat-039-ajustes-perfil-de-marca.5.md",
+  "status": "todo",
+  "title": "PlanUpgradeModal",
+  "updated_at": "2026-06-17T03:29:48.205349Z"
+}

@@ -8,17 +8,29 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import {
-  useMutation
+  useMutation,
+  useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryClient,
+  QueryFunction,
+  QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
+  UseQueryOptions,
+  UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
+  CheckoutSessionResponse,
+  CreateCheckoutSessionRequest,
   ErrorResponse,
+  PlanUsageResponse,
   ReceiveStripeWebhookBody
 } from '../model';
 
@@ -29,7 +41,248 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
-/**
+export type getPlanUsageResponse200 = {
+  data: PlanUsageResponse
+  status: 200
+}
+
+export type getPlanUsageResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getPlanUsageResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getPlanUsageResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type getPlanUsageResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type getPlanUsageResponseSuccess = (getPlanUsageResponse200) & {
+  headers: Headers;
+};
+export type getPlanUsageResponseError = (getPlanUsageResponse401 | getPlanUsageResponse403 | getPlanUsageResponse404 | getPlanUsageResponse500) & {
+  headers: Headers;
+};
+
+export type getPlanUsageResponse = (getPlanUsageResponseSuccess | getPlanUsageResponseError)
+
+export const getGetPlanUsageUrl = () => {
+
+
+
+
+  return `/v1/billing/plan-usage`
+}
+
+export const getPlanUsage = async ( options?: RequestInit): Promise<getPlanUsageResponse> => {
+
+  return customFetch<getPlanUsageResponse>(getGetPlanUsageUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetPlanUsageQueryKey = () => {
+    return [
+    `/v1/billing/plan-usage`
+    ] as const;
+    }
+
+
+export const getGetPlanUsageQueryOptions = <TData = Awaited<ReturnType<typeof getPlanUsage>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetPlanUsageQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPlanUsage>>> = ({ signal }) => getPlanUsage({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetPlanUsageQueryResult = NonNullable<Awaited<ReturnType<typeof getPlanUsage>>>
+export type GetPlanUsageQueryError = ErrorResponse
+
+
+export function useGetPlanUsage<TData = Awaited<ReturnType<typeof getPlanUsage>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPlanUsage>>,
+          TError,
+          Awaited<ReturnType<typeof getPlanUsage>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPlanUsage<TData = Awaited<ReturnType<typeof getPlanUsage>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPlanUsage>>,
+          TError,
+          Awaited<ReturnType<typeof getPlanUsage>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPlanUsage<TData = Awaited<ReturnType<typeof getPlanUsage>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetPlanUsage<TData = Awaited<ReturnType<typeof getPlanUsage>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPlanUsage>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetPlanUsageQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type createBillingCheckoutSessionResponse201 = {
+  data: CheckoutSessionResponse
+  status: 201
+}
+
+export type createBillingCheckoutSessionResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createBillingCheckoutSessionResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createBillingCheckoutSessionResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type createBillingCheckoutSessionResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type createBillingCheckoutSessionResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type createBillingCheckoutSessionResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type createBillingCheckoutSessionResponse502 = {
+  data: ErrorResponse
+  status: 502
+}
+
+export type createBillingCheckoutSessionResponseSuccess = (createBillingCheckoutSessionResponse201) & {
+  headers: Headers;
+};
+export type createBillingCheckoutSessionResponseError = (createBillingCheckoutSessionResponse400 | createBillingCheckoutSessionResponse401 | createBillingCheckoutSessionResponse403 | createBillingCheckoutSessionResponse409 | createBillingCheckoutSessionResponse422 | createBillingCheckoutSessionResponse500 | createBillingCheckoutSessionResponse502) & {
+  headers: Headers;
+};
+
+export type createBillingCheckoutSessionResponse = (createBillingCheckoutSessionResponseSuccess | createBillingCheckoutSessionResponseError)
+
+export const getCreateBillingCheckoutSessionUrl = () => {
+
+
+
+
+  return `/v1/billing/checkout-sessions`
+}
+
+export const createBillingCheckoutSession = async (createCheckoutSessionRequest: CreateCheckoutSessionRequest, options?: RequestInit): Promise<createBillingCheckoutSessionResponse> => {
+
+  return customFetch<createBillingCheckoutSessionResponse>(getCreateBillingCheckoutSessionUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createCheckoutSessionRequest,)
+  }
+);}
+
+
+
+
+export const getCreateBillingCheckoutSessionMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: CreateCheckoutSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: CreateCheckoutSessionRequest}, TContext> => {
+
+const mutationKey = ['createBillingCheckoutSession'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createBillingCheckoutSession>>, {data: CreateCheckoutSessionRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createBillingCheckoutSession(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateBillingCheckoutSessionMutationResult = NonNullable<Awaited<ReturnType<typeof createBillingCheckoutSession>>>
+    export type CreateBillingCheckoutSessionMutationBody = CreateCheckoutSessionRequest
+    export type CreateBillingCheckoutSessionMutationError = ErrorResponse
+
+    export const useCreateBillingCheckoutSession = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBillingCheckoutSession>>, TError,{data: CreateCheckoutSessionRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createBillingCheckoutSession>>,
+        TError,
+        {data: CreateCheckoutSessionRequest},
+        TContext
+      > => {
+      return useMutation(getCreateBillingCheckoutSessionMutationOptions(options), queryClient);
+    }
+    /**
  * Webhook endpoint invoked by Stripe to deliver subscription/customer events. Authenticated
 via the `Stripe-Signature` header (HMAC of the raw body with the endpoint secret), not by
 bearer token. The handler is idempotent by `event_id` — re-deliveries from Stripe are
