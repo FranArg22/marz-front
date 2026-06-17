@@ -11,12 +11,14 @@ const settingsTabs = [
     label: () => t`General`,
     icon: Building2,
     href: '/ajustes/general',
+    testId: 'settings.nav.general',
   },
   {
     id: 'subscription',
     label: () => t`Suscripción`,
     icon: CreditCard,
     href: '/ajustes/suscripcion',
+    testId: 'settings.nav.subscription',
   },
 ] as const
 
@@ -45,6 +47,7 @@ export function SettingsLayout() {
                 <Link
                   key={tab.id}
                   to={tab.href}
+                  data-testid={tab.testId}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
                     'relative flex items-center gap-2 px-1 pb-3 pt-1 text-sm transition-colors',

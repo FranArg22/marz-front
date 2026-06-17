@@ -67,8 +67,7 @@ Cada grep debe retornar exactamente 1 línea. `pnpm typecheck` sin errores.
 - [ ] `pnpm quality-gates` verde.
 
 ## Done summary
-TBD
-
+Implemented fn-31-feat-039-e2e-ajustes-perfil-de-marca.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

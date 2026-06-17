@@ -313,6 +313,7 @@ function ManagePortalButton({
     <div>
       <Button
         type="button"
+        data-testid="settings.subscription.manage_stripe_button"
         variant={variant}
         onClick={openStripePortal}
         disabled={portalMutation.isPending}

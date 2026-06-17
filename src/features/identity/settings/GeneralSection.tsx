@@ -124,6 +124,7 @@ export function GeneralSection() {
 
   return (
     <form
+      data-testid="settings.general.form"
       className="flex flex-col gap-6"
       noValidate
       action={() => void form.handleSubmit()}
@@ -139,6 +140,7 @@ export function GeneralSection() {
         <form.AppForm>
           <Button
             type="submit"
+            data-testid="settings.general.save_button"
             disabled={patchSettings.isPending}
             className="min-w-32"
           >
