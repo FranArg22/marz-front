@@ -6,11 +6,7 @@ import { Input } from '#/components/ui/input'
 import { useCreatorOnboardingStore } from '../store'
 import type { BestVideo } from '#/shared/api/generated/model/bestVideo'
 
-const DEFAULT_VIDEOS: BestVideo[] = [
-  { url: '', kind: 'organic' },
-  { url: '', kind: 'organic' },
-  { url: '', kind: 'organic' },
-]
+const DEFAULT_VIDEOS: BestVideo[] = [{ url: '' }, { url: '' }, { url: '' }]
 
 const BEST_VIDEO_SLOT_IDS = [
   'first-video',

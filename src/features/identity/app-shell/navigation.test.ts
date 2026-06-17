@@ -42,12 +42,13 @@ describe('shellNavigationConfig', () => {
     ])
   })
 
-  it('defines creator items in order with inbox, workspace, campaigns and earnings enabled', () => {
+  it('defines creator items in order with inbox, workspace, campaigns, earnings and settings enabled', () => {
     expect(itemIds(creatorItems)).toEqual([
       'inbox',
       'workspace',
       'campaigns',
       'earnings',
+      'settings',
       'analytics',
     ])
     expect(enabledItemIds(creatorItems)).toEqual([
@@ -55,6 +56,7 @@ describe('shellNavigationConfig', () => {
       'workspace',
       'campaigns',
       'earnings',
+      'settings',
     ])
   })
 

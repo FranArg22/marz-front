@@ -7,10 +7,10 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
  * OpenAPI spec version: 0.1.0
  */
+import type { CreatorRateCardFormat } from './creatorRateCardFormat';
 
 export interface CreatorRateCard {
-  /** @maxLength 200 */
-  format: string;
+  format: CreatorRateCardFormat;
   /** @maxLength 50 */
   rate_amount: string;
   /** @maxLength 3 */

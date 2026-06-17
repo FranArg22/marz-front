@@ -33,6 +33,10 @@ msgstr ""
 msgid "¿Cómo te conocen?"
 msgstr ""
 
+#: src/features/identity/settings/CollaborationSection.tsx:190
+msgid "¿Cómo trabajás con las marcas?"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:28
 msgid "¿Cuál es tu género?"
 msgstr ""
@@ -146,9 +150,20 @@ msgstr ""
 #~ msgid "{0} de {1} seleccionados"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:59
-#~ msgid "{0} de 5 seleccionados"
-#~ msgstr ""
+#. placeholder {0}: value.length
+#: src/features/identity/settings/CollaborationSection.tsx:331
+msgid "{0} de 5 seleccionados"
+msgstr ""
+
+#. placeholder {0}: formatFollowers(channel.followers)
+#: src/features/identity/settings/RatesSection.tsx:199
+msgid "{0} seguidores"
+msgstr ""
+
+#. placeholder {0}: value.length
+#: src/features/identity/settings/CollaborationSection.tsx:388
+msgid "{0} seleccionados"
+msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:93
 #~ msgid "{0} tarifas"
@@ -195,7 +210,7 @@ msgstr ""
 msgid "{bytes} B"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:90
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:92
 msgid "{cardCount} tarifas"
 msgstr ""
 
@@ -243,8 +258,8 @@ msgstr ""
 #~ msgid "{creatorName} accepted the offer, deadline {deadline}"
 #~ msgstr ""
 
-#: src/features/billing/components/BillingTopbarPill.tsx:119
-#: src/features/billing/settings/BillingSummary.tsx:105
+#: src/features/billing/components/BillingTopbarPill.tsx:125
+#: src/features/billing/settings/BillingSummary.tsx:111
 msgid "{days, plural, one {Tu trial termina en # día} other {Tu trial termina en # días}}"
 msgstr "{days, plural, one {Your trial ends in # day} other {Your trial ends in # days}}"
 
@@ -373,7 +388,7 @@ msgstr ""
 #~ msgid "{minutes}m left"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:82
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:84
 msgid "{missingCount, plural, one {A una tarifa le falta monto} other {A # tarifas les falta monto}}"
 msgstr ""
 
@@ -650,6 +665,10 @@ msgstr ""
 msgid "5K–20K followers"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountModal.tsx:166
+msgid "9 dígitos"
+msgstr ""
+
 #: src/features/earnings/components/EarningsPeriodControl.tsx:10
 #: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:17
 msgid "90d"
@@ -659,7 +678,7 @@ msgstr ""
 #~ msgid "A la tarifa {0} le falta monto"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:67
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:69
 msgid "A la tarifa {formatLabel} le falta monto"
 msgstr ""
 
@@ -734,6 +753,14 @@ msgstr ""
 msgid "Account manager dedicado"
 msgstr ""
 
+#: src/features/identity/settings/CollaborationSection.tsx:431
+msgid "Acepta colaboraciones únicamente por canje"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:55
+#~ msgid "Aceptá una cuenta bancaria tradicional o una cuenta externa como Wise, Payoneer, Mercado Pago u otra app similar."
+#~ msgstr ""
+
 #: src/features/offers/components/SendOfferSidesheet.tsx:750
 msgid "Aceptación y cancelación"
 msgstr ""
@@ -787,6 +814,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:31
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:19
+#: src/features/payments/settings/PayoutAccountCard.tsx:128
 msgid "Activa"
 msgstr ""
 
@@ -838,11 +866,11 @@ msgstr ""
 msgid "Activo"
 msgstr ""
 
-#: src/features/billing/components/BillingTopbarPill.tsx:126
+#: src/features/billing/components/BillingTopbarPill.tsx:132
 msgid "Actualizá tu método de pago antes de que termine el trial para evitar interrupciones."
 msgstr "Update your payment method before the trial ends to avoid interruptions."
 
-#: src/features/billing/settings/BillingSummary.tsx:153
+#: src/features/billing/settings/BillingSummary.tsx:163
 msgid "Actualizá tu tarjeta para mantener el acceso."
 msgstr "Update your card to keep access."
 
@@ -856,7 +884,7 @@ msgstr ""
 msgid "Actualizar plan"
 msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:164
+#: src/features/billing/settings/BillingSummary.tsx:175
 msgid "Actualizar tarjeta en Stripe"
 msgstr "Update card in Stripe"
 
@@ -910,8 +938,16 @@ msgstr ""
 msgid "Agregar bono"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:492
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:497
 msgid "Agregar canal"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:56
+msgid "Agregar cuenta"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:98
+msgid "Agregar cuenta de cobro"
 msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:261
@@ -947,7 +983,7 @@ msgstr ""
 #~ msgid "Agregar señal…"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:315
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:320
 msgid "Agregar tarifa..."
 msgstr ""
 
@@ -988,12 +1024,18 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/app-shell/navigation.ts:65
+#: src/features/identity/app-shell/navigation.ts:104
 #: src/features/identity/settings/SettingsLayout.tsx:37
+#: src/features/identity/settings/SettingsSidebar.tsx:35
 msgid "Ajustes"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:81
+#: src/features/identity/settings/BrandGeneralSection.tsx:81
 msgid "Ajustes guardados"
+msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:432
+msgid "Al activarlo, además de las campañas pagas, también podés recibir ofertas por canjes."
 msgstr ""
 
 #: src/routes/auth/index.tsx:94
@@ -1107,7 +1149,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:180
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:20
 #: src/features/identity/app-shell/navigation.ts:71
-#: src/features/identity/app-shell/navigation.ts:104
+#: src/features/identity/app-shell/navigation.ts:110
 msgid "Analytics"
 msgstr ""
 
@@ -1142,6 +1184,14 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:21
 msgid "Aplicó"
 msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:74
+#~ msgid "App de cobro"
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:123
+#~ msgid "App externa"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoverySidebar.tsx:64
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:196
@@ -1313,6 +1363,18 @@ msgstr ""
 msgid "Ayer"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountModal.tsx:120
+#~ msgid "Banco"
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:146
+#~ msgid "Banco Galicia, Wise, Payoneer..."
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:145
+#~ msgid "Banco o proveedor"
+#~ msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:28
 msgid "Basado en tu nicho y alcance, podés acceder a campañas que te pagan lo que vale tu trabajo."
 msgstr ""
@@ -1352,6 +1414,11 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:94
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:51
 msgid "Belleza"
+msgstr ""
+
+#: src/features/identity/settings/SettingsSidebar.tsx:22
+#: src/features/payments/settings/WalletSection.tsx:17
+msgid "Billetera"
 msgstr ""
 
 #: src/features/campaigns/configuration/components/CountryMultiSelect.tsx:11
@@ -1525,9 +1592,10 @@ msgstr ""
 msgid "Buscar…"
 msgstr ""
 
-#: src/shared/catalog/creatorTaxonomy.ts:25
-#~ msgid "Business"
-#~ msgstr ""
+#: src/features/payments/settings/PayoutAccountCard.tsx:23
+#: src/features/payments/settings/PayoutAccountModal.tsx:30
+msgid "Business"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:27
 msgid "Búsqueda"
@@ -1542,6 +1610,7 @@ msgid "Calculando tiempo restante..."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/settings/GeneralSection.tsx:300
 msgid "Cambiar foto"
 msgstr ""
 
@@ -1666,6 +1735,7 @@ msgstr ""
 #: src/features/inbox/InboxInlineActionPopover.tsx:625
 #: src/features/offers/components/SendOfferSidesheet.tsx:792
 #: src/features/payments/components/MarkAsPaidDialog.tsx:142
+#: src/features/payments/settings/PayoutAccountModal.tsx:209
 msgid "Cancelar"
 msgstr ""
 
@@ -1683,11 +1753,11 @@ msgstr ""
 msgid "Cancelar selección"
 msgstr ""
 
-#: src/features/billing/components/BillingTopbarPill.tsx:146
+#: src/features/billing/components/BillingTopbarPill.tsx:152
 msgid "Cancelaste — acceso hasta {formattedDate}"
 msgstr "Canceled — access until {formattedDate}"
 
-#: src/features/billing/settings/BillingSummary.tsx:184
+#: src/features/billing/settings/BillingSummary.tsx:196
 msgid "Cancelaste tu suscripción"
 msgstr "You canceled your subscription"
 
@@ -1700,11 +1770,43 @@ msgstr ""
 msgid "Canje de producto"
 msgstr ""
 
+#: src/features/identity/settings/CollaborationSection.tsx:233
+msgid "Canjes"
+msgstr ""
+
 #: src/features/deliverables/components/InlineVideoPlayer.tsx:57
 msgid "Cannot play this video"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:112
+#: src/features/identity/settings/PortfolioSection.tsx:94
+msgid "Cargá hasta 3 videos públicos que representen tu trabajo."
+msgstr ""
+
+#: src/features/identity/settings/PortfolioSection.tsx:82
+msgid "Cargá links públicos de videos para que las marcas vean ejemplos concretos de tu trabajo."
+msgstr ""
+
+#: src/features/payments/settings/WalletSection.tsx:19
+msgid "Cargá una cuenta bancaria de Estados Unidos para recibir pagos vía ACH sin conectar Stripe."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:101
+msgid "Cargá una cuenta bancaria de Estados Unidos para recibir transferencias ACH en USD."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:96
+#~ msgid "Cargá una cuenta bancaria o externa que pueda recibir transferencias en USD."
+#~ msgstr ""
+
+#: src/features/payments/settings/WalletSection.tsx:19
+#~ msgid "Cargá una cuenta bancaria o una cuenta externa para recibir pagos sin conectar Stripe."
+#~ msgstr ""
+
+#: src/features/identity/settings/CreatorSettingsPage.tsx:67
+msgid "Cargando ajustes"
+msgstr ""
+
+#: src/features/identity/settings/BrandGeneralSection.tsx:112
 msgid "Cargando ajustes..."
 msgstr ""
 
@@ -1730,6 +1832,10 @@ msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:170
 msgid "Cargando creators"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:159
+msgid "Cargando cuenta de cobro"
 msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:404
@@ -1801,6 +1907,10 @@ msgstr ""
 msgid "Categoría"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountModal.tsx:157
+#~ msgid "CBU, IBAN, email o alias de cuenta"
+#~ msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:54
 msgid "Celebridad"
@@ -1843,6 +1953,11 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:21
+#: src/features/payments/settings/PayoutAccountModal.tsx:28
+msgid "Checking"
+msgstr ""
+
 #: src/features/campaigns/configuration/components/CountryMultiSelect.tsx:13
 #~ msgid "Chile"
 #~ msgstr ""
@@ -1860,6 +1975,7 @@ msgid "Cine"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
+#: src/features/identity/settings/GeneralSection.tsx:240
 msgid "Ciudad"
 msgstr ""
 
@@ -1899,6 +2015,11 @@ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:17
 msgid "Código de descuento"
+msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:179
+#: src/features/identity/settings/SettingsSidebar.tsx:19
+msgid "Colaboraciones"
 msgstr ""
 
 #: src/features/discovery/network/components/CreatorCard.tsx:353
@@ -2011,8 +2132,16 @@ msgstr ""
 msgid "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio en {verticalLabel} LatAm."
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:203
+msgid "Con código de país."
+msgstr ""
+
 #: src/features/discovery/network/components/DiscoveryUpsell.tsx:18
 msgid "Con Discovery podés explorar nuestra red de creators, filtrar por plataforma, engagement, precio y más. Actualizá tu plan para acceder."
+msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:119
+msgid "Conectá tus cuentas y cargá tarifas por formato. Las marcas ven rangos, no tu precio directo."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:29
@@ -2103,6 +2232,10 @@ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:195
 msgid "Contenido"
+msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:248
+msgid "Contenido para uso de marca, sin publicación en tu feed."
 msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:439
@@ -2347,6 +2480,31 @@ msgstr ""
 msgid "Cuando invites creators desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables."
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:64
+#~ msgid "Cuenta bancaria"
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:72
+msgid "Cuenta bancaria (ACH)"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:124
+msgid "Cuenta bancaria de EE. UU. (ACH) en USD para pagos manuales."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:98
+msgid "Cuenta cargada"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:37
+#: src/features/payments/settings/PayoutAccountCard.tsx:87
+msgid "Cuenta de cobro"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:122
+#~ msgid "Cuenta externa en USD configurada para pagos manuales."
+#~ msgstr ""
+
 #: src/features/chat/components/PresenceBadge.tsx:26
 #~ msgid "Cuenta inactiva"
 #~ msgstr ""
@@ -2385,6 +2543,10 @@ msgstr ""
 msgid "Date unavailable"
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:176
+msgid "Datos privados y de contacto del creador."
+msgstr ""
+
 #: src/features/identity/settings/ProfileCard.tsx:22
 msgid "Datos visibles para operar el workspace."
 msgstr ""
@@ -2418,6 +2580,13 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:67
 msgid "Deals"
+msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:287
+#: src/features/identity/settings/CollaborationSection.tsx:304
+#: src/features/identity/settings/CollaborationSection.tsx:348
+#: src/features/identity/settings/CollaborationSection.tsx:405
+msgid "Debe seleccionar al menos uno"
 msgstr ""
 
 #: src/features/offers/schemas/bundleEditor.ts:49
@@ -2476,6 +2645,10 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:478
 msgid "Descalificadores"
+msgstr ""
+
+#: src/features/identity/settings/SectionSaveBar.tsx:33
+msgid "Descartar"
 msgstr ""
 
 #: src/features/chat/components/PresenceBadge.tsx:22
@@ -2538,7 +2711,7 @@ msgstr ""
 #~ msgid "Detalle"
 #~ msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:251
+#: src/features/billing/settings/BillingSummary.tsx:264
 msgid "Detalle del plan"
 msgstr "Plan details"
 
@@ -2582,6 +2755,19 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:473
 msgid "Dimensiones de scoring"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:148
+#: src/features/payments/settings/PayoutAccountModal.tsx:177
+msgid "Dirección"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:178
+msgid "Dirección del titular de la cuenta"
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:247
+msgid "Dirección para envíos"
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesCard.tsx:87
@@ -2764,6 +2950,14 @@ msgstr ""
 msgid "Editar"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:112
+msgid "Editar cuenta"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:98
+msgid "Editar cuenta de cobro"
+msgstr ""
+
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:25
 msgid "Editar mi perfil"
 msgstr ""
@@ -2801,6 +2995,10 @@ msgstr ""
 #~ msgid "Ej: Lanzamiento verano 2026"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountModal.tsx:117
+msgid "Ej. Cuenta principal"
+msgstr ""
+
 #: src/features/campaigns/brief-builder/hooks/useBriefBuilderWS.ts:330
 #~ msgid "El análisis no existe o expiró. Volvé al formulario."
 #~ msgstr ""
@@ -2810,6 +3008,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:50
+#: src/features/identity/settings/GeneralSection.tsx:116
 msgid "El archivo supera los 5MB permitidos."
 msgstr ""
 
@@ -3010,7 +3209,7 @@ msgstr ""
 msgid "Eliminar bono"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:146
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:148
 msgid "Eliminar canal"
 msgstr ""
 
@@ -3042,7 +3241,7 @@ msgstr ""
 #~ msgid "Eliminar señal {signal}"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:213
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:215
 msgid "Eliminar tarifa"
 msgstr ""
 
@@ -3054,6 +3253,8 @@ msgstr ""
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:143
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
 #: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
+#: src/features/identity/settings/GeneralSection.tsx:192
+#: src/features/identity/settings/GeneralSection.tsx:199
 #: src/features/identity/settings/ProfileCard.tsx:38
 msgid "Email"
 msgstr ""
@@ -3268,7 +3469,20 @@ msgstr ""
 msgid "Error al enviar el mensaje. Intenta nuevamente."
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:377
+msgid "Error al guardar el avatar. Intentá de nuevo."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:394
+msgid "Error al guardar los datos de contacto. Intentá de nuevo."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:356
+msgid "Error al preparar la subida de la imagen."
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
+#: src/features/identity/settings/GeneralSection.tsx:369
 #: src/features/identity/settings/LogoUploader.tsx:60
 #: src/features/identity/settings/LogoUploader.tsx:71
 #: src/features/identity/settings/LogoUploader.tsx:81
@@ -3445,7 +3659,7 @@ msgstr ""
 msgid "Estamos demorando, refrescá en unos minutos"
 msgstr "We're taking longer than expected, refresh in a few minutes"
 
-#: src/features/billing/settings/BillingSummary.tsx:113
+#: src/features/billing/settings/BillingSummary.tsx:119
 msgid "Estás en período de prueba"
 msgstr "You're on a trial"
 
@@ -3593,6 +3807,10 @@ msgstr ""
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:170
 #: src/features/payments/components/BrandPaymentsTable.tsx:40
 msgid "Fecha"
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:214
+msgid "Fecha de cumpleaños"
 msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:263
@@ -3789,6 +4007,10 @@ msgstr ""
 msgid "Formatos"
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:178
+msgid "Foto de perfil"
+msgstr ""
+
 #: src/features/campaigns/configuration/TargetingStep.tsx:38
 #~ msgid "Français"
 #~ msgstr ""
@@ -3843,7 +4065,9 @@ msgid "Gastronomía"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:83
+#: src/features/identity/settings/GeneralSection.tsx:165
 #: src/features/identity/settings/SettingsLayout.tsx:11
+#: src/features/identity/settings/SettingsSidebar.tsx:18
 msgid "General"
 msgstr ""
 
@@ -3879,16 +4103,12 @@ msgstr ""
 #~ msgid "Geografía"
 #~ msgstr ""
 
-#: src/features/identity/settings/SettingsLayout.tsx:37
-#~ msgid "Gestioná el perfil de marca y la suscripción del workspace."
-#~ msgstr ""
-
 #: src/features/billing/components/PaymentMethodCard.tsx:46
 #~ msgid "Gestionar {title} en Stripe"
 #~ msgstr "Manage {title} in Stripe"
 
 #: src/features/billing/components/PaymentMethodsCard.tsx:223
-#: src/features/billing/settings/BillingSummary.tsx:290
+#: src/features/billing/settings/BillingSummary.tsx:303
 msgid "Gestionar en Stripe"
 msgstr "Manage in Stripe"
 
@@ -3909,13 +4129,31 @@ msgstr ""
 msgid "Growth Lead"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:149
+#: src/features/payments/settings/PayoutAccountCard.tsx:38
+msgid "Guardá los datos donde querés recibir tus transferencias ACH."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:30
+#~ msgid "Guardá los datos donde querés recibir tus transferencias."
+#~ msgstr ""
+
+#: src/features/identity/settings/BrandGeneralSection.tsx:149
+#: src/features/identity/settings/SectionSaveBar.tsx:42
+#: src/features/payments/settings/PayoutAccountModal.tsx:212
 msgid "Guardando..."
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:835
-#: src/features/identity/settings/GeneralSection.tsx:149
+#: src/features/identity/settings/BrandGeneralSection.tsx:149
 msgid "Guardar"
+msgstr ""
+
+#: src/features/identity/settings/SectionSaveBar.tsx:42
+msgid "Guardar cambios"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:212
+msgid "Guardar cuenta"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:222
@@ -3954,7 +4192,7 @@ msgstr ""
 msgid "Hace {minutes} min"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:281
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:283
 msgid "Handle"
 msgstr ""
 
@@ -4078,7 +4316,7 @@ msgstr ""
 msgid "https://www.youtube.com/watch?v=abc123"
 msgstr ""
 
-#: src/features/billing/components/BillingTopbarPill.tsx:136
+#: src/features/billing/components/BillingTopbarPill.tsx:142
 msgid "Hubo un problema con el último cobro. Abrí el portal para actualizar la tarjeta."
 msgstr "There was a problem with the last charge. Open the portal to update your card."
 
@@ -4101,6 +4339,11 @@ msgstr ""
 #: src/features/identity/settings/BrandCard.tsx:24
 msgid "Identidad pública de tu marca en Marz."
 msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:135
+#: src/features/payments/settings/PayoutAccountModal.tsx:156
+#~ msgid "Identificador"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:19
 #~ msgid "Idioma"
@@ -4149,6 +4392,7 @@ msgid "INCLUYE"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:242
+#: src/features/identity/settings/CollaborationSection.tsx:50
 msgid "Influencer"
 msgstr ""
 
@@ -4176,6 +4420,10 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:432
 msgid "Ingresá montos con hasta dos decimales."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:39
+msgid "Ingresá tu nombre completo"
 msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:36
@@ -4247,6 +4495,7 @@ msgstr ""
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:130
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:211
+#: src/features/identity/settings/CollaborationSection.tsx:204
 msgid "Intereses"
 msgstr ""
 
@@ -4391,6 +4640,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
+#: src/features/identity/settings/GeneralSection.tsx:315
 msgid "JPEG, PNG o WebP. Máximo 5MB."
 msgstr ""
 
@@ -4445,6 +4695,14 @@ msgstr ""
 #: src/features/campaigns/configuration/PricingModelStep.tsx:111
 #: src/features/campaigns/configuration/TargetingStep.tsx:165
 #~ msgid "La configuración fue modificada en otra sesión, recargando."
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:88
+msgid "La cuenta cargada se usa para coordinar pagos manuales. Esta vista no muestra saldos ni movimientos."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:183
+#~ msgid "La cuenta debe recibir USD"
 #~ msgstr ""
 
 #: src/features/offers/schemas/createOffer.ts:125
@@ -4641,6 +4899,10 @@ msgstr ""
 msgid "LinkedIn"
 msgstr ""
 
+#: src/features/identity/settings/PortfolioSection.tsx:156
+msgid "Listo"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:78
 msgid "Listo, {firstName}."
 msgstr ""
@@ -4728,7 +4990,7 @@ msgstr ""
 msgid "Los bonos sólo están disponibles para un contenido único."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:496
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:501
 msgid "Los creadores con tarifas reciben más ofertas de las marcas."
 msgstr ""
 
@@ -4780,11 +5042,11 @@ msgstr ""
 msgid "Manejo campañas para varias marcas."
 msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:187
+#: src/features/billing/settings/BillingSummary.tsx:199
 msgid "Mantenés acceso hasta {cancelAtLabel}"
 msgstr "You keep access until {cancelAtLabel}"
 
-#: src/features/billing/settings/BillingSummary.tsx:188
+#: src/features/billing/settings/BillingSummary.tsx:200
 msgid "Mantenés acceso hasta el final del período actual."
 msgstr "You keep access until the end of the current period."
 
@@ -4939,6 +5201,10 @@ msgstr ""
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:16
 #~ msgid "Máx. seguidores"
 #~ msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:350
+msgid "Máximo 5 nichos"
+msgstr ""
 
 #: src/features/offers/schemas/createOffer.ts:73
 msgid "Máximo 720 horas"
@@ -5392,6 +5658,10 @@ msgstr ""
 msgid "No permitido por defecto"
 msgstr ""
 
+#: src/features/identity/settings/PortfolioSection.tsx:60
+msgid "No podés cargar más de 3 videos."
+msgstr ""
+
 #: src/features/billing/components/PaymentMethodsCard.tsx:77
 #: src/features/billing/components/PaymentMethodsCard.tsx:95
 msgid "No pudimos cambiar el método de pago, intentá de nuevo"
@@ -5441,7 +5711,7 @@ msgstr ""
 msgid "No pudimos cargar las postulaciones. Reintentá en unos minutos."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:120
+#: src/features/identity/settings/BrandGeneralSection.tsx:120
 msgid "No pudimos cargar los ajustes."
 msgstr ""
 
@@ -5465,6 +5735,10 @@ msgstr ""
 #: src/features/billing/settings/SubscriptionSection.tsx:80
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
+
+#: src/features/identity/settings/CreatorSettingsPage.tsx:84
+msgid "No pudimos cargar tus ajustes. Intentá nuevamente en unos minutos."
+msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:398
 #: src/routes/_brand/campaigns.index.tsx:62
@@ -5502,6 +5776,13 @@ msgstr ""
 msgid "No pudimos guardar los cambios. Intentá de nuevo."
 msgstr ""
 
+#: src/features/identity/settings/CollaborationSection.tsx:560
+#: src/features/identity/settings/GeneralSection.tsx:493
+#: src/features/identity/settings/PortfolioSection.tsx:253
+#: src/features/identity/settings/RatesSection.tsx:410
+msgid "No pudimos guardar los cambios. Intentá nuevamente."
+msgstr ""
+
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:89
 #~ msgid "No pudimos guardar porque falta la versión actual de la campaña."
 #~ msgstr ""
@@ -5509,6 +5790,10 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:248
 #~ msgid "No pudimos iniciar el checkout. Intentá de nuevo."
 #~ msgstr "We couldn't start the checkout. Try again."
+
+#: src/features/identity/settings/GeneralSection.tsx:138
+msgid "No pudimos leer la imagen. Intentá de nuevo."
+msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:36
 msgid "No pudimos procesar el pago. Intentá de nuevo o gestioná tu tarjeta."
@@ -5646,12 +5931,28 @@ msgstr ""
 msgid "Nombre"
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:185
+msgid "Nombre completo"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:116
+msgid "Nombre de la cuenta"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:75
+msgid "Nombre de la cuenta, titular, número de cuenta, tipo, routing number y dirección."
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:86
 msgid "Nombre de la marca"
 msgstr ""
 
 #: src/features/identity/settings/BrandCard.tsx:44
 msgid "Nombre de marca"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:128
+msgid "Nombre legal o razón social"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:133
@@ -5705,6 +6006,11 @@ msgstr ""
 
 #: src/features/inbox/InboxItemRow.tsx:290
 msgid "nuevos"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:137
+#: src/features/payments/settings/PayoutAccountModal.tsx:139
+msgid "Número de cuenta"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:11
@@ -6062,12 +6368,21 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:169
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:178
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
+#: src/features/identity/settings/GeneralSection.tsx:228
 msgid "País"
 msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:139
+#~ msgid "País / moneda"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:249
 msgid "País creator"
 msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:167
+#~ msgid "País de la cuenta"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:434
 msgid "Países"
@@ -6087,6 +6402,14 @@ msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:29
 msgid "Para equipos que gastan $10K+/mes y necesitan control total."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:193
+msgid "Para login y notificaciones."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:248
+msgid "Para productos y canjes."
 msgstr ""
 
 #: src/shared/catalog/creatorTaxonomy.ts:34
@@ -6190,12 +6513,17 @@ msgstr ""
 msgid "Pedir nuevo link"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:76
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:72
 msgid "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
+msgstr ""
+
+#: src/features/identity/settings/PortfolioSection.tsx:188
+msgid "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:107
+#: src/features/identity/settings/PortfolioSection.tsx:160
 #: src/features/offers/components/OfferArchiveItem.tsx:73
 #: src/features/offers/components/OfferArchiveItem.tsx:109
 msgid "Pendiente"
@@ -6232,6 +6560,7 @@ msgstr ""
 #~ msgid "Per views"
 #~ msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:175
 #: src/features/identity/settings/ProfileCard.tsx:20
 msgid "Perfil"
 msgstr ""
@@ -6300,7 +6629,7 @@ msgstr ""
 #~ msgid "Peso dimensión {dimensionNumber}"
 #~ msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:255
+#: src/features/billing/settings/BillingSummary.tsx:268
 msgid "Plan"
 msgstr ""
 
@@ -6371,6 +6700,18 @@ msgstr ""
 msgid "Podés ganar hasta"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:63
+msgid "Por ahora solo aceptamos cuentas bancarias de Estados Unidos vía transferencia ACH."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:186
+#~ msgid "Por ahora solo hacemos transferencias en dólares estadounidenses."
+#~ msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:197
+msgid "Por ahora solo soportamos cuentas bancarias de Estados Unidos vía ACH."
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:122
 msgid "por colab en tu nicho"
 msgstr ""
@@ -6404,14 +6745,19 @@ msgstr ""
 #~ msgid "Porcentaje de {label}"
 #~ msgstr ""
 
+#: src/features/identity/settings/PortfolioSection.tsx:80
+#: src/features/identity/settings/SettingsSidebar.tsx:21
+msgid "Portfolio"
+msgstr ""
+
 #: src/features/campaigns/configuration/TargetingStep.tsx:37
 #~ msgid "Português"
 #~ msgstr ""
 
 #: src/features/offers/utils/formatOffer.ts:23
 #: src/features/offers/utils/formatOffer.ts:24
-msgid "Post"
-msgstr ""
+#~ msgid "Post"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:84
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:98
@@ -6457,6 +6803,10 @@ msgstr ""
 #~ msgid "Precio: {priceRange}"
 #~ msgstr ""
 
+#: src/features/identity/settings/CollaborationSection.tsx:234
+msgid "Preferencias comerciales visibles para marcas."
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:17
 msgid "Prefiero no decir"
 msgstr ""
@@ -6498,6 +6848,7 @@ msgid "Presupuesto mensual"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:134
+#: src/features/identity/settings/GeneralSection.tsx:285
 msgid "Preview de avatar"
 msgstr ""
 
@@ -6526,9 +6877,10 @@ msgstr ""
 msgid "Pricing model"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:128
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:277
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:130
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:279
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:240
+#: src/features/identity/settings/RatesSection.tsx:206
 msgid "Principal"
 msgstr ""
 
@@ -6587,6 +6939,10 @@ msgstr ""
 #~ msgid "Promedio de vistas"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:75
+#~ msgid "Proveedor, email o identificador de cuenta y moneda de recepción."
+#~ msgstr ""
+
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:81
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:79
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:106
@@ -6596,7 +6952,7 @@ msgstr ""
 msgid "Próximamente"
 msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:257
+#: src/features/billing/settings/BillingSummary.tsx:270
 msgid "Próximo cobro"
 msgstr "Next charge"
 
@@ -6646,6 +7002,10 @@ msgstr ""
 #~ msgid "Quantity"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:62
+msgid "Qué datos puede cargar"
+msgstr ""
+
 #: src/features/campaigns/brief-builder/components/ScoringDimensionCard.tsx:154
 #~ msgid "Qué evalúa esta dimensión"
 #~ msgstr ""
@@ -6672,6 +7032,10 @@ msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:153
 msgid "Quitar filtro {label}"
+msgstr ""
+
+#: src/features/identity/settings/PortfolioSection.tsx:171
+msgid "Quitar link"
 msgstr ""
 
 #: src/features/identity/settings/LogoUploader.tsx:143
@@ -6760,12 +7124,22 @@ msgstr ""
 msgid "Reddit"
 msgstr ""
 
+#: src/features/identity/settings/RatesSection.tsx:108
+#: src/features/identity/settings/RatesSection.tsx:118
+#: src/features/identity/settings/SettingsSidebar.tsx:20
+msgid "Redes y tarifas"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:156
 #~ msgid "Redirigiendo a Stripe…"
 #~ msgstr "Redirecting to Stripe…"
 
-#: src/features/offers/utils/formatOffer.ts:21
+#: src/features/offers/utils/formatOffer.ts:20
 msgid "Reel"
+msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:390
+msgid "Reel de Instagram"
 msgstr ""
 
 #: src/features/deliverables/components/DraftVersionList.tsx:36
@@ -6810,10 +7184,6 @@ msgstr ""
 #: src/features/inbox/InboxToolbar.tsx:144
 msgid "Refresh inbox"
 msgstr ""
-
-#: src/features/billing/settings/PlanUsageCard.tsx:169
-#~ msgid "Reinicia el {resetLabel}"
-#~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:58
 msgid "Reinicio de ciclo"
@@ -7010,6 +7380,14 @@ msgstr ""
 #~ msgid "rounds"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:145
+msgid "Routing number"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:165
+msgid "Routing number (ABA)"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:79
 msgid "Running"
 msgstr ""
@@ -7033,6 +7411,11 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:81
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:61
 msgid "Salud"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:22
+#: src/features/payments/settings/PayoutAccountModal.tsx:29
+msgid "Savings"
 msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:22
@@ -7106,6 +7489,7 @@ msgid "Search videos"
 msgstr ""
 
 #: src/features/identity/settings/SettingsLayout.tsx:44
+#: src/features/identity/settings/SettingsSidebar.tsx:31
 msgid "Secciones de ajustes"
 msgstr ""
 
@@ -7186,7 +7570,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:155
+#: src/features/identity/settings/GeneralSection.tsx:52
 msgid "Seleccioná un país"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:153
+msgid "Seleccioná un tipo"
 msgstr ""
 
 #: src/features/campaigns/brief-builder/schemas.ts:44
@@ -7195,6 +7584,11 @@ msgstr ""
 
 #: src/features/chat/workspace/EmptyConversationState.tsx:7
 msgid "Seleccioná una conversación"
+msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:330
+#: src/features/identity/settings/CollaborationSection.tsx:387
+msgid "Seleccionados"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:93
@@ -7210,6 +7604,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:167
+#: src/features/identity/settings/GeneralSection.tsx:312
 msgid "Seleccionar imagen"
 msgstr ""
 
@@ -7319,8 +7714,12 @@ msgstr ""
 msgid "Sexo"
 msgstr ""
 
-#: src/features/offers/utils/formatOffer.ts:20
+#: src/features/offers/utils/formatOffer.ts:19
 msgid "Short"
+msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:392
+msgid "Short de YouTube"
 msgstr ""
 
 #: src/features/offers/components/OfferCardMultiStage.tsx:101
@@ -7391,6 +7790,10 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:956
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:961
 msgid "Sin dato"
+msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:397
+msgid "Sin datos"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:164
@@ -7573,6 +7976,10 @@ msgstr ""
 msgid "Solicitar cambios para este link"
 msgstr ""
 
+#: src/features/payments/settings/PayoutAccountModal.tsx:140
+msgid "Solo dígitos"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:33
 msgid "Solo para avisar cuando una marca te acepta. Sin spam."
 msgstr ""
@@ -7595,7 +8002,13 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:55
+#: src/features/identity/settings/GeneralSection.tsx:124
+#: src/features/identity/settings/GeneralSection.tsx:344
 msgid "Solo se permiten imágenes JPEG, PNG o WebP."
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:194
+msgid "Solo transferencias ACH en USD"
 msgstr ""
 
 #: src/features/deliverables/api/draftUpload.ts:125
@@ -7678,8 +8091,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/offers/utils/formatOffer.ts:22
-msgid "Story"
-msgstr ""
+#~ msgid "Story"
+#~ msgstr ""
 
 #: src/shared/catalog/creatorTaxonomy.ts:42
 #~ msgid "Storytelling"
@@ -7695,7 +8108,7 @@ msgstr ""
 
 #: src/features/billing/components/PaymentMethodsCard.tsx:116
 #: src/features/billing/components/PaymentMethodsCard.tsx:132
-#: src/features/billing/settings/BillingSummary.tsx:306
+#: src/features/billing/settings/BillingSummary.tsx:319
 #: src/features/billing/settings/PlanUpgradeModal.tsx:71
 msgid "Stripe no responde, intentá de nuevo"
 msgstr "Stripe isn't responding, try again"
@@ -7762,6 +8175,7 @@ msgid "Subir draft v{nextVersion}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/settings/GeneralSection.tsx:300
 msgid "Subir foto"
 msgstr ""
 
@@ -7817,7 +8231,11 @@ msgstr ""
 #~ msgid "Targeting"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:171
+#: src/features/identity/settings/RatesSection.tsx:259
+msgid "Tarifa UGC"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:173
 msgid "Tarifas"
 msgstr ""
 
@@ -7864,6 +8282,7 @@ msgstr ""
 msgid "Tech LatAm"
 msgstr ""
 
+#: src/features/identity/settings/GeneralSection.tsx:203
 #: src/features/identity/settings/ProfileCard.tsx:53
 msgid "Teléfono"
 msgstr ""
@@ -7886,6 +8305,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C11BirthdayScreen.tsx:81
 msgid "Tenés que ser mayor de 18 años para usar Marz."
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:220
+msgid "Tenés que ser mayor de 18 años."
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:58
@@ -8015,6 +8438,7 @@ msgid "Tipo de contenido"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:228
+#: src/features/identity/settings/CollaborationSection.tsx:189
 msgid "Tipo de creador"
 msgstr ""
 
@@ -8022,8 +8446,29 @@ msgstr ""
 #~ msgid "Tipo de creator"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:141
+#: src/features/payments/settings/PayoutAccountModal.tsx:151
+msgid "Tipo de cuenta"
+msgstr ""
+
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:57
 #~ msgid "Tipo de filtro"
+#~ msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:218
+msgid "Tipos de contenido"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:133
+msgid "Titular"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountModal.tsx:127
+msgid "Titular de la cuenta"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:65
+#~ msgid "Titular, banco, país, moneda y CBU/IBAN/número de cuenta."
 #~ msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:109
@@ -8093,6 +8538,10 @@ msgstr ""
 
 #: src/features/discovery/campaign-detail/ApplicationsTab.tsx:43
 msgid "Todavía no hay postulaciones"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:48
+msgid "Todavía no hay una cuenta cargada"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:124
@@ -8217,7 +8666,7 @@ msgstr ""
 #~ msgid "Tu campaña fue creada con éxito. Configurá los detalles para activarla."
 #~ msgstr ""
 
-#: src/features/billing/components/BillingTopbarPill.tsx:135
+#: src/features/billing/components/BillingTopbarPill.tsx:141
 msgid "Tu cobro falló — actualizá la tarjeta"
 msgstr "Your charge failed — update your card"
 
@@ -8269,11 +8718,11 @@ msgstr ""
 msgid "Tu potencial según tu perfil"
 msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:132
+#: src/features/billing/settings/BillingSummary.tsx:140
 msgid "Tu suscripción está activa"
 msgstr "Your subscription is active"
 
-#: src/features/billing/components/BillingTopbarPill.tsx:147
+#: src/features/billing/components/BillingTopbarPill.tsx:153
 msgid "Tu suscripción está cancelada. Mantenés acceso hasta el {formattedDate}."
 msgstr "Your subscription is canceled. You keep access until {formattedDate}."
 
@@ -8298,11 +8747,11 @@ msgstr ""
 msgid "Tu tarjeta no tiene fondos suficientes."
 msgstr ""
 
-#: src/features/billing/settings/BillingSummary.tsx:109
+#: src/features/billing/settings/BillingSummary.tsx:115
 msgid "Tu trial sigue activo"
 msgstr "Your trial is still active"
 
-#: src/features/billing/settings/BillingSummary.tsx:152
+#: src/features/billing/settings/BillingSummary.tsx:162
 msgid "Tu último cobro falló"
 msgstr "Your last charge failed"
 
@@ -8324,7 +8773,7 @@ msgstr ""
 msgid "Tu workspace ya tiene un plan activo"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:294
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:296
 msgid "tu_handle"
 msgstr ""
 
@@ -8336,7 +8785,7 @@ msgstr ""
 msgid "Turismo"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:73
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:69
 msgid "Tus 3 mejores videos"
 msgstr ""
 
@@ -8356,9 +8805,10 @@ msgstr ""
 msgid "Ubicación del producto"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:194
-#~ msgid "UGC"
-#~ msgstr ""
+#: src/features/identity/settings/CollaborationSection.tsx:51
+#: src/features/identity/settings/RatesSection.tsx:247
+msgid "UGC"
+msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:25
 msgid "UGC · En crecimiento"
@@ -8451,13 +8901,18 @@ msgstr ""
 msgid "Upload progress"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:112
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:108
 msgid "URL de IG / TikTok / YT"
 msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P1Input.tsx:120
 #~ msgid "URL de la campaña"
 #~ msgstr ""
+
+#. placeholder {0}: index + 1
+#: src/features/identity/settings/PortfolioSection.tsx:190
+msgid "URL del video {0}"
+msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:184
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:125
@@ -8469,9 +8924,17 @@ msgstr ""
 #~ msgid "Uruguay"
 #~ msgstr ""
 
+#: src/features/payments/settings/PayoutAccountCard.tsx:51
+msgid "Usá Agregar cuenta para abrir el formulario. Esta vista no muestra saldos ni movimientos."
+msgstr ""
+
 #: src/features/offers/schemas/createOffer.ts:101
 #: src/features/offers/schemas/createOffer.ts:104
 msgid "Usá el formato AAAA-MM-DD"
+msgstr ""
+
+#: src/features/identity/settings/GeneralSection.tsx:45
+msgid "Usá formato E.164, por ejemplo +5491123456789"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:70
@@ -8484,6 +8947,10 @@ msgstr ""
 
 #: src/features/identity/auth/components/MagicSentScreen.tsx:147
 msgid "Usar otro email"
+msgstr ""
+
+#: src/features/payments/settings/PayoutAccountCard.tsx:200
+msgid "USD"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:56
@@ -8501,10 +8968,6 @@ msgstr ""
 #: src/features/offers/components/SingleEditor.tsx:57
 #: src/features/offers/schemas/bundleEditor.ts:20
 #~ msgid "Use format 0.00"
-#~ msgstr ""
-
-#: src/features/billing/settings/PlanUsageCard.tsx:31
-#~ msgid "Uso"
 #~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:31
@@ -8649,9 +9112,13 @@ msgstr ""
 msgid "Viajes"
 msgstr ""
 
-#: src/features/offers/utils/formatOffer.ts:19
-#: src/features/offers/utils/formatOffer.ts:25
+#: src/features/offers/utils/formatOffer.ts:21
 msgid "Video"
+msgstr ""
+
+#. placeholder {0}: index + 1
+#: src/features/identity/settings/PortfolioSection.tsx:151
+msgid "Video {0}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:67
@@ -8661,6 +9128,10 @@ msgstr ""
 #: src/shared/catalog/creatorTaxonomy.ts:43
 #~ msgid "Video Ads"
 #~ msgstr ""
+
+#: src/features/identity/settings/RatesSection.tsx:391
+msgid "Video de TikTok"
+msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:35
 #~ msgid "Video largo"
@@ -8673,6 +9144,10 @@ msgstr ""
 #: src/routes/_brand/videos.tsx:36
 #: src/routes/_brand/videos.tsx:108
 msgid "Videos"
+msgstr ""
+
+#: src/features/identity/settings/PortfolioSection.tsx:93
+msgid "Videos de muestra"
 msgstr ""
 
 #: src/features/campaigns/detail/videos/VideosTab.tsx:130

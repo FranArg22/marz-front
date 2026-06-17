@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-13T09:11:06.330572Z",
+  "depends_on": [
+    "fn-31-feat-038-creator-settings-e2e-playwright.1"
+  ],
+  "epic": "fn-31-feat-038-creator-settings-e2e-playwright",
+  "id": "fn-31-feat-038-creator-settings-e2e-playwright.7",
+  "priority": 3,
+  "spec_path": ".flow/tasks/fn-31-feat-038-creator-settings-e2e-playwright.7.md",
+  "status": "todo",
+  "title": "E2E api auth matrix (ESC-23)",
+  "updated_at": "2026-06-13T09:14:03.560434Z"
+}

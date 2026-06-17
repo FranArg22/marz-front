@@ -139,8 +139,6 @@ export const completeCreatorOnboardingBodyChannelsItemExternalHandleMax = 200;
 
 export const completeCreatorOnboardingBodyChannelsItemExternalUrlMax = 500;
 
-export const completeCreatorOnboardingBodyChannelsItemRateCardsItemFormatMax = 200;
-
 export const completeCreatorOnboardingBodyChannelsItemRateCardsItemRateAmountMax = 50;
 
 export const completeCreatorOnboardingBodyChannelsItemRateCardsItemRateCurrencyMax = 3;
@@ -176,14 +174,13 @@ export const CompleteCreatorOnboardingBody = zod.object({
   "verified": zod.boolean(),
   "is_primary": zod.boolean(),
   "rate_cards": zod.array(zod.object({
-  "format": zod.string().max(completeCreatorOnboardingBodyChannelsItemRateCardsItemFormatMax),
+  "format": zod.enum(['ig_reel', 'tiktok_video', 'yt_short']),
   "rate_amount": zod.string().max(completeCreatorOnboardingBodyChannelsItemRateCardsItemRateAmountMax),
   "rate_currency": zod.string().max(completeCreatorOnboardingBodyChannelsItemRateCardsItemRateCurrencyMax)
 }))
 })).min(1),
   "best_videos": zod.array(zod.object({
-  "url": zod.url().max(completeCreatorOnboardingBodyBestVideosItemUrlMax),
-  "kind": zod.enum(['organic', 'branded'])
+  "url": zod.url().max(completeCreatorOnboardingBodyBestVideosItemUrlMax)
 })).min(completeCreatorOnboardingBodyBestVideosMin).max(completeCreatorOnboardingBodyBestVideosMax).optional(),
   "referral_text": zod.string().max(completeCreatorOnboardingBodyReferralTextMax).nullish(),
   "tier": zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity']).describe('Tier declarado por el creator en paso C4')
