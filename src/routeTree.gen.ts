@@ -26,8 +26,8 @@ import { Route as AuthLinkInvalidRouteImport } from './routes/auth/link-invalid'
 import { Route as AuthKindRouteImport } from './routes/auth/kind'
 import { Route as AuthCheckEmailRouteImport } from './routes/auth/check-email'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
-import { Route as CreatorOffersRouteImport } from './routes/_creator/offers'
 import { Route as CreatorSettingsRouteImport } from './routes/_creator/settings'
+import { Route as CreatorOffersRouteImport } from './routes/_creator/offers'
 import { Route as CreatorEarningsRouteImport } from './routes/_creator/earnings'
 import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
@@ -135,14 +135,14 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CreatorOffersRoute = CreatorOffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => CreatorRoute,
-} as any)
 const CreatorSettingsRoute = CreatorSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => CreatorRoute,
+} as any)
+const CreatorOffersRoute = CreatorOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
   getParentRoute: () => CreatorRoute,
 } as any)
 const CreatorEarningsRoute = CreatorEarningsRouteImport.update({
@@ -283,8 +283,8 @@ export interface FileRoutesByFullPath {
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
-  '/settings': typeof CreatorSettingsRoute
   '/offers': typeof CreatorOffersRoute
+  '/settings': typeof CreatorSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
@@ -322,8 +322,8 @@ export interface FileRoutesByTo {
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
-  '/settings': typeof CreatorSettingsRoute
   '/offers': typeof CreatorOffersRoute
+  '/settings': typeof CreatorSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
@@ -364,8 +364,8 @@ export interface FileRoutesById {
   '/_brand/payments': typeof BrandPaymentsRoute
   '/_brand/videos': typeof BrandVideosRoute
   '/_creator/earnings': typeof CreatorEarningsRoute
-  '/_creator/settings': typeof CreatorSettingsRoute
   '/_creator/offers': typeof CreatorOffersRoute
+  '/_creator/settings': typeof CreatorSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
@@ -408,8 +408,8 @@ export interface FileRouteTypes {
     | '/payments'
     | '/videos'
     | '/earnings'
-    | '/settings'
     | '/offers'
+    | '/settings'
     | '/auth/callback'
     | '/auth/check-email'
     | '/auth/kind'
@@ -447,8 +447,8 @@ export interface FileRouteTypes {
     | '/payments'
     | '/videos'
     | '/earnings'
-    | '/settings'
     | '/offers'
+    | '/settings'
     | '/auth/callback'
     | '/auth/check-email'
     | '/auth/kind'
@@ -488,8 +488,8 @@ export interface FileRouteTypes {
     | '/_brand/payments'
     | '/_brand/videos'
     | '/_creator/earnings'
-    | '/_creator/settings'
     | '/_creator/offers'
+    | '/_creator/settings'
     | '/auth/callback'
     | '/auth/check-email'
     | '/auth/kind'
@@ -654,18 +654,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_creator/offers': {
-      id: '/_creator/offers'
-      path: '/offers'
-      fullPath: '/offers'
-      preLoaderRoute: typeof CreatorOffersRouteImport
-      parentRoute: typeof CreatorRoute
-    }
     '/_creator/settings': {
       id: '/_creator/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof CreatorSettingsRouteImport
+      parentRoute: typeof CreatorRoute
+    }
+    '/_creator/offers': {
+      id: '/_creator/offers'
+      path: '/offers'
+      fullPath: '/offers'
+      preLoaderRoute: typeof CreatorOffersRouteImport
       parentRoute: typeof CreatorRoute
     }
     '/_creator/earnings': {
@@ -904,15 +904,15 @@ const BrandRouteWithChildren = BrandRoute._addFileChildren(BrandRouteChildren)
 
 interface CreatorRouteChildren {
   CreatorEarningsRoute: typeof CreatorEarningsRoute
-  CreatorSettingsRoute: typeof CreatorSettingsRoute
   CreatorOffersRoute: typeof CreatorOffersRoute
+  CreatorSettingsRoute: typeof CreatorSettingsRoute
   CreatorDiscoverCampaignsRoute: typeof CreatorDiscoverCampaignsRoute
 }
 
 const CreatorRouteChildren: CreatorRouteChildren = {
   CreatorEarningsRoute: CreatorEarningsRoute,
-  CreatorSettingsRoute: CreatorSettingsRoute,
   CreatorOffersRoute: CreatorOffersRoute,
+  CreatorSettingsRoute: CreatorSettingsRoute,
   CreatorDiscoverCampaignsRoute: CreatorDiscoverCampaignsRoute,
 }
 

@@ -53,6 +53,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { title: 'Marz' },
       /* eslint-enable lingui/no-unlocalized-strings */
     ],
+    links: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     htmlAttrs: { lang: loaderData?.locale ?? 'es' },
   }),
   shellComponent: RootDocument,

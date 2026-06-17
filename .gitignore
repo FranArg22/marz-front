@@ -18,6 +18,8 @@ coverage
 *.log
 bun.lock
 bun.lockb
+# npm lockfile — this repo uses pnpm (pnpm-lock.yaml); never commit npm's
+package-lock.json
 .rafita/runs/
 .rafita/state.json
 .rafita/plans/

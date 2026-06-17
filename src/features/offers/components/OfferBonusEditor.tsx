@@ -123,7 +123,7 @@ export function OfferBonusEditor({
             </div>
 
             <div className="mt-3 grid grid-cols-[7rem_minmax(0,1fr)] gap-2">
-              <label className="flex items-center gap-2 rounded-lg bg-input/40 px-2 py-1">
+              <label className="flex items-center gap-2 rounded-lg bg-input px-2 py-1 dark:bg-input/30">
                 <span className="text-[length:var(--font-size-xs)] text-muted-foreground">
                   {t`En`}
                 </span>
@@ -196,7 +196,7 @@ export function OfferBonusEditor({
                         : { type: 'percentage', value: nextValue },
                     })
                   }}
-                  className="h-9 rounded-lg bg-input/40 font-mono"
+                  className="h-9 rounded-lg bg-input font-mono dark:bg-input/30"
                 />
               </div>
             </div>

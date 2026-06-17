@@ -20,7 +20,6 @@ import { TooltipProvider } from '#/components/ui/tooltip'
 
 import { AppSidebarItem } from './AppSidebarItem'
 import { resolveActiveSidebarItem, shellNavigationConfig } from './navigation'
-import { useShellIdentityLabel } from './useShellIdentityLabel'
 
 type AppSidebarAccountKind = 'brand' | 'creator'
 
@@ -47,7 +46,6 @@ const iconByName: Record<string, LucideIcon> = {
 export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
-  const initials = useShellIdentityLabel(accountKind)
 
   return (
     <TooltipProvider>
@@ -55,15 +53,19 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
         data-testid="app-sidebar"
         data-width="72px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-[72px] shrink-0 flex-col items-center border-r border-sidebar-border bg-background"
+        className="flex h-full w-[72px] shrink-0 flex-col items-center bg-sidebar"
       >
         <div className="flex h-14 w-full shrink-0 items-center justify-center">
-          <div
-            aria-hidden="true"
-            className="flex size-9 items-center justify-center rounded-[var(--radius-md)] bg-primary text-base font-bold text-primary-foreground"
-          >
-            {initials}
-          </div>
+          <img
+            src="/marz-mark-light.png"
+            alt="Marz"
+            className="size-9 rounded-[var(--radius-md)] object-contain dark:hidden"
+          />
+          <img
+            src="/marz-mark-dark.png"
+            alt="Marz"
+            className="hidden size-9 rounded-[var(--radius-md)] object-contain dark:block"
+          />
         </div>
         <div className="h-px w-7 bg-sidebar-border" />
         <div className="flex w-full flex-1 flex-col items-center gap-2 pt-4">

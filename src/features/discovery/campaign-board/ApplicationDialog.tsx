@@ -188,7 +188,7 @@ export function ApplicationDialog({
                 <field.TextareaField
                   label={t`Mensaje`}
                   placeholder={t`Hola, me interesa participar porque...`}
-                  className="min-h-40 resize-none rounded-xl border-border bg-input/40 text-sm"
+                  className="min-h-40 resize-none rounded-xl border-border bg-input text-sm dark:bg-input/30"
                   maxLength={
                     submitCreatorCampaignBoardApplicationBodyMessageMax + 1
                   }
