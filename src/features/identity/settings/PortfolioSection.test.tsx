@@ -45,7 +45,7 @@ describe('PortfolioSection', () => {
     ).toBeInTheDocument()
     expect(screen.getAllByText('Pendiente')).toHaveLength(2)
     expect(screen.getAllByLabelText('URL del video')).toHaveLength(2)
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it("blocks invalid URL submit and doesn't call the mutation", async () => {
@@ -57,7 +57,7 @@ describe('PortfolioSection', () => {
     expect(
       screen.getByText('Ingresá una URL válida que empiece con http:// o https://'),
     ).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
     await user.keyboard('{Enter}')
 
     expect(mockReplaceSampleVideos).not.toHaveBeenCalled()
@@ -71,7 +71,7 @@ describe('PortfolioSection', () => {
       screen.getAllByLabelText('URL del video')[0]!,
       'https://videos.example.com/new',
     )
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockReplaceSampleVideos).toHaveBeenCalledWith({
@@ -90,7 +90,7 @@ describe('PortfolioSection', () => {
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
 
     await user.click(screen.getByRole('button', { name: 'Quitar link' }))
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockReplaceSampleVideos).toHaveBeenCalledWith({
@@ -115,7 +115,7 @@ describe('PortfolioSection', () => {
     )
 
     await user.click(screen.getAllByRole('button', { name: 'Quitar link' })[1]!)
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockReplaceSampleVideos).toHaveBeenCalledWith({

@@ -70,7 +70,7 @@ describe('RatesSection', () => {
     expect(screen.getByLabelText('Reel de Instagram')).toHaveValue('120.50')
     expect(screen.getByLabelText('Video de TikTok')).toHaveValue('')
     expect(screen.getByLabelText('Tarifa UGC')).toHaveValue('300')
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('renders handle and followers as text instead of editable inputs', () => {
@@ -96,7 +96,7 @@ describe('RatesSection', () => {
     renderRatesSection()
 
     await user.clear(screen.getByLabelText('Reel de Instagram'))
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(
       await screen.findByText(
@@ -112,7 +112,7 @@ describe('RatesSection', () => {
 
     await user.clear(screen.getByLabelText('Reel de Instagram'))
     await user.type(screen.getByLabelText('Reel de Instagram'), 'abc')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(await screen.findByText('must_be_positive')).toBeInTheDocument()
     expect(mockUpdateRates).not.toHaveBeenCalled()
@@ -126,7 +126,7 @@ describe('RatesSection', () => {
     await user.clear(screen.getByLabelText('Reel de Instagram'))
     await user.type(screen.getByLabelText('Reel de Instagram'), '150')
     await user.type(screen.getByLabelText('Video de TikTok'), '80')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockUpdateRates).toHaveBeenCalledWith({
@@ -149,7 +149,7 @@ describe('RatesSection', () => {
 
     await user.clear(screen.getByLabelText('Tarifa UGC'))
     await user.type(screen.getByLabelText('Tarifa UGC'), '350')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockUpdateRates).toHaveBeenCalledWith({

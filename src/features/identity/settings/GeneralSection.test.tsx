@@ -82,7 +82,7 @@ describe('GeneralSection', () => {
       'src',
       'https://cdn.example.com/avatar.jpg',
     )
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('selecting a valid image updates preview and makes the save bar dirty', async () => {
@@ -99,7 +99,7 @@ describe('GeneralSection', () => {
         expect.stringContaining('data:image/png'),
       )
     })
-    expect(screen.getByRole('button', { name: 'Guardar' })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).not.toBeDisabled()
   })
 
   it('rejects files larger than 5MB without changing preview', async () => {
@@ -116,7 +116,7 @@ describe('GeneralSection', () => {
       'src',
       'https://cdn.example.com/avatar.jpg',
     )
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('rejects unsupported file types without changing preview', async () => {
@@ -131,7 +131,7 @@ describe('GeneralSection', () => {
       'src',
       'https://cdn.example.com/avatar.jpg',
     )
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('submits avatar before contact changes', async () => {
@@ -167,7 +167,7 @@ describe('GeneralSection', () => {
     })
     await user.clear(screen.getByLabelText('Ciudad'))
     await user.type(screen.getByLabelText('Ciudad'), 'Cordoba')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(calls).toEqual(['presign', 's3', 'avatar', 'contact'])
@@ -185,11 +185,11 @@ describe('GeneralSection', () => {
     })
     await user.clear(screen.getByLabelText('Ciudad'))
     await user.type(screen.getByLabelText('Ciudad'), 'Rosario')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(await screen.findByText('presign exploded')).toBeInTheDocument()
     expect(mockUpdateContact).not.toHaveBeenCalled()
-    expect(screen.getByRole('button', { name: 'Guardar' })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).not.toBeDisabled()
   })
 
   it('shows birthday validation error on submit and does not call mutations', async () => {
@@ -198,7 +198,7 @@ describe('GeneralSection', () => {
 
     await user.clear(screen.getByLabelText('Fecha de nacimiento'))
     await user.type(screen.getByLabelText('Fecha de nacimiento'), '2010-01-01')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(
       await screen.findByText('Tenés que ser mayor de 18 años.'),
@@ -214,7 +214,7 @@ describe('GeneralSection', () => {
 
     await user.clear(screen.getByLabelText('Teléfono'))
     await user.type(screen.getByLabelText('Teléfono'), '1234')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(
       await screen.findByText(/Usá formato E\.164/),
@@ -232,9 +232,9 @@ describe('GeneralSection', () => {
       target: { files: [createFile('avatar.jpg', 1024, 'image/jpeg')] },
     })
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: 'Guardar' })).not.toBeDisabled()
+      expect(screen.getByRole('button', { name: 'Guardar cambios' })).not.toBeDisabled()
     })
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockSetAvatar).toHaveBeenCalledWith({
@@ -253,7 +253,7 @@ describe('GeneralSection', () => {
     const fullName = screen.getByRole('textbox', { name: /Nombre completo/ })
     await user.clear(fullName)
     await user.type(fullName, 'Ada Byron')
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockUpdateContact).toHaveBeenCalledWith({

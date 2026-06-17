@@ -120,7 +120,7 @@ describe('CollaborationSection', () => {
       'true',
     )
     expect(screen.getByRole('switch', { name: 'Acepto canjes' })).toBeChecked()
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('disables the only selected creator kind with a visible explanation', () => {
@@ -156,7 +156,7 @@ describe('CollaborationSection', () => {
     await user.click(screen.getByRole('checkbox', { name: 'Moda' }))
     await user.click(screen.getByRole('checkbox', { name: 'Reviews' }))
     await user.click(screen.getByRole('switch', { name: 'Acepto canjes' }))
-    await user.click(screen.getByRole('button', { name: 'Guardar' }))
+    await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockUpdateCollaboration).toHaveBeenCalledWith({
