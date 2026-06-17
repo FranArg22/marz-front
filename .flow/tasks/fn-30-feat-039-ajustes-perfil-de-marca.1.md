@@ -62,8 +62,7 @@ En `src/shared/api/generated/billing/billing.ts`:
 - Verify: `pnpm typecheck`
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-039-ajustes-perfil-de-marca.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
