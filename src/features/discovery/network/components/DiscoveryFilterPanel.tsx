@@ -53,7 +53,8 @@ const AGE_OPTIONS = [
   GetDiscoveryCreatorsAgeBucketsItem['55+'],
 ]
 
-const ENGAGEMENT_OPTIONS = [0, 3, 5]
+// Displayed as whole percentages; the API expects a 0..1 fraction (1% -> 0.01).
+const ENGAGEMENT_OPTIONS = [1, 3, 5]
 
 export function DiscoveryFilterPanel({
   open,
@@ -228,7 +229,7 @@ export function DiscoveryFilterPanel({
                 <FieldGroup label={t`Tipo de creador`}>
                   <PillGroup>
                     <PillToggle
-                      label={t`Todas`}
+                      label={t`Todos`}
                       selected={
                         creatorType === GetDiscoveryCreatorsCreatorType.all
                       }
@@ -257,7 +258,7 @@ export function DiscoveryFilterPanel({
                 <FieldGroup label={t`Sexo`}>
                   <PillGroup>
                     <PillToggle
-                      label={t`Todxs`}
+                      label={t`Todos`}
                       selected={genderValue === 'all'}
                       onToggle={() =>
                         updatePendingFilters({ gender: undefined })
@@ -354,19 +355,22 @@ export function DiscoveryFilterPanel({
               <div className="space-y-4">
                 <FieldGroup label={t`Engagement rate`}>
                   <PillGroup>
-                    {ENGAGEMENT_OPTIONS.map((option) => (
-                      <PillToggle
-                        key={option}
-                        label={t`Más del ${option}%`}
-                        selected={engagementValue === option}
-                        onToggle={() =>
-                          updatePendingFilters({
-                            engagement_rate_min:
-                              engagementValue === option ? undefined : option,
-                          })
-                        }
-                      />
-                    ))}
+                    {ENGAGEMENT_OPTIONS.map((option) => {
+                      const value = option / 100
+                      return (
+                        <PillToggle
+                          key={option}
+                          label={t`Mayor a ${option}%`}
+                          selected={engagementValue === value}
+                          onToggle={() =>
+                            updatePendingFilters({
+                              engagement_rate_min:
+                                engagementValue === value ? undefined : value,
+                            })
+                          }
+                        />
+                      )
+                    })}
                   </PillGroup>
                 </FieldGroup>
 
@@ -508,7 +512,7 @@ function MultiSelectDropdown<T extends string>({
       <Popover.Trigger asChild>
         <button
           type="button"
-          className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-input px-3 text-sm shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
         >
           <span
             className={cn(

@@ -132,7 +132,6 @@ describe('AppShell', () => {
       const source = readFileSync(resolve(process.cwd(), file), 'utf8')
 
       expect(source).not.toContain('<aside')
-      expect(source).not.toContain('bg-sidebar')
       expect(source).not.toContain('border-sidebar')
       expect(source).not.toContain('text-sidebar')
     }

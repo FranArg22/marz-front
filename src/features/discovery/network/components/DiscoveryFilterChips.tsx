@@ -62,8 +62,27 @@ export function DiscoveryFilterChips({
   onOpenFilterPanel,
 }: DiscoveryFilterChipsProps) {
   const { appliedFilters, setPendingFilters } = useDiscoveryFiltersStore()
-  const chips = buildFilterChips(appliedFilters)
+  const activeChips = buildFilterChips(appliedFilters)
+  const activeChipByKey = new Map(activeChips.map((chip) => [chip.key, chip]))
   const activeCount = countActiveFilters(appliedFilters)
+
+  // Most-used filters surfaced as suggestions even when not applied, so the bar
+  // never looks empty. When a suggested filter is active it renders its value
+  // chip instead; active filters outside this list are appended after.
+  const suggestedFilters: FilterChipItem[] = [
+    { key: 'platforms', label: t`Plataforma` },
+    { key: 'countries', label: t`País` },
+    { key: 'interests', label: t`Interés` },
+    { key: 'age_buckets', label: t`Edad` },
+    { key: 'followers', label: t`Seguidores` },
+    { key: 'cpm', label: t`CPM` },
+    { key: 'engagement_rate', label: t`ER` },
+    { key: 'price', label: t`Precio` },
+  ]
+  const suggestedKeys = new Set(suggestedFilters.map((item) => item.key))
+  const extraActiveChips = activeChips.filter(
+    (chip) => !suggestedKeys.has(chip.key),
+  )
 
   const syncFilters = (nextFilters: DiscoveryFilters) => {
     useDiscoveryFiltersStore.setState({ appliedFilters: nextFilters })
@@ -98,7 +117,7 @@ export function DiscoveryFilterChips({
   }
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-border bg-background px-2 py-1.5 shadow-sm">
+    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-2 py-1.5 shadow-sm">
       <button
         type="button"
         onClick={onOpenFilterPanel}
@@ -114,7 +133,23 @@ export function DiscoveryFilterChips({
       </button>
 
       <div className="flex flex-1 items-center gap-2 overflow-x-auto">
-        {chips.map((chip) => (
+        {suggestedFilters.map((item) => {
+          const activeChip = activeChipByKey.get(item.key)
+          return activeChip ? (
+            <FilterChip
+              key={item.key}
+              label={activeChip.label}
+              onRemove={() => removeChip(item.key)}
+            />
+          ) : (
+            <SuggestionChip
+              key={item.key}
+              label={item.label}
+              onClick={onOpenFilterPanel}
+            />
+          )
+        })}
+        {extraActiveChips.map((chip) => (
           <FilterChip
             key={chip.key}
             label={chip.label}
@@ -133,6 +168,24 @@ export function DiscoveryFilterChips({
         </button>
       )}
     </div>
+  )
+}
+
+function SuggestionChip({
+  label,
+  onClick,
+}: {
+  label: string
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-7 shrink-0 items-center rounded-full border border-border bg-transparent px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground"
+    >
+      {label}
+    </button>
   )
 }
 
@@ -227,10 +280,10 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
   }
 
   if (filters.engagement_rate_min !== undefined) {
-    const erMin = filters.engagement_rate_min
+    const erMinPct = Math.round(filters.engagement_rate_min * 100)
     chips.push({
       key: 'engagement_rate',
-      label: t`+${erMin}% ER`,
+      label: t`+${erMinPct}% ER`,
     })
   }
 

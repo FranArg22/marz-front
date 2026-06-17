@@ -178,7 +178,7 @@ msgid "{activeBonusCount} activos"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:394
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:404
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:408
 msgid "{activeCount} filtros activos"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgstr ""
 #~ msgid "{countryCount} seleccionados"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:260
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:313
 msgid "{cpmRange} CPM"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgstr ""
 msgid "{firstName}, ¿cuánto hiciste con marcas?"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:225
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:278
 msgid "{followersRange} seguidores"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 #~ msgid "{views} views en {hours} · {bonusAmount}"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:248
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:301
 msgid "{viewsRange} vistas"
 msgstr ""
 
@@ -485,10 +485,14 @@ msgid "/mo · anual"
 msgstr "/mo · annual"
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:233
-msgid "+{erMin}% ER"
+#~ msgid "+{erMin}% ER"
+#~ msgstr ""
+
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:286
+msgid "+{erMinPct}% ER"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:223
+#: src/features/discovery/network/components/CreatorCard.tsx:227
 msgid "+{hiddenTagCount}"
 msgstr ""
 
@@ -1036,7 +1040,7 @@ msgstr ""
 #~ msgid "Alc"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:245
+#: src/features/discovery/network/components/CreatorCard.tsx:249
 msgid "Alcance"
 msgstr ""
 
@@ -1163,7 +1167,7 @@ msgstr "Annual"
 #~ msgid "Aplicación"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:411
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:415
 msgid "Aplicar"
 msgstr ""
 
@@ -1926,7 +1930,7 @@ msgstr ""
 #~ msgid "Changing the offer type will discard the entered data. Continue?"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:157
+#: src/features/discovery/network/components/CreatorCard.tsx:161
 msgid "Chat"
 msgstr ""
 
@@ -1999,8 +2003,8 @@ msgstr ""
 msgid "Colaboraciones"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:353
-#: src/features/discovery/network/components/CreatorCard.tsx:373
+#: src/features/discovery/network/components/CreatorCard.tsx:357
+#: src/features/discovery/network/components/CreatorCard.tsx:377
 msgid "Colaborando"
 msgstr ""
 
@@ -2252,8 +2256,8 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:348
-#: src/features/discovery/network/components/CreatorCard.tsx:371
+#: src/features/discovery/network/components/CreatorCard.tsx:352
+#: src/features/discovery/network/components/CreatorCard.tsx:375
 msgid "Conversación abierta"
 msgstr ""
 
@@ -2290,7 +2294,8 @@ msgstr ""
 msgid "CPC estimado"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:247
+#: src/features/discovery/network/components/CreatorCard.tsx:251
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:78
 msgid "CPM"
 msgstr ""
 
@@ -2310,7 +2315,7 @@ msgstr ""
 msgid "Creá una invitación para esta campaña."
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:154
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:155
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:124
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
@@ -2651,7 +2656,7 @@ msgstr ""
 msgid "Descubrir creators"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:583
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:587
 msgid "Desde"
 msgstr ""
 
@@ -2663,7 +2668,7 @@ msgstr ""
 #~ msgid "Desde {minFmt}"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:290
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:343
 msgid "Desde {minLabel}"
 msgstr ""
 
@@ -2883,7 +2888,8 @@ msgid "Earnings period"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:421
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:193
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:76
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:194
 msgid "Edad"
 msgstr ""
 
@@ -3090,7 +3096,7 @@ msgstr ""
 #~ msgid "El presupuesto debe ser mayor a 0."
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:596
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:600
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr ""
 
@@ -3273,11 +3279,11 @@ msgstr ""
 msgid "Enero"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:246
+#: src/features/discovery/network/components/CreatorCard.tsx:250
 msgid "Engagement"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:355
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:356
 msgid "Engagement rate"
 msgstr ""
 
@@ -3404,9 +3410,9 @@ msgstr ""
 #~ msgid "Equipo Marz dedicado"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:228
-#~ msgid "ER"
-#~ msgstr ""
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:79
+msgid "ER"
+msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:233
 #~ msgid "ER: ≥{erMin}%"
@@ -3805,7 +3811,7 @@ msgstr ""
 msgid "Feed activo ahora mismo"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:276
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:277
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:10
 msgid "Femenino"
 msgstr ""
@@ -3858,8 +3864,8 @@ msgstr ""
 #~ msgid "Filtrar por creator"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:108
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:147
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:127
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:148
 msgid "Filtros"
 msgstr ""
 
@@ -4161,7 +4167,7 @@ msgstr ""
 #~ msgid "Hard Filters"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:591
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:595
 msgid "Hasta"
 msgstr ""
 
@@ -4173,7 +4179,7 @@ msgstr ""
 #~ msgid "Hasta {maxFmt}"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:295
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:348
 msgid "Hasta {maxLabel}"
 msgstr ""
 
@@ -4340,7 +4346,7 @@ msgstr ""
 msgid "INCLUYE"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:242
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:243
 #: src/features/identity/settings/CollaborationSection.tsx:50
 msgid "Influencer"
 msgstr ""
@@ -4435,6 +4441,10 @@ msgstr ""
 msgid "Intentá actualizar el board. Si sigue fallando, probá de nuevo más tarde."
 msgstr ""
 
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:75
+msgid "Interés"
+msgstr ""
+
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:506
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:515
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:518
@@ -4443,7 +4453,7 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:164
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:130
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:211
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:212
 #: src/features/identity/settings/CollaborationSection.tsx:204
 msgid "Intereses"
 msgstr ""
@@ -4474,8 +4484,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:37
-#: src/features/discovery/network/components/CreatorCard.tsx:333
-#: src/features/discovery/network/components/CreatorCard.tsx:366
+#: src/features/discovery/network/components/CreatorCard.tsx:337
+#: src/features/discovery/network/components/CreatorCard.tsx:370
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:46
 msgid "Invitación enviada"
 msgstr ""
@@ -4484,11 +4494,11 @@ msgstr ""
 msgid "Invitación enviada a {invitedEmail}"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:338
+#: src/features/discovery/network/components/CreatorCard.tsx:342
 msgid "Invitación rechazada"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:343
+#: src/features/discovery/network/components/CreatorCard.tsx:347
 msgid "Invitación vencida"
 msgstr ""
 
@@ -4496,7 +4506,7 @@ msgstr ""
 msgid "Invitado"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:364
+#: src/features/discovery/network/components/CreatorCard.tsx:368
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:103
 msgid "Invitar"
 msgstr ""
@@ -4513,7 +4523,7 @@ msgstr ""
 msgid "Invitar a {name}"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:369
+#: src/features/discovery/network/components/CreatorCard.tsx:373
 msgid "Invitar de nuevo"
 msgstr ""
 
@@ -4566,7 +4576,7 @@ msgstr ""
 msgid "Ir a mi dashboard"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:153
+#: src/features/discovery/network/components/CreatorCard.tsx:157
 #: src/features/inbox/InboxItemRow.tsx:177
 #: src/features/inbox/InboxItemRow.tsx:183
 msgid "Ir al chat"
@@ -4787,7 +4797,7 @@ msgstr ""
 msgid "Light"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:132
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:167
 msgid "Limpiar"
 msgstr ""
 
@@ -4799,7 +4809,7 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:186
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:404
 msgid "Limpiar filtros"
 msgstr ""
 
@@ -5067,14 +5077,14 @@ msgid "Más acciones"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:360
-msgid "Más del {option}%"
-msgstr ""
+#~ msgid "Más del {option}%"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:23
 msgid "Más recientes"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:267
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:268
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:9
 msgid "Masculino"
 msgstr ""
@@ -5157,6 +5167,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C11BirthdayScreen.tsx:19
 msgid "Mayo"
+msgstr ""
+
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:363
+msgid "Mayor a {option}%"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:123
@@ -5418,7 +5432,7 @@ msgstr ""
 #~ msgid "Nada"
 #~ msgstr ""
 
-#: src/features/identity/app-shell/AppSidebar.tsx:57
+#: src/features/identity/app-shell/AppSidebar.tsx:55
 msgid "Navegación principal"
 msgstr ""
 
@@ -6274,7 +6288,8 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:145
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:152
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:169
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:178
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:74
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:179
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
 #: src/features/identity/settings/GeneralSection.tsx:228
 msgid "País"
@@ -6482,7 +6497,7 @@ msgstr ""
 msgid "performance"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:307
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:308
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:22
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:42
 msgid "Performance"
@@ -6548,13 +6563,17 @@ msgstr ""
 msgid "Planes"
 msgstr "Plans"
 
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:73
+msgid "Plataforma"
+msgstr ""
+
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:245
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:79
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:83
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:158
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:136
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:444
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:157
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:158
 #: src/features/offers/components/CurrentOfferBlock.tsx:271
 msgid "Plataformas"
 msgstr ""
@@ -6685,8 +6704,9 @@ msgstr ""
 msgid "Postulate a las que matchean con tu perfil. Cuanto más completo tu perfil, mejor el match."
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:250
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:339
+#: src/features/discovery/network/components/CreatorCard.tsx:254
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:80
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:340
 msgid "Precio"
 msgstr ""
 
@@ -6845,7 +6865,7 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:81
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:79
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:106
-#: src/features/identity/app-shell/AppSidebar.tsx:76
+#: src/features/identity/app-shell/AppSidebar.tsx:78
 #: src/features/identity/app-shell/navigation.ts:17
 #: src/features/identity/auth/components/KindSelector.tsx:164
 msgid "Próximamente"
@@ -6929,7 +6949,7 @@ msgstr ""
 #~ msgid "Quitar {tag}"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:153
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:206
 msgid "Quitar filtro {label}"
 msgstr ""
 
@@ -7007,7 +7027,7 @@ msgstr ""
 #~ msgid "RECOMENDADO PARA VOS"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:244
+#: src/features/discovery/network/components/CreatorCard.tsx:248
 msgid "Red"
 msgstr ""
 
@@ -7067,7 +7087,7 @@ msgstr ""
 msgid "Referido"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:149
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:150
 msgid "Refiná la búsqueda de creadores para esta campaña."
 msgstr ""
 
@@ -7387,7 +7407,8 @@ msgstr ""
 msgid "Secciones de campaña"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:311
+#: src/features/discovery/network/components/DiscoveryFilterChips.tsx:77
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:312
 msgid "Seguidores"
 msgstr ""
 
@@ -7427,19 +7448,19 @@ msgstr ""
 msgid "Seleccioná exactamente un canal como principal."
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:213
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:214
 msgid "Seleccioná intereses"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:180
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:181
 msgid "Seleccioná países"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:195
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:196
 msgid "Seleccioná rangos de edad"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:291
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:292
 msgid "Seleccioná tipos de contenido"
 msgstr ""
 
@@ -7596,7 +7617,7 @@ msgstr ""
 #~ msgid "Servicio fully managed"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:257
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:258
 msgid "Sexo"
 msgstr ""
 
@@ -8307,11 +8328,11 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:237
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:128
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:289
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:290
 msgid "Tipo de contenido"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:228
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:229
 #: src/features/identity/settings/CollaborationSection.tsx:189
 msgid "Tipo de creador"
 msgstr ""
@@ -8350,7 +8371,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:14
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:231
 #: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:19
 msgid "Todas"
 msgstr ""
@@ -8443,17 +8463,18 @@ msgstr ""
 msgid "Todo lo de Starter, +:"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:168
-#~ msgid "Todos"
-#~ msgstr ""
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:232
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:261
+msgid "Todos"
+msgstr ""
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:26
 msgid "Todos los pagos históricos"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:260
-msgid "Todxs"
-msgstr ""
+#~ msgid "Todxs"
+#~ msgstr ""
 
 #: src/features/identity/components/CreatorHeaderCard.tsx:52
 msgid "Toggle creator details"
@@ -9041,7 +9062,7 @@ msgstr ""
 msgid "views proyectados / mes"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:325
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:326
 msgid "Vistas promedio"
 msgstr ""
 

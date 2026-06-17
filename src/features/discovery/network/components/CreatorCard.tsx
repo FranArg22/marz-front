@@ -104,22 +104,26 @@ export function CreatorCard({
         }}
         className={cn(
           'relative block aspect-[316/286] w-full overflow-hidden rounded-[28px] text-left',
-          'disabled:cursor-not-allowed disabled:opacity-60',
+          'disabled:cursor-not-allowed',
           selected ? 'ring-2 ring-primary' : 'ring-1 ring-border',
         )}
       >
         <CardMedia card={card} />
-        <span
-          className={cn(
-            'absolute top-3 right-3 flex size-6 items-center justify-center rounded-full border',
-            selected
-              ? 'border-primary bg-primary text-primary-foreground'
-              : 'border-white/70 bg-black/30 text-transparent',
-          )}
-          aria-hidden
-        >
-          <Check className="size-4" />
-        </span>
+        {canInvite ? (
+          <span
+            className={cn(
+              'absolute top-3 right-3 flex size-6 items-center justify-center rounded-full border',
+              selected
+                ? 'border-primary bg-primary text-primary-foreground'
+                : 'border-white/70 bg-black/30 text-transparent',
+            )}
+            aria-hidden
+          >
+            <Check className="size-4" />
+          </span>
+        ) : (
+          <PairStateBadge kind={kind} />
+        )}
         <CardOverlayContent
           name={name}
           flag={flag}

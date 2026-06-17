@@ -23,11 +23,13 @@ export function AppShell({
       <TopbarProvider>
         <div
           data-testid="app-shell"
-          className="flex h-dvh min-h-0 overflow-hidden bg-background text-foreground"
+          className="flex h-dvh min-h-0 overflow-hidden bg-sidebar text-foreground"
         >
           <AppSidebar accountKind={accountKind} pathname={pathname} />
-          <div className="flex min-w-0 flex-1 flex-col">
-            <main className="min-w-0 flex-1 overflow-hidden">{children}</main>
+          <div className="flex min-w-0 flex-1 flex-col py-2 pr-2">
+            <main className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-border bg-background">
+              {children}
+            </main>
           </div>
         </div>
       </TopbarProvider>

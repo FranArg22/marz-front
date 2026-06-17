@@ -145,4 +145,24 @@ describe('CreatorCard pair-state CTA mapping', () => {
     )
     expect(onToggleSelect).toHaveBeenCalledWith('acc-1')
   })
+
+  it('selection mode: shows the pair state instead of a checkbox for a non-invitable creator', async () => {
+    const user = userEvent.setup()
+    const onToggleSelect = vi.fn()
+    render(
+      <CreatorCard
+        card={makeCard('connection_pending')}
+        onInvite={vi.fn()}
+        selectionMode
+        onToggleSelect={onToggleSelect}
+      />,
+    )
+
+    expect(screen.getByText('Invitación enviada')).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /Seleccionar Creator One/ }),
+    )
+    expect(onToggleSelect).not.toHaveBeenCalled()
+  })
 })

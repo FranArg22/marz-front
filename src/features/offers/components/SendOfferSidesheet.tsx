@@ -857,7 +857,7 @@ function TimelineDateRow({
           min={min}
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
-          className="h-9 w-[10.5rem] rounded-lg bg-input/40 font-mono text-[length:var(--font-size-xs)]"
+          className="h-9 w-[10.5rem] rounded-lg bg-input font-mono text-[length:var(--font-size-sm)] dark:bg-input/30"
         />
       </div>
       {error ? (

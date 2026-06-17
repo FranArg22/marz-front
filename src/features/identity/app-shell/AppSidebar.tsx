@@ -53,7 +53,7 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
         data-testid="app-sidebar"
         data-width="72px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-[72px] shrink-0 flex-col items-center border-r border-sidebar-border bg-background"
+        className="flex h-full w-[72px] shrink-0 flex-col items-center bg-sidebar"
       >
         <div className="flex h-14 w-full shrink-0 items-center justify-center">
           <img
