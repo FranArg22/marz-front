@@ -13,6 +13,7 @@ interface PlansGridProps {
   onIntervalChange: (interval: BillingInterval) => void
   onPlanSelect: (plan: BillingPlanIdentifier) => void
   onPlanCta?: (plan: BillingPlanIdentifier) => void
+  ctaDisabled?: boolean
 }
 
 export function PlansGrid({
@@ -22,6 +23,7 @@ export function PlansGrid({
   onIntervalChange,
   onPlanSelect,
   onPlanCta,
+  ctaDisabled = false,
 }: PlansGridProps) {
   const visiblePlans = plans.filter((p) => p.interval === selectedInterval)
 
@@ -61,6 +63,7 @@ export function PlansGrid({
             selected={selectedPlan === p.plan}
             onSelect={() => onPlanSelect(p.plan)}
             onCta={() => onPlanCta?.(p.plan)}
+            ctaDisabled={ctaDisabled}
             highlightLabel={
               p.plan === 'growth' ? t`Recomendado para vos` : undefined
             }

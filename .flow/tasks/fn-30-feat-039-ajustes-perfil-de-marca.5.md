@@ -96,8 +96,7 @@ interface PlanUpgradeModalProps {
 - Verify: `pnpm typecheck && pnpm vitest run src/features/billing/settings/PlanUpgradeModal`
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-039-ajustes-perfil-de-marca.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

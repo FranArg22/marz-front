@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
@@ -7,9 +8,11 @@ import { useBillingSubscription } from '../hooks/useBillingSubscription'
 import { useOffersPaymentMethods } from '../hooks/useOffersPaymentMethod'
 import { BillingSummary } from './BillingSummary'
 import { FreePlanCTA } from './FreePlanCTA'
+import { PlanUpgradeModal } from './PlanUpgradeModal'
 import { PlanUsageCard } from './PlanUsageCard'
 
 export function SubscriptionSection() {
+  const [upgradeOpen, setUpgradeOpen] = useState(false)
   const subscriptionQuery = useBillingSubscription({ staleTime: 30_000 })
   const paymentMethodsQuery = useOffersPaymentMethods()
   const usageQuery = useGetPlanUsage({ query: { staleTime: 30_000 } })
@@ -37,8 +40,14 @@ export function SubscriptionSection() {
   if (isFree) {
     return (
       <SubscriptionShell>
-        <FreePlanCTA onUpgrade={() => undefined} />
+        <FreePlanCTA onUpgrade={() => setUpgradeOpen(true)} />
         <PlanUsageCard usage={usageResponse.data} />
+        {upgradeOpen ? (
+          <PlanUpgradeModal
+            open={upgradeOpen}
+            onClose={() => setUpgradeOpen(false)}
+          />
+        ) : null}
       </SubscriptionShell>
     )
   }
