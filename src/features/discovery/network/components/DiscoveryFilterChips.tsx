@@ -11,6 +11,8 @@ import {
   useDiscoveryFiltersStore,
 } from '../store/discoveryFiltersStore'
 import type { DiscoveryFilters } from '../store/discoveryFiltersStore'
+import { QuickFilterPopover } from './QuickFilterPopover'
+import type { QuickChipKey } from './QuickFilterPopover'
 
 interface DiscoveryFilterChipsProps {
   onOpenFilterPanel: () => void
@@ -67,9 +69,10 @@ export function DiscoveryFilterChips({
   const activeCount = countActiveFilters(appliedFilters)
 
   // Most-used filters surfaced as suggestions even when not applied, so the bar
-  // never looks empty. When a suggested filter is active it renders its value
-  // chip instead; active filters outside this list are appended after.
-  const suggestedFilters: FilterChipItem[] = [
+  // never looks empty. Each opens an inline mini-popover scoped to that single
+  // filter. When a suggested filter is active it renders its value chip
+  // instead; active filters outside this list are appended after.
+  const suggestedFilters: { key: QuickChipKey; label: string }[] = [
     { key: 'platforms', label: t`Plataforma` },
     { key: 'countries', label: t`País` },
     { key: 'interests', label: t`Interés` },
@@ -79,7 +82,9 @@ export function DiscoveryFilterChips({
     { key: 'engagement_rate', label: t`ER` },
     { key: 'price', label: t`Precio` },
   ]
-  const suggestedKeys = new Set(suggestedFilters.map((item) => item.key))
+  const suggestedKeys = new Set<ChipKey>(
+    suggestedFilters.map((item) => item.key),
+  )
   const extraActiveChips = activeChips.filter(
     (chip) => !suggestedKeys.has(chip.key),
   )
@@ -135,17 +140,13 @@ export function DiscoveryFilterChips({
       <div className="flex flex-1 items-center gap-2 overflow-x-auto">
         {suggestedFilters.map((item) => {
           const activeChip = activeChipByKey.get(item.key)
-          return activeChip ? (
-            <FilterChip
+          return (
+            <QuickFilterPopover
               key={item.key}
-              label={activeChip.label}
+              chipKey={item.key}
+              label={activeChip ? activeChip.label : item.label}
+              active={Boolean(activeChip)}
               onRemove={() => removeChip(item.key)}
-            />
-          ) : (
-            <SuggestionChip
-              key={item.key}
-              label={item.label}
-              onClick={onOpenFilterPanel}
             />
           )
         })}
@@ -168,24 +169,6 @@ export function DiscoveryFilterChips({
         </button>
       )}
     </div>
-  )
-}
-
-function SuggestionChip({
-  label,
-  onClick,
-}: {
-  label: string
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex h-7 shrink-0 items-center rounded-full border border-border bg-transparent px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground"
-    >
-      {label}
-    </button>
   )
 }
 
