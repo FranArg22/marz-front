@@ -38,7 +38,7 @@ export function BillingPage() {
       <BillingSummary
         subscription={response.data}
         paymentMethodsMode="self-fetch"
-        returnUrl="/billing"
+        returnUrl="/ajustes/suscripcion"
       />
     </div>
   )

@@ -68,7 +68,7 @@ export function BillingTopbarPill() {
 
   const triggerPillAction = () => {
     if (content.state === 'canceled_pending') {
-      void navigate({ to: '/billing' })
+      void navigate({ to: '/ajustes/suscripcion' })
       return
     }
     openPortal()

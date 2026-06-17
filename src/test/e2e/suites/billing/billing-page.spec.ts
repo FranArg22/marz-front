@@ -3,7 +3,7 @@ import { BrandOnboardingWizard } from '../../poms/onboarding/brand-wizard.pom'
 
 const STRIPE_TEST_MODE_ENABLED = process.env.STRIPE_TEST_MODE === '1'
 
-test.describe('/billing — active subscription manage portal flow', () => {
+test.describe('/ajustes/suscripcion — active subscription manage portal flow', () => {
   test('brand with active subscription manages plan via Stripe portal', async ({
     page,
     brandOnboardingUser,
@@ -50,7 +50,7 @@ test.describe('/billing — active subscription manage portal flow', () => {
       timeout: 60_000,
     })
 
-    await page.goto('/billing')
+    await page.goto('/ajustes/suscripcion')
     await expect(
       page.getByRole('heading', {
         name: /(suscripción está activa|período de prueba)/i,
@@ -59,20 +59,15 @@ test.describe('/billing — active subscription manage portal flow', () => {
     await expect(page.getByText(/Starter \(mensual\)/i)).toBeVisible()
     await expect(page.getByText(/visa •••• 4242/i)).toBeVisible()
     await expect(
-      page.getByText(/Se usa para suscripción y pagos a creators/i),
+      page.getByRole('heading', { name: /Métodos de pago/i }),
     ).toBeVisible()
-
-    // ESC-1: bloque combinado de método de pago
-    const portalBlock = page.getByTestId('billing.page.active_subscription_portal')
-    await expect(portalBlock).toBeVisible()
-    await expect(portalBlock.getByText(/visa •••• 4242/i)).toBeVisible()
     await expect(
-      portalBlock.getByText(/Se usa para suscripción y pagos a creators/i),
+      page.getByText(/El mismo que la suscripción/i),
     ).toBeVisible()
 
     await Promise.all([
       page.waitForURL(/billing\.stripe\.com/, { timeout: 30_000 }),
-      portalBlock.getByRole('button', { name: /Gestionar.*en Stripe/i }).click(),
+      page.getByRole('button', { name: /Gestionar.*en Stripe/i }).click(),
     ])
   })
 })

@@ -72,8 +72,7 @@ Committear todo el diff limpio: cleanup de huérfanos, catálogos i18n actualiza
 - Verify: `pnpm work:post`
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-039-ajustes-perfil-de-marca.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

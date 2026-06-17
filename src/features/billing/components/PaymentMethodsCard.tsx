@@ -40,7 +40,7 @@ interface PaymentMethodsCardProps {
 export function PaymentMethodsCard({
   paymentMethods,
   usePrefetchedPaymentMethods = false,
-  returnUrl = '/billing',
+  returnUrl = '/ajustes/suscripcion',
 }: PaymentMethodsCardProps) {
   const query = useOffersPaymentMethods(!usePrefetchedPaymentMethods)
   const setSubscription = useSetSubscriptionPaymentMethod()
