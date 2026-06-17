@@ -34,15 +34,29 @@ import type {
   CreatorEarningsResponse,
   CreatorInvitationDetailResponse,
   CreatorInvitationListResponse,
+  CreatorRatesResponse,
+  CreatorSettingsCollaboration,
+  CreatorSettingsContact,
+  CreatorSettingsResponse,
   DeclineCreatorInvitationResponse,
   ErrorResponse,
   ExportCreatorEarningsCSVParams,
   GetCreatorEarningsParams,
+  GetMyPayoutAccount200,
   ListCreatorCampaignBoardParams,
   ListCreatorInvitationsParams,
   RejectConnectionRequestResponse,
+  ReplaceMyCreatorSampleVideos200,
+  SetCreatorAvatarRequest,
+  SetCreatorAvatarResponse,
   SubmitCampaignApplicationRequest,
-  SubmitCampaignApplicationResponse
+  SubmitCampaignApplicationResponse,
+  UpdateCreatorCollaborationRequest,
+  UpdateCreatorContactRequest,
+  UpdateCreatorRatesRequest,
+  UpdateSampleVideosRequest,
+  UpsertMyPayoutAccount200,
+  UpsertPayoutAccountRequest
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -722,7 +736,811 @@ export function useGetCreatorEarnings<TData = Awaited<ReturnType<typeof getCreat
 
 
 
-export type exportCreatorEarningsCSVResponse200 = {
+export type getMyPayoutAccountResponse200 = {
+  data: GetMyPayoutAccount200
+  status: 200
+}
+
+export type getMyPayoutAccountResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getMyPayoutAccountResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getMyPayoutAccountResponseSuccess = (getMyPayoutAccountResponse200) & {
+  headers: Headers;
+};
+export type getMyPayoutAccountResponseError = (getMyPayoutAccountResponse401 | getMyPayoutAccountResponse403) & {
+  headers: Headers;
+};
+
+export type getMyPayoutAccountResponse = (getMyPayoutAccountResponseSuccess | getMyPayoutAccountResponseError)
+
+export const getGetMyPayoutAccountUrl = () => {
+
+
+
+
+  return `/v1/creators/me/payout-account`
+}
+
+export const getMyPayoutAccount = async ( options?: RequestInit): Promise<getMyPayoutAccountResponse> => {
+
+  return customFetch<getMyPayoutAccountResponse>(getGetMyPayoutAccountUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetMyPayoutAccountQueryKey = () => {
+    return [
+    `/v1/creators/me/payout-account`
+    ] as const;
+    }
+
+
+export const getGetMyPayoutAccountQueryOptions = <TData = Awaited<ReturnType<typeof getMyPayoutAccount>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMyPayoutAccountQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMyPayoutAccount>>> = ({ signal }) => getMyPayoutAccount({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetMyPayoutAccountQueryResult = NonNullable<Awaited<ReturnType<typeof getMyPayoutAccount>>>
+export type GetMyPayoutAccountQueryError = ErrorResponse
+
+
+export function useGetMyPayoutAccount<TData = Awaited<ReturnType<typeof getMyPayoutAccount>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyPayoutAccount>>,
+          TError,
+          Awaited<ReturnType<typeof getMyPayoutAccount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyPayoutAccount<TData = Awaited<ReturnType<typeof getMyPayoutAccount>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyPayoutAccount>>,
+          TError,
+          Awaited<ReturnType<typeof getMyPayoutAccount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyPayoutAccount<TData = Awaited<ReturnType<typeof getMyPayoutAccount>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetMyPayoutAccount<TData = Awaited<ReturnType<typeof getMyPayoutAccount>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyPayoutAccount>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetMyPayoutAccountQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type upsertMyPayoutAccountResponse200 = {
+  data: UpsertMyPayoutAccount200
+  status: 200
+}
+
+export type upsertMyPayoutAccountResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type upsertMyPayoutAccountResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type upsertMyPayoutAccountResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type upsertMyPayoutAccountResponseSuccess = (upsertMyPayoutAccountResponse200) & {
+  headers: Headers;
+};
+export type upsertMyPayoutAccountResponseError = (upsertMyPayoutAccountResponse401 | upsertMyPayoutAccountResponse403 | upsertMyPayoutAccountResponse422) & {
+  headers: Headers;
+};
+
+export type upsertMyPayoutAccountResponse = (upsertMyPayoutAccountResponseSuccess | upsertMyPayoutAccountResponseError)
+
+export const getUpsertMyPayoutAccountUrl = () => {
+
+
+
+
+  return `/v1/creators/me/payout-account`
+}
+
+export const upsertMyPayoutAccount = async (upsertPayoutAccountRequest: UpsertPayoutAccountRequest, options?: RequestInit): Promise<upsertMyPayoutAccountResponse> => {
+
+  return customFetch<upsertMyPayoutAccountResponse>(getUpsertMyPayoutAccountUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      upsertPayoutAccountRequest,)
+  }
+);}
+
+
+
+
+export const getUpsertMyPayoutAccountMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof upsertMyPayoutAccount>>, TError,{data: UpsertPayoutAccountRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof upsertMyPayoutAccount>>, TError,{data: UpsertPayoutAccountRequest}, TContext> => {
+
+const mutationKey = ['upsertMyPayoutAccount'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof upsertMyPayoutAccount>>, {data: UpsertPayoutAccountRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  upsertMyPayoutAccount(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpsertMyPayoutAccountMutationResult = NonNullable<Awaited<ReturnType<typeof upsertMyPayoutAccount>>>
+    export type UpsertMyPayoutAccountMutationBody = UpsertPayoutAccountRequest
+    export type UpsertMyPayoutAccountMutationError = ErrorResponse
+
+    export const useUpsertMyPayoutAccount = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof upsertMyPayoutAccount>>, TError,{data: UpsertPayoutAccountRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof upsertMyPayoutAccount>>,
+        TError,
+        {data: UpsertPayoutAccountRequest},
+        TContext
+      > => {
+      return useMutation(getUpsertMyPayoutAccountMutationOptions(options), queryClient);
+    }
+    export type getMyCreatorSettingsResponse200 = {
+  data: CreatorSettingsResponse
+  status: 200
+}
+
+export type getMyCreatorSettingsResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getMyCreatorSettingsResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getMyCreatorSettingsResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type getMyCreatorSettingsResponseSuccess = (getMyCreatorSettingsResponse200) & {
+  headers: Headers;
+};
+export type getMyCreatorSettingsResponseError = (getMyCreatorSettingsResponse401 | getMyCreatorSettingsResponse403 | getMyCreatorSettingsResponse404) & {
+  headers: Headers;
+};
+
+export type getMyCreatorSettingsResponse = (getMyCreatorSettingsResponseSuccess | getMyCreatorSettingsResponseError)
+
+export const getGetMyCreatorSettingsUrl = () => {
+
+
+
+
+  return `/v1/creators/me/settings`
+}
+
+export const getMyCreatorSettings = async ( options?: RequestInit): Promise<getMyCreatorSettingsResponse> => {
+
+  return customFetch<getMyCreatorSettingsResponse>(getGetMyCreatorSettingsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetMyCreatorSettingsQueryKey = () => {
+    return [
+    `/v1/creators/me/settings`
+    ] as const;
+    }
+
+
+export const getGetMyCreatorSettingsQueryOptions = <TData = Awaited<ReturnType<typeof getMyCreatorSettings>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMyCreatorSettingsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMyCreatorSettings>>> = ({ signal }) => getMyCreatorSettings({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetMyCreatorSettingsQueryResult = NonNullable<Awaited<ReturnType<typeof getMyCreatorSettings>>>
+export type GetMyCreatorSettingsQueryError = ErrorResponse
+
+
+export function useGetMyCreatorSettings<TData = Awaited<ReturnType<typeof getMyCreatorSettings>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyCreatorSettings>>,
+          TError,
+          Awaited<ReturnType<typeof getMyCreatorSettings>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyCreatorSettings<TData = Awaited<ReturnType<typeof getMyCreatorSettings>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyCreatorSettings>>,
+          TError,
+          Awaited<ReturnType<typeof getMyCreatorSettings>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyCreatorSettings<TData = Awaited<ReturnType<typeof getMyCreatorSettings>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetMyCreatorSettings<TData = Awaited<ReturnType<typeof getMyCreatorSettings>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyCreatorSettings>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetMyCreatorSettingsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type setMyCreatorAvatarResponse200 = {
+  data: SetCreatorAvatarResponse
+  status: 200
+}
+
+export type setMyCreatorAvatarResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type setMyCreatorAvatarResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type setMyCreatorAvatarResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type setMyCreatorAvatarResponseSuccess = (setMyCreatorAvatarResponse200) & {
+  headers: Headers;
+};
+export type setMyCreatorAvatarResponseError = (setMyCreatorAvatarResponse401 | setMyCreatorAvatarResponse403 | setMyCreatorAvatarResponse422) & {
+  headers: Headers;
+};
+
+export type setMyCreatorAvatarResponse = (setMyCreatorAvatarResponseSuccess | setMyCreatorAvatarResponseError)
+
+export const getSetMyCreatorAvatarUrl = () => {
+
+
+
+
+  return `/v1/creators/me/avatar`
+}
+
+export const setMyCreatorAvatar = async (setCreatorAvatarRequest: SetCreatorAvatarRequest, options?: RequestInit): Promise<setMyCreatorAvatarResponse> => {
+
+  return customFetch<setMyCreatorAvatarResponse>(getSetMyCreatorAvatarUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      setCreatorAvatarRequest,)
+  }
+);}
+
+
+
+
+export const getSetMyCreatorAvatarMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setMyCreatorAvatar>>, TError,{data: SetCreatorAvatarRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof setMyCreatorAvatar>>, TError,{data: SetCreatorAvatarRequest}, TContext> => {
+
+const mutationKey = ['setMyCreatorAvatar'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof setMyCreatorAvatar>>, {data: SetCreatorAvatarRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  setMyCreatorAvatar(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SetMyCreatorAvatarMutationResult = NonNullable<Awaited<ReturnType<typeof setMyCreatorAvatar>>>
+    export type SetMyCreatorAvatarMutationBody = SetCreatorAvatarRequest
+    export type SetMyCreatorAvatarMutationError = ErrorResponse
+
+    export const useSetMyCreatorAvatar = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setMyCreatorAvatar>>, TError,{data: SetCreatorAvatarRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof setMyCreatorAvatar>>,
+        TError,
+        {data: SetCreatorAvatarRequest},
+        TContext
+      > => {
+      return useMutation(getSetMyCreatorAvatarMutationOptions(options), queryClient);
+    }
+    export type updateMyCreatorRatesResponse200 = {
+  data: CreatorRatesResponse
+  status: 200
+}
+
+export type updateMyCreatorRatesResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type updateMyCreatorRatesResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type updateMyCreatorRatesResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type updateMyCreatorRatesResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type updateMyCreatorRatesResponseSuccess = (updateMyCreatorRatesResponse200) & {
+  headers: Headers;
+};
+export type updateMyCreatorRatesResponseError = (updateMyCreatorRatesResponse401 | updateMyCreatorRatesResponse403 | updateMyCreatorRatesResponse404 | updateMyCreatorRatesResponse422) & {
+  headers: Headers;
+};
+
+export type updateMyCreatorRatesResponse = (updateMyCreatorRatesResponseSuccess | updateMyCreatorRatesResponseError)
+
+export const getUpdateMyCreatorRatesUrl = () => {
+
+
+
+
+  return `/v1/creators/me/rates`
+}
+
+export const updateMyCreatorRates = async (updateCreatorRatesRequest: UpdateCreatorRatesRequest, options?: RequestInit): Promise<updateMyCreatorRatesResponse> => {
+
+  return customFetch<updateMyCreatorRatesResponse>(getUpdateMyCreatorRatesUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateCreatorRatesRequest,)
+  }
+);}
+
+
+
+
+export const getUpdateMyCreatorRatesMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorRates>>, TError,{data: UpdateCreatorRatesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorRates>>, TError,{data: UpdateCreatorRatesRequest}, TContext> => {
+
+const mutationKey = ['updateMyCreatorRates'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMyCreatorRates>>, {data: UpdateCreatorRatesRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateMyCreatorRates(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMyCreatorRatesMutationResult = NonNullable<Awaited<ReturnType<typeof updateMyCreatorRates>>>
+    export type UpdateMyCreatorRatesMutationBody = UpdateCreatorRatesRequest
+    export type UpdateMyCreatorRatesMutationError = ErrorResponse
+
+    export const useUpdateMyCreatorRates = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorRates>>, TError,{data: UpdateCreatorRatesRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateMyCreatorRates>>,
+        TError,
+        {data: UpdateCreatorRatesRequest},
+        TContext
+      > => {
+      return useMutation(getUpdateMyCreatorRatesMutationOptions(options), queryClient);
+    }
+    export type replaceMyCreatorSampleVideosResponse200 = {
+  data: ReplaceMyCreatorSampleVideos200
+  status: 200
+}
+
+export type replaceMyCreatorSampleVideosResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type replaceMyCreatorSampleVideosResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type replaceMyCreatorSampleVideosResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type replaceMyCreatorSampleVideosResponseSuccess = (replaceMyCreatorSampleVideosResponse200) & {
+  headers: Headers;
+};
+export type replaceMyCreatorSampleVideosResponseError = (replaceMyCreatorSampleVideosResponse401 | replaceMyCreatorSampleVideosResponse403 | replaceMyCreatorSampleVideosResponse422) & {
+  headers: Headers;
+};
+
+export type replaceMyCreatorSampleVideosResponse = (replaceMyCreatorSampleVideosResponseSuccess | replaceMyCreatorSampleVideosResponseError)
+
+export const getReplaceMyCreatorSampleVideosUrl = () => {
+
+
+
+
+  return `/v1/creators/me/sample-videos`
+}
+
+export const replaceMyCreatorSampleVideos = async (updateSampleVideosRequest: UpdateSampleVideosRequest, options?: RequestInit): Promise<replaceMyCreatorSampleVideosResponse> => {
+
+  return customFetch<replaceMyCreatorSampleVideosResponse>(getReplaceMyCreatorSampleVideosUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateSampleVideosRequest,)
+  }
+);}
+
+
+
+
+export const getReplaceMyCreatorSampleVideosMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>, TError,{data: UpdateSampleVideosRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>, TError,{data: UpdateSampleVideosRequest}, TContext> => {
+
+const mutationKey = ['replaceMyCreatorSampleVideos'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>, {data: UpdateSampleVideosRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  replaceMyCreatorSampleVideos(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReplaceMyCreatorSampleVideosMutationResult = NonNullable<Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>>
+    export type ReplaceMyCreatorSampleVideosMutationBody = UpdateSampleVideosRequest
+    export type ReplaceMyCreatorSampleVideosMutationError = ErrorResponse
+
+    export const useReplaceMyCreatorSampleVideos = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>, TError,{data: UpdateSampleVideosRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof replaceMyCreatorSampleVideos>>,
+        TError,
+        {data: UpdateSampleVideosRequest},
+        TContext
+      > => {
+      return useMutation(getReplaceMyCreatorSampleVideosMutationOptions(options), queryClient);
+    }
+    export type updateMyCreatorProfileContactResponse200 = {
+  data: CreatorSettingsContact
+  status: 200
+}
+
+export type updateMyCreatorProfileContactResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type updateMyCreatorProfileContactResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type updateMyCreatorProfileContactResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type updateMyCreatorProfileContactResponseSuccess = (updateMyCreatorProfileContactResponse200) & {
+  headers: Headers;
+};
+export type updateMyCreatorProfileContactResponseError = (updateMyCreatorProfileContactResponse401 | updateMyCreatorProfileContactResponse403 | updateMyCreatorProfileContactResponse422) & {
+  headers: Headers;
+};
+
+export type updateMyCreatorProfileContactResponse = (updateMyCreatorProfileContactResponseSuccess | updateMyCreatorProfileContactResponseError)
+
+export const getUpdateMyCreatorProfileContactUrl = () => {
+
+
+
+
+  return `/v1/creators/me/profile/contact`
+}
+
+export const updateMyCreatorProfileContact = async (updateCreatorContactRequest: UpdateCreatorContactRequest, options?: RequestInit): Promise<updateMyCreatorProfileContactResponse> => {
+
+  return customFetch<updateMyCreatorProfileContactResponse>(getUpdateMyCreatorProfileContactUrl(),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateCreatorContactRequest,)
+  }
+);}
+
+
+
+
+export const getUpdateMyCreatorProfileContactMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileContact>>, TError,{data: UpdateCreatorContactRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileContact>>, TError,{data: UpdateCreatorContactRequest}, TContext> => {
+
+const mutationKey = ['updateMyCreatorProfileContact'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMyCreatorProfileContact>>, {data: UpdateCreatorContactRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateMyCreatorProfileContact(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMyCreatorProfileContactMutationResult = NonNullable<Awaited<ReturnType<typeof updateMyCreatorProfileContact>>>
+    export type UpdateMyCreatorProfileContactMutationBody = UpdateCreatorContactRequest
+    export type UpdateMyCreatorProfileContactMutationError = ErrorResponse
+
+    export const useUpdateMyCreatorProfileContact = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileContact>>, TError,{data: UpdateCreatorContactRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateMyCreatorProfileContact>>,
+        TError,
+        {data: UpdateCreatorContactRequest},
+        TContext
+      > => {
+      return useMutation(getUpdateMyCreatorProfileContactMutationOptions(options), queryClient);
+    }
+    export type updateMyCreatorProfileCollaborationResponse200 = {
+  data: CreatorSettingsCollaboration
+  status: 200
+}
+
+export type updateMyCreatorProfileCollaborationResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type updateMyCreatorProfileCollaborationResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type updateMyCreatorProfileCollaborationResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type updateMyCreatorProfileCollaborationResponseSuccess = (updateMyCreatorProfileCollaborationResponse200) & {
+  headers: Headers;
+};
+export type updateMyCreatorProfileCollaborationResponseError = (updateMyCreatorProfileCollaborationResponse401 | updateMyCreatorProfileCollaborationResponse403 | updateMyCreatorProfileCollaborationResponse422) & {
+  headers: Headers;
+};
+
+export type updateMyCreatorProfileCollaborationResponse = (updateMyCreatorProfileCollaborationResponseSuccess | updateMyCreatorProfileCollaborationResponseError)
+
+export const getUpdateMyCreatorProfileCollaborationUrl = () => {
+
+
+
+
+  return `/v1/creators/me/profile/collaboration`
+}
+
+export const updateMyCreatorProfileCollaboration = async (updateCreatorCollaborationRequest: UpdateCreatorCollaborationRequest, options?: RequestInit): Promise<updateMyCreatorProfileCollaborationResponse> => {
+
+  return customFetch<updateMyCreatorProfileCollaborationResponse>(getUpdateMyCreatorProfileCollaborationUrl(),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateCreatorCollaborationRequest,)
+  }
+);}
+
+
+
+
+export const getUpdateMyCreatorProfileCollaborationMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>, TError,{data: UpdateCreatorCollaborationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>, TError,{data: UpdateCreatorCollaborationRequest}, TContext> => {
+
+const mutationKey = ['updateMyCreatorProfileCollaboration'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>, {data: UpdateCreatorCollaborationRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateMyCreatorProfileCollaboration(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMyCreatorProfileCollaborationMutationResult = NonNullable<Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>>
+    export type UpdateMyCreatorProfileCollaborationMutationBody = UpdateCreatorCollaborationRequest
+    export type UpdateMyCreatorProfileCollaborationMutationError = ErrorResponse
+
+    export const useUpdateMyCreatorProfileCollaboration = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>, TError,{data: UpdateCreatorCollaborationRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateMyCreatorProfileCollaboration>>,
+        TError,
+        {data: UpdateCreatorCollaborationRequest},
+        TContext
+      > => {
+      return useMutation(getUpdateMyCreatorProfileCollaborationMutationOptions(options), queryClient);
+    }
+    export type exportCreatorEarningsCSVResponse200 = {
   data: string
   status: 200
 }

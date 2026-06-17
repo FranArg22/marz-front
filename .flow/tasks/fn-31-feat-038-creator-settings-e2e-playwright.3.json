@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-13T09:11:01.127975Z",
+  "depends_on": [
+    "fn-31-feat-038-creator-settings-e2e-playwright.1"
+  ],
+  "epic": "fn-31-feat-038-creator-settings-e2e-playwright",
+  "id": "fn-31-feat-038-creator-settings-e2e-playwright.3",
+  "priority": 2,
+  "spec_path": ".flow/tasks/fn-31-feat-038-creator-settings-e2e-playwright.3.md",
+  "status": "todo",
+  "title": "E2E collaboration \u2014 tipos, intereses y canje (ESC-9 a ESC-12)",
+  "updated_at": "2026-06-13T09:14:02.735087Z"
+}

@@ -27,7 +27,7 @@ function makeDeliverables(statuses: DeliverableStatus[]): DeliverableDTO[] {
     offer_id: 'offer-1',
     offer_stage_id: null,
     platform: 'youtube',
-    format: 'yt_long',
+    format: 'yt_short',
     status,
     deadline: null,
     current_version: null,

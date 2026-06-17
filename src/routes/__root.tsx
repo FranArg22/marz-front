@@ -15,7 +15,6 @@ import '../styles.css'
 
 import { useBrandWorkspaceProvider } from '#/features/identity/hooks/useBrandWorkspaceProvider'
 import { useClerkTokenProvider } from '#/features/identity/hooks/useClerkTokenProvider'
-import { MobileRedirectGuard } from '#/features/identity/onboarding/components/MobileRedirectGuard'
 import { installBeforeUnloadListener } from '#/shared/analytics/beforeunload'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import { AppI18nProvider } from '#/shared/i18n/provider'
@@ -109,7 +108,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="bg-background text-foreground font-sans antialiased">
         <ClerkProvider>
           <ClerkTokenBridge />
-          <MobileRedirectGuard />
           <AppI18nProvider initialLocale={locale} initialMessages={messages}>
             <TooltipProvider>{children}</TooltipProvider>
           </AppI18nProvider>
