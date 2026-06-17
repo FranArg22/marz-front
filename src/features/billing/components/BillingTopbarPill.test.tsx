@@ -54,17 +54,19 @@ function wrapper({ children }: { children: ReactNode }) {
 
 function setSession({
   kind = 'brand' as 'brand' | 'creator',
+  plan = 'growth',
   sub,
   isLoading = false,
   isError = false,
 }: {
   kind?: 'brand' | 'creator'
+  plan?: string
   sub?: Record<string, unknown> | null
   isLoading?: boolean
   isError?: boolean
 }) {
   useMeMock.mockReturnValue({
-    data: { status: 200, data: { kind } },
+    data: { status: 200, data: { kind, brand_workspace: { plan } } },
   })
   useBillingSubscriptionMock.mockReturnValue({
     data: sub ? { status: 200, data: sub } : undefined,

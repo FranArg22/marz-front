@@ -8,8 +8,8 @@ import type { PlanUsageMetric } from '#/shared/api/generated/model/planUsageMetr
 import type { PlanUsageResponse } from '#/shared/api/generated/model/planUsageResponse'
 
 const resetDateFormatter = new Intl.DateTimeFormat('es-AR', {
-  day: '2-digit',
-  month: '2-digit',
+  day: 'numeric',
+  month: 'short',
   year: 'numeric',
 })
 
@@ -28,7 +28,7 @@ export function PlanUsageCard({ usage }: PlanUsageCardProps) {
     <Card className="gap-0 overflow-hidden rounded-2xl py-0 shadow-none">
       <CardHeader className="gap-1 px-6 pt-6 pb-0">
         <CardTitle className="text-[15px] leading-normal font-semibold">
-          {t`Uso`}
+          {t`Uso del plan`}
         </CardTitle>
         <p className="text-xs leading-normal text-muted-foreground">
           {t`Seguimiento de límites incluidos en tu suscripción actual.`}
@@ -50,9 +50,18 @@ export function PlanUsageCard({ usage }: PlanUsageCardProps) {
             testId="plan-usage.invitations"
             label={t`Invitaciones`}
             metric={usage.invitations}
-            resetLabel={resetLabel}
           />
         </div>
+        {resetLabel ? (
+          <div className="flex items-center justify-between border-t border-border pt-4">
+            <span className="text-xs leading-normal text-muted-foreground">
+              {t`Reinicio de ciclo`}
+            </span>
+            <span className="font-mono text-xs leading-normal font-semibold text-foreground">
+              {resetLabel}
+            </span>
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   )
@@ -62,15 +71,9 @@ interface UsageMiniCardProps {
   testId: string
   label: string
   metric: PlanUsageMetric | PlanUsageInvitations
-  resetLabel?: string | null
 }
 
-function UsageMiniCard({
-  testId,
-  label,
-  metric,
-  resetLabel,
-}: UsageMiniCardProps) {
+function UsageMiniCard({ testId, label, metric }: UsageMiniCardProps) {
   const current = metric.current ?? 0
   const limit = metric.limit ?? null
 
@@ -97,13 +100,12 @@ function UsageMiniCard({
         data-testid={testId}
         className="flex min-h-32 flex-col gap-2 rounded-lg border border-border bg-muted p-4"
       >
-        <span className="font-mono text-lg leading-normal font-semibold text-foreground">
+        <span className="font-mono text-2xl leading-normal font-semibold text-foreground">
           {current} {t`de`} ∞
         </span>
         <span className="font-mono text-[11px] leading-normal font-medium text-muted-foreground">
           {label}
         </span>
-        <ResetSublabel resetLabel={resetLabel} />
       </div>
     )
   }
@@ -114,31 +116,30 @@ function UsageMiniCard({
         data-testid={testId}
         className="flex min-h-32 flex-col gap-2 rounded-lg border border-border bg-muted p-4"
       >
-        <span className="font-mono text-lg leading-normal font-semibold text-foreground">
+        <span className="font-mono text-2xl leading-normal font-semibold text-foreground">
           {t`N/A`}
         </span>
         <span className="font-mono text-[11px] leading-normal font-medium text-muted-foreground">
           {label}
         </span>
-        <ResetSublabel resetLabel={resetLabel} />
       </div>
     )
   }
 
   const progress = Math.min(100, Math.max(0, (current / limit) * 100))
+  const progressPct = Math.round(progress)
 
   return (
     <div
       data-testid={testId}
       className="flex min-h-32 flex-col gap-2 rounded-lg border border-border bg-muted p-4"
     >
-      <span className="font-mono text-lg leading-normal font-semibold text-foreground">
+      <span className="font-mono text-2xl leading-normal font-semibold text-foreground">
         {current} {t`de`} {limit}
       </span>
       <span className="font-mono text-[11px] leading-normal font-medium text-muted-foreground">
         {label}
       </span>
-      <ResetSublabel resetLabel={resetLabel} />
       <div className="mt-auto flex items-center gap-2">
         <div
           className="h-1.5 flex-1 overflow-hidden rounded-full bg-background"
@@ -149,24 +150,14 @@ function UsageMiniCard({
           aria-valuenow={current}
         >
           <div
-            className="h-full rounded-full bg-foreground"
+            className="h-full rounded-full bg-primary"
             style={{ width: `${progress}%` }}
           />
         </div>
         <span className="shrink-0 font-mono text-[11px] leading-normal font-semibold text-muted-foreground">
-          {Math.round(progress)}%
+          {t`${progressPct}% usado`}
         </span>
       </div>
     </div>
-  )
-}
-
-function ResetSublabel({ resetLabel }: { resetLabel?: string | null }) {
-  if (!resetLabel) return null
-
-  return (
-    <span className="font-mono text-[11px] leading-normal font-medium text-muted-foreground">
-      {t`Reinicia el ${resetLabel}`}
-    </span>
   )
 }

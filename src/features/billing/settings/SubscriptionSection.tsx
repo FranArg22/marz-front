@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
+import { useMe } from '#/shared/api/generated/accounts/accounts'
 import { useGetPlanUsage } from '#/shared/api/generated/billing/billing'
 
 import { useBillingSubscription } from '../hooks/useBillingSubscription'
@@ -13,17 +14,38 @@ import { PlanUsageCard } from './PlanUsageCard'
 
 export function SubscriptionSection() {
   const [upgradeOpen, setUpgradeOpen] = useState(false)
-  const subscriptionQuery = useBillingSubscription({ staleTime: 30_000 })
-  const paymentMethodsQuery = useOffersPaymentMethods()
-  const usageQuery = useGetPlanUsage({ query: { staleTime: 30_000 } })
 
-  if (subscriptionQuery.isLoading || usageQuery.isLoading) {
+  // The current plan is already known from /me (fetched on load). Use it as the
+  // source of truth for free-vs-paid instead of inferring "free" from a 404 on
+  // the subscription endpoint. Free brands then never call subscription /
+  // payment-methods (no 404/405/502, no retries, no error noise).
+  const meQuery = useMe()
+  const plan =
+    meQuery.data?.status === 200
+      ? meQuery.data.data.brand_workspace?.plan
+      : undefined
+  const isPaid = plan != null && plan !== 'free'
+
+  const usageQuery = useGetPlanUsage({ query: { staleTime: 30_000 } })
+  const subscriptionQuery = useBillingSubscription({
+    staleTime: 30_000,
+    enabled: isPaid,
+  })
+  const paymentMethodsQuery = useOffersPaymentMethods(isPaid)
+
+  if (meQuery.isLoading || usageQuery.isLoading) {
     return <LoadingState />
   }
 
-  const subscriptionResponse = subscriptionQuery.data
-  const usageResponse = usageQuery.data
+  if (plan == null) {
+    return (
+      <ErrorState
+        message={t`No pudimos cargar tu plan. Recargá la página o probá más tarde.`}
+      />
+    )
+  }
 
+  const usageResponse = usageQuery.data
   if (!usageResponse || usageResponse.status !== 200) {
     return (
       <ErrorState
@@ -32,12 +54,7 @@ export function SubscriptionSection() {
     )
   }
 
-  const isFree =
-    isSubscriptionNotFound(subscriptionQuery.error, subscriptionResponse) ||
-    (subscriptionResponse?.status === 200 &&
-      (subscriptionResponse.data.plan as string) === 'free')
-
-  if (isFree) {
+  if (!isPaid) {
     return (
       <SubscriptionShell>
         <FreePlanCTA onUpgrade={() => setUpgradeOpen(true)} />
@@ -52,16 +69,17 @@ export function SubscriptionSection() {
     )
   }
 
+  if (subscriptionQuery.isLoading || paymentMethodsQuery.isLoading) {
+    return <LoadingState />
+  }
+
+  const subscriptionResponse = subscriptionQuery.data
   if (!subscriptionResponse || subscriptionResponse.status !== 200) {
     return (
       <ErrorState
         message={t`No pudimos cargar tu suscripción. Recargá la página o probá más tarde.`}
       />
     )
-  }
-
-  if (paymentMethodsQuery.isLoading) {
-    return <LoadingState />
   }
 
   const paymentMethods =
@@ -74,8 +92,8 @@ export function SubscriptionSection() {
       <BillingSummary
         subscription={subscriptionResponse.data}
         paymentMethods={paymentMethods}
+        usageSlot={<PlanUsageCard usage={usageResponse.data} />}
       />
-      <PlanUsageCard usage={usageResponse.data} />
     </SubscriptionShell>
   )
 }
@@ -105,13 +123,4 @@ function ErrorState({ message }: { message: string }) {
       <p className="text-sm text-destructive">{message}</p>
     </div>
   )
-}
-
-function isSubscriptionNotFound(
-  error: unknown,
-  response: { status: number } | undefined,
-) {
-  if (response?.status === 404) return true
-  if (!error || typeof error !== 'object') return false
-  return 'status' in error && error.status === 404
 }

@@ -57,6 +57,8 @@ export interface BillingSummaryProps {
   paymentMethods?: BillingPaymentMethodList
   paymentMethodsMode?: 'prefetched' | 'self-fetch'
   returnUrl?: string
+  /** Rendered between the plan details card and the payment methods card. */
+  usageSlot?: React.ReactNode
 }
 
 export function BillingSummary({
@@ -64,12 +66,14 @@ export function BillingSummary({
   paymentMethods,
   paymentMethodsMode = 'prefetched',
   returnUrl = '/ajustes/suscripcion',
+  usageSlot,
 }: BillingSummaryProps) {
   const contentProps = {
     subscription,
     paymentMethods,
     usePrefetchedPaymentMethods: paymentMethodsMode === 'prefetched',
     returnUrl,
+    usageSlot,
   }
 
   switch (subscription.status) {
@@ -91,6 +95,7 @@ interface BillingSummaryContentProps {
   paymentMethods?: BillingPaymentMethodList
   usePrefetchedPaymentMethods: boolean
   returnUrl: string
+  usageSlot?: React.ReactNode
 }
 
 function TrialingView({
@@ -98,6 +103,7 @@ function TrialingView({
   paymentMethods,
   usePrefetchedPaymentMethods,
   returnUrl,
+  usageSlot,
 }: BillingSummaryContentProps) {
   const days = subscription.days_until_trial_ends
   const countdown =
@@ -112,6 +118,7 @@ function TrialingView({
     <BillingShell>
       <Header title={t`Estás en período de prueba`} description={countdown} />
       <DetailsCard subscription={subscription} />
+      {usageSlot}
       <PaymentMethodsCard
         paymentMethods={paymentMethods}
         usePrefetchedPaymentMethods={usePrefetchedPaymentMethods}
@@ -126,11 +133,13 @@ function ActiveView({
   paymentMethods,
   usePrefetchedPaymentMethods,
   returnUrl,
+  usageSlot,
 }: BillingSummaryContentProps) {
   return (
     <BillingShell>
       <Header title={t`Tu suscripción está activa`} />
       <DetailsCard subscription={subscription} />
+      {usageSlot}
       <PaymentMethodsCard
         paymentMethods={paymentMethods}
         usePrefetchedPaymentMethods={usePrefetchedPaymentMethods}
@@ -145,6 +154,7 @@ function PastDueView({
   paymentMethods,
   usePrefetchedPaymentMethods,
   returnUrl,
+  usageSlot,
 }: BillingSummaryContentProps) {
   return (
     <BillingShell>
@@ -154,6 +164,7 @@ function PastDueView({
         tone="destructive"
       />
       <DetailsCard subscription={subscription} hideNextInvoice />
+      {usageSlot}
       <PaymentMethodsCard
         paymentMethods={paymentMethods}
         usePrefetchedPaymentMethods={usePrefetchedPaymentMethods}
@@ -173,6 +184,7 @@ function CanceledView({
   paymentMethods,
   usePrefetchedPaymentMethods,
   returnUrl,
+  usageSlot,
 }: BillingSummaryContentProps) {
   const cancelAtLabel = subscription.cancel_at
     ? dateFormatter.format(new Date(subscription.cancel_at))
@@ -189,6 +201,7 @@ function CanceledView({
         }
       />
       <DetailsCard subscription={subscription} hideNextInvoice />
+      {usageSlot}
       <PaymentMethodsCard
         paymentMethods={paymentMethods}
         usePrefetchedPaymentMethods={usePrefetchedPaymentMethods}

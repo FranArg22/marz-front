@@ -25,14 +25,13 @@ describe('PlanUsageCard', () => {
   it('renders starter usage with progress bars and reset date', () => {
     render(<PlanUsageCard usage={usage()} />)
 
-    expect(screen.getByText('Uso')).toBeInTheDocument()
+    expect(screen.getByText('Uso del plan')).toBeInTheDocument()
     expect(screen.getByText('1 de 1')).toBeInTheDocument()
     expect(screen.getByText('3 de 5')).toBeInTheDocument()
     expect(screen.getByText('10 de 30')).toBeInTheDocument()
-    const invitations = screen.getByTestId('plan-usage.invitations')
-    expect(
-      within(invitations).getByText('Reinicia el 15/06/2026'),
-    ).toBeInTheDocument()
+    // Cycle reset moved to a card-level footer (design C9aEtz).
+    expect(screen.getByText('Reinicio de ciclo')).toBeInTheDocument()
+    expect(screen.getByText(/15.*jun.*2026/i)).toBeInTheDocument()
     expect(screen.getAllByRole('progressbar')).toHaveLength(3)
   })
 

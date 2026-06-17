@@ -33,16 +33,22 @@ interface PillContent {
 
 export function BillingTopbarPill() {
   const meQuery = useMe()
-  const kind = meQuery.data?.status === 200 ? meQuery.data.data.kind : undefined
+  const me = meQuery.data?.status === 200 ? meQuery.data.data : undefined
+  const kind = me?.kind
+  const plan = me?.brand_workspace?.plan
+  // The pill only surfaces paid-subscription states (trial ending, past due,
+  // cancellation). Free brands have no Stripe subscription, so don't fetch it
+  // (avoids a 404 on every page for free workspaces).
+  const isPaid = plan != null && plan !== 'free'
 
   const subscriptionQuery = useBillingSubscription({
     staleTime: 60_000,
-    enabled: kind === 'brand',
+    enabled: kind === 'brand' && isPaid,
   })
   const portalMutation = useCreatePortalSession()
   const navigate = useNavigate()
 
-  if (kind !== 'brand') return null
+  if (kind !== 'brand' || !isPaid) return null
   if (subscriptionQuery.isLoading) return null
   if (subscriptionQuery.isError) return null
 

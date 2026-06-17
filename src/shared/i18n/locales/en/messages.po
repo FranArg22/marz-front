@@ -393,6 +393,10 @@ msgstr ""
 msgid "{pct}% complete"
 msgstr ""
 
+#: src/features/billing/settings/PlanUsageCard.tsx:158
+msgid "{progressPct}% usado"
+msgstr ""
+
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:286
 msgid "{qty}x {platform} · {format}"
 msgstr ""
@@ -984,7 +988,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/app-shell/navigation.ts:65
-#: src/features/identity/settings/SettingsLayout.tsx:34
+#: src/features/identity/settings/SettingsLayout.tsx:37
 msgid "Ajustes"
 msgstr ""
 
@@ -1765,7 +1769,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/billing/components/BillingPage.tsx:15
-#: src/features/billing/settings/SubscriptionSection.tsx:92
+#: src/features/billing/settings/SubscriptionSection.tsx:110
 msgid "Cargando suscripción"
 msgstr "Loading subscription"
 
@@ -2389,8 +2393,8 @@ msgstr ""
 #~ msgid "Day in the life"
 #~ msgstr ""
 
-#: src/features/billing/settings/PlanUsageCard.tsx:101
-#: src/features/billing/settings/PlanUsageCard.tsx:136
+#: src/features/billing/settings/PlanUsageCard.tsx:104
+#: src/features/billing/settings/PlanUsageCard.tsx:138
 msgid "de"
 msgstr ""
 
@@ -3876,14 +3880,14 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/settings/SettingsLayout.tsx:37
-msgid "Gestioná el perfil de marca y la suscripción del workspace."
-msgstr ""
+#~ msgid "Gestioná el perfil de marca y la suscripción del workspace."
+#~ msgstr ""
 
 #: src/features/billing/components/PaymentMethodCard.tsx:46
 #~ msgid "Gestionar {title} en Stripe"
 #~ msgstr "Manage {title} in Stripe"
 
-#: src/features/billing/components/PaymentMethodsCard.tsx:222
+#: src/features/billing/components/PaymentMethodsCard.tsx:223
 #: src/features/billing/settings/BillingSummary.tsx:290
 msgid "Gestionar en Stripe"
 msgstr "Manage in Stripe"
@@ -4094,7 +4098,7 @@ msgstr ""
 #~ msgid "Ideal para presupuestos cerrados."
 #~ msgstr ""
 
-#: src/features/identity/settings/BrandCard.tsx:23
+#: src/features/identity/settings/BrandCard.tsx:24
 msgid "Identidad pública de tu marca en Marz."
 msgstr ""
 
@@ -4790,7 +4794,7 @@ msgid "mar"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:146
-#: src/features/identity/settings/BrandCard.tsx:21
+#: src/features/identity/settings/BrandCard.tsx:22
 msgid "Marca"
 msgstr ""
 
@@ -5213,7 +5217,7 @@ msgstr ""
 #~ msgid "Must be after the previous stage"
 #~ msgstr ""
 
-#: src/features/billing/settings/PlanUsageCard.tsx:118
+#: src/features/billing/settings/PlanUsageCard.tsx:120
 msgid "N/A"
 msgstr ""
 
@@ -5287,7 +5291,7 @@ msgstr ""
 msgid "No binario"
 msgstr ""
 
-#: src/features/billing/settings/PlanUsageCard.tsx:85
+#: src/features/billing/settings/PlanUsageCard.tsx:88
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:66
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:138
 msgid "No disponible"
@@ -5413,7 +5417,7 @@ msgstr ""
 #~ msgid "No pudimos cargar el resumen de Discovery"
 #~ msgstr ""
 
-#: src/features/billing/settings/SubscriptionSection.tsx:30
+#: src/features/billing/settings/SubscriptionSection.tsx:52
 msgid "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 msgstr ""
 
@@ -5453,8 +5457,12 @@ msgstr "We couldn't load the plans. Try again."
 msgid "No pudimos cargar los videos"
 msgstr ""
 
+#: src/features/billing/settings/SubscriptionSection.tsx:43
+msgid "No pudimos cargar tu plan. Recargá la página o probá más tarde."
+msgstr ""
+
 #: src/features/billing/components/BillingPage.tsx:30
-#: src/features/billing/settings/SubscriptionSection.tsx:58
+#: src/features/billing/settings/SubscriptionSection.tsx:80
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "We couldn't load your subscription. Reload the page or try again later."
 
@@ -5642,7 +5650,7 @@ msgstr ""
 msgid "Nombre de la marca"
 msgstr ""
 
-#: src/features/identity/settings/BrandCard.tsx:43
+#: src/features/identity/settings/BrandCard.tsx:44
 msgid "Nombre de marca"
 msgstr ""
 
@@ -6232,6 +6240,10 @@ msgstr ""
 #~ msgid "Perfil de creador ideal (ICP)"
 #~ msgstr ""
 
+#: src/features/identity/settings/SettingsLayout.tsx:40
+msgid "Perfil de marca y suscripción del workspace."
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:25
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:39
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:28
@@ -6800,7 +6812,11 @@ msgid "Refresh inbox"
 msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:169
-msgid "Reinicia el {resetLabel}"
+#~ msgid "Reinicia el {resetLabel}"
+#~ msgstr ""
+
+#: src/features/billing/settings/PlanUsageCard.tsx:58
+msgid "Reinicio de ciclo"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:434
@@ -7089,7 +7105,7 @@ msgstr ""
 msgid "Search videos"
 msgstr ""
 
-#: src/features/identity/settings/SettingsLayout.tsx:40
+#: src/features/identity/settings/SettingsLayout.tsx:44
 msgid "Secciones de ajustes"
 msgstr ""
 
@@ -7508,7 +7524,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:97
-#: src/features/identity/settings/BrandCard.tsx:54
+#: src/features/identity/settings/BrandCard.tsx:55
 msgid "Sitio web"
 msgstr ""
 
@@ -8488,7 +8504,11 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:31
-msgid "Uso"
+#~ msgid "Uso"
+#~ msgstr ""
+
+#: src/features/billing/settings/PlanUsageCard.tsx:31
+msgid "Uso del plan"
 msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:52

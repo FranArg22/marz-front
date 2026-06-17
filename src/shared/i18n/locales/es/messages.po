@@ -393,6 +393,10 @@ msgstr "{n} de 5 seleccionados"
 msgid "{pct}% complete"
 msgstr "{pct}% complete"
 
+#: src/features/billing/settings/PlanUsageCard.tsx:158
+msgid "{progressPct}% usado"
+msgstr "{progressPct}% usado"
+
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:286
 msgid "{qty}x {platform} · {format}"
 msgstr "{qty}x {platform} · {format}"
@@ -984,7 +988,7 @@ msgstr "AI matching + outreach"
 #~ msgstr "Ajustado desde Brief"
 
 #: src/features/identity/app-shell/navigation.ts:65
-#: src/features/identity/settings/SettingsLayout.tsx:34
+#: src/features/identity/settings/SettingsLayout.tsx:37
 msgid "Ajustes"
 msgstr "Ajustes"
 
@@ -1765,7 +1769,7 @@ msgstr "Cargando postulaciones..."
 #~ msgstr "Cargando resumen de Discovery"
 
 #: src/features/billing/components/BillingPage.tsx:15
-#: src/features/billing/settings/SubscriptionSection.tsx:92
+#: src/features/billing/settings/SubscriptionSection.tsx:110
 msgid "Cargando suscripción"
 msgstr "Cargando suscripción"
 
@@ -2385,8 +2389,8 @@ msgstr "Datos visibles para operar el workspace."
 #~ msgid "Day in the life"
 #~ msgstr "Day in the life"
 
-#: src/features/billing/settings/PlanUsageCard.tsx:101
-#: src/features/billing/settings/PlanUsageCard.tsx:136
+#: src/features/billing/settings/PlanUsageCard.tsx:104
+#: src/features/billing/settings/PlanUsageCard.tsx:138
 msgid "de"
 msgstr "de"
 
@@ -3868,14 +3872,14 @@ msgstr "Géneros"
 #~ msgstr "Geografía"
 
 #: src/features/identity/settings/SettingsLayout.tsx:37
-msgid "Gestioná el perfil de marca y la suscripción del workspace."
-msgstr "Gestioná el perfil de marca y la suscripción del workspace."
+#~ msgid "Gestioná el perfil de marca y la suscripción del workspace."
+#~ msgstr "Gestioná el perfil de marca y la suscripción del workspace."
 
 #: src/features/billing/components/PaymentMethodCard.tsx:46
 #~ msgid "Gestionar {title} en Stripe"
 #~ msgstr "Gestionar {title} en Stripe"
 
-#: src/features/billing/components/PaymentMethodsCard.tsx:222
+#: src/features/billing/components/PaymentMethodsCard.tsx:223
 #: src/features/billing/settings/BillingSummary.tsx:290
 msgid "Gestionar en Stripe"
 msgstr "Gestionar en Stripe"
@@ -4086,7 +4090,7 @@ msgstr "ICP"
 #~ msgid "Ideal para presupuestos cerrados."
 #~ msgstr "Ideal para presupuestos cerrados."
 
-#: src/features/identity/settings/BrandCard.tsx:23
+#: src/features/identity/settings/BrandCard.tsx:24
 msgid "Identidad pública de tu marca en Marz."
 msgstr "Identidad pública de tu marca en Marz."
 
@@ -4782,7 +4786,7 @@ msgid "mar"
 msgstr "mar"
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:146
-#: src/features/identity/settings/BrandCard.tsx:21
+#: src/features/identity/settings/BrandCard.tsx:22
 msgid "Marca"
 msgstr "Marca"
 
@@ -5205,7 +5209,7 @@ msgstr "Música"
 #~ msgid "Must be after the previous stage"
 #~ msgstr "Must be after the previous stage"
 
-#: src/features/billing/settings/PlanUsageCard.tsx:118
+#: src/features/billing/settings/PlanUsageCard.tsx:120
 msgid "N/A"
 msgstr "N/A"
 
@@ -5279,7 +5283,7 @@ msgstr "No additional notes"
 msgid "No binario"
 msgstr "No binario"
 
-#: src/features/billing/settings/PlanUsageCard.tsx:85
+#: src/features/billing/settings/PlanUsageCard.tsx:88
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:66
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:138
 msgid "No disponible"
@@ -5405,7 +5409,7 @@ msgstr "No pudimos cargar el overview"
 #~ msgid "No pudimos cargar el resumen de Discovery"
 #~ msgstr "No pudimos cargar el resumen de Discovery"
 
-#: src/features/billing/settings/SubscriptionSection.tsx:30
+#: src/features/billing/settings/SubscriptionSection.tsx:52
 msgid "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 msgstr "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 
@@ -5445,8 +5449,12 @@ msgstr "No pudimos cargar los planes. Intentá de nuevo."
 msgid "No pudimos cargar los videos"
 msgstr "No pudimos cargar los videos"
 
+#: src/features/billing/settings/SubscriptionSection.tsx:43
+msgid "No pudimos cargar tu plan. Recargá la página o probá más tarde."
+msgstr "No pudimos cargar tu plan. Recargá la página o probá más tarde."
+
 #: src/features/billing/components/BillingPage.tsx:30
-#: src/features/billing/settings/SubscriptionSection.tsx:58
+#: src/features/billing/settings/SubscriptionSection.tsx:80
 msgid "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 msgstr "No pudimos cargar tu suscripción. Recargá la página o probá más tarde."
 
@@ -5630,7 +5638,7 @@ msgstr "Nombre"
 msgid "Nombre de la marca"
 msgstr "Nombre de la marca"
 
-#: src/features/identity/settings/BrandCard.tsx:43
+#: src/features/identity/settings/BrandCard.tsx:44
 msgid "Nombre de marca"
 msgstr "Nombre de marca"
 
@@ -6220,6 +6228,10 @@ msgstr "Perfil"
 #~ msgid "Perfil de creador ideal (ICP)"
 #~ msgstr "Perfil de creador ideal (ICP)"
 
+#: src/features/identity/settings/SettingsLayout.tsx:40
+msgid "Perfil de marca y suscripción del workspace."
+msgstr "Perfil de marca y suscripción del workspace."
+
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:25
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:39
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:28
@@ -6776,8 +6788,12 @@ msgid "Refresh inbox"
 msgstr "Refresh inbox"
 
 #: src/features/billing/settings/PlanUsageCard.tsx:169
-msgid "Reinicia el {resetLabel}"
-msgstr "Reinicia el {resetLabel}"
+#~ msgid "Reinicia el {resetLabel}"
+#~ msgstr "Reinicia el {resetLabel}"
+
+#: src/features/billing/settings/PlanUsageCard.tsx:58
+msgid "Reinicio de ciclo"
+msgstr "Reinicio de ciclo"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:434
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:113
@@ -7065,7 +7081,7 @@ msgstr "Search video"
 msgid "Search videos"
 msgstr "Search videos"
 
-#: src/features/identity/settings/SettingsLayout.tsx:40
+#: src/features/identity/settings/SettingsLayout.tsx:44
 msgid "Secciones de ajustes"
 msgstr "Secciones de ajustes"
 
@@ -7480,7 +7496,7 @@ msgstr "Sin tarjeta"
 #~ msgstr "Single"
 
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:97
-#: src/features/identity/settings/BrandCard.tsx:54
+#: src/features/identity/settings/BrandCard.tsx:55
 msgid "Sitio web"
 msgstr "Sitio web"
 
@@ -8456,8 +8472,12 @@ msgstr "Use a YouTube, Instagram or TikTok URL."
 #~ msgstr "Use format 0.00"
 
 #: src/features/billing/settings/PlanUsageCard.tsx:31
-msgid "Uso"
-msgstr "Uso"
+#~ msgid "Uso"
+#~ msgstr "Uso"
+
+#: src/features/billing/settings/PlanUsageCard.tsx:31
+msgid "Uso del plan"
+msgstr "Uso del plan"
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:52
 #~ msgid "Útil para campañas de alcance."

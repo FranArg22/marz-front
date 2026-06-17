@@ -7,9 +7,14 @@ import { SubscriptionSection } from './SubscriptionSection'
 const subscriptionMock = vi.fn()
 const paymentMethodsMock = vi.fn()
 const usageMock = vi.fn()
+const meMock = vi.fn()
+
+vi.mock('#/shared/api/generated/accounts/accounts', () => ({
+  useMe: () => meMock(),
+}))
 
 vi.mock('../hooks/useBillingSubscription', () => ({
-  useBillingSubscription: () => subscriptionMock(),
+  useBillingSubscription: (opts: unknown) => subscriptionMock(opts),
 }))
 
 vi.mock('../hooks/useOffersPaymentMethod', () => ({
@@ -21,7 +26,9 @@ vi.mock('#/shared/api/generated/billing/billing', () => ({
 }))
 
 vi.mock('./BillingSummary', () => ({
-  BillingSummary: () => <div>BillingSummary</div>,
+  BillingSummary: ({ usageSlot }: { usageSlot?: React.ReactNode }) => (
+    <div>BillingSummary{usageSlot}</div>
+  ),
 }))
 
 vi.mock('./FreePlanCTA', () => ({
@@ -56,6 +63,13 @@ function subscription(
   }
 }
 
+function setMe(plan: string) {
+  meMock.mockReturnValue({
+    isLoading: false,
+    data: { status: 200, data: { kind: 'brand', brand_workspace: { plan } } },
+  })
+}
+
 function setUsage() {
   usageMock.mockReturnValue({
     isLoading: false,
@@ -79,20 +93,18 @@ describe('SubscriptionSection', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     setUsage()
+    subscriptionMock.mockReturnValue({ isLoading: false, data: undefined })
     paymentMethodsMock.mockReturnValue({
       isLoading: false,
-      data: { status: 200, data: { payment_methods: [], same_payment_method: true } },
+      data: {
+        status: 200,
+        data: { payment_methods: [], same_payment_method: true },
+      },
     })
   })
 
   it('renders FreePlanCTA and PlanUsageCard for free plan', () => {
-    subscriptionMock.mockReturnValue({
-      isLoading: false,
-      data: {
-        status: 200,
-        data: subscription({ plan: 'free' as BillingSubscription['plan'] }),
-      },
-    })
+    setMe('free')
 
     render(<SubscriptionSection />)
 
@@ -101,7 +113,20 @@ describe('SubscriptionSection', () => {
     expect(screen.queryByText('BillingSummary')).not.toBeInTheDocument()
   })
 
+  it('does not fetch the subscription for free plans', () => {
+    setMe('free')
+
+    render(<SubscriptionSection />)
+
+    // The plan from /me is the source of truth — free brands never hit the
+    // subscription endpoint (no 404/retries, no "detect free from a failure").
+    expect(subscriptionMock).toHaveBeenCalledWith(
+      expect.objectContaining({ enabled: false }),
+    )
+  })
+
   it('renders BillingSummary and PlanUsageCard for paid plan', () => {
+    setMe('growth')
     subscriptionMock.mockReturnValue({
       isLoading: false,
       data: { status: 200, data: subscription({ plan: 'growth' }) },
@@ -112,21 +137,8 @@ describe('SubscriptionSection', () => {
     expect(screen.getByText('BillingSummary')).toBeInTheDocument()
     expect(screen.getByText('PlanUsageCard')).toBeInTheDocument()
     expect(screen.queryByText('FreePlanCTA')).not.toBeInTheDocument()
-  })
-
-  it('renders subscription 404 as free plan', () => {
-    subscriptionMock.mockReturnValue({
-      isLoading: false,
-      data: {
-        status: 404,
-        data: { error: { code: 'not_found', message: 'not found' } },
-      },
-    })
-
-    render(<SubscriptionSection />)
-
-    expect(screen.getByText('FreePlanCTA')).toBeInTheDocument()
-    expect(screen.getByText('PlanUsageCard')).toBeInTheDocument()
-    expect(screen.queryByText('BillingSummary')).not.toBeInTheDocument()
+    expect(subscriptionMock).toHaveBeenCalledWith(
+      expect.objectContaining({ enabled: true }),
+    )
   })
 })
