@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiError } from '#/shared/api/mutator'
-import { GeneralSection } from './GeneralSection'
+import { BrandGeneralSection } from './BrandGeneralSection'
 
 const patchMock = vi.hoisted(() => vi.fn())
 const invalidateQueriesMock = vi.hoisted(() => vi.fn())
@@ -88,7 +88,7 @@ vi.mock('./LogoUploader', () => ({
 }))
 
 function renderSection() {
-  return render(<GeneralSection />)
+  return render(<BrandGeneralSection />)
 }
 
 function getInput(name: string) {
@@ -97,7 +97,7 @@ function getInput(name: string) {
   return input as HTMLInputElement
 }
 
-describe('GeneralSection', () => {
+describe('BrandGeneralSection', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     logoUploaderState.uploadFails = false

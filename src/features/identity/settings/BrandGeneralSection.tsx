@@ -47,7 +47,7 @@ const emptyValues: GeneralFormValues = {
   logo_s3_key: null,
 }
 
-export function GeneralSection() {
+export function BrandGeneralSection() {
   const queryClient = useQueryClient()
   const settingsQuery = useGetBrandSettings()
   const patchSettings = usePatchBrandSettings()
