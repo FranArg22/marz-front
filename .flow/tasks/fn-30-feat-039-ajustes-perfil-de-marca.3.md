@@ -120,8 +120,7 @@ import { useQueryClient } from '@tanstack/react-query'
 - Verify: `pnpm typecheck && pnpm vitest run src/features/identity/settings`
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-039-ajustes-perfil-de-marca.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
