@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro'
 
-import type { useAppForm } from '#/shared/ui/form'
+import { firstErrorMessage  } from '#/shared/ui/form'
+import type {useAppForm} from '#/shared/ui/form';
 
 import { LogoUploader } from './LogoUploader'
 
@@ -30,6 +31,7 @@ export function BrandCard({ form, currentLogoUrl, brandName }: BrandCardProps) {
             <LogoUploader
               currentLogoUrl={currentLogoUrl}
               brandName={brandName}
+              error={firstErrorMessage(field.state.meta.errors)}
               onKeyChange={(key) => field.handleChange(key)}
             />
           )}

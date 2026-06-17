@@ -15,7 +15,26 @@ const BASE_SETTINGS = {
   },
 }
 
-type BrandSettings = typeof BASE_SETTINGS
+const FAKE_S3_KEY = 'brand-logos/ws-test-id/e2e-test.png'
+const MISSING_S3_KEY = 'brand-logos/ws-test-id/missing.png'
+const FAKE_UPLOAD_URL = 'https://s3.amazonaws.com/test-bucket/test-upload'
+const PNG_BUFFER = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=',
+  'base64',
+)
+
+type BrandSettings = {
+  profile: {
+    full_name: string
+    email: string
+    phone_e164: string | null
+  }
+  brand: {
+    name: string
+    website_url: string
+    logo_url: string | null
+  }
+}
 type PatchBody = Partial<{
   full_name: string
   email: string
@@ -124,6 +143,73 @@ function validationError(fields: Record<string, string[]>) {
     fields,
     error: { code: 'validation_error', fields },
   }
+}
+
+async function mockLogoUpload(
+  page: Page,
+  options: { s3Key?: string; uploadUrl?: string } = {},
+) {
+  const calls = { presign: 0, put: 0 }
+  const s3Key = options.s3Key ?? FAKE_S3_KEY
+  const uploadUrl = options.uploadUrl ?? FAKE_UPLOAD_URL
+
+  await page.route(
+    /\/v1\/brand-workspaces\/me\/logo:presign$/,
+    async (route) => {
+      if (route.request().method() !== 'POST') {
+        await route.fallback()
+        return
+      }
+
+      calls.presign += 1
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          upload_url: uploadUrl,
+          s3_key: s3Key,
+          expires_in: 300,
+          required_headers: { 'Content-Type': 'image/png' },
+          max_bytes: 5242880,
+        }),
+      })
+    },
+  )
+
+  await page.route(uploadUrl, async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await route.fulfill({
+        status: 204,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'PUT, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      })
+      return
+    }
+
+    if (route.request().method() !== 'PUT') {
+      await route.fallback()
+      return
+    }
+
+    calls.put += 1
+    await route.fulfill({
+      status: 200,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+    })
+  })
+
+  return calls
+}
+
+async function uploadLogo(page: Page) {
+  await page.locator('input[type="file"]').setInputFiles({
+    name: 'e2e-test.png',
+    mimeType: 'image/png',
+    buffer: PNG_BUFFER,
+  })
 }
 
 test.describe('brand settings general', () => {
@@ -350,5 +436,143 @@ test.describe('brand settings general', () => {
       body: { code: 'invalid_body' },
     })
     expect(patchBody).toEqual({ email: 'changed@brand.com' })
+  })
+
+  test('brand_settings.general.logo_upload_preview', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    await mockGetSettings(page)
+    await mockLogoUpload(page)
+
+    await openGeneralSettings(page, onboardedBrandUser)
+    await uploadLogo(page)
+
+    const preview = page.getByRole('img', { name: 'Logo de marca' })
+    await expect(preview).toBeVisible()
+    await expect(preview).toHaveAttribute('src', /^blob:/)
+  })
+
+  test('brand_settings.general.logo_upload_persists', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    let patchBody: PatchBody | null = null
+    const uploadCalls = await mockLogoUpload(page)
+    await mockGetSettings(page)
+    await mockPatchSettings(page, async (body) => {
+      patchBody = body
+      return {
+        status: 200,
+        body: {
+          ...BASE_SETTINGS,
+          brand: {
+            ...BASE_SETTINGS.brand,
+            logo_url:
+              'https://cdn.example.com/brand-logos/ws-test-id/e2e-test.png',
+          },
+        },
+      }
+    })
+
+    await openGeneralSettings(page, onboardedBrandUser)
+    await uploadLogo(page)
+    await page.getByTestId('settings.general.save_button').click()
+
+    await expect(page.getByText('Ajustes guardados')).toBeVisible()
+    expect(patchBody).toEqual({ logo_s3_key: FAKE_S3_KEY })
+    expect(uploadCalls.presign).toBe(1)
+    expect(uploadCalls.put).toBe(1)
+  })
+
+  test('brand_settings.general.logo_clear_falls_back_initial', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    let patchBody: PatchBody | null = null
+    let settings: BrandSettings = {
+      ...BASE_SETTINGS,
+      brand: {
+        ...BASE_SETTINGS.brand,
+        logo_url: 'https://cdn.example.com/brand-logos/ws-id/existing.png',
+      },
+    }
+    await page.route(/\/v1\/brand-workspaces\/me\/settings$/, async (route) => {
+      if (route.request().method() !== 'GET') {
+        await route.fallback()
+        return
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(settings),
+      })
+    })
+    await mockPatchSettings(page, async (body) => {
+      patchBody = body
+      settings = BASE_SETTINGS
+      return {
+        status: 200,
+        body: BASE_SETTINGS,
+      }
+    })
+
+    await openGeneralSettings(page, onboardedBrandUser)
+    await page.getByRole('button', { name: /Quitar logo/i }).click()
+    await page.getByTestId('settings.general.save_button').click()
+
+    await expect(page.getByText('Ajustes guardados')).toBeVisible()
+    expect(patchBody).toEqual({ logo_s3_key: null })
+    await expect(page.getByRole('img', { name: 'Logo de marca' })).toHaveCount(
+      0,
+    )
+    await expect(
+      page.locator('[data-slot="avatar-fallback"]').filter({ hasText: 'A' }),
+    ).toBeVisible()
+  })
+
+  test('brand_settings.general.logo_s3_key_missing_rejected', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    let patchBody: PatchBody | null = null
+    await mockGetSettings(page)
+    await mockLogoUpload(page, { s3Key: MISSING_S3_KEY })
+    await mockPatchSettings(page, async (body) => {
+      patchBody = body
+      return {
+        status: 422,
+        body: validationError({ logo_s3_key: ['object_not_found'] }),
+      }
+    })
+
+    await openGeneralSettings(page, onboardedBrandUser)
+    await uploadLogo(page)
+    await page.getByTestId('settings.general.save_button').click()
+
+    expect(patchBody).toEqual({ logo_s3_key: MISSING_S3_KEY })
+    await expect(page.getByRole('alert')).toContainText('object_not_found')
+    await expect(page.getByText('Ajustes guardados')).toHaveCount(0)
+  })
+
+  test('brand_settings.general.no_diff_no_event', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    let patchCalled = false
+    await mockGetSettings(page)
+    await mockPatchSettings(page, async () => {
+      patchCalled = true
+      return {
+        status: 200,
+        body: BASE_SETTINGS,
+      }
+    })
+
+    await openGeneralSettings(page, onboardedBrandUser)
+
+    await expect(page.getByTestId('settings.general.save_button')).toBeDisabled()
+    expect(patchCalled).toBe(false)
   })
 })

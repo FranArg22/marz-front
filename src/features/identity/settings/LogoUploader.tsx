@@ -13,18 +13,20 @@ interface LogoUploaderProps {
   currentLogoUrl: string | null
   onKeyChange: (key: string | null) => void
   brandName?: string
+  error?: string
 }
 
 export function LogoUploader({
   currentLogoUrl,
   onKeyChange,
   brandName = '',
+  error: serverError,
 }: LogoUploaderProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const presignLogo = usePresignBrandLogo()
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentLogoUrl)
   const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [uploadError, setUploadError] = useState<string | null>(null)
 
   useEffect(() => {
     setPreviewUrl(currentLogoUrl)
@@ -44,7 +46,7 @@ export function LogoUploader({
     event.target.value = ''
     if (!file) return
 
-    setError(null)
+    setUploadError(null)
 
     try {
       const presignResponse = await presignLogo.mutateAsync({
@@ -55,7 +57,7 @@ export function LogoUploader({
       })
 
       if (presignResponse.status !== 200) {
-        setError(t`Error al subir la imagen. Intentá de nuevo.`)
+        setUploadError(t`Error al subir la imagen. Intentá de nuevo.`)
         return
       }
 
@@ -66,7 +68,7 @@ export function LogoUploader({
       })
 
       if (!uploadResponse.ok) {
-        setError(t`Error al subir la imagen. Intentá de nuevo.`)
+        setUploadError(t`Error al subir la imagen. Intentá de nuevo.`)
         return
       }
 
@@ -76,7 +78,7 @@ export function LogoUploader({
       setPreviewUrl(nextPreviewUrl)
       onKeyChange(presignResponse.data.s3_key)
     } catch {
-      setError(t`Error al subir la imagen. Intentá de nuevo.`)
+      setUploadError(t`Error al subir la imagen. Intentá de nuevo.`)
     }
   }
 
@@ -86,9 +88,11 @@ export function LogoUploader({
       setLocalPreviewUrl(null)
     }
     setPreviewUrl(null)
-    setError(null)
+    setUploadError(null)
     onKeyChange(null)
   }
+
+  const visibleError = uploadError ?? serverError
 
   return (
     <div className="flex flex-col gap-3">
@@ -141,9 +145,9 @@ export function LogoUploader({
         ) : null}
       </div>
 
-      {error ? (
+      {visibleError ? (
         <p role="alert" className="text-xs text-destructive">
-          {error}
+          {visibleError}
         </p>
       ) : null}
     </div>
