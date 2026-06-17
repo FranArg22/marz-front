@@ -138,14 +138,18 @@ export function GeneralSection() {
 
       <div className="flex justify-end">
         <form.AppForm>
-          <Button
-            type="submit"
-            data-testid="settings.general.save_button"
-            disabled={patchSettings.isPending}
-            className="min-w-32"
-          >
-            {patchSettings.isPending ? t`Guardando...` : t`Guardar`}
-          </Button>
+          <form.Subscribe selector={(state) => state.isDirty}>
+            {(isDirty) => (
+              <Button
+                type="submit"
+                data-testid="settings.general.save_button"
+                disabled={patchSettings.isPending || !isDirty}
+                className="min-w-32"
+              >
+                {patchSettings.isPending ? t`Guardando...` : t`Guardar`}
+              </Button>
+            )}
+          </form.Subscribe>
         </form.AppForm>
       </div>
     </form>
