@@ -125,12 +125,12 @@ function CampaignCreateCta({
         <TooltipContent className="max-w-xs leading-relaxed">
           <Trans>
             Alcanzaste el límite de tu plan ({planName}). Para crear más
-            campañas, revisá los planes en billing.
+            campañas, revisá los planes en suscripción.
           </Trans>
         </TooltipContent>
       </Tooltip>
       <Button asChild variant="outline">
-        <Link to="/billing">
+        <Link to="/ajustes/suscripcion">
           <Trans>Ver planes</Trans>
         </Link>
       </Button>

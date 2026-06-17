@@ -19,7 +19,7 @@ export function DiscoveryUpsell() {
         </p>
       </div>
       <Button asChild>
-        <Link to="/billing">
+        <Link to="/ajustes/suscripcion">
           <Sparkles className="size-4" aria-hidden />
           {t`Actualizar plan`}
         </Link>

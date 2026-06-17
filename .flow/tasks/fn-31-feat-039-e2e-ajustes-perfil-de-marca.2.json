@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-06-17T05:22:34.238388Z",
+  "depends_on": [
+    "fn-31-feat-039-e2e-ajustes-perfil-de-marca.1"
+  ],
+  "epic": "fn-31-feat-039-e2e-ajustes-perfil-de-marca",
+  "id": "fn-31-feat-039-e2e-ajustes-perfil-de-marca.2",
+  "priority": 2,
+  "spec_path": ".flow/tasks/fn-31-feat-039-e2e-ajustes-perfil-de-marca.2.md",
+  "status": "todo",
+  "title": "E2E brand-settings-shell.spec.ts \u2014 shell, sidebar, access denied, legacy redirect",
+  "updated_at": "2026-06-17T05:27:26.312232Z"
+}

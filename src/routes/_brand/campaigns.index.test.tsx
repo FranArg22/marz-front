@@ -69,7 +69,7 @@ describe('CampaignsPage campaign quota CTA', () => {
     ).toBeDisabled()
     expect(screen.getByRole('link', { name: 'Ver planes' })).toHaveAttribute(
       'href',
-      '/billing',
+      '/ajustes/suscripcion',
     )
   })
 
@@ -130,9 +130,9 @@ async function renderPage() {
     component: () => null,
   })
 
-  const billingRoute = createRoute({
+  const subscriptionRoute = createRoute({
     getParentRoute: () => rootRoute,
-    path: '/billing',
+    path: '/ajustes/suscripcion',
     component: () => null,
   })
 
@@ -140,7 +140,7 @@ async function renderPage() {
     routeTree: rootRoute.addChildren([
       sourceRoute,
       newCampaignRoute,
-      billingRoute,
+      subscriptionRoute,
     ]),
     history: createMemoryHistory({ initialEntries: ['/source'] }),
   })

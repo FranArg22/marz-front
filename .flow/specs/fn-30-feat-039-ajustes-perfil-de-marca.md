@@ -1,0 +1,1 @@
+Already written to disk. Key changes: (1) Fixed 'useBillingPaymentMethodsQuery' → 'useOffersPaymentMethods (src/features/billing/hooks/useOffersPaymentMethod.ts)' in Approach section. (2) Removed design-handoff.md external doc reference from References (the .pen file reference stays as it's needed by pencil commands in tasks).

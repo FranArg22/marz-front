@@ -61,6 +61,12 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       href: '/videos',
     },
     {
+      id: 'settings',
+      label: () => t`Ajustes`,
+      icon: 'settings',
+      href: '/ajustes',
+    },
+    {
       id: 'analytics',
       label: () => t`Analytics`,
       icon: 'bar-chart-3',
