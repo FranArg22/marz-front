@@ -117,8 +117,7 @@ Visual: corresponde al nodo `C9aEtz` del `.pen`.
 - Verify: `pnpm typecheck && pnpm vitest run src/features/billing/settings`
 
 ## Done summary
-TBD
-
+Implemented fn-30-feat-039-ajustes-perfil-de-marca.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
