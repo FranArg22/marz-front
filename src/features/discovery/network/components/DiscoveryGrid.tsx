@@ -81,7 +81,7 @@ export function DiscoveryGrid({
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className="flex min-h-0 flex-1 flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]">
       <div className="flex flex-wrap items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-2">
           <Button
@@ -133,7 +133,7 @@ export function DiscoveryGrid({
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto pb-2">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allCards.map((card) => (
             <Fragment key={card.account_id}>{renderCard(card)}</Fragment>
@@ -164,17 +164,19 @@ export function DiscoveryGrid({
 
 function DiscoveryGridSkeleton() {
   return (
-    <div
-      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      role="status"
-      aria-label={t`Cargando creators`}
-    >
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-        <div
-          key={i}
-          className="aspect-[316/286] animate-pulse rounded-2xl border border-border bg-card"
-        />
-      ))}
+    <div className="min-h-0 flex-1 overflow-y-auto rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]">
+      <div
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        role="status"
+        aria-label={t`Cargando creators`}
+      >
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <div
+            key={i}
+            className="aspect-[316/286] animate-pulse rounded-2xl border border-border bg-muted"
+          />
+        ))}
+      </div>
     </div>
   )
 }

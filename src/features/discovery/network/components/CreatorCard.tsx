@@ -15,6 +15,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 
 import { cn } from '#/lib/utils'
+import { Flag } from '#/shared/ui/Flag'
 import type {
   DiscoveryCreatorCard,
   DiscoveryCreatorPlatformStats,
@@ -66,9 +67,8 @@ export function CreatorCard({
   const { kind, conversation_id } = card.pair_state
   const name = card.display_name
   const age = card.age
-  const flag = countryFlag(card.country)
-  const visibleTags = card.tags.slice(0, 3)
-  const hiddenTagCount = card.tags.length - visibleTags.length
+  const visibleTags = card.tags.slice(0, card.tags.length > 3 ? 2 : 3)
+  const hiddenTags = card.tags.slice(visibleTags.length)
   const canInvite =
     kind === DiscoveryCreatePairKindEnum.no_contact ||
     kind === DiscoveryCreatePairKindEnum.connection_rejected ||
@@ -103,7 +103,7 @@ export function CreatorCard({
           }
         }}
         className={cn(
-          'relative block aspect-[316/286] w-full overflow-hidden rounded-[28px] text-left',
+          'relative block aspect-[316/286] w-full overflow-hidden rounded-2xl text-left shadow-[0_18px_36px_-12px_rgba(0,0,0,0.22)]',
           'disabled:cursor-not-allowed',
           selected ? 'ring-2 ring-primary' : 'ring-1 ring-border',
         )}
@@ -126,10 +126,10 @@ export function CreatorCard({
         )}
         <CardOverlayContent
           name={name}
-          flag={flag}
+          country={card.country}
           age={age}
           visibleTags={visibleTags}
-          hiddenTagCount={hiddenTagCount}
+          hiddenTags={hiddenTags}
           platforms={card.platforms}
         />
       </button>
@@ -137,7 +137,7 @@ export function CreatorCard({
   }
 
   return (
-    <div className="relative aspect-[316/286] w-full overflow-hidden rounded-[28px] ring-1 ring-border">
+    <div className="relative aspect-[316/286] w-full overflow-hidden rounded-2xl ring-1 ring-border shadow-[0_18px_36px_-12px_rgba(0,0,0,0.22)]">
       <CardMedia card={card} />
 
       {canInvite ? (
@@ -164,10 +164,10 @@ export function CreatorCard({
 
       <CardOverlayContent
         name={name}
-        flag={flag}
+        country={card.country}
         age={age}
         visibleTags={visibleTags}
-        hiddenTagCount={hiddenTagCount}
+        hiddenTags={hiddenTags}
         platforms={card.platforms}
       />
     </div>
@@ -193,38 +193,42 @@ function CardMedia({ card }: { card: DiscoveryCreatorCard }) {
 
 function CardOverlayContent({
   name,
-  flag,
+  country,
   age,
   visibleTags,
-  hiddenTagCount,
+  hiddenTags,
   platforms,
 }: {
   name: string
-  flag: string
+  country: string
   age: number
   visibleTags: string[]
-  hiddenTagCount: number
+  hiddenTags: string[]
   platforms: DiscoveryCreatorPlatformStats[]
 }) {
   return (
     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
       <p className="text-[15px] font-extrabold leading-tight text-white">
-        {name} {flag} <span aria-hidden>·</span> {age}
+        {name} <Flag country={country} className="rounded-[2px]" />{' '}
+        <span aria-hidden>·</span> {age}
       </p>
 
       {visibleTags.length > 0 ? (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex items-center gap-1.5">
           {visibleTags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex h-[18px] items-center rounded-full bg-white/15 px-1.5 text-[11px] font-[650] leading-none text-white"
+              className="inline-flex h-[18px] shrink-0 items-center whitespace-nowrap rounded-full bg-white/15 px-1.5 text-[11px] font-[650] leading-none text-white"
             >
-              {tag}
+              {prettifyTag(tag)}
             </span>
           ))}
-          {hiddenTagCount > 0 ? (
-            <span className="rounded-full bg-white/15 px-1.5 py-0.5 text-[11px] font-[650] leading-none text-white">
-              {t`+${hiddenTagCount}`}
+          {hiddenTags.length > 0 ? (
+            <span
+              title={hiddenTags.map(prettifyTag).join(', ')}
+              className="shrink-0 cursor-default rounded-full bg-white/15 px-1.5 py-0.5 text-[11px] font-[650] leading-none text-white"
+            >
+              {t`+${hiddenTags.length}`}
             </span>
           ) : null}
         </div>
@@ -384,6 +388,11 @@ function platformCode(platform: string): string {
   )
 }
 
+function prettifyTag(tag: string): string {
+  const text = tag.replace(/_/g, ' ').trim()
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
 const CURRENCY_SYMBOLS: Record<string, string> = {
   USD: '$',
   ARS: '$',
@@ -392,18 +401,4 @@ const CURRENCY_SYMBOLS: Record<string, string> = {
 
 function currencySymbol(currency: string): string {
   return CURRENCY_SYMBOLS[currency.toUpperCase()] ?? `${currency} `
-}
-
-function countryFlag(country: string): string {
-  const code = country.trim().toUpperCase()
-  if (code.length !== 2 || !/^[A-Z]{2}$/.test(code)) {
-    return ''
-  }
-  const base = 0x1f1e6
-  // eslint-disable-next-line lingui/no-unlocalized-strings -- ISO letter offset, not UI copy
-  const offset = 'A'.charCodeAt(0)
-  return String.fromCodePoint(
-    base + (code.charCodeAt(0) - offset),
-    base + (code.charCodeAt(1) - offset),
-  )
 }

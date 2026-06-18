@@ -143,7 +143,7 @@ function DiscoveryRoute() {
   }
 
   return (
-    <div className="flex h-full flex-col gap-4 overflow-hidden p-6">
+    <div className="flex h-full flex-col gap-6 overflow-hidden p-6">
       <div>
         <h1 className="text-2xl font-bold text-foreground">{t`Discovery`}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
