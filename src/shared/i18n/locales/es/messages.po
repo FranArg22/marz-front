@@ -141,10 +141,9 @@ msgstr "”Toda la info en la plataforma. Podía ver el paso a paso del proceso.
 #~ msgid "{0} · {declaredDate}"
 #~ msgstr "{0} · {declaredDate}"
 
-#. placeholder {0}: step6.content_guidelines.trim().length
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:200
-msgid "{0} caracteres"
-msgstr "{0} caracteres"
+#~ msgid "{0} caracteres"
+#~ msgstr "{0} caracteres"
 
 #: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:88
 #~ msgid "{0} de {1} seleccionados"
@@ -440,11 +439,11 @@ msgstr "{totalVisible} pagos visibles"
 msgid "{totalVisibleCount} campañas"
 msgstr "{totalVisibleCount} campañas"
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:57
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:58
 msgid "{trimmedLength} caracteres"
 msgstr "{trimmedLength} caracteres"
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:59
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:60
 msgid "{trimmedLength}/50 mínimo"
 msgstr "{trimmedLength}/50 mínimo"
 
@@ -822,7 +821,7 @@ msgstr "Actions"
 msgid "Activa"
 msgstr "Activa"
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:148
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:149
 msgid "Activá este permiso si la marca podrá reutilizar los videos por defecto."
 msgstr "Activá este permiso si la marca podrá reutilizar los videos por defecto."
 
@@ -934,7 +933,7 @@ msgstr "Agosto"
 msgid "Agregá al menos una ventana de bono"
 msgstr "Agregá al menos una ventana de bono"
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:134
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:135
 msgid "Agregá detalles opcionales sobre pagos, condiciones o aclaraciones."
 msgstr "Agregá detalles opcionales sobre pagos, condiciones o aclaraciones."
 
@@ -1320,7 +1319,7 @@ msgstr "Attribution / ROAS"
 msgid "Audience"
 msgstr "Audience"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:154
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:216
 msgid "Audiencia"
 msgstr "Audiencia"
 
@@ -1509,7 +1508,7 @@ msgstr "Brand"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:138
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:195
 msgid "Brief"
 msgstr "Brief"
 
@@ -1771,7 +1770,7 @@ msgid "Cancelled"
 msgstr "Cancelled"
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:25
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:232
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:309
 msgid "Canje de producto"
 msgstr "Canje de producto"
 
@@ -2086,7 +2085,7 @@ msgstr "Comida"
 msgid "Coming up when the offers context lands."
 msgstr "Coming up when the offers context lands."
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:177
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:252
 msgid "Compensación"
 msgstr "Compensación"
 
@@ -2182,7 +2181,7 @@ msgstr "Confirmá el monto pagado por esta oferta."
 #~ msgid "Confirmá la configuración antes de publicar la campaña."
 #~ msgstr "Confirmá la configuración antes de publicar la campaña."
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:31
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:83
 msgid "Confirmá los datos antes de crear la campaña. Podés editar cada bloque desde su paso correspondiente."
 msgstr "Confirmá los datos antes de crear la campaña. Podés editar cada bloque desde su paso correspondiente."
 
@@ -2235,7 +2234,7 @@ msgstr "Contale por qué querés trabajar con estos creators..."
 msgid "Contanos cómo venís con creadores"
 msgstr "Contanos cómo venís con creadores"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:195
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:270
 msgid "Contenido"
 msgstr "Contenido"
 
@@ -2251,7 +2250,7 @@ msgstr "Contenido y plataformas"
 #~ msgid "Contenido: {contentList}"
 #~ msgstr "Contenido: {contentList}"
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:38
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:39
 msgid "Content guidelines"
 msgstr "Content guidelines"
 
@@ -2611,7 +2610,7 @@ msgstr "Definí el brief de la campaña"
 #~ msgid "Definí el modelo de pago"
 #~ msgstr "Definí el modelo de pago"
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:68
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:72
 msgid "Definí la audiencia"
 msgstr "Definí la audiencia"
 
@@ -2663,7 +2662,7 @@ msgstr "Descartar"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:177
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:109
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:143
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:200
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:396
 #: src/features/offers/components/OfferArchiveItem.tsx:290
 msgid "Descripción"
@@ -2708,7 +2707,7 @@ msgstr "Desde {min} años"
 msgid "Desde {minLabel}"
 msgstr "Desde {minLabel}"
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:47
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:48
 msgid "Detallá tono, mensajes clave, formato esperado, menciones obligatorias y restricciones."
 msgstr "Detallá tono, mensajes clave, formato esperado, menciones obligatorias y restricciones."
 
@@ -2952,7 +2951,7 @@ msgstr "Edición de campaña"
 #~ msgstr "Editá lo que necesites antes de confirmar la campaña."
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:49
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:57
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:109
 msgid "Editar"
 msgstr "Editar"
 
@@ -3164,7 +3163,7 @@ msgstr "Elegí el tipo de contenido"
 msgid "Elegí la categoría que mejor represente tu industria."
 msgstr "Elegí la categoría que mejor represente tu industria."
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:71
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:75
 msgid "Elegí los filtros para encontrar creators compatibles."
 msgstr "Elegí los filtros para encontrar creators compatibles."
 
@@ -4162,7 +4161,7 @@ msgstr "Guardar cuenta"
 msgid "Guías de contenido"
 msgstr "Guías de contenido"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:199
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:274
 msgid "Guidelines"
 msgstr "Guidelines"
 
@@ -4371,9 +4370,13 @@ msgstr "Idiomas del contenido"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:451
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:150
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:184
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:150
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:208
 msgid "Imagen"
 msgstr "Imagen"
+
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:211
+msgid "Imagen cargada"
+msgstr "Imagen cargada"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
@@ -4407,7 +4410,7 @@ msgstr "Influencer"
 #~ msgstr "Influencer Posts"
 
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:55
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:215
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:292
 msgid "Influencers Posts"
 msgstr "Influencers Posts"
 
@@ -4498,9 +4501,9 @@ msgstr "Interés"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:506
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:515
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:518
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:112
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:116
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:164
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:120
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:228
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:130
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:200
@@ -5412,7 +5415,7 @@ msgstr "Moda"
 #~ msgstr "modelo de pago"
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:28
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:132
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:189
 msgid "Modelo de pricing"
 msgstr "Modelo de pricing"
 
@@ -5548,7 +5551,7 @@ msgstr "Nichos"
 msgid "Nivel de experiencia"
 msgstr "Nivel de experiencia"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:190
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:265
 msgid "No"
 msgstr "No"
 
@@ -5936,7 +5939,7 @@ msgstr "No tenés un workspace asociado."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:170
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:94
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:141
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:198
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
 #: src/features/identity/settings/ProfileCard.tsx:30
 msgid "Nombre"
@@ -5988,7 +5991,7 @@ msgstr "Nos ayuda a entender qué funciona."
 msgid "Nota (opcional)"
 msgstr "Nota (opcional)"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:185
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:260
 msgid "Notas"
 msgstr "Notas"
 
@@ -5997,7 +6000,7 @@ msgid "Notas adicionales"
 msgstr "Notas adicionales"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:207
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:126
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:127
 msgid "Notas de compensación"
 msgstr "Notas de compensación"
 
@@ -6319,7 +6322,7 @@ msgid "Pago"
 msgstr "Pago"
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:32
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:233
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:310
 msgid "Pago + canje"
 msgstr "Pago + canje"
 
@@ -6333,7 +6336,7 @@ msgid "Pago marcado"
 msgstr "Pago marcado"
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:18
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:231
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:308
 msgid "Pago monetario"
 msgstr "Pago monetario"
 
@@ -6374,9 +6377,9 @@ msgstr "Pagos y gastos"
 msgid "Paid"
 msgstr "Paid"
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:145
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:152
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:169
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:149
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:158
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:236
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:77
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:167
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
@@ -6475,7 +6478,7 @@ msgid "Paused"
 msgstr "Paused"
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:55
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:223
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:300
 msgid "Pay per post"
 msgstr "Pay per post"
 
@@ -6507,12 +6510,16 @@ msgstr "PAYOUTS"
 msgid "Payouts automáticos 24h"
 msgstr "Payouts automáticos 24h"
 
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:281
+msgid "PDF cargado"
+msgstr "PDF cargado"
+
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:711
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:720
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:745
 #: src/features/campaigns/wizard/BriefPdfDropzone.tsx:110
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:67
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:203
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:68
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:278
 msgid "PDF del brief"
 msgstr "PDF del brief"
 
@@ -6662,9 +6669,9 @@ msgid "Plataforma"
 msgstr "Plataforma"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:245
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:79
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:83
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:158
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:87
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:220
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:136
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:444
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:146
@@ -6696,7 +6703,7 @@ msgstr "Platforms"
 msgid "PNG, JPG o WebP"
 msgstr "PNG, JPG o WebP"
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:70
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:71
 msgid "Podés adjuntar un PDF opcional con más contexto."
 msgstr "Podés adjuntar un PDF opcional con más contexto."
 
@@ -7298,9 +7305,9 @@ msgstr "Resumen de la oferta"
 #~ msgid "Retry"
 #~ msgstr "Retry"
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:145
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:156
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:189
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:146
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:157
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:264
 msgid "Reutilización de video"
 msgstr "Reutilización de video"
 
@@ -7319,7 +7326,7 @@ msgstr "Reutilización de video"
 msgid "Reviews"
 msgstr "Reviews"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:28
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:80
 msgid "Revisá la campaña"
 msgstr "Revisá la campaña"
 
@@ -7503,6 +7510,10 @@ msgstr "Secciones de ajustes"
 msgid "Secciones de campaña"
 msgstr "Secciones de campaña"
 
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:204
+msgid "seguidores"
+msgstr "seguidores"
+
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:80
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:300
 msgid "Seguidores"
@@ -7576,7 +7587,7 @@ msgstr "Seleccioná tu rol"
 #~ msgid "Seleccioná un objetivo."
 #~ msgstr "Seleccioná un objetivo."
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:155
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:161
 #: src/features/identity/settings/GeneralSection.tsx:52
 msgid "Seleccioná un país"
 msgstr "Seleccioná un país"
@@ -7737,7 +7748,7 @@ msgstr "Short de YouTube"
 #~ msgid "Show more"
 #~ msgstr "Show more"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:190
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:265
 msgid "Sí"
 msgstr "Sí"
 
@@ -7786,7 +7797,7 @@ msgstr "Sin campañas por ahora"
 msgid "Sin campañas recomendadas por ahora"
 msgstr "Sin campañas recomendadas por ahora"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:120
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:177
 msgid "Sin completar"
 msgstr "Sin completar"
 
@@ -7855,7 +7866,7 @@ msgstr "Sin managers. Sin comisiones. Sin intermediarios."
 msgid "Sin modelo definido"
 msgstr "Sin modelo definido"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:186
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:261
 msgid "Sin notas"
 msgstr "Sin notas"
 
@@ -7872,7 +7883,7 @@ msgstr "Sin opciones disponibles"
 #~ msgstr "Sin países"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:712
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:204
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:281
 msgid "Sin PDF"
 msgstr "Sin PDF"
 
@@ -8382,11 +8393,14 @@ msgstr "Tier"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:576
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:585
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:588
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:169
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:173
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:171
 msgid "Tier mínimo"
 msgstr "Tier mínimo"
+
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:175
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:179
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:243
+msgid "Tier mínimo de seguidores"
+msgstr "Tier mínimo de seguidores"
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:31
 #: src/features/offers/components/CurrentOfferBlock.tsx:91
@@ -8403,7 +8417,7 @@ msgstr "Time remaining {countdownLabel}"
 msgid "Timing"
 msgstr "Timing"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:181
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:256
 msgid "Tipo"
 msgstr "Tipo"
 
@@ -8415,7 +8429,7 @@ msgstr "Tipo de bono {windowNumber}"
 #~ msgid "Tipo de bonus para {label}"
 #~ msgstr "Tipo de bonus para {label}"
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:124
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:181
 msgid "Tipo de campaña"
 msgstr "Tipo de campaña"
 
@@ -8431,7 +8445,7 @@ msgstr "Tipo de compensación"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:237
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:128
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:185
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:278
 msgid "Tipo de contenido"
 msgstr "Tipo de contenido"
@@ -8915,7 +8929,7 @@ msgstr "URL del video {0}"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:184
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:125
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:147
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:204
 msgid "URL objetivo"
 msgstr "URL objetivo"
 

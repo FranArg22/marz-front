@@ -63,7 +63,7 @@ export function BriefPdfDropzone() {
 
   if (briefPdfFile) {
     return (
-      <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card p-4">
+      <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted p-4">
         <div className="flex min-w-0 items-center gap-3">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-foreground">
             <FileText aria-hidden="true" className="size-5" />
@@ -91,7 +91,7 @@ export function BriefPdfDropzone() {
           void handleFile(event.dataTransfer.files[0])
         }}
         className={cn(
-          'flex min-h-36 flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border bg-card p-6 text-center transition-colors hover:bg-surface-hover',
+          'flex min-h-36 flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border bg-muted p-6 text-center transition-colors hover:bg-surface-hover',
           error && 'border-destructive',
         )}
       >

@@ -30,47 +30,49 @@ export function WizardStep6Content() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <label
-          htmlFor="content-guidelines"
-          className="text-sm font-semibold text-foreground"
-        >
-          <Trans>Content guidelines</Trans>
-        </label>
-        <Textarea
-          id="content-guidelines"
-          value={contentGuidelines}
-          aria-invalid={!meetsMinimum}
-          onChange={(event) =>
-            setStep6({ content_guidelines: event.target.value })
-          }
-          placeholder={t`Detallá tono, mensajes clave, formato esperado, menciones obligatorias y restricciones.`}
-          className="min-h-44 resize-y"
-        />
-        <p
-          className={cn(
-            'text-sm',
-            meetsMinimum ? 'text-muted-foreground' : 'text-warning',
-          )}
-        >
-          {meetsMinimum ? (
-            <Trans>{trimmedLength} caracteres</Trans>
-          ) : (
-            <Trans>{trimmedLength}/50 mínimo</Trans>
-          )}
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-sm font-semibold text-foreground">
-            <Trans>PDF del brief</Trans>
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            <Trans>Podés adjuntar un PDF opcional con más contexto.</Trans>
+      <div className="flex flex-col gap-6 rounded-xl border border-border bg-card p-6">
+        <div className="flex flex-col gap-3">
+          <label
+            htmlFor="content-guidelines"
+            className="text-sm font-semibold text-foreground"
+          >
+            <Trans>Content guidelines</Trans>
+          </label>
+          <Textarea
+            id="content-guidelines"
+            value={contentGuidelines}
+            aria-invalid={!meetsMinimum}
+            onChange={(event) =>
+              setStep6({ content_guidelines: event.target.value })
+            }
+            placeholder={t`Detallá tono, mensajes clave, formato esperado, menciones obligatorias y restricciones.`}
+            className="min-h-44 resize-y"
+          />
+          <p
+            className={cn(
+              'text-sm',
+              meetsMinimum ? 'text-muted-foreground' : 'text-warning',
+            )}
+          >
+            {meetsMinimum ? (
+              <Trans>{trimmedLength} caracteres</Trans>
+            ) : (
+              <Trans>{trimmedLength}/50 mínimo</Trans>
+            )}
           </p>
         </div>
-        <BriefPdfDropzone />
+
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-sm font-semibold text-foreground">
+              <Trans>PDF del brief</Trans>
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              <Trans>Podés adjuntar un PDF opcional con más contexto.</Trans>
+            </p>
+          </div>
+          <BriefPdfDropzone />
+        </div>
       </div>
     </section>
   )
