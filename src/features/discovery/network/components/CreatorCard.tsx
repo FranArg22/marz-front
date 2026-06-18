@@ -48,6 +48,21 @@ const PLATFORM_ICONS: Record<string, LucideIcon> = {
   youtube: Youtube,
 }
 
+const PLATFORM_PROFILE_URLS: Record<string, (handle: string) => string> = {
+  instagram: (handle) => `https://instagram.com/${handle}`,
+  tiktok: (handle) => `https://www.tiktok.com/@${handle}`,
+  youtube: (handle) => `https://youtube.com/@${handle}`,
+}
+
+function platformProfileUrl(platform: string, handle: string): string | null {
+  const build = PLATFORM_PROFILE_URLS[platform.toLowerCase()]
+  if (!build) {
+    return null
+  }
+  const normalized = handle.replace(/^@/, '').trim()
+  return normalized ? build(normalized) : null
+}
+
 interface CreatorCardProps {
   card: DiscoveryCreatorCard
   onInvite: (card: DiscoveryCreatorCard) => void
@@ -131,6 +146,7 @@ export function CreatorCard({
           visibleTags={visibleTags}
           hiddenTags={hiddenTags}
           platforms={card.platforms}
+          platformsLinkable={false}
         />
       </button>
     )
@@ -198,6 +214,7 @@ function CardOverlayContent({
   visibleTags,
   hiddenTags,
   platforms,
+  platformsLinkable = true,
 }: {
   name: string
   country: string
@@ -205,10 +222,11 @@ function CardOverlayContent({
   visibleTags: string[]
   hiddenTags: string[]
   platforms: DiscoveryCreatorPlatformStats[]
+  platformsLinkable?: boolean
 }) {
   return (
     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
-      <p className="text-[15px] font-extrabold leading-tight text-white">
+      <p className="text-[15px] font-semibold leading-tight text-white">
         {name} <Flag country={country} className="rounded-[2px]" />{' '}
         <span aria-hidden>·</span> {age}
       </p>
@@ -218,7 +236,7 @@ function CardOverlayContent({
           {visibleTags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex h-[18px] shrink-0 items-center whitespace-nowrap rounded-full bg-white/15 px-1.5 text-[11px] font-[650] leading-none text-white"
+              className="inline-flex h-[18px] shrink-0 items-center whitespace-nowrap rounded-full bg-white/15 px-1.5 text-[11px] font-medium leading-none text-white"
             >
               {prettifyTag(tag)}
             </span>
@@ -226,7 +244,7 @@ function CardOverlayContent({
           {hiddenTags.length > 0 ? (
             <span
               title={hiddenTags.map(prettifyTag).join(', ')}
-              className="shrink-0 cursor-default rounded-full bg-white/15 px-1.5 py-0.5 text-[11px] font-[650] leading-none text-white"
+              className="shrink-0 cursor-default rounded-full bg-white/15 px-1.5 py-0.5 text-[11px] font-medium leading-none text-white"
             >
               {t`+${hiddenTags.length}`}
             </span>
@@ -235,7 +253,10 @@ function CardOverlayContent({
       ) : null}
 
       {platforms.length > 0 ? (
-        <PlatformStatsTable platforms={platforms} />
+        <PlatformStatsTable
+          platforms={platforms}
+          linkable={platformsLinkable}
+        />
       ) : null}
     </div>
   )
@@ -243,12 +264,14 @@ function CardOverlayContent({
 
 function PlatformStatsTable({
   platforms,
+  linkable,
 }: {
   platforms: DiscoveryCreatorPlatformStats[]
+  linkable: boolean
 }) {
   return (
     <div className="flex flex-col gap-0.5 font-mono text-[11px] tabular-nums">
-      <div className="grid grid-cols-5 items-center px-2.5 font-bold text-white/60">
+      <div className="grid grid-cols-5 items-center px-2.5 font-medium text-white/60">
         <span>{t`Red`}</span>
         <Users className="mx-auto size-2.5" aria-label={t`Alcance`} />
         <Heart className="mx-auto size-2.5" aria-label={t`Engagement`} />
@@ -260,31 +283,56 @@ function PlatformStatsTable({
       </div>
       {platforms.map((stats) => {
         const PlatformIcon = PLATFORM_ICONS[stats.platform.toLowerCase()]
-        return (
-          <div
-            key={`${stats.platform}-${stats.handle}`}
-            className="grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5"
-          >
-            <span className="flex items-center gap-1 font-[850] text-white">
+        const profileUrl = linkable
+          ? platformProfileUrl(stats.platform, stats.handle)
+          : null
+        const rowClassName =
+          'grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5'
+        const cells = (
+          <>
+            <span className="flex items-center gap-1 font-medium text-white">
               {PlatformIcon ? (
                 <PlatformIcon className="size-2.5 shrink-0" aria-hidden />
               ) : null}
               {platformCode(stats.platform)}
             </span>
-            <span className="text-center font-[750] text-white">
+            <span className="text-center font-medium text-white">
               {Intl_NumberFormat_compact.format(stats.followers)}
             </span>
-            <span className="text-center font-[750] text-white">
+            <span className="text-center font-medium text-white">
               {Intl_NumberFormat_pct.format(stats.engagement_rate)}
             </span>
-            <span className="text-center font-[750] text-white/80">
+            <span className="text-center font-medium text-white/80">
               {currencySymbol(stats.cpm_currency)}
               {stats.cpm_amount}
             </span>
-            <span className="text-right font-[750] text-[#3ECF8E]">
+            <span className="text-right font-medium text-[#3ECF8E]">
               {currencySymbol(stats.price_currency)}
               {stats.min_price_amount}
             </span>
+          </>
+        )
+        const key = `${stats.platform}-${stats.handle}`
+        if (profileUrl) {
+          return (
+            <a
+              key={key}
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t`Ver perfil en ${platformCode(stats.platform)}`}
+              className={cn(
+                rowClassName,
+                'transition-colors hover:bg-[#101010]/75',
+              )}
+            >
+              {cells}
+            </a>
+          )
+        }
+        return (
+          <div key={key} className={rowClassName}>
+            {cells}
           </div>
         )
       })}

@@ -19,6 +19,19 @@ const DISABLED_REASON = () => t`Próximamente`
 export const shellNavigationConfig: ShellNavigationConfig = {
   brand: [
     {
+      id: 'dashboard',
+      label: () => t`Dashboard`,
+      icon: 'layout-dashboard',
+      disabled: true,
+      disabledReason: DISABLED_REASON,
+    },
+    {
+      id: 'discovery',
+      label: () => t`Discovery`,
+      icon: 'compass',
+      href: '/discovery',
+    },
+    {
       id: 'inbox',
       label: () => t`Inbox`,
       icon: 'inbox',
@@ -37,22 +50,10 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       href: '/campaigns',
     },
     {
-      id: 'payments',
-      label: () => t`Payments & Spending`,
-      icon: 'wallet',
-      href: '/payments',
-    },
-    {
       id: 'creators',
       label: () => t`Creators`,
       icon: 'users',
       href: '/creators',
-    },
-    {
-      id: 'discovery',
-      label: () => t`Discovery`,
-      icon: 'compass',
-      href: '/discovery',
     },
     {
       id: 'videos',
@@ -61,17 +62,16 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       href: '/videos',
     },
     {
+      id: 'payments',
+      label: () => t`Payments & Spending`,
+      icon: 'wallet',
+      href: '/payments',
+    },
+    {
       id: 'settings',
       label: () => t`Ajustes`,
       icon: 'settings',
       href: '/ajustes',
-    },
-    {
-      id: 'analytics',
-      label: () => t`Analytics`,
-      icon: 'bar-chart-3',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
     },
   ],
   creator: [

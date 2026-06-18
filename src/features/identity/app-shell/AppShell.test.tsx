@@ -120,7 +120,7 @@ describe('AppShell', () => {
     )
     expect(screen.getByTestId('app-sidebar')).toHaveAttribute(
       'data-width',
-      '72px',
+      '64px',
     )
     expect(screen.queryByTestId('app-topbar')).not.toBeInTheDocument()
   })

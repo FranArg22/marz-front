@@ -100,13 +100,13 @@ describe('AppSidebar', () => {
     const user = userEvent.setup()
     const { router } = renderSidebar('/workspace')
 
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
+    const dashboardButton = await screen.findByRole('button', {
+      name: 'Dashboard',
     })
-    await user.click(analyticsButton)
+    await user.click(dashboardButton)
 
-    expect(analyticsButton).toHaveAttribute('aria-disabled', 'true')
-    expect(analyticsButton).not.toHaveAttribute('href')
+    expect(dashboardButton).toHaveAttribute('aria-disabled', 'true')
+    expect(dashboardButton).not.toHaveAttribute('href')
     expect(router.state.location.pathname).toBe('/workspace')
   })
 
@@ -181,29 +181,30 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace')
 
     await user.tab()
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Inbox')
+    await user.tab()
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Discovery')
   })
 
   it('shows Próximamente for disabled item tooltips', async () => {
     const user = userEvent.setup()
     renderSidebar('/workspace')
 
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
+    const dashboardButton = await screen.findByRole('button', {
+      name: 'Dashboard',
     })
 
-    await user.hover(analyticsButton)
+    await user.hover(dashboardButton)
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
   it('shows disabled item tooltips when focused by keyboard', async () => {
     renderSidebar('/workspace')
 
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
+    const dashboardButton = await screen.findByRole('button', {
+      name: 'Dashboard',
     })
-    analyticsButton.focus()
-    expect(analyticsButton).toHaveFocus()
+    dashboardButton.focus()
+    expect(dashboardButton).toHaveFocus()
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
@@ -219,7 +220,7 @@ describe('AppSidebar', () => {
       'Creators',
       'Videos',
       'Ajustes',
-      'Analytics',
+      'Dashboard',
     ]) {
       expect(
         within(brandSidebar).getByRole(
@@ -265,13 +266,13 @@ describe('AppSidebar', () => {
     expect(within(creatorSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)
   })
 
-  it('uses the 72px sidebar rail width', async () => {
+  it('uses the 64px sidebar rail width', async () => {
     renderSidebar('/workspace')
 
     const sidebar = await screen.findByTestId('app-sidebar')
 
-    expect(sidebar).toHaveAttribute('data-width', '72px')
-    expect(sidebar).toHaveClass('w-[72px]')
+    expect(sidebar).toHaveAttribute('data-width', '64px')
+    expect(sidebar).toHaveClass('w-16')
   })
 
   it('is axe-clean', async () => {

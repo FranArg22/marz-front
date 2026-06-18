@@ -18,26 +18,26 @@ function enabledItemIds(items: ShellNavigationItem[]) {
 }
 
 describe('shellNavigationConfig', () => {
-  it('defines brand items in order with workspace, inbox and payments enabled', () => {
+  it('defines brand items in order with dashboard first and disabled', () => {
     expect(itemIds(brandItems)).toEqual([
+      'dashboard',
+      'discovery',
       'inbox',
       'workspace',
       'campaigns',
-      'payments',
       'creators',
-      'discovery',
       'videos',
+      'payments',
       'settings',
-      'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
+      'discovery',
       'inbox',
       'workspace',
       'campaigns',
-      'payments',
       'creators',
-      'discovery',
       'videos',
+      'payments',
       'settings',
     ])
   })
