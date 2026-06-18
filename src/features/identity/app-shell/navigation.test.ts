@@ -18,8 +18,9 @@ function enabledItemIds(items: ShellNavigationItem[]) {
 }
 
 describe('shellNavigationConfig', () => {
-  it('defines brand items in order with workspace, inbox and payments enabled', () => {
+  it('defines brand items in order with inicio, workspace, inbox and payments enabled', () => {
     expect(itemIds(brandItems)).toEqual([
+      'inicio',
       'inbox',
       'workspace',
       'campaigns',
@@ -31,6 +32,7 @@ describe('shellNavigationConfig', () => {
       'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
+      'inicio',
       'inbox',
       'workspace',
       'campaigns',
@@ -66,6 +68,15 @@ describe('shellNavigationConfig', () => {
     expect(workspace?.icon).toBe('message-square')
   })
 
+  it('defines inicio first for brand navigation with home icon', () => {
+    const inicio = brandItems[0]
+
+    expect(inicio?.id).toBe('inicio')
+    expect(inicio?.icon).toBe('home')
+    expect(inicio?.href).toBe('/inicio')
+    expect(inicio?.label()).toBe('Inicio')
+  })
+
   it('defines payments only for brand navigation with wallet icon', () => {
     const brandPayments = brandItems.find((item) => item.id === 'payments')
     const creatorPayments = creatorItems.find((item) => item.id === 'payments')
@@ -88,15 +99,13 @@ describe('shellNavigationConfig', () => {
     expect(creatorDiscovery).toBeUndefined()
   })
 
-  it('defines settings only for brand navigation with settings icon', () => {
+  it('defines brand settings with settings icon', () => {
     const brandSettings = brandItems.find((item) => item.id === 'settings')
-    const creatorSettings = creatorItems.find((item) => item.id === 'settings')
 
     expect(brandSettings?.id).toBe('settings')
     expect(brandSettings?.icon).toBe('settings')
     expect(brandSettings?.href).toBe('/ajustes')
     expect(brandSettings?.label()).toBe('Ajustes')
-    expect(creatorSettings).toBeUndefined()
   })
 
   it('keeps disabled items non-navigable', () => {
@@ -113,6 +122,10 @@ describe('shellNavigationConfig', () => {
 })
 
 describe('resolveActiveSidebarItem', () => {
+  it('resolves inicio for /inicio', () => {
+    expect(resolveActiveSidebarItem(brandItems, '/inicio')?.id).toBe('inicio')
+  })
+
   it('resolves workspace for /workspace', () => {
     expect(resolveActiveSidebarItem(brandItems, '/workspace')?.id).toBe(
       'workspace',

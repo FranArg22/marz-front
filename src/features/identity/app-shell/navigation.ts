@@ -19,6 +19,12 @@ const DISABLED_REASON = () => t`Próximamente`
 export const shellNavigationConfig: ShellNavigationConfig = {
   brand: [
     {
+      id: 'inicio',
+      label: () => t`Inicio`,
+      icon: 'home',
+      href: '/inicio',
+    },
+    {
       id: 'inbox',
       label: () => t`Inbox`,
       icon: 'inbox',

@@ -124,8 +124,7 @@ Actualizar los tests existentes que verifican la lista de items del sidebar bran
 - Verify: `pnpm typecheck && pnpm vitest run src/routes/_brand/inicio`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.2; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

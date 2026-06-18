@@ -181,7 +181,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace')
 
     await user.tab()
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Inbox')
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Inicio')
   })
 
   it('shows Próximamente for disabled item tooltips', async () => {
@@ -212,6 +212,7 @@ describe('AppSidebar', () => {
     const brandSidebar = await screen.findByTestId('app-sidebar')
 
     for (const name of [
+      'Inicio',
       'Workspace',
       'Inbox',
       'Payments & Spending',
@@ -223,7 +224,7 @@ describe('AppSidebar', () => {
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos|Ajustes/.test(
+          /Inicio|Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos|Ajustes/.test(
             name,
           )
             ? 'link'
