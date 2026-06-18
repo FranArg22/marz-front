@@ -18,3 +18,196 @@ export const IngestAnalyticsEventBody = zod.object({
   "properties": zod.record(zod.string(), zod.unknown()).optional()
 })
 
+export const getAnalyticsDashboardCardsQueryStatusDefault = `active`;
+export const getAnalyticsDashboardCardsQueryRangePresetDefault = `14d`;
+
+export const GetAnalyticsDashboardCardsQueryParams = zod.object({
+  "campaign_ids[]": zod.array(zod.uuid()).optional(),
+  "creator_ids[]": zod.array(zod.uuid()).optional(),
+  "platforms[]": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
+  "countries[]": zod.array(zod.string()).optional(),
+  "status": zod.enum(['active', 'inactive', 'all']).default(getAnalyticsDashboardCardsQueryStatusDefault),
+  "range_preset": zod.string().default(getAnalyticsDashboardCardsQueryRangePresetDefault),
+  "range_start": zod.iso.datetime({}).optional(),
+  "range_end": zod.iso.datetime({}).optional()
+})
+
+export const getAnalyticsDashboardCardsResponseCardsMin = 8;
+export const getAnalyticsDashboardCardsResponseCardsMax = 8;
+
+
+
+export const GetAnalyticsDashboardCardsResponse = zod.object({
+  "cards": zod.array(zod.object({
+  "key": zod.enum(['views', 'likes', 'comments', 'engagement', 'videos_published', 'creators_activated', 'spend', 'cpm']),
+  "type": zod.enum(['cumulative', 'flow', 'derived_cumulative', 'derived_flow']),
+  "current_value": zod.number(),
+  "current_display": zod.string(),
+  "delta": zod.object({
+  "kind": zod.enum(['intra_window', 'vs_previous_period']),
+  "value": zod.number(),
+  "display": zod.string(),
+  "tooltip": zod.string(),
+  "direction": zod.enum(['positive', 'negative', 'neutral']),
+  "has_comparison": zod.boolean()
+})
+})).min(getAnalyticsDashboardCardsResponseCardsMin).max(getAnalyticsDashboardCardsResponseCardsMax)
+})
+
+export const getAnalyticsDashboardOnboardingChecklistResponseProgressDoneMin = 0;
+export const getAnalyticsDashboardOnboardingChecklistResponseProgressDoneMax = 6;
+
+export const getAnalyticsDashboardOnboardingChecklistResponseProgressTotalMin = 6;
+export const getAnalyticsDashboardOnboardingChecklistResponseProgressTotalMax = 6;
+
+export const getAnalyticsDashboardOnboardingChecklistResponseItemsMin = 6;
+export const getAnalyticsDashboardOnboardingChecklistResponseItemsMax = 6;
+
+
+
+export const GetAnalyticsDashboardOnboardingChecklistResponse = zod.object({
+  "completed": zod.boolean(),
+  "progress": zod.object({
+  "done": zod.number().min(getAnalyticsDashboardOnboardingChecklistResponseProgressDoneMin).max(getAnalyticsDashboardOnboardingChecklistResponseProgressDoneMax),
+  "total": zod.number().min(getAnalyticsDashboardOnboardingChecklistResponseProgressTotalMin).max(getAnalyticsDashboardOnboardingChecklistResponseProgressTotalMax)
+}),
+  "items": zod.array(zod.object({
+  "key": zod.enum(['complete_brand_profile', 'create_first_campaign', 'invite_first_creator', 'send_first_offer', 'approve_first_draft', 'complete_first_collaboration']),
+  "done": zod.boolean(),
+  "label": zod.string(),
+  "cta_label": zod.string(),
+  "cta_route": zod.string()
+})).min(getAnalyticsDashboardOnboardingChecklistResponseItemsMin).max(getAnalyticsDashboardOnboardingChecklistResponseItemsMax).optional()
+})
+
+export const getAnalyticsDashboardChartQueryStatusDefault = `active`;
+export const getAnalyticsDashboardChartQueryRangePresetDefault = `14d`;
+export const getAnalyticsDashboardChartQuerySeriesMax = 2;
+
+export const getAnalyticsDashboardChartQueryGroupingDefault = `day`;
+
+export const GetAnalyticsDashboardChartQueryParams = zod.object({
+  "campaign_ids[]": zod.array(zod.uuid()).optional(),
+  "creator_ids[]": zod.array(zod.uuid()).optional(),
+  "platforms[]": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
+  "countries[]": zod.array(zod.string()).optional(),
+  "status": zod.enum(['active', 'inactive', 'all']).default(getAnalyticsDashboardChartQueryStatusDefault),
+  "range_preset": zod.string().default(getAnalyticsDashboardChartQueryRangePresetDefault),
+  "range_start": zod.iso.datetime({}).optional(),
+  "range_end": zod.iso.datetime({}).optional(),
+  "series[]": zod.array(zod.enum(['oferta', 'vistas', 'gasto'])).max(getAnalyticsDashboardChartQuerySeriesMax).default([`oferta`, `vistas`]),
+  "grouping": zod.enum(['day', 'week', 'month']).default(getAnalyticsDashboardChartQueryGroupingDefault)
+})
+
+export const GetAnalyticsDashboardChartResponse = zod.object({
+  "range": zod.object({
+  "preset": zod.string(),
+  "start": zod.iso.datetime({}),
+  "end": zod.iso.datetime({})
+}),
+  "grouping": zod.enum(['day', 'week', 'month']),
+  "buckets": zod.array(zod.object({
+  "bucket_start": zod.iso.datetime({}),
+  "bucket_end": zod.iso.datetime({}),
+  "oferta": zod.object({
+  "value": zod.number(),
+  "offers": zod.array(zod.object({
+  "id": zod.uuid(),
+  "creator_handle": zod.string(),
+  "campaign_name": zod.string()
+}))
+}).optional(),
+  "vistas": zod.object({
+  "value": zod.number()
+}).optional(),
+  "gasto": zod.object({
+  "value": zod.number(),
+  "display": zod.string()
+}).optional()
+}))
+})
+
+export const getAnalyticsDashboardTopVideosQueryStatusDefault = `active`;
+export const getAnalyticsDashboardTopVideosQueryRangePresetDefault = `14d`;
+export const getAnalyticsDashboardTopVideosQuerySortByDefault = `views`;
+
+export const GetAnalyticsDashboardTopVideosQueryParams = zod.object({
+  "campaign_ids[]": zod.array(zod.uuid()).optional(),
+  "creator_ids[]": zod.array(zod.uuid()).optional(),
+  "platforms[]": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
+  "countries[]": zod.array(zod.string()).optional(),
+  "status": zod.enum(['active', 'inactive', 'all']).default(getAnalyticsDashboardTopVideosQueryStatusDefault),
+  "range_preset": zod.string().default(getAnalyticsDashboardTopVideosQueryRangePresetDefault),
+  "range_start": zod.iso.datetime({}).optional(),
+  "range_end": zod.iso.datetime({}).optional(),
+  "sort_by": zod.enum(['views', 'cpm', 'engagement']).default(getAnalyticsDashboardTopVideosQuerySortByDefault)
+})
+
+export const GetAnalyticsDashboardTopVideosResponse = zod.object({
+  "range": zod.object({
+  "preset": zod.string(),
+  "start": zod.iso.datetime({}),
+  "end": zod.iso.datetime({})
+}),
+  "sort_by": zod.enum(['views', 'cpm', 'engagement']),
+  "videos": zod.array(zod.object({
+  "video_link_id": zod.uuid(),
+  "platform": zod.enum(['instagram', 'tiktok', 'youtube']),
+  "thumbnail_url": zod.string().nullable(),
+  "title": zod.string().nullable(),
+  "video_url": zod.string(),
+  "creator": zod.object({
+  "id": zod.uuid(),
+  "handle": zod.string(),
+  "avatar_url": zod.string().nullable()
+}),
+  "metrics": zod.object({
+  "views": zod.number(),
+  "likes": zod.number(),
+  "comments": zod.number(),
+  "engagement_rate": zod.number(),
+  "cpm": zod.number().nullable()
+}),
+  "published_at": zod.iso.datetime({})
+}))
+})
+
+export const getAnalyticsDashboardTopCreatorsQueryStatusDefault = `active`;
+export const getAnalyticsDashboardTopCreatorsQueryRangePresetDefault = `14d`;
+export const getAnalyticsDashboardTopCreatorsQuerySortByDefault = `views`;
+
+export const GetAnalyticsDashboardTopCreatorsQueryParams = zod.object({
+  "campaign_ids[]": zod.array(zod.uuid()).optional(),
+  "creator_ids[]": zod.array(zod.uuid()).optional(),
+  "platforms[]": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
+  "countries[]": zod.array(zod.string()).optional(),
+  "status": zod.enum(['active', 'inactive', 'all']).default(getAnalyticsDashboardTopCreatorsQueryStatusDefault),
+  "range_preset": zod.string().default(getAnalyticsDashboardTopCreatorsQueryRangePresetDefault),
+  "range_start": zod.iso.datetime({}).optional(),
+  "range_end": zod.iso.datetime({}).optional(),
+  "sort_by": zod.enum(['views', 'videos', 'cpm', 'engagement']).default(getAnalyticsDashboardTopCreatorsQuerySortByDefault)
+})
+
+export const GetAnalyticsDashboardTopCreatorsResponse = zod.object({
+  "range": zod.object({
+  "preset": zod.string(),
+  "start": zod.iso.datetime({}),
+  "end": zod.iso.datetime({})
+}),
+  "sort_by": zod.enum(['views', 'videos', 'cpm', 'engagement']),
+  "creators": zod.array(zod.object({
+  "account_id": zod.uuid(),
+  "handle": zod.string(),
+  "avatar_url": zod.string().nullable(),
+  "country": zod.string().nullable(),
+  "metrics": zod.object({
+  "videos": zod.number(),
+  "views": zod.number(),
+  "spend": zod.number(),
+  "spend_display": zod.string(),
+  "cpm": zod.number().nullable(),
+  "engagement_rate": zod.number()
+})
+}))
+})
+

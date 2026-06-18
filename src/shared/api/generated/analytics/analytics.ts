@@ -8,19 +8,37 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import {
-  useMutation
+  useMutation,
+  useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryClient,
+  QueryFunction,
+  QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
+  UseQueryOptions,
+  UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
   AnalyticsEventIngestRequest,
   AnalyticsEventIngestResponse,
-  ErrorResponse
+  DashboardCardsResponse,
+  DashboardChartResponse,
+  DashboardTopCreatorsResponse,
+  DashboardTopVideosResponse,
+  ErrorResponse,
+  GetAnalyticsDashboardCardsParams,
+  GetAnalyticsDashboardChartParams,
+  GetAnalyticsDashboardTopCreatorsParams,
+  GetAnalyticsDashboardTopVideosParams,
+  OnboardingChecklistResponse
 } from '../model';
 
 import { customFetch } from '../../mutator';
@@ -118,3 +136,678 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getIngestAnalyticsEventMutationOptions(options), queryClient);
     }
+    export type getAnalyticsDashboardCardsResponse200 = {
+  data: DashboardCardsResponse
+  status: 200
+}
+
+export type getAnalyticsDashboardCardsResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getAnalyticsDashboardCardsResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getAnalyticsDashboardCardsResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getAnalyticsDashboardCardsResponseSuccess = (getAnalyticsDashboardCardsResponse200) & {
+  headers: Headers;
+};
+export type getAnalyticsDashboardCardsResponseError = (getAnalyticsDashboardCardsResponse401 | getAnalyticsDashboardCardsResponse403 | getAnalyticsDashboardCardsResponse422) & {
+  headers: Headers;
+};
+
+export type getAnalyticsDashboardCardsResponse = (getAnalyticsDashboardCardsResponseSuccess | getAnalyticsDashboardCardsResponseError)
+
+export const getGetAnalyticsDashboardCardsUrl = (params?: GetAnalyticsDashboardCardsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    const explodeParameters = ["campaign_ids[]","creator_ids[]","platforms[]","countries[]"];
+
+    if (Array.isArray(value) && explodeParameters.includes(key)) {
+      value.forEach((v) => {
+        normalizedParams.append(key, v === null ? 'null' : v.toString());
+      });
+      return;
+    }
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/analytics/dashboard/cards?${stringifiedParams}` : `/v1/analytics/dashboard/cards`
+}
+
+export const getAnalyticsDashboardCards = async (params?: GetAnalyticsDashboardCardsParams, options?: RequestInit): Promise<getAnalyticsDashboardCardsResponse> => {
+
+  return customFetch<getAnalyticsDashboardCardsResponse>(getGetAnalyticsDashboardCardsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAnalyticsDashboardCardsQueryKey = (params?: GetAnalyticsDashboardCardsParams,) => {
+    return [
+    `/v1/analytics/dashboard/cards`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetAnalyticsDashboardCardsQueryOptions = <TData = Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError = ErrorResponse>(params?: GetAnalyticsDashboardCardsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAnalyticsDashboardCardsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>> = ({ signal }) => getAnalyticsDashboardCards(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAnalyticsDashboardCardsQueryResult = NonNullable<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>>
+export type GetAnalyticsDashboardCardsQueryError = ErrorResponse
+
+
+export function useGetAnalyticsDashboardCards<TData = Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError = ErrorResponse>(
+ params: undefined |  GetAnalyticsDashboardCardsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardCards>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardCards>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardCards<TData = Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardCardsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardCards>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardCards>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardCards<TData = Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardCardsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetAnalyticsDashboardCards<TData = Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardCardsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardCards>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAnalyticsDashboardCardsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type getAnalyticsDashboardOnboardingChecklistResponse200 = {
+  data: OnboardingChecklistResponse
+  status: 200
+}
+
+export type getAnalyticsDashboardOnboardingChecklistResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getAnalyticsDashboardOnboardingChecklistResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getAnalyticsDashboardOnboardingChecklistResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getAnalyticsDashboardOnboardingChecklistResponseSuccess = (getAnalyticsDashboardOnboardingChecklistResponse200) & {
+  headers: Headers;
+};
+export type getAnalyticsDashboardOnboardingChecklistResponseError = (getAnalyticsDashboardOnboardingChecklistResponse401 | getAnalyticsDashboardOnboardingChecklistResponse403 | getAnalyticsDashboardOnboardingChecklistResponse422) & {
+  headers: Headers;
+};
+
+export type getAnalyticsDashboardOnboardingChecklistResponse = (getAnalyticsDashboardOnboardingChecklistResponseSuccess | getAnalyticsDashboardOnboardingChecklistResponseError)
+
+export const getGetAnalyticsDashboardOnboardingChecklistUrl = () => {
+
+
+
+
+  return `/v1/analytics/dashboard/onboarding-checklist`
+}
+
+export const getAnalyticsDashboardOnboardingChecklist = async ( options?: RequestInit): Promise<getAnalyticsDashboardOnboardingChecklistResponse> => {
+
+  return customFetch<getAnalyticsDashboardOnboardingChecklistResponse>(getGetAnalyticsDashboardOnboardingChecklistUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAnalyticsDashboardOnboardingChecklistQueryKey = () => {
+    return [
+    `/v1/analytics/dashboard/onboarding-checklist`
+    ] as const;
+    }
+
+
+export const getGetAnalyticsDashboardOnboardingChecklistQueryOptions = <TData = Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAnalyticsDashboardOnboardingChecklistQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>> = ({ signal }) => getAnalyticsDashboardOnboardingChecklist({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAnalyticsDashboardOnboardingChecklistQueryResult = NonNullable<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>>
+export type GetAnalyticsDashboardOnboardingChecklistQueryError = ErrorResponse
+
+
+export function useGetAnalyticsDashboardOnboardingChecklist<TData = Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardOnboardingChecklist<TData = Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardOnboardingChecklist<TData = Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetAnalyticsDashboardOnboardingChecklist<TData = Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardOnboardingChecklist>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAnalyticsDashboardOnboardingChecklistQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type getAnalyticsDashboardChartResponse200 = {
+  data: DashboardChartResponse
+  status: 200
+}
+
+export type getAnalyticsDashboardChartResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getAnalyticsDashboardChartResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getAnalyticsDashboardChartResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getAnalyticsDashboardChartResponseSuccess = (getAnalyticsDashboardChartResponse200) & {
+  headers: Headers;
+};
+export type getAnalyticsDashboardChartResponseError = (getAnalyticsDashboardChartResponse401 | getAnalyticsDashboardChartResponse403 | getAnalyticsDashboardChartResponse422) & {
+  headers: Headers;
+};
+
+export type getAnalyticsDashboardChartResponse = (getAnalyticsDashboardChartResponseSuccess | getAnalyticsDashboardChartResponseError)
+
+export const getGetAnalyticsDashboardChartUrl = (params?: GetAnalyticsDashboardChartParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    const explodeParameters = ["campaign_ids[]","creator_ids[]","platforms[]","countries[]","series[]"];
+
+    if (Array.isArray(value) && explodeParameters.includes(key)) {
+      value.forEach((v) => {
+        normalizedParams.append(key, v === null ? 'null' : v.toString());
+      });
+      return;
+    }
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/analytics/dashboard/chart?${stringifiedParams}` : `/v1/analytics/dashboard/chart`
+}
+
+export const getAnalyticsDashboardChart = async (params?: GetAnalyticsDashboardChartParams, options?: RequestInit): Promise<getAnalyticsDashboardChartResponse> => {
+
+  return customFetch<getAnalyticsDashboardChartResponse>(getGetAnalyticsDashboardChartUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAnalyticsDashboardChartQueryKey = (params?: GetAnalyticsDashboardChartParams,) => {
+    return [
+    `/v1/analytics/dashboard/chart`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetAnalyticsDashboardChartQueryOptions = <TData = Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError = ErrorResponse>(params?: GetAnalyticsDashboardChartParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAnalyticsDashboardChartQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>> = ({ signal }) => getAnalyticsDashboardChart(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAnalyticsDashboardChartQueryResult = NonNullable<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>>
+export type GetAnalyticsDashboardChartQueryError = ErrorResponse
+
+
+export function useGetAnalyticsDashboardChart<TData = Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError = ErrorResponse>(
+ params: undefined |  GetAnalyticsDashboardChartParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardChart>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardChart>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardChart<TData = Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardChartParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardChart>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardChart>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardChart<TData = Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardChartParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetAnalyticsDashboardChart<TData = Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardChartParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardChart>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAnalyticsDashboardChartQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type getAnalyticsDashboardTopVideosResponse200 = {
+  data: DashboardTopVideosResponse
+  status: 200
+}
+
+export type getAnalyticsDashboardTopVideosResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getAnalyticsDashboardTopVideosResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getAnalyticsDashboardTopVideosResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getAnalyticsDashboardTopVideosResponseSuccess = (getAnalyticsDashboardTopVideosResponse200) & {
+  headers: Headers;
+};
+export type getAnalyticsDashboardTopVideosResponseError = (getAnalyticsDashboardTopVideosResponse401 | getAnalyticsDashboardTopVideosResponse403 | getAnalyticsDashboardTopVideosResponse422) & {
+  headers: Headers;
+};
+
+export type getAnalyticsDashboardTopVideosResponse = (getAnalyticsDashboardTopVideosResponseSuccess | getAnalyticsDashboardTopVideosResponseError)
+
+export const getGetAnalyticsDashboardTopVideosUrl = (params?: GetAnalyticsDashboardTopVideosParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    const explodeParameters = ["campaign_ids[]","creator_ids[]","platforms[]","countries[]"];
+
+    if (Array.isArray(value) && explodeParameters.includes(key)) {
+      value.forEach((v) => {
+        normalizedParams.append(key, v === null ? 'null' : v.toString());
+      });
+      return;
+    }
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/analytics/dashboard/top-videos?${stringifiedParams}` : `/v1/analytics/dashboard/top-videos`
+}
+
+export const getAnalyticsDashboardTopVideos = async (params?: GetAnalyticsDashboardTopVideosParams, options?: RequestInit): Promise<getAnalyticsDashboardTopVideosResponse> => {
+
+  return customFetch<getAnalyticsDashboardTopVideosResponse>(getGetAnalyticsDashboardTopVideosUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAnalyticsDashboardTopVideosQueryKey = (params?: GetAnalyticsDashboardTopVideosParams,) => {
+    return [
+    `/v1/analytics/dashboard/top-videos`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetAnalyticsDashboardTopVideosQueryOptions = <TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError = ErrorResponse>(params?: GetAnalyticsDashboardTopVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAnalyticsDashboardTopVideosQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>> = ({ signal }) => getAnalyticsDashboardTopVideos(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAnalyticsDashboardTopVideosQueryResult = NonNullable<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>>
+export type GetAnalyticsDashboardTopVideosQueryError = ErrorResponse
+
+
+export function useGetAnalyticsDashboardTopVideos<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError = ErrorResponse>(
+ params: undefined |  GetAnalyticsDashboardTopVideosParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardTopVideos<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardTopVideos<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetAnalyticsDashboardTopVideos<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopVideosParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopVideos>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAnalyticsDashboardTopVideosQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type getAnalyticsDashboardTopCreatorsResponse200 = {
+  data: DashboardTopCreatorsResponse
+  status: 200
+}
+
+export type getAnalyticsDashboardTopCreatorsResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getAnalyticsDashboardTopCreatorsResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getAnalyticsDashboardTopCreatorsResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type getAnalyticsDashboardTopCreatorsResponseSuccess = (getAnalyticsDashboardTopCreatorsResponse200) & {
+  headers: Headers;
+};
+export type getAnalyticsDashboardTopCreatorsResponseError = (getAnalyticsDashboardTopCreatorsResponse401 | getAnalyticsDashboardTopCreatorsResponse403 | getAnalyticsDashboardTopCreatorsResponse422) & {
+  headers: Headers;
+};
+
+export type getAnalyticsDashboardTopCreatorsResponse = (getAnalyticsDashboardTopCreatorsResponseSuccess | getAnalyticsDashboardTopCreatorsResponseError)
+
+export const getGetAnalyticsDashboardTopCreatorsUrl = (params?: GetAnalyticsDashboardTopCreatorsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    const explodeParameters = ["campaign_ids[]","creator_ids[]","platforms[]","countries[]"];
+
+    if (Array.isArray(value) && explodeParameters.includes(key)) {
+      value.forEach((v) => {
+        normalizedParams.append(key, v === null ? 'null' : v.toString());
+      });
+      return;
+    }
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/analytics/dashboard/top-creators?${stringifiedParams}` : `/v1/analytics/dashboard/top-creators`
+}
+
+export const getAnalyticsDashboardTopCreators = async (params?: GetAnalyticsDashboardTopCreatorsParams, options?: RequestInit): Promise<getAnalyticsDashboardTopCreatorsResponse> => {
+
+  return customFetch<getAnalyticsDashboardTopCreatorsResponse>(getGetAnalyticsDashboardTopCreatorsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAnalyticsDashboardTopCreatorsQueryKey = (params?: GetAnalyticsDashboardTopCreatorsParams,) => {
+    return [
+    `/v1/analytics/dashboard/top-creators`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetAnalyticsDashboardTopCreatorsQueryOptions = <TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError = ErrorResponse>(params?: GetAnalyticsDashboardTopCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAnalyticsDashboardTopCreatorsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>> = ({ signal }) => getAnalyticsDashboardTopCreators(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAnalyticsDashboardTopCreatorsQueryResult = NonNullable<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>>
+export type GetAnalyticsDashboardTopCreatorsQueryError = ErrorResponse
+
+
+export function useGetAnalyticsDashboardTopCreators<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError = ErrorResponse>(
+ params: undefined |  GetAnalyticsDashboardTopCreatorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardTopCreators<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>,
+          TError,
+          Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAnalyticsDashboardTopCreators<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetAnalyticsDashboardTopCreators<TData = Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError = ErrorResponse>(
+ params?: GetAnalyticsDashboardTopCreatorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnalyticsDashboardTopCreators>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAnalyticsDashboardTopCreatorsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+

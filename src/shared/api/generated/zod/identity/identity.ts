@@ -23,6 +23,10 @@ export const PresignBrandLogoResponse = zod.object({
   "max_bytes": zod.number()
 })
 
+export const GetBrandWorkspaceLandingTargetResponse = zod.object({
+  "target": zod.enum(['dashboard', 'create_campaign'])
+})
+
 export const GetBrandSettingsResponse = zod.object({
   "profile": zod.object({
   "full_name": zod.string(),

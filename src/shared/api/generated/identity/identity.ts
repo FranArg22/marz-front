@@ -29,6 +29,7 @@ import type {
 import type {
   BrandSettingsResponse,
   ErrorResponse,
+  LandingTargetResponse,
   LogoPresignRequest,
   LogoPresignResponse,
   PatchBrandSettingsRequest
@@ -149,7 +150,125 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getPresignBrandLogoMutationOptions(options), queryClient);
     }
-    export type getBrandSettingsResponse200 = {
+    export type getBrandWorkspaceLandingTargetResponse200 = {
+  data: LandingTargetResponse
+  status: 200
+}
+
+export type getBrandWorkspaceLandingTargetResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getBrandWorkspaceLandingTargetResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type getBrandWorkspaceLandingTargetResponseSuccess = (getBrandWorkspaceLandingTargetResponse200) & {
+  headers: Headers;
+};
+export type getBrandWorkspaceLandingTargetResponseError = (getBrandWorkspaceLandingTargetResponse401 | getBrandWorkspaceLandingTargetResponse403) & {
+  headers: Headers;
+};
+
+export type getBrandWorkspaceLandingTargetResponse = (getBrandWorkspaceLandingTargetResponseSuccess | getBrandWorkspaceLandingTargetResponseError)
+
+export const getGetBrandWorkspaceLandingTargetUrl = () => {
+
+
+
+
+  return `/v1/brand-workspaces/me/landing-target`
+}
+
+export const getBrandWorkspaceLandingTarget = async ( options?: RequestInit): Promise<getBrandWorkspaceLandingTargetResponse> => {
+
+  return customFetch<getBrandWorkspaceLandingTargetResponse>(getGetBrandWorkspaceLandingTargetUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetBrandWorkspaceLandingTargetQueryKey = () => {
+    return [
+    `/v1/brand-workspaces/me/landing-target`
+    ] as const;
+    }
+
+
+export const getGetBrandWorkspaceLandingTargetQueryOptions = <TData = Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetBrandWorkspaceLandingTargetQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>> = ({ signal }) => getBrandWorkspaceLandingTarget({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetBrandWorkspaceLandingTargetQueryResult = NonNullable<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>>
+export type GetBrandWorkspaceLandingTargetQueryError = ErrorResponse
+
+
+export function useGetBrandWorkspaceLandingTarget<TData = Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>,
+          TError,
+          Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetBrandWorkspaceLandingTarget<TData = Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>,
+          TError,
+          Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetBrandWorkspaceLandingTarget<TData = Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetBrandWorkspaceLandingTarget<TData = Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBrandWorkspaceLandingTarget>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetBrandWorkspaceLandingTargetQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+export type getBrandSettingsResponse200 = {
   data: BrandSettingsResponse
   status: 200
 }
