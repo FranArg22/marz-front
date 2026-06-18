@@ -84,8 +84,7 @@ En `src/shared/api/generated/identity/identity.ts`:
 - Verify: `pnpm typecheck`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
