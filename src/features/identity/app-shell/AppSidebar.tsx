@@ -79,9 +79,9 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
     <TooltipProvider>
       <aside
         data-testid="app-sidebar"
-        data-width="64px"
+        data-width="59px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-16 shrink-0 flex-col items-center bg-sidebar"
+        className="flex h-full w-[59px] shrink-0 flex-col items-center bg-sidebar"
       >
         <div className="flex h-14 w-full shrink-0 items-center justify-center">
           <img

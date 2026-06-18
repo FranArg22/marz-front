@@ -266,13 +266,13 @@ describe('AppSidebar', () => {
     expect(within(creatorSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)
   })
 
-  it('uses the 64px sidebar rail width', async () => {
+  it('uses the 59px sidebar rail width', async () => {
     renderSidebar('/workspace')
 
     const sidebar = await screen.findByTestId('app-sidebar')
 
-    expect(sidebar).toHaveAttribute('data-width', '64px')
-    expect(sidebar).toHaveClass('w-16')
+    expect(sidebar).toHaveAttribute('data-width', '59px')
+    expect(sidebar).toHaveClass('w-[59px]')
   })
 
   it('is axe-clean', async () => {

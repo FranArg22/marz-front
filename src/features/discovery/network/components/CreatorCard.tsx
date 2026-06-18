@@ -286,6 +286,7 @@ function PlatformStatsTable({
         const profileUrl = linkable
           ? platformProfileUrl(stats.platform, stats.handle)
           : null
+        const priceAmount = stats.min_price_amount.trim()
         const rowClassName =
           'grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5'
         const cells = (
@@ -307,8 +308,14 @@ function PlatformStatsTable({
               {stats.cpm_amount}
             </span>
             <span className="text-right font-medium text-[#3ECF8E]">
-              {currencySymbol(stats.price_currency)}
-              {stats.min_price_amount}
+              {priceAmount ? (
+                <>
+                  {currencySymbol(stats.price_currency)}
+                  {priceAmount}
+                </>
+              ) : (
+                '-'
+              )}
             </span>
           </>
         )
