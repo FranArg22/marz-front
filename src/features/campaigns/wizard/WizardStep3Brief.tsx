@@ -101,7 +101,7 @@ export function WizardStep3Brief() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label
             htmlFor="campaign-description"
             className="text-sm font-semibold"
@@ -112,7 +112,7 @@ export function WizardStep3Brief() {
             id="campaign-description"
             value={step3.description}
             maxLength={4000}
-            className="min-h-32 resize-y"
+            className="min-h-32 resize-y break-words"
             onChange={(event) => setStep3({ description: event.target.value })}
           />
         </div>
