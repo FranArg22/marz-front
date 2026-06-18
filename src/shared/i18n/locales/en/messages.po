@@ -757,6 +757,7 @@ msgid "Account manager dedicado"
 msgstr ""
 
 #: src/features/identity/settings/CollaborationSection.tsx:431
+#: src/features/identity/settings/CollaborationSection.tsx:437
 msgid "Acepta colaboraciones únicamente por canje"
 msgstr ""
 
@@ -1614,7 +1615,7 @@ msgid "Calculando tiempo restante..."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
-#: src/features/identity/settings/GeneralSection.tsx:300
+#: src/features/identity/settings/GeneralSection.tsx:322
 msgid "Cambiar foto"
 msgstr ""
 
@@ -1979,7 +1980,8 @@ msgid "Cine"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
-#: src/features/identity/settings/GeneralSection.tsx:240
+#: src/features/identity/settings/GeneralSection.tsx:253
+#: src/features/identity/settings/GeneralSection.tsx:257
 msgid "Ciudad"
 msgstr ""
 
@@ -2136,7 +2138,7 @@ msgstr ""
 msgid "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio en {verticalLabel} LatAm."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:203
+#: src/features/identity/settings/GeneralSection.tsx:208
 msgid "Con código de país."
 msgstr ""
 
@@ -2774,7 +2776,8 @@ msgstr ""
 msgid "Dirección del titular de la cuenta"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:247
+#: src/features/identity/settings/GeneralSection.tsx:265
+#: src/features/identity/settings/GeneralSection.tsx:272
 msgid "Dirección para envíos"
 msgstr ""
 
@@ -3262,8 +3265,8 @@ msgstr ""
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:143
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
 #: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
-#: src/features/identity/settings/GeneralSection.tsx:192
-#: src/features/identity/settings/GeneralSection.tsx:199
+#: src/features/identity/settings/GeneralSection.tsx:197
+#: src/features/identity/settings/GeneralSection.tsx:204
 #: src/features/identity/settings/ProfileCard.tsx:38
 msgid "Email"
 msgstr ""
@@ -3478,20 +3481,20 @@ msgstr ""
 msgid "Error al enviar el mensaje. Intenta nuevamente."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:377
+#: src/features/identity/settings/GeneralSection.tsx:399
 msgid "Error al guardar el avatar. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:394
+#: src/features/identity/settings/GeneralSection.tsx:416
 msgid "Error al guardar los datos de contacto. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:356
+#: src/features/identity/settings/GeneralSection.tsx:378
 msgid "Error al preparar la subida de la imagen."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
-#: src/features/identity/settings/GeneralSection.tsx:369
+#: src/features/identity/settings/GeneralSection.tsx:391
 #: src/features/identity/settings/LogoUploader.tsx:60
 #: src/features/identity/settings/LogoUploader.tsx:71
 #: src/features/identity/settings/LogoUploader.tsx:81
@@ -3818,7 +3821,8 @@ msgstr ""
 msgid "Fecha"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:214
+#: src/features/identity/settings/GeneralSection.tsx:220
+#: src/features/identity/settings/GeneralSection.tsx:232
 msgid "Fecha de cumpleaños"
 msgstr ""
 
@@ -4660,7 +4664,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
-#: src/features/identity/settings/GeneralSection.tsx:315
+#: src/features/identity/settings/GeneralSection.tsx:337
 msgid "JPEG, PNG o WebP. Máximo 5MB."
 msgstr ""
 
@@ -5802,8 +5806,8 @@ msgstr ""
 msgid "No pudimos guardar los cambios. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:560
-#: src/features/identity/settings/GeneralSection.tsx:493
+#: src/features/identity/settings/CollaborationSection.tsx:561
+#: src/features/identity/settings/GeneralSection.tsx:515
 #: src/features/identity/settings/PortfolioSection.tsx:253
 #: src/features/identity/settings/RatesSection.tsx:410
 msgid "No pudimos guardar los cambios. Intentá nuevamente."
@@ -5958,6 +5962,7 @@ msgid "Nombre"
 msgstr ""
 
 #: src/features/identity/settings/GeneralSection.tsx:185
+#: src/features/identity/settings/GeneralSection.tsx:189
 msgid "Nombre completo"
 msgstr ""
 
@@ -6395,7 +6400,8 @@ msgstr ""
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:77
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:167
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
-#: src/features/identity/settings/GeneralSection.tsx:228
+#: src/features/identity/settings/GeneralSection.tsx:240
+#: src/features/identity/settings/GeneralSection.tsx:244
 msgid "País"
 msgstr ""
 
@@ -6431,11 +6437,11 @@ msgstr ""
 msgid "Para equipos que gastan $10K+/mes y necesitan control total."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:193
+#: src/features/identity/settings/GeneralSection.tsx:198
 msgid "Para login y notificaciones."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:248
+#: src/features/identity/settings/GeneralSection.tsx:266
 msgid "Para productos y canjes."
 msgstr ""
 
@@ -6884,7 +6890,7 @@ msgid "Presupuesto mensual"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:134
-#: src/features/identity/settings/GeneralSection.tsx:285
+#: src/features/identity/settings/GeneralSection.tsx:307
 msgid "Preview de avatar"
 msgstr ""
 
@@ -7646,7 +7652,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:167
-#: src/features/identity/settings/GeneralSection.tsx:312
+#: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Seleccionar imagen"
 msgstr ""
 
@@ -8045,7 +8051,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:55
 #: src/features/identity/settings/GeneralSection.tsx:124
-#: src/features/identity/settings/GeneralSection.tsx:344
+#: src/features/identity/settings/GeneralSection.tsx:366
 msgid "Solo se permiten imágenes JPEG, PNG o WebP."
 msgstr ""
 
@@ -8217,7 +8223,7 @@ msgid "Subir draft v{nextVersion}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
-#: src/features/identity/settings/GeneralSection.tsx:300
+#: src/features/identity/settings/GeneralSection.tsx:322
 msgid "Subir foto"
 msgstr ""
 
@@ -8324,7 +8330,8 @@ msgstr ""
 msgid "Tech LatAm"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:203
+#: src/features/identity/settings/GeneralSection.tsx:208
+#: src/features/identity/settings/GeneralSection.tsx:212
 #: src/features/identity/settings/ProfileCard.tsx:53
 msgid "Teléfono"
 msgstr ""
@@ -8349,7 +8356,7 @@ msgstr ""
 msgid "Tenés que ser mayor de 18 años para usar Marz."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:220
+#: src/features/identity/settings/GeneralSection.tsx:226
 msgid "Tenés que ser mayor de 18 años."
 msgstr ""
 

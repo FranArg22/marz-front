@@ -15,7 +15,7 @@ describe('SectionSaveBar', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: 'Guardar' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
   it('enables save when section is dirty', async () => {
@@ -30,7 +30,7 @@ describe('SectionSaveBar', () => {
       />,
     )
 
-    await userEvent.click(screen.getByRole('button', { name: 'Guardar' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(onSave).toHaveBeenCalledTimes(1)
   })
