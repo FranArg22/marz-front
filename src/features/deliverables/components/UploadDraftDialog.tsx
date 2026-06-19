@@ -141,7 +141,7 @@ export function UploadDraftDialog({
           {title ?? t`Subir video borrador`}
         </DialogTitle>
         <DialogDescription className="sr-only">
-          {t`Subí un video draft para revisión`}
+          {t`Subí un video borrador para revisión`}
         </DialogDescription>
 
         {status === 'requesting' ||

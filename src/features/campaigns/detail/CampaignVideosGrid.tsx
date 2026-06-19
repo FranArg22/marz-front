@@ -127,7 +127,7 @@ export function CampaignVideosGrid({
             hasActiveFilters
               ? t`Probá con otra búsqueda, estado, plataforma o creator.`
               : hasActiveParticipants
-                ? t`Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados.`
+                ? t`Los videos van a aparecer acá cuando los creadores suban sus videos borradores y queden en revisión o aprobados.`
                 : t`Invitá creators para empezar a recibir entregables en esta campaña.`
           }
           action={

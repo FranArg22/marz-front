@@ -51,7 +51,7 @@ export function RequestChangesModalFrame({
         <DialogDescription className="sr-only">
           {target === 'link'
             ? t`Solicitar cambios para este link`
-            : t`Solicitar cambios para este draft`}
+            : t`Solicitar cambios para este video borrador`}
         </DialogDescription>
         {children}
       </DialogContent>

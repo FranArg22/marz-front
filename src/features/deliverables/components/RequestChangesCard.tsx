@@ -206,7 +206,7 @@ export function RequestChangesCard({
             <div className="relative w-full overflow-hidden rounded-lg bg-muted">
               <img
                 src={snapshot.draft_thumbnail_url}
-                alt={t`Draft thumbnail`}
+                alt={t`Miniatura del video borrador`}
                 className="h-full w-full object-cover"
               />
             </div>

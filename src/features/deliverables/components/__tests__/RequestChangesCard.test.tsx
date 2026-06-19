@@ -137,7 +137,7 @@ describe('RequestChangesCard', () => {
       />,
     )
 
-    const img = screen.getByAltText('Draft thumbnail')
+    const img = screen.getByAltText('Miniatura del video borrador')
     expect(img).toBeInTheDocument()
     expect(img).toHaveAttribute('src', 'https://example.com/thumb.jpg')
     expect(container.firstChild).toMatchSnapshot()
@@ -167,7 +167,7 @@ describe('RequestChangesCard', () => {
       />,
     )
 
-    expect(screen.queryByAltText('Draft thumbnail')).not.toBeInTheDocument()
+    expect(screen.queryByAltText('Miniatura del video borrador')).not.toBeInTheDocument()
   })
 
   it('renders link preview when target is link', () => {
@@ -205,7 +205,7 @@ describe('RequestChangesCard', () => {
 
     expect(screen.getByText('Launch video')).toBeInTheDocument()
     expect(screen.getByText('Discount code')).toBeInTheDocument()
-    expect(screen.queryByAltText('Draft thumbnail')).not.toBeInTheDocument()
+    expect(screen.queryByAltText('Miniatura del video borrador')).not.toBeInTheDocument()
   })
 
   it('shows placeholder when notes are empty', () => {

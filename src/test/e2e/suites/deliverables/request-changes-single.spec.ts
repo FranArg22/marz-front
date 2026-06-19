@@ -62,7 +62,7 @@ test.describe('request changes flow', () => {
     const panel = page.locator('[data-testid="deliverable-list-panel"]')
     await expect(panel).toBeVisible()
     const uploadButton = panel.getByRole('button', {
-      name: /upload draft v\d+/i,
+      name: /subir video borrador v\d+/i,
     })
     await expect(uploadButton).toBeVisible({ timeout: 5_000 })
     await uploadButton.click()
@@ -80,21 +80,21 @@ test.describe('request changes flow', () => {
     // Wait for upload completion and dialog close.
     await expect(dialog).not.toBeVisible({ timeout: 30_000 })
 
-    // Assert "Draft submitted" card with v2 appears in timeline.
+    // Assert "Video borrador enviado" card with v2 appears in timeline.
     const timeline = page.locator('[data-testid="message-timeline"]')
-    await expect(timeline.getByText(/draft submitted/i)).toBeVisible({
+    await expect(timeline.getByText(/video borrador enviado/i)).toBeVisible({
       timeout: 10_000,
     })
 
-    // Brand clicks "Approve draft".
+    // Brand clicks "Aprobar video borrador".
     const approveButton = page.getByRole('button', {
-      name: /approve draft/i,
+      name: /aprobar video borrador/i,
     })
     await expect(approveButton).toBeVisible({ timeout: 5_000 })
     await approveButton.click()
 
-    // Assert "Draft approved" card appears in timeline.
-    await expect(timeline.getByText(/draft approved/i)).toBeVisible({
+    // Assert "Video borrador aprobado" card appears in timeline.
+    await expect(timeline.getByText(/video borrador aprobado/i)).toBeVisible({
       timeout: 10_000,
     })
   })

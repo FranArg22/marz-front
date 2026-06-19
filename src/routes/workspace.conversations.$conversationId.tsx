@@ -92,9 +92,9 @@ function ConversationRoute() {
     uploadDeliverable && uploadDeliverable.current_version != null
       ? (() => {
           const nextVersion = uploadDeliverable.current_version + 1
-          return t`Upload draft v${nextVersion}`
+          return t`Subir video borrador v${nextVersion}`
         })()
-      : t`Upload draft`
+      : t`Subir video borrador`
   const uploadDeliverableIndex =
     uploadDeliverable && deliverablesData
       ? deliverablesData.deliverables.findIndex(

@@ -40,7 +40,7 @@ export function InboxDraftReviewPopover({
                 type="button"
                 variant="outline"
                 size="icon"
-                aria-label={t`Revisar draft`}
+                aria-label={t`Revisar video borrador`}
                 className="shrink-0 rounded-full"
               >
                 <Eye className="size-4" aria-hidden />
@@ -48,7 +48,7 @@ export function InboxDraftReviewPopover({
             </TooltipTrigger>
           }
         />
-        <TooltipContent>{t`Revisar draft`}</TooltipContent>
+        <TooltipContent>{t`Revisar video borrador`}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )

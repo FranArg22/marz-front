@@ -62,7 +62,7 @@ describe('ApproveDraftButton', () => {
   it('renders enabled when version matches current', () => {
     renderButton()
 
-    const button = screen.getByRole('button', { name: /approve draft/i })
+    const button = screen.getByRole('button', { name: /aprobar video borrador/i })
     expect(button).toBeInTheDocument()
     expect(button).not.toHaveAttribute('disabled')
     expect(button).not.toHaveAttribute('aria-disabled')
@@ -71,7 +71,7 @@ describe('ApproveDraftButton', () => {
   it('is disabled when version is stale', () => {
     renderButton({ currentVersion: 2 })
 
-    const button = screen.getByRole('button', { name: /approve draft/i })
+    const button = screen.getByRole('button', { name: /aprobar video borrador/i })
     expect(button).toHaveAttribute('aria-disabled', 'true')
     expect(button).toHaveAttribute(
       'aria-describedby',
@@ -86,7 +86,7 @@ describe('ApproveDraftButton', () => {
     const user = userEvent.setup()
     renderButton()
 
-    const button = screen.getByRole('button', { name: /approve draft/i })
+    const button = screen.getByRole('button', { name: /aprobar video borrador/i })
     await user.click(button)
 
     expect(mockMutate).toHaveBeenCalledTimes(1)
@@ -96,7 +96,7 @@ describe('ApproveDraftButton', () => {
     const user = userEvent.setup()
     renderButton({ currentVersion: 2 })
 
-    const button = screen.getByRole('button', { name: /approve draft/i })
+    const button = screen.getByRole('button', { name: /aprobar video borrador/i })
     await user.click(button)
 
     expect(mockMutate).not.toHaveBeenCalled()
@@ -105,7 +105,7 @@ describe('ApproveDraftButton', () => {
   it('defaults to enabled when currentVersion is null', () => {
     renderButton({ currentVersion: null })
 
-    const button = screen.getByRole('button', { name: /approve draft/i })
+    const button = screen.getByRole('button', { name: /aprobar video borrador/i })
     expect(button).toBeInTheDocument()
     expect(button).not.toHaveAttribute('aria-disabled')
   })

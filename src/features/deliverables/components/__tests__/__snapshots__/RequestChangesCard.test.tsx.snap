@@ -84,7 +84,7 @@ exports[`RequestChangesCard > shows thumbnail when draft_thumbnail_url is presen
             class="relative w-full overflow-hidden rounded-lg bg-muted"
           >
             <img
-              alt="Draft thumbnail"
+              alt="Miniatura del video borrador"
               class="h-full w-full object-cover"
               src="https://example.com/thumb.jpg"
             />

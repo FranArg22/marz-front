@@ -181,7 +181,7 @@ export function DraftVersionList({
                 aria-describedby={undefined}
               >
                 <DialogTitle id="preview-draft-title" className="sr-only">
-                  {t`Preview draft v${previewVersion}`}
+                  {t`Previsualizar video borrador v${previewVersion}`}
                 </DialogTitle>
                 <InlineVideoPlayer
                   playbackUrl={previewDraft.playback_url}

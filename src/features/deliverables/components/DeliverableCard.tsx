@@ -65,7 +65,7 @@ export function DeliverableCard({
   status,
   drafts,
   onAddDraft,
-  emptyLabel = t`Upload draft`,
+  emptyLabel = t`Subir video borrador`,
   currentLink = null,
 }: DeliverableCardProps) {
   const PlatformIcon = platformIcon[platform]
@@ -104,7 +104,7 @@ export function DeliverableCard({
         className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-hover"
       >
         <Plus className="size-4" />
-        {hasDrafts ? t`Add draft` : emptyLabel}
+        {hasDrafts ? t`Agregar video borrador` : emptyLabel}
       </button>
     </div>
   )

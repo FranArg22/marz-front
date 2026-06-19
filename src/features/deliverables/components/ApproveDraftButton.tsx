@@ -54,7 +54,7 @@ export function ApproveDraftButton({
         aria-describedby={isStale ? tooltipId : undefined}
         onClick={approveCurrentDraft}
       >
-        {t`Approve draft`}
+        {t`Aprobar video borrador`}
       </Button>
       {isStale ? (
         <span id={tooltipId} role="tooltip" className="sr-only">

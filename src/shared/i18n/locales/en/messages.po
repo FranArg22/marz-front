@@ -918,8 +918,8 @@ msgstr "Update card in Stripe"
 #~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableCard.tsx:107
-msgid "Add draft"
-msgstr ""
+#~ msgid "Add draft"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-detail/AddCreatorDialog.tsx:100
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:249
@@ -1015,6 +1015,10 @@ msgstr ""
 #: src/features/campaigns/configuration/BonusStep.tsx:340
 #~ msgid "Agregar ventana"
 #~ msgstr ""
+
+#: src/features/deliverables/components/DeliverableCard.tsx:107
+msgid "Agregar video borrador"
+msgstr ""
 
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:133
 msgid "Ahora"
@@ -1232,8 +1236,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/deliverables/components/ApproveDraftButton.tsx:57
-msgid "Approve draft"
-msgstr ""
+#~ msgid "Approve draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/LinkItem.tsx:17
 msgid "Approved"
@@ -1291,6 +1295,10 @@ msgstr ""
 
 #: src/features/deliverables/components/DraftVersionList.tsx:159
 msgid "Aprobar o pedir cambios"
+msgstr ""
+
+#: src/features/deliverables/components/ApproveDraftButton.tsx:57
+msgid "Aprobar video borrador"
 msgstr ""
 
 #: src/features/earnings/components/PendingBonusPanel.tsx:109
@@ -2967,8 +2975,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesCard.tsx:209
-msgid "Draft thumbnail"
-msgstr ""
+#~ msgid "Draft thumbnail"
+#~ msgstr ""
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:181
 msgid "Drag and drop your video here, or click to browse"
@@ -3142,7 +3150,7 @@ msgstr ""
 msgid "El código de seguridad de tu tarjeta es incorrecto."
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:142
+#: src/features/offers/components/NextStep.tsx:150
 msgid "El creador está analizando la oferta"
 msgstr ""
 
@@ -3486,7 +3494,7 @@ msgstr ""
 msgid "Entregable"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:119
+#: src/features/offers/components/NextStep.tsx:127
 msgid "Entregable completado"
 msgstr ""
 
@@ -3676,11 +3684,15 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:52
-msgid "Esperando aprobación del draft"
+#~ msgid "Esperando aprobación del draft"
+#~ msgstr ""
+
+#: src/features/offers/components/NextStep.tsx:100
+msgid "Esperando aprobación del link"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:92
-msgid "Esperando aprobación del link"
+#: src/features/offers/components/NextStep.tsx:56
+msgid "Esperando aprobación del video borrador"
 msgstr ""
 
 #: src/routes/_brand/checkout-return.tsx:132
@@ -3688,23 +3700,31 @@ msgid "Esperando confirmación…"
 msgstr ""
 
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:46
-msgid "Esperando draft"
-msgstr ""
+#~ msgid "Esperando draft"
+#~ msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:113
+#: src/features/offers/components/NextStep.tsx:121
 msgid "Esperando el pago"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:72
+#: src/features/offers/components/NextStep.tsx:80
 msgid "Esperando los cambios del creator"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:84
+#: src/features/offers/components/NextStep.tsx:68
+msgid "Esperando que el creador suba el video borrador"
+msgstr ""
+
+#: src/features/offers/components/NextStep.tsx:92
 msgid "Esperando que el creator publique el link"
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:60
-msgid "Esperando que el creator suba el draft"
+#~ msgid "Esperando que el creator suba el draft"
+#~ msgstr ""
+
+#: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:46
+msgid "Esperando video borrador"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:97
@@ -5221,8 +5241,12 @@ msgid "Los traigo yo"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:130
-msgid "Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados."
+msgid "Los videos van a aparecer acá cuando los creadores suban sus videos borradores y queden en revisión o aprobados."
 msgstr ""
+
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:130
+#~ msgid "Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:56
 msgid "Lucas Romero"
@@ -5550,6 +5574,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:83
 msgid "Mindfulness"
+msgstr ""
+
+#: src/features/deliverables/components/RequestChangesCard.tsx:209
+msgid "Miniatura del video borrador"
 msgstr ""
 
 #: src/features/offers/schemas/createOffer.ts:72
@@ -5904,8 +5932,8 @@ msgid "No pudimos cargar el dashboard de pagos."
 msgstr ""
 
 #: src/features/deliverables/components/DraftReviewDialog.tsx:113
-msgid "No pudimos cargar el draft. Probá refrescar."
-msgstr ""
+#~ msgid "No pudimos cargar el draft. Probá refrescar."
+#~ msgstr ""
 
 #: src/features/campaigns/detail/OverviewTab.tsx:114
 msgid "No pudimos cargar el overview"
@@ -5917,6 +5945,10 @@ msgstr ""
 
 #: src/features/billing/settings/SubscriptionSection.tsx:52
 msgid "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
+msgstr ""
+
+#: src/features/deliverables/components/DraftReviewDialog.tsx:113
+msgid "No pudimos cargar el video borrador. Probá refrescar."
 msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:392
@@ -6314,7 +6346,7 @@ msgstr ""
 
 #: src/features/chat/components/systemEvents/OfferCancelledCard.tsx:26
 #: src/features/chat/components/systemEvents/OfferCancelledCard.tsx:29
-#: src/features/offers/components/NextStep.tsx:166
+#: src/features/offers/components/NextStep.tsx:174
 msgid "Oferta cancelada"
 msgstr ""
 
@@ -6322,7 +6354,7 @@ msgstr ""
 msgid "Oferta cancelada tras aceptación"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:176
+#: src/features/offers/components/NextStep.tsx:184
 msgid "Oferta completada"
 msgstr ""
 
@@ -6336,13 +6368,13 @@ msgstr ""
 msgid "Oferta enviada"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:158
+#: src/features/offers/components/NextStep.tsx:166
 msgid "Oferta expirada"
 msgstr ""
 
 #: src/features/chat/components/systemEvents/OfferRejectedCard.tsx:18
 #: src/features/chat/components/systemEvents/OfferRejectedCard.tsx:20
-#: src/features/offers/components/NextStep.tsx:150
+#: src/features/offers/components/NextStep.tsx:158
 msgid "Oferta rechazada"
 msgstr ""
 
@@ -7137,12 +7169,16 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/deliverables/components/DraftVersionList.tsx:184
-msgid "Preview draft v{previewVersion}"
-msgstr ""
+#~ msgid "Preview draft v{previewVersion}"
+#~ msgstr ""
 
 #: src/features/offers/components/StageOpenedBubble.tsx:16
 #~ msgid "Previous stage approved — Stage {0}: {1} is now open"
 #~ msgstr ""
+
+#: src/features/deliverables/components/DraftVersionList.tsx:184
+msgid "Previsualizar video borrador v{previewVersion}"
+msgstr ""
 
 #: src/features/campaigns/configuration/ReviewStep.tsx:236
 #~ msgid "Pricing"
@@ -7188,7 +7224,7 @@ msgstr ""
 #~ msgid "Procesando descripción"
 #~ msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:107
+#: src/features/offers/components/NextStep.tsx:115
 msgid "Procesando el pago"
 msgstr ""
 
@@ -7656,7 +7692,13 @@ msgstr ""
 #: src/features/deliverables/components/DraftReviewDialog.tsx:102
 #: src/features/inbox/InboxDraftReviewPopover.tsx:43
 #: src/features/inbox/InboxDraftReviewPopover.tsx:51
-msgid "Revisar draft"
+#~ msgid "Revisar draft"
+#~ msgstr ""
+
+#: src/features/deliverables/components/DraftReviewDialog.tsx:102
+#: src/features/inbox/InboxDraftReviewPopover.tsx:43
+#: src/features/inbox/InboxDraftReviewPopover.tsx:51
+msgid "Revisar video borrador"
 msgstr ""
 
 #: src/features/deliverables/components/DraftVersionList.tsx:152
@@ -8269,12 +8311,17 @@ msgstr ""
 
 #: src/features/deliverables/components/DraftReviewDialog.tsx:103
 #: src/features/deliverables/components/DraftReviewDialog.tsx:146
-msgid "Solicitar cambios al draft"
+#~ msgid "Solicitar cambios al draft"
+#~ msgstr ""
+
+#: src/features/deliverables/components/DraftReviewDialog.tsx:103
+#: src/features/deliverables/components/DraftReviewDialog.tsx:146
+msgid "Solicitar cambios al video borrador"
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModal.tsx:39
-msgid "Solicitar cambios en el draft"
-msgstr ""
+#~ msgid "Solicitar cambios en el draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:344
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:187
@@ -8284,12 +8331,20 @@ msgstr ""
 msgid "Solicitar cambios en el link"
 msgstr ""
 
-#: src/features/deliverables/components/RequestChangesModalFrame.tsx:54
-msgid "Solicitar cambios para este draft"
+#: src/features/deliverables/components/RequestChangesModal.tsx:39
+msgid "Solicitar cambios en el video borrador"
 msgstr ""
+
+#: src/features/deliverables/components/RequestChangesModalFrame.tsx:54
+#~ msgid "Solicitar cambios para este draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalFrame.tsx:53
 msgid "Solicitar cambios para este link"
+msgstr ""
+
+#: src/features/deliverables/components/RequestChangesModalFrame.tsx:54
+msgid "Solicitar cambios para este video borrador"
 msgstr ""
 
 #: src/features/payments/settings/PayoutAccountModal.tsx:140
@@ -8446,8 +8501,12 @@ msgid "Subí la foto de nuevo"
 msgstr ""
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:144
-msgid "Subí un video draft para revisión"
+msgid "Subí un video borrador para revisión"
 msgstr ""
+
+#: src/features/deliverables/components/UploadDraftDialog.tsx:144
+#~ msgid "Subí un video draft para revisión"
+#~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:174
 msgid "Subí una imagen de campaña"
@@ -8499,13 +8558,16 @@ msgstr ""
 msgid "Subir PDF del brief"
 msgstr ""
 
+#: src/features/deliverables/components/DeliverableCard.tsx:68
 #: src/features/deliverables/components/DeliverableListItem.tsx:93
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
 #: src/features/deliverables/components/UploadDraftDialog.tsx:141
+#: src/routes/workspace.conversations.$conversationId.tsx:97
 msgid "Subir video borrador"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:94
+#: src/routes/workspace.conversations.$conversationId.tsx:95
 msgid "Subir video borrador v{nextVersion}"
 msgstr ""
 
@@ -8622,15 +8684,15 @@ msgstr ""
 msgid "Tendencias"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:67
+#: src/features/offers/components/NextStep.tsx:75
 msgid "Tenés cambios para aplicar"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:102
+#: src/features/offers/components/NextStep.tsx:110
 msgid "Tenés que marcar como pagado"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:79
+#: src/features/offers/components/NextStep.tsx:87
 msgid "Tenés que publicar el link"
 msgstr ""
 
@@ -8643,18 +8705,26 @@ msgid "Tenés que ser mayor de 18 años."
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:58
-msgid "Tenés que subir el draft"
+#~ msgid "Tenés que subir el draft"
+#~ msgstr ""
+
+#: src/features/offers/components/NextStep.tsx:63
+msgid "Tenés que subir el video borrador"
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:50
-msgid "Tenés un draft para revisar"
-msgstr ""
+#~ msgid "Tenés un draft para revisar"
+#~ msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:90
+#: src/features/offers/components/NextStep.tsx:98
 msgid "Tenés un link para revisar"
 msgstr ""
 
-#: src/features/offers/components/NextStep.tsx:137
+#: src/features/offers/components/NextStep.tsx:51
+msgid "Tenés un video borrador para revisar"
+msgstr ""
+
+#: src/features/offers/components/NextStep.tsx:145
 msgid "Tenés una oferta para revisar"
 msgstr ""
 
@@ -9246,16 +9316,16 @@ msgstr ""
 
 #: src/features/deliverables/components/DeliverableCard.tsx:68
 #: src/routes/workspace.conversations.$conversationId.tsx:97
-msgid "Upload draft"
-msgstr ""
+#~ msgid "Upload draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableListPanel.tsx:78
 #~ msgid "Upload draft v{0}"
 #~ msgstr ""
 
 #: src/routes/workspace.conversations.$conversationId.tsx:95
-msgid "Upload draft v{nextVersion}"
-msgstr ""
+#~ msgid "Upload draft v{nextVersion}"
+#~ msgstr ""
 
 #: src/features/deliverables/components/UploadErrorBanner.tsx:18
 #: src/features/deliverables/hooks/useDraftUploadFlow.ts:235

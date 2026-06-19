@@ -43,7 +43,7 @@ export function ExpectedDeliverableSlot({
         </div>
         {isAccepted && !isCreator ? (
           <Badge className="shrink-0 bg-warning px-2 py-0.5 text-xs text-warning-foreground">
-            {t`Esperando draft`}
+            {t`Esperando video borrador`}
           </Badge>
         ) : null}
       </div>
