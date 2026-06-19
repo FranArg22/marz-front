@@ -193,7 +193,7 @@ export function PerformanceChart({
             data={rows}
             margin={{ top: 8, right: 4, bottom: 0, left: 4 }}
             barGap={4}
-            barCategoryGap="40%"
+            barCategoryGap="24%"
             accessibilityLayer
           >
             <CartesianGrid
@@ -206,6 +206,8 @@ export function PerformanceChart({
               tickLine={false}
               axisLine={false}
               tickMargin={10}
+              interval={0}
+              minTickGap={0}
               tickFormatter={formatDate}
               tick={{ fill: '#A1A1AA', fontSize: 11, fontFamily: 'Geist Mono' }}
             />
@@ -246,7 +248,7 @@ export function PerformanceChart({
                   fill={SERIES_COLORS[series]}
                   fillOpacity={0.45}
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={48}
+                  maxBarSize={36}
                   isAnimationActive={false}
                 />
               ))}
