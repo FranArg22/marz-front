@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 
+import { DashboardPage } from '#/features/analytics/dashboard/DashboardPage'
+
 const dashboardSearchSchema = z.object({
   campaign_ids: z.array(z.string().uuid()).optional().default([]),
   creator_ids: z.array(z.string().uuid()).optional().default([]),
@@ -35,9 +37,5 @@ export type DashboardSearch = z.infer<typeof dashboardSearchSchema>
 
 export const Route = createFileRoute('/_brand/inicio')({
   validateSearch: dashboardSearchSchema,
-  component: DashboardPagePlaceholder,
+  component: DashboardPage,
 })
-
-function DashboardPagePlaceholder() {
-  return <div data-testid="dashboard-placeholder" />
-}

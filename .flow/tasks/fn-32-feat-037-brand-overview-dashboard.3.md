@@ -131,8 +131,7 @@ Custom: mostrar dos date inputs (`range_start`, `range_end` en formato `YYYY-MM-
 - Verify: `pnpm typecheck && pnpm vitest run src/features/analytics/dashboard`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
