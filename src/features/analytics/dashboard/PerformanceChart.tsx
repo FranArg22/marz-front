@@ -74,6 +74,31 @@ const SERIES_COLORS: Record<ChartSeries, string> = {
   gasto: '#A1A1AA',
 }
 
+// Two labeled axes like the design: Vistas (quantities) on the left, Gasto
+// (money) on the right. Oferta keeps its own hidden axis so its small bars stay
+// visible without cluttering the scale.
+const AXIS_ORIENTATION: Record<ChartSeries, 'left' | 'right'> = {
+  oferta: 'right',
+  vistas: 'left',
+  gasto: 'right',
+}
+const AXIS_HIDDEN: Record<ChartSeries, boolean> = {
+  oferta: true,
+  vistas: false,
+  gasto: false,
+}
+
+function formatCountAxis(value: number): string {
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`
+  if (value >= 1_000) return `${Math.round(value / 1_000)}k`
+  return String(Math.round(value))
+}
+
+function formatMoneyAxis(value: number): string {
+  if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}k`
+  return `$${Math.round(value)}`
+}
+
 export function PerformanceChart({
   data,
   isLoading,
@@ -167,7 +192,9 @@ export function PerformanceChart({
         >
           <ComposedChart
             data={rows}
-            margin={{ top: 8, right: 10, bottom: 0, left: 0 }}
+            margin={{ top: 8, right: 4, bottom: 0, left: 4 }}
+            barGap={2}
+            barCategoryGap="22%"
             accessibilityLayer
           >
             <CartesianGrid
@@ -184,7 +211,25 @@ export function PerformanceChart({
               tick={{ fill: '#A1A1AA', fontSize: 11, fontFamily: 'Geist Mono' }}
             />
             {visibleSeries.map((series) => (
-              <YAxis key={series} yAxisId={series} hide domain={[0, 'auto']} />
+              <YAxis
+                key={series}
+                yAxisId={series}
+                orientation={AXIS_ORIENTATION[series]}
+                hide={AXIS_HIDDEN[series]}
+                domain={[0, 'auto']}
+                tickCount={5}
+                width={46}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={
+                  series === 'gasto' ? formatMoneyAxis : formatCountAxis
+                }
+                tick={{
+                  fill: '#71717A',
+                  fontSize: 11,
+                  fontFamily: 'Geist Mono',
+                }}
+              />
             ))}
             <Tooltip
               content={(props) => <ChartTooltip {...props} />}
