@@ -14,6 +14,7 @@ import type { GetAnalyticsDashboardTopVideosParams } from '#/shared/api/generate
 
 import { DashboardFilters } from './DashboardFilters'
 import { MetricsGrid } from './MetricsGrid'
+import { OnboardingChecklist } from './OnboardingChecklist'
 
 type CommonDashboardParams = {
   'campaign_ids[]'?: string[]
@@ -55,7 +56,7 @@ export function DashboardPage() {
   useGetAnalyticsDashboardTopCreators(topCreatorsParams, {
     query: { staleTime: 300_000 },
   })
-  useGetAnalyticsDashboardOnboardingChecklist({
+  const checklistQuery = useGetAnalyticsDashboardOnboardingChecklist({
     query: { staleTime: 600_000 },
   })
 
@@ -74,9 +75,14 @@ export function DashboardPage() {
         data-testid="chart"
         className="min-h-80 rounded-lg border border-border bg-card"
       />
-      <section
-        data-testid="checklist"
-        className="min-h-32 rounded-lg border border-border bg-card"
+      <OnboardingChecklist
+        data={
+          checklistQuery.data?.status === 200
+            ? checklistQuery.data.data
+            : undefined
+        }
+        isLoading={checklistQuery.isPending}
+        isError={checklistQuery.isError}
       />
       <div className="grid gap-6 xl:grid-cols-2">
         <section

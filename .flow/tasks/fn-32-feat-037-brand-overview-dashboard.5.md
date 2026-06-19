@@ -91,8 +91,7 @@ Reglas:
 - Verify: `pnpm typecheck && pnpm vitest run src/features/analytics/dashboard/OnboardingChecklist`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
