@@ -5,6 +5,7 @@ import {
   Compass,
   DollarSign,
   Inbox,
+  LayoutDashboard,
   Megaphone,
   MessageSquare,
   Settings,
@@ -20,6 +21,7 @@ import { TooltipProvider } from '#/components/ui/tooltip'
 
 import { AppSidebarItem } from './AppSidebarItem'
 import { resolveActiveSidebarItem, shellNavigationConfig } from './navigation'
+import type { ShellNavigationItem } from './navigation'
 
 type AppSidebarAccountKind = 'brand' | 'creator'
 
@@ -35,6 +37,7 @@ const iconByName: Record<string, LucideIcon> = {
   compass: Compass,
   'dollar-sign': DollarSign,
   inbox: Inbox,
+  'layout-dashboard': LayoutDashboard,
   megaphone: Megaphone,
   'message-square': MessageSquare,
   settings: Settings,
@@ -47,49 +50,57 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
 
+  const renderItem = (item: ShellNavigationItem) => {
+    const Icon = iconByName[item.icon] ?? Inbox
+    const disabled = item.disabled === true
+
+    const label = item.label()
+    const tooltipLabel = disabled
+      ? (item.disabledReason?.() ?? t`Próximamente`)
+      : label
+
+    return (
+      <AppSidebarItem
+        key={item.id}
+        label={label}
+        icon={Icon}
+        href={item.href}
+        active={activeItem?.id === item.id}
+        disabled={disabled}
+        tooltipLabel={tooltipLabel}
+      />
+    )
+  }
+
+  const footerItem = items.find((item) => item.id === 'settings')
+  const mainItems = items.filter((item) => item.id !== 'settings')
+
   return (
     <TooltipProvider>
       <aside
         data-testid="app-sidebar"
-        data-width="72px"
+        data-width="59px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-[72px] shrink-0 flex-col items-center bg-sidebar"
+        className="flex h-full w-[59px] shrink-0 flex-col items-center bg-sidebar"
       >
         <div className="flex h-14 w-full shrink-0 items-center justify-center">
           <img
             src="/marz-mark-light.png"
             alt="Marz"
-            className="size-9 rounded-[var(--radius-md)] object-contain dark:hidden"
+            className="size-8 rounded-[var(--radius-md)] object-contain dark:hidden"
           />
           <img
             src="/marz-mark-dark.png"
             alt="Marz"
-            className="hidden size-9 rounded-[var(--radius-md)] object-contain dark:block"
+            className="hidden size-8 rounded-[var(--radius-md)] object-contain dark:block"
           />
         </div>
         <div className="h-px w-7 bg-sidebar-border" />
-        <div className="flex w-full flex-1 flex-col items-center gap-2 pt-4">
-          {items.map((item) => {
-            const Icon = iconByName[item.icon] ?? Inbox
-            const disabled = item.disabled === true
-
-            const label = item.label()
-            const tooltipLabel = disabled
-              ? (item.disabledReason?.() ?? t`Próximamente`)
-              : label
-
-            return (
-              <AppSidebarItem
-                key={item.id}
-                label={label}
-                icon={Icon}
-                href={item.href}
-                active={activeItem?.id === item.id}
-                disabled={disabled}
-                tooltipLabel={tooltipLabel}
-              />
-            )
-          })}
+        <div className="flex w-full flex-1 flex-col items-center gap-2 py-4">
+          {mainItems.map(renderItem)}
+          {footerItem ? (
+            <div className="mt-auto">{renderItem(footerItem)}</div>
+          ) : null}
         </div>
       </aside>
     </TooltipProvider>

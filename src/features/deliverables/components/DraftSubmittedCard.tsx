@@ -165,7 +165,7 @@ export function DraftSubmittedCard({
     <div ref={cardRef}>
       <SystemEventCard
         tone="info"
-        kicker={t`Draft enviado`}
+        kicker={t`Video borrador enviado`}
         icon={Upload}
         headerVariant="solid"
         side={isBrand ? 'in' : 'out'}

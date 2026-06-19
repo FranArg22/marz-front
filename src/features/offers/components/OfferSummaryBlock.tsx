@@ -69,7 +69,7 @@ export function OfferSummaryBlock({
 
       {isPaidPlan ? (
         <p className="mt-3 text-[length:var(--font-size-xs)] text-muted-foreground">
-          {t`El cobro se realiza cuando el creator acepta`}
+          {t`El cobro se realiza cuando el creador acepta`}
         </p>
       ) : null}
     </section>

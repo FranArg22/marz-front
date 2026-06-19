@@ -19,8 +19,8 @@ describe('WizardStep7Review helpers', () => {
       title: 'Tipo de campaña',
       editStep: 1,
       rows: [
-        { label: 'Tipo de contenido', value: 'Influencers Posts' },
-        { label: 'Modelo de pricing', value: 'Pay per post' },
+        { label: 'Tipo de contenido', value: 'Publicaciones de influencers' },
+        { label: 'Modelo de precios', value: 'Pago fijo por publicación' },
       ],
     })
   })

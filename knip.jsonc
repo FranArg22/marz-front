@@ -22,6 +22,11 @@
 
   // Generated code and shadcn primitives expose stable surfaces intentionally.
   "ignoreIssues": {
+    // Speed bonus UI is hidden from the send-offer flow but kept for later; not imported for now.
+    // OfferBonusEditor is its only consumer, so its toggle primitives are dormant too.
+    "src/features/offers/components/OfferBonusEditor.tsx": ["files"],
+    "src/components/ui/toggle-group.tsx": ["files"],
+    "src/components/ui/toggle.tsx": ["files"],
     "src/routeTree.gen.ts": ["files", "exports", "types"],
     "src/shared/api/generated/**": ["files", "exports", "types", "duplicates"],
     "src/shared/api/test-generated/**": [

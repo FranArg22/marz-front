@@ -126,10 +126,10 @@ function EarningsPageShell({
         <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-[28px] leading-tight font-semibold tracking-normal">
-              <Trans>Earnings</Trans>
+              <Trans>Ganancias</Trans>
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              <Trans>Track your payments and pending bonuses</Trans>
+              <Trans>Seguí tus pagos pendientes</Trans>
             </p>
           </div>
           <EarningsPeriodControl value={period} onChange={onPeriodChange} />

@@ -104,10 +104,12 @@ export function InboxToolbar({
             className="h-8 w-full sm:w-[220px]"
             size="sm"
           >
-            <SelectValue placeholder={t`All campaigns`} />
+            <SelectValue placeholder={t`Todas las campañas`} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ALL_CAMPAIGNS}>{t`All campaigns`}</SelectItem>
+            <SelectItem
+              value={ALL_CAMPAIGNS}
+            >{t`Todas las campañas`}</SelectItem>
             {campaignFilterOptions.map((campaign) => (
               <SelectItem
                 key={campaign.campaign_id}
@@ -132,7 +134,7 @@ export function InboxToolbar({
                 size="icon"
                 onClick={handleRefresh}
                 disabled={isRefreshing}
-                aria-label={t`Refresh inbox`}
+                aria-label={t`Actualizar Inbox`}
               >
                 {isRefreshing ? (
                   <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -141,7 +143,7 @@ export function InboxToolbar({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>{t`Refresh inbox`}</TooltipContent>
+            <TooltipContent>{t`Actualizar Inbox`}</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -151,7 +153,7 @@ export function InboxToolbar({
                 size="icon"
                 onClick={handleMarkAllRead}
                 disabled={!hasPendingItems || markVisibleRead.isPending}
-                aria-label={t`Mark all as read`}
+                aria-label={t`Marcar todo como leído`}
               >
                 {markVisibleRead.isPending ? (
                   <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -160,7 +162,7 @@ export function InboxToolbar({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>{t`Mark all as read`}</TooltipContent>
+            <TooltipContent>{t`Marcar todo como leído`}</TooltipContent>
           </Tooltip>
         </div>
       </TooltipProvider>

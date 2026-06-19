@@ -56,7 +56,7 @@ export function ExpectedDeliverableSlot({
           className="flex w-full items-center justify-center gap-1.5 rounded-full bg-info px-3 py-2 text-xs font-medium text-info-foreground transition-colors hover:bg-info/90 disabled:opacity-50"
         >
           <Upload className="size-3.5" />
-          {t`Subir draft`}
+          {t`Subir video borrador`}
         </button>
       ) : null}
     </div>

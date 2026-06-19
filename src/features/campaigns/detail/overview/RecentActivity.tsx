@@ -48,7 +48,7 @@ export function RecentActivity({ campaignId, activity }: RecentActivityProps) {
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Activity`}
+            {t`Actividad`}
           </p>
           <h2 className="mt-1 text-base font-semibold text-foreground">
             {t`Actividad reciente`}
@@ -111,7 +111,7 @@ function EmptyActivity({ campaignId }: { campaignId: string }) {
           params={{ campaignId }}
           search={{ tab: 'creators' }}
         >
-          {t`Ver creators`}
+          {t`Ver creadores`}
           <ArrowRight className="size-3.5" aria-hidden="true" />
         </Link>
       </Button>

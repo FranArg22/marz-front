@@ -29,30 +29,30 @@ export function EarningsKpiGrid({ kpis }: EarningsKpiGridProps) {
     >
       <KpiCard
         icon={<Wallet className="size-3.5" aria-hidden="true" />}
-        label={t`Total earned`}
+        label={t`Total ganado`}
         value={formatMoney(kpis.total_earned.amount)}
-        supportingText={t`All time`}
+        supportingText={t`Histórico`}
       />
       <KpiCard
         icon={<TrendingUp className="size-3.5" aria-hidden="true" />}
-        label={t`Earned in period`}
+        label={t`Ganado en el período`}
         value={formatMoney(kpis.earned_in_period.amount)}
-        supportingText={t`Current period`}
+        supportingText={t`Período actual`}
       />
       <KpiCard
         icon={
           <Hourglass className="size-3.5 text-warning" aria-hidden="true" />
         }
-        label={t`Pending payout`}
+        label={t`Pago pendiente`}
         value={formatMoney(kpis.pending_payout.amount)}
-        supportingText={t`Awaiting payout`}
+        supportingText={t`En espera de pago`}
       />
       <KpiCard
         highlighted
         icon={
           <CalendarDays className="size-3.5 text-primary" aria-hidden="true" />
         }
-        label={t`Next payout`}
+        label={t`Próximo pago`}
         value={formatMoney(kpis.next_payout.amount)}
         supportingText={nextPayoutSupportingText}
       />
@@ -108,7 +108,7 @@ function formatMoney(amount: string) {
 
 function formatNextPayoutSupportingText(kpis: CreatorEarningsKPI) {
   if (!kpis.next_payout.date_available || !kpis.next_payout.estimated_date) {
-    return t`Date unavailable`
+    return t`Fecha no disponible`
   }
 
   return dateFormatter.format(new Date(kpis.next_payout.estimated_date))

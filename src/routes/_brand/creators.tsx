@@ -40,7 +40,7 @@ function BrandCreatorsRoute() {
   const [cursor, setCursor] = useState<string | undefined>(undefined)
   const [emailInviteOpen, setEmailInviteOpen] = useState(false)
 
-  useRouteTopbar({ breadcrumb: [{ icon: Users, label: t`Creators` }] })
+  useRouteTopbar({ breadcrumb: [{ icon: Users, label: t`Creadores` }] })
 
   const filters = useMemo<CreatorsFilterParams>(
     () => ({
@@ -110,17 +110,17 @@ function BrandCreatorsRoute() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Creators`}
+            {t`Creadores`}
           </p>
           <h2 className="mt-1 text-lg font-semibold text-foreground">
-            {t`All creators across your campaigns`}
+            {t`Todos los creadores en tus campañas`}
           </h2>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Button type="button" variant="outline" size="sm" asChild>
             <Link to="/discovery">
               <Compass className="size-4" aria-hidden />
-              {t`Descubrir creators`}
+              {t`Descubrir creadores`}
             </Link>
           </Button>
           {allowsEmailInvites ? (

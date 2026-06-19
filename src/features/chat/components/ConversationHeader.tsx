@@ -21,7 +21,7 @@ export function ConversationHeader({
   return (
     <TooltipProvider>
       <header
-        aria-label={t`Conversation with ${counterpartName}`}
+        aria-label={t`Conversación con ${counterpartName}`}
         className="flex h-16 shrink-0 items-center gap-3 border-b border-border px-5 py-3"
       >
         {leadingSlot}

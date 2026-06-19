@@ -31,7 +31,7 @@ describe('CreatorsFilters', () => {
     render(<CreatorsFilters params={{}} onParamsChange={onParamsChange} />)
 
     await user.type(
-      screen.getByRole('textbox', { name: 'Search creators' }),
+      screen.getByRole('textbox', { name: 'Buscar creadores' }),
       'ana',
     )
 
@@ -57,14 +57,14 @@ describe('CreatorsFilters', () => {
       />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Active' }))
+    await user.click(screen.getByRole('button', { name: 'Activos' }))
     expect(onParamsChange).toHaveBeenCalledWith({
       search: 'ana',
       platform: 'tiktok',
       status: undefined,
     })
 
-    await user.click(screen.getByRole('button', { name: 'Clear' }))
+    await user.click(screen.getByRole('button', { name: 'Limpiar' }))
     expect(onParamsChange).toHaveBeenLastCalledWith({})
   })
 
@@ -76,11 +76,11 @@ describe('CreatorsFilters', () => {
     render(<CreatorsFilters params={{}} onParamsChange={vi.fn()} />)
 
     await user.click(
-      screen.getByRole('combobox', { name: 'Filter by platform' }),
+      screen.getByRole('combobox', { name: 'Filtrar por plataforma' }),
     )
 
     expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
-      'All platforms',
+      'Todas las plataformas',
       'YouTube',
       'Instagram',
       'TikTok',

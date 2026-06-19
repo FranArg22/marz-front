@@ -71,7 +71,7 @@ export const Route = createFileRoute('/_brand/discovery')({
 
 function DiscoveryRoute() {
   const meQuery = useMe()
-  useRouteTopbar({ breadcrumb: [{ icon: Compass, label: t`Discovery` }] })
+  useRouteTopbar({ breadcrumb: [{ icon: Compass, label: t`Explorar` }] })
   const search = Route.useSearch()
   const navigate = useNavigate({ from: '/discovery' })
   const [filterPanelOpen, setFilterPanelOpen] = useState(false)
@@ -143,9 +143,9 @@ function DiscoveryRoute() {
   }
 
   return (
-    <div className="flex h-full flex-col gap-4 overflow-hidden p-6">
+    <div className="flex h-full flex-col gap-6 overflow-hidden p-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">{t`Discovery`}</h1>
+        <h1 className="text-2xl font-bold text-foreground">{t`Explorar`}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {t`Descubrí creadores UGC e influencers para invitar a tus campañas.`}
         </p>

@@ -4,8 +4,13 @@ import { Edit3 } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import type { CreateCampaignRequest } from '#/shared/api/generated/model'
+import {
+  useCountriesQuery,
+  useCreatorTiersQuery,
+  useInterestsQuery,
+} from './queries'
 import { useCampaignWizardStore } from './store'
-import type { CampaignWizardState } from './store'
+import type { CampaignWizardState, SocialPlatform } from './store'
 
 interface WizardStep7ReviewProps {
   onEditStep: (step: number) => void
@@ -17,9 +22,56 @@ interface ReviewBlock {
   rows: Array<{ label: string; value: string }>
 }
 
+interface ReviewLookups {
+  interests?: Record<string, string>
+  countries?: Record<string, string>
+  tiers?: Record<string, string>
+}
+
+const PLATFORM_LABELS: Record<SocialPlatform, string> = {
+  tiktok: 'TikTok',
+  instagram: 'Instagram',
+  youtube: 'YouTube',
+}
+
+function buildLabelMap<T extends { label_es: string }>(
+  items: T[],
+  keyOf: (item: T) => string,
+): Record<string, string> {
+  const map: Record<string, string> = {}
+  for (const item of items) {
+    map[keyOf(item)] = item.label_es
+  }
+  return map
+}
+
+function prettifySlug(value: string): string {
+  const text = value.replace(/_/g, ' ').trim()
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
 export function WizardStep7Review({ onEditStep }: WizardStep7ReviewProps) {
   const state = useCampaignWizardStore()
-  const blocks = buildReviewBlocks(state)
+  const interestsQuery = useInterestsQuery()
+  const countriesQuery = useCountriesQuery({ active: true })
+  const creatorTiersQuery = useCreatorTiersQuery()
+  const lookups: ReviewLookups = {
+    interests: buildLabelMap(
+      interestsQuery.data?.status === 200 ? interestsQuery.data.data.items : [],
+      (item) => item.slug,
+    ),
+    countries: buildLabelMap(
+      countriesQuery.data?.status === 200 ? countriesQuery.data.data.items : [],
+      (item) => item.code,
+    ),
+    tiers: buildLabelMap(
+      creatorTiersQuery.data?.status === 200
+        ? creatorTiersQuery.data.data.items
+        : [],
+      (item) => item.slug,
+    ),
+  }
+  const blocks = buildReviewBlocks(state, lookups)
 
   return (
     <section className="flex flex-col gap-8">
@@ -60,11 +112,13 @@ export function WizardStep7Review({ onEditStep }: WizardStep7ReviewProps) {
 
             <dl className="mt-5 grid gap-3 sm:grid-cols-2">
               {block.rows.map((row) => (
-                <div key={row.label} className="flex flex-col gap-1">
+                <div key={row.label} className="flex min-w-0 flex-col gap-1">
                   <dt className="text-xs font-medium text-muted-foreground">
                     {row.label}
                   </dt>
-                  <dd className="text-sm text-foreground">{row.value}</dd>
+                  <dd className="line-clamp-2 break-words text-sm text-foreground">
+                    {row.value}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -115,7 +169,10 @@ export function buildCreateCampaignRequest(
   }
 }
 
-export function buildReviewBlocks(state: CampaignWizardState): ReviewBlock[] {
+export function buildReviewBlocks(
+  state: CampaignWizardState,
+  lookups: ReviewLookups = {},
+): ReviewBlock[] {
   const { step1, step2, step3, step4, step5, step6 } = state
   const missingValue = t`Sin completar`
 
@@ -129,7 +186,7 @@ export function buildReviewBlocks(state: CampaignWizardState): ReviewBlock[] {
           value: formatContentType(step1.content_type, missingValue),
         },
         {
-          label: t`Modelo de pricing`,
+          label: t`Modelo de precios`,
           value: formatPricingModel(step2.pricing_model, missingValue),
         },
       ],
@@ -147,7 +204,12 @@ export function buildReviewBlocks(state: CampaignWizardState): ReviewBlock[] {
           label: t`URL objetivo`,
           value: step3.target_url.trim() || missingValue,
         },
-        { label: t`Imagen`, value: step3.imageS3Key ?? missingValue },
+        {
+          label: t`Imagen`,
+          value:
+            step3.imageFile?.name ??
+            (step3.imageS3Key ? t`Imagen cargada` : missingValue),
+        },
       ],
     },
     {
@@ -157,19 +219,32 @@ export function buildReviewBlocks(state: CampaignWizardState): ReviewBlock[] {
         {
           label: t`Plataformas`,
           value: step4.platforms.length
-            ? step4.platforms.join(', ')
+            ? step4.platforms
+                .map((platform) => PLATFORM_LABELS[platform])
+                .join(', ')
             : missingValue,
         },
         {
           label: t`Intereses`,
           value: step4.interests.length
-            ? step4.interests.join(', ')
+            ? step4.interests
+                .map((slug) => lookups.interests?.[slug] ?? prettifySlug(slug))
+                .join(', ')
             : missingValue,
         },
-        { label: t`País`, value: step4.creator_country ?? missingValue },
         {
-          label: t`Tier mínimo`,
-          value: step4.min_creator_tier_slug ?? missingValue,
+          label: t`País`,
+          value: step4.creator_country
+            ? (lookups.countries?.[step4.creator_country] ??
+              step4.creator_country)
+            : missingValue,
+        },
+        {
+          label: t`Tier mínimo de seguidores`,
+          value: step4.min_creator_tier_slug
+            ? (lookups.tiers?.[step4.min_creator_tier_slug] ??
+              prettifySlug(step4.min_creator_tier_slug))
+            : missingValue,
         },
       ],
     },
@@ -197,11 +272,13 @@ export function buildReviewBlocks(state: CampaignWizardState): ReviewBlock[] {
       rows: [
         {
           label: t`Guidelines`,
-          value: t`${step6.content_guidelines.trim().length} caracteres`,
+          value: step6.content_guidelines.trim() || missingValue,
         },
         {
           label: t`PDF del brief`,
-          value: step6.briefPdfS3Key ?? t`Sin PDF`,
+          value:
+            step6.briefPdfFile?.name ??
+            (step6.briefPdfS3Key ? t`PDF cargado` : t`Sin PDF`),
         },
       ],
     },
@@ -212,7 +289,7 @@ function formatContentType(
   value: CampaignWizardState['step1']['content_type'],
   missingValue: string,
 ) {
-  if (value === 'influencer_posts') return t`Influencers Posts`
+  if (value === 'influencer_posts') return t`Publicaciones de influencers`
   return missingValue
 }
 
@@ -220,7 +297,7 @@ function formatPricingModel(
   value: CampaignWizardState['step2']['pricing_model'],
   missingValue: string,
 ) {
-  if (value === 'pay_per_post') return t`Pay per post`
+  if (value === 'pay_per_post') return t`Pago fijo por publicación`
   return missingValue
 }
 

@@ -12,6 +12,7 @@ import {
   MapPin,
   Sparkles,
 } from 'lucide-react'
+import { Flag } from '#/shared/ui/Flag'
 import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
 import { getStepId, getStepIndex } from '../steps'
@@ -90,15 +91,6 @@ function PlatformIcon({ platform }: { platform: string }) {
   return <span className="size-2 rounded-full bg-foreground" aria-hidden />
 }
 
-function flagFromCountryCode(code: string): string {
-  if (!code || code.length !== 2) return ''
-  const A = 0x1f1e6
-  return (
-    String.fromCodePoint(A + (code.charCodeAt(0) - 65)) +
-    String.fromCodePoint(A + (code.charCodeAt(1) - 65))
-  )
-}
-
 export function C20ConfirmationScreen() {
   const { submit, isPending } = useSubmitCreatorOnboarding()
   const store = useCreatorOnboardingStore()
@@ -139,7 +131,6 @@ export function C20ConfirmationScreen() {
   const city = store.city?.trim()
   const countryCode = store.country ?? ''
   const countryName = COUNTRIES.find((c) => c.code === countryCode)?.name
-  const flag = flagFromCountryCode(countryCode)
 
   return (
     <div className="relative flex w-full flex-col items-center gap-10">
@@ -195,7 +186,7 @@ export function C20ConfirmationScreen() {
             {(city || countryName) && (
               <span className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
                 <MapPin className="size-3" />
-                {flag && <span aria-hidden>{flag}</span>}
+                <Flag country={countryCode} className="rounded-[2px]" />
                 {[city, countryName].filter(Boolean).join(', ')}
               </span>
             )}

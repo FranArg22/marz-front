@@ -137,7 +137,9 @@ export function UploadDraftDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-lg">
-        <DialogTitle className="sr-only">{title ?? t`Subir draft`}</DialogTitle>
+        <DialogTitle className="sr-only">
+          {title ?? t`Subir video borrador`}
+        </DialogTitle>
         <DialogDescription className="sr-only">
           {t`Subí un video draft para revisión`}
         </DialogDescription>

@@ -141,10 +141,9 @@ msgstr ""
 #~ msgid "{0} · {declaredDate}"
 #~ msgstr ""
 
-#. placeholder {0}: step6.content_guidelines.trim().length
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:200
-msgid "{0} caracteres"
-msgstr ""
+#~ msgid "{0} caracteres"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:88
 #~ msgid "{0} de {1} seleccionados"
@@ -170,12 +169,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:692
-msgid "{activeBonusCount} activo"
-msgstr ""
+#~ msgid "{activeBonusCount} activo"
+#~ msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:693
-msgid "{activeBonusCount} activos"
-msgstr ""
+#~ msgid "{activeBonusCount} activos"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:394
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:396
@@ -234,11 +233,11 @@ msgstr ""
 msgid "{count} postulaciones recibidas"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:444
+#: src/features/offers/components/SendOfferSidesheet.tsx:363
 msgid "{count} red"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:444
+#: src/features/offers/components/SendOfferSidesheet.tsx:363
 msgid "{count} redes"
 msgstr ""
 
@@ -405,8 +404,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:123
-msgid "{pct}% complete"
+msgid "{pct}% completado"
 msgstr ""
+
+#: src/features/campaigns/components/CampaignMiniCard.tsx:123
+#~ msgid "{pct}% complete"
+#~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:158
 msgid "{progressPct}% usado"
@@ -440,11 +443,11 @@ msgstr ""
 msgid "{totalVisibleCount} campañas"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:57
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:58
 msgid "{trimmedLength} caracteres"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:59
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:60
 msgid "{trimmedLength}/50 mínimo"
 msgstr ""
 
@@ -488,6 +491,11 @@ msgstr "/mo"
 msgid "/mo · anual"
 msgstr "/mo · annual"
 
+#. placeholder {0}: hiddenTags.length
+#: src/features/discovery/network/components/CreatorCard.tsx:249
+msgid "+{0}"
+msgstr ""
+
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:233
 #~ msgid "+{erMin}% ER"
 #~ msgstr ""
@@ -497,8 +505,8 @@ msgid "+{erMinPct}% ER"
 msgstr ""
 
 #: src/features/discovery/network/components/CreatorCard.tsx:227
-msgid "+{hiddenTagCount}"
-msgstr ""
+#~ msgid "+{hiddenTagCount}"
+#~ msgstr ""
 
 #: src/features/discovery/network/components/CreatorCard.tsx:124
 #~ msgid "+{hiddenTagCount} más"
@@ -766,7 +774,7 @@ msgstr ""
 #~ msgid "Aceptá una cuenta bancaria tradicional o una cuenta externa como Wise, Payoneer, Mercado Pago u otra app similar."
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:750
+#: src/features/offers/components/SendOfferSidesheet.tsx:583
 msgid "Aceptación y cancelación"
 msgstr ""
 
@@ -810,20 +818,21 @@ msgid "Aceptar oferta"
 msgstr ""
 
 #: src/features/inbox/InboxPage.tsx:97
-msgid "Action items"
-msgstr ""
+#~ msgid "Action items"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:220
 msgid "Actions"
 msgstr ""
 
+#: src/features/campaigns/components/CampaignMiniCard.tsx:33
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:31
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:19
 #: src/features/payments/settings/PayoutAccountCard.tsx:128
 msgid "Activa"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:148
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:149
 msgid "Activá este permiso si la marca podrá reutilizar los videos por defecto."
 msgstr ""
 
@@ -844,9 +853,6 @@ msgstr "Activating your plan…"
 msgid "ACTIVAS"
 msgstr ""
 
-#: src/features/campaigns/components/CampaignMiniCard.tsx:33
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:39
 #: src/features/deliverables/components/StageCard.tsx:37
 msgid "Active"
 msgstr ""
@@ -856,7 +862,11 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/creators/CreatorsTab.tsx:109
-msgid "Active creators in this campaign"
+#~ msgid "Active creators in this campaign"
+#~ msgstr ""
+
+#: src/features/campaigns/detail/overview/RecentActivity.tsx:51
+msgid "Actividad"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:54
@@ -864,11 +874,16 @@ msgid "Actividad reciente"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:51
-msgid "Activity"
-msgstr ""
+#~ msgid "Activity"
+#~ msgstr ""
 
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:19
 msgid "Activo"
+msgstr ""
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:39
+msgid "Activos"
 msgstr ""
 
 #: src/features/billing/components/BillingTopbarPill.tsx:132
@@ -883,6 +898,11 @@ msgstr "Update your card to keep access."
 #: src/features/discovery/campaign-board/CampaignBoardHeader.tsx:39
 #: src/features/payments/components/BrandPaymentsPage.tsx:200
 msgid "Actualizar"
+msgstr ""
+
+#: src/features/inbox/InboxToolbar.tsx:137
+#: src/features/inbox/InboxToolbar.tsx:146
+msgid "Actualizar Inbox"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryUpsell.tsx:24
@@ -935,7 +955,7 @@ msgstr ""
 msgid "Agregá al menos una ventana de bono"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:134
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:135
 msgid "Agregá detalles opcionales sobre pagos, condiciones o aclaraciones."
 msgstr ""
 
@@ -1028,7 +1048,7 @@ msgstr ""
 #~ msgid "Ajustado desde Brief"
 #~ msgstr ""
 
-#: src/features/identity/app-shell/navigation.ts:65
+#: src/features/identity/app-shell/navigation.ts:72
 #: src/features/identity/app-shell/navigation.ts:104
 #: src/features/identity/settings/SettingsLayout.tsx:37
 #: src/features/identity/settings/SettingsSidebar.tsx:35
@@ -1051,7 +1071,9 @@ msgstr ""
 #~ msgid "Alc"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:249
+#: src/features/campaigns/detail/overview/StatsBlock.tsx:65
+#: src/features/campaigns/detail/overview/StatsBlock.tsx:76
+#: src/features/discovery/network/components/CreatorCard.tsx:276
 msgid "Alcance"
 msgstr ""
 
@@ -1101,27 +1123,26 @@ msgstr ""
 
 #: src/features/inbox/InboxToolbar.tsx:107
 #: src/features/inbox/InboxToolbar.tsx:110
-msgid "All campaigns"
-msgstr ""
+#~ msgid "All campaigns"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:176
-msgid "All creators"
-msgstr ""
+#~ msgid "All creators"
+#~ msgstr ""
 
 #: src/routes/_brand/creators.tsx:116
-msgid "All creators across your campaigns"
-msgstr ""
+#~ msgid "All creators across your campaigns"
+#~ msgstr ""
 
 #: src/routes/_brand/videos.tsx:111
-msgid "All delivered videos across your campaigns"
-msgstr ""
+#~ msgid "All delivered videos across your campaigns"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:140
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:148
-msgid "All platforms"
-msgstr ""
+#~ msgid "All platforms"
+#~ msgstr ""
 
-#: src/features/earnings/components/EarningsKpiGrid.tsx:34
 #: src/features/earnings/components/EarningsPeriodControl.tsx:12
 msgid "All time"
 msgstr ""
@@ -1147,20 +1168,22 @@ msgstr ""
 #~ msgid "Amounts must sum to total"
 #~ msgstr ""
 
+#: src/features/campaigns/detail/CampaignDetailPage.tsx:180
+#: src/features/campaigns/detail/CampaignDetailTabs.tsx:20
+msgid "Analíticas"
+msgstr ""
+
 #: src/features/campaigns/brief-builder/BriefBuilderWizard.tsx:182
 #~ msgid "Analizar"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailPage.tsx:180
-#: src/features/campaigns/detail/CampaignDetailTabs.tsx:20
-#: src/features/identity/app-shell/navigation.ts:71
 #: src/features/identity/app-shell/navigation.ts:110
 msgid "Analytics"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:23
-msgid "Analytics todavía no está disponible para esta campaña."
-msgstr ""
+#~ msgid "Analytics todavía no está disponible para esta campaña."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C11BirthdayScreen.tsx:128
 msgid "Año"
@@ -1205,15 +1228,13 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:43
-msgid "Applications"
-msgstr ""
+#~ msgid "Applications"
+#~ msgstr ""
 
 #: src/features/deliverables/components/ApproveDraftButton.tsx:57
 msgid "Approve draft"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:53
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:41
 #: src/features/deliverables/components/LinkItem.tsx:17
 msgid "Approved"
 msgstr ""
@@ -1224,8 +1245,8 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:45
-msgid "Approved draft"
-msgstr ""
+#~ msgid "Approved draft"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:111
 msgid "Apps"
@@ -1242,6 +1263,7 @@ msgstr ""
 msgid "Apps móviles"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:53
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:20
 #: src/features/deliverables/components/DraftVersionList.tsx:40
 msgid "Aprobado"
@@ -1255,7 +1277,11 @@ msgstr ""
 msgid "Aprobado por {approverName} el {approvedDate}"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:339
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:41
+msgid "Aprobados"
+msgstr ""
+
+#: src/features/deliverables/components/DeliverableListItem.tsx:341
 msgid "Aprobar"
 msgstr ""
 
@@ -1309,7 +1335,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:84
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:287
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:278
 msgid "Atrás"
 msgstr ""
 
@@ -1318,11 +1344,16 @@ msgid "Attribution / ROAS"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:72
-msgid "Audience"
+#~ msgid "Audience"
+#~ msgstr ""
+
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:72
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:216
+msgid "Audiencia"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:154
-msgid "Audiencia"
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:415
+msgid "Audiencia objetivo"
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesCard.tsx:86
@@ -1338,7 +1369,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:168
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:159
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1347,8 +1378,8 @@ msgid "Aventura"
 msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:48
-msgid "Awaiting payout"
-msgstr ""
+#~ msgid "Awaiting payout"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferCard.tsx:96
 msgid "Awaiting response"
@@ -1418,7 +1449,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:48
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:30
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:94
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:51
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:52
 msgid "Belleza"
 msgstr ""
 
@@ -1445,8 +1476,8 @@ msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:676
 #: src/features/offers/components/SendOfferSidesheet.tsx:685
-msgid "Bonos de oferta"
-msgstr ""
+#~ msgid "Bonos de oferta"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:72
 #: src/features/offers/components/OfferSummaryBlock.tsx:55
@@ -1483,9 +1514,15 @@ msgstr ""
 msgid "Bonus por rapidez"
 msgstr ""
 
+#: src/features/campaigns/components/CampaignMiniCard.tsx:32
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:30
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:18
 msgid "Borrador"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:45
+msgid "Borrador aprobado"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:175
@@ -1510,7 +1547,7 @@ msgstr ""
 msgid "Breadcrumb"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:138
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:195
 msgid "Brief"
 msgstr ""
 
@@ -1534,9 +1571,6 @@ msgstr ""
 #~ msgid "Bucket Otros calculado por backend"
 #~ msgstr ""
 
-#: src/features/campaigns/components/CampaignMiniCard.tsx:110
-#: src/features/campaigns/detail/overview/DetailsBlock.tsx:61
-#: src/features/campaigns/detail/overview/StatsBlock.tsx:50
 #: src/features/offers/components/OfferCard.tsx:61
 msgid "Budget"
 msgstr ""
@@ -1574,6 +1608,15 @@ msgstr ""
 msgid "Buscar conversaciones…"
 msgstr ""
 
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:118
+msgid "Buscar creador"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:146
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:119
+msgid "Buscar creadores"
+msgstr ""
+
 #: src/features/payments/components/BrandPaymentsFilters.tsx:130
 msgid "Buscar creator o campaña"
 msgstr ""
@@ -1592,6 +1635,14 @@ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:103
 msgid "Buscar por marca, campaña o nicho"
+msgstr ""
+
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:126
+msgid "Buscar video"
+msgstr ""
+
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:127
+msgid "Buscar videos"
 msgstr ""
 
 #: src/features/identity/app-shell/AppTopbar.tsx:36
@@ -1620,8 +1671,10 @@ msgstr ""
 msgid "Cambiar foto"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:44
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
-#: src/features/deliverables/components/DeliverableListItem.tsx:365
+#: src/features/deliverables/components/DeliverableListItem.tsx:367
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:17
 #: src/features/deliverables/components/DraftVersionList.tsx:44
 #: src/features/deliverables/components/RequestChangesCard.tsx:180
@@ -1633,25 +1686,23 @@ msgid "Campaign"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:124
-msgid "Campaign board"
-msgstr ""
+#~ msgid "Campaign board"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:37
-msgid "Campaign details"
-msgstr ""
+#~ msgid "Campaign details"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferCardReceived.tsx:62
 #~ msgid "Campaign offer received, total {amount}, deadline {deadline}"
 #~ msgstr ""
 
-#: src/features/identity/app-shell/navigation.ts:35
 #: src/features/identity/app-shell/navigation.ts:92
-#: src/routes/_brand/campaigns.index.tsx:47
-msgid "Campaigns"
-msgstr ""
+#~ msgid "Campaigns"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:151
-#: src/features/offers/components/SendOfferSidesheet.tsx:457
+#: src/features/offers/components/SendOfferSidesheet.tsx:376
 #: src/features/payments/components/BrandPaymentsTable.tsx:46
 msgid "Campaña"
 msgstr ""
@@ -1679,7 +1730,10 @@ msgstr ""
 msgid "Campaña sin nombre"
 msgstr ""
 
+#: src/features/identity/app-shell/navigation.ts:48
+#: src/features/identity/app-shell/navigation.ts:92
 #: src/routes/_brand/campaigns.index.tsx:28
+#: src/routes/_brand/campaigns.index.tsx:47
 msgid "Campañas"
 msgstr ""
 
@@ -1699,7 +1753,7 @@ msgstr ""
 msgid "Campañas con creadores, sin agencias ni vueltas."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:227
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:218
 msgid "Canales"
 msgstr ""
 
@@ -1739,7 +1793,7 @@ msgstr ""
 #: src/features/discovery/network/components/InviteBulkModal.tsx:161
 #: src/features/discovery/network/components/InviteSingleModal.tsx:135
 #: src/features/inbox/InboxInlineActionPopover.tsx:625
-#: src/features/offers/components/SendOfferSidesheet.tsx:792
+#: src/features/offers/components/SendOfferSidesheet.tsx:625
 #: src/features/payments/components/MarkAsPaidDialog.tsx:142
 #: src/features/payments/settings/PayoutAccountModal.tsx:209
 msgid "Cancelar"
@@ -1772,7 +1826,7 @@ msgid "Cancelled"
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:25
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:232
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:309
 msgid "Canje de producto"
 msgstr ""
 
@@ -1836,9 +1890,13 @@ msgstr ""
 msgid "Cargando conversaciones"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryGrid.tsx:170
-msgid "Cargando creators"
+#: src/features/discovery/network/components/DiscoveryGrid.tsx:171
+msgid "Cargando creadores"
 msgstr ""
+
+#: src/features/discovery/network/components/DiscoveryGrid.tsx:170
+#~ msgid "Cargando creators"
+#~ msgstr ""
 
 #: src/features/payments/settings/PayoutAccountCard.tsx:159
 msgid "Cargando cuenta de cobro"
@@ -1852,7 +1910,7 @@ msgstr ""
 msgid "Cargando inbox"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:264
+#: src/features/deliverables/components/DeliverableListItem.tsx:266
 msgid "Cargando link actual"
 msgstr ""
 
@@ -1917,15 +1975,15 @@ msgstr ""
 #~ msgid "CBU, IBAN, email o alias de cuenta"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:43
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:54
 msgid "Celebridad"
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:84
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:104
-#: src/features/offers/components/SendOfferSidesheet.tsx:387
-#: src/features/offers/components/SendOfferSidesheet.tsx:413
+#: src/features/offers/components/SendOfferSidesheet.tsx:306
+#: src/features/offers/components/SendOfferSidesheet.tsx:332
 msgid "Cerrar"
 msgstr ""
 
@@ -1945,8 +2003,6 @@ msgstr ""
 msgid "Changes already requested on this link."
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:44
 #: src/features/deliverables/components/DeliverableCard.tsx:156
 msgid "Changes requested"
 msgstr ""
@@ -1955,7 +2011,7 @@ msgstr ""
 #~ msgid "Changing the offer type will discard the entered data. Continue?"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:161
+#: src/features/discovery/network/components/CreatorCard.tsx:177
 msgid "Chat"
 msgstr ""
 
@@ -1988,8 +2044,8 @@ msgstr ""
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:161
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:200
-msgid "Clear"
-msgstr ""
+#~ msgid "Clear"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:135
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:141
@@ -2029,8 +2085,8 @@ msgstr ""
 msgid "Colaboraciones"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:357
-#: src/features/discovery/network/components/CreatorCard.tsx:377
+#: src/features/discovery/network/components/CreatorCard.tsx:416
+#: src/features/discovery/network/components/CreatorCard.tsx:436
 msgid "Colaborando"
 msgstr ""
 
@@ -2040,8 +2096,8 @@ msgid "Colabs al mes"
 msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:702
-msgid "Colapsar"
-msgstr ""
+#~ msgid "Colapsar"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferCardBundle.tsx:85
 #~ msgid "Collapse deliverables"
@@ -2080,15 +2136,15 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:40
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:26
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:78
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:53
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:54
 msgid "Comida"
 msgstr ""
 
 #: src/routes/_creator/offers.tsx:20
-msgid "Coming up when the offers context lands."
-msgstr ""
+#~ msgid "Coming up when the offers context lands."
+#~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:177
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:252
 msgid "Compensación"
 msgstr ""
 
@@ -2100,12 +2156,15 @@ msgstr ""
 msgid "Completá los datos requeridos antes de crear la campaña."
 msgstr ""
 
+#: src/features/campaigns/components/CampaignMiniCard.tsx:35
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:33
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:21
 msgid "Completada"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:23
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:48
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:23
 msgid "Completado"
 msgstr ""
@@ -2113,8 +2172,8 @@ msgstr ""
 #: src/features/campaigns/components/CampaignMiniCard.tsx:35
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:48
-msgid "Completed"
-msgstr ""
+#~ msgid "Completed"
+#~ msgstr ""
 
 #: src/features/payments/components/StageSpendDonut.tsx:124
 msgid "Comprometido"
@@ -2163,7 +2222,7 @@ msgstr ""
 #~ msgid "Configurá los bonos"
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:429
+#: src/features/offers/components/SendOfferSidesheet.tsx:348
 msgid "Configuración de la oferta"
 msgstr ""
 
@@ -2184,7 +2243,7 @@ msgstr ""
 #~ msgid "Confirmá la configuración antes de publicar la campaña."
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:31
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:83
 msgid "Confirmá los datos antes de crear la campaña. Podés editar cada bloque desde su paso correspondiente."
 msgstr ""
 
@@ -2196,7 +2255,7 @@ msgstr ""
 #~ msgid "Confirmar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:39
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:40
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:36
 msgid "Consolidado"
 msgstr ""
@@ -2237,7 +2296,7 @@ msgstr ""
 msgid "Contanos cómo venís con creadores"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:195
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:270
 msgid "Contenido"
 msgstr ""
 
@@ -2245,7 +2304,7 @@ msgstr ""
 msgid "Contenido para uso de marca, sin publicación en tu feed."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:439
+#: src/features/offers/components/SendOfferSidesheet.tsx:358
 msgid "Contenido y plataformas"
 msgstr ""
 
@@ -2253,13 +2312,13 @@ msgstr ""
 #~ msgid "Contenido: {contentList}"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:38
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:39
 msgid "Content guidelines"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:76
-msgid "Content model"
-msgstr ""
+#~ msgid "Content model"
+#~ msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:73
 msgid "Content review workflow"
@@ -2282,9 +2341,13 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:352
-#: src/features/discovery/network/components/CreatorCard.tsx:375
+#: src/features/discovery/network/components/CreatorCard.tsx:411
+#: src/features/discovery/network/components/CreatorCard.tsx:434
 msgid "Conversación abierta"
+msgstr ""
+
+#: src/features/chat/components/ConversationHeader.tsx:24
+msgid "Conversación con {counterpartName}"
 msgstr ""
 
 #: src/features/chat/workspace/ConversationRailItem.tsx:50
@@ -2307,8 +2370,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/chat/components/ConversationHeader.tsx:24
-msgid "Conversation with {counterpartName}"
-msgstr ""
+#~ msgid "Conversation with {counterpartName}"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:8
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:48
@@ -2320,13 +2383,17 @@ msgstr ""
 msgid "CPC estimado"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:251
+#: src/features/discovery/network/components/CreatorCard.tsx:278
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:81
 msgid "CPM"
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:76
-msgid "CPM (por 1000 views)"
+#~ msgid "CPM (por 1000 views)"
+#~ msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:76
+msgid "CPM (por 1000 vistas)"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:260
@@ -2341,8 +2408,9 @@ msgstr ""
 msgid "Creá una invitación para esta campaña."
 msgstr ""
 
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:175
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:143
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:124
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:116
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr ""
@@ -2350,6 +2418,16 @@ msgstr ""
 #: src/features/payments/components/BrandPaymentsFilters.tsx:145
 #: src/features/payments/components/BrandPaymentsTable.tsx:81
 msgid "Creador sin nombre"
+msgstr ""
+
+#: src/features/campaigns/components/CampaignMiniCard.tsx:109
+#: src/features/campaigns/detail/CampaignDetailTabs.tsx:16
+#: src/features/campaigns/detail/creators/CreatorsTab.tsx:106
+#: src/features/campaigns/detail/overview/CreatorsPreview.tsx:37
+#: src/features/identity/app-shell/navigation.ts:54
+#: src/routes/_brand/creators.tsx:43
+#: src/routes/_brand/creators.tsx:113
+msgid "Creadores"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
@@ -2362,6 +2440,10 @@ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:46
 msgid "Creadores activos"
+msgstr ""
+
+#: src/features/campaigns/detail/creators/CreatorsTab.tsx:109
+msgid "Creadores activos en esta campaña"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:25
@@ -2382,7 +2464,6 @@ msgid "Crear campaña"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:215
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:173
 msgid "Creator"
 msgstr ""
 
@@ -2406,8 +2487,8 @@ msgstr ""
 #: src/features/identity/app-shell/navigation.ts:47
 #: src/routes/_brand/creators.tsx:43
 #: src/routes/_brand/creators.tsx:113
-msgid "Creators"
-msgstr ""
+#~ msgid "Creators"
+#~ msgstr ""
 
 #: src/features/campaigns/wizard/MatchLiveBlock.tsx:87
 msgid "Creators disponibles"
@@ -2425,7 +2506,7 @@ msgstr ""
 #~ msgid "Creators publican contenido en sus redes para amplificar tu marca."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:38
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:39
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:30
 msgid "Creciendo"
 msgstr ""
@@ -2536,8 +2617,8 @@ msgid "Current Offer"
 msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:40
-msgid "Current period"
-msgstr ""
+#~ msgid "Current period"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:17
 msgid "Dar a conocer la marca"
@@ -2547,9 +2628,13 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-#: src/features/earnings/components/EarningsKpiGrid.tsx:111
-msgid "Date unavailable"
+#: src/features/identity/app-shell/navigation.ts:23
+msgid "Dashboard"
 msgstr ""
+
+#: src/features/earnings/components/EarningsKpiGrid.tsx:111
+#~ msgid "Date unavailable"
+#~ msgstr ""
 
 #: src/features/identity/settings/GeneralSection.tsx:176
 msgid "Datos privados y de contacto del creador."
@@ -2572,14 +2657,13 @@ msgstr ""
 #~ msgid "De"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/overview/DetailsBlock.tsx:56
 #: src/features/offers/components/OfferCard.tsx:62
 msgid "Deadline"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:170
-msgid "Deadline {formattedDeadline}"
-msgstr ""
+#~ msgid "Deadline {formattedDeadline}"
+#~ msgstr ""
 
 #: src/features/offers/components/SingleEditor.tsx:62
 #: src/features/offers/schemas/bundleEditor.ts:28
@@ -2617,7 +2701,7 @@ msgstr ""
 #~ msgid "Definí el modelo de pago"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:68
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:72
 msgid "Definí la audiencia"
 msgstr ""
 
@@ -2638,8 +2722,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:218
-#: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:146
-#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:485
 msgid "Deliverables"
 msgstr ""
 
@@ -2647,7 +2729,7 @@ msgstr ""
 #~ msgid "Deliverables pendientes"
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:585
+#: src/features/offers/components/SendOfferSidesheet.tsx:504
 msgid "Desactivá el switch si cada plataforma necesita contenido y monto propios."
 msgstr ""
 
@@ -2669,7 +2751,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:177
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:109
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:143
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:200
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:396
 #: src/features/offers/components/OfferArchiveItem.tsx:290
 msgid "Descripción"
@@ -2692,8 +2774,12 @@ msgid "Descubrí creators de tu nicho"
 msgstr ""
 
 #: src/routes/_brand/creators.tsx:123
-msgid "Descubrir creators"
+msgid "Descubrir creadores"
 msgstr ""
+
+#: src/routes/_brand/creators.tsx:123
+#~ msgid "Descubrir creators"
+#~ msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:510
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:266
@@ -2714,7 +2800,7 @@ msgstr ""
 msgid "Desde {minLabel}"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:47
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:48
 msgid "Detallá tono, mensajes clave, formato esperado, menciones obligatorias y restricciones."
 msgstr ""
 
@@ -2727,7 +2813,15 @@ msgid "Detalle del plan"
 msgstr "Plan details"
 
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:130
-msgid "Detalle read-only para revisar antes de postularte."
+#~ msgid "Detalle read-only para revisar antes de postularte."
+#~ msgstr ""
+
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:37
+msgid "Detalles de campaña"
+msgstr ""
+
+#: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:130
+msgid "Detalles para revisar antes de postularte"
 msgstr ""
 
 #: src/features/campaigns/configuration/TargetingStep.tsx:39
@@ -2743,9 +2837,13 @@ msgstr ""
 msgid "Día"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:628
-msgid "Día ideal para que el creator publique."
+#: src/features/offers/components/SendOfferSidesheet.tsx:538
+msgid "Día ideal para que el creador publique."
 msgstr ""
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:538
+#~ msgid "Día ideal para que el creator publique."
+#~ msgstr ""
 
 #: src/features/chat/utils/groupByDay.ts:31
 #: src/features/chat/workspace/formatRelativeTime.ts:20
@@ -2789,8 +2887,8 @@ msgstr ""
 #: src/features/identity/app-shell/navigation.ts:53
 #: src/routes/_brand/discovery.tsx:74
 #: src/routes/_brand/discovery.tsx:148
-msgid "Discovery"
-msgstr ""
+#~ msgid "Discovery"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoverySidebar.tsx:50
 #~ msgid "Discovery disponible"
@@ -2821,12 +2919,12 @@ msgid "Distribución del gasto según la etapa de cada oferta"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:244
-msgid "Do"
-msgstr ""
+#~ msgid "Do"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:408
-msgid "Do / Don't"
-msgstr ""
+#~ msgid "Do / Don't"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/PDFUploadField.tsx:34
 #~ msgid "Documento PDF"
@@ -2837,8 +2935,8 @@ msgid "Domain not allowed. Use a YouTube, Instagram or TikTok URL."
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:250
-msgid "Don't"
-msgstr ""
+#~ msgid "Don't"
+#~ msgstr ""
 
 #: src/features/deliverables/components/StageCard.tsx:42
 msgid "Done"
@@ -2848,7 +2946,6 @@ msgstr ""
 msgid "Dos preguntas rápidas. Usamos esto para recomendarte el mejor plan."
 msgstr ""
 
-#: src/features/campaigns/components/CampaignMiniCard.tsx:32
 #: src/features/offers/components/OfferCard.tsx:119
 msgid "Draft"
 msgstr ""
@@ -2858,12 +2955,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/deliverables/components/DraftApprovedCard.tsx:51
-msgid "Draft aprobado"
-msgstr ""
+#~ msgid "Draft aprobado"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:168
-msgid "Draft enviado"
-msgstr ""
+#~ msgid "Draft enviado"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:159
 #~ msgid "Draft submitted"
@@ -2873,11 +2970,11 @@ msgstr ""
 msgid "Draft thumbnail"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:179
+#: src/features/deliverables/components/UploadDraftDialog.tsx:181
 msgid "Drag and drop your video here, or click to browse"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:160
+#: src/features/deliverables/components/UploadDraftDialog.tsx:162
 msgid "Drop zone"
 msgstr ""
 
@@ -2910,17 +3007,17 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:38
-msgid "Earned in period"
-msgstr ""
+#~ msgid "Earned in period"
+#~ msgstr ""
 
 #: src/features/earnings/components/EarningsPage.tsx:129
 #: src/features/identity/app-shell/navigation.ts:98
-msgid "Earnings"
-msgstr ""
+#~ msgid "Earnings"
+#~ msgstr ""
 
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:55
-msgid "Earnings by month"
-msgstr ""
+#~ msgid "Earnings by month"
+#~ msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:27
 msgid "Earnings KPIs"
@@ -2959,7 +3056,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:49
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:57
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:109
 msgid "Editar"
 msgstr ""
 
@@ -2984,7 +3081,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:37
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:25
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:72
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:59
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:60
 msgid "Educación"
 msgstr ""
 
@@ -3034,24 +3131,36 @@ msgid "El brand necesita actualizar su tarjeta"
 msgstr ""
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:72
-msgid "El cobro se realiza cuando el creator acepta"
+msgid "El cobro se realiza cuando el creador acepta"
 msgstr ""
+
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#~ msgid "El cobro se realiza cuando el creator acepta"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:33
 msgid "El código de seguridad de tu tarjeta es incorrecto."
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:142
-msgid "El creator está analizando la oferta"
+msgid "El creador está analizando la oferta"
 msgstr ""
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:594
+msgid "El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
+msgstr ""
+
+#: src/features/offers/components/NextStep.tsx:142
+#~ msgid "El creator está analizando la oferta"
+#~ msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:42
 #~ msgid "El creator sabe cuánto cobra por entrega."
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:761
-msgid "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
-msgstr ""
+#: src/features/offers/components/SendOfferSidesheet.tsx:594
+#~ msgid "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:931
 msgid "El dato cambió desde otra sesión. Recargá la página para ver la versión actualizada."
@@ -3156,8 +3265,12 @@ msgid "Elegí el método de pago para creators"
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:19
-msgid "Elegí el modelo de pricing"
+msgid "Elegí el modelo de precios"
 msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:19
+#~ msgid "Elegí el modelo de pricing"
+#~ msgstr ""
 
 #: src/features/billing/settings/PlanUpgradeModal.tsx:83
 msgid "Elegí el plan que querés activar para tu workspace."
@@ -3171,7 +3284,7 @@ msgstr ""
 msgid "Elegí la categoría que mejor represente tu industria."
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:71
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:75
 msgid "Elegí los filtros para encontrar creators compatibles."
 msgstr ""
 
@@ -3191,7 +3304,7 @@ msgstr ""
 msgid "Elegí un plan para continuar."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:469
+#: src/features/offers/components/SendOfferSidesheet.tsx:388
 msgid "Elegí una campaña"
 msgstr ""
 
@@ -3272,7 +3385,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:37
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:38
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:24
 msgid "Emergente"
 msgstr ""
@@ -3305,16 +3418,24 @@ msgstr ""
 #~ msgid "En crecimiento"
 #~ msgstr ""
 
+#: src/features/earnings/components/EarningsKpiGrid.tsx:48
+msgid "En espera de pago"
+msgstr ""
+
 #: src/features/chat/components/PresenceBadge.tsx:18
 #~ msgid "En línea"
 #~ msgstr ""
 
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:40
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:43
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:15
 msgid "En revisión"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:22
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:73
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:74
 msgid "En vivo"
 msgstr ""
 
@@ -3327,7 +3448,7 @@ msgstr ""
 msgid "Enero"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:250
+#: src/features/discovery/network/components/CreatorCard.tsx:277
 msgid "Engagement"
 msgstr ""
 
@@ -3369,6 +3490,8 @@ msgstr ""
 msgid "Entregable completado"
 msgstr ""
 
+#: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:146
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:485
 #: src/features/offers/components/OfferDeliverablesList.tsx:36
 msgid "Entregables"
 msgstr ""
@@ -3404,7 +3527,7 @@ msgid "Enviada"
 msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:173
-#: src/features/offers/components/SendOfferSidesheet.tsx:798
+#: src/features/offers/components/SendOfferSidesheet.tsx:631
 msgid "Enviando"
 msgstr ""
 
@@ -3440,9 +3563,9 @@ msgid "Enviar mensaje"
 msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:132
-#: src/features/offers/components/SendOfferSidesheet.tsx:369
-#: src/features/offers/components/SendOfferSidesheet.tsx:377
-#: src/features/offers/components/SendOfferSidesheet.tsx:797
+#: src/features/offers/components/SendOfferSidesheet.tsx:288
+#: src/features/offers/components/SendOfferSidesheet.tsx:296
+#: src/features/offers/components/SendOfferSidesheet.tsx:630
 msgid "Enviar oferta"
 msgstr ""
 
@@ -3450,7 +3573,7 @@ msgstr ""
 msgid "Enviar postulación"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:371
+#: src/features/offers/components/SendOfferSidesheet.tsx:290
 msgid "Enviar una oferta a {creatorName}"
 msgstr ""
 
@@ -3749,8 +3872,8 @@ msgid "Expand offer"
 msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:702
-msgid "Expandir"
-msgstr ""
+#~ msgid "Expandir"
+#~ msgstr ""
 
 #: src/features/chat/workspace/ConversationRail.tsx:82
 msgid "Expandir conversaciones"
@@ -3773,6 +3896,12 @@ msgstr ""
 #: src/routes/_brand/discovery.tsx:135
 #~ msgid "Explorá la red de creators"
 #~ msgstr ""
+
+#: src/features/identity/app-shell/navigation.ts:30
+#: src/routes/_brand/discovery.tsx:74
+#: src/routes/_brand/discovery.tsx:148
+msgid "Explorar"
+msgstr ""
 
 #: src/features/payments/components/BrandPaymentsPage.tsx:189
 #~ msgid "Export CSV"
@@ -3827,37 +3956,42 @@ msgstr ""
 msgid "Fecha de cumpleaños"
 msgstr ""
 
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:56
 #: src/features/offers/components/CurrentOfferBlock.tsx:263
 #: src/features/offers/components/OfferArchiveItem.tsx:234
-#: src/features/offers/components/SendOfferSidesheet.tsx:652
-#: src/features/offers/components/SendOfferSidesheet.tsx:657
+#: src/features/offers/components/SendOfferSidesheet.tsx:562
+#: src/features/offers/components/SendOfferSidesheet.tsx:567
 msgid "Fecha límite"
 msgstr ""
 
-#: src/features/payments/components/PaymentKpiGrid.tsx:45
-#~ msgid "Fecha no disponible"
-#~ msgstr ""
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:174
+msgid "Fecha límite {formattedDeadline}"
+msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:611
+#: src/features/earnings/components/EarningsKpiGrid.tsx:111
+msgid "Fecha no disponible"
+msgstr ""
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:521
 msgid "Fechas"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:256
-msgid "Fee"
-msgstr ""
+#~ msgid "Fee"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:157
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:112
-msgid "Fee a definir"
-msgstr ""
+#~ msgid "Fee a definir"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:21
 msgid "Fee más alto"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:285
-msgid "Fee range"
-msgstr ""
+#~ msgid "Fee range"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:25
 msgid "Feed activo ahora mismo"
@@ -3874,13 +4008,13 @@ msgid "File too large (max 2 GB)."
 msgstr ""
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:171
-msgid "Filter by creator"
-msgstr ""
+#~ msgid "Filter by creator"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:135
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:143
-msgid "Filter by platform"
-msgstr ""
+#~ msgid "Filter by platform"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:49
 #~ msgid "Filtrados por {0} LatAm + {1}"
@@ -3908,6 +4042,7 @@ msgstr ""
 msgid "Filtrar por campaña"
 msgstr ""
 
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:173
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
 msgid "Filtrar por creador"
 msgstr ""
@@ -3915,6 +4050,11 @@ msgstr ""
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
 #~ msgid "Filtrar por creator"
 #~ msgstr ""
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:135
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:143
+msgid "Filtrar por plataforma"
+msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:132
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:136
@@ -3942,8 +4082,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:146
-msgid "Find creators"
-msgstr ""
+#~ msgid "Find creators"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:31
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:8
@@ -4017,7 +4157,7 @@ msgstr ""
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:215
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:206
 msgid "Formatos"
 msgstr ""
 
@@ -4048,6 +4188,23 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:96
 #: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:4
 msgid "Gaming"
+msgstr ""
+
+#: src/features/earnings/components/EarningsKpiGrid.tsx:38
+msgid "Ganado en el período"
+msgstr ""
+
+#: src/features/earnings/components/EarningsPage.tsx:129
+#: src/features/identity/app-shell/navigation.ts:98
+msgid "Ganancias"
+msgstr ""
+
+#: src/features/earnings/components/MonthlyEarningsChart.tsx:58
+msgid "Ganancias mensuales pagadas"
+msgstr ""
+
+#: src/features/earnings/components/MonthlyEarningsChart.tsx:55
+msgid "Ganancias por mes"
 msgstr ""
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:31
@@ -4174,7 +4331,7 @@ msgstr ""
 msgid "Guías de contenido"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:199
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:274
 msgid "Guidelines"
 msgstr ""
 
@@ -4293,7 +4450,11 @@ msgstr ""
 msgid "Historial de pagos y cobros pendientes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:614
+#: src/features/earnings/components/EarningsKpiGrid.tsx:34
+msgid "Histórico"
+msgstr ""
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:524
 msgid "Hitos clave de esta oferta."
 msgstr ""
 
@@ -4337,7 +4498,7 @@ msgstr ""
 msgid "Hubo un problema con el último cobro. Abrí el portal para actualizar la tarjeta."
 msgstr "There was a problem with the last charge. Open the portal to update your card."
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:68
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:69
 msgid "Humor / sketches"
 msgstr ""
 
@@ -4346,8 +4507,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:415
-msgid "ICP"
-msgstr ""
+#~ msgid "ICP"
+#~ msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:41
 #~ msgid "Ideal para presupuestos cerrados."
@@ -4383,22 +4544,26 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:451
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:150
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:184
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:150
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:208
 msgid "Imagen"
+msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:211
+msgid "Imagen cargada"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:40
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:43
-msgid "In review"
-msgstr ""
+#~ msgid "In review"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:129
 msgid "In-platform"
 msgstr ""
 
-#: src/features/identity/app-shell/navigation.ts:23
+#: src/features/identity/app-shell/navigation.ts:36
 #: src/features/identity/app-shell/navigation.ts:80
 #: src/features/inbox/InboxPage.tsx:81
 msgid "Inbox"
@@ -4419,9 +4584,9 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:55
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:215
-msgid "Influencers Posts"
-msgstr ""
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:292
+#~ msgid "Influencers Posts"
+#~ msgstr ""
 
 #: src/features/chat/components/mobile/MobileChat.tsx:101
 msgid "Información de conversación"
@@ -4490,7 +4655,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:21
 #: src/features/offers/components/CurrentOfferBlock.tsx:90
-#: src/features/offers/components/SendOfferSidesheet.tsx:125
+#: src/features/offers/components/SendOfferSidesheet.tsx:95
 #: src/features/offers/utils/formatOffer.ts:15
 msgid "Instagram"
 msgstr ""
@@ -4510,9 +4675,9 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:506
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:515
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:518
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:112
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:116
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:164
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:120
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:228
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:130
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:200
@@ -4546,8 +4711,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/creators/useCreateCampaignInvite.ts:37
-#: src/features/discovery/network/components/CreatorCard.tsx:337
-#: src/features/discovery/network/components/CreatorCard.tsx:370
+#: src/features/discovery/network/components/CreatorCard.tsx:396
+#: src/features/discovery/network/components/CreatorCard.tsx:429
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:46
 msgid "Invitación enviada"
 msgstr ""
@@ -4556,11 +4721,11 @@ msgstr ""
 msgid "Invitación enviada a {invitedEmail}"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:342
+#: src/features/discovery/network/components/CreatorCard.tsx:401
 msgid "Invitación rechazada"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:347
+#: src/features/discovery/network/components/CreatorCard.tsx:406
 msgid "Invitación vencida"
 msgstr ""
 
@@ -4568,11 +4733,20 @@ msgstr ""
 msgid "Invitaciones"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:128
+msgid "Invitaciones por email"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:20
 msgid "Invitado"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:368
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:38
+msgid "Invitados"
+msgstr ""
+
+#: src/features/discovery/network/components/CreatorCard.tsx:427
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:103
 msgid "Invitar"
 msgstr ""
@@ -4589,7 +4763,7 @@ msgstr ""
 msgid "Invitar a {name}"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:373
+#: src/features/discovery/network/components/CreatorCard.tsx:432
 msgid "Invitar de nuevo"
 msgstr ""
 
@@ -4615,8 +4789,8 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:38
-msgid "Invited"
-msgstr ""
+#~ msgid "Invited"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:240
 #~ msgid "Invited creators"
@@ -4626,23 +4800,23 @@ msgstr ""
 msgid "INVITES"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:127
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:131
 msgid "Invites in-platform"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:125
-msgid "Invites por email"
-msgstr ""
+#~ msgid "Invites por email"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:120
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:300
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:291
 msgid "Ir a mi dashboard"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:157
+#: src/features/discovery/network/components/CreatorCard.tsx:173
 #: src/features/inbox/InboxItemRow.tsx:177
 #: src/features/inbox/InboxItemRow.tsx:183
 msgid "Ir al chat"
@@ -4762,7 +4936,7 @@ msgstr ""
 msgid "La marca pausó o cerró esta campaña. Podés cerrar el panel y seguir explorando."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:771
+#: src/features/offers/components/SendOfferSidesheet.tsx:604
 msgid "La marca puede cancelar antes de la aceptación. Después, requiere que se venza la fecha límite."
 msgstr ""
 
@@ -4795,6 +4969,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B8TimingScreen.tsx:13
 msgid "Lanzo ya"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignDetailTabs.tsx:23
+msgid "Las analíticas todavía no están disponibles para esta campaña."
 msgstr ""
 
 #: src/features/chat/workspace/ConversationRailEmpty.tsx:19
@@ -4863,6 +5041,8 @@ msgstr ""
 msgid "Light"
 msgstr ""
 
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:163
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:204
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:168
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:153
 msgid "Limpiar"
@@ -4880,21 +5060,23 @@ msgstr ""
 msgid "Limpiar filtros"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:47
 #: src/features/deliverables/components/DeliverableCard.tsx:126
 #: src/features/deliverables/components/DeliverableCard.tsx:152
 #: src/features/deliverables/components/LinkApprovedCard.tsx:55
 msgid "Link approved"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:288
-#: src/features/deliverables/components/DeliverableListItem.tsx:361
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:47
+#: src/features/deliverables/components/DeliverableListItem.tsx:290
+#: src/features/deliverables/components/DeliverableListItem.tsx:363
 msgid "Link aprobado"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:46
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:256
-#: src/features/deliverables/components/DeliverableListItem.tsx:372
+#: src/features/deliverables/components/DeliverableListItem.tsx:374
 msgid "Link enviado"
 msgstr ""
 
@@ -4902,7 +5084,7 @@ msgstr ""
 msgid "Link is no longer pending review."
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:157
+#: src/features/deliverables/components/DeliverableListItem.tsx:159
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:139
 msgid "Link publicado"
 msgstr ""
@@ -4911,8 +5093,6 @@ msgstr ""
 #~ msgid "Link review"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:46
 #: src/features/deliverables/components/DeliverableCard.tsx:163
 msgid "Link submitted"
 msgstr ""
@@ -5009,8 +5189,8 @@ msgid "Los bonos sólo están disponibles para un contenido único"
 msgstr ""
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:99
-msgid "Los bonos sólo están disponibles para un contenido único."
-msgstr ""
+#~ msgid "Los bonos sólo están disponibles para un contenido único."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:501
 msgid "Los creadores con tarifas reciben más ofertas de las marcas."
@@ -5106,6 +5286,11 @@ msgstr ""
 msgid "Marcar como pagado"
 msgstr ""
 
+#: src/features/inbox/InboxToolbar.tsx:156
+#: src/features/inbox/InboxToolbar.tsx:165
+msgid "Marcar todo como leído"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:31
 msgid "Marcas de fintech invierten entre $8K y $15K/mes"
 msgstr ""
@@ -5124,8 +5309,8 @@ msgstr ""
 
 #: src/features/inbox/InboxToolbar.tsx:154
 #: src/features/inbox/InboxToolbar.tsx:163
-msgid "Mark all as read"
-msgstr ""
+#~ msgid "Mark all as read"
+#~ msgstr ""
 
 #: src/features/deliverables/components/LinkApprovedCard.tsx:116
 #~ msgid "Mark as paid"
@@ -5157,6 +5342,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:23
+#: src/features/inbox/InboxPage.tsx:98
 msgid "Más recientes"
 msgstr ""
 
@@ -5165,7 +5351,7 @@ msgstr ""
 msgid "Masculino"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:41
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:48
 msgid "Masivo"
 msgstr ""
@@ -5216,7 +5402,7 @@ msgstr ""
 msgid "Matching pre-calculado con tu vertical"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:60
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:61
 msgid "Maternidad"
 msgstr ""
 
@@ -5407,7 +5593,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:51
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:33
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:109
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:52
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:53
 msgid "Moda"
 msgstr ""
 
@@ -5419,12 +5605,21 @@ msgstr ""
 #~ msgid "Modelo"
 #~ msgstr ""
 
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:76
+msgid "Modelo de contenido"
+msgstr ""
+
 #: src/features/campaigns/configuration/CampaignConfigurationWizard.tsx:45
 #~ msgid "modelo de pago"
 #~ msgstr ""
 
+#: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:241
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:80
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:189
+msgid "Modelo de precios"
+msgstr ""
+
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:28
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:132
 msgid "Modelo de pricing"
 msgstr ""
 
@@ -5437,14 +5632,19 @@ msgid "Monthly earnings total {total}. Highest month {highestMonth} with {highes
 msgstr ""
 
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:58
-msgid "Monthly paid earnings"
-msgstr ""
+#~ msgid "Monthly paid earnings"
+#~ msgstr ""
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:173
-#: src/features/offers/components/SendOfferSidesheet.tsx:491
+#: src/features/offers/components/SendOfferSidesheet.tsx:410
 #: src/features/payments/components/BrandPaymentsTable.tsx:52
 #: src/features/payments/components/MarkAsPaidDialog.tsx:121
 msgid "Monto"
+msgstr ""
+
+#: src/features/discovery/campaign-board/CampaignBoardCard.tsx:157
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:112
+msgid "Monto a definir"
 msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:68
@@ -5484,7 +5684,7 @@ msgstr ""
 msgid "Motivo opcional"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:182
+#: src/features/deliverables/components/UploadDraftDialog.tsx:184
 msgid "MP4, MOV, or WebM up to 2 GB"
 msgstr ""
 
@@ -5502,7 +5702,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:90
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:56
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:57
 msgid "Música"
 msgstr ""
 
@@ -5518,7 +5718,7 @@ msgstr ""
 #~ msgid "Nada"
 #~ msgstr ""
 
-#: src/features/identity/app-shell/AppSidebar.tsx:55
+#: src/features/identity/app-shell/AppSidebar.tsx:83
 msgid "Navegación principal"
 msgstr ""
 
@@ -5528,7 +5728,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:58
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:122
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:58
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:59
 msgid "Negocios"
 msgstr ""
 
@@ -5541,18 +5741,18 @@ msgid "New campaign offer"
 msgstr ""
 
 #: src/features/inbox/InboxPage.tsx:98
-msgid "Newest first"
-msgstr ""
+#~ msgid "Newest first"
+#~ msgstr ""
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:41
 #~ msgid "Next debit"
 #~ msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:55
-msgid "Next payout"
-msgstr ""
+#~ msgid "Next payout"
+#~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:208
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:199
 msgid "Nichos"
 msgstr ""
 
@@ -5560,7 +5760,8 @@ msgstr ""
 msgid "Nivel de experiencia"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:190
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:265
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:250
 msgid "No"
 msgstr ""
 
@@ -5595,8 +5796,8 @@ msgid "No disponible en este momento"
 msgstr ""
 
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:129
-msgid "No earnings yet for this period. When payments are marked as paid, they will appear here."
-msgstr ""
+#~ msgid "No earnings yet for this period. When payments are marked as paid, they will appear here."
+#~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:119
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:74
@@ -5607,7 +5808,7 @@ msgstr ""
 msgid "No encontramos el overview"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:209
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:213
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:107
 msgid "No encontramos esta campaña"
 msgstr ""
@@ -5767,7 +5968,7 @@ msgstr "We couldn't load your subscription. Reload the page or try again later."
 msgid "No pudimos cargar tus ajustes. Intentá nuevamente en unos minutos."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:398
+#: src/features/offers/components/SendOfferSidesheet.tsx:317
 #: src/routes/_brand/campaigns.index.tsx:62
 msgid "No pudimos cargar tus campañas. Intentá de nuevo."
 msgstr ""
@@ -5925,7 +6126,7 @@ msgstr ""
 msgid "No tenés bonos pendientes por ahora."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:410
+#: src/features/offers/components/SendOfferSidesheet.tsx:329
 msgid "No tenés campañas activas para enviar ofertas."
 msgstr ""
 
@@ -5952,7 +6153,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:170
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:94
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:141
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:198
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
 #: src/features/identity/settings/ProfileCard.tsx:30
 msgid "Nombre"
@@ -6005,7 +6206,7 @@ msgstr ""
 msgid "Nota (opcional)"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:185
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:260
 msgid "Notas"
 msgstr ""
 
@@ -6014,7 +6215,7 @@ msgid "Notas adicionales"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:207
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:126
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:127
 msgid "Notas de compensación"
 msgstr ""
 
@@ -6059,13 +6260,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:51
-msgid "Objective"
-msgstr ""
-
-#: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:50
-#: src/features/campaigns/brief-builder/screens/P3Review.tsx:379
-#~ msgid "Objetivo"
+#~ msgid "Objective"
 #~ msgstr ""
+
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:51
+msgid "Objetivo"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:60
 msgid "Objetivo principal"
@@ -6131,9 +6331,8 @@ msgid "Oferta de {formattedAmount}, {modeLabel}, {inlineStatus}, enviada el {sen
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
-#: src/features/chat/components/systemEvents/OfferSentCard.tsx:18
 #: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
-#: src/features/offers/components/SendOfferSidesheet.tsx:215
+#: src/features/offers/components/SendOfferSidesheet.tsx:180
 msgid "Oferta enviada"
 msgstr ""
 
@@ -6148,12 +6347,17 @@ msgid "Oferta rechazada"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
+#: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
 msgid "Oferta recibida"
 msgstr ""
 
 #: src/features/chat/components/systemEvents/OfferExpiredCard.tsx:18
 #: src/features/chat/components/systemEvents/OfferExpiredCard.tsx:20
 msgid "Oferta vencida"
+msgstr ""
+
+#: src/routes/_creator/offers.tsx:13
+msgid "Ofertas"
 msgstr ""
 
 #: src/features/offers/components/OffersArchiveBlock.tsx:57
@@ -6214,8 +6418,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/routes/_creator/offers.tsx:13
-msgid "Offers"
-msgstr ""
+#~ msgid "Offers"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferTypeChooser.tsx:25
 #~ msgid "One deliverable, one payment"
@@ -6294,8 +6498,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:14
-msgid "Overview"
-msgstr ""
+#~ msgid "Overview"
+#~ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesCard.tsx:85
 msgid "Pacing"
@@ -6310,9 +6514,16 @@ msgstr ""
 msgid "Pagada en total"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:54
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:49
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:24
 #: src/features/payments/components/StageSpendDonut.tsx:126
 msgid "Pagado"
+msgstr ""
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:42
+msgid "Pagados"
 msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:49
@@ -6320,7 +6531,11 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:83
-msgid "Pagás según el volumen de views alcanzado."
+#~ msgid "Pagás según el volumen de views alcanzado."
+#~ msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:83
+msgid "Pagás según el volumen de vistas alcanzado."
 msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:39
@@ -6336,12 +6551,17 @@ msgid "Pago"
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:32
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:233
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:310
 msgid "Pago + canje"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:18
 msgid "Pago después de aprobar el post. Sin perseguir pagos."
+msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:55
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:300
+msgid "Pago fijo por publicación"
 msgstr ""
 
 #: src/features/chat/components/systemEvents/PaymentMarkedCard.tsx:61
@@ -6350,7 +6570,7 @@ msgid "Pago marcado"
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:18
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:231
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:308
 msgid "Pago monetario"
 msgstr ""
 
@@ -6362,8 +6582,14 @@ msgstr ""
 msgid "Pago parcial ({paidCount}/{total})"
 msgstr ""
 
+#: src/features/earnings/components/EarningsKpiGrid.tsx:46
+msgid "Pago pendiente"
+msgstr ""
+
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:65
+#: src/features/identity/app-shell/navigation.ts:66
 #: src/features/payments/components/BrandPaymentsFilters.tsx:49
+#: src/features/payments/components/BrandPaymentsPage.tsx:170
 msgid "Pagos"
 msgstr ""
 
@@ -6380,20 +6606,16 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/payments/components/BrandPaymentsPage.tsx:170
-msgid "Pagos y gastos"
-msgstr ""
+#~ msgid "Pagos y gastos"
+#~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:54
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:42
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:49
 #: src/features/offers/components/ArchivedOffersList.tsx:26
 msgid "Paid"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:145
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:152
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:169
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:149
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:158
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:236
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:77
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:167
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
@@ -6426,7 +6648,7 @@ msgstr ""
 #~ msgid "Países: {countryList}"
 #~ msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:380
+#: src/features/offers/components/SendOfferSidesheet.tsx:299
 msgid "Para {creatorName}"
 msgstr ""
 
@@ -6483,19 +6705,20 @@ msgstr ""
 msgid "Paste the final published URL for this deliverable."
 msgstr ""
 
+#: src/features/campaigns/components/CampaignMiniCard.tsx:34
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:32
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:20
 msgid "Pausada"
 msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:34
-msgid "Paused"
-msgstr ""
+#~ msgid "Paused"
+#~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:55
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:223
-msgid "Pay per post"
-msgstr ""
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:300
+#~ msgid "Pay per post"
+#~ msgstr ""
 
 #: src/shared/ui/PaymentCard.tsx:25
 msgid "Payment of {amount} received"
@@ -6506,8 +6729,8 @@ msgid "Payment of {amount} sent"
 msgstr ""
 
 #: src/features/identity/app-shell/navigation.ts:41
-msgid "Payments & Spending"
-msgstr ""
+#~ msgid "Payments & Spending"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:81
 msgid "Payout máximo si aplican todos los bonos"
@@ -6525,12 +6748,16 @@ msgstr ""
 msgid "Payouts automáticos 24h"
 msgstr ""
 
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:281
+msgid "PDF cargado"
+msgstr ""
+
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:711
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:720
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:745
 #: src/features/campaigns/wizard/BriefPdfDropzone.tsx:110
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:67
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:203
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:68
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:278
 msgid "PDF del brief"
 msgstr ""
 
@@ -6551,6 +6778,9 @@ msgstr ""
 msgid "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:49
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:197
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:42
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:107
 #: src/features/identity/settings/PortfolioSection.tsx:160
@@ -6567,9 +6797,10 @@ msgstr ""
 msgid "Pendiente de revisión"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:49
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:197
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:42
+#: src/features/inbox/InboxPage.tsx:97
+msgid "Pendientes"
+msgstr ""
+
 #: src/features/deliverables/components/LinkItem.tsx:16
 msgid "Pending"
 msgstr ""
@@ -6579,8 +6810,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:46
-msgid "Pending payout"
-msgstr ""
+#~ msgid "Pending payout"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:252
 msgid "Pending response"
@@ -6623,6 +6854,10 @@ msgstr ""
 #: src/features/payments/components/PaymentKpiGrid.tsx:22
 #~ msgid "Period spend"
 #~ msgstr ""
+
+#: src/features/earnings/components/EarningsKpiGrid.tsx:40
+msgid "Período actual"
+msgstr ""
 
 #: src/features/payments/components/PaymentsPeriodSegmentedControl.tsx:31
 msgid "Periodo de gastos"
@@ -6684,9 +6919,10 @@ msgid "Plataforma"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:245
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:79
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:68
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:83
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:158
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:87
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:220
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:136
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:444
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:146
@@ -6703,8 +6939,8 @@ msgid "Platform"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:68
-msgid "Platforms"
-msgstr ""
+#~ msgid "Platforms"
+#~ msgstr ""
 
 #: src/features/chat/components/ChatHeaderActions.tsx:32
 #~ msgid "Play draft"
@@ -6718,7 +6954,7 @@ msgstr ""
 msgid "PNG, JPG o WebP"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep6Content.tsx:70
+#: src/features/campaigns/wizard/WizardStep6Content.tsx:71
 msgid "Podés adjuntar un PDF opcional con más contexto."
 msgstr ""
 
@@ -6802,6 +7038,7 @@ msgid "Postulación enviada"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:15
+#: src/features/campaigns/detail/overview/StatsBlock.tsx:43
 #: src/features/discovery/campaign-detail/ApplicationsTab.tsx:56
 msgid "Postulaciones"
 msgstr ""
@@ -6820,7 +7057,8 @@ msgstr ""
 msgid "Postulate a las que matchean con tu perfil. Cuanto más completo tu perfil, mejor el match."
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:254
+#: src/features/discovery/campaign-board/CampaignBoardCard.tsx:256
+#: src/features/discovery/network/components/CreatorCard.tsx:281
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:83
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:328
 msgid "Precio"
@@ -6870,6 +7108,9 @@ msgstr ""
 msgid "Presentate y contale por qué lo estás invitando..."
 msgstr ""
 
+#: src/features/campaigns/components/CampaignMiniCard.tsx:110
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:61
+#: src/features/campaigns/detail/overview/StatsBlock.tsx:50
 #: src/features/offers/components/CurrentOfferBlock.tsx:248
 msgid "Presupuesto"
 msgstr ""
@@ -6909,12 +7150,12 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:241
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:80
-msgid "Pricing model"
-msgstr ""
+#~ msgid "Pricing model"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:130
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:279
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:240
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:231
 #: src/features/identity/settings/RatesSection.tsx:206
 msgid "Principal"
 msgstr ""
@@ -6962,7 +7203,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:63
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:113
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:118
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:49
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:50
 msgid "Productividad"
 msgstr ""
 
@@ -6981,15 +7222,20 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:81
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:79
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:106
-#: src/features/identity/app-shell/AppSidebar.tsx:78
+#: src/features/identity/app-shell/AppSidebar.tsx:59
 #: src/features/identity/app-shell/navigation.ts:17
 #: src/features/identity/auth/components/KindSelector.tsx:164
+#: src/routes/_creator/offers.tsx:20
 msgid "Próximamente"
 msgstr ""
 
 #: src/features/billing/settings/BillingSummary.tsx:270
 msgid "Próximo cobro"
 msgstr "Next charge"
+
+#: src/features/earnings/components/EarningsKpiGrid.tsx:55
+msgid "Próximo pago"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:97
 msgid "Proyección con tu budget y objetivo"
@@ -7001,8 +7247,8 @@ msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:255
 #: src/features/offers/components/OfferArchiveItem.tsx:228
-#: src/features/offers/components/SendOfferSidesheet.tsx:627
-#: src/features/offers/components/SendOfferSidesheet.tsx:632
+#: src/features/offers/components/SendOfferSidesheet.tsx:537
+#: src/features/offers/components/SendOfferSidesheet.tsx:542
 msgid "Publicación tentativa"
 msgstr ""
 
@@ -7010,7 +7256,12 @@ msgstr ""
 msgid "Publicaciones creadas por influencers en sus canales."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:531
+#: src/features/campaigns/wizard/WizardStep1ContentType.tsx:55
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:292
+msgid "Publicaciones de influencers"
+msgstr ""
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:450
 msgid "Publicar en"
 msgstr ""
 
@@ -7028,7 +7279,7 @@ msgstr ""
 msgid "Puede que la campaña no exista o que no pertenezca a este workspace."
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:212
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:216
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:112
 msgid "Puede que no exista o que no pertenezca a este workspace."
 msgstr ""
@@ -7044,6 +7295,10 @@ msgstr ""
 #: src/features/campaigns/brief-builder/components/ScoringDimensionCard.tsx:154
 #~ msgid "Qué evalúa esta dimensión"
 #~ msgstr ""
+
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:408
+msgid "Qué hacer / Qué evitar"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:87
 msgid "Qué sigue ahora"
@@ -7086,14 +7341,18 @@ msgstr ""
 #~ msgid "Rango de edad"
 #~ msgstr ""
 
+#: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:285
+msgid "Rango de precios"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:60
 msgid "Rango histórico de creadores activos con tu nicho y disponibilidad en los últimos 6 meses."
 msgstr ""
 
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:65
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:76
-msgid "Reach"
-msgstr ""
+#~ msgid "Reach"
+#~ msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:74
 msgid "Reasignación automática"
@@ -7117,7 +7376,7 @@ msgid "Rechazada"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:22
-#: src/features/deliverables/components/DeliverableListItem.tsx:369
+#: src/features/deliverables/components/DeliverableListItem.tsx:371
 msgid "Rechazado"
 msgstr ""
 
@@ -7126,7 +7385,7 @@ msgid "Rechazando…"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:144
-#: src/features/deliverables/components/DeliverableListItem.tsx:348
+#: src/features/deliverables/components/DeliverableListItem.tsx:350
 #: src/features/inbox/ConnectionRequestInboxItem.tsx:132
 #: src/features/offers/components/CurrentOfferBlock.tsx:383
 msgid "Rechazar"
@@ -7148,7 +7407,7 @@ msgstr ""
 #~ msgid "RECOMENDADO PARA VOS"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:248
+#: src/features/discovery/network/components/CreatorCard.tsx:275
 msgid "Red"
 msgstr ""
 
@@ -7199,7 +7458,7 @@ msgstr ""
 msgid "Reenviar link ({cooldown}s)"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:40
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:41
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:42
 msgid "Referente"
 msgstr ""
@@ -7218,8 +7477,8 @@ msgstr ""
 
 #: src/features/inbox/InboxToolbar.tsx:135
 #: src/features/inbox/InboxToolbar.tsx:144
-msgid "Refresh inbox"
-msgstr ""
+#~ msgid "Refresh inbox"
+#~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:58
 msgid "Reinicio de ciclo"
@@ -7244,7 +7503,7 @@ msgstr ""
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:63
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
 #: src/features/inbox/InboxPage.tsx:172
-#: src/features/offers/components/SendOfferSidesheet.tsx:404
+#: src/features/offers/components/SendOfferSidesheet.tsx:323
 #: src/routes/_brand/campaigns.index.tsx:68
 #: src/routes/_brand/campaigns.new.tsx:379
 #: src/routes/_brand/checkout-return.tsx:112
@@ -7311,6 +7570,10 @@ msgstr ""
 msgid "Restaurantes"
 msgstr ""
 
+#: src/features/campaigns/detail/CampaignDetailTabs.tsx:14
+msgid "Resumen"
+msgstr ""
+
 #: src/features/offers/components/OfferSummary.tsx:59
 #: src/features/offers/components/OfferSummaryBlock.tsx:42
 msgid "Resumen de la oferta"
@@ -7328,9 +7591,9 @@ msgstr ""
 #~ msgid "Retry"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:145
-#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:156
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:189
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:146
+#: src/features/campaigns/wizard/WizardStep5Compensation.tsx:157
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:264
 msgid "Reutilización de video"
 msgstr ""
 
@@ -7349,7 +7612,7 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:28
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:80
 msgid "Revisá la campaña"
 msgstr ""
 
@@ -7445,7 +7708,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:42
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:28
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:81
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:61
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:62
 msgid "Salud"
 msgstr ""
 
@@ -7509,20 +7772,20 @@ msgstr ""
 #~ msgstr "Used for subscription and creator payments"
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:118
-msgid "Search creator"
-msgstr ""
+#~ msgid "Search creator"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:119
-msgid "Search creators"
-msgstr ""
+#~ msgid "Search creators"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:126
-msgid "Search video"
-msgstr ""
+#~ msgid "Search video"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:127
-msgid "Search videos"
-msgstr ""
+#~ msgid "Search videos"
+#~ msgstr ""
 
 #: src/features/identity/settings/SettingsLayout.tsx:44
 #: src/features/identity/settings/SettingsSidebar.tsx:31
@@ -7531,6 +7794,14 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:46
 msgid "Secciones de campaña"
+msgstr ""
+
+#: src/features/earnings/components/EarningsPage.tsx:132
+msgid "Seguí tus pagos pendientes"
+msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:204
+msgid "seguidores"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:80
@@ -7606,7 +7877,7 @@ msgstr ""
 #~ msgid "Seleccioná un objetivo."
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:155
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:161
 #: src/features/identity/settings/GeneralSection.tsx:52
 msgid "Seleccioná un país"
 msgstr ""
@@ -7632,7 +7903,7 @@ msgstr ""
 msgid "Seleccionar"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:99
+#: src/features/discovery/network/components/CreatorCard.tsx:114
 msgid "Seleccionar {name}"
 msgstr ""
 
@@ -7678,7 +7949,7 @@ msgstr ""
 #~ msgid "Select a platform"
 #~ msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:190
+#: src/features/deliverables/components/UploadDraftDialog.tsx:192
 msgid "Select video file"
 msgstr ""
 
@@ -7767,7 +8038,8 @@ msgstr ""
 #~ msgid "Show more"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:190
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:265
+#: src/features/discovery/campaign-board/CampaignBriefContent.tsx:244
 msgid "Sí"
 msgstr ""
 
@@ -7816,7 +8088,7 @@ msgstr ""
 msgid "Sin campañas recomendadas por ahora"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:120
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:177
 msgid "Sin completar"
 msgstr ""
 
@@ -7833,12 +8105,12 @@ msgstr ""
 msgid "Sin datos"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:164
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:168
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:126
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:112
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:115
-msgid "Sin deadline"
-msgstr ""
+#~ msgid "Sin deadline"
+#~ msgstr ""
 
 #: src/features/campaigns/configuration/ReviewStep.tsx:229
 #: src/features/campaigns/configuration/ReviewStep.tsx:250
@@ -7847,6 +8119,13 @@ msgstr ""
 
 #: src/routes/_brand/campaigns.index.tsx:142
 msgid "Sin fecha"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:168
+#: src/features/campaigns/detail/overview/DetailsBlock.tsx:126
+#: src/features/discovery/campaign-board/CampaignBoardCard.tsx:112
+#: src/features/discovery/campaign-board/CampaignBoardCard.tsx:115
+msgid "Sin fecha límite"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:393
@@ -7885,7 +8164,7 @@ msgstr ""
 msgid "Sin modelo definido"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:186
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:261
 msgid "Sin notas"
 msgstr ""
 
@@ -7902,7 +8181,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:712
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:204
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:281
 msgid "Sin PDF"
 msgstr ""
 
@@ -7910,7 +8189,7 @@ msgstr ""
 msgid "Sin plataforma"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:153
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:157
 #: src/features/campaigns/detail/overview/DetailsBlock.tsx:135
 msgid "Sin plataformas"
 msgstr ""
@@ -7997,7 +8276,7 @@ msgstr ""
 msgid "Solicitar cambios en el draft"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:342
+#: src/features/deliverables/components/DeliverableListItem.tsx:344
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:187
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:191
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:197
@@ -8166,7 +8445,7 @@ msgstr ""
 msgid "Subí la foto de nuevo"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:142
+#: src/features/deliverables/components/UploadDraftDialog.tsx:144
 msgid "Subí un video draft para revisión"
 msgstr ""
 
@@ -8204,12 +8483,12 @@ msgstr ""
 #: src/features/deliverables/components/DeliverableListItem.tsx:92
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
 #: src/features/deliverables/components/UploadDraftDialog.tsx:140
-msgid "Subir draft"
-msgstr ""
+#~ msgid "Subir draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:92
-msgid "Subir draft v{nextVersion}"
-msgstr ""
+#~ msgid "Subir draft v{nextVersion}"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
 #: src/features/identity/settings/GeneralSection.tsx:322
@@ -8218,6 +8497,16 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:737
 msgid "Subir PDF del brief"
+msgstr ""
+
+#: src/features/deliverables/components/DeliverableListItem.tsx:93
+#: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
+#: src/features/deliverables/components/UploadDraftDialog.tsx:141
+msgid "Subir video borrador"
+msgstr ""
+
+#: src/features/deliverables/components/DeliverableListItem.tsx:94
+msgid "Subir video borrador v{nextVersion}"
 msgstr ""
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:137
@@ -8245,6 +8534,10 @@ msgstr ""
 #: src/features/billing/components/PaymentMethodsCard.tsx:159
 #: src/features/identity/settings/SettingsLayout.tsx:18
 msgid "Suscripción"
+msgstr ""
+
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:125
+msgid "Tablero de campaña"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:48
@@ -8365,7 +8658,7 @@ msgstr ""
 msgid "Tenés una oferta para revisar"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:71
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:72
 msgid "Testimoniales"
 msgstr ""
 
@@ -8421,15 +8714,18 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:576
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:585
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:588
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:169
-#: src/features/campaigns/wizard/WizardStep4Audience.tsx:173
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:171
 msgid "Tier mínimo"
+msgstr ""
+
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:175
+#: src/features/campaigns/wizard/WizardStep4Audience.tsx:179
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:243
+msgid "Tier mínimo de seguidores"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:31
 #: src/features/offers/components/CurrentOfferBlock.tsx:91
-#: src/features/offers/components/SendOfferSidesheet.tsx:126
+#: src/features/offers/components/SendOfferSidesheet.tsx:96
 #: src/features/offers/utils/formatOffer.ts:16
 msgid "TikTok"
 msgstr ""
@@ -8442,7 +8738,7 @@ msgstr ""
 msgid "Timing"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:181
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:256
 msgid "Tipo"
 msgstr ""
 
@@ -8454,7 +8750,7 @@ msgstr ""
 #~ msgid "Tipo de bonus para {label}"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:124
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:181
 msgid "Tipo de campaña"
 msgstr ""
 
@@ -8470,7 +8766,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:237
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:128
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:185
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:278
 msgid "Tipo de contenido"
 msgstr ""
@@ -8520,9 +8816,16 @@ msgstr ""
 
 #: src/features/chat/workspace/CampaignFilterSelect.tsx:63
 #: src/features/chat/workspace/CampaignFilterSelect.tsx:66
+#: src/features/inbox/InboxToolbar.tsx:107
+#: src/features/inbox/InboxToolbar.tsx:112
 #: src/features/payments/components/BrandPaymentsFilters.tsx:69
 #: src/features/payments/components/BrandPaymentsFilters.tsx:73
 msgid "Todas las campañas"
+msgstr ""
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:142
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:150
+msgid "Todas las plataformas"
 msgstr ""
 
 #: src/features/offers/components/OfferBonusEditor.tsx:73
@@ -8546,22 +8849,34 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:120
-msgid "Todavía no hay creators en esta campaña"
+msgid "Todavía no hay creadores en esta campaña"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:108
-msgid "Todavía no hay creators participantes"
+msgid "Todavía no hay creadores participantes"
 msgstr ""
+
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:120
+#~ msgid "Todavía no hay creators en esta campaña"
+#~ msgstr ""
+
+#: src/features/campaigns/detail/overview/CreatorsPreview.tsx:108
+#~ msgid "Todavía no hay creators participantes"
+#~ msgstr ""
 
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:67
 msgid "Todavía no hay datos suficientes para estimar el reach."
+msgstr ""
+
+#: src/features/earnings/components/MonthlyEarningsChart.tsx:129
+msgid "Todavía no hay ganancias en este período. Cuando los pagos sean marcados como pagados, aparecerán aquí."
 msgstr ""
 
 #: src/features/discovery/campaign-detail/DiscoveryTab.tsx:257
 #~ msgid "Todavía no hay invitaciones"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:280
+#: src/features/deliverables/components/DeliverableListItem.tsx:282
 msgid "Todavía no hay link."
 msgstr ""
 
@@ -8611,8 +8926,20 @@ msgstr ""
 msgid "Todos"
 msgstr ""
 
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:180
+msgid "Todos los creadores"
+msgstr ""
+
+#: src/routes/_brand/creators.tsx:116
+msgid "Todos los creadores en tus campañas"
+msgstr ""
+
 #: src/features/payments/components/PaymentKpiGrid.tsx:26
 msgid "Todos los pagos históricos"
+msgstr ""
+
+#: src/routes/_brand/videos.tsx:111
+msgid "Todos los videos entregados en tus campañas"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:260
@@ -8662,7 +8989,11 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:32
-msgid "Total earned"
+#~ msgid "Total earned"
+#~ msgstr ""
+
+#: src/features/earnings/components/EarningsKpiGrid.tsx:32
+msgid "Total ganado"
 msgstr ""
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:15
@@ -8670,8 +9001,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/earnings/components/EarningsPage.tsx:132
-msgid "Track your payments and pending bonuses"
-msgstr ""
+#~ msgid "Track your payments and pending bonuses"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:117
 msgid "Trading"
@@ -8720,7 +9051,7 @@ msgstr ""
 msgid "Tu marca"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:181
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:172
 msgid "Tu nombre"
 msgstr ""
 
@@ -8831,7 +9162,7 @@ msgstr ""
 msgid "Tus tarifas son privadas. Las marcas ven rango, nunca tu número exacto."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:69
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:70
 msgid "Tutoriales"
 msgstr ""
 
@@ -8864,7 +9195,7 @@ msgstr ""
 msgid "Última"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:653
+#: src/features/offers/components/SendOfferSidesheet.tsx:563
 msgid "Último día válido para publicar."
 msgstr ""
 
@@ -8876,12 +9207,12 @@ msgstr ""
 msgid "Un contenido"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:582
-#: src/features/offers/components/SendOfferSidesheet.tsx:589
+#: src/features/offers/components/SendOfferSidesheet.tsx:501
+#: src/features/offers/components/SendOfferSidesheet.tsx:508
 msgid "Un contenido para todas las redes"
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:492
+#: src/features/offers/components/SendOfferSidesheet.tsx:411
 msgid "Un único monto para las plataformas seleccionadas."
 msgstr ""
 
@@ -8897,7 +9228,7 @@ msgstr ""
 msgid "Una invitación anterior venció. Podés volver a intentarlo."
 msgstr ""
 
-#: src/features/offers/components/SendOfferSidesheet.tsx:432
+#: src/features/offers/components/SendOfferSidesheet.tsx:351
 msgid "Una oferta · monto y fechas unificados"
 msgstr ""
 
@@ -8954,7 +9285,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:184
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:125
-#: src/features/campaigns/wizard/WizardStep7Review.tsx:147
+#: src/features/campaigns/wizard/WizardStep7Review.tsx:204
 msgid "URL objetivo"
 msgstr ""
 
@@ -9021,7 +9352,7 @@ msgstr ""
 #~ msgid "v{0}"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:111
+#: src/features/deliverables/components/DeliverableListItem.tsx:113
 msgid "v{currentVersion}"
 msgstr ""
 
@@ -9080,11 +9411,21 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:49
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:114
-msgid "Ver creators"
+msgid "Ver creadores"
 msgstr ""
+
+#: src/features/campaigns/detail/overview/CreatorsPreview.tsx:49
+#: src/features/campaigns/detail/overview/RecentActivity.tsx:114
+#~ msgid "Ver creators"
+#~ msgstr ""
 
 #: src/features/earnings/components/PendingBonusCard.tsx:98
 msgid "Ver oferta"
+msgstr ""
+
+#. placeholder {0}: platformCode(stats.platform)
+#: src/features/discovery/network/components/CreatorCard.tsx:330
+msgid "Ver perfil en {0}"
 msgstr ""
 
 #: src/routes/_brand/campaigns.index.tsx:134
@@ -9129,11 +9470,11 @@ msgstr ""
 msgid "Versión {version}"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:229
+#: src/features/deliverables/components/DeliverableListItem.tsx:231
 msgid "Versiones enviadas"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:228
+#: src/features/deliverables/components/DeliverableListItem.tsx:230
 msgid "Versiones enviadas ({draftsCount})"
 msgstr ""
 
@@ -9146,7 +9487,7 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:50
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:32
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:103
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:54
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:55
 msgid "Viajes"
 msgstr ""
 
@@ -9159,13 +9500,21 @@ msgstr ""
 msgid "Video {0}"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:67
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:68
 msgid "Video ads"
 msgstr ""
 
 #: src/shared/catalog/creatorTaxonomy.ts:43
 #~ msgid "Video Ads"
 #~ msgstr ""
+
+#: src/features/deliverables/components/DraftApprovedCard.tsx:51
+msgid "Video borrador aprobado"
+msgstr ""
+
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:168
+msgid "Video borrador enviado"
+msgstr ""
 
 #: src/features/identity/settings/RatesSection.tsx:391
 msgid "Video de TikTok"
@@ -9178,7 +9527,7 @@ msgstr ""
 #: src/features/campaigns/components/CampaignMiniCard.tsx:112
 #: src/features/campaigns/detail/CampaignDetailTabs.tsx:17
 #: src/features/campaigns/detail/videos/VideosTab.tsx:127
-#: src/features/identity/app-shell/navigation.ts:59
+#: src/features/identity/app-shell/navigation.ts:60
 #: src/routes/_brand/videos.tsx:36
 #: src/routes/_brand/videos.tsx:108
 msgid "Videos"
@@ -9305,7 +9654,7 @@ msgstr ""
 msgid "WhatsApp"
 msgstr ""
 
-#: src/features/identity/app-shell/navigation.ts:29
+#: src/features/identity/app-shell/navigation.ts:42
 #: src/features/identity/app-shell/navigation.ts:86
 msgid "Workspace"
 msgstr ""
@@ -9387,7 +9736,7 @@ msgid "You sent these · they're with the other side"
 msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:89
-#: src/features/offers/components/SendOfferSidesheet.tsx:127
+#: src/features/offers/components/SendOfferSidesheet.tsx:97
 #: src/features/offers/utils/formatOffer.ts:14
 msgid "YouTube"
 msgstr ""

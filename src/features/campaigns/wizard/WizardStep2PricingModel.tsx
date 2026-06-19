@@ -16,7 +16,7 @@ export function WizardStep2PricingModel() {
     <section className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-foreground">
-          <Trans>Elegí el modelo de pricing</Trans>
+          <Trans>Elegí el modelo de precios</Trans>
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           <Trans>Seleccioná cómo se va a pagar la campaña.</Trans>
@@ -52,7 +52,7 @@ export function WizardStep2PricingModel() {
           </span>
           <span className="flex flex-col gap-1">
             <span className="text-base font-semibold text-foreground">
-              <Trans>Pay per post</Trans>
+              <Trans>Pago fijo por publicación</Trans>
             </span>
             <span className="text-sm text-muted-foreground">
               <Trans>Pagás un monto fijo por cada publicación aprobada.</Trans>
@@ -73,14 +73,14 @@ export function WizardStep2PricingModel() {
           <span className="flex flex-col gap-3">
             <span className="flex flex-wrap items-center gap-2">
               <span className="text-base font-semibold text-foreground">
-                <Trans>CPM (por 1000 views)</Trans>
+                <Trans>CPM (por 1000 vistas)</Trans>
               </span>
               <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
                 <Trans>Próximamente</Trans>
               </span>
             </span>
             <span className="text-sm text-muted-foreground">
-              <Trans>Pagás según el volumen de views alcanzado.</Trans>
+              <Trans>Pagás según el volumen de vistas alcanzado.</Trans>
             </span>
           </span>
         </button>

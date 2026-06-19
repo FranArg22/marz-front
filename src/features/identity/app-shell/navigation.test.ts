@@ -18,26 +18,26 @@ function enabledItemIds(items: ShellNavigationItem[]) {
 }
 
 describe('shellNavigationConfig', () => {
-  it('defines brand items in order with workspace, inbox and payments enabled', () => {
+  it('defines brand items in order with dashboard first and disabled', () => {
     expect(itemIds(brandItems)).toEqual([
+      'dashboard',
+      'discovery',
       'inbox',
       'workspace',
       'campaigns',
-      'payments',
       'creators',
-      'discovery',
       'videos',
+      'payments',
       'settings',
-      'analytics',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
+      'discovery',
       'inbox',
       'workspace',
       'campaigns',
-      'payments',
       'creators',
-      'discovery',
       'videos',
+      'payments',
       'settings',
     ])
   })
@@ -73,7 +73,7 @@ describe('shellNavigationConfig', () => {
     expect(brandPayments?.id).toBe('payments')
     expect(brandPayments?.icon).toBe('wallet')
     expect(brandPayments?.href).toBe('/payments')
-    expect(brandPayments?.label()).toBe('Payments & Spending')
+    expect(brandPayments?.label()).toBe('Pagos')
     expect(creatorPayments).toBeUndefined()
   })
 
@@ -84,7 +84,7 @@ describe('shellNavigationConfig', () => {
     expect(brandDiscovery?.id).toBe('discovery')
     expect(brandDiscovery?.icon).toBe('compass')
     expect(brandDiscovery?.href).toBe('/discovery')
-    expect(brandDiscovery?.label()).toBe('Discovery')
+    expect(brandDiscovery?.label()).toBe('Explorar')
     expect(creatorDiscovery).toBeUndefined()
   })
 

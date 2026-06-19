@@ -40,14 +40,14 @@ export function StatsBlock({ overview }: StatsBlockProps) {
     <section aria-label={t`Estadísticas de campaña`}>
       <div className="grid grid-cols-3 gap-3">
         <StatCard
-          label={t`Applications`}
+          label={t`Postulaciones`}
           value={formatCompactNumber(overview.applications_count)}
           helper={t`Postulaciones recibidas`}
           icon={UsersRound}
         />
         <ReachStat overview={overview} />
         <StatCard
-          label={t`Budget`}
+          label={t`Presupuesto`}
           value={formatUsd(overview.budget_total_usd)}
           helper={t`${budgetSpent} usados`}
           icon={DollarSign}
@@ -62,7 +62,7 @@ function ReachStat({ overview }: StatsBlockProps) {
   if (!overview.reach_available || overview.reach === null) {
     return (
       <StatCard
-        label={t`Reach`}
+        label={t`Alcance`}
         value={t`No disponible`}
         helper={t`Todavía no hay datos suficientes para estimar el reach.`}
         icon={RadioTower}
@@ -73,7 +73,7 @@ function ReachStat({ overview }: StatsBlockProps) {
 
   return (
     <StatCard
-      label={t`Reach`}
+      label={t`Alcance`}
       value={formatCompactNumber(overview.reach)}
       helper={t`Estimado entre participantes`}
       icon={RadioTower}

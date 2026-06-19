@@ -47,11 +47,11 @@ interface CampaignCreatorsTableProps {
 
 function getStatusLabel(status: ListCreatorsStatus) {
   const labels: Record<ListCreatorsStatus, () => string> = {
-    invited: () => t`Invited`,
-    active: () => t`Active`,
-    in_review: () => t`In review`,
-    approved: () => t`Approved`,
-    paid: () => t`Paid`,
+    invited: () => t`Invitado`,
+    active: () => t`Activo`,
+    in_review: () => t`En revisión`,
+    approved: () => t`Aprobado`,
+    paid: () => t`Pagado`,
   }
   return labels[status]()
 }
@@ -117,7 +117,7 @@ export function CampaignCreatorsTable({
           title={
             hasActiveFilters
               ? t`No encontramos creators con esos filtros`
-              : t`Todavía no hay creators en esta campaña`
+              : t`Todavía no hay creadores en esta campaña`
           }
           description={
             hasActiveFilters
@@ -143,7 +143,7 @@ export function CampaignCreatorsTable({
                   onClick={onFindCreators}
                 >
                   <Compass className="size-4" aria-hidden />
-                  {t`Find creators`}
+                  {t`Buscar creadores`}
                 </Button>
                 <Button
                   type="button"

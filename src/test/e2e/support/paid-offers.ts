@@ -17,7 +17,6 @@ export const STRIPE_TEST_MODE_ENABLED = process.env.STRIPE_TEST_MODE === '1'
 
 export const PAID_OFFER_BASE_AMOUNT = '500'
 export const PAID_OFFER_EXPECTED_BASE_AMOUNT = '$500.00 USD (base)'
-export const PAID_OFFER_EXPECTED_BONUS_AMOUNT = '$50.00 USD (bonus)'
 export const PAID_OFFER_SCA_CARD = '4000 0025 0000 3155'
 
 const PAID_OFFER_CAMPAIGN_NAME = 'E2E OfferSent Campaign'
@@ -348,11 +347,6 @@ export async function fillPaidOfferDraft(pair: ChatPair): Promise<void> {
     dateDaysFromNow(7),
   )
   await page.getByLabel(/Fecha limite|Fecha límite/i).fill(dateDaysFromNow(14))
-
-  const bonusSwitch = page.getByRole('switch', {
-    name: /Bonos de oferta|Offer bonuses/i,
-  })
-  await bonusSwitch.setChecked(true)
 }
 
 export async function submitPaidOffer(pair: ChatPair): Promise<void> {

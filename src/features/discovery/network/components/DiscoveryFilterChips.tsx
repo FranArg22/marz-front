@@ -122,11 +122,11 @@ export function DiscoveryFilterChips({
   }
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-border bg-card px-2 py-1.5 shadow-sm">
+    <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]">
       <button
         type="button"
         onClick={onOpenFilterPanel}
-        className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-foreground transition-colors hover:bg-surface-hover"
+        className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-foreground transition-colors hover:bg-surface-hover"
       >
         <SlidersHorizontal className="size-3.5" aria-hidden />
         {t`Filtros`}
@@ -180,7 +180,7 @@ function FilterChip({
   onRemove: () => void
 }) {
   return (
-    <span className="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 text-xs font-medium text-secondary-foreground">
+    <span className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 text-xs font-medium text-secondary-foreground">
       <span className="truncate">{label}</span>
       <button
         type="button"

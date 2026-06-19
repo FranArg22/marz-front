@@ -34,7 +34,7 @@ export function DetailsBlock({ overview }: DetailsBlockProps) {
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Campaign details`}
+            {t`Detalles de campaña`}
           </p>
           <h2 className="mt-1 text-base font-semibold text-foreground">
             {campaign.name}
@@ -48,36 +48,36 @@ export function DetailsBlock({ overview }: DetailsBlockProps) {
       <div className="mt-5 grid grid-cols-3 gap-3">
         <FeaturedDetail
           icon={Target}
-          label={t`Objective`}
+          label={t`Objetivo`}
           value={campaign.objective}
         />
         <FeaturedDetail
           icon={CalendarClock}
-          label={t`Deadline`}
+          label={t`Fecha límite`}
           value={formatDeadline(campaign.deadline)}
         />
         <FeaturedDetail
           icon={CircleDollarSign}
-          label={t`Budget`}
+          label={t`Presupuesto`}
           value={budget}
         />
       </div>
 
       <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border pt-5">
         <DetailRow
-          label={t`Platforms`}
+          label={t`Plataformas`}
           value={formatList(campaign.platforms)}
         />
         <DetailRow
-          label={t`Audience`}
+          label={t`Audiencia`}
           value={campaign.audience_description ?? t`Sin audiencia definida`}
         />
         <DetailRow
-          label={t`Content model`}
+          label={t`Modelo de contenido`}
           value={campaign.content_model ?? t`Sin modelo definido`}
         />
         <DetailRow
-          label={t`Pricing model`}
+          label={t`Modelo de precios`}
           value={campaign.pricing_model ?? t`Sin pricing definido`}
         />
       </dl>
@@ -123,7 +123,7 @@ const deadlineFormatter = new Intl.DateTimeFormat('es-AR', {
 })
 
 function formatDeadline(deadline: string | null) {
-  if (!deadline) return t`Sin deadline`
+  if (!deadline) return t`Sin fecha límite`
 
   const date = new Date(deadline)
   if (Number.isNaN(date.getTime())) return deadline

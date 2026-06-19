@@ -52,10 +52,10 @@ export function MonthlyEarningsChart({ buckets }: MonthlyEarningsChartProps) {
             id="monthly-earnings-chart-title"
             className="text-sm font-semibold text-foreground"
           >
-            <Trans>Earnings by month</Trans>
+            <Trans>Ganancias por mes</Trans>
           </h2>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            <Trans>Monthly paid earnings</Trans>
+            <Trans>Ganancias mensuales pagadas</Trans>
           </p>
         </div>
         <p className="w-fit rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
@@ -127,8 +127,8 @@ export function MonthlyEarningsChart({ buckets }: MonthlyEarningsChartProps) {
         <div className="mt-5 flex min-h-60 items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center">
           <p className="max-w-sm text-sm text-muted-foreground">
             <Trans>
-              No earnings yet for this period. When payments are marked as paid,
-              they will appear here.
+              Todavía no hay ganancias en este período. Cuando los pagos sean
+              marcados como pagados, aparecerán aquí.
             </Trans>
           </p>
         </div>

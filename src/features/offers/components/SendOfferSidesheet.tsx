@@ -2,14 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useStore } from '@tanstack/react-form'
 import { t } from '@lingui/core/macro'
-import {
-  Ban,
-  Calendar as CalendarIcon,
-  Check,
-  ChevronUp,
-  X,
-  Zap,
-} from 'lucide-react'
+import { Ban, Calendar as CalendarIcon, Check, X } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Button } from '#/components/ui/button'
@@ -43,30 +36,15 @@ import {
   getMinimumOfferDeadlineUTC,
   getMinimumTentativePublishDateUTC,
 } from '../schemas/createOffer'
-import type {
-  CreateOfferFormValues,
-  OfferBonusTermsFormValues,
-} from '../schemas/createOffer'
+import type { CreateOfferFormValues } from '../schemas/createOffer'
 import { useSendOfferWizard } from '../store/sendOfferWizardStore'
 import type { SendOfferWizardMode } from '../store/sendOfferWizardStore'
 import { redirectToCheckout } from '../utils/redirectToCheckout'
-import { OfferBonusEditor } from './OfferBonusEditor'
 import { OfferSendErrorBanner } from './OfferSendErrorBanner'
 import { OfferSummaryBlock } from './OfferSummaryBlock'
 
 const platformOptions = ['instagram', 'tiktok', 'youtube'] as const
 type PlatformOption = (typeof platformOptions)[number]
-
-const defaultBonusTerms: OfferBonusTermsFormValues = {
-  enabled: true,
-  speed_bonus_windows: [
-    {
-      _key: 'default-bonus-1',
-      window_hours: 24,
-      bonus_amount: { type: 'percentage', value: 10 },
-    },
-  ],
-}
 
 interface SendOfferSidesheetProps {
   creatorName: string
@@ -92,14 +70,6 @@ function createDefaultValues(
       speed_bonus_windows: [],
     },
   }
-}
-
-function translateApiError(error: ApiError) {
-  if (error.code === 'bonus_not_supported_for_per_platform') {
-    return t`Los bonos sólo están disponibles para un contenido único.`
-  }
-
-  return error.message
 }
 
 function getStripeUnavailableError(): OfferSendError {
@@ -132,19 +102,16 @@ type OfferFieldName =
   | 'campaign_id'
   | 'creator_account_id'
   | 'platforms'
-  | 'bonus_terms.speed_bonus_windows'
   | 'offer_mode'
   | 'tentative_publish_date'
   | 'offer_deadline'
 
 function toOfferFieldName(field: string): OfferFieldName | null {
-  if (field === 'bonus_terms') return 'bonus_terms.speed_bonus_windows'
   if (
     field === 'amount' ||
     field === 'campaign_id' ||
     field === 'creator_account_id' ||
     field === 'platforms' ||
-    field === 'bonus_terms.speed_bonus_windows' ||
     field === 'offer_mode' ||
     field === 'tentative_publish_date' ||
     field === 'offer_deadline'
@@ -169,8 +136,6 @@ export function SendOfferSidesheet({
   const createOfferMutation = useCreateOfferMutation()
   const createOfferSchema = useMemo(() => createCreateOfferSchema(), [])
   const [offerDraftId] = useState(() => crypto.randomUUID())
-  const [modeError, setModeError] = useState<string | null>(null)
-  const [bonusesCollapsed, setBonusesCollapsed] = useState(false)
   const [sendError, setSendError] = useState<OfferSendError | null>(null)
   const workspacePlan = getWorkspacePlan(
     meQuery.data?.status === 200
@@ -225,24 +190,6 @@ export function SendOfferSidesheet({
 
         setSendError(result.data.error)
       } catch (error) {
-        if (
-          error instanceof ApiError &&
-          error.code === 'bonus_not_supported_for_per_platform'
-        ) {
-          setModeError(translateApiError(error))
-          form.setFieldMeta('bonus_terms.speed_bonus_windows', (prev) => ({
-            ...prev,
-            errorMap: {
-              ...prev.errorMap,
-              onServer: translateApiError(error),
-            },
-            isBlurred: true,
-            isTouched: true,
-            isDirty: true,
-          }))
-          return
-        }
-
         if (error instanceof ApiError && isStripeUnavailableError(error)) {
           setSendError(getStripeUnavailableError())
           return
@@ -276,10 +223,6 @@ export function SendOfferSidesheet({
     form.store,
     (state) => state.values.platforms,
   )
-  const activeBonusCount =
-    offerMode === 'same_content' && bonusTerms?.enabled
-      ? bonusTerms.speed_bonus_windows.length
-      : 0
 
   useEffect(() => {
     useSendOfferWizard.getState().patchDraft(values)
@@ -292,7 +235,6 @@ export function SendOfferSidesheet({
   }, [isOpen])
 
   function setMode(nextMode: SendOfferWizardMode) {
-    setModeError(null)
     useSendOfferWizard.getState().setMode(nextMode)
     form.setFieldValue('offer_mode', nextMode)
 
@@ -314,27 +256,6 @@ export function SendOfferSidesheet({
     }
   }
 
-  function setBonusesEnabled(enabled: boolean) {
-    const currentBonusTerms = form.state.values.bonus_terms
-    useSendOfferWizard.getState().setBonusesEnabledGlobal(enabled)
-
-    if (!enabled) {
-      if (currentBonusTerms?.enabled) {
-        useSendOfferWizard.getState().setBonusesSnapshot(currentBonusTerms)
-      }
-      form.setFieldValue('bonus_terms', {
-        enabled: false,
-        speed_bonus_windows: [],
-      })
-      return
-    }
-
-    form.setFieldValue(
-      'bonus_terms',
-      useSendOfferWizard.getState().bonusesSnapshot ?? defaultBonusTerms,
-    )
-  }
-
   function updatePlatforms(platform: PlatformOption) {
     const selected = form.state.values.platforms
     const next = selected.includes(platform)
@@ -351,8 +272,6 @@ export function SendOfferSidesheet({
 
   const campaigns = campaignsQuery.data ?? []
   const hasCampaigns = campaigns.length > 0
-  const bonusesEnabled = bonusTerms?.enabled ?? false
-  const showBonusList = bonusesEnabled && !bonusesCollapsed
 
   return (
     <Sheet
@@ -593,15 +512,6 @@ export function SendOfferSidesheet({
                       }
                     />
                   </div>
-                  {modeError ? (
-                    <p
-                      role="status"
-                      aria-live="polite"
-                      className="text-[length:var(--font-size-xs)] text-destructive"
-                    >
-                      {modeError}
-                    </p>
-                  ) : null}
                 </div>
               </section>
 
@@ -625,7 +535,7 @@ export function SendOfferSidesheet({
                         />
                       }
                       title={t`Publicación tentativa`}
-                      hint={t`Día ideal para que el creator publique.`}
+                      hint={t`Día ideal para que el creador publique.`}
                       value={field.state.value}
                       onChange={field.handleChange}
                       onBlur={field.handleBlur}
@@ -668,83 +578,6 @@ export function SendOfferSidesheet({
                 </form.AppField>
               </section>
 
-              {offerMode === 'same_content' ? (
-                <section className="space-y-3 rounded-2xl border border-border bg-muted p-4">
-                  <header className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        aria-label={t`Bonos de oferta`}
-                        checked={bonusesEnabled}
-                        onCheckedChange={setBonusesEnabled}
-                      />
-                      <Zap
-                        className="size-4 text-[color:var(--color-warning,var(--primary))]"
-                        aria-hidden="true"
-                      />
-                      <h4 className="text-[length:var(--font-size-sm)] font-semibold text-card-foreground">
-                        {t`Bonos de oferta`}
-                      </h4>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {activeBonusCount > 0 ? (
-                        <span className="inline-flex items-center rounded-full bg-background px-2 py-0.5 text-[length:var(--font-size-xs)] font-medium text-muted-foreground">
-                          {activeBonusCount === 1
-                            ? t`${activeBonusCount} activo`
-                            : t`${activeBonusCount} activos`}
-                        </span>
-                      ) : null}
-                      {bonusesEnabled ? (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon-sm"
-                          aria-label={
-                            bonusesCollapsed ? t`Expandir` : t`Colapsar`
-                          }
-                          aria-expanded={!bonusesCollapsed}
-                          onClick={() => setBonusesCollapsed((value) => !value)}
-                          className="rounded-full text-muted-foreground"
-                        >
-                          <ChevronUp
-                            className={cn(
-                              'size-4 transition-transform',
-                              bonusesCollapsed && 'rotate-180',
-                            )}
-                          />
-                        </Button>
-                      ) : null}
-                    </div>
-                  </header>
-
-                  <div
-                    className={cn(
-                      'grid transition-[grid-template-rows,opacity] duration-200',
-                      showBonusList
-                        ? 'grid-rows-[1fr] opacity-100'
-                        : 'grid-rows-[0fr] opacity-0',
-                    )}
-                  >
-                    <div className="min-h-0 overflow-hidden">
-                      <form.AppField name="bonus_terms.speed_bonus_windows">
-                        {(field) => (
-                          <OfferBonusEditor
-                            value={bonusTerms ?? defaultBonusTerms}
-                            error={
-                              field.state.meta.errors.length > 0
-                                ? firstErrorMessage(field.state.meta.errors)
-                                : undefined
-                            }
-                            onChange={(nextBonusTerms) =>
-                              form.setFieldValue('bonus_terms', nextBonusTerms)
-                            }
-                          />
-                        )}
-                      </form.AppField>
-                    </div>
-                  </div>
-                </section>
-              ) : null}
-
               <section className="space-y-3 rounded-2xl border border-border bg-muted p-4">
                 <h4 className="text-[length:var(--font-size-sm)] font-semibold text-card-foreground">
                   {t`Aceptación y cancelación`}
@@ -758,7 +591,7 @@ export function SendOfferSidesheet({
                       />
                     }
                   >
-                    {t`El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente.`}
+                    {t`El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente.`}
                   </RuleRow>
                   <RuleRow
                     icon={

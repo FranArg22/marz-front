@@ -92,13 +92,13 @@ describe('WizardStep2PricingModel', () => {
   it('shows the enabled and disabled pricing model cards', () => {
     render(<WizardStep2PricingModel />)
 
-    expect(screen.getByRole('radio', { name: /Pay per post/ })).toBeEnabled()
+    expect(screen.getByRole('radio', { name: /Pago fijo por publicación/ })).toBeEnabled()
     expect(
       screen.getByRole('radiogroup', { name: /Modelo de pricing/ }),
     ).toBeInTheDocument()
 
     const cpmCard = screen.getByRole('radio', {
-      name: /CPM \(por 1000 views\)/,
+      name: /CPM \(por 1000 vistas\)/,
     })
     expect(cpmCard).toBeDisabled()
     expect(cpmCard).toHaveClass('pointer-events-none', 'opacity-60')
@@ -111,16 +111,16 @@ describe('WizardStep2PricingModel', () => {
     render(<WizardStep2PricingModel />)
 
     fireEvent.click(
-      screen.getByRole('radio', { name: /CPM \(por 1000 views\)/ }),
+      screen.getByRole('radio', { name: /CPM \(por 1000 vistas\)/ }),
     )
 
     expect(setStep2).not.toHaveBeenCalled()
   })
 
-  it('updates the store when selecting Pay per post', async () => {
+  it('updates the store when selecting Pago fijo por publicación', async () => {
     render(<WizardStep2PricingModel />)
 
-    await userEvent.click(screen.getByRole('radio', { name: /Pay per post/ }))
+    await userEvent.click(screen.getByRole('radio', { name: /Pago fijo por publicación/ }))
 
     expect(useCampaignWizardStore.getState().step2).toEqual({
       pricing_model: 'pay_per_post',
@@ -133,10 +133,10 @@ describe('WizardStep2PricingModel', () => {
     expect(screen.getByRole('button', { name: /Continuar/ })).toBeDisabled()
   })
 
-  it('selecting Pay per post checks the card and enables Continuar', async () => {
+  it('selecting Pago fijo por publicación checks the card and enables Continuar', async () => {
     renderStep2InLayout()
 
-    const card = screen.getByRole('radio', { name: /Pay per post/ })
+    const card = screen.getByRole('radio', { name: /Pago fijo por publicación/ })
 
     await userEvent.click(card)
 
@@ -180,7 +180,7 @@ describe('WizardStep2PricingModel', () => {
     })
     renderStep2InLayout()
 
-    expect(screen.getByRole('radio', { name: /Pay per post/ })).toHaveAttribute(
+    expect(screen.getByRole('radio', { name: /Pago fijo por publicación/ })).toHaveAttribute(
       'aria-checked',
       'true',
     )

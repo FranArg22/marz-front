@@ -100,7 +100,7 @@ export function QuickFilterPopover({
   return (
     <Popover.Root open={open} onOpenChange={handleOpenChange}>
       {active ? (
-        <span className="inline-flex h-7 shrink-0 items-center gap-1 rounded-full bg-secondary pr-1.5 pl-3 text-xs font-medium text-secondary-foreground">
+        <span className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full bg-secondary pr-1.5 pl-3 text-xs font-medium text-secondary-foreground">
           <Popover.Trigger asChild>
             <button
               type="button"
@@ -122,7 +122,7 @@ export function QuickFilterPopover({
         <Popover.Trigger asChild>
           <button
             type="button"
-            className="inline-flex h-7 shrink-0 items-center gap-1 rounded-full border border-border bg-transparent px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground"
+            className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-border bg-transparent px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground"
           >
             {label}
             <ChevronDown className="size-3" aria-hidden />

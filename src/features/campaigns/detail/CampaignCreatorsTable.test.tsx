@@ -67,7 +67,7 @@ describe('CampaignCreatorsTable', () => {
     expect(screen.getByText('Lumina Studio')).toBeInTheDocument()
     expect(screen.getByText('@lumina')).toBeInTheDocument()
     expect(screen.getByText('YouTube')).toBeInTheDocument()
-    expect(screen.getByText('In review')).toBeInTheDocument()
+    expect(screen.getByText('En revisión')).toBeInTheDocument()
     expect(screen.getByText('3 of 4 delivered')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'Load more' }))
@@ -110,11 +110,11 @@ describe('CampaignCreatorsTable', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'Todavía no hay creators en esta campaña',
+        name: 'Todavía no hay creadores en esta campaña',
       }),
     ).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Find creators' }))
+    await user.click(screen.getByRole('button', { name: 'Buscar creadores' }))
     expect(onFindCreators).toHaveBeenCalled()
   })
 

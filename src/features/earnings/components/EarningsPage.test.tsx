@@ -91,12 +91,12 @@ describe('EarningsPage', () => {
       limit: 25,
     })
     expect(
-      screen.getByRole('heading', { name: 'Earnings' }),
+      screen.getByRole('heading', { name: 'Ganancias' }),
     ).toBeInTheDocument()
     expect(screen.getByText('$48,920')).toBeInTheDocument()
     expect(screen.getByText('$12,450')).toBeInTheDocument()
     expect(
-      screen.getByRole('img', { name: /earnings by month/i }),
+      screen.getByRole('img', { name: /ganancias por mes/i }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {

@@ -44,7 +44,7 @@ export function CampaignsPage() {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">
-          <Trans>Campaigns</Trans>
+          <Trans>Campañas</Trans>
         </h1>
         <CampaignCreateCta
           isBlocked={isCampaignCreationBlocked}

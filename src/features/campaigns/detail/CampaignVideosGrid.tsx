@@ -46,14 +46,14 @@ interface CampaignVideosGridProps {
 
 function getVideoStatusLabel(status: DeliverableStatus) {
   const labels: Record<DeliverableStatus, () => string> = {
-    pending: () => t`Pending`,
-    draft_submitted: () => t`In review`,
-    changes_requested: () => t`Changes requested`,
-    draft_approved: () => t`Approved draft`,
-    link_submitted: () => t`Link submitted`,
-    link_approved: () => t`Link approved`,
-    completed: () => t`Completed`,
-    paid: () => t`Paid`,
+    pending: () => t`Pendiente`,
+    draft_submitted: () => t`En revisión`,
+    changes_requested: () => t`Cambios solicitados`,
+    draft_approved: () => t`Borrador aprobado`,
+    link_submitted: () => t`Link enviado`,
+    link_approved: () => t`Link aprobado`,
+    completed: () => t`Completado`,
+    paid: () => t`Pagado`,
   }
   return labels[status]()
 }
@@ -194,7 +194,7 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
   const PlatformIcon = meta.icon
   const submittedAt = formatRelativeTime(
     video.submitted_at ?? video.updated_at,
-    t`Pending`,
+    t`Pendiente`,
   )
   const creatorName = video.creator.display_name
 
