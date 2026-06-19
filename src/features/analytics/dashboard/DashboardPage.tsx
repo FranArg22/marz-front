@@ -74,6 +74,26 @@ export function DashboardPage() {
     query: { staleTime: 600_000 },
   })
 
+  function handleClearFilters() {
+    void navigate({
+      to: '.',
+      search: () => ({
+        campaign_ids: [],
+        creator_ids: [],
+        platforms: [],
+        countries: [],
+        status: 'active' as const,
+        range_preset: '14d' as const,
+        range_start: undefined,
+        range_end: undefined,
+        chart_series: ['oferta', 'vistas'] as const,
+        chart_grouping: 'day' as const,
+        top_videos_sort: 'views' as const,
+        top_creators_sort: 'views' as const,
+      }),
+    })
+  }
+
   return (
     <main className="flex min-h-full flex-col gap-6 bg-background px-6 py-5 text-foreground">
       <DashboardFilters />
@@ -84,6 +104,7 @@ export function DashboardPage() {
         }
         isLoading={cardsQuery.isPending}
         isError={cardsQuery.isError}
+        onRetry={cardsQuery.refetch}
       />
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center justify-end gap-3">
@@ -119,6 +140,8 @@ export function DashboardPage() {
           isLoading={chartQuery.isPending}
           isError={chartQuery.isError}
           activeSeries={search.chart_series}
+          onRetry={chartQuery.refetch}
+          onClear={handleClearFilters}
         />
       </div>
       <OnboardingChecklist
@@ -129,6 +152,7 @@ export function DashboardPage() {
         }
         isLoading={checklistQuery.isPending}
         isError={checklistQuery.isError}
+        onRetry={checklistQuery.refetch}
       />
       <div className="grid gap-6 xl:grid-cols-2">
         <TopVideosTable
@@ -140,6 +164,8 @@ export function DashboardPage() {
           isLoading={topVideosQuery.isPending}
           isError={topVideosQuery.isError}
           currentSort={search.top_videos_sort}
+          onRetry={topVideosQuery.refetch}
+          onClear={handleClearFilters}
           onSortChange={(sort) => {
             void navigate({
               to: '.',
@@ -157,6 +183,8 @@ export function DashboardPage() {
           isLoading={topCreatorsQuery.isPending}
           isError={topCreatorsQuery.isError}
           currentSort={search.top_creators_sort}
+          onRetry={topCreatorsQuery.refetch}
+          onClear={handleClearFilters}
           onSortChange={(sort) => {
             void navigate({
               to: '.',

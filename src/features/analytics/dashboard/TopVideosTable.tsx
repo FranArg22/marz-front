@@ -14,12 +14,17 @@ import { cn } from '#/lib/utils'
 import type { DashboardTopVideoPlatform } from '#/shared/api/generated/model/dashboardTopVideoPlatform'
 import type { DashboardTopVideosResponse } from '#/shared/api/generated/model/dashboardTopVideosResponse'
 
+import { EmptyBlockState } from './EmptyBlockState'
+import { ErrorBlockState } from './ErrorBlockState'
+
 interface TopVideosTableProps {
   data: DashboardTopVideosResponse | undefined
   isLoading: boolean
   isError: boolean
   currentSort: 'views' | 'cpm' | 'engagement'
   onSortChange: (sort: 'views' | 'cpm' | 'engagement') => void
+  onRetry: () => void
+  onClear: () => void
 }
 
 const NUMBER_FMT = new Intl.NumberFormat('es-AR')
@@ -56,11 +61,13 @@ export function TopVideosTable({
   isError,
   currentSort,
   onSortChange,
+  onRetry,
+  onClear,
 }: TopVideosTableProps) {
   if (isError) {
     return (
       <TableShell currentSort={currentSort} onSortChange={onSortChange}>
-        <div data-testid="top-videos-error" className="min-h-[286px]" />
+        <ErrorBlockState onRetry={onRetry} />
       </TableShell>
     )
   }
@@ -76,7 +83,7 @@ export function TopVideosTable({
   if (data.videos.length === 0) {
     return (
       <TableShell currentSort={currentSort} onSortChange={onSortChange}>
-        <div data-testid="top-videos-empty" className="min-h-[286px]" />
+        <EmptyBlockState onClear={onClear} />
       </TableShell>
     )
   }

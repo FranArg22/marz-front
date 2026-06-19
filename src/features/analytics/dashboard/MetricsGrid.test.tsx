@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { DashboardCard } from '#/shared/api/generated/model/dashboardCard'
@@ -14,6 +14,7 @@ describe('MetricsGrid', () => {
       data: undefined,
       isLoading: true,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getAllByTestId('metric-card-skeleton')).toHaveLength(8)
@@ -24,6 +25,7 @@ describe('MetricsGrid', () => {
       data: makeResponse(),
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getAllByTestId('metric-card')).toHaveLength(8)

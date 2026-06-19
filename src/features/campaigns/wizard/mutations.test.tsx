@@ -4,6 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
 
 import {
+  getGetAnalyticsDashboardOnboardingChecklistQueryKey,
+} from '#/shared/api/generated/analytics/analytics'
+import {
   createCampaign,
   createCampaignBriefPDFUploadPresign,
   createCampaignImageUploadPresign,
@@ -95,6 +98,25 @@ describe('campaign wizard mutation wrappers', () => {
           },
         },
       )
+    })
+  })
+
+  it('invalidates the onboarding checklist after creating a campaign', async () => {
+    const queryClient = createQueryClient()
+    const invalidateQueries = vi.spyOn(queryClient, 'invalidateQueries')
+    const { result } = renderHook(() => useCreateCampaignMutation(), {
+      wrapper: createWrapper(queryClient),
+    })
+
+    result.current.mutate({
+      ifMatch: 'v1',
+      data: createCampaignRequest(),
+    })
+
+    await waitFor(() => {
+      expect(invalidateQueries).toHaveBeenCalledWith({
+        queryKey: getGetAnalyticsDashboardOnboardingChecklistQueryKey(),
+      })
     })
   })
 

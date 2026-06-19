@@ -21,11 +21,16 @@ import type { ChartSeries } from './ChartSeriesChips'
 import type { DashboardChartBucket } from '#/shared/api/generated/model/dashboardChartBucket'
 import type { DashboardChartResponse } from '#/shared/api/generated/model/dashboardChartResponse'
 
+import { EmptyBlockState } from './EmptyBlockState'
+import { ErrorBlockState } from './ErrorBlockState'
+
 interface PerformanceChartProps {
   data: DashboardChartResponse | undefined
   isLoading: boolean
   isError: boolean
   activeSeries: ChartSeries[]
+  onRetry: () => void
+  onClear: () => void
 }
 
 type ChartRow = {
@@ -54,6 +59,8 @@ export function PerformanceChart({
   isLoading,
   isError,
   activeSeries,
+  onRetry,
+  onClear,
 }: PerformanceChartProps) {
   const visibleSeries = activeSeries.slice(0, 2)
   const rows = data?.buckets.map(toChartRow) ?? []
@@ -73,7 +80,7 @@ export function PerformanceChart({
   if (isError) {
     return (
       <section className="h-[304px] rounded-3xl border border-border bg-card p-5 shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
-        <div data-testid="chart-error" className="h-full" />
+        <ErrorBlockState onRetry={onRetry} />
       </section>
     )
   }
@@ -81,7 +88,7 @@ export function PerformanceChart({
   if (!data || rows.length === 0) {
     return (
       <section className="h-[304px] rounded-3xl border border-border bg-card p-5 shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
-        <div data-testid="chart-empty" className="h-full" />
+        <EmptyBlockState onClear={onClear} />
       </section>
     )
   }

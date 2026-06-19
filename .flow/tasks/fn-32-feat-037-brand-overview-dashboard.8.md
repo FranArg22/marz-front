@@ -138,8 +138,7 @@ Tests de integración de invalidaciones (en los archivos de test de las mutation
 - Verify: `pnpm quality-gates`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.8; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

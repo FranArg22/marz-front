@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { DashboardChartResponse } from '#/shared/api/generated/model/dashboardChartResponse'
@@ -43,6 +43,8 @@ describe('PerformanceChart', () => {
         isLoading
         isError={false}
         activeSeries={['oferta']}
+        onRetry={vi.fn()}
+        onClear={vi.fn()}
       />,
     )
 
@@ -77,6 +79,8 @@ function renderChart() {
         isLoading={false}
         isError={false}
         activeSeries={['oferta']}
+        onRetry={vi.fn()}
+        onClear={vi.fn()}
       />
     </TooltipProvider>,
   )

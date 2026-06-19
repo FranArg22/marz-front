@@ -4,10 +4,13 @@ import { ArrowRight, Check } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import type { OnboardingChecklistResponse } from '#/shared/api/generated/model/onboardingChecklistResponse'
 
+import { ErrorBlockState } from './ErrorBlockState'
+
 interface OnboardingChecklistProps {
   data: OnboardingChecklistResponse | undefined
   isLoading: boolean
   isError: boolean
+  onRetry: () => void
 }
 
 const SKELETON_IDS = ['sk-0', 'sk-1', 'sk-2', 'sk-3', 'sk-4', 'sk-5']
@@ -16,9 +19,14 @@ export function OnboardingChecklist({
   data,
   isLoading,
   isError,
+  onRetry,
 }: OnboardingChecklistProps) {
   if (isError) {
-    return <div data-testid="checklist-error" />
+    return (
+      <section className="rounded-3xl border border-border bg-card text-card-foreground shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
+        <ErrorBlockState onRetry={onRetry} />
+      </section>
+    )
   }
 
   if (data?.completed === true) {

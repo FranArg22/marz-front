@@ -11,12 +11,17 @@ import {
 import { cn } from '#/lib/utils'
 import type { DashboardTopCreatorsResponse } from '#/shared/api/generated/model/dashboardTopCreatorsResponse'
 
+import { EmptyBlockState } from './EmptyBlockState'
+import { ErrorBlockState } from './ErrorBlockState'
+
 interface TopCreatorsTableProps {
   data: DashboardTopCreatorsResponse | undefined
   isLoading: boolean
   isError: boolean
   currentSort: 'views' | 'videos' | 'cpm' | 'engagement'
   onSortChange: (sort: 'views' | 'videos' | 'cpm' | 'engagement') => void
+  onRetry: () => void
+  onClear: () => void
 }
 
 const NUMBER_FMT = new Intl.NumberFormat('es-AR')
@@ -43,11 +48,13 @@ export function TopCreatorsTable({
   isError,
   currentSort,
   onSortChange,
+  onRetry,
+  onClear,
 }: TopCreatorsTableProps) {
   if (isError) {
     return (
       <TableShell currentSort={currentSort} onSortChange={onSortChange}>
-        <div data-testid="top-creators-error" className="min-h-[286px]" />
+        <ErrorBlockState onRetry={onRetry} />
       </TableShell>
     )
   }
@@ -63,7 +70,7 @@ export function TopCreatorsTable({
   if (data.creators.length === 0) {
     return (
       <TableShell currentSort={currentSort} onSortChange={onSortChange}>
-        <div data-testid="top-creators-empty" className="min-h-[286px]" />
+        <EmptyBlockState onClear={onClear} />
       </TableShell>
     )
   }

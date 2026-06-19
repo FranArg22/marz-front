@@ -1,12 +1,14 @@
 import type { DashboardCardsResponse } from '#/shared/api/generated/model/dashboardCardsResponse'
 import type { DashboardCardKey } from '#/shared/api/generated/model/dashboardCardKey'
 
+import { ErrorBlockState } from './ErrorBlockState'
 import { MetricCard } from './MetricCard'
 
 interface MetricsGridProps {
   data: DashboardCardsResponse | undefined
   isLoading: boolean
   isError: boolean
+  onRetry: () => void
 }
 
 const CARD_ORDER: DashboardCardKey[] = [
@@ -20,9 +22,14 @@ const CARD_ORDER: DashboardCardKey[] = [
   'cpm',
 ]
 
-export function MetricsGrid({ data, isLoading, isError }: MetricsGridProps) {
+export function MetricsGrid({
+  data,
+  isLoading,
+  isError,
+  onRetry,
+}: MetricsGridProps) {
   if (isError) {
-    return <div data-testid="metrics-grid-error" />
+    return <ErrorBlockState onRetry={onRetry} />
   }
 
   if (isLoading || !data) {

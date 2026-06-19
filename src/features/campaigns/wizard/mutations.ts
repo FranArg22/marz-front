@@ -1,11 +1,19 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import {
+  getGetAnalyticsDashboardCardsQueryKey,
+  getGetAnalyticsDashboardChartQueryKey,
+  getGetAnalyticsDashboardOnboardingChecklistQueryKey,
+  getGetAnalyticsDashboardTopCreatorsQueryKey,
+  getGetAnalyticsDashboardTopVideosQueryKey,
+} from '#/shared/api/generated/analytics/analytics'
 import {
   createCampaign,
   createCampaignBriefPDFUploadPresign,
   createCampaignImageUploadPresign,
   updateCampaign,
 } from '#/shared/api/generated/campaigns/campaigns'
+import { getGetBrandWorkspaceLandingTargetQueryKey } from '#/shared/api/generated/identity/identity'
 import type {
   createCampaignBriefPDFUploadPresignResponse,
   createCampaignImageUploadPresignResponse,
@@ -37,6 +45,8 @@ export type PresignUploadVariables = {
 }
 
 export function useCreateCampaignMutation() {
+  const queryClient = useQueryClient()
+
   return useMutation<
     createCampaignResponse,
     Error,
@@ -50,6 +60,26 @@ export function useCreateCampaignMutation() {
           'Idempotency-Key': generateIdempotencyKey(),
         },
       }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardCardsQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardChartQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardTopVideosQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardTopCreatorsQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardOnboardingChecklistQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetBrandWorkspaceLandingTargetQueryKey(),
+      })
+    },
   })
 }
 

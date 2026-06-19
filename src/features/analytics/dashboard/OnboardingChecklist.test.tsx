@@ -49,6 +49,7 @@ describe('OnboardingChecklist', () => {
       },
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(container).toBeEmptyDOMElement()
@@ -60,6 +61,7 @@ describe('OnboardingChecklist', () => {
       data: makeResponse(0),
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getAllByRole('listitem')).toHaveLength(6)
@@ -75,6 +77,7 @@ describe('OnboardingChecklist', () => {
       data: makeResponse(3),
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getAllByRole('listitem')).toHaveLength(6)
@@ -90,6 +93,7 @@ describe('OnboardingChecklist', () => {
       data: makeResponse(6),
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getByTestId('checklist-progress-bar')).toHaveStyle({
@@ -102,6 +106,7 @@ describe('OnboardingChecklist', () => {
       data: undefined,
       isLoading: true,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     expect(screen.getByTestId('checklist-skeleton')).toBeInTheDocument()
@@ -113,6 +118,7 @@ describe('OnboardingChecklist', () => {
       data: makeResponse(0),
       isLoading: false,
       isError: false,
+      onRetry: vi.fn(),
     })
 
     await user.click(

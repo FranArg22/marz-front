@@ -51,12 +51,16 @@ function renderTable({
   isError,
   currentSort = 'views',
   onSortChange = vi.fn(),
+  onRetry = vi.fn(),
+  onClear = vi.fn(),
 }: {
   data: DashboardTopCreatorsResponse | undefined
   isLoading: boolean
   isError: boolean
   currentSort?: 'views' | 'videos' | 'cpm' | 'engagement'
   onSortChange?: (sort: 'views' | 'videos' | 'cpm' | 'engagement') => void
+  onRetry?: () => void
+  onClear?: () => void
 }) {
   return render(
     <TopCreatorsTable
@@ -65,6 +69,8 @@ function renderTable({
       isError={isError}
       currentSort={currentSort}
       onSortChange={onSortChange}
+      onRetry={onRetry}
+      onClear={onClear}
     />,
   )
 }
