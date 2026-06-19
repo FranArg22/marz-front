@@ -219,7 +219,7 @@ describe('CampaignBriefSheet', () => {
 
     expect(screen.getByText('Brief no encontrado')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Cerrar' }))
+    await user.click(screen.getAllByRole('button', { name: 'Cerrar' })[0]!)
 
     expect(onOpenChange).toHaveBeenCalledWith(false)
   })

@@ -123,7 +123,7 @@ const deadlineFormatter = new Intl.DateTimeFormat('es-AR', {
 })
 
 function formatDeadline(deadline: string | null) {
-  if (!deadline) return t`Sin deadline`
+  if (!deadline) return t`Sin fecha límite`
 
   const date = new Date(deadline)
   if (Number.isNaN(date.getTime())) return deadline

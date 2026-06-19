@@ -120,7 +120,7 @@ describe('CampaignBoardFilters', () => {
     const user = userEvent.setup()
     renderFilters()
 
-    await user.click(screen.getByRole('button', { name: /fee range/i }))
+    await user.click(screen.getByRole('button', { name: /rango de precios/i }))
     await user.type(screen.getByLabelText('Mínimo USD'), '500')
     onSearchChange.mockClear()
     await user.type(screen.getByLabelText('Máximo USD'), '100')

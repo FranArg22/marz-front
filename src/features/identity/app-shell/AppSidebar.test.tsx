@@ -244,13 +244,13 @@ describe('AppSidebar', () => {
     for (const name of [
       'Workspace',
       'Inbox',
-      'Campaigns',
-      'Earnings',
+      'Campañas',
+      'Ganancias',
       'Analytics',
     ]) {
       expect(
         within(creatorSidebar).getByRole(
-          /Workspace|Inbox|Campaigns|Earnings/.test(name) ? 'link' : 'button',
+          /Workspace|Inbox|Campañas|Ganancias/.test(name) ? 'link' : 'button',
           { name },
         ),
       ).toBeInTheDocument()

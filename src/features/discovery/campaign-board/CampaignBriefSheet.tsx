@@ -127,7 +127,7 @@ export function CampaignBriefSheet({
         <SheetHeader className="border-b border-border p-6 pr-12">
           <SheetTitle>{t`Brief de campaña`}</SheetTitle>
           <SheetDescription>
-            {t`Detalle read-only para revisar antes de postularte.`}
+            {t`Detalles para revisar antes de postularte`}
           </SheetDescription>
         </SheetHeader>
 

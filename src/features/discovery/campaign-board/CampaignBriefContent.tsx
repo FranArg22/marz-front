@@ -109,7 +109,7 @@ function formatFee(commercial: SnapshotRecord) {
   const min = formatAmount(stringValue(commercial, 'fee_min_amount'))
   const max = formatAmount(stringValue(commercial, 'fee_max_amount'))
   if (min && max) return `${min} - ${max}`
-  return min ?? max ?? t`Fee a definir`
+  return min ?? max ?? t`Monto a definir`
 }
 
 function formatAgeRange(icp: IcpSnapshot, targeting: SnapshotRecord) {
@@ -241,13 +241,13 @@ function DoDontLists({
     <div className="grid gap-4 sm:grid-cols-2">
       <div className="rounded-2xl border border-border bg-muted/40 p-4">
         <p className="mb-3 text-xs font-semibold uppercase text-muted-foreground">
-          {t`Do`}
+          {t`Sí`}
         </p>
         <BulletList items={doList} />
       </div>
       <div className="rounded-2xl border border-border bg-muted/40 p-4">
         <p className="mb-3 text-xs font-semibold uppercase text-muted-foreground">
-          {t`Don't`}
+          {t`No`}
         </p>
         <BulletList items={dontList} />
       </div>
@@ -405,14 +405,14 @@ export function CampaignBriefContent({
         <BulletList items={stringList(briefRecord, 'key_messages')} />
       </Section>
 
-      <Section title={t`Do / Don't`}>
+      <Section title={t`Qué hacer / Qué evitar`}>
         <DoDontLists
           doList={stringList(briefRecord, 'do_list')}
           dontList={stringList(briefRecord, 'dont_list')}
         />
       </Section>
 
-      <Section title={t`ICP`}>
+      <Section title={t`Audiencia objetivo`}>
         <div className="space-y-4 rounded-2xl border border-border p-4">
           <TextBlock value={icp.description} />
           <div className="grid gap-4 sm:grid-cols-2">
@@ -482,7 +482,7 @@ export function CampaignBriefContent({
 
       <MatchTransparency card={card} />
 
-      <Section title={t`Deliverables`}>
+      <Section title={t`Entregables`}>
         <DeliverablesList deliverables={deliverables} />
       </Section>
 

@@ -89,13 +89,13 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'campaigns',
-      label: () => t`Campaigns`,
+      label: () => t`Campañas`,
       icon: 'briefcase',
       href: '/discover/campaigns',
     },
     {
       id: 'earnings',
-      label: () => t`Earnings`,
+      label: () => t`Ganancias`,
       icon: 'dollar-sign',
       href: '/earnings',
     },

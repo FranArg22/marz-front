@@ -113,7 +113,7 @@ describe('route topbar integration', () => {
   it('declares Offers title in the shell topbar', async () => {
     await renderRouteComponent(() => import('./_creator/offers'))
 
-    expect(await screen.findByText('Offers')).toBeInTheDocument()
+    expect(await screen.findByText('Ofertas')).toBeInTheDocument()
     expect(screen.getByTestId('app-topbar')).toHaveAttribute(
       'data-height',
       '56px',
@@ -179,7 +179,7 @@ describe('route topbar integration', () => {
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByText('Offers')).toBeInTheDocument()
+    expect(await screen.findByText('Ofertas')).toBeInTheDocument()
     expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
   })
 
