@@ -89,7 +89,9 @@ export function DeliverableListItem({
     linksQuery.data?.current_link_id != null
 
   const uploadButtonLabel =
-    nextVersion === 1 ? t`Subir draft` : t`Subir draft v${nextVersion}`
+    nextVersion === 1
+      ? t`Subir video borrador`
+      : t`Subir video borrador v${nextVersion}`
 
   const handleUploadClick = () => {
     onUploadDraft(deliverable.id)

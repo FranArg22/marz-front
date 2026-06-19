@@ -1281,7 +1281,7 @@ msgstr ""
 msgid "Aprobados"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:339
+#: src/features/deliverables/components/DeliverableListItem.tsx:341
 msgid "Aprobar"
 msgstr ""
 
@@ -1674,7 +1674,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:44
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
-#: src/features/deliverables/components/DeliverableListItem.tsx:365
+#: src/features/deliverables/components/DeliverableListItem.tsx:367
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:17
 #: src/features/deliverables/components/DraftVersionList.tsx:44
 #: src/features/deliverables/components/RequestChangesCard.tsx:180
@@ -1910,7 +1910,7 @@ msgstr ""
 msgid "Cargando inbox"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:264
+#: src/features/deliverables/components/DeliverableListItem.tsx:266
 msgid "Cargando link actual"
 msgstr ""
 
@@ -2970,11 +2970,11 @@ msgstr ""
 msgid "Draft thumbnail"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:179
+#: src/features/deliverables/components/UploadDraftDialog.tsx:181
 msgid "Drag and drop your video here, or click to browse"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:160
+#: src/features/deliverables/components/UploadDraftDialog.tsx:162
 msgid "Drop zone"
 msgstr ""
 
@@ -5068,15 +5068,15 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:47
-#: src/features/deliverables/components/DeliverableListItem.tsx:288
-#: src/features/deliverables/components/DeliverableListItem.tsx:361
+#: src/features/deliverables/components/DeliverableListItem.tsx:290
+#: src/features/deliverables/components/DeliverableListItem.tsx:363
 msgid "Link aprobado"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:46
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:256
-#: src/features/deliverables/components/DeliverableListItem.tsx:372
+#: src/features/deliverables/components/DeliverableListItem.tsx:374
 msgid "Link enviado"
 msgstr ""
 
@@ -5084,7 +5084,7 @@ msgstr ""
 msgid "Link is no longer pending review."
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:157
+#: src/features/deliverables/components/DeliverableListItem.tsx:159
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:139
 msgid "Link publicado"
 msgstr ""
@@ -5684,7 +5684,7 @@ msgstr ""
 msgid "Motivo opcional"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:182
+#: src/features/deliverables/components/UploadDraftDialog.tsx:184
 msgid "MP4, MOV, or WebM up to 2 GB"
 msgstr ""
 
@@ -6331,7 +6331,7 @@ msgid "Oferta de {formattedAmount}, {modeLabel}, {inlineStatus}, enviada el {sen
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
-#: src/features/chat/components/systemEvents/OfferSentCard.tsx:19
+#: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
 #: src/features/offers/components/SendOfferSidesheet.tsx:180
 msgid "Oferta enviada"
 msgstr ""
@@ -6347,7 +6347,7 @@ msgid "Oferta rechazada"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
-#: src/features/chat/components/systemEvents/OfferSentCard.tsx:19
+#: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
 msgid "Oferta recibida"
 msgstr ""
 
@@ -7376,7 +7376,7 @@ msgid "Rechazada"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:22
-#: src/features/deliverables/components/DeliverableListItem.tsx:369
+#: src/features/deliverables/components/DeliverableListItem.tsx:371
 msgid "Rechazado"
 msgstr ""
 
@@ -7385,7 +7385,7 @@ msgid "Rechazando…"
 msgstr ""
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:144
-#: src/features/deliverables/components/DeliverableListItem.tsx:348
+#: src/features/deliverables/components/DeliverableListItem.tsx:350
 #: src/features/inbox/ConnectionRequestInboxItem.tsx:132
 #: src/features/offers/components/CurrentOfferBlock.tsx:383
 msgid "Rechazar"
@@ -7949,7 +7949,7 @@ msgstr ""
 #~ msgid "Select a platform"
 #~ msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:190
+#: src/features/deliverables/components/UploadDraftDialog.tsx:192
 msgid "Select video file"
 msgstr ""
 
@@ -8276,7 +8276,7 @@ msgstr ""
 msgid "Solicitar cambios en el draft"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:342
+#: src/features/deliverables/components/DeliverableListItem.tsx:344
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:187
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:191
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:197
@@ -8445,7 +8445,7 @@ msgstr ""
 msgid "Subí la foto de nuevo"
 msgstr ""
 
-#: src/features/deliverables/components/UploadDraftDialog.tsx:142
+#: src/features/deliverables/components/UploadDraftDialog.tsx:144
 msgid "Subí un video draft para revisión"
 msgstr ""
 
@@ -8483,12 +8483,12 @@ msgstr ""
 #: src/features/deliverables/components/DeliverableListItem.tsx:92
 #: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
 #: src/features/deliverables/components/UploadDraftDialog.tsx:140
-msgid "Subir draft"
-msgstr ""
+#~ msgid "Subir draft"
+#~ msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:92
-msgid "Subir draft v{nextVersion}"
-msgstr ""
+#~ msgid "Subir draft v{nextVersion}"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
 #: src/features/identity/settings/GeneralSection.tsx:322
@@ -8497,6 +8497,16 @@ msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:737
 msgid "Subir PDF del brief"
+msgstr ""
+
+#: src/features/deliverables/components/DeliverableListItem.tsx:93
+#: src/features/deliverables/components/ExpectedDeliverableSlot.tsx:59
+#: src/features/deliverables/components/UploadDraftDialog.tsx:141
+msgid "Subir video borrador"
+msgstr ""
+
+#: src/features/deliverables/components/DeliverableListItem.tsx:94
+msgid "Subir video borrador v{nextVersion}"
 msgstr ""
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:137
@@ -8866,7 +8876,7 @@ msgstr ""
 #~ msgid "Todavía no hay invitaciones"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:280
+#: src/features/deliverables/components/DeliverableListItem.tsx:282
 msgid "Todavía no hay link."
 msgstr ""
 
@@ -9342,7 +9352,7 @@ msgstr ""
 #~ msgid "v{0}"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:111
+#: src/features/deliverables/components/DeliverableListItem.tsx:113
 msgid "v{currentVersion}"
 msgstr ""
 
@@ -9460,11 +9470,11 @@ msgstr ""
 msgid "Versión {version}"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:229
+#: src/features/deliverables/components/DeliverableListItem.tsx:231
 msgid "Versiones enviadas"
 msgstr ""
 
-#: src/features/deliverables/components/DeliverableListItem.tsx:228
+#: src/features/deliverables/components/DeliverableListItem.tsx:230
 msgid "Versiones enviadas ({draftsCount})"
 msgstr ""
 
