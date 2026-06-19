@@ -1,6 +1,13 @@
-import { act, render, screen } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import type { ReactElement } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import {
+  getGetAnalyticsDashboardCardsQueryKey,
+  getGetAnalyticsDashboardChartQueryKey,
+} from '#/shared/api/generated/analytics/analytics'
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -71,7 +78,7 @@ describe('/_brand/checkout-return route', () => {
       isLoading: false,
     })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'cancel' }}
       />,
@@ -93,7 +100,7 @@ describe('/_brand/checkout-return route', () => {
       isLoading: false,
     })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'success' }}
       />,
@@ -107,6 +114,33 @@ describe('/_brand/checkout-return route', () => {
     })
   })
 
+  it("checkout='success' invalidates dashboard cards and chart when draft is sent", async () => {
+    const queryClient = createQueryClient()
+    const invalidateQueries = vi.spyOn(queryClient, 'invalidateQueries')
+    useDraftStatusMock.mockReturnValue({
+      status: 'sent',
+      isTerminal: true,
+      timedOut: false,
+      isLoading: false,
+    })
+
+    renderCheckout(
+      <CheckoutReturnPage
+        search={{ ...conversationSearch, checkout: 'success' }}
+      />,
+      queryClient,
+    )
+
+    await waitFor(() => {
+      expect(invalidateQueries).toHaveBeenCalledWith({
+        queryKey: getGetAnalyticsDashboardCardsQueryKey(),
+      })
+      expect(invalidateQueries).toHaveBeenCalledWith({
+        queryKey: getGetAnalyticsDashboardChartQueryKey(),
+      })
+    })
+  })
+
   it("checkout='success' navigates with failed when draft failed", () => {
     useDraftStatusMock.mockReturnValue({
       status: 'failed',
@@ -115,7 +149,7 @@ describe('/_brand/checkout-return route', () => {
       isLoading: false,
     })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'success' }}
       />,
@@ -137,7 +171,7 @@ describe('/_brand/checkout-return route', () => {
       isLoading: false,
     })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'success' }}
       />,
@@ -159,7 +193,7 @@ describe('/_brand/checkout-return route', () => {
       isLoading: false,
     })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'success' }}
       />,
@@ -187,7 +221,7 @@ describe('/_brand/checkout-return route', () => {
         isLoading: false,
       })
 
-    render(
+    renderCheckout(
       <CheckoutReturnPage
         search={{ ...conversationSearch, checkout: 'success' }}
       />,
@@ -207,3 +241,18 @@ describe('/_brand/checkout-return route', () => {
     })
   })
 })
+
+function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false },
+    },
+  })
+}
+
+function renderCheckout(ui: ReactElement, queryClient = createQueryClient()) {
+  return render(
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
+  )
+}

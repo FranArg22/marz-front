@@ -2,9 +2,14 @@ import { useEffect, useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import type { NavigateFn } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
+import { useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import { useDraftStatus } from '#/features/payments/hooks/useDraftStatus'
+import {
+  getGetAnalyticsDashboardCardsQueryKey,
+  getGetAnalyticsDashboardChartQueryKey,
+} from '#/shared/api/generated/analytics/analytics'
 
 const searchSchema = z.object({
   offer_draft_id: z.string(),
@@ -77,6 +82,7 @@ function CheckoutReturnContent({
     offerDraftId: search.offer_draft_id,
     enabled: search.checkout === 'success',
   })
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     if (search.checkout !== 'cancel') return
@@ -87,8 +93,22 @@ function CheckoutReturnContent({
     if (search.checkout !== 'success' || !draftStatus.isTerminal) return
 
     const result = draftStatus.status === 'sent' ? 'success' : 'failed'
+    if (result === 'success') {
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardCardsQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetAnalyticsDashboardChartQueryKey(),
+      })
+    }
     navigateToReturnTo(navigate, search, result)
-  }, [draftStatus.isTerminal, draftStatus.status, navigate, search])
+  }, [
+    draftStatus.isTerminal,
+    draftStatus.status,
+    navigate,
+    queryClient,
+    search,
+  ])
 
   if (draftStatus.timedOut && !draftStatus.isTerminal) {
     return (

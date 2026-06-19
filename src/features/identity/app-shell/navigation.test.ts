@@ -18,7 +18,7 @@ function enabledItemIds(items: ShellNavigationItem[]) {
 }
 
 describe('shellNavigationConfig', () => {
-  it('defines brand items in order with dashboard first and disabled', () => {
+  it('defines brand items in order with dashboard first and enabled', () => {
     expect(itemIds(brandItems)).toEqual([
       'dashboard',
       'discovery',
@@ -31,6 +31,7 @@ describe('shellNavigationConfig', () => {
       'settings',
     ])
     expect(enabledItemIds(brandItems)).toEqual([
+      'dashboard',
       'discovery',
       'inbox',
       'workspace',
@@ -88,7 +89,7 @@ describe('shellNavigationConfig', () => {
     expect(creatorDiscovery).toBeUndefined()
   })
 
-  it('defines settings only for brand navigation with settings icon', () => {
+  it('defines settings for brand navigation with settings icon', () => {
     const brandSettings = brandItems.find((item) => item.id === 'settings')
     const creatorSettings = creatorItems.find((item) => item.id === 'settings')
 
@@ -96,7 +97,7 @@ describe('shellNavigationConfig', () => {
     expect(brandSettings?.icon).toBe('settings')
     expect(brandSettings?.href).toBe('/ajustes')
     expect(brandSettings?.label()).toBe('Ajustes')
-    expect(creatorSettings).toBeUndefined()
+    expect(creatorSettings?.href).toBe('/settings')
   })
 
   it('keeps disabled items non-navigable', () => {

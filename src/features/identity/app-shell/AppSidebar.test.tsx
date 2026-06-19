@@ -98,15 +98,15 @@ describe('AppSidebar', () => {
 
   it('renders disabled items as aria-disabled buttons without href and without navigation', async () => {
     const user = userEvent.setup()
-    const { router } = renderSidebar('/workspace')
+    const { router } = renderSidebar('/workspace', 'creator')
 
-    const dashboardButton = await screen.findByRole('button', {
-      name: 'Dashboard',
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
     })
-    await user.click(dashboardButton)
+    await user.click(analyticsButton)
 
-    expect(dashboardButton).toHaveAttribute('aria-disabled', 'true')
-    expect(dashboardButton).not.toHaveAttribute('href')
+    expect(analyticsButton).toHaveAttribute('aria-disabled', 'true')
+    expect(analyticsButton).not.toHaveAttribute('href')
     expect(router.state.location.pathname).toBe('/workspace')
   })
 
@@ -187,24 +187,24 @@ describe('AppSidebar', () => {
 
   it('shows Próximamente for disabled item tooltips', async () => {
     const user = userEvent.setup()
-    renderSidebar('/workspace')
+    renderSidebar('/workspace', 'creator')
 
-    const dashboardButton = await screen.findByRole('button', {
-      name: 'Dashboard',
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
     })
 
-    await user.hover(dashboardButton)
+    await user.hover(analyticsButton)
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
   it('shows disabled item tooltips when focused by keyboard', async () => {
-    renderSidebar('/workspace')
+    renderSidebar('/workspace', 'creator')
 
-    const dashboardButton = await screen.findByRole('button', {
-      name: 'Dashboard',
+    const analyticsButton = await screen.findByRole('button', {
+      name: 'Analytics',
     })
-    dashboardButton.focus()
-    expect(dashboardButton).toHaveFocus()
+    analyticsButton.focus()
+    expect(analyticsButton).toHaveFocus()
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
   })
 
@@ -224,7 +224,7 @@ describe('AppSidebar', () => {
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Pagos|Campañas|Creadores|Videos|Ajustes/.test(
+          /Workspace|Inbox|Pagos|Campañas|Creadores|Videos|Ajustes|Dashboard/.test(
             name,
           )
             ? 'link'

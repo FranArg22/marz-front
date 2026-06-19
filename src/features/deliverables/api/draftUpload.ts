@@ -1,5 +1,7 @@
 import { t } from '@lingui/core/macro'
+import { useQueryClient } from '@tanstack/react-query'
 
+import { getGetAnalyticsDashboardOnboardingChecklistQueryKey } from '#/shared/api/generated/analytics/analytics'
 import { ApiError } from '#/shared/api/mutator'
 import type { DraftDTO } from '#/shared/api/generated/model'
 import {
@@ -70,17 +72,40 @@ export function useCancelDraftUploadMutation() {
 }
 
 export function useApproveDraftMutation(deliverableId: string) {
+  const queryClient = useQueryClient()
   const mutation = useApproveDraftGenerated()
+
+  function invalidateDashboardChecklist() {
+    void queryClient.invalidateQueries({
+      queryKey: getGetAnalyticsDashboardOnboardingChecklistQueryKey(),
+    })
+  }
+
   return {
     ...mutation,
     mutate: (
       _vars: void | undefined,
       options?: Parameters<typeof mutation.mutate>[1],
-    ) => mutation.mutate({ id: deliverableId }, options),
+    ) =>
+      mutation.mutate(
+        { id: deliverableId },
+        {
+          ...options,
+          onSuccess: (...args) => {
+            invalidateDashboardChecklist()
+            options?.onSuccess?.(...args)
+          },
+        },
+      ),
     mutateAsync: (_vars?: void) =>
-      mutation.mutateAsync({
-        id: deliverableId,
-      }) as Promise<approveDraftResponseSuccess>,
+      mutation
+        .mutateAsync({
+          id: deliverableId,
+        })
+        .then((response) => {
+          invalidateDashboardChecklist()
+          return response as approveDraftResponseSuccess
+        }),
   }
 }
 

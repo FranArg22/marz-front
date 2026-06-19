@@ -22,8 +22,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       id: 'dashboard',
       label: () => t`Dashboard`,
       icon: 'layout-dashboard',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
+      href: '/inicio',
     },
     {
       id: 'discovery',

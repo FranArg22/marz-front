@@ -87,6 +87,799 @@
         }
       }
     },
+    "/v1/analytics/dashboard/cards": {
+      "get": {
+        "operationId": "getAnalyticsDashboardCards",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "campaign_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "creator_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "platforms[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "instagram",
+                  "tiktok",
+                  "youtube"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "countries[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "inactive",
+                "all"
+              ],
+              "default": "active"
+            }
+          },
+          {
+            "name": "range_preset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "14d",
+              "example": "14d"
+            }
+          },
+          {
+            "name": "range_start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "range_end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=60"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardCardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/analytics/dashboard/onboarding-checklist": {
+      "get": {
+        "operationId": "getAnalyticsDashboardOnboardingChecklist",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=600"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnboardingChecklistResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/analytics/dashboard/chart": {
+      "get": {
+        "operationId": "getAnalyticsDashboardChart",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "campaign_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "creator_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "platforms[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "instagram",
+                  "tiktok",
+                  "youtube"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "countries[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "inactive",
+                "all"
+              ],
+              "default": "active"
+            }
+          },
+          {
+            "name": "range_preset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "14d",
+              "example": "14d"
+            }
+          },
+          {
+            "name": "range_start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "range_end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "series[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "maxItems": 2,
+              "default": [
+                "oferta",
+                "vistas"
+              ],
+              "items": {
+                "type": "string",
+                "enum": [
+                  "oferta",
+                  "vistas",
+                  "gasto"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "grouping",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month"
+              ],
+              "default": "day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardChartResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/analytics/dashboard/top-videos": {
+      "get": {
+        "operationId": "getAnalyticsDashboardTopVideos",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "campaign_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "creator_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "platforms[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "instagram",
+                  "tiktok",
+                  "youtube"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "countries[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "inactive",
+                "all"
+              ],
+              "default": "active"
+            }
+          },
+          {
+            "name": "range_preset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "14d",
+              "example": "14d"
+            }
+          },
+          {
+            "name": "range_start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "range_end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "views",
+                "cpm",
+                "engagement"
+              ],
+              "default": "views"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardTopVideosResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/analytics/dashboard/top-creators": {
+      "get": {
+        "operationId": "getAnalyticsDashboardTopCreators",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "campaign_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "creator_ids[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "platforms[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "instagram",
+                  "tiktok",
+                  "youtube"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "countries[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "inactive",
+                "all"
+              ],
+              "default": "active"
+            }
+          },
+          {
+            "name": "range_preset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "14d",
+              "example": "14d"
+            }
+          },
+          {
+            "name": "range_start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "range_end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "views",
+                "videos",
+                "cpm",
+                "engagement"
+              ],
+              "default": "views"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardTopCreatorsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: auth.unauthenticated, token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand_owner. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: validation.invalid_query, brand_workspace_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/interests": {
       "get": {
         "operationId": "listInterests",
@@ -1156,6 +1949,59 @@
           },
           "500": {
             "description": "Internal Server Error. Possible codes: presign_failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/brand-workspaces/me/landing-target": {
+      "get": {
+        "operationId": "getBrandWorkspaceLandingTarget",
+        "tags": [
+          "identity"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, max-age=3600"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LandingTargetResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10331,6 +11177,568 @@
           }
         }
       },
+      "DashboardCardsResponse": {
+        "type": "object",
+        "required": [
+          "cards"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "cards": {
+            "type": "array",
+            "minItems": 8,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/DashboardCard"
+            }
+          }
+        }
+      },
+      "DashboardCard": {
+        "type": "object",
+        "required": [
+          "key",
+          "type",
+          "current_value",
+          "current_display",
+          "delta"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "views",
+              "likes",
+              "comments",
+              "engagement",
+              "videos_published",
+              "creators_activated",
+              "spend",
+              "cpm"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "cumulative",
+              "flow",
+              "derived_cumulative",
+              "derived_flow"
+            ]
+          },
+          "current_value": {
+            "type": "number",
+            "format": "double"
+          },
+          "current_display": {
+            "type": "string"
+          },
+          "delta": {
+            "$ref": "#/components/schemas/DashboardCardDelta"
+          }
+        }
+      },
+      "DashboardCardDelta": {
+        "type": "object",
+        "required": [
+          "kind",
+          "value",
+          "display",
+          "tooltip",
+          "direction",
+          "has_comparison"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "intra_window",
+              "vs_previous_period"
+            ]
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          },
+          "display": {
+            "type": "string"
+          },
+          "tooltip": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "positive",
+              "negative",
+              "neutral"
+            ]
+          },
+          "has_comparison": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OnboardingChecklistResponse": {
+        "type": "object",
+        "required": [
+          "completed",
+          "progress"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "completed": {
+            "type": "boolean"
+          },
+          "progress": {
+            "$ref": "#/components/schemas/OnboardingChecklistProgress"
+          },
+          "items": {
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/OnboardingChecklistItem"
+            }
+          }
+        }
+      },
+      "OnboardingChecklistProgress": {
+        "type": "object",
+        "required": [
+          "done",
+          "total"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "done": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 6
+          }
+        }
+      },
+      "OnboardingChecklistItem": {
+        "type": "object",
+        "required": [
+          "key",
+          "done",
+          "label",
+          "cta_label",
+          "cta_route"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "complete_brand_profile",
+              "create_first_campaign",
+              "invite_first_creator",
+              "send_first_offer",
+              "approve_first_draft",
+              "complete_first_collaboration"
+            ]
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": "string"
+          },
+          "cta_label": {
+            "type": "string"
+          },
+          "cta_route": {
+            "type": "string"
+          }
+        }
+      },
+      "DashboardChartResponse": {
+        "type": "object",
+        "required": [
+          "range",
+          "grouping",
+          "buckets"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "range": {
+            "$ref": "#/components/schemas/DashboardRangeMeta"
+          },
+          "grouping": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ]
+          },
+          "buckets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardChartBucket"
+            }
+          }
+        }
+      },
+      "DashboardRangeMeta": {
+        "type": "object",
+        "required": [
+          "preset",
+          "start",
+          "end"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "preset": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DashboardChartBucket": {
+        "type": "object",
+        "required": [
+          "bucket_start",
+          "bucket_end"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "bucket_start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bucket_end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "oferta": {
+            "$ref": "#/components/schemas/DashboardChartSeriesOferta"
+          },
+          "vistas": {
+            "$ref": "#/components/schemas/DashboardChartSeriesVistas"
+          },
+          "gasto": {
+            "$ref": "#/components/schemas/DashboardChartSeriesGasto"
+          }
+        }
+      },
+      "DashboardChartSeriesOferta": {
+        "type": "object",
+        "required": [
+          "value",
+          "offers"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer"
+          },
+          "offers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardChartOfferRef"
+            }
+          }
+        }
+      },
+      "DashboardChartSeriesVistas": {
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DashboardChartSeriesGasto": {
+        "type": "object",
+        "required": [
+          "value",
+          "display"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "display": {
+            "type": "string"
+          }
+        }
+      },
+      "DashboardChartOfferRef": {
+        "type": "object",
+        "required": [
+          "id",
+          "creator_handle",
+          "campaign_name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_handle": {
+            "type": "string"
+          },
+          "campaign_name": {
+            "type": "string"
+          }
+        }
+      },
+      "DashboardTopVideosResponse": {
+        "type": "object",
+        "required": [
+          "range",
+          "sort_by",
+          "videos"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "range": {
+            "$ref": "#/components/schemas/DashboardRangeMeta"
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "views",
+              "cpm",
+              "engagement"
+            ]
+          },
+          "videos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardTopVideo"
+            }
+          }
+        }
+      },
+      "DashboardTopVideo": {
+        "type": "object",
+        "required": [
+          "video_link_id",
+          "platform",
+          "thumbnail_url",
+          "title",
+          "video_url",
+          "creator",
+          "metrics",
+          "published_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "video_link_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "instagram",
+              "tiktok",
+              "youtube"
+            ]
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_url": {
+            "type": "string"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/DashboardTopVideoCreatorRef"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/TopVideoMetrics"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DashboardTopVideoCreatorRef": {
+        "type": "object",
+        "required": [
+          "id",
+          "handle",
+          "avatar_url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "TopVideoMetrics": {
+        "type": "object",
+        "required": [
+          "views",
+          "likes",
+          "comments",
+          "engagement_rate",
+          "cpm"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "views": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "likes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comments": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "engagement_rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "cpm": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        }
+      },
+      "DashboardTopCreatorsResponse": {
+        "type": "object",
+        "required": [
+          "range",
+          "sort_by",
+          "creators"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "range": {
+            "$ref": "#/components/schemas/DashboardRangeMeta"
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "views",
+              "videos",
+              "cpm",
+              "engagement"
+            ]
+          },
+          "creators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardTopCreator"
+            }
+          }
+        }
+      },
+      "DashboardTopCreator": {
+        "type": "object",
+        "required": [
+          "account_id",
+          "handle",
+          "avatar_url",
+          "country",
+          "metrics"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/TopCreatorMetrics"
+          }
+        }
+      },
+      "TopCreatorMetrics": {
+        "type": "object",
+        "required": [
+          "videos",
+          "views",
+          "spend",
+          "spend_display",
+          "cpm",
+          "engagement_rate"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "videos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "views": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "spend": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "spend_display": {
+            "type": "string"
+          },
+          "cpm": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "engagement_rate": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
       "InterestLookupItem": {
         "type": "object",
         "required": [
@@ -11759,6 +13167,21 @@
           "logo_s3_key": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "LandingTargetResponse": {
+        "type": "object",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "dashboard",
+              "create_campaign"
+            ]
           }
         }
       },

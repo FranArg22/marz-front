@@ -31,6 +31,7 @@ import { Route as CreatorOffersRouteImport } from './routes/_creator/offers'
 import { Route as CreatorEarningsRouteImport } from './routes/_creator/earnings'
 import { Route as BrandVideosRouteImport } from './routes/_brand/videos'
 import { Route as BrandPaymentsRouteImport } from './routes/_brand/payments'
+import { Route as BrandInicioRouteImport } from './routes/_brand/inicio'
 import { Route as BrandDiscoveryRouteImport } from './routes/_brand/discovery'
 import { Route as BrandCreatorsRouteImport } from './routes/_brand/creators'
 import { Route as BrandCheckoutReturnRouteImport } from './routes/_brand/checkout-return'
@@ -160,6 +161,11 @@ const BrandPaymentsRoute = BrandPaymentsRouteImport.update({
   path: '/payments',
   getParentRoute: () => BrandRoute,
 } as any)
+const BrandInicioRoute = BrandInicioRouteImport.update({
+  id: '/inicio',
+  path: '/inicio',
+  getParentRoute: () => BrandRoute,
+} as any)
 const BrandDiscoveryRoute = BrandDiscoveryRouteImport.update({
   id: '/discovery',
   path: '/discovery',
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/checkout-return': typeof BrandCheckoutReturnRoute
   '/creators': typeof BrandCreatorsRoute
   '/discovery': typeof BrandDiscoveryRoute
+  '/inicio': typeof BrandInicioRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
@@ -319,6 +326,7 @@ export interface FileRoutesByTo {
   '/checkout-return': typeof BrandCheckoutReturnRoute
   '/creators': typeof BrandCreatorsRoute
   '/discovery': typeof BrandDiscoveryRoute
+  '/inicio': typeof BrandInicioRoute
   '/payments': typeof BrandPaymentsRoute
   '/videos': typeof BrandVideosRoute
   '/earnings': typeof CreatorEarningsRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/_brand/checkout-return': typeof BrandCheckoutReturnRoute
   '/_brand/creators': typeof BrandCreatorsRoute
   '/_brand/discovery': typeof BrandDiscoveryRoute
+  '/_brand/inicio': typeof BrandInicioRoute
   '/_brand/payments': typeof BrandPaymentsRoute
   '/_brand/videos': typeof BrandVideosRoute
   '/_creator/earnings': typeof CreatorEarningsRoute
@@ -405,6 +414,7 @@ export interface FileRouteTypes {
     | '/checkout-return'
     | '/creators'
     | '/discovery'
+    | '/inicio'
     | '/payments'
     | '/videos'
     | '/earnings'
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
     | '/checkout-return'
     | '/creators'
     | '/discovery'
+    | '/inicio'
     | '/payments'
     | '/videos'
     | '/earnings'
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/_brand/checkout-return'
     | '/_brand/creators'
     | '/_brand/discovery'
+    | '/_brand/inicio'
     | '/_brand/payments'
     | '/_brand/videos'
     | '/_creator/earnings'
@@ -689,6 +701,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandPaymentsRouteImport
       parentRoute: typeof BrandRoute
     }
+    '/_brand/inicio': {
+      id: '/_brand/inicio'
+      path: '/inicio'
+      fullPath: '/inicio'
+      preLoaderRoute: typeof BrandInicioRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/_brand/discovery': {
       id: '/_brand/discovery'
       path: '/discovery'
@@ -885,6 +904,7 @@ interface BrandRouteChildren {
   BrandCheckoutReturnRoute: typeof BrandCheckoutReturnRoute
   BrandCreatorsRoute: typeof BrandCreatorsRoute
   BrandDiscoveryRoute: typeof BrandDiscoveryRoute
+  BrandInicioRoute: typeof BrandInicioRoute
   BrandPaymentsRoute: typeof BrandPaymentsRoute
   BrandVideosRoute: typeof BrandVideosRoute
 }
@@ -896,6 +916,7 @@ const BrandRouteChildren: BrandRouteChildren = {
   BrandCheckoutReturnRoute: BrandCheckoutReturnRoute,
   BrandCreatorsRoute: BrandCreatorsRoute,
   BrandDiscoveryRoute: BrandDiscoveryRoute,
+  BrandInicioRoute: BrandInicioRoute,
   BrandPaymentsRoute: BrandPaymentsRoute,
   BrandVideosRoute: BrandVideosRoute,
 }
