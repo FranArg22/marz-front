@@ -21,6 +21,8 @@ import type { ChartGrouping } from './ChartConfigPopover'
 import { ChartSeriesChips } from './ChartSeriesChips'
 import type { ChartSeries } from './ChartSeriesChips'
 import { PerformanceChart } from './PerformanceChart'
+import { TopCreatorsTable } from './TopCreatorsTable'
+import { TopVideosTable } from './TopVideosTable'
 
 type CommonDashboardParams = {
   'campaign_ids[]'?: string[]
@@ -59,12 +61,15 @@ export function DashboardPage() {
   const chartQuery = useGetAnalyticsDashboardChart(chartParams, {
     query: { staleTime: 300_000 },
   })
-  useGetAnalyticsDashboardTopVideos(topVideosParams, {
+  const topVideosQuery = useGetAnalyticsDashboardTopVideos(topVideosParams, {
     query: { staleTime: 300_000 },
   })
-  useGetAnalyticsDashboardTopCreators(topCreatorsParams, {
-    query: { staleTime: 300_000 },
-  })
+  const topCreatorsQuery = useGetAnalyticsDashboardTopCreators(
+    topCreatorsParams,
+    {
+      query: { staleTime: 300_000 },
+    },
+  )
   const checklistQuery = useGetAnalyticsDashboardOnboardingChecklist({
     query: { staleTime: 600_000 },
   })
@@ -126,13 +131,39 @@ export function DashboardPage() {
         isError={checklistQuery.isError}
       />
       <div className="grid gap-6 xl:grid-cols-2">
-        <section
-          data-testid="top-videos"
-          className="min-h-80 rounded-lg border border-border bg-card"
+        <TopVideosTable
+          data={
+            topVideosQuery.data?.status === 200
+              ? topVideosQuery.data.data
+              : undefined
+          }
+          isLoading={topVideosQuery.isPending}
+          isError={topVideosQuery.isError}
+          currentSort={search.top_videos_sort}
+          onSortChange={(sort) => {
+            void navigate({
+              to: '.',
+              search: (prev) => ({ ...prev, top_videos_sort: sort }),
+              replace: true,
+            })
+          }}
         />
-        <section
-          data-testid="top-creators"
-          className="min-h-80 rounded-lg border border-border bg-card"
+        <TopCreatorsTable
+          data={
+            topCreatorsQuery.data?.status === 200
+              ? topCreatorsQuery.data.data
+              : undefined
+          }
+          isLoading={topCreatorsQuery.isPending}
+          isError={topCreatorsQuery.isError}
+          currentSort={search.top_creators_sort}
+          onSortChange={(sort) => {
+            void navigate({
+              to: '.',
+              search: (prev) => ({ ...prev, top_creators_sort: sort }),
+              replace: true,
+            })
+          }}
         />
       </div>
     </main>
