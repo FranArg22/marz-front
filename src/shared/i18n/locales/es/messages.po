@@ -2976,7 +2976,7 @@ msgstr "Draft"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:181
 msgid "Drag and drop your video here, or click to browse"
-msgstr "Drag and drop your video here, or click to browse"
+msgstr "Arrastrá y soltá tu video acá, o hacé clic para buscarlo"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:162
 msgid "Drop zone"
@@ -5076,7 +5076,7 @@ msgstr "Limpiar filtros"
 #: src/features/deliverables/components/DeliverableCard.tsx:152
 #: src/features/deliverables/components/LinkApprovedCard.tsx:55
 msgid "Link approved"
-msgstr "Link approved"
+msgstr "Link aprobado"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:47
@@ -5706,7 +5706,7 @@ msgstr "Motivo opcional"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:184
 msgid "MP4, MOV, or WebM up to 2 GB"
-msgstr "MP4, MOV, or WebM up to 2 GB"
+msgstr "MP4, MOV o WebM de hasta 2 GB"
 
 #: src/features/offers/components/OfferTypeBadge.tsx:11
 #: src/features/offers/components/OfferTypeChooser.tsx:34
