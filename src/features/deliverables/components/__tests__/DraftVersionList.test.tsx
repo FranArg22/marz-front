@@ -167,7 +167,7 @@ describe('DraftVersionList', () => {
     await user.click(playButton)
 
     expect(
-      screen.getByRole('dialog', { name: /preview draft v1/i }),
+      screen.getByRole('dialog', { name: /previsualizar video borrador v1/i }),
     ).toBeInTheDocument()
   })
 

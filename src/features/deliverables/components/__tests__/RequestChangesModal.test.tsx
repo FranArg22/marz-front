@@ -153,7 +153,7 @@ describe('RequestChangesModal', () => {
     await user.click(screen.getByRole('button', { name: /solicitar cambios/i }))
     await user.click(screen.getByRole('button', { name: /audio/i }))
     await user.click(
-      screen.getByRole('button', { name: /solicitar cambios en el draft/i }),
+      screen.getByRole('button', { name: /solicitar cambios en el video borrador/i }),
     )
 
     expect(mockTrackRequestChangesModalDismissed).not.toHaveBeenCalled()
@@ -216,7 +216,7 @@ describe('RequestChangesModal', () => {
 
     await user.click(screen.getByRole('button', { name: /solicitar cambios/i }))
     const submitButton = screen.getByRole('button', {
-      name: /solicitar cambios en el draft/i,
+      name: /solicitar cambios en el video borrador/i,
     })
 
     expect(submitButton).toHaveAttribute('disabled')
@@ -230,7 +230,7 @@ describe('RequestChangesModal', () => {
     await user.click(screen.getByRole('button', { name: /ritmo/i }))
 
     const submitButton = screen.getByRole('button', {
-      name: /solicitar cambios en el draft/i,
+      name: /solicitar cambios en el video borrador/i,
     })
     expect(submitButton).not.toHaveAttribute('disabled')
   })
@@ -243,7 +243,7 @@ describe('RequestChangesModal', () => {
     await user.click(screen.getByRole('button', { name: /otro/i }))
 
     const submitButton = screen.getByRole('button', {
-      name: /solicitar cambios en el draft/i,
+      name: /solicitar cambios en el video borrador/i,
     })
     expect(submitButton).toHaveAttribute('disabled')
   })
@@ -260,7 +260,7 @@ describe('RequestChangesModal', () => {
     )
 
     const submitButton = screen.getByRole('button', {
-      name: /solicitar cambios en el draft/i,
+      name: /solicitar cambios en el video borrador/i,
     })
     expect(submitButton).not.toHaveAttribute('disabled')
   })
@@ -283,7 +283,7 @@ describe('RequestChangesModal', () => {
     await user.click(screen.getByRole('button', { name: /audio/i }))
     await user.type(screen.getByLabelText(/notas adicionales/i), 'Too loud')
     await user.click(
-      screen.getByRole('button', { name: /solicitar cambios en el draft/i }),
+      screen.getByRole('button', { name: /solicitar cambios en el video borrador/i }),
     )
 
     expect(mockMutate).toHaveBeenCalledTimes(1)
@@ -310,7 +310,7 @@ describe('RequestChangesModal', () => {
   it('renders placeholder when playbackUrl is missing', () => {
     renderModal({ playbackUrl: undefined, inline: true })
     expect(
-      screen.getByRole('button', { name: /solicitar cambios en el draft/i }),
+      screen.getByRole('button', { name: /solicitar cambios en el video borrador/i }),
     ).toBeInTheDocument()
   })
 
