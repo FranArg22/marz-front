@@ -44,6 +44,23 @@ function isExpectedDeliverablePlatform(
   )
 }
 
+// Orden fijo de las cards para que no se reordenen al mutar (el backend puede
+// devolver los entregables en distinto orden tras cada cambio).
+const PLATFORM_ORDER: Record<string, number> = {
+  instagram: 0,
+  tiktok: 1,
+  youtube: 2,
+}
+
+function sortDeliverables(deliverables: DeliverableDTO[]): DeliverableDTO[] {
+  return [...deliverables].sort((a, b) => {
+    const platformDiff =
+      (PLATFORM_ORDER[a.platform] ?? 99) - (PLATFORM_ORDER[b.platform] ?? 99)
+    if (platformDiff !== 0) return platformDiff
+    return a.created_at.localeCompare(b.created_at)
+  })
+}
+
 export function OfferDeliverablesList({
   offer,
   deliverables,
@@ -83,7 +100,7 @@ export function OfferDeliverablesList({
             }
           />
         ) : (
-          deliverables.map((deliverable) => (
+          sortDeliverables(deliverables).map((deliverable) => (
             <DeliverableListItem
               key={deliverable.id}
               deliverable={deliverable}

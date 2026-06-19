@@ -85,7 +85,7 @@ export function InviteSingleModal({
         pairState?.kind === DiscoveryCreatePairKindEnum.connection_expired ? (
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
             {pairState.kind === DiscoveryCreatePairKindEnum.connection_rejected
-              ? t`Este creator rechazó una invitación anterior. Podés volver a intentarlo.`
+              ? t`Este creador rechazó una invitación anterior. Podés volver a intentarlo.`
               : t`Una invitación anterior venció. Podés volver a intentarlo.`}
           </div>
         ) : null}
@@ -118,7 +118,7 @@ export function InviteSingleModal({
             value={note}
             onChange={(event) => setNote(event.target.value)}
             maxLength={1000}
-            placeholder={t`Contale por qué querés trabajar con este creator...`}
+            placeholder={t`Contale por qué querés trabajar con este creador...`}
             rows={4}
           />
           <p className="text-right text-xs text-muted-foreground">

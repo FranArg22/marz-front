@@ -113,7 +113,7 @@ export function EmailInviteModal({
         </DialogHeader>
 
         <p className="text-sm text-muted-foreground">
-          {t`Invitá a un creator que todavía no está en Marz. Le enviaremos un email con el link de registro.`}
+          {t`Invitá a un creador que todavía no está en Marz. Le enviaremos un email con el link de registro.`}
         </p>
 
         <div className="space-y-4">

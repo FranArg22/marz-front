@@ -12,10 +12,10 @@ export function DiscoveryUpsell() {
       </div>
       <div>
         <h2 className="text-xl font-semibold text-foreground">
-          {t`Descubrí creators de tu nicho`}
+          {t`Descubrí creadores de tu nicho`}
         </h2>
         <p className="mt-2 max-w-md text-sm text-muted-foreground">
-          {t`Con Discovery podés explorar nuestra red de creators, filtrar por plataforma, engagement, precio y más. Actualizá tu plan para acceder.`}
+          {t`Con Discovery podés explorar nuestra red de creadores, filtrar por plataforma, engagement, precio y más. Actualizá tu plan para acceder.`}
         </p>
       </div>
       <Button asChild>

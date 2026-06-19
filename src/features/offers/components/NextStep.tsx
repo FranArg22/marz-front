@@ -47,17 +47,25 @@ function deriveDeliverableStep(
       // pending = creator tiene que subir / draft_submitted = brand tiene que revisar
       if (deliverable.status === 'draft_submitted') {
         return sessionKind === 'brand'
-          ? { label: t`Tenés un draft para revisar`, tone: 'action', icon: Eye }
+          ? {
+              label: t`Tenés un video borrador para revisar`,
+              tone: 'action',
+              icon: Eye,
+            }
           : {
-              label: t`Esperando aprobación del draft`,
+              label: t`Esperando aprobación del video borrador`,
               tone: 'waiting',
               icon: Hourglass,
             }
       }
       return sessionKind === 'creator'
-        ? { label: t`Tenés que subir el draft`, tone: 'action', icon: Upload }
+        ? {
+            label: t`Tenés que subir el video borrador`,
+            tone: 'action',
+            icon: Upload,
+          }
         : {
-            label: t`Esperando que el creator suba el draft`,
+            label: t`Esperando que el creador suba el video borrador`,
             tone: 'waiting',
             icon: Hourglass,
           }
@@ -69,7 +77,7 @@ function deriveDeliverableStep(
             icon: Upload,
           }
         : {
-            label: t`Esperando los cambios del creator`,
+            label: t`Esperando los cambios del creador`,
             tone: 'waiting',
             icon: Hourglass,
           }
@@ -81,7 +89,7 @@ function deriveDeliverableStep(
             icon: LinkIcon,
           }
         : {
-            label: t`Esperando que el creator publique el link`,
+            label: t`Esperando que el creador publique el link`,
             tone: 'waiting',
             icon: Hourglass,
           }

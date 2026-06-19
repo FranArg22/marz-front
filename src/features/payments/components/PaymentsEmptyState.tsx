@@ -12,7 +12,7 @@ export function PaymentsEmptyState({ variant }: PaymentsEmptyStateProps) {
   const description =
     variant === 'no-payments'
       ? t`Cuando declares pagos a creadores, el historial y el análisis van a aparecer acá.`
-      : t`No encontramos pagos para los filtros actuales. Probá ajustar la búsqueda, campaña o creator.`
+      : t`No encontramos pagos para los filtros actuales. Probá ajustar la búsqueda, campaña o creador.`
 
   return (
     <div className="flex min-h-[260px] flex-col items-center justify-center px-6 py-10 text-center">

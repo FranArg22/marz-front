@@ -52,7 +52,7 @@ export function DiscoveryGrid({
     return (
       <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-10 text-center">
         <p className="text-sm text-muted-foreground">
-          {t`No pudimos cargar la lista de creators. Intentá de nuevo.`}
+          {t`No pudimos cargar la lista de creadores. Intentá de nuevo.`}
         </p>
         <Button
           type="button"
@@ -71,7 +71,7 @@ export function DiscoveryGrid({
       <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
         <Search className="mx-auto size-8 text-muted-foreground" aria-hidden />
         <p className="mt-3 text-sm font-semibold text-foreground">
-          {t`No encontramos creators con esos filtros`}
+          {t`No encontramos creadores con esos filtros`}
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
           {t`Probá ajustar o limpiar los filtros.`}

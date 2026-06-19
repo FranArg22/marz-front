@@ -36,7 +36,7 @@ export function RequestChangesModal({
   const actionLabel =
     target === 'link'
       ? t`Solicitar cambios en el link`
-      : t`Solicitar cambios en el draft`
+      : t`Solicitar cambios en el video borrador`
   const resolvedTriggerLabel = triggerLabel ?? t`Solicitar cambios`
   const [localCategories, setLocalCategories] = useState<Set<ChangeCategory>>(
     new Set(),

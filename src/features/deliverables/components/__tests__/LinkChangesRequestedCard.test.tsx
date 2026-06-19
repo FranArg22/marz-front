@@ -103,7 +103,9 @@ describe('LinkChangesRequestedCard', () => {
     expect(screen.getByTestId('request-changes-card')).toBeInTheDocument()
     expect(screen.getByText('Launch video')).toBeInTheDocument()
     expect(screen.getByText('Discount code')).toBeInTheDocument()
-    expect(screen.queryByAltText('Draft thumbnail')).not.toBeInTheDocument()
+    expect(
+      screen.queryByAltText('Miniatura del video borrador'),
+    ).not.toBeInTheDocument()
     expect(container.firstChild).toMatchSnapshot()
   })
 

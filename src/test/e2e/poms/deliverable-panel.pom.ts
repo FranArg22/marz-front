@@ -24,7 +24,7 @@ export class DeliverablePanel {
   }
 
   approveDraftButton(): Locator {
-    return this.page.getByRole('button', { name: /approve draft/i })
+    return this.page.getByRole('button', { name: /aprobar video borrador/i })
   }
 
   requestChangesButton(): Locator {

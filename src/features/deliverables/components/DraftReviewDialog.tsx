@@ -99,8 +99,8 @@ export function DraftReviewDialog({
               </Button>
             ) : null}
             {step === 'review'
-              ? t`Revisar draft`
-              : t`Solicitar cambios al draft`}
+              ? t`Revisar video borrador`
+              : t`Solicitar cambios al video borrador`}
           </DialogTitle>
         </DialogHeader>
 
@@ -110,7 +110,7 @@ export function DraftReviewDialog({
           </div>
         ) : isError || !draft ? (
           <p className="text-sm text-muted-foreground">
-            {t`No pudimos cargar el draft. Probá refrescar.`}
+            {t`No pudimos cargar el video borrador. Probá refrescar.`}
           </p>
         ) : step === 'review' ? (
           <div className="flex flex-col gap-4">
@@ -143,7 +143,7 @@ export function DraftReviewDialog({
           </div>
         ) : (
           <RequestChangesModal
-            title={t`Solicitar cambios al draft`}
+            title={t`Solicitar cambios al video borrador`}
             target="draft"
             deliverableId={deliverableId}
             draftId={draft.id}

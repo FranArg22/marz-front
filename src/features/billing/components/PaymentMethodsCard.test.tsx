@@ -92,7 +92,7 @@ describe('PaymentMethodsCard', () => {
     render(<PaymentMethodsCard />)
 
     await user.click(
-      screen.getByRole('combobox', { name: /método de pago para creators/i }),
+      screen.getByRole('combobox', { name: /método de pago para creadores/i }),
     )
     await user.click(await screen.findByRole('option', { name: /Amex •••• 0005/i }))
 
@@ -108,7 +108,7 @@ describe('PaymentMethodsCard', () => {
     render(<PaymentMethodsCard />)
 
     await user.click(
-      screen.getByRole('combobox', { name: /método de pago para creators/i }),
+      screen.getByRole('combobox', { name: /método de pago para creadores/i }),
     )
     await user.click(
       await screen.findByRole('option', { name: /El mismo que la suscripción/i }),
