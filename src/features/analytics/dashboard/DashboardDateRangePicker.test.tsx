@@ -59,30 +59,26 @@ describe('DashboardDateRangePicker', () => {
 
   it('disables paid presets for free workspaces', async () => {
     mockPlan = 'free'
+    const user = userEvent.setup()
 
     await renderPicker({ range_preset: '7d' })
+    await user.click(screen.getByRole('button', { name: /Últimos 7 días/ }))
 
     expect(
-      screen.getByRole('option', { name: 'Últimos 7 días' }),
-    ).not.toBeDisabled()
-    expect(
-      screen.getByRole('option', { name: 'Últimos 14 días' }),
+      screen.getByRole('button', { name: 'Últimos 14 días' }),
     ).toBeDisabled()
     expect(
-      screen.getByRole('option', { name: 'Últimos 30 días' }),
+      screen.getByRole('button', { name: 'Últimos 30 días' }),
     ).toBeDisabled()
-    expect(
-      screen.getByRole('option', { name: 'Personalizado' }),
-    ).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Personalizado' })).toBeDisabled()
   })
 
   it('updates range_preset when selecting 30d', async () => {
     const user = userEvent.setup()
     const router = await renderPicker()
 
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Rango' }), [
-      '30d',
-    ])
+    await user.click(screen.getByRole('button', { name: /Últimos 14 días/ }))
+    await user.click(screen.getByRole('button', { name: 'Últimos 30 días' }))
 
     await waitFor(() => {
       expect(router.state.location.search).toMatchObject({
@@ -95,9 +91,8 @@ describe('DashboardDateRangePicker', () => {
     const user = userEvent.setup()
     const router = await renderPicker()
 
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Rango' }), [
-      'custom',
-    ])
+    await user.click(screen.getByRole('button', { name: /Últimos 14 días/ }))
+    await user.click(screen.getByRole('button', { name: 'Personalizado' }))
     await user.type(screen.getByLabelText('Desde'), '2026-06-01')
     await user.type(screen.getByLabelText('Hasta'), '2026-06-14')
 

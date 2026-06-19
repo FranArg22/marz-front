@@ -87,10 +87,9 @@ describe('DashboardFilters', () => {
     const user = userEvent.setup()
     const router = await renderFilters()
 
-    await user.selectOptions(
-      screen.getByRole('combobox', { name: 'Plataforma' }),
-      ['instagram', 'youtube'],
-    )
+    await user.click(screen.getByRole('button', { name: 'Plataforma' }))
+    await user.click(screen.getByRole('checkbox', { name: 'Instagram' }))
+    await user.click(screen.getByRole('checkbox', { name: 'YouTube' }))
 
     await waitFor(() => {
       expect(router.state.location.search).toMatchObject({
@@ -99,7 +98,7 @@ describe('DashboardFilters', () => {
     })
   })
 
-  it('resets filters to defaults with Limpiar filtros', async () => {
+  it('resets filters to defaults with Limpiar', async () => {
     const user = userEvent.setup()
     const router = await renderFilters({
       campaign_ids: ['11111111-1111-4111-8111-111111111111'],
@@ -109,7 +108,7 @@ describe('DashboardFilters', () => {
       status: 'inactive',
     })
 
-    await user.click(screen.getByRole('button', { name: 'Limpiar filtros' }))
+    await user.click(screen.getByRole('button', { name: 'Limpiar' }))
 
     await waitFor(() => {
       expect(router.state.location.search).toMatchObject({
@@ -122,16 +121,18 @@ describe('DashboardFilters', () => {
     })
   })
 
-  it('exposes filter controls as comboboxes', async () => {
+  it('exposes filter controls as pills', async () => {
     await renderFilters()
 
-    expect(screen.getByRole('combobox', { name: 'Campañas' })).toBeInTheDocument()
-    expect(screen.getByRole('combobox', { name: 'Creadores' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Campañas' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Creadores' })).toBeInTheDocument()
     expect(
-      screen.getByRole('combobox', { name: 'Plataforma' }),
+      screen.getByRole('button', { name: 'Plataforma' }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('combobox', { name: 'País' })).toBeInTheDocument()
-    expect(screen.getByRole('combobox', { name: 'Estado' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'País' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Estado/ }),
+    ).toBeInTheDocument()
   })
 })
 

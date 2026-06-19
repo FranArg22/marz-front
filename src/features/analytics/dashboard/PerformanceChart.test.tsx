@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { DashboardChartResponse } from '#/shared/api/generated/model/dashboardChartResponse'
 
-import { PerformanceChart } from './PerformanceChart'
+import { ChartTooltipBody, PerformanceChart } from './PerformanceChart'
 
 describe('PerformanceChart', () => {
   beforeEach(() => {
@@ -43,6 +42,10 @@ describe('PerformanceChart', () => {
         isLoading
         isError={false}
         activeSeries={['oferta']}
+        onSeriesChange={vi.fn()}
+        grouping="day"
+        rangePreset="14d"
+        onGroupingChange={vi.fn()}
         onRetry={vi.fn()}
         onClear={vi.fn()}
       />,
@@ -51,22 +54,31 @@ describe('PerformanceChart', () => {
     expect(screen.getByTestId('chart-skeleton')).toBeInTheDocument()
   })
 
-  it('renders one point per bucket for oferta', () => {
-    renderChart()
+  it('renders a bar for the active series', () => {
+    const { container } = renderChart()
 
-    expect(screen.getAllByTestId('chart-point-oferta')).toHaveLength(5)
+    expect(screen.getByTestId('performance-chart')).toBeInTheDocument()
+    expect(
+      container.querySelectorAll('.recharts-bar').length,
+    ).toBeGreaterThanOrEqual(1)
   })
 
-  it('shows oferta offers in the tooltip', async () => {
-    const user = userEvent.setup()
-    renderChart()
-    const [firstPoint] = screen.getAllByTestId('chart-point-oferta')
+  it('lists oferta offers in the tooltip body', () => {
+    const [firstBucket] = chartData.buckets
+    if (!firstBucket) throw new Error('Expected a seeded bucket')
 
-    if (!firstPoint) throw new Error('Expected at least one oferta point')
+    render(
+      <ChartTooltipBody
+        row={{
+          bucket_start: firstBucket.bucket_start,
+          bucket: firstBucket,
+          oferta: firstBucket.oferta?.value,
+        }}
+        series={['oferta']}
+      />,
+    )
 
-    await user.hover(firstPoint)
-
-    expect(await screen.findByText('@ana - Lanzamiento')).toBeInTheDocument()
+    expect(screen.getByText('@ana - Lanzamiento')).toBeInTheDocument()
     expect(screen.getByText('@leo - Always on')).toBeInTheDocument()
   })
 })
@@ -79,6 +91,10 @@ function renderChart() {
         isLoading={false}
         isError={false}
         activeSeries={['oferta']}
+        onSeriesChange={vi.fn()}
+        grouping="day"
+        rangePreset="14d"
+        onGroupingChange={vi.fn()}
         onRetry={vi.fn()}
         onClear={vi.fn()}
       />

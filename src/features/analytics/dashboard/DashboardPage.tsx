@@ -14,11 +14,10 @@ import type { GetAnalyticsDashboardTopCreatorsParams } from '#/shared/api/genera
 import type { GetAnalyticsDashboardTopVideosParams } from '#/shared/api/generated/model/getAnalyticsDashboardTopVideosParams'
 
 import { DashboardFilters } from './DashboardFilters'
+import { DashboardHeader } from './DashboardHeader'
 import { MetricsGrid } from './MetricsGrid'
 import { OnboardingChecklist } from './OnboardingChecklist'
-import { ChartConfigPopover } from './ChartConfigPopover'
 import type { ChartGrouping } from './ChartConfigPopover'
-import { ChartSeriesChips } from './ChartSeriesChips'
 import type { ChartSeries } from './ChartSeriesChips'
 import { PerformanceChart } from './PerformanceChart'
 import { TopCreatorsTable } from './TopCreatorsTable'
@@ -86,7 +85,7 @@ export function DashboardPage() {
         range_preset: '14d' as const,
         range_start: undefined,
         range_end: undefined,
-        chart_series: ['oferta', 'vistas'] as const,
+        chart_series: ['oferta', 'vistas', 'gasto'] as const,
         chart_grouping: 'day' as const,
         top_videos_sort: 'views' as const,
         top_creators_sort: 'views' as const,
@@ -94,65 +93,63 @@ export function DashboardPage() {
     })
   }
 
+  const checklistData =
+    checklistQuery.data?.status === 200 ? checklistQuery.data.data : undefined
+  const checklistCompleted = checklistData?.completed === true
+
+  const metricsGrid = (
+    <MetricsGrid
+      data={cardsQuery.data?.status === 200 ? cardsQuery.data.data : undefined}
+      isLoading={cardsQuery.isPending}
+      isError={cardsQuery.isError}
+      onRetry={cardsQuery.refetch}
+    />
+  )
+
   return (
-    <main className="flex min-h-full flex-col gap-6 bg-background px-6 py-5 text-foreground">
+    <main className="flex h-full flex-col gap-6 overflow-y-auto bg-background px-6 py-5 text-foreground">
+      <DashboardHeader updatedAt={cardsQuery.dataUpdatedAt} />
       <DashboardFilters />
 
-      <MetricsGrid
-        data={
-          cardsQuery.data?.status === 200 ? cardsQuery.data.data : undefined
-        }
-        isLoading={cardsQuery.isPending}
-        isError={cardsQuery.isError}
-        onRetry={cardsQuery.refetch}
-      />
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap items-center justify-end gap-3">
-          <ChartSeriesChips
-            activeSeries={search.chart_series}
-            onChange={(newSeries: ChartSeries[]) => {
-              void navigate({
-                to: '.',
-                search: (prev) => ({ ...prev, chart_series: newSeries }),
-                replace: true,
-              })
-            }}
-          />
-          <ChartConfigPopover
-            currentGrouping={search.chart_grouping}
-            currentPreset={search.range_preset}
-            onChange={(newGrouping: ChartGrouping) => {
-              void navigate({
-                to: '.',
-                search: (prev) => ({
-                  ...prev,
-                  chart_grouping: newGrouping,
-                }),
-                replace: true,
-              })
-            }}
+      {checklistCompleted ? (
+        metricsGrid
+      ) : (
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+          {metricsGrid}
+          <OnboardingChecklist
+            data={checklistData}
+            isLoading={checklistQuery.isPending}
+            isError={checklistQuery.isError}
+            onRetry={checklistQuery.refetch}
           />
         </div>
-        <PerformanceChart
-          data={
-            chartQuery.data?.status === 200 ? chartQuery.data.data : undefined
-          }
-          isLoading={chartQuery.isPending}
-          isError={chartQuery.isError}
-          activeSeries={search.chart_series}
-          onRetry={chartQuery.refetch}
-          onClear={handleClearFilters}
-        />
-      </div>
-      <OnboardingChecklist
+      )}
+
+      <PerformanceChart
         data={
-          checklistQuery.data?.status === 200
-            ? checklistQuery.data.data
-            : undefined
+          chartQuery.data?.status === 200 ? chartQuery.data.data : undefined
         }
-        isLoading={checklistQuery.isPending}
-        isError={checklistQuery.isError}
-        onRetry={checklistQuery.refetch}
+        isLoading={chartQuery.isPending}
+        isError={chartQuery.isError}
+        activeSeries={search.chart_series}
+        onSeriesChange={(newSeries: ChartSeries[]) => {
+          void navigate({
+            to: '.',
+            search: (prev) => ({ ...prev, chart_series: newSeries }),
+            replace: true,
+          })
+        }}
+        grouping={search.chart_grouping}
+        rangePreset={search.range_preset}
+        onGroupingChange={(newGrouping: ChartGrouping) => {
+          void navigate({
+            to: '.',
+            search: (prev) => ({ ...prev, chart_grouping: newGrouping }),
+            replace: true,
+          })
+        }}
+        onRetry={chartQuery.refetch}
+        onClear={handleClearFilters}
       />
       <div className="grid gap-6 xl:grid-cols-2">
         <TopVideosTable

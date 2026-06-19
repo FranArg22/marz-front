@@ -5,12 +5,22 @@ import { describe, expect, it, vi } from 'vitest'
 import { ChartSeriesChips } from './ChartSeriesChips'
 
 describe('ChartSeriesChips', () => {
-  it('disables the third chip when two series are active', () => {
+  it('allows activating all three series', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+
     render(
-      <ChartSeriesChips activeSeries={['oferta', 'vistas']} onChange={vi.fn()} />,
+      <ChartSeriesChips
+        activeSeries={['oferta', 'vistas']}
+        onChange={onChange}
+      />,
     )
 
-    expect(screen.getByRole('button', { name: 'Gasto' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Gasto' })).not.toBeDisabled()
+
+    await user.click(screen.getByRole('button', { name: 'Gasto' }))
+
+    expect(onChange).toHaveBeenCalledWith(['oferta', 'vistas', 'gasto'])
   })
 
   it('does not deselect the only active chip', async () => {

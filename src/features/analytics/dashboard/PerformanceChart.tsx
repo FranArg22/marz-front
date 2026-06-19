@@ -1,23 +1,27 @@
-import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Info } from 'lucide-react'
 import {
+  Bar,
   CartesianGrid,
+  ComposedChart,
   Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
-import type { DotItemDotProps, TooltipContentProps } from 'recharts'
+import type { TooltipContentProps } from 'recharts'
 
 import {
   Tooltip as UiTooltip,
   TooltipContent as UiTooltipContent,
   TooltipTrigger as UiTooltipTrigger,
 } from '#/components/ui/tooltip'
+import { ChartConfigPopover } from './ChartConfigPopover'
+import type { ChartGrouping } from './ChartConfigPopover'
+import { ChartSeriesChips } from './ChartSeriesChips'
 import type { ChartSeries } from './ChartSeriesChips'
+import type { DashboardSearch } from '#/routes/_brand/inicio'
 import type { DashboardChartBucket } from '#/shared/api/generated/model/dashboardChartBucket'
 import type { DashboardChartResponse } from '#/shared/api/generated/model/dashboardChartResponse'
 
@@ -29,6 +33,10 @@ interface PerformanceChartProps {
   isLoading: boolean
   isError: boolean
   activeSeries: ChartSeries[]
+  onSeriesChange: (series: ChartSeries[]) => void
+  grouping: ChartGrouping
+  rangePreset: DashboardSearch['range_preset']
+  onGroupingChange: (grouping: ChartGrouping) => void
   onRetry: () => void
   onClear: () => void
 }
@@ -52,19 +60,37 @@ const SERIES_LABELS: Record<ChartSeries, string> = {
   gasto: 'Gasto',
 }
 
-const SERIES_COLORS = ['#3ECF8E', '#94a3b8'] as const
+// Canonical order for bars, badges and legend.
+const SERIES_ORDER: ChartSeries[] = ['oferta', 'vistas', 'gasto']
+
+// Vistas renders as the line crossing the bars; oferta and gasto are bars.
+const LINE_SERIES: ChartSeries = 'vistas'
+
+// Match the .pen: Vistas is the solid green line; Oferta + Gasto are
+// translucent bars (green + grey respectively).
+const SERIES_COLORS: Record<ChartSeries, string> = {
+  oferta: '#3ECF8E',
+  vistas: '#3ECF8E',
+  gasto: '#A1A1AA',
+}
 
 export function PerformanceChart({
   data,
   isLoading,
   isError,
   activeSeries,
+  onSeriesChange,
+  grouping,
+  rangePreset,
+  onGroupingChange,
   onRetry,
   onClear,
 }: PerformanceChartProps) {
-  const visibleSeries = activeSeries.slice(0, 2)
+  // Always render in canonical order (oferta, vistas, gasto), filtered by active.
+  const visibleSeries = SERIES_ORDER.filter((series) =>
+    activeSeries.includes(series),
+  )
   const rows = data?.buckets.map(toChartRow) ?? []
-  const [hoveredRow, setHoveredRow] = useState<ChartRow | null>(null)
 
   if (isLoading) {
     return (
@@ -118,6 +144,17 @@ export function PerformanceChart({
             </UiTooltipContent>
           </UiTooltip>
         </div>
+        <div className="flex items-center gap-2">
+          <ChartSeriesChips
+            activeSeries={activeSeries}
+            onChange={onSeriesChange}
+          />
+          <ChartConfigPopover
+            currentGrouping={grouping}
+            currentPreset={rangePreset}
+            onChange={onGroupingChange}
+          />
+        </div>
       </div>
 
       <div className="relative min-h-0 flex-1" data-testid="chart-plot">
@@ -128,7 +165,7 @@ export function PerformanceChart({
           minHeight={210}
           initialDimension={{ width: 900, height: 210 }}
         >
-          <LineChart
+          <ComposedChart
             data={rows}
             margin={{ top: 8, right: 10, bottom: 0, left: 0 }}
             accessibilityLayer
@@ -146,75 +183,59 @@ export function PerformanceChart({
               tickFormatter={formatDate}
               tick={{ fill: '#A1A1AA', fontSize: 11, fontFamily: 'Geist Mono' }}
             />
-            <YAxis
-              yAxisId="left"
-              tickLine={false}
-              axisLine={false}
-              width={40}
-              tick={{ fill: '#71717A', fontSize: 11, fontFamily: 'Geist Mono' }}
-            />
-            {visibleSeries[1] ? (
-              <YAxis
-                yAxisId="right"
-                orientation="right"
-                tickLine={false}
-                axisLine={false}
-                width={40}
-                tick={{
-                  fill: '#71717A',
-                  fontSize: 11,
-                  fontFamily: 'Geist Mono',
-                }}
-              />
-            ) : null}
+            {visibleSeries.map((series) => (
+              <YAxis key={series} yAxisId={series} hide domain={[0, 'auto']} />
+            ))}
             <Tooltip
               content={(props) => <ChartTooltip {...props} />}
-              cursor={{ stroke: '#A1A1AA', strokeDasharray: '4 4' }}
+              cursor={{ fill: '#A1A1AA1A' }}
               isAnimationActive={false}
             />
-            {visibleSeries.map((series, index) => (
+            {visibleSeries
+              .filter((series) => series !== LINE_SERIES)
+              .map((series) => (
+                <Bar
+                  key={series}
+                  dataKey={series}
+                  name={SERIES_LABELS[series]}
+                  yAxisId={series}
+                  fill={SERIES_COLORS[series]}
+                  fillOpacity={0.45}
+                  radius={[4, 4, 0, 0]}
+                  maxBarSize={18}
+                  isAnimationActive={false}
+                />
+              ))}
+            {visibleSeries.includes(LINE_SERIES) ? (
               <Line
-                key={series}
                 type="monotone"
-                dataKey={series}
-                name={SERIES_LABELS[series]}
-                yAxisId={index === 0 ? 'left' : 'right'}
-                stroke={getSeriesColor(index)}
+                dataKey={LINE_SERIES}
+                name={SERIES_LABELS[LINE_SERIES]}
+                yAxisId={LINE_SERIES}
+                stroke={SERIES_COLORS[LINE_SERIES]}
                 strokeWidth={3}
-                dot={(props) => (
-                  <SeriesDot
-                    {...props}
-                    series={series}
-                    color={getSeriesColor(index)}
-                    onHover={setHoveredRow}
-                  />
-                )}
+                dot={{ r: 3, fill: SERIES_COLORS[LINE_SERIES], strokeWidth: 0 }}
                 activeDot={{
                   r: 5,
                   strokeWidth: 2,
                   stroke: 'var(--card)',
-                  fill: getSeriesColor(index),
+                  fill: SERIES_COLORS[LINE_SERIES],
                 }}
                 connectNulls
                 isAnimationActive={false}
               />
-            ))}
-          </LineChart>
+            ) : null}
+          </ComposedChart>
         </ResponsiveContainer>
-        {hoveredRow ? (
-          <div className="pointer-events-none absolute right-2 top-2 z-10">
-            <ChartTooltipBody row={hoveredRow} series={visibleSeries} />
-          </div>
-        ) : null}
       </div>
 
       <div className="flex h-[18px] items-center gap-4">
-        {visibleSeries.map((series, index) => (
+        {visibleSeries.map((series) => (
           <div key={series} className="flex items-center gap-1.5">
             <span
               aria-hidden="true"
               className="size-2.5 rounded-full"
-              style={{ backgroundColor: getSeriesColor(index) }}
+              style={{ backgroundColor: SERIES_COLORS[series] }}
             />
             <span className="text-[11px] text-muted-foreground">
               {SERIES_LABELS[series]}
@@ -255,11 +276,7 @@ function ChartTooltip({ active, payload, label }: TooltipContentProps) {
   )
 }
 
-function getSeriesColor(index: number): string {
-  return index === 0 ? SERIES_COLORS[0] : SERIES_COLORS[1]
-}
-
-function ChartTooltipBody({
+export function ChartTooltipBody({
   row,
   label = formatDate(row.bucket_start),
   series,
@@ -304,34 +321,4 @@ function formatSeriesValue(series: ChartSeries, row: ChartRow): string {
   }
 
   return String(row[series] ?? 0)
-}
-
-function SeriesDot({
-  cx,
-  cy,
-  payload,
-  series,
-  color,
-  onHover,
-}: DotItemDotProps & {
-  payload?: ChartRow
-  series: ChartSeries
-  color: string
-  onHover: (row: ChartRow | null) => void
-}) {
-  if (typeof cx !== 'number' || typeof cy !== 'number') return null
-
-  return (
-    <circle
-      cx={cx}
-      cy={cy}
-      r={4}
-      fill={color}
-      stroke="var(--card)"
-      strokeWidth={2}
-      data-testid={`chart-point-${series}`}
-      onMouseEnter={() => onHover(payload ?? null)}
-      onMouseLeave={() => onHover(null)}
-    />
-  )
 }

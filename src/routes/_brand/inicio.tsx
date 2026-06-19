@@ -21,7 +21,7 @@ const dashboardSearchSchema = z.object({
   chart_series: z
     .array(z.enum(['oferta', 'vistas', 'gasto']))
     .optional()
-    .default(['oferta', 'vistas']),
+    .default(['oferta', 'vistas', 'gasto']),
   chart_grouping: z.enum(['day', 'week', 'month']).optional().default('day'),
   top_videos_sort: z
     .enum(['views', 'cpm', 'engagement'])

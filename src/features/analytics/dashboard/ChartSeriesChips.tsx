@@ -16,6 +16,13 @@ const SERIES_OPTIONS: Array<{
   { value: 'gasto', label: 'Gasto' },
 ]
 
+// Keep in sync with SERIES_COLORS in PerformanceChart.tsx.
+const SERIES_CHIP_COLORS: Record<ChartSeries, string> = {
+  oferta: '#3ECF8E',
+  vistas: '#3ECF8E',
+  gasto: '#A1A1AA',
+}
+
 export function ChartSeriesChips({
   activeSeries,
   onChange,
@@ -29,7 +36,7 @@ export function ChartSeriesChips({
       return
     }
 
-    if (activeSeries.length >= 2) return
+    if (activeSeries.length >= 3) return
     onChange([...activeSeries, series])
   }
 
@@ -37,7 +44,8 @@ export function ChartSeriesChips({
     <div className="flex flex-wrap items-center gap-2" aria-label="Series">
       {SERIES_OPTIONS.map((option) => {
         const isActive = activeSeries.includes(option.value)
-        const isDisabled = !isActive && activeSeries.length >= 2
+        const isDisabled = !isActive && activeSeries.length >= 3
+        const color = SERIES_CHIP_COLORS[option.value]
 
         return (
           <button
@@ -46,20 +54,19 @@ export function ChartSeriesChips({
             aria-pressed={isActive}
             disabled={isDisabled}
             onClick={() => toggleSeries(option.value)}
+            style={isActive ? { borderColor: color } : undefined}
             className={cn(
               'flex h-6 items-center gap-1.5 rounded-full border px-2.5 text-[11px] font-semibold leading-none transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
               isActive
-                ? 'border-[#3ECF8E] bg-muted text-foreground'
+                ? 'bg-muted text-foreground'
                 : 'border-border bg-card text-foreground',
               isDisabled && 'cursor-not-allowed opacity-45',
             )}
           >
             <span
               aria-hidden="true"
-              className={cn(
-                'size-[7px] rounded-full',
-                isActive ? 'bg-[#3ECF8E]' : 'bg-muted-foreground',
-              )}
+              className="size-[7px] rounded-full"
+              style={{ backgroundColor: isActive ? color : '#A1A1AA' }}
             />
             {option.label}
           </button>
