@@ -66,11 +66,10 @@ const SERIES_ORDER: ChartSeries[] = ['oferta', 'vistas', 'gasto']
 // Vistas renders as the line crossing the bars; oferta and gasto are bars.
 const LINE_SERIES: ChartSeries = 'vistas'
 
-// Match the .pen: Vistas is the solid green line; Oferta + Gasto are
-// translucent bars (green + grey respectively).
+// Vistas is the amber line; Oferta + Gasto are translucent bars (green + grey).
 const SERIES_COLORS: Record<ChartSeries, string> = {
   oferta: '#3ECF8E',
-  vistas: '#3ECF8E',
+  vistas: '#F59E0B',
   gasto: '#A1A1AA',
 }
 

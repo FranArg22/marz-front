@@ -19,7 +19,7 @@ const SERIES_OPTIONS: Array<{
 // Keep in sync with SERIES_COLORS in PerformanceChart.tsx.
 const SERIES_CHIP_COLORS: Record<ChartSeries, string> = {
   oferta: '#3ECF8E',
-  vistas: '#3ECF8E',
+  vistas: '#F59E0B',
   gasto: '#A1A1AA',
 }
 
