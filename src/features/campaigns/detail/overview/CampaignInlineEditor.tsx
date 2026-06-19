@@ -246,7 +246,7 @@ export function CampaignInlineEditor({
           value={currentCampaign.platforms}
         />
         <ReadonlyField
-          label={t`País creator`}
+          label={t`País creador`}
           value={currentCampaign.creator_country}
         />
         <ReadonlyField

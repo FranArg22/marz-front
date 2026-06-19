@@ -77,7 +77,7 @@ function deriveDeliverableStep(
             icon: Upload,
           }
         : {
-            label: t`Esperando los cambios del creator`,
+            label: t`Esperando los cambios del creador`,
             tone: 'waiting',
             icon: Hourglass,
           }
@@ -89,7 +89,7 @@ function deriveDeliverableStep(
             icon: LinkIcon,
           }
         : {
-            label: t`Esperando que el creator publique el link`,
+            label: t`Esperando que el creador publique el link`,
             tone: 'waiting',
             icon: Hourglass,
           }

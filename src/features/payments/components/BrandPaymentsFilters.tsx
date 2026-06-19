@@ -127,7 +127,7 @@ export function BrandPaymentsFilters({
           type="search"
           value={filters.q ?? ''}
           onChange={handleSearchChange}
-          placeholder={t`Buscar creator o campaña`}
+          placeholder={t`Buscar creador o campaña`}
           className="h-8 rounded-full border-0 bg-input pr-3 pl-8 text-xs"
         />
       </div>

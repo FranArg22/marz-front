@@ -76,7 +76,7 @@ export function InviteBulkModal({
           toast.success(t`Se enviaron ${created_count} invitaciones.`)
         } else {
           toast.success(
-            t`Se enviaron ${created_count} invitaciones. ${skipped_count} creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa.`,
+            t`Se enviaron ${created_count} invitaciones. ${skipped_count} creadores fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa.`,
           )
         }
 
@@ -128,11 +128,11 @@ export function InviteBulkModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{t`Invitar a ${count} creators`}</DialogTitle>
+          <DialogTitle>{t`Invitar a ${count} creadores`}</DialogTitle>
         </DialogHeader>
 
         <p className="text-sm text-muted-foreground">
-          {t`Se enviará la misma nota a todos los creators seleccionados.`}
+          {t`Se enviará la misma nota a todos los creadores seleccionados.`}
         </p>
 
         <div className="space-y-2">
@@ -144,7 +144,7 @@ export function InviteBulkModal({
             value={note}
             onChange={(event) => setNote(event.target.value)}
             maxLength={1000}
-            placeholder={t`Contale por qué querés trabajar con estos creators...`}
+            placeholder={t`Contale por qué querés trabajar con estos creadores...`}
             rows={4}
           />
           <p className="text-right text-xs text-muted-foreground">

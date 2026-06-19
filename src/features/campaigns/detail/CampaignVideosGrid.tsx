@@ -125,10 +125,10 @@ export function CampaignVideosGrid({
           }
           description={
             hasActiveFilters
-              ? t`Probá con otra búsqueda, estado, plataforma o creator.`
+              ? t`Probá con otra búsqueda, estado, plataforma o creador.`
               : hasActiveParticipants
                 ? t`Los videos van a aparecer acá cuando los creadores suban sus videos borradores y queden en revisión o aprobados.`
-                : t`Invitá creators para empezar a recibir entregables en esta campaña.`
+                : t`Invitá creadores para empezar a recibir entregables en esta campaña.`
           }
           action={
             hasActiveFilters ? (
@@ -149,8 +149,8 @@ export function CampaignVideosGrid({
               >
                 <UserPlus className="size-4" aria-hidden />
                 {hasActiveParticipants
-                  ? t`View active creators`
-                  : t`Invite creators`}
+                  ? t`Ver creadores activos`
+                  : t`Invitar creadores`}
               </Button>
             )
           }

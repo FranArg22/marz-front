@@ -82,7 +82,7 @@ export function WizardStep3Brief() {
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           <Trans>
-            Completá la información principal que verán los creators antes de
+            Completá la información principal que verán los creadores antes de
             aplicar.
           </Trans>
         </p>

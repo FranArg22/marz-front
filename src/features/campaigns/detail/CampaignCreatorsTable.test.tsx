@@ -148,7 +148,7 @@ describe('CampaignCreatorsTable', () => {
 
     renderTable({ onInviteCreator })
 
-    await user.click(screen.getByRole('button', { name: 'Invite creator' }))
+    await user.click(screen.getByRole('button', { name: 'Invitar creador' }))
     expect(onInviteCreator).toHaveBeenCalledTimes(1)
   })
 

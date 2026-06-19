@@ -64,7 +64,7 @@ describe('CampaignVideosGrid', () => {
 
     renderGrid({ hasActiveParticipants: false, onInviteCreators })
 
-    await user.click(screen.getByRole('button', { name: 'Invite creators' }))
+    await user.click(screen.getByRole('button', { name: 'Invitar creadores' }))
     expect(onInviteCreators).toHaveBeenCalled()
   })
 
@@ -78,7 +78,7 @@ describe('CampaignVideosGrid', () => {
     renderGrid({ hasActiveParticipants: true, onInviteCreators })
 
     await user.click(
-      screen.getByRole('button', { name: 'View active creators' }),
+      screen.getByRole('button', { name: 'Ver creadores activos' }),
     )
     expect(onInviteCreators).toHaveBeenCalled()
   })

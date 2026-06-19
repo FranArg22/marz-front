@@ -33,7 +33,7 @@ function createInviteCreatorSchema() {
     email: z.email(t`Ingresá un email válido`).or(z.literal('')),
     // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
     // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
-    creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
+    creator_account_id: z.uuid(t`Ingresá un creador válido`).or(z.literal('')),
   })
 }
 
@@ -100,7 +100,7 @@ export function InviteCreatorDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="rounded-2xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t`Invite creator`}</DialogTitle>
+          <DialogTitle>{t`Invitar creador`}</DialogTitle>
           <DialogDescription>
             {t`Creá una invitación para esta campaña.`}
           </DialogDescription>
@@ -142,7 +142,7 @@ export function InviteCreatorDialog({
                     <field.TextField
                       label={t`Email`}
                       type="email"
-                      placeholder={t`creator@ejemplo.com`}
+                      placeholder={t`creador@ejemplo.com`}
                     />
                   )}
                 </form.AppField>
@@ -222,7 +222,7 @@ function getInviteCreatorValidationError(value: InviteCreatorFormValues) {
     value.mode === 'in_platform' &&
     value.creator_account_id.trim().length === 0
   ) {
-    return t`Ingresá un creator.`
+    return t`Ingresá un creador.`
   }
   return undefined
 }

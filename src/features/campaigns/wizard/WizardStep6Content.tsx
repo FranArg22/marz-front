@@ -24,7 +24,7 @@ export function WizardStep6Content() {
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           <Trans>
-            Escribí las instrucciones que los creators deberán seguir para
+            Escribí las instrucciones que los creadores deberán seguir para
             producir contenido alineado con la campaña.
           </Trans>
         </p>

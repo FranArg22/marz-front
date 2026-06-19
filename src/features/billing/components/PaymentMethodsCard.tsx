@@ -175,14 +175,14 @@ export function PaymentMethodsCard({
             </div>
 
             <div className="flex flex-col gap-2">
-              <Label>{t`Pagos a creators`}</Label>
+              <Label>{t`Pagos a creadores`}</Label>
               <Select
                 value={offersValue}
                 onValueChange={handleOffersChange}
                 disabled={setOffers.isPending}
               >
                 <SelectTrigger
-                  aria-label={t`Elegí el método de pago para creators`}
+                  aria-label={t`Elegí el método de pago para creadores`}
                 >
                   <SelectValue />
                 </SelectTrigger>
@@ -194,7 +194,7 @@ export function PaymentMethodsCard({
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">
-                {t`La tarjeta con la que pagás a los creators.`}
+                {t`La tarjeta con la que pagás a los creadores.`}
               </p>
             </div>
 

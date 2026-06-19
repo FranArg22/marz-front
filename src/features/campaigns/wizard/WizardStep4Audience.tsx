@@ -72,7 +72,7 @@ export function WizardStep4Audience() {
           <Trans>Definí la audiencia</Trans>
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          <Trans>Elegí los filtros para encontrar creators compatibles.</Trans>
+          <Trans>Elegí los filtros para encontrar creadores compatibles.</Trans>
         </p>
       </div>
 

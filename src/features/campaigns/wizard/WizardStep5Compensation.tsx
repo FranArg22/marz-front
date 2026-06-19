@@ -16,7 +16,7 @@ export function WizardStep5Compensation() {
     {
       value: CampaignCompensationType.payment,
       label: t`Pago monetario`,
-      description: t`La campaña compensa a creators con un pago fijo.`,
+      description: t`La campaña compensa a creadores con un pago fijo.`,
       Icon: BadgeDollarSign,
       disabled: false,
     },
@@ -50,7 +50,7 @@ export function WizardStep5Compensation() {
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           <Trans>
-            Configurá cómo se compensará a los creators de esta campaña.
+            Configurá cómo se compensará a los creadores de esta campaña.
           </Trans>
         </p>
       </div>

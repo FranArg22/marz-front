@@ -115,7 +115,7 @@ export function CreatorsTab({
           onClick={openInviteCreator}
         >
           <Plus className="size-4" aria-hidden />
-          {t`Invite creator`}
+          {t`Invitar creador`}
         </Button>
       </div>
 

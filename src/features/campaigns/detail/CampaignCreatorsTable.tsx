@@ -116,13 +116,13 @@ export function CampaignCreatorsTable({
           icon={hasActiveFilters ? Search : UserPlus}
           title={
             hasActiveFilters
-              ? t`No encontramos creators con esos filtros`
+              ? t`No encontramos creadores con esos filtros`
               : t`Todavía no hay creadores en esta campaña`
           }
           description={
             hasActiveFilters
               ? t`Probá con otra búsqueda, estado o plataforma.`
-              : t`Cuando invites creators desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables.`
+              : t`Cuando invites creadores desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables.`
           }
           action={
             hasActiveFilters ? (
@@ -151,7 +151,7 @@ export function CampaignCreatorsTable({
                   onClick={onInviteCreator}
                 >
                   <Plus className="size-4" aria-hidden />
-                  {t`Invite creator`}
+                  {t`Invitar creador`}
                 </Button>
               </div>
             )
@@ -212,7 +212,7 @@ function TableFrame({ children }: { children: ReactNode }) {
 function HeaderRow() {
   return (
     <div className="grid grid-cols-[minmax(260px,1fr)_140px_140px_180px_160px_72px] items-center gap-3 border-b border-border bg-muted px-5 py-3">
-      <HeaderCell>{t`Creator`}</HeaderCell>
+      <HeaderCell>{t`Creador`}</HeaderCell>
       <HeaderCell>{t`Platform`}</HeaderCell>
       <HeaderCell>{t`Status`}</HeaderCell>
       <HeaderCell>{t`Deliverables`}</HeaderCell>
@@ -281,7 +281,7 @@ function CreatorRow({
             type="button"
             variant="ghost"
             size="icon-xs"
-            aria-label={t`Invite creator`}
+            aria-label={t`Invitar creador`}
             onClick={onInviteCreator}
           >
             <Plus className="size-3.5" aria-hidden />
@@ -293,7 +293,7 @@ function CreatorRow({
             type="button"
             variant="ghost"
             size="icon-xs"
-            aria-label={t`Creator actions`}
+            aria-label={t`Acciones de creador`}
             disabled
           >
             <Ellipsis className="size-3.5" aria-hidden />
@@ -425,8 +425,8 @@ function ErrorState({ error }: { error: Error }) {
       icon={AlertCircle}
       title={
         isNotFound
-          ? t`No encontramos los creators`
-          : t`No pudimos cargar los creators`
+          ? t`No encontramos los creadores`
+          : t`No pudimos cargar los creadores`
       }
       description={
         isNotFound
@@ -440,7 +440,7 @@ function ErrorState({ error }: { error: Error }) {
 
 function TableSkeleton() {
   return (
-    <div role="status" aria-label={t`Loading creators`}>
+    <div role="status" aria-label={t`Cargando creadores`}>
       <div className="h-11 border-b border-border bg-muted" />
       {[0, 1, 2, 3].map((item) => (
         <div

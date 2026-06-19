@@ -69,7 +69,7 @@ export function MatchLiveBlock({
             <Trans>Match en vivo</Trans>
           </h2>
           <p className="text-sm text-muted-foreground">
-            <Trans>Creators estimados para esta audiencia.</Trans>
+            <Trans>Creadores estimados para esta audiencia.</Trans>
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@ export function MatchLiveBlock({
           </span>
         ) : (
           <span className="text-sm text-muted-foreground">
-            <Trans>Creators disponibles</Trans>
+            <Trans>Creadores disponibles</Trans>
           </span>
         )}
       </div>

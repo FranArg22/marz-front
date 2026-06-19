@@ -49,7 +49,7 @@ export function CreatorHeaderCard({
         {onToggle ? (
           <IconButton
             shape="circle"
-            aria-label={t`Toggle creator details`}
+            aria-label={t`Mostrar detalles del creador`}
             onClick={onToggle}
           >
             {collapsed ? <ChevronDown /> : <ChevronUp />}
