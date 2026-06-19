@@ -93,7 +93,7 @@ export function DashboardFilters() {
           label="Creadores"
           value={search.creator_ids}
           onChange={(event) => handleMultiChange('creator_ids', event)}
-          options={search.creator_ids.map((creatorId) => ({
+          options={(search.creator_ids ?? []).map((creatorId) => ({
             value: creatorId,
             label: creatorId,
           }))}

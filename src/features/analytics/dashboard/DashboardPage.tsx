@@ -13,6 +13,7 @@ import type { GetAnalyticsDashboardTopCreatorsParams } from '#/shared/api/genera
 import type { GetAnalyticsDashboardTopVideosParams } from '#/shared/api/generated/model/getAnalyticsDashboardTopVideosParams'
 
 import { DashboardFilters } from './DashboardFilters'
+import { MetricsGrid } from './MetricsGrid'
 
 type CommonDashboardParams = {
   'campaign_ids[]'?: string[]
@@ -44,7 +45,9 @@ export function DashboardPage() {
     sort_by: search.top_creators_sort,
   }
 
-  useGetAnalyticsDashboardCards(cardsParams, { query: { staleTime: 60_000 } })
+  const cardsQuery = useGetAnalyticsDashboardCards(cardsParams, {
+    query: { staleTime: 60_000 },
+  })
   useGetAnalyticsDashboardChart(chartParams, { query: { staleTime: 300_000 } })
   useGetAnalyticsDashboardTopVideos(topVideosParams, {
     query: { staleTime: 300_000 },
@@ -60,9 +63,12 @@ export function DashboardPage() {
     <main className="flex min-h-full flex-col gap-6 bg-background px-6 py-5 text-foreground">
       <DashboardFilters />
 
-      <section
-        data-testid="metrics-grid"
-        className="min-h-40 rounded-lg border border-border bg-card"
+      <MetricsGrid
+        data={
+          cardsQuery.data?.status === 200 ? cardsQuery.data.data : undefined
+        }
+        isLoading={cardsQuery.isPending}
+        isError={cardsQuery.isError}
       />
       <section
         data-testid="chart"
