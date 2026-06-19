@@ -1,5 +1,6 @@
 import type { DashboardSearch } from '#/routes/_brand/inicio'
 import { Route } from '#/routes/_brand/inicio'
+import { useNavigate } from '@tanstack/react-router'
 import {
   useGetAnalyticsDashboardCards,
   useGetAnalyticsDashboardChart,
@@ -15,6 +16,11 @@ import type { GetAnalyticsDashboardTopVideosParams } from '#/shared/api/generate
 import { DashboardFilters } from './DashboardFilters'
 import { MetricsGrid } from './MetricsGrid'
 import { OnboardingChecklist } from './OnboardingChecklist'
+import { ChartConfigPopover } from './ChartConfigPopover'
+import type { ChartGrouping } from './ChartConfigPopover'
+import { ChartSeriesChips } from './ChartSeriesChips'
+import type { ChartSeries } from './ChartSeriesChips'
+import { PerformanceChart } from './PerformanceChart'
 
 type CommonDashboardParams = {
   'campaign_ids[]'?: string[]
@@ -29,6 +35,7 @@ type CommonDashboardParams = {
 
 export function DashboardPage() {
   const search = Route.useSearch()
+  const navigate = useNavigate()
   const commonParams = buildCommonParams(search)
 
   const cardsParams: GetAnalyticsDashboardCardsParams = commonParams
@@ -49,7 +56,9 @@ export function DashboardPage() {
   const cardsQuery = useGetAnalyticsDashboardCards(cardsParams, {
     query: { staleTime: 60_000 },
   })
-  useGetAnalyticsDashboardChart(chartParams, { query: { staleTime: 300_000 } })
+  const chartQuery = useGetAnalyticsDashboardChart(chartParams, {
+    query: { staleTime: 300_000 },
+  })
   useGetAnalyticsDashboardTopVideos(topVideosParams, {
     query: { staleTime: 300_000 },
   })
@@ -71,10 +80,42 @@ export function DashboardPage() {
         isLoading={cardsQuery.isPending}
         isError={cardsQuery.isError}
       />
-      <section
-        data-testid="chart"
-        className="min-h-80 rounded-lg border border-border bg-card"
-      />
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          <ChartSeriesChips
+            activeSeries={search.chart_series}
+            onChange={(newSeries: ChartSeries[]) => {
+              void navigate({
+                to: '.',
+                search: (prev) => ({ ...prev, chart_series: newSeries }),
+                replace: true,
+              })
+            }}
+          />
+          <ChartConfigPopover
+            currentGrouping={search.chart_grouping}
+            currentPreset={search.range_preset}
+            onChange={(newGrouping: ChartGrouping) => {
+              void navigate({
+                to: '.',
+                search: (prev) => ({
+                  ...prev,
+                  chart_grouping: newGrouping,
+                }),
+                replace: true,
+              })
+            }}
+          />
+        </div>
+        <PerformanceChart
+          data={
+            chartQuery.data?.status === 200 ? chartQuery.data.data : undefined
+          }
+          isLoading={chartQuery.isPending}
+          isError={chartQuery.isError}
+          activeSeries={search.chart_series}
+        />
+      </div>
       <OnboardingChecklist
         data={
           checklistQuery.data?.status === 200

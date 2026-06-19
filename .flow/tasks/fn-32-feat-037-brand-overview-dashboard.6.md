@@ -158,8 +158,7 @@ Conectar con `DashboardPage`: reemplazar `<div data-testid="chart">` por:
 - Verify: `pnpm typecheck && pnpm vitest run src/features/analytics/dashboard`
 
 ## Done summary
-TBD
-
+Implemented fn-32-feat-037-brand-overview-dashboard.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
