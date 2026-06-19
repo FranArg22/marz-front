@@ -330,41 +330,13 @@ describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
     expect(useSendOfferWizard.getState().draft.amount).toBe(1200)
   })
 
-  it('hides and ignores bonuses in per-platform mode', async () => {
-    const user = userEvent.setup()
+  it('does not render the speed bonus editor UI', () => {
     renderSheet()
 
-    await user.click(screen.getByRole('switch', { name: /bonos de oferta/i }))
-    expect(screen.getByText(/agregar bono/i)).toBeInTheDocument()
-
-    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
-
-    expect(screen.queryByText(/agregar bono/i)).not.toBeInTheDocument()
-    expect(useSendOfferWizard.getState().draft.bonus_terms).toEqual({
-      enabled: false,
-      speed_bonus_windows: [],
-    })
-  })
-
-  it('maps bonus_not_supported_for_per_platform inline', async () => {
-    const user = userEvent.setup()
-    mockMutateAsync.mockRejectedValueOnce(
-      new ApiError(
-        422,
-        'bonus_not_supported_for_per_platform',
-        'Bonus not supported',
-      ),
-    )
-    renderSheet()
-
-    await user.click(screen.getByRole('switch', { name: /un contenido/i }))
-    await fillRequiredFields()
-    await user.click(screen.getByRole('button', { name: /enviar oferta/i }))
-
-    await waitFor(() => expect(mockMutateAsync).toHaveBeenCalled())
     expect(
-      await screen.findByText(/bonos sólo están disponibles/i),
-    ).toBeInTheDocument()
+      screen.queryByRole('switch', { name: /bonos de oferta/i }),
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText(/agregar bono/i)).not.toBeInTheDocument()
   })
 
   it('maps backend date validation to the field', async () => {
