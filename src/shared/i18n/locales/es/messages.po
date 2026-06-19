@@ -292,7 +292,7 @@ msgstr "{deliverablesCompleted}/{deliverablesExpected} entregables"
 
 #: src/features/deliverables/components/DeliverableCard.tsx:188
 msgid "{duration} · In review"
-msgstr "{duration} · In review"
+msgstr "{duration} · En revisión"
 
 #: src/features/offers/components/OfferAcceptedCardOut.tsx:35
 #~ msgid "{firstName} is preparing the draft. Deadline is {deadline}."
@@ -551,7 +551,7 @@ msgstr "+54 11 5555-5555"
 
 #: src/features/deliverables/components/DeliverableCard.tsx:178
 msgid "⚠ Changes requested"
-msgstr "⚠ Changes requested"
+msgstr "⚠ Cambios solicitados"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:230
 #~ msgid "$"
@@ -704,7 +704,7 @@ msgstr "A la tarifa {formatLabel} le falta monto"
 
 #: src/features/deliverables/components/ApproveDraftButton.tsx:61
 msgid "A newer version was submitted"
-msgstr "A newer version was submitted"
+msgstr "Se envió una versión más nueva"
 
 #: src/features/billing/components/PlanCard.tsx:72
 msgid "A/B testing"
@@ -750,15 +750,15 @@ msgstr "Accedé a la red de creadores de Marz."
 
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:98
 msgid "Accept"
-msgstr "Accept"
+msgstr "Aceptar"
 
 #: src/features/offers/components/OfferCard.tsx:83
 msgid "Accept Offer"
-msgstr "Accept Offer"
+msgstr "Aceptar oferta"
 
 #: src/features/offers/components/OfferCard.tsx:121
 msgid "Accepted"
-msgstr "Accepted"
+msgstr "Aceptada"
 
 #: src/features/offers/components/OfferCardBundle.tsx:123
 #: src/features/offers/components/OfferCardMultiStage.tsx:174
@@ -1272,7 +1272,7 @@ msgstr "Aplicó"
 
 #: src/features/deliverables/components/LinkItem.tsx:17
 msgid "Approved"
-msgstr "Approved"
+msgstr "Aprobado"
 
 #: src/features/deliverables/components/DraftApprovedCard.tsx:49
 #~ msgid "Approved by {approverName} on {0}"
@@ -1343,7 +1343,7 @@ msgstr "Apurate para cobrarlos"
 
 #: src/features/offers/components/ArchivedOffersList.tsx:38
 msgid "Archived offers"
-msgstr "Archived offers"
+msgstr "Ofertas archivadas"
 
 #: src/features/chat/workspace/ConversationRailItem.tsx:54
 msgid "Archivo adjunto"
@@ -1575,7 +1575,7 @@ msgstr "Borrador enviado"
 
 #: src/features/earnings/components/PendingBonusCard.tsx:32
 msgid "Brand"
-msgstr "Brand"
+msgstr "Marca"
 
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:7
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:47
@@ -1810,7 +1810,7 @@ msgstr "Canales"
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:203
 #: src/features/deliverables/components/UploadProgressOverlay.tsx:38
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:45
 #: src/features/offers/components/OfferArchiveItem.tsx:105
@@ -1874,7 +1874,7 @@ msgstr "Cancelaste tu suscripción"
 
 #: src/features/offers/components/ArchivedOffersList.tsx:28
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Cancelada"
 
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:25
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:309
@@ -1887,7 +1887,7 @@ msgstr "Canjes"
 
 #: src/features/deliverables/components/InlineVideoPlayer.tsx:57
 msgid "Cannot play this video"
-msgstr "Cannot play this video"
+msgstr "No se puede reproducir el video"
 
 #: src/features/analytics/dashboard/MetricCard.tsx:139
 msgid "Cantidad de videos publicados por los creators en el período."
@@ -2059,11 +2059,11 @@ msgstr "Cerrar sesión"
 
 #: src/features/deliverables/hooks/useRequestLinkChanges.ts:132
 msgid "Changes already requested on this link."
-msgstr "Changes already requested on this link."
+msgstr "Ya se solicitaron cambios en este link."
 
 #: src/features/deliverables/components/DeliverableCard.tsx:156
 msgid "Changes requested"
-msgstr "Changes requested"
+msgstr "Cambios solicitados"
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:154
 #~ msgid "Changing the offer type will discard the entered data. Continue?"
@@ -2120,7 +2120,7 @@ msgstr "Clicks, signups, ventas"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:153
 msgid "Close"
-msgstr "Close"
+msgstr "Cerrar"
 
 #: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:113
 #~ msgid "Cobrás ${0} promedio"
@@ -2413,7 +2413,7 @@ msgstr "Content guidelines"
 
 #: src/features/billing/components/PlanCard.tsx:73
 msgid "Content review workflow"
-msgstr "Content review workflow"
+msgstr "Flujo de revisión de contenido"
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:87
 #: src/features/identity/auth/components/KindSelector.tsx:191
@@ -2742,7 +2742,7 @@ msgstr "Cultura"
 
 #: src/features/offers/components/OfferCard.tsx:131
 msgid "Current Offer"
-msgstr "Current Offer"
+msgstr "Oferta actual"
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:40
 #~ msgid "Current period"
@@ -2852,7 +2852,7 @@ msgstr "Definición de {0}"
 
 #: src/features/earnings/components/PendingBonusCard.tsx:34
 msgid "Deliverable"
-msgstr "Deliverable"
+msgstr "Entregable"
 
 #: src/features/offers/components/BundlePlatformRow.tsx:34
 #~ msgid "Deliverable {0}"
@@ -3082,7 +3082,7 @@ msgstr "Domain not allowed. Use a YouTube, Instagram or TikTok URL."
 
 #: src/features/deliverables/components/StageCard.tsx:42
 msgid "Done"
-msgstr "Done"
+msgstr "Listo"
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:108
 msgid "Dos preguntas rápidas. Usamos esto para recomendarte el mejor plan."
@@ -3114,11 +3114,11 @@ msgstr "Draft"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:181
 msgid "Drag and drop your video here, or click to browse"
-msgstr "Drag and drop your video here, or click to browse"
+msgstr "Arrastrá y soltá tu video acá, o hacé clic para buscarlo"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:162
 msgid "Drop zone"
-msgstr "Drop zone"
+msgstr "Zona para soltar"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:33
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:10
@@ -3163,11 +3163,11 @@ msgstr "E-commerce"
 
 #: src/features/earnings/components/EarningsKpiGrid.tsx:27
 msgid "Earnings KPIs"
-msgstr "Earnings KPIs"
+msgstr "KPIs de ganancias"
 
 #: src/features/earnings/components/EarningsPeriodControl.tsx:40
 msgid "Earnings period"
-msgstr "Earnings period"
+msgstr "Período de ganancias"
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:421
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:79
@@ -3274,7 +3274,7 @@ msgstr "El bono fijo tiene que ser mayor a 0"
 
 #: src/features/offers/hooks/useOfferActions.ts:83
 msgid "El brand necesita actualizar su tarjeta"
-msgstr "El brand necesita actualizar su tarjeta"
+msgstr "La marca necesita actualizar su tarjeta"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:72
 msgid "El cobro se realiza cuando el creador acepta"
@@ -4071,7 +4071,7 @@ msgstr "Evento del sistema"
 
 #: src/features/offers/components/OfferCard.tsx:147
 msgid "Expand offer"
-msgstr "Expand offer"
+msgstr "Expandir oferta"
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:702
 #~ msgid "Expandir"
@@ -4089,7 +4089,7 @@ msgstr "Expirada"
 #: src/features/earnings/components/PendingBonusCard.tsx:141
 #: src/features/offers/components/OfferCard.tsx:123
 msgid "Expired"
-msgstr "Expired"
+msgstr "Expirada"
 
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:111
 #~ msgid "Explorá Discovery para contactar perfiles y sumar participantes a esta campaña."
@@ -4206,7 +4206,7 @@ msgstr "Femenino"
 #: src/features/deliverables/components/UploadErrorBanner.tsx:16
 #: src/features/deliverables/hooks/useDraftUploadFlow.ts:129
 msgid "File too large (max 2 GB)."
-msgstr "File too large (max 2 GB)."
+msgstr "El archivo es demasiado grande (máx. 2 GB)."
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:171
 #~ msgid "Filter by creator"
@@ -4376,7 +4376,7 @@ msgstr "Fuente"
 
 #: src/shared/ui/PaymentCard.tsx:30
 msgid "Funds are on the way."
-msgstr "Funds are on the way."
+msgstr "El dinero está en camino."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:40
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:17
@@ -4498,7 +4498,7 @@ msgstr "Gestionar tarjeta en Stripe"
 
 #: src/shared/ui/PaymentCard.tsx:29
 msgid "Great job on the video!"
-msgstr "Great job on the video!"
+msgstr "¡Buen trabajo con el video!"
 
 #: src/features/billing/components/PlanCard.tsx:21
 #: src/features/billing/settings/BillingSummary.tsx:39
@@ -5345,7 +5345,7 @@ msgstr "Limpiar filtros"
 #: src/features/deliverables/components/DeliverableCard.tsx:152
 #: src/features/deliverables/components/LinkApprovedCard.tsx:55
 msgid "Link approved"
-msgstr "Link approved"
+msgstr "Link aprobado"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:290
 #: src/features/deliverables/components/DeliverableListItem.tsx:363
@@ -5359,7 +5359,7 @@ msgstr "Link enviado"
 
 #: src/features/deliverables/hooks/useApproveLink.ts:101
 msgid "Link is no longer pending review."
-msgstr "Link is no longer pending review."
+msgstr "El link ya no está pendiente de revisión."
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:159
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:139
@@ -5372,7 +5372,7 @@ msgstr "Link publicado"
 
 #: src/features/deliverables/components/DeliverableCard.tsx:163
 msgid "Link submitted"
-msgstr "Link submitted"
+msgstr "Link enviado"
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:34
 msgid "LinkedIn"
@@ -5433,15 +5433,15 @@ msgstr "Lo usamos para coordinar arranque. Nada de spam."
 
 #: src/features/earnings/components/EarningsPage.tsx:148
 msgid "Loading earnings KPIs"
-msgstr "Loading earnings KPIs"
+msgstr "Cargando KPIs de ganancias"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:331
 msgid "Loading videos"
-msgstr "Loading videos"
+msgstr "Cargando videos"
 
 #: src/features/earnings/components/PendingBonusPanel.tsx:133
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "Cargando..."
 
 #: src/features/deliverables/components/MultistagePanelGroup.tsx:23
 #: src/features/offers/components/MultiStageStagesList.tsx:43
@@ -5920,7 +5920,7 @@ msgstr "Modo"
 
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:168
 msgid "Monthly earnings total {total}. Highest month {highestMonth} with {highestAmount}."
-msgstr "Monthly earnings total {total}. Highest month {highestMonth} with {highestAmount}."
+msgstr "Ganancias mensuales totales {total}. Mejor mes {highestMonth} con {highestAmount}."
 
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:58
 #~ msgid "Monthly paid earnings"
@@ -5981,7 +5981,7 @@ msgstr "Motivo opcional"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:184
 msgid "MP4, MOV, or WebM up to 2 GB"
-msgstr "MP4, MOV, or WebM up to 2 GB"
+msgstr "MP4, MOV o WebM de hasta 2 GB"
 
 #: src/features/offers/components/OfferTypeBadge.tsx:11
 #: src/features/offers/components/OfferTypeChooser.tsx:34
@@ -6033,7 +6033,7 @@ msgstr "Negotiating"
 
 #: src/features/offers/components/OfferCard.tsx:52
 msgid "New campaign offer"
-msgstr "New campaign offer"
+msgstr "Nueva oferta de campaña"
 
 #: src/features/inbox/InboxPage.tsx:98
 #~ msgid "Newest first"
@@ -6177,7 +6177,7 @@ msgstr "No hay pagos para mostrar con estos filtros."
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:192
 msgid "No link submission error."
-msgstr "No link submission error."
+msgstr "No hay error de envío de link."
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:50
 msgid "No pagamos para que digan esto. Les preguntamos y esto salió."
@@ -6714,15 +6714,15 @@ msgstr "Ofertas enviadas sin aceptar"
 #: src/routes/inbox.tsx:99
 #: src/routes/workspace.conversations.$conversationId.tsx:65
 msgid "Offer enviada"
-msgstr "Offer enviada"
+msgstr "Oferta enviada"
 
 #: src/features/offers/hooks/useOfferActions.ts:92
 msgid "Offer expired"
-msgstr "Offer expired"
+msgstr "Oferta expirada"
 
 #: src/features/offers/hooks/useOfferActions.ts:136
 msgid "Offer is no longer actionable"
-msgstr "Offer is no longer actionable"
+msgstr "La oferta ya no admite acciones"
 
 #: src/features/offers/components/OfferCardReceived.tsx:112
 #: src/features/offers/components/OfferRejectedBubble.tsx:14
@@ -6732,7 +6732,7 @@ msgstr "Offer is no longer actionable"
 
 #: src/features/offers/components/OfferCard.tsx:52
 msgid "Offer sent"
-msgstr "Offer sent"
+msgstr "Oferta enviada"
 
 #: src/features/offers/components/OfferCardSent.tsx:39
 #~ msgid "Offer sent, total {amount}, deadline {deadline}"
@@ -6756,11 +6756,11 @@ msgstr "Offer sent"
 
 #: src/features/deliverables/hooks/useApproveLink.ts:105
 msgid "Only brand owner can approve links."
-msgstr "Only brand owner can approve links."
+msgstr "Solo el dueño de la marca puede aprobar links."
 
 #: src/features/deliverables/hooks/useRequestLinkChanges.ts:152
 msgid "Only brand owner can request link changes."
-msgstr "Only brand owner can request link changes."
+msgstr "Solo el dueño de la marca puede solicitar cambios en el link."
 
 #: src/features/campaigns/brief-builder/components/PDFUploadField.tsx:35
 #~ msgid "Opcional. Subí un PDF con info de tu marca."
@@ -7048,7 +7048,7 @@ msgstr "Pasó más de 15 minutos desde que lo recibiste"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:146
 msgid "Paste the final published URL for this deliverable."
-msgstr "Paste the final published URL for this deliverable."
+msgstr "Pegá la URL final publicada de este entregable."
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:34
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:29
@@ -7071,7 +7071,7 @@ msgstr "Payment of {amount} received"
 
 #: src/shared/ui/PaymentCard.tsx:26
 msgid "Payment of {amount} sent"
-msgstr "Payment of {amount} sent"
+msgstr "Pago de {amount} enviado"
 
 #: src/features/identity/app-shell/navigation.ts:41
 #~ msgid "Payments & Spending"
@@ -7622,11 +7622,11 @@ msgstr "Publicar en"
 
 #: src/features/earnings/components/PendingBonusCard.tsx:79
 msgid "Publish in the next {windowHours} to earn a {bonusPercent} speed bonus."
-msgstr "Publish in the next {windowHours} to earn a {bonusPercent} speed bonus."
+msgstr "Publicá en las próximas {windowHours} para ganar un bono por rapidez de {bonusPercent}."
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:174
 msgid "Published URL"
-msgstr "Published URL"
+msgstr "URL publicada"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:436
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:319
@@ -7926,7 +7926,7 @@ msgstr "Reproducir versión {version}"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:211
 msgid "Resolving preview..."
-msgstr "Resolving preview..."
+msgstr "Resolviendo vista previa..."
 
 #: src/features/inbox/InboxInlineActionPopover.tsx:257
 #: src/features/inbox/InboxInlineActionPopover.tsx:661
@@ -7985,7 +7985,7 @@ msgstr "Reutilización de video"
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:99
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:114
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "Reseñas"
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:80
 msgid "Revisá la campaña"
@@ -8344,7 +8344,7 @@ msgstr "Seleccionar imagen"
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:192
 msgid "Select video file"
-msgstr "Select video file"
+msgstr "Seleccionar archivo de video"
 
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:349
 msgid "Señales negativas"
@@ -8364,7 +8364,7 @@ msgstr "Señales positivas"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:207
 msgid "Send link"
-msgstr "Send link"
+msgstr "Enviar link"
 
 #: src/features/chat/components/ChatHeaderActions.tsx:46
 #: src/features/chat/components/ChatHeaderActions.tsx:58
@@ -8392,7 +8392,7 @@ msgstr "Send link"
 
 #: src/features/offers/components/OfferCard.tsx:120
 msgid "Sent"
-msgstr "Sent"
+msgstr "Enviada"
 
 #: src/features/chat/utils/groupByDay.ts:28
 #: src/features/chat/workspace/formatRelativeTime.ts:17
@@ -8784,7 +8784,7 @@ msgstr "Soy una marca"
 
 #: src/features/earnings/components/PendingBonusCard.tsx:71
 msgid "Speed bonus"
-msgstr "Speed bonus"
+msgstr "Bono por rapidez"
 
 #: src/features/campaigns/configuration/BonusStep.tsx:318
 #: src/features/campaigns/configuration/ReviewStep.tsx:398
@@ -8797,7 +8797,7 @@ msgstr "Speed bonus"
 
 #: src/features/deliverables/components/StageCard.tsx:70
 msgid "Stage {stageNumber}"
-msgstr "Stage {stageNumber}"
+msgstr "Etapa {stageNumber}"
 
 #: src/features/offers/components/OfferCardMultiStage.tsx:142
 #~ msgid "Stages"
@@ -8938,12 +8938,12 @@ msgstr "Subir video borrador v{nextVersion}"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:137
 msgid "Submit a published deliverable link for brand approval."
-msgstr "Submit a published deliverable link for brand approval."
+msgstr "Enviá el link de un entregable publicado para que la marca lo apruebe."
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:135
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:143
 msgid "Submit Link"
-msgstr "Submit Link"
+msgstr "Enviar link"
 
 #: src/features/deliverables/components/DraftVersionList.tsx:29
 #~ msgid "Submitted"
@@ -9119,11 +9119,11 @@ msgstr "Texto recortado al límite de {MAX_LENGTH} caracteres"
 
 #: src/components/ThemeToggle.tsx:57
 msgid "Theme: {mode}. Click to cycle."
-msgstr "Theme: {mode}. Click to cycle."
+msgstr "Tema: {mode}. Hacé clic para cambiar."
 
 #: src/components/ThemeToggle.tsx:56
 msgid "Theme: auto. Click to switch to light."
-msgstr "Theme: auto. Click to switch to light."
+msgstr "Tema: automático. Hacé clic para cambiar a claro."
 
 #: src/features/offers/components/BundleEditor.tsx:223
 #: src/features/offers/components/MultiStageEditor.tsx:247
@@ -9139,16 +9139,16 @@ msgstr "Theme: auto. Click to switch to light."
 
 #: src/features/deliverables/hooks/useSubmitLink.ts:95
 msgid "This deliverable is no longer accepting links."
-msgstr "This deliverable is no longer accepting links."
+msgstr "Este entregable ya no acepta links."
 
 #: src/features/deliverables/components/UploadErrorBanner.tsx:14
 #: src/features/deliverables/hooks/useDraftUploadFlow.ts:115
 msgid "This file format isn't supported. Use MP4, MOV, or WebM."
-msgstr "This file format isn't supported. Use MP4, MOV, or WebM."
+msgstr "Este formato de archivo no es compatible. Usá MP4, MOV o WebM."
 
 #: src/features/deliverables/hooks/useSubmitLink.ts:99
 msgid "This stage is locked."
-msgstr "This stage is locked."
+msgstr "Esta etapa está bloqueada."
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:29
 msgid "TIEMPO RECUPERADO"
@@ -9405,7 +9405,7 @@ msgstr "Todos los videos entregados en tus campañas"
 
 #: src/features/deliverables/components/StageCard.tsx:87
 msgid "Toggle stage"
-msgstr "Toggle stage"
+msgstr "Mostrar/ocultar etapa"
 
 #: src/features/offers/components/MultiStageStagesList.tsx:96
 #: src/features/offers/components/OfferCardMultiStage.tsx:63
@@ -9721,15 +9721,15 @@ msgstr "Upcoming"
 #: src/features/deliverables/components/UploadErrorBanner.tsx:18
 #: src/features/deliverables/hooks/useDraftUploadFlow.ts:235
 msgid "Upload failed. Check your connection and try again."
-msgstr "Upload failed. Check your connection and try again."
+msgstr "Falló la subida. Revisá tu conexión e intentá de nuevo."
 
 #: src/features/deliverables/components/UploadDraftDialog.tsx:79
 msgid "Upload in progress. Cancel?"
-msgstr "Upload in progress. Cancel?"
+msgstr "Subida en curso. ¿Cancelar?"
 
 #: src/features/deliverables/components/UploadProgressOverlay.tsx:29
 msgid "Upload progress"
-msgstr "Upload progress"
+msgstr "Progreso de subida"
 
 #: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:108
 msgid "URL de IG / TikTok / YT"
@@ -10100,7 +10100,7 @@ msgstr "Volver al paywall"
 #: src/routes/inbox.tsx:101
 #: src/routes/workspace.conversations.$conversationId.tsx:67
 msgid "Volviste sin enviar la offer"
-msgstr "Volviste sin enviar la offer"
+msgstr "Volviste sin enviar la oferta"
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:121
 #~ msgid "VOS HACÉS"
@@ -10112,15 +10112,15 @@ msgstr "Volviste sin enviar la offer"
 
 #: src/features/inbox/InboxPage.tsx:191
 msgid "Waiting on brands"
-msgstr "Waiting on brands"
+msgstr "Esperando a las marcas"
 
 #: src/features/inbox/InboxPage.tsx:198
 msgid "Waiting on others"
-msgstr "Waiting on others"
+msgstr "Esperando a los demás"
 
 #: src/features/earnings/components/EarningsPage.tsx:63
 msgid "We could not load earnings right now. Try refreshing the page."
-msgstr "We could not load earnings right now. Try refreshing the page."
+msgstr "No pudimos cargar las ganancias ahora. Probá refrescar la página."
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:117
 msgid "Web3"
@@ -10203,7 +10203,7 @@ msgstr "Ya usaste este link en otro dispositivo"
 
 #: src/features/deliverables/hooks/useSubmitLink.ts:103
 msgid "You can't submit links on this deliverable."
-msgstr "You can't submit links on this deliverable."
+msgstr "No podés enviar links en este entregable."
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:95
 #~ msgid "You don't have any active campaigns. Create a campaign first to send offers."
@@ -10211,11 +10211,11 @@ msgstr "You can't submit links on this deliverable."
 
 #: src/features/inbox/InboxPage.tsx:192
 msgid "You sent these · awaiting reply"
-msgstr "You sent these · awaiting reply"
+msgstr "Enviaste estas · esperando respuesta"
 
 #: src/features/inbox/InboxPage.tsx:199
 msgid "You sent these · they're with the other side"
-msgstr "You sent these · they're with the other side"
+msgstr "Enviaste estas · están del otro lado"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:89
 #: src/features/offers/components/SendOfferSidesheet.tsx:97
