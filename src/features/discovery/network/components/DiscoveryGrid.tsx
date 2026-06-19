@@ -168,7 +168,7 @@ function DiscoveryGridSkeleton() {
       <div
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         role="status"
-        aria-label={t`Cargando creators`}
+        aria-label={t`Cargando creadores`}
       >
         {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
           <div

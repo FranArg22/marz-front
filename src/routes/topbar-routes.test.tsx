@@ -98,7 +98,9 @@ describe('route topbar integration', () => {
   it('declares Campaigns list title and action in the shell topbar', async () => {
     await renderRouteComponent(() => import('./_brand/campaigns.index'))
 
-    expect(await screen.findByText('Campaigns')).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'Campañas' }),
+    ).toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /nueva campaña/i }),
     ).toHaveAttribute('href', '/campaigns/new')
@@ -152,7 +154,7 @@ describe('route topbar integration', () => {
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByText('Campaigns')).toBeInTheDocument()
+    expect(await screen.findByText('Campañas')).toBeInTheDocument()
 
     rerender(
       <QueryClientProvider client={queryClient}>
@@ -166,7 +168,7 @@ describe('route topbar integration', () => {
     await waitFor(() => {
       expect(screen.getByText('Marz')).toBeInTheDocument()
     })
-    expect(screen.queryByText('Campaigns')).not.toBeInTheDocument()
+    expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
 
     rerender(
       <QueryClientProvider client={queryClient}>
@@ -178,7 +180,7 @@ describe('route topbar integration', () => {
     )
 
     expect(await screen.findByText('Offers')).toBeInTheDocument()
-    expect(screen.queryByText('Campaigns')).not.toBeInTheDocument()
+    expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
   })
 
   it('keeps route files free of duplicate route-level header markup', () => {

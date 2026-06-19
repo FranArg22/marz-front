@@ -29,10 +29,10 @@ function getStatusMeta(): Record<
   { label: string; variant: 'default' | 'secondary' | 'outline' }
 > {
   return {
-    draft: { label: t`Draft`, variant: 'outline' },
-    active: { label: t`Active`, variant: 'default' },
-    paused: { label: t`Paused`, variant: 'secondary' },
-    completed: { label: t`Completed`, variant: 'secondary' },
+    draft: { label: t`Borrador`, variant: 'outline' },
+    active: { label: t`Activa`, variant: 'default' },
+    paused: { label: t`Pausada`, variant: 'secondary' },
+    completed: { label: t`Completada`, variant: 'secondary' },
   }
 }
 
@@ -106,8 +106,8 @@ function CampaignMiniCardContent({
       </header>
 
       <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
-        <Stat label={t`Creators`} value={String(creators)} />
-        <Stat label={t`Budget`} value={budget} />
+        <Stat label={t`Creadores`} value={String(creators)} />
+        <Stat label={t`Presupuesto`} value={budget} />
         <Stat
           label={t`Videos`}
           value={`${videos.done}/${videos.total}`}
@@ -120,7 +120,7 @@ function CampaignMiniCardContent({
       </div>
 
       <footer className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-        <span>{t`${pct}% complete`}</span>
+        <span>{t`${pct}% completado`}</span>
         <span>{platforms.join(' · ')}</span>
       </footer>
     </article>

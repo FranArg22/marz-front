@@ -94,8 +94,8 @@ function InboxPageContent({
           <div className="flex flex-col gap-6">
             {data.counts.action_items > 0 ? (
               <InboxSection
-                title={t`Action items`}
-                description={t`Newest first`}
+                title={t`Pendientes`}
+                description={t`Más recientes`}
                 count={data.counts.action_items}
                 items={actionItems}
                 tone="action"

@@ -132,7 +132,7 @@ describe('WizardStep1ContentType', () => {
     render(<WizardStep1ContentType />)
 
     expect(
-      screen.getByRole('radio', { name: /Influencers Posts/ }),
+      screen.getByRole('radio', { name: /Publicaciones de influencers/ }),
     ).toBeEnabled()
     expect(
       screen.getByRole('radiogroup', { name: /Tipo de contenido/ }),
@@ -151,11 +151,11 @@ describe('WizardStep1ContentType', () => {
     expect(setStep1).not.toHaveBeenCalled()
   })
 
-  it('updates the store when selecting Influencers Posts', async () => {
+  it('updates the store when selecting Publicaciones de influencers', async () => {
     render(<WizardStep1ContentType />)
 
     await userEvent.click(
-      screen.getByRole('radio', { name: /Influencers Posts/ }),
+      screen.getByRole('radio', { name: /Publicaciones de influencers/ }),
     )
 
     expect(useCampaignWizardStore.getState().step1).toEqual({
@@ -169,10 +169,10 @@ describe('WizardStep1ContentType', () => {
     expect(screen.getByRole('button', { name: /Continuar/ })).toBeDisabled()
   })
 
-  it('selecting Influencers Posts checks the card and enables Continuar', async () => {
+  it('selecting Publicaciones de influencers checks the card and enables Continuar', async () => {
     renderStep1InLayout()
 
-    const card = screen.getByRole('radio', { name: /Influencers Posts/ })
+    const card = screen.getByRole('radio', { name: /Publicaciones de influencers/ })
 
     await userEvent.click(card)
 
@@ -198,7 +198,7 @@ describe('WizardStep1ContentType', () => {
     renderStep1RouteHarness(onNavigate)
 
     await userEvent.click(
-      screen.getByRole('radio', { name: /Influencers Posts/ }),
+      screen.getByRole('radio', { name: /Publicaciones de influencers/ }),
     )
     await userEvent.click(screen.getByRole('button', { name: /Continuar/ }))
 

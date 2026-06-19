@@ -167,7 +167,7 @@ export function BrandPaymentsPage({
       <div className="mb-5 flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-semibold tracking-normal text-foreground">
-            {t`Pagos y gastos`}
+            {t`Pagos`}
           </h1>
           <p className="text-xs text-muted-foreground">
             {t`Pagos realizados a creadores y análisis de gastos por campaña.`}

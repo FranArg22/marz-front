@@ -134,7 +134,7 @@ describe('AppSidebar', () => {
     const { unmount } = renderSidebar('/payments', 'brand')
 
     const paymentsLink = await screen.findByRole('link', {
-      name: 'Payments & Spending',
+      name: 'Pagos',
     })
 
     expect(paymentsLink).toHaveAttribute('href', '/payments')
@@ -144,7 +144,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'creator')
 
     expect(
-      screen.queryByRole('link', { name: 'Payments & Spending' }),
+      screen.queryByRole('link', { name: 'Pagos' }),
     ).not.toBeInTheDocument()
   })
 
@@ -182,7 +182,7 @@ describe('AppSidebar', () => {
 
     await user.tab()
     await user.tab()
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Discovery')
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Explorar')
   })
 
   it('shows Próximamente for disabled item tooltips', async () => {
@@ -215,16 +215,16 @@ describe('AppSidebar', () => {
     for (const name of [
       'Workspace',
       'Inbox',
-      'Payments & Spending',
-      'Campaigns',
-      'Creators',
+      'Pagos',
+      'Campañas',
+      'Creadores',
       'Videos',
       'Ajustes',
       'Dashboard',
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Payments & Spending|Campaigns|Creators|Videos|Ajustes/.test(
+          /Workspace|Inbox|Pagos|Campañas|Creadores|Videos|Ajustes/.test(
             name,
           )
             ? 'link'
@@ -260,7 +260,7 @@ describe('AppSidebar', () => {
     ).not.toBeInTheDocument()
     expect(
       within(creatorSidebar).queryByRole('link', {
-        name: 'Payments & Spending',
+        name: 'Pagos',
       }),
     ).not.toBeInTheDocument()
     expect(within(creatorSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)

@@ -35,11 +35,11 @@ function getStatusOptions(): ReadonlyArray<{
   label: string
 }> {
   return [
-    { value: 'invited', label: t`Invited` },
-    { value: 'active', label: t`Active` },
-    { value: 'in_review', label: t`In review` },
-    { value: 'approved', label: t`Approved` },
-    { value: 'paid', label: t`Paid` },
+    { value: 'invited', label: t`Invitados` },
+    { value: 'active', label: t`Activos` },
+    { value: 'in_review', label: t`En revisión` },
+    { value: 'approved', label: t`Aprobados` },
+    { value: 'paid', label: t`Pagados` },
   ]
 }
 
@@ -115,8 +115,8 @@ export function CreatorsFilters({
           <Input
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
-            placeholder={t`Search creator`}
-            aria-label={t`Search creators`}
+            placeholder={t`Buscar creador`}
+            aria-label={t`Buscar creadores`}
             className="rounded-xl bg-background pl-9"
           />
         </div>
@@ -132,12 +132,14 @@ export function CreatorsFilters({
         >
           <SelectTrigger
             className="h-9 rounded-xl bg-background sm:w-[150px]"
-            aria-label={t`Filter by platform`}
+            aria-label={t`Filtrar por plataforma`}
           >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ALL_PLATFORMS}>{t`All platforms`}</SelectItem>
+            <SelectItem
+              value={ALL_PLATFORMS}
+            >{t`Todas las plataformas`}</SelectItem>
             {platformOptions.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -158,7 +160,7 @@ export function CreatorsFilters({
           }}
         >
           <X className="size-3.5" aria-hidden />
-          {t`Clear`}
+          {t`Limpiar`}
         </Button>
       </div>
     </div>

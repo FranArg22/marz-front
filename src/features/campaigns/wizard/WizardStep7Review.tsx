@@ -186,7 +186,7 @@ export function buildReviewBlocks(
           value: formatContentType(step1.content_type, missingValue),
         },
         {
-          label: t`Modelo de pricing`,
+          label: t`Modelo de precios`,
           value: formatPricingModel(step2.pricing_model, missingValue),
         },
       ],
@@ -289,7 +289,7 @@ function formatContentType(
   value: CampaignWizardState['step1']['content_type'],
   missingValue: string,
 ) {
-  if (value === 'influencer_posts') return t`Influencers Posts`
+  if (value === 'influencer_posts') return t`Publicaciones de influencers`
   return missingValue
 }
 
@@ -297,7 +297,7 @@ function formatPricingModel(
   value: CampaignWizardState['step2']['pricing_model'],
   missingValue: string,
 ) {
-  if (value === 'pay_per_post') return t`Pay per post`
+  if (value === 'pay_per_post') return t`Pago fijo por publicación`
   return missingValue
 }
 

@@ -66,7 +66,7 @@ describe('VideosFilters', () => {
     )
 
     await user.type(
-      screen.getByRole('textbox', { name: 'Search videos' }),
+      screen.getByRole('textbox', { name: 'Buscar videos' }),
       'ugc',
     )
 
@@ -98,7 +98,7 @@ describe('VideosFilters', () => {
       />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'In review' }))
+    await user.click(screen.getByRole('button', { name: 'En revisión' }))
     expect(onParamsChange).toHaveBeenCalledWith({
       search: 'ugc',
       platform: 'youtube',
@@ -106,7 +106,7 @@ describe('VideosFilters', () => {
       status: undefined,
     })
 
-    await user.click(screen.getByRole('button', { name: 'Clear' }))
+    await user.click(screen.getByRole('button', { name: 'Limpiar' }))
     expect(onParamsChange).toHaveBeenLastCalledWith({})
   })
 
@@ -124,11 +124,11 @@ describe('VideosFilters', () => {
     )
 
     await user.click(
-      screen.getByRole('combobox', { name: 'Filter by platform' }),
+      screen.getByRole('combobox', { name: 'Filtrar por plataforma' }),
     )
 
     expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
-      'All platforms',
+      'Todas las plataformas',
       'YouTube',
       'Instagram',
       'TikTok',

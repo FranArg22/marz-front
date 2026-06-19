@@ -34,7 +34,7 @@ export function CreatorsPreview({
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Creators`}
+            {t`Creadores`}
           </p>
           <h2 className="mt-1 text-base font-semibold text-foreground">
             {t`Participantes`}
@@ -46,7 +46,7 @@ export function CreatorsPreview({
             params={{ campaignId }}
             search={{ tab: 'creators' }}
           >
-            {t`Ver creators`}
+            {t`Ver creadores`}
             <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </Button>
@@ -105,7 +105,7 @@ function EmptyCreators({ campaignId }: { campaignId: string }) {
     <div className="mt-4 rounded-2xl border border-dashed border-border bg-muted/25 p-8 text-center">
       <Search className="mx-auto size-8 text-muted-foreground" aria-hidden />
       <h3 className="mt-3 text-sm font-semibold text-foreground">
-        {t`Todavía no hay creators participantes`}
+        {t`Todavía no hay creadores participantes`}
       </h3>
       <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
         {t`Revisá las postulaciones entrantes para sumar participantes a esta campaña.`}

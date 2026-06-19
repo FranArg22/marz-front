@@ -27,7 +27,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'discovery',
-      label: () => t`Discovery`,
+      label: () => t`Explorar`,
       icon: 'compass',
       href: '/discovery',
     },
@@ -45,13 +45,13 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'campaigns',
-      label: () => t`Campaigns`,
+      label: () => t`Campañas`,
       icon: 'megaphone',
       href: '/campaigns',
     },
     {
       id: 'creators',
-      label: () => t`Creators`,
+      label: () => t`Creadores`,
       icon: 'users',
       href: '/creators',
     },
@@ -63,7 +63,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'payments',
-      label: () => t`Payments & Spending`,
+      label: () => t`Pagos`,
       icon: 'wallet',
       href: '/payments',
     },

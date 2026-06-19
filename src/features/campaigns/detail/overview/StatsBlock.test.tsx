@@ -23,9 +23,9 @@ describe('StatsBlock', () => {
     ).getAllByRole('article')
 
     expect(stats).toHaveLength(3)
-    expect(screen.getByText('Applications')).toBeInTheDocument()
-    expect(screen.getByText('Reach')).toBeInTheDocument()
-    expect(screen.getByText('Budget')).toBeInTheDocument()
+    expect(screen.getByText('Postulaciones')).toBeInTheDocument()
+    expect(screen.getByText('Alcance')).toBeInTheDocument()
+    expect(screen.getByText('Presupuesto')).toBeInTheDocument()
     expect(screen.queryByText(/match/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/progress/i)).not.toBeInTheDocument()
   })

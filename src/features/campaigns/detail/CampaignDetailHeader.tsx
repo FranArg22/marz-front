@@ -121,8 +121,12 @@ function PlanCapabilities({ detail }: CampaignDetailHeaderProps) {
     detail.plan_capabilities.allows_automatic_matching
       ? t`Matching automático`
       : null,
-    detail.plan_capabilities.allows_campaign_board ? t`Campaign board` : null,
-    detail.plan_capabilities.allows_email_invites ? t`Invites por email` : null,
+    detail.plan_capabilities.allows_campaign_board
+      ? t`Tablero de campaña`
+      : null,
+    detail.plan_capabilities.allows_email_invites
+      ? t`Invitaciones por email`
+      : null,
     detail.plan_capabilities.allows_in_platform_invites
       ? t`Invites in-platform`
       : null,
@@ -167,7 +171,7 @@ function formatDeadline(deadline: string | null) {
   if (Number.isNaN(date.getTime())) return deadline
 
   const formattedDeadline = deadlineFormatter.format(date)
-  return t`Deadline ${formattedDeadline}`
+  return t`Fecha límite ${formattedDeadline}`
 }
 
 export function CampaignDetailHeaderSkeleton() {

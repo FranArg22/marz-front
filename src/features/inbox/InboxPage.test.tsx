@@ -110,7 +110,7 @@ describe('InboxPage', () => {
     renderInboxPage()
 
     expect(
-      await screen.findByRole('heading', { name: 'Action items' }),
+      await screen.findByRole('heading', { name: 'Pendientes' }),
     ).toBeInTheDocument()
     expect(useInboxQuery).toHaveBeenCalledWith({ campaignId: undefined })
     expect(
@@ -118,7 +118,7 @@ describe('InboxPage', () => {
     ).toBeInTheDocument()
 
     const actionSection = screen
-      .getByRole('heading', { name: 'Action items' })
+      .getByRole('heading', { name: 'Pendientes' })
       .closest('section')
     expect(actionSection).not.toBeNull()
     expect(within(actionSection!).getByText('2')).toBeInTheDocument()
@@ -160,7 +160,7 @@ describe('InboxPage', () => {
     ).toBeInTheDocument()
     expect(screen.getByText('No tenés nada pendiente.')).toBeInTheDocument()
     expect(
-      screen.queryByRole('heading', { name: 'Action items' }),
+      screen.queryByRole('heading', { name: 'Pendientes' }),
     ).not.toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /Browse Discovery/i }),
@@ -250,7 +250,7 @@ describe('InboxPage', () => {
     await user.click(
       screen.getByRole('combobox', { name: 'Filtrar por campaña' }),
     )
-    await user.click(screen.getByRole('option', { name: 'All campaigns' }))
+    await user.click(screen.getByRole('option', { name: 'Todas las campañas' }))
 
     expect(router.state.location.search).toEqual({})
     expect(useInboxQuery).toHaveBeenLastCalledWith({ campaignId: undefined })
@@ -280,7 +280,7 @@ describe('InboxPage', () => {
     renderInboxPage(`/inbox?campaign_id=${campaignId}`)
 
     await user.click(
-      await screen.findByRole('button', { name: 'Mark all as read' }),
+      await screen.findByRole('button', { name: 'Marcar todo como leído' }),
     )
 
     expect(markVisibleReadMutate).toHaveBeenCalledWith(
@@ -301,7 +301,7 @@ describe('InboxPage', () => {
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries')
 
     await user.click(
-      await screen.findByRole('button', { name: 'Refresh inbox' }),
+      await screen.findByRole('button', { name: 'Actualizar Inbox' }),
     )
 
     expect(invalidateQueriesSpy).toHaveBeenCalledWith({ queryKey: ['inbox'] })

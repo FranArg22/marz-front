@@ -108,7 +108,7 @@ function BrandVideosRoute() {
           {t`Videos`}
         </p>
         <h2 className="mt-1 text-lg font-semibold text-foreground">
-          {t`All delivered videos across your campaigns`}
+          {t`Todos los videos entregados en tus campañas`}
         </h2>
       </div>
 

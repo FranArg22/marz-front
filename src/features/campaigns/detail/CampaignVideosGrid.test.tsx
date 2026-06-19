@@ -101,7 +101,7 @@ describe('CampaignVideosGrid', () => {
     ).toHaveAttribute('href', '/campaigns/campaign-1/deliverables/video-1')
     expect(screen.getByText('Unboxing Reel')).toBeInTheDocument()
     expect(screen.getAllByText('Instagram')).toHaveLength(2)
-    expect(screen.getByText('In review')).toBeInTheDocument()
+    expect(screen.getByText('En revisión')).toBeInTheDocument()
   })
 
   it('requests the next cursor when Load more is clicked', async () => {
