@@ -145,8 +145,8 @@ function CreatorsTableBody({
       <table className="w-full min-w-[420px] table-fixed border-collapse">
         <caption className="sr-only">Top Creadores</caption>
         <thead>
-          <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <th scope="col" className="px-5 py-3">
+          <tr className="bg-muted/50 text-left text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <th scope="col" className="px-5 py-2">
               Creador
             </th>
             <MetricHeader
@@ -172,7 +172,7 @@ function CreatorsTableBody({
                   data-testid="top-creator-row"
                   className="border-b border-border last:border-b-0"
                 >
-                  <td className="min-w-0 px-5 py-3">
+                  <td className="min-w-0 px-5 py-2">
                     <CreatorCell
                       handle={creator.handle}
                       avatarUrl={creator.avatar_url}
@@ -206,7 +206,7 @@ function MetricHeader({
       scope="col"
       aria-sort={active ? 'descending' : undefined}
       className={cn(
-        'px-3 py-3 text-right',
+        'px-3 py-2 text-right',
         active && 'text-foreground',
         className,
       )}
@@ -226,9 +226,8 @@ function MetricCell({
   return (
     <td
       className={cn(
-        'px-3 py-3 text-right font-mono text-xs text-muted-foreground',
-        active &&
-          'rounded-sm bg-[#3ECF8E]/10 font-semibold text-foreground dark:bg-[#3ECF8E]/15',
+        'px-3 py-2 text-right font-mono text-xs text-muted-foreground',
+        active && 'font-semibold text-foreground',
       )}
     >
       {children}
@@ -262,13 +261,13 @@ function CreatorSkeletonRow() {
       data-testid="top-creator-skeleton"
       className="border-b border-border last:border-b-0"
     >
-      <td className="px-5 py-3">
+      <td className="px-5 py-2">
         <div className="h-5 w-28 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-2">
         <div className="ml-auto h-4 w-14 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-2">
         <div className="ml-auto h-4 w-10 animate-pulse rounded-full bg-muted" />
       </td>
     </tr>

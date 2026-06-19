@@ -153,14 +153,14 @@ function VideosTableBody({
       <table className="w-full min-w-[440px] table-fixed border-collapse">
         <caption className="sr-only">Top Videos</caption>
         <thead>
-          <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <th scope="col" className="px-5 py-3">
+          <tr className="bg-muted/50 text-left text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <th scope="col" className="px-5 py-2">
               Video
             </th>
-            <th scope="col" className="w-[150px] px-3 py-3">
+            <th scope="col" className="w-[150px] px-3 py-2">
               Creador
             </th>
-            <th scope="col" className="w-[96px] px-3 py-3">
+            <th scope="col" className="w-[96px] px-3 py-2">
               Plataforma
             </th>
             <MetricHeader
@@ -180,7 +180,7 @@ function VideosTableBody({
                   data-testid="top-video-row"
                   className="border-b border-border last:border-b-0"
                 >
-                  <td className="min-w-0 px-5 py-3">
+                  <td className="min-w-0 px-5 py-2">
                     <div className="flex min-w-0 items-center gap-3">
                       <Thumbnail
                         src={video.thumbnail_url}
@@ -191,13 +191,13 @@ function VideosTableBody({
                       </span>
                     </div>
                   </td>
-                  <td className="min-w-0 px-3 py-3">
+                  <td className="min-w-0 px-3 py-2">
                     <CreatorCell
                       handle={video.creator.handle}
                       avatarUrl={video.creator.avatar_url}
                     />
                   </td>
-                  <td className="px-3 py-3">
+                  <td className="px-3 py-2">
                     <PlatformCell platform={video.platform} />
                   </td>
                   <MetricCell active={currentSort === 'views'}>
@@ -225,7 +225,7 @@ function MetricHeader({
       scope="col"
       aria-sort={active ? 'descending' : undefined}
       className={cn(
-        'px-3 py-3 text-right',
+        'px-3 py-2 text-right',
         active && 'text-foreground',
         className,
       )}
@@ -245,9 +245,8 @@ function MetricCell({
   return (
     <td
       className={cn(
-        'px-3 py-3 text-right font-mono text-xs text-muted-foreground',
-        active &&
-          'rounded-sm bg-[#3ECF8E]/10 font-semibold text-foreground dark:bg-[#3ECF8E]/15',
+        'px-3 py-2 text-right font-mono text-xs text-muted-foreground',
+        active && 'font-semibold text-foreground',
       )}
     >
       {children}
@@ -267,7 +266,7 @@ function Thumbnail({
       <img
         src={src}
         alt=""
-        className="size-11 rounded-xl object-cover"
+        className="size-9 rounded-xl object-cover"
         loading="lazy"
       />
     )
@@ -275,7 +274,7 @@ function Thumbnail({
 
   const Icon = PLATFORM_ICON[platform]
   return (
-    <div className="flex size-11 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+    <div className="flex size-9 items-center justify-center rounded-xl bg-muted text-muted-foreground">
       <Icon className="size-4" aria-hidden="true" />
     </div>
   )
@@ -317,19 +316,19 @@ function VideoSkeletonRow() {
       data-testid="top-video-skeleton"
       className="border-b border-border last:border-b-0"
     >
-      <td className="px-5 py-3">
+      <td className="px-5 py-2">
         <div className="flex items-center gap-3">
-          <div className="size-11 animate-pulse rounded-xl bg-muted" />
+          <div className="size-9 animate-pulse rounded-xl bg-muted" />
           <div className="h-4 w-32 animate-pulse rounded-full bg-muted" />
         </div>
       </td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-2">
         <div className="h-5 w-28 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-2">
         <div className="h-6 w-20 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-2">
         <div className="ml-auto h-4 w-14 animate-pulse rounded-full bg-muted" />
       </td>
     </tr>
