@@ -97,7 +97,7 @@ function TableShell({
       <div className="flex h-[62px] items-center justify-between gap-4 border-b border-border px-5">
         <div>
           <h2 className="text-[15px] font-semibold leading-none text-foreground">
-            Top creators
+            Top Creadores
           </h2>
           <p className="mt-1 text-[11px] text-muted-foreground">Top 5</p>
         </div>
@@ -147,7 +147,7 @@ function CreatorsTableBody({
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[720px] table-fixed border-collapse">
-        <caption className="sr-only">Top creators</caption>
+        <caption className="sr-only">Top Creadores</caption>
         <thead>
           <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
             <th scope="col" className="w-[172px] px-5 py-3">

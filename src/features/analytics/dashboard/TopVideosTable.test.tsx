@@ -65,7 +65,7 @@ describe('TopVideosTable', () => {
 
     expect(header).toHaveAttribute('aria-sort', 'descending')
     expect(
-      within(screen.getByRole('table', { name: 'Top videos' })).getByRole(
+      within(screen.getByRole('table', { name: 'Top Videos' })).getByRole(
         'columnheader',
         { name: 'Vistas' },
       ),

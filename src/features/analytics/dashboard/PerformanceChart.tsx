@@ -273,21 +273,6 @@ export function PerformanceChart({
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-
-      <div className="flex h-[18px] items-center gap-4">
-        {visibleSeries.map((series) => (
-          <div key={series} className="flex items-center gap-1.5">
-            <span
-              aria-hidden="true"
-              className="size-2.5 rounded-full"
-              style={{ backgroundColor: SERIES_COLORS[series] }}
-            />
-            <span className="text-[11px] text-muted-foreground">
-              {SERIES_LABELS[series]}
-            </span>
-          </div>
-        ))}
-      </div>
     </section>
   )
 }

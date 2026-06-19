@@ -110,7 +110,7 @@ function TableShell({
       <div className="flex h-[62px] items-center justify-between gap-4 border-b border-border px-5">
         <div>
           <h2 className="text-[15px] font-semibold leading-none text-foreground">
-            Top videos
+            Top Videos
           </h2>
           <p className="mt-1 text-[11px] text-muted-foreground">Top 5</p>
         </div>
@@ -160,7 +160,7 @@ function VideosTableBody({
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[720px] table-fixed border-collapse">
-        <caption className="sr-only">Top videos</caption>
+        <caption className="sr-only">Top Videos</caption>
         <thead>
           <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
             <th scope="col" className="w-[72px] px-5 py-3">
