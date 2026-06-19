@@ -26,6 +26,20 @@ describe('OfferSentCard', () => {
     expect(await axe(container)).toHaveNoViolations()
   })
 
+  it('renders "Oferta recibida" from the creator perspective', () => {
+    render(
+      <OfferSentCard
+        message={makeOfferSystemMessage('OfferSent')}
+        sessionKind="creator"
+      />,
+    )
+
+    expect(
+      screen.getByRole('article', { name: 'Oferta recibida' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Oferta recibida')).toBeInTheDocument()
+  })
+
   it('returns null when snapshot cannot be extracted', () => {
     const { container } = render(
       <OfferSentCard

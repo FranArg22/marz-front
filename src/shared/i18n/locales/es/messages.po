@@ -6319,8 +6319,7 @@ msgid "Oferta de {formattedAmount}, {modeLabel}, {inlineStatus}, enviada el {sen
 msgstr "Oferta de {formattedAmount}, {modeLabel}, {inlineStatus}, enviada el {sentDate}"
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
-#: src/features/chat/components/systemEvents/OfferSentCard.tsx:18
-#: src/features/chat/components/systemEvents/OfferSentCard.tsx:20
+#: src/features/chat/components/systemEvents/OfferSentCard.tsx:19
 #: src/features/offers/components/SendOfferSidesheet.tsx:180
 msgid "Oferta enviada"
 msgstr "Oferta enviada"
@@ -6336,6 +6335,7 @@ msgid "Oferta rechazada"
 msgstr "Oferta rechazada"
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:110
+#: src/features/chat/components/systemEvents/OfferSentCard.tsx:19
 msgid "Oferta recibida"
 msgstr "Oferta recibida"
 

@@ -8,16 +8,21 @@ import { extractOfferSnapshotV3 } from './offerEventCardUtils'
 
 interface OfferSentCardProps {
   message: MessageItem
+  sessionKind?: 'brand' | 'creator'
 }
 
-export function OfferSentCard({ message }: OfferSentCardProps) {
+export function OfferSentCard({ message, sessionKind }: OfferSentCardProps) {
   const snapshot = extractOfferSnapshotV3(message.payload)
   if (!snapshot) return null
 
+  // Offers always go brand → creator, so the creator is the receiver.
+  const label =
+    sessionKind === 'creator' ? t`Oferta recibida` : t`Oferta enviada`
+
   return (
-    <article aria-label={t`Oferta enviada`}>
+    <article aria-label={label}>
       <EventBubble severity="info" direction="out" icon={Send}>
-        {t`Oferta enviada`}
+        {label}
       </EventBubble>
     </article>
   )
