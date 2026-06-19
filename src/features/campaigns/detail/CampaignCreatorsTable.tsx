@@ -116,13 +116,13 @@ export function CampaignCreatorsTable({
           icon={hasActiveFilters ? Search : UserPlus}
           title={
             hasActiveFilters
-              ? t`No encontramos creators con esos filtros`
+              ? t`No encontramos creadores con esos filtros`
               : t`Todavía no hay creadores en esta campaña`
           }
           description={
             hasActiveFilters
               ? t`Probá con otra búsqueda, estado o plataforma.`
-              : t`Cuando invites creators desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables.`
+              : t`Cuando invites creadores desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables.`
           }
           action={
             hasActiveFilters ? (
@@ -132,7 +132,7 @@ export function CampaignCreatorsTable({
                 className="rounded-xl"
                 onClick={onClearFilters}
               >
-                {t`Clear filters`}
+                {t`Limpiar filtros`}
               </Button>
             ) : (
               <div className="flex flex-col gap-2 sm:flex-row">
@@ -151,7 +151,7 @@ export function CampaignCreatorsTable({
                   onClick={onInviteCreator}
                 >
                   <Plus className="size-4" aria-hidden />
-                  {t`Invite creator`}
+                  {t`Invitar creador`}
                 </Button>
               </div>
             )
@@ -192,7 +192,7 @@ export function CampaignCreatorsTable({
               })
             }
           >
-            {t`Load more`}
+            {t`Cargar más`}
             <ChevronRight className="size-3.5" aria-hidden />
           </Button>
         </div>
@@ -212,12 +212,12 @@ function TableFrame({ children }: { children: ReactNode }) {
 function HeaderRow() {
   return (
     <div className="grid grid-cols-[minmax(260px,1fr)_140px_140px_180px_160px_72px] items-center gap-3 border-b border-border bg-muted px-5 py-3">
-      <HeaderCell>{t`Creator`}</HeaderCell>
-      <HeaderCell>{t`Platform`}</HeaderCell>
-      <HeaderCell>{t`Status`}</HeaderCell>
-      <HeaderCell>{t`Deliverables`}</HeaderCell>
-      <HeaderCell>{t`Last activity`}</HeaderCell>
-      <span className="sr-only">{t`Actions`}</span>
+      <HeaderCell>{t`Creador`}</HeaderCell>
+      <HeaderCell>{t`Plataforma`}</HeaderCell>
+      <HeaderCell>{t`Estado`}</HeaderCell>
+      <HeaderCell>{t`Entregables`}</HeaderCell>
+      <HeaderCell>{t`Última actividad`}</HeaderCell>
+      <span className="sr-only">{t`Acciones`}</span>
     </div>
   )
 }
@@ -249,7 +249,10 @@ function CreatorRow({
       <StatusBadge status={participant.status} />
       <DeliverablesCell deliverables={participant.net_deliverables} />
       <span className="text-xs text-muted-foreground">
-        {formatRelativeTime(participant.last_activity_at, t`Pending response`)}
+        {formatRelativeTime(
+          participant.last_activity_at,
+          t`Respuesta pendiente`,
+        )}
       </span>
       <div className="flex justify-end gap-1">
         {participant.actions.open_workspace ? (
@@ -257,7 +260,7 @@ function CreatorRow({
             type="button"
             variant="ghost"
             size="icon-xs"
-            aria-label={t`Open workspace`}
+            aria-label={t`Abrir conversación`}
             onClick={() => {
               if (participant.conversation_id) {
                 void navigate({
@@ -281,7 +284,7 @@ function CreatorRow({
             type="button"
             variant="ghost"
             size="icon-xs"
-            aria-label={t`Invite creator`}
+            aria-label={t`Invitar creador`}
             onClick={onInviteCreator}
           >
             <Plus className="size-3.5" aria-hidden />
@@ -293,7 +296,7 @@ function CreatorRow({
             type="button"
             variant="ghost"
             size="icon-xs"
-            aria-label={t`Creator actions`}
+            aria-label={t`Acciones del creador`}
             disabled
           >
             <Ellipsis className="size-3.5" aria-hidden />
@@ -380,7 +383,7 @@ function DeliverablesCell({
           completed > 0 ? 'text-foreground' : 'text-muted-foreground',
         )}
       >
-        {t`${completed} of ${expected} delivered`}
+        {t`${completed} de ${expected} entregados`}
       </p>
       <div className="h-1.5 w-[140px] overflow-hidden rounded-full bg-muted">
         <div
@@ -425,12 +428,12 @@ function ErrorState({ error }: { error: Error }) {
       icon={AlertCircle}
       title={
         isNotFound
-          ? t`No encontramos los creators`
-          : t`No pudimos cargar los creators`
+          ? t`No encontramos los creadores`
+          : t`No pudimos cargar los creadores`
       }
       description={
         isNotFound
-          ? t`Puede que la campaña no exista o que no pertenezca a este workspace.`
+          ? t`Puede que la campaña no exista o que no pertenezca a este espacio de trabajo.`
           : t`Reintentá en unos minutos.`
       }
       action={null}
@@ -440,7 +443,7 @@ function ErrorState({ error }: { error: Error }) {
 
 function TableSkeleton() {
   return (
-    <div role="status" aria-label={t`Loading creators`}>
+    <div role="status" aria-label={t`Cargando creadores`}>
       <div className="h-11 border-b border-border bg-muted" />
       {[0, 1, 2, 3].map((item) => (
         <div

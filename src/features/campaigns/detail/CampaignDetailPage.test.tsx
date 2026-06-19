@@ -51,6 +51,10 @@ vi.mock('./CampaignDetailHeader', () => ({
   CampaignDetailHeaderSkeleton: () => <header>Campaign header skeleton</header>,
 }))
 
+vi.mock('./CampaignConfigurationSheet', () => ({
+  CampaignConfigurationSheet: () => null,
+}))
+
 vi.mock('./CampaignDetailTabs', () => ({
   CampaignDetailTabs: ({
     activeTab,

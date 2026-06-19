@@ -35,11 +35,11 @@ function getStatusOptions(): ReadonlyArray<{
   label: string
 }> {
   return [
-    { value: 'invited', label: t`Invitados` },
-    { value: 'active', label: t`Activos` },
+    { value: 'invited', label: t`Invitado` },
+    { value: 'active', label: t`Activo` },
     { value: 'in_review', label: t`En revisión` },
-    { value: 'approved', label: t`Aprobados` },
-    { value: 'paid', label: t`Pagados` },
+    { value: 'approved', label: t`Aprobado` },
+    { value: 'paid', label: t`Pagado` },
   ]
 }
 

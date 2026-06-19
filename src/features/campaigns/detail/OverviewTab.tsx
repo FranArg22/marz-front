@@ -1,25 +1,19 @@
 import { t } from '@lingui/core/macro'
 import { AlertCircle, ClipboardList } from 'lucide-react'
 
-import type {
-  CampaignDetailResponse,
-  CampaignOverviewResponse,
-} from '#/shared/api/generated/model'
+import type { CampaignOverviewResponse } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 
 import { CreatorsPreview } from './overview/CreatorsPreview'
-import { CampaignInlineEditor } from './overview/CampaignInlineEditor'
-import { DetailsBlock } from './overview/DetailsBlock'
 import { RecentActivity } from './overview/RecentActivity'
 import { StatsBlock } from './overview/StatsBlock'
 import { useCampaignOverviewQuery } from './useCampaignOverviewQuery'
 
 interface OverviewTabProps {
   campaignId: string
-  detail: CampaignDetailResponse
 }
 
-export function OverviewTab({ campaignId, detail }: OverviewTabProps) {
+export function OverviewTab({ campaignId }: OverviewTabProps) {
   const overviewQuery = useCampaignOverviewQuery(campaignId, {
     activityLimit: 5,
   })
@@ -32,26 +26,15 @@ export function OverviewTab({ campaignId, detail }: OverviewTabProps) {
     return <OverviewError error={overviewQuery.error} />
   }
 
-  return <OverviewContent overview={overviewQuery.data} detail={detail} />
+  return <OverviewContent overview={overviewQuery.data} />
 }
 
-function OverviewContent({
-  overview,
-  detail,
-}: {
-  overview: CampaignOverviewResponse
-  detail: CampaignDetailResponse
-}) {
+function OverviewContent({ overview }: { overview: CampaignOverviewResponse }) {
   return (
     <div className="space-y-5">
-      <CampaignInlineEditor
-        campaignId={overview.campaign.campaign_id}
-        campaign={detail}
-      />
       <StatsBlock overview={overview} />
       <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-4">
         <div className="space-y-4">
-          <DetailsBlock overview={overview} />
           <CreatorsPreview
             campaignId={overview.campaign.campaign_id}
             creators={overview.creators_preview}
@@ -84,7 +67,6 @@ function OverviewSkeleton() {
       <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-4">
         <div className="space-y-4">
           <div className="h-64 rounded-2xl border border-border bg-card" />
-          <div className="h-64 rounded-2xl border border-border bg-card" />
         </div>
         <div className="h-[360px] rounded-2xl border border-border bg-card" />
       </div>
@@ -115,7 +97,7 @@ function OverviewError({ error }: { error: Error }) {
       </h2>
       <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
         {isNotFound
-          ? t`Puede que la campaña no exista o que no pertenezca a este workspace.`
+          ? t`Puede que la campaña no exista o que no pertenezca a este espacio de trabajo.`
           : t`Reintentá en unos minutos.`}
       </p>
     </section>

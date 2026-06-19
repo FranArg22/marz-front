@@ -127,7 +127,7 @@ export function VideosTab({ campaignId, search }: VideosTabProps) {
             {t`Videos`}
           </p>
           <h2 className="mt-1 text-lg font-semibold text-foreground">
-            {t`Videos delivered for this campaign`}
+            {t`Videos entregados para esta campaña`}
           </h2>
         </div>
       </div>

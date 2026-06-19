@@ -15,34 +15,24 @@ vi.mock('@lingui/core/macro', () => ({
 }))
 
 describe('StatsBlock', () => {
-  it('renders exactly applications, reach and budget stats', () => {
+  it('renders campaign activity and spend stats', () => {
     render(<StatsBlock overview={makeOverview()} />)
 
     const stats = within(
       screen.getByRole('region', { name: /estadísticas de campaña/i }),
     ).getAllByRole('article')
 
-    expect(stats).toHaveLength(3)
+    expect(stats).toHaveLength(4)
+    expect(screen.getByText('Gastado')).toBeInTheDocument()
+    expect(screen.getByText('Pendiente')).toBeInTheDocument()
+    expect(screen.getByText('Ofertas')).toBeInTheDocument()
     expect(screen.getByText('Postulaciones')).toBeInTheDocument()
-    expect(screen.getByText('Alcance')).toBeInTheDocument()
-    expect(screen.getByText('Presupuesto')).toBeInTheDocument()
+    expect(screen.getByText('$5,200')).toBeInTheDocument()
+    expect(screen.getByText('8')).toBeInTheDocument()
+    expect(screen.queryByText('Reach')).not.toBeInTheDocument()
+    expect(screen.queryByText('Budget')).not.toBeInTheDocument()
     expect(screen.queryByText(/match/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/progress/i)).not.toBeInTheDocument()
-  })
-
-  it('shows a neutral placeholder when reach is unavailable', () => {
-    render(
-      <StatsBlock
-        overview={makeOverview({ reach_available: false, reach: null })}
-      />,
-    )
-
-    expect(screen.getByText('No disponible')).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        'Todavía no hay datos suficientes para estimar el reach.',
-      ),
-    ).toBeInTheDocument()
   })
 
   it('is axe-clean', async () => {
@@ -61,6 +51,12 @@ function makeOverview(
     reach: 320_000,
     budget_total_usd: '7200.00',
     budget_spent_usd: '3100.00',
+    spend_paid_usd: '3100.00',
+    spend_pending_approval_usd: '850.00',
+    spend_pending_offers_usd: '1200.00',
+    spend_pending_offers_count: 3,
+    offers_count: 8,
+    spend_committed_usd: '2100.00',
     campaign: {
       campaign_id: 'campaign-1',
       name: 'Summer Glow-up 2024',

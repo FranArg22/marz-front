@@ -1,5 +1,10 @@
 import { t } from '@lingui/core/macro'
-import { DollarSign, RadioTower, UsersRound } from 'lucide-react'
+import {
+  CircleDollarSign,
+  FileClock,
+  Handshake,
+  UsersRound,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 import type { CampaignOverviewResponse } from '#/shared/api/generated/model'
@@ -34,50 +39,43 @@ const fractionalUsdFormatter = new Intl.NumberFormat('en-US', {
 })
 
 export function StatsBlock({ overview }: StatsBlockProps) {
-  const budgetSpent = formatUsd(overview.budget_spent_usd)
+  const pendingOffersCount = formatCompactNumber(
+    overview.spend_pending_offers_count,
+  )
 
   return (
     <section aria-label={t`Estadísticas de campaña`}>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <StatCard
+          label={t`Gastado`}
+          value={formatUsd(
+            sumUsd(overview.spend_committed_usd, overview.spend_paid_usd),
+          )}
+          helper={t`Ofertas comprometidas y pagos realizados`}
+          icon={CircleDollarSign}
+          tone="success"
+        />
+        <StatCard
+          label={t`Pendiente`}
+          value={formatUsd(overview.spend_pending_offers_usd)}
+          helper={t`Ofertas enviadas sin aceptar`}
+          icon={FileClock}
+          tone="neutral"
+        />
+        <StatCard
+          label={t`Ofertas`}
+          value={formatCompactNumber(overview.offers_count)}
+          helper={t`${pendingOffersCount} pendientes`}
+          icon={Handshake}
+        />
         <StatCard
           label={t`Postulaciones`}
           value={formatCompactNumber(overview.applications_count)}
           helper={t`Postulaciones recibidas`}
           icon={UsersRound}
         />
-        <ReachStat overview={overview} />
-        <StatCard
-          label={t`Presupuesto`}
-          value={formatUsd(overview.budget_total_usd)}
-          helper={t`${budgetSpent} usados`}
-          icon={DollarSign}
-          tone="success"
-        />
       </div>
     </section>
-  )
-}
-
-function ReachStat({ overview }: StatsBlockProps) {
-  if (!overview.reach_available || overview.reach === null) {
-    return (
-      <StatCard
-        label={t`Alcance`}
-        value={t`No disponible`}
-        helper={t`Todavía no hay datos suficientes para estimar el reach.`}
-        icon={RadioTower}
-        tone="neutral"
-      />
-    )
-  }
-
-  return (
-    <StatCard
-      label={t`Alcance`}
-      value={formatCompactNumber(overview.reach)}
-      helper={t`Estimado entre participantes`}
-      icon={RadioTower}
-    />
   )
 }
 
@@ -126,6 +124,14 @@ function formatUsd(amount: string) {
   const formatter =
     number % 1 === 0 ? wholeUsdFormatter : fractionalUsdFormatter
   return formatter.format(number)
+}
+
+function sumUsd(...amounts: string[]) {
+  const total = amounts.reduce((sum, amount) => {
+    const number = Number.parseFloat(amount)
+    return Number.isNaN(number) ? sum : sum + number
+  }, 0)
+  return total.toFixed(2)
 }
 
 export const campaignOverviewFormatters = {

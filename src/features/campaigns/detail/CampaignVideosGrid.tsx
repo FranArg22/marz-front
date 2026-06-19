@@ -50,10 +50,10 @@ function getVideoStatusLabel(status: DeliverableStatus) {
     draft_submitted: () => t`En revisión`,
     changes_requested: () => t`Cambios solicitados`,
     draft_approved: () => t`Borrador aprobado`,
-    link_submitted: () => t`Link enviado`,
-    link_approved: () => t`Link aprobado`,
+    link_submitted: () => t`Enlace enviado`,
+    link_approved: () => t`Enlace aprobado`,
     completed: () => t`Completado`,
-    paid: () => t`Pagado`,
+    paid: () => t`Paid`,
   }
   return labels[status]()
 }
@@ -125,10 +125,10 @@ export function CampaignVideosGrid({
           }
           description={
             hasActiveFilters
-              ? t`Probá con otra búsqueda, estado, plataforma o creator.`
+              ? t`Probá con otra búsqueda, estado, plataforma o creador.`
               : hasActiveParticipants
-                ? t`Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados.`
-                : t`Invitá creators para empezar a recibir entregables en esta campaña.`
+                ? t`Los videos van a aparecer acá cuando los creadores suban sus borradores y queden en revisión o aprobados.`
+                : t`Invitá creadores para empezar a recibir entregables en esta campaña.`
           }
           action={
             hasActiveFilters ? (
@@ -138,7 +138,7 @@ export function CampaignVideosGrid({
                 className="rounded-xl"
                 onClick={onClearFilters}
               >
-                {t`Clear filters`}
+                {t`Limpiar filtros`}
               </Button>
             ) : (
               <Button
@@ -149,8 +149,8 @@ export function CampaignVideosGrid({
               >
                 <UserPlus className="size-4" aria-hidden />
                 {hasActiveParticipants
-                  ? t`View active creators`
-                  : t`Invite creators`}
+                  ? t`Ver creadores activos`
+                  : t`Invitar creadores`}
               </Button>
             )
           }
@@ -180,7 +180,7 @@ export function CampaignVideosGrid({
               })
             }
           >
-            {t`Load more`}
+            {t`Cargar más`}
             <ChevronRight className="size-3.5" aria-hidden />
           </Button>
         </div>
@@ -202,7 +202,7 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
     <Link
       to={video.reviewer_url}
       className="group overflow-hidden rounded-[20px] border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-      aria-label={t`Open video reviewer for ${creatorName}`}
+      aria-label={t`Abrir revisión de video de ${creatorName}`}
     >
       <div className="relative aspect-video overflow-hidden bg-muted">
         {video.thumbnail_url ? (
@@ -316,7 +316,7 @@ function ErrorState({ error }: { error: Error }) {
       }
       description={
         isNotFound
-          ? t`Puede que la campaña no exista o que no pertenezca a este workspace.`
+          ? t`Puede que la campaña no exista o que no pertenezca a este espacio de trabajo.`
           : t`Reintentá en unos minutos.`
       }
       action={null}

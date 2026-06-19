@@ -1,11 +1,5 @@
 import { t } from '@lingui/core/macro'
-import {
-  BarChart3,
-  ClipboardList,
-  LayoutGrid,
-  Users,
-  Video,
-} from 'lucide-react'
+import { ClipboardList, LayoutGrid, Users, Video } from 'lucide-react'
 
 import { CampaignWorkspaceTabs } from '#/features/campaigns/components/CampaignWorkspaceTabs'
 
@@ -15,13 +9,6 @@ function getCampaignDetailTabs() {
     { id: 'applications', label: t`Postulaciones`, icon: ClipboardList },
     { id: 'creators', label: t`Creadores`, icon: Users },
     { id: 'videos', label: t`Videos`, icon: Video },
-    {
-      id: 'analytics',
-      label: t`Analíticas`,
-      icon: BarChart3,
-      disabled: true,
-      tooltip: t`Las analíticas todavía no están disponibles para esta campaña.`,
-    },
   ] as const
 }
 
@@ -30,11 +17,10 @@ export type CampaignDetailTabId =
   | 'applications'
   | 'creators'
   | 'videos'
-  | 'analytics'
 
 interface CampaignDetailTabsProps {
   activeTab: CampaignDetailTabId
-  onTabChange: (tab: Exclude<CampaignDetailTabId, 'analytics'>) => void
+  onTabChange: (tab: CampaignDetailTabId) => void
 }
 
 export function CampaignDetailTabs({
@@ -50,7 +36,7 @@ export function CampaignDetailTabs({
         tabs={[...getCampaignDetailTabs()]}
         activeId={activeTab}
         onSelect={(tab) => {
-          if (!isCampaignDetailNavigableTab(tab)) return
+          if (!isCampaignDetailTab(tab)) return
           onTabChange(tab)
         }}
       />
@@ -58,9 +44,7 @@ export function CampaignDetailTabs({
   )
 }
 
-function isCampaignDetailNavigableTab(
-  tab: string,
-): tab is Exclude<CampaignDetailTabId, 'analytics'> {
+function isCampaignDetailTab(tab: string): tab is CampaignDetailTabId {
   return (
     tab === 'overview' ||
     tab === 'applications' ||

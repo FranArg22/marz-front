@@ -16840,6 +16840,12 @@
           "reach",
           "budget_total_usd",
           "budget_spent_usd",
+          "spend_paid_usd",
+          "spend_pending_approval_usd",
+          "spend_pending_offers_usd",
+          "spend_pending_offers_count",
+          "offers_count",
+          "spend_committed_usd",
           "campaign",
           "creators_preview",
           "recent_activity"
@@ -16861,6 +16867,35 @@
           },
           "budget_spent_usd": {
             "type": "string"
+          },
+          "spend_paid_usd": {
+            "type": "string",
+            "description": "Declared payments for this campaign, in USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "spend_pending_approval_usd": {
+            "type": "string",
+            "description": "Payment obligations pending brand approval for this campaign, in USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "spend_pending_offers_usd": {
+            "type": "string",
+            "description": "Sent offers awaiting creator acceptance for this campaign, in USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
+          },
+          "spend_pending_offers_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "offers_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total offers created for this campaign."
+          },
+          "spend_committed_usd": {
+            "type": "string",
+            "description": "Accepted, not-yet-completed offers for this campaign, in USD decimal string.",
+            "pattern": "^\\d+\\.\\d{2}$"
           },
           "campaign": {
             "$ref": "#/components/schemas/CampaignOverviewDetails"

@@ -90,7 +90,7 @@ describe('AppShell', () => {
     const sidebar = within(shell).getByTestId('app-sidebar')
 
     expect(
-      within(sidebar).getByRole('link', { name: 'Workspace' }),
+      within(sidebar).getByRole('link', { name: 'Conversaciones' }),
     ).toBeInTheDocument()
     expect(screen.queryByTestId('app-topbar')).not.toBeInTheDocument()
     expect(screen.getByLabelText('shell context')).toHaveTextContent(
@@ -104,7 +104,7 @@ describe('AppShell', () => {
     const sidebar = await screen.findByTestId('app-sidebar')
 
     expect(
-      within(sidebar).getByRole('link', { name: 'Inbox' }),
+      within(sidebar).getByRole('link', { name: 'Bandeja' }),
     ).toHaveAttribute('aria-current', 'page')
     expect(screen.getByLabelText('shell context')).toHaveTextContent(
       'creator:acct_123',

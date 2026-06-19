@@ -68,9 +68,9 @@ describe('CampaignCreatorsTable', () => {
     expect(screen.getByText('@lumina')).toBeInTheDocument()
     expect(screen.getByText('YouTube')).toBeInTheDocument()
     expect(screen.getByText('En revisión')).toBeInTheDocument()
-    expect(screen.getByText('3 of 4 delivered')).toBeInTheDocument()
+    expect(screen.getByText('3 de 4 entregados')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Load more' }))
+    await user.click(screen.getByRole('button', { name: 'Cargar más' }))
 
     expect(onParamsChange).toHaveBeenCalledWith({
       limit: 24,
@@ -78,7 +78,7 @@ describe('CampaignCreatorsTable', () => {
     })
   })
 
-  it('navigates to workspace when row action is available', async () => {
+  it('navigates to conversation when row action is available', async () => {
     const user = userEvent.setup()
     useCampaignParticipantsQueryMock.mockReturnValue(
       queryResult({
@@ -90,7 +90,7 @@ describe('CampaignCreatorsTable', () => {
 
     renderTable()
 
-    await user.click(screen.getByRole('button', { name: 'Open workspace' }))
+    await user.click(screen.getByRole('button', { name: 'Abrir conversación' }))
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/workspace/conversations/$conversationId',
@@ -127,7 +127,7 @@ describe('CampaignCreatorsTable', () => {
 
     renderTable({ hasActiveFilters: true, onClearFilters })
 
-    await user.click(screen.getByRole('button', { name: 'Clear filters' }))
+    await user.click(screen.getByRole('button', { name: 'Limpiar filtros' }))
     expect(onClearFilters).toHaveBeenCalled()
   })
 
@@ -148,7 +148,7 @@ describe('CampaignCreatorsTable', () => {
 
     renderTable({ onInviteCreator })
 
-    await user.click(screen.getByRole('button', { name: 'Invite creator' }))
+    await user.click(screen.getByRole('button', { name: 'Invitar creador' }))
     expect(onInviteCreator).toHaveBeenCalledTimes(1)
   })
 
@@ -172,7 +172,7 @@ describe('CampaignCreatorsTable', () => {
 
     renderTable()
 
-    expect(screen.queryByText('Pending response')).not.toBeInTheDocument()
+    expect(screen.queryByText('Respuesta pendiente')).not.toBeInTheDocument()
   })
 
   it('is axe-clean', async () => {

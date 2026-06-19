@@ -1,14 +1,13 @@
 import { t } from '@lingui/core/macro'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { AlertCircle, ClipboardList } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
 import { ApplicationsTab } from '#/features/discovery/campaign-detail/ApplicationsTab'
 import { ListCreatorsStatus } from '#/shared/api/generated/model'
 import type {
-  CampaignDetailResponse,
   CampaignPlanCapabilities,
   DeliverableStatus,
   SocialPlatform,
@@ -21,6 +20,7 @@ import {
   CampaignDetailHeaderSkeleton,
 } from './CampaignDetailHeader'
 import { CampaignDetailTabs } from './CampaignDetailTabs'
+import { CampaignConfigurationSheet } from './CampaignConfigurationSheet'
 import type { CampaignDetailTabId } from './CampaignDetailTabs'
 import { OverviewTab } from './OverviewTab'
 import { CreatorsTab } from './creators/CreatorsTab'
@@ -50,8 +50,6 @@ interface CampaignDetailPageProps {
   search: CampaignDetailSearch
 }
 
-type CampaignDetailNavigableTab = Exclude<CampaignDetailTabId, 'analytics'>
-
 export function CampaignDetailPage({
   campaignId,
   search,
@@ -59,12 +57,13 @@ export function CampaignDetailPage({
   const detailQuery = useCampaignDetailQuery(campaignId)
   useCampaignTopicSubscription(campaignId)
   const navigate = useNavigate({ from: '/campaigns/$campaignId' })
+  const [configurationOpen, setConfigurationOpen] = useState(false)
 
   useEffect(() => {
     trackCampaignDetailViewed(campaignId)
   }, [campaignId])
 
-  const handleTabChange = (tab: CampaignDetailNavigableTab) => {
+  const handleTabChange = (tab: CampaignDetailTabId) => {
     if (tab === search.tab) return
     trackCampaignDetailTabChanged({
       campaignId,
@@ -77,6 +76,10 @@ export function CampaignDetailPage({
         tab,
       }),
     })
+  }
+
+  const handleEditCampaign = () => {
+    setConfigurationOpen(true)
   }
 
   if (detailQuery.isPending) {
@@ -109,7 +112,7 @@ export function CampaignDetailPage({
           }
           description={
             isNotFound
-              ? t`Puede que no exista o que no pertenezca a este workspace.`
+              ? t`Puede que no exista o que no pertenezca a este espacio de trabajo.`
               : t`Reintentá en unos minutos.`
           }
           action={
@@ -124,7 +127,12 @@ export function CampaignDetailPage({
 
   return (
     <CampaignDetailShell
-      header={<CampaignDetailHeader detail={detailQuery.data} />}
+      header={
+        <CampaignDetailHeader
+          detail={detailQuery.data}
+          onEditCampaign={handleEditCampaign}
+        />
+      }
       tab={search.tab}
       onTabChange={handleTabChange}
     >
@@ -132,8 +140,12 @@ export function CampaignDetailPage({
         campaignId={campaignId}
         tab={search.tab}
         search={search}
-        detail={detailQuery.data}
         planCapabilities={detailQuery.data.plan_capabilities}
+      />
+      <CampaignConfigurationSheet
+        campaign={detailQuery.data}
+        open={configurationOpen}
+        onOpenChange={setConfigurationOpen}
       />
     </CampaignDetailShell>
   )
@@ -147,14 +159,14 @@ function CampaignDetailShell({
 }: {
   header: ReactNode
   tab: CampaignDetailTabId
-  onTabChange: (tab: CampaignDetailNavigableTab) => void
+  onTabChange: (tab: CampaignDetailTabId) => void
   children: ReactNode
 }) {
   return (
-    <div className="flex min-h-full flex-col bg-background">
+    <div className="flex h-full min-h-0 flex-col bg-background">
       {header}
       <CampaignDetailTabs activeTab={tab} onTabChange={onTabChange} />
-      <main className="flex-1 bg-muted/30 px-5 py-5 md:px-8 md:py-6">
+      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/30 px-5 py-5 md:px-8 md:py-6">
         {children}
       </main>
     </div>
@@ -165,26 +177,15 @@ function CampaignDetailBody({
   campaignId,
   tab,
   search,
-  detail,
   planCapabilities,
 }: {
   campaignId: string
   tab: CampaignDetailTabId
   search: CampaignDetailSearch
-  detail: CampaignDetailResponse
   planCapabilities: CampaignPlanCapabilities
 }) {
-  if (tab === 'analytics') {
-    return (
-      <BodyPlaceholder
-        title={t`Analíticas`}
-        description={t`Esta sección todavía no está disponible.`}
-      />
-    )
-  }
-
   if (tab === 'overview') {
-    return <OverviewTab campaignId={campaignId} detail={detail} />
+    return <OverviewTab campaignId={campaignId} />
   }
 
   if (tab === 'applications') {

@@ -14,20 +14,12 @@ vi.mock('@lingui/core/macro', () => ({
 }))
 
 describe('CampaignDetailTabs', () => {
-  it('does not navigate from the disabled analytics tab', async () => {
-    const user = userEvent.setup()
-    const onTabChange = vi.fn()
-
+  it('does not render analytics', () => {
     render(
-      <CampaignDetailTabs activeTab="overview" onTabChange={onTabChange} />,
+      <CampaignDetailTabs activeTab="overview" onTabChange={vi.fn()} />,
     )
 
-    const analytics = screen.getByRole('button', { name: /analíticas/i })
-    expect(analytics).toHaveAttribute('aria-disabled', 'true')
-
-    await user.click(analytics)
-
-    expect(onTabChange).not.toHaveBeenCalled()
+    expect(screen.queryByRole('button', { name: /analíticas/i })).toBeNull()
   })
 
   it('navigates from enabled tabs', async () => {

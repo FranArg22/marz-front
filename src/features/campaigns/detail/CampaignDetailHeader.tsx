@@ -1,16 +1,7 @@
 import { t } from '@lingui/core/macro'
 import { Link } from '@tanstack/react-router'
-import {
-  CalendarClock,
-  CheckCircle2,
-  Megaphone,
-  MessageSquare,
-  MoreHorizontal,
-  Pencil,
-  Sparkles,
-} from 'lucide-react'
+import { CheckCircle2, Film, Globe2, MessageSquare, Pencil } from 'lucide-react'
 
-import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import {
   Tooltip,
@@ -20,9 +11,15 @@ import {
 } from '#/components/ui/tooltip'
 import { cn } from '#/lib/utils'
 import type { CampaignDetailResponse } from '#/shared/api/generated/model'
+import { formatPlatform } from '#/shared/utils/format'
+import type { ReactNode } from 'react'
 
 interface CampaignDetailHeaderProps {
   detail: CampaignDetailResponse
+}
+
+interface CampaignDetailHeaderComponentProps extends CampaignDetailHeaderProps {
+  onEditCampaign: () => void
 }
 
 function getStatusLabel(status: string) {
@@ -35,7 +32,10 @@ function getStatusLabel(status: string) {
   return labels[status]?.() ?? status
 }
 
-export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
+export function CampaignDetailHeader({
+  detail,
+  onEditCampaign,
+}: CampaignDetailHeaderComponentProps) {
   const editButtonDisabled = !detail.action_flags.can_edit
   const editDisabledReason = t`No tenés permisos para editar esta campaña`
   const editButton = (
@@ -43,6 +43,7 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
       variant="outline"
       size="sm"
       disabled={editButtonDisabled}
+      onClick={onEditCampaign}
       aria-label={editButtonDisabled ? editDisabledReason : undefined}
     >
       <Pencil className="size-3.5" aria-hidden="true" />
@@ -53,33 +54,20 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
   return (
     <header className="shrink-0 border-b border-border bg-background px-5 py-5 md:px-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex min-w-0 gap-3.5">
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            <Megaphone className="size-5" aria-hidden="true" />
-          </div>
-          <div className="min-w-0 space-y-1.5">
-            <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex min-w-0">
+          <div className="min-w-0 space-y-3">
+            <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
               <h1 className="truncate text-[22px] font-semibold text-foreground">
                 {detail.name}
               </h1>
-              <Badge className="rounded-full bg-success px-2.5 py-1 text-success-foreground">
-                <CheckCircle2 className="size-3" aria-hidden="true" />
-                {getStatusLabel(detail.status)}
-              </Badge>
+              <StatusPill status={detail.status} />
             </div>
-            <p className="text-xs text-muted-foreground">
-              {formatCampaignSummary(detail)}
-            </p>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-              <CalendarClock className="size-3.5" aria-hidden="true" />
-              <span>{formatDeadline(detail.deadline)}</span>
-              <PlanCapabilities detail={detail} />
-            </div>
+            <CampaignHeaderSummary detail={detail} />
           </div>
         </div>
 
         <TooltipProvider>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="ml-auto flex shrink-0 items-center justify-end gap-2 whitespace-nowrap">
             <Button asChild variant="outline" size="sm">
               <Link
                 to="/workspace"
@@ -89,7 +77,7 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
                 }}
               >
                 <MessageSquare className="size-3.5" aria-hidden="true" />
-                {t`Ir al workspace`}
+                {t`Ir a conversaciones`}
               </Link>
             </Button>
             {editButtonDisabled ? (
@@ -102,13 +90,6 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
             ) : (
               editButton
             )}
-            <Button
-              variant="outline"
-              size="icon-sm"
-              aria-label={t`Más acciones`}
-            >
-              <MoreHorizontal className="size-4" aria-hidden="true" />
-            </Button>
           </div>
         </TooltipProvider>
       </div>
@@ -116,62 +97,115 @@ export function CampaignDetailHeader({ detail }: CampaignDetailHeaderProps) {
   )
 }
 
-function PlanCapabilities({ detail }: CampaignDetailHeaderProps) {
-  const capabilities = [
-    detail.plan_capabilities.allows_automatic_matching
-      ? t`Matching automático`
-      : null,
-    detail.plan_capabilities.allows_campaign_board
-      ? t`Tablero de campaña`
-      : null,
-    detail.plan_capabilities.allows_email_invites
-      ? t`Invitaciones por email`
-      : null,
-    detail.plan_capabilities.allows_in_platform_invites
-      ? t`Invites in-platform`
-      : null,
-  ].filter((capability): capability is string => capability !== null)
-
-  if (capabilities.length === 0) return null
-
+function StatusPill({ status }: { status: string }) {
   return (
-    <>
-      <span aria-hidden="true">·</span>
-      <span className="inline-flex flex-wrap items-center gap-1.5">
-        <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-        {capabilities.slice(0, 2).map((capability) => (
-          <span
-            key={capability}
-            className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
-          >
-            {capability}
-          </span>
-        ))}
-      </span>
-    </>
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
+      <CheckCircle2 className="size-3.5" aria-hidden="true" />
+      {getStatusLabel(status)}
+    </span>
   )
 }
 
-function formatCampaignSummary(detail: CampaignDetailResponse) {
-  const platforms =
-    detail.platforms.length > 0 ? detail.platforms : [t`Sin plataformas`]
-  return [detail.objective, ...platforms].join(' · ')
+function CampaignHeaderSummary({ detail }: CampaignDetailHeaderProps) {
+  const items = [
+    {
+      label: t`Tipo de contenido`,
+      value: formatContentModel(detail.commercial.content_model),
+      icon: <Film className="size-3.5" aria-hidden="true" />,
+    },
+    {
+      label: t`Canales`,
+      value: formatList(detail.platforms, t`Sin plataformas`),
+      icon: <Globe2 className="size-3.5" aria-hidden="true" />,
+    },
+    ...formatAudienceItems(detail.audience.description).map((item) => ({
+      ...item,
+      icon: <Globe2 className="size-3.5" aria-hidden="true" />,
+    })),
+  ]
+
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+      {items.map((item) => (
+        <HeaderSummaryItem
+          key={item.label}
+          icon={item.icon}
+          label={item.label}
+          value={item.value}
+        />
+      ))}
+    </div>
+  )
 }
 
-const deadlineFormatter = new Intl.DateTimeFormat('es-AR', {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
-})
+function HeaderSummaryItem({
+  icon,
+  label,
+  value,
+}: {
+  icon: ReactNode
+  label: string
+  value: string
+}) {
+  return (
+    <div className="flex min-w-0 items-center gap-1.5">
+      <span className="text-muted-foreground">{icon}</span>
+      <span className="font-mono text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
+        {label}
+      </span>
+      <span className="max-w-48 truncate font-medium text-foreground">
+        {value}
+      </span>
+    </div>
+  )
+}
 
-function formatDeadline(deadline: string | null) {
-  if (!deadline) return t`Sin fecha límite`
+function formatList(items: string[] | null, fallback: string) {
+  if (!items || items.length === 0) return fallback
+  return items.map(formatPlatform).join(', ')
+}
 
-  const date = new Date(deadline)
-  if (Number.isNaN(date.getTime())) return deadline
+function formatContentModel(value: string | null) {
+  if (value === 'ugc_videos') return t`Videos UGC`
+  if (value === 'influencer_posts') return t`Publicaciones de influencers`
+  return value ?? t`Sin modelo definido`
+}
 
-  const formattedDeadline = deadlineFormatter.format(date)
-  return t`Fecha límite ${formattedDeadline}`
+function formatAudienceItems(
+  description: string | null,
+): Array<{ label: string; value: string }> {
+  if (!description) {
+    return [{ label: t`Audiencia`, value: t`Sin audiencia definida` }]
+  }
+
+  const parts = description
+    .split(/\s+-\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+
+  if (parts.length >= 3) {
+    const country = parts[0] ?? description
+    const audience = parts.slice(1, -1).join(' - ') || t`Sin audiencia definida`
+    const tier = parts.at(-1) ?? t`Sin tier`
+
+    return [
+      { label: t`País`, value: country },
+      { label: t`Audiencia`, value: audience },
+      { label: t`Tier`, value: tier },
+    ]
+  }
+
+  if (parts.length === 2) {
+    const country = parts[0] ?? description
+    const audience = parts[1] ?? t`Sin audiencia definida`
+
+    return [
+      { label: t`País`, value: country },
+      { label: t`Audiencia`, value: audience },
+    ]
+  }
+
+  return [{ label: t`Audiencia`, value: description }]
 }
 
 export function CampaignDetailHeaderSkeleton() {
@@ -213,7 +247,7 @@ export function CampaignDetailHeaderError({
           {t`No encontramos esta campaña`}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {t`Puede que no exista o que no pertenezca a este workspace.`}
+          {t`Puede que no exista o que no pertenezca a este espacio de trabajo.`}
         </p>
       </div>
     </header>

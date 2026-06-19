@@ -1,14 +1,15 @@
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
-import { Megaphone, Plus } from 'lucide-react'
+import { ArrowUpRight, Megaphone, Plus } from 'lucide-react'
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '#/components/ui/tooltip'
-import { CampaignMiniCard } from '#/features/campaigns/components/CampaignMiniCard'
+import type { CampaignListItem } from '#/features/campaigns/hooks/useCampaignsList'
 import { useCampaignsList } from '#/features/campaigns/hooks/useCampaignsList'
 import { useCampaignQuotaQuery } from '#/features/campaigns/wizard/queries'
 import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
@@ -21,6 +22,7 @@ export const Route = createFileRoute('/_brand/campaigns/')({
 const campaignDateFormatter = new Intl.DateTimeFormat('es-AR', {
   month: 'short',
   day: 'numeric',
+  year: 'numeric',
 })
 
 export function CampaignsPage() {
@@ -42,10 +44,17 @@ export function CampaignsPage() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">
-          <Trans>Campañas</Trans>
-        </h1>
+      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">
+            <Trans>Campañas</Trans>
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            <Trans>
+              Seguimiento operativo de campañas creadas en este espacio.
+            </Trans>
+          </p>
+        </div>
         <CampaignCreateCta
           isBlocked={isCampaignCreationBlocked}
           plan={campaignQuota?.plan}
@@ -69,26 +78,124 @@ export function CampaignsPage() {
           </Button>
         </div>
       ) : campaigns.length > 0 ? (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {campaigns.map((campaign) => (
-            <CampaignMiniCard
-              key={campaign.id}
-              campaignId={campaign.id}
-              name={campaign.name}
-              startDate={formatCampaignDate(campaign.startDate)}
-              status={campaign.status}
-              creators={campaign.creators}
-              budget={campaign.budget}
-              videos={campaign.videos}
-              platforms={campaign.platforms}
-            />
-          ))}
-        </div>
+        <CampaignsList campaigns={campaigns} />
       ) : (
         <CampaignsEmptyState />
       )}
     </div>
   )
+}
+
+function CampaignsList({ campaigns }: { campaigns: CampaignListItem[] }) {
+  return (
+    <section className="mt-6 overflow-hidden rounded-lg border border-border bg-card">
+      <div className="hidden grid-cols-[minmax(280px,1fr)_150px_160px_160px_96px] border-b border-border bg-background px-5 py-3 text-xs font-medium text-muted-foreground uppercase lg:grid">
+        <span>{t`Campaña`}</span>
+        <span>{t`Estado`}</span>
+        <span>{t`Creada`}</span>
+        <span>{t`Actualizada`}</span>
+        <span className="text-right">{t`Acción`}</span>
+      </div>
+      <div className="divide-y divide-border">
+        {campaigns.map((campaign) => (
+          <CampaignRow key={campaign.id} campaign={campaign} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function CampaignRow({ campaign }: { campaign: CampaignListItem }) {
+  const status = getStatusMeta(campaign.status)
+
+  return (
+    <Link
+      to="/campaigns/$campaignId"
+      params={{ campaignId: campaign.id }}
+      search={{ tab: 'overview' }}
+      className="group grid gap-3 px-5 py-4 outline-none transition-colors hover:bg-muted/30 focus-visible:bg-muted/30 focus-visible:ring-[3px] focus-visible:ring-ring/40 lg:grid-cols-[minmax(280px,1fr)_150px_160px_160px_96px] lg:items-center lg:gap-0"
+    >
+      <div className="flex min-w-0 items-start gap-3">
+        <span
+          className={`mt-1 h-10 w-1 shrink-0 rounded-full ${status.indicatorClass}`}
+          aria-hidden="true"
+        />
+        <div className="min-w-0">
+          <div className="truncate text-sm font-medium text-foreground">
+            {campaign.name}
+          </div>
+          <div className="mt-1 font-mono text-[10px] text-muted-foreground">
+            {campaign.id}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Badge variant={status.variant} className="rounded-full">
+          {status.label}
+        </Badge>
+      </div>
+
+      <RowDate label={t`Creada`} value={campaign.createdAt} />
+      <RowDate label={t`Actualizada`} value={campaign.updatedAt} />
+
+      <div className="flex justify-start lg:justify-end">
+        <span className="inline-flex items-center gap-1 text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+          {t`Abrir`}
+          <ArrowUpRight className="size-3.5" aria-hidden="true" />
+        </span>
+      </div>
+    </Link>
+  )
+}
+
+function RowDate({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="text-sm">
+      <div className="text-[10px] font-medium text-muted-foreground uppercase lg:hidden">
+        {label}
+      </div>
+      <div className="text-muted-foreground">{formatCampaignDate(value)}</div>
+    </div>
+  )
+}
+
+function getStatusMeta(status: CampaignListItem['status']): {
+  label: string
+  variant: 'default' | 'secondary' | 'outline'
+  indicatorClass: string
+} {
+  const statusMeta: Record<
+    CampaignListItem['status'],
+    {
+      label: string
+      variant: 'default' | 'secondary' | 'outline'
+      indicatorClass: string
+    }
+  > = {
+    draft: {
+      label: t`Borrador`,
+      variant: 'outline',
+      indicatorClass: 'bg-muted-foreground/35',
+    },
+    active: {
+      label: t`Activa`,
+      variant: 'default',
+      indicatorClass: 'bg-primary',
+    },
+    paused: {
+      label: t`Pausada`,
+      variant: 'secondary',
+      indicatorClass: 'bg-muted-foreground/60',
+    },
+    completed: {
+      label: t`Completada`,
+      variant: 'secondary',
+      indicatorClass: 'bg-foreground',
+    },
+  }
+
+  return statusMeta[status]
 }
 
 function CampaignCreateCta({

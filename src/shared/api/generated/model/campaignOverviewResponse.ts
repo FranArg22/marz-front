@@ -18,6 +18,33 @@ export interface CampaignOverviewResponse {
   reach: number | null;
   budget_total_usd: string;
   budget_spent_usd: string;
+  /**
+     * Declared payments for this campaign, in USD decimal string.
+     * @pattern ^\d+\.\d{2}$
+     */
+  spend_paid_usd: string;
+  /**
+     * Payment obligations pending brand approval for this campaign, in USD decimal string.
+     * @pattern ^\d+\.\d{2}$
+     */
+  spend_pending_approval_usd: string;
+  /**
+     * Sent offers awaiting creator acceptance for this campaign, in USD decimal string.
+     * @pattern ^\d+\.\d{2}$
+     */
+  spend_pending_offers_usd: string;
+  /** @minimum 0 */
+  spend_pending_offers_count: number;
+  /**
+     * Total offers created for this campaign.
+     * @minimum 0
+     */
+  offers_count: number;
+  /**
+     * Accepted, not-yet-completed offers for this campaign, in USD decimal string.
+     * @pattern ^\d+\.\d{2}$
+     */
+  spend_committed_usd: string;
   campaign: CampaignOverviewDetails;
   creators_preview: CampaignCreatorPreview[];
   recent_activity: CampaignActivityItem[];

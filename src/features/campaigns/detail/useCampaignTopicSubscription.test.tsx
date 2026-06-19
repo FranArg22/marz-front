@@ -162,6 +162,12 @@ describe('useCampaignTopicSubscription', () => {
         reach: null,
         budget_total_usd: '1000',
         budget_spent_usd: '0',
+        spend_paid_usd: '0.00',
+        spend_pending_approval_usd: '0.00',
+        spend_pending_offers_usd: '0.00',
+        spend_pending_offers_count: 0,
+        offers_count: 0,
+        spend_committed_usd: '0.00',
         campaign: {
           campaign_id: 'campaign-1',
           name: 'Campaign',

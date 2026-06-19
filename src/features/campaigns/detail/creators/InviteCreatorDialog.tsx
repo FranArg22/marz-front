@@ -30,10 +30,10 @@ interface InviteCreatorDialogProps {
 function createInviteCreatorSchema() {
   return z.object({
     mode: z.enum(['email', 'in_platform']),
-    email: z.email(t`Ingresá un email válido`).or(z.literal('')),
+    email: z.email(t`Ingresá un correo válido`).or(z.literal('')),
     // RAFITA:BLOCKER: Current OpenAPI accepts creator_account_id, not creator_handle.
     // When backend exposes creator_handle in CreateCampaignInviteRequest, update this field and payload.
-    creator_account_id: z.uuid(t`Ingresá un creator válido`).or(z.literal('')),
+    creator_account_id: z.uuid(t`Ingresá un creador válido`).or(z.literal('')),
   })
 }
 
@@ -100,7 +100,7 @@ export function InviteCreatorDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="rounded-2xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t`Invite creator`}</DialogTitle>
+          <DialogTitle>{t`Invitar creador`}</DialogTitle>
           <DialogDescription>
             {t`Creá una invitación para esta campaña.`}
           </DialogDescription>
@@ -119,14 +119,14 @@ export function InviteCreatorDialog({
                 <ModeButton
                   active={field.state.value === 'email'}
                   icon={<Mail className="size-4" aria-hidden />}
-                  label={t`Email`}
+                  label={t`Correo`}
                   onClick={() => field.handleChange('email')}
                 />
                 {showInPlatform ? (
                   <ModeButton
                     active={field.state.value === 'in_platform'}
                     icon={<Send className="size-4" aria-hidden />}
-                    label={t`In-platform`}
+                    label={t`En plataforma`}
                     onClick={() => field.handleChange('in_platform')}
                   />
                 ) : null}
@@ -140,9 +140,9 @@ export function InviteCreatorDialog({
                 <form.AppField name="email">
                   {(field) => (
                     <field.TextField
-                      label={t`Email`}
+                      label={t`Correo`}
                       type="email"
-                      placeholder={t`creator@ejemplo.com`}
+                      placeholder={t`creador@ejemplo.com`}
                     />
                   )}
                 </form.AppField>
@@ -152,7 +152,7 @@ export function InviteCreatorDialog({
 
           {!allowsInPlatformInvites ? (
             <p className="rounded-xl border border-border bg-muted/60 p-3 text-xs text-muted-foreground">
-              {t`Tu plan actual permite invitaciones por email.`}
+              {t`Tu plan actual permite invitaciones por correo.`}
             </p>
           ) : null}
 
@@ -166,7 +166,7 @@ export function InviteCreatorDialog({
             </Button>
             <form.AppForm>
               <form.SubmitButton
-                label={t`Send invite`}
+                label={t`Enviar invitación`}
                 loadingLabel={
                   <>
                     <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -216,13 +216,13 @@ function canShowInPlatformInvites(
 
 function getInviteCreatorValidationError(value: InviteCreatorFormValues) {
   if (value.mode === 'email' && value.email.trim().length === 0) {
-    return t`Ingresá un email.`
+    return t`Ingresá un correo.`
   }
   if (
     value.mode === 'in_platform' &&
     value.creator_account_id.trim().length === 0
   ) {
-    return t`Ingresá un creator.`
+    return t`Ingresá un creador.`
   }
   return undefined
 }

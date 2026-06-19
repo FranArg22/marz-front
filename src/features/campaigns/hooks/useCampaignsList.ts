@@ -8,14 +8,8 @@ export type CampaignListItem = {
   id: string
   name: string
   status: 'draft' | 'active' | 'paused' | 'completed'
-  startDate: string | null
-  platforms: string[]
-  creators: number
-  budget: string
-  videos: {
-    done: number
-    total: number
-  }
+  createdAt: string
+  updatedAt: string
 }
 
 export function getCampaignsListQueryKey() {
@@ -38,10 +32,7 @@ function mapCampaignListItem(raw: GeneratedCampaignListItem): CampaignListItem {
     id: raw.campaign_id,
     name: raw.name,
     status: raw.status,
-    startDate: raw.created_at,
-    platforms: [],
-    creators: 0,
-    budget: '—',
-    videos: { done: 0, total: 0 },
+    createdAt: raw.created_at,
+    updatedAt: raw.updated_at,
   }
 }

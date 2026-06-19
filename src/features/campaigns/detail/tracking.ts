@@ -2,8 +2,6 @@ import { track } from '#/shared/analytics/track'
 
 import type { CampaignDetailTabId } from './CampaignDetailTabs'
 
-type CampaignDetailNavigableTab = Exclude<CampaignDetailTabId, 'analytics'>
-
 export function trackCampaignDetailViewed(campaignId: string) {
   track('campaign_detail_viewed', {
     campaign_id: campaignId,
@@ -17,7 +15,7 @@ export function trackCampaignDetailTabChanged({
 }: {
   campaignId: string
   from: CampaignDetailTabId
-  to: CampaignDetailNavigableTab
+  to: CampaignDetailTabId
 }) {
   track('campaign_detail_tab_changed', {
     campaign_id: campaignId,

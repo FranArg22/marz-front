@@ -125,6 +125,7 @@ export function CampaignInlineEditor({
       queryKey: campaignDetailQueryKey(campaignId),
     })
   }
+  const campaignVersion = currentCampaign.version
 
   return (
     <section className="rounded-2xl border border-border bg-card p-5">
@@ -137,8 +138,8 @@ export function CampaignInlineEditor({
             {t`Brief y configuración`}
           </h2>
         </div>
-        {typeof currentCampaign.version === 'number' ? (
-          <Badge variant="outline">{t`Versión ${currentCampaign.version}`}</Badge>
+        {typeof campaignVersion === 'number' ? (
+          <Badge variant="outline">{t`Versión ${campaignVersion}`}</Badge>
         ) : null}
       </div>
 
@@ -238,7 +239,7 @@ export function CampaignInlineEditor({
           value={currentCampaign.content_type}
         />
         <ReadonlyField
-          label={t`Modelo de precios`}
+          label={t`Modelo de pago`}
           value={currentCampaign.pricing_model}
         />
         <ReadonlyField
@@ -246,7 +247,7 @@ export function CampaignInlineEditor({
           value={currentCampaign.platforms}
         />
         <ReadonlyField
-          label={t`País creator`}
+          label={t`País del creador`}
           value={currentCampaign.creator_country}
         />
         <ReadonlyField
@@ -442,7 +443,7 @@ function ImageField({
             ? t`Subiendo imagen...`
             : t`Reemplazar imagen`}
         </span>
-        <span className="text-muted-foreground">PNG, JPG o WebP</span>
+        <span className="text-muted-foreground">{t`PNG, JPG o WebP`}</span>
       </button>
       <input
         ref={inputRef}
@@ -708,7 +709,7 @@ function BriefPdfField({
   if (!editing) {
     return (
       <DisplayField
-        label={t`PDF del brief`}
+        label={t`PDF del resumen`}
         value={value ?? t`Sin PDF`}
         disabled={disabled}
         onEdit={() => setEditing(true)}
@@ -717,7 +718,7 @@ function BriefPdfField({
   }
 
   return (
-    <EditableShell label={t`PDF del brief`}>
+    <EditableShell label={t`PDF del resumen`}>
       <button
         type="button"
         disabled={disabled || presignPdf.isPending}
@@ -734,7 +735,7 @@ function BriefPdfField({
       >
         <FileText className="size-5 text-muted-foreground" aria-hidden="true" />
         <span className="font-medium">
-          {presignPdf.isPending ? t`Subiendo PDF...` : t`Subir PDF del brief`}
+          {presignPdf.isPending ? t`Subiendo PDF...` : t`Subir PDF del resumen`}
         </span>
         <span className="text-muted-foreground">{t`PDF opcional, hasta 10 MB`}</span>
       </button>
@@ -742,7 +743,7 @@ function BriefPdfField({
         ref={inputRef}
         type="file"
         accept="application/pdf"
-        aria-label={t`PDF del brief`}
+        aria-label={t`PDF del resumen`}
         className="sr-only"
         onChange={(event) => void handleFile(event.target.files?.[0])}
       />

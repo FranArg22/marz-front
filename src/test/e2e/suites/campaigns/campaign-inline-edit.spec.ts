@@ -104,6 +104,11 @@ function makeCampaignOverview(campaign: CampaignDetail) {
     reach: 120000,
     budget_total_usd: '42000.00',
     budget_spent_usd: '1200.00',
+    spend_paid_usd: '1200.00',
+    spend_pending_approval_usd: '0.00',
+    spend_pending_offers_usd: '0.00',
+    spend_pending_offers_count: 0,
+    spend_committed_usd: '0.00',
     campaign: {
       campaign_id: campaign.campaign_id,
       name: campaign.name,

@@ -57,7 +57,7 @@ describe('CreatorsFilters', () => {
       />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Activos' }))
+    await user.click(screen.getByRole('button', { name: 'Activo' }))
     expect(onParamsChange).toHaveBeenCalledWith({
       search: 'ana',
       platform: 'tiktok',
@@ -79,12 +79,9 @@ describe('CreatorsFilters', () => {
       screen.getByRole('combobox', { name: 'Filtrar por plataforma' }),
     )
 
-    expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
-      'Todas las plataformas',
-      'YouTube',
-      'Instagram',
-      'TikTok',
-    ])
+    expect(
+      screen.getAllByRole('option').map((option) => option.textContent),
+    ).toEqual(['Todas las plataformas', 'YouTube', 'Instagram', 'TikTok'])
   })
 
   it('detects active filters', () => {

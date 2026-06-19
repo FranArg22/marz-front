@@ -382,12 +382,28 @@ export const GetCampaignOverviewHeader = zod.object({
   "X-Brand-Workspace-Id": zod.uuid()
 })
 
+export const getCampaignOverviewResponseSpendPaidUsdRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getCampaignOverviewResponseSpendPendingApprovalUsdRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getCampaignOverviewResponseSpendPendingOffersUsdRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getCampaignOverviewResponseSpendPendingOffersCountMin = 0;
+
+export const getCampaignOverviewResponseOffersCountMin = 0;
+
+export const getCampaignOverviewResponseSpendCommittedUsdRegExp = new RegExp('^\\d+\\.\\d{2}$');
+
+
 export const GetCampaignOverviewResponse = zod.object({
   "applications_count": zod.number(),
   "reach_available": zod.boolean(),
   "reach": zod.number().nullable(),
   "budget_total_usd": zod.string(),
   "budget_spent_usd": zod.string(),
+  "spend_paid_usd": zod.string().regex(getCampaignOverviewResponseSpendPaidUsdRegExp).describe('Declared payments for this campaign, in USD decimal string.'),
+  "spend_pending_approval_usd": zod.string().regex(getCampaignOverviewResponseSpendPendingApprovalUsdRegExp).describe('Payment obligations pending brand approval for this campaign, in USD decimal string.'),
+  "spend_pending_offers_usd": zod.string().regex(getCampaignOverviewResponseSpendPendingOffersUsdRegExp).describe('Sent offers awaiting creator acceptance for this campaign, in USD decimal string.'),
+  "spend_pending_offers_count": zod.number().min(getCampaignOverviewResponseSpendPendingOffersCountMin),
+  "offers_count": zod.number().min(getCampaignOverviewResponseOffersCountMin).describe('Total offers created for this campaign.'),
+  "spend_committed_usd": zod.string().regex(getCampaignOverviewResponseSpendCommittedUsdRegExp).describe('Accepted, not-yet-completed offers for this campaign, in USD decimal string.'),
   "campaign": zod.object({
   "campaign_id": zod.uuid(),
   "name": zod.string(),

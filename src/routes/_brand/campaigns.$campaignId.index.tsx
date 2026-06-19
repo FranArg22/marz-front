@@ -9,7 +9,7 @@ import {
 } from '#/shared/api/generated/model'
 
 const campaignDetailTabSchema = z
-  .enum(['overview', 'applications', 'creators', 'videos', 'analytics'])
+  .enum(['overview', 'applications', 'creators', 'videos'])
   .default('overview')
   .catch('overview')
 

@@ -43,10 +43,10 @@ function getStatusOptions(): ReadonlyArray<{
     { value: 'draft_submitted', label: t`En revisión` },
     { value: 'changes_requested', label: t`Cambios solicitados` },
     { value: 'draft_approved', label: t`Borrador aprobado` },
-    { value: 'link_submitted', label: t`Link enviado` },
-    { value: 'link_approved', label: t`Link aprobado` },
+    { value: 'link_submitted', label: t`Enlace enviado` },
+    { value: 'link_approved', label: t`Enlace aprobado` },
     { value: 'completed', label: t`Completado` },
-    { value: 'paid', label: t`Pagado` },
+    { value: 'paid', label: t`Paid` },
   ]
 }
 
@@ -123,8 +123,8 @@ export function VideosFilters({
           <Input
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
-            placeholder={t`Buscar video`}
-            aria-label={t`Buscar videos`}
+            placeholder={t`Search video`}
+            aria-label={t`Search videos`}
             className="rounded-xl bg-background pl-9"
           />
         </div>

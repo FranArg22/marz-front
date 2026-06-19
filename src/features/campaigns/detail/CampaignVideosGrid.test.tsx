@@ -42,7 +42,7 @@ beforeEach(() => {
 })
 
 describe('CampaignVideosGrid', () => {
-  it('shows Clear filters when empty with active filters', async () => {
+  it('shows clear filters when empty with active filters', async () => {
     const user = userEvent.setup()
     const onClearFilters = vi.fn()
     useCampaignVideosQueryMock.mockReturnValue(
@@ -51,11 +51,11 @@ describe('CampaignVideosGrid', () => {
 
     renderGrid({ hasActiveFilters: true, onClearFilters })
 
-    await user.click(screen.getByRole('button', { name: 'Clear filters' }))
+    await user.click(screen.getByRole('button', { name: 'Limpiar filtros' }))
     expect(onClearFilters).toHaveBeenCalled()
   })
 
-  it('shows Invite creators when empty without active participants', async () => {
+  it('shows invite creators when empty without active participants', async () => {
     const user = userEvent.setup()
     const onInviteCreators = vi.fn()
     useCampaignVideosQueryMock.mockReturnValue(
@@ -64,11 +64,11 @@ describe('CampaignVideosGrid', () => {
 
     renderGrid({ hasActiveParticipants: false, onInviteCreators })
 
-    await user.click(screen.getByRole('button', { name: 'Invite creators' }))
+    await user.click(screen.getByRole('button', { name: 'Invitar creadores' }))
     expect(onInviteCreators).toHaveBeenCalled()
   })
 
-  it('shows View active creators when empty with active participants', async () => {
+  it('shows active creators CTA when empty with active participants', async () => {
     const user = userEvent.setup()
     const onInviteCreators = vi.fn()
     useCampaignVideosQueryMock.mockReturnValue(
@@ -78,7 +78,7 @@ describe('CampaignVideosGrid', () => {
     renderGrid({ hasActiveParticipants: true, onInviteCreators })
 
     await user.click(
-      screen.getByRole('button', { name: 'View active creators' }),
+      screen.getByRole('button', { name: 'Ver creadores activos' }),
     )
     expect(onInviteCreators).toHaveBeenCalled()
   })
@@ -96,7 +96,7 @@ describe('CampaignVideosGrid', () => {
 
     expect(
       screen.getByRole('link', {
-        name: 'Open video reviewer for Lumina Studio',
+        name: 'Abrir revisión de video de Lumina Studio',
       }),
     ).toHaveAttribute('href', '/campaigns/campaign-1/deliverables/video-1')
     expect(screen.getByText('Unboxing Reel')).toBeInTheDocument()
@@ -104,7 +104,7 @@ describe('CampaignVideosGrid', () => {
     expect(screen.getByText('En revisión')).toBeInTheDocument()
   })
 
-  it('requests the next cursor when Load more is clicked', async () => {
+  it('requests the next cursor when Cargar más is clicked', async () => {
     const user = userEvent.setup()
     const onParamsChange = vi.fn()
     useCampaignVideosQueryMock.mockReturnValue(
@@ -117,7 +117,7 @@ describe('CampaignVideosGrid', () => {
 
     renderGrid({ params: { limit: 12 }, onParamsChange })
 
-    await user.click(screen.getByRole('button', { name: 'Load more' }))
+    await user.click(screen.getByRole('button', { name: 'Cargar más' }))
 
     expect(onParamsChange).toHaveBeenCalledWith({
       limit: 12,

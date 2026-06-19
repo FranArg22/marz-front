@@ -26,7 +26,7 @@ export function MissingWorkspaceFallback() {
       <section className="flex w-full max-w-[440px] flex-col gap-6 rounded-2xl border border-border bg-card p-8 shadow-sm">
         <div className="flex flex-col gap-2">
           <p className="text-sm font-medium text-muted-foreground">
-            <Trans>Workspace no disponible</Trans>
+            <Trans>Espacio de trabajo no disponible</Trans>
           </p>
           <h1 className="text-2xl font-semibold tracking-tight">
             <Trans>No tenés un workspace asociado.</Trans>

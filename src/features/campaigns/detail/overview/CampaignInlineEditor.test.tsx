@@ -78,16 +78,16 @@ describe('CampaignInlineEditor', () => {
     renderEditor()
 
     expect(screen.getByText('Tipo de contenido')).toBeInTheDocument()
-    expect(screen.getByText('Modelo de precios')).toBeInTheDocument()
+    expect(screen.getByText('Modelo de pago')).toBeInTheDocument()
     expect(screen.getByText('Plataformas')).toBeInTheDocument()
-    expect(screen.getByText('País creator')).toBeInTheDocument()
+    expect(screen.getByText('País del creador')).toBeInTheDocument()
     expect(screen.getByText('Tipo de compensación')).toBeInTheDocument()
 
     expect(
       screen.queryByRole('textbox', { name: /tipo de contenido/i }),
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByRole('textbox', { name: /modelo de precios/i }),
+      screen.queryByRole('textbox', { name: /pricing model/i }),
     ).not.toBeInTheDocument()
     expect(
       screen.queryByRole('group', { name: /^plataformas$/i }),
