@@ -25,10 +25,6 @@ interface TopCreatorsTableProps {
 }
 
 const NUMBER_FMT = new Intl.NumberFormat('es-AR')
-const PERCENT_FMT = new Intl.NumberFormat('es-AR', {
-  style: 'percent',
-  maximumFractionDigits: 1,
-})
 
 const SORT_OPTIONS: Array<{
   value: TopCreatorsTableProps['currentSort']
@@ -146,39 +142,24 @@ function CreatorsTableBody({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[720px] table-fixed border-collapse">
+      <table className="w-full min-w-[420px] table-fixed border-collapse">
         <caption className="sr-only">Top Creadores</caption>
         <thead>
           <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <th scope="col" className="w-[172px] px-5 py-3">
-              Creator
+            <th scope="col" className="px-5 py-3">
+              Creador
             </th>
-            <th scope="col" className="w-[76px] px-3 py-3">
-              País
-            </th>
+            <MetricHeader
+              active={currentSort === 'views'}
+              className="w-[120px]"
+            >
+              Vistas totales
+            </MetricHeader>
             <MetricHeader
               active={currentSort === 'videos'}
               className="w-[88px]"
             >
               Videos
-            </MetricHeader>
-            <MetricHeader
-              active={currentSort === 'views'}
-              className="w-[102px]"
-            >
-              Vistas
-            </MetricHeader>
-            <th scope="col" className="w-[112px] px-3 py-3 text-right">
-              Gasto
-            </th>
-            <MetricHeader active={currentSort === 'cpm'} className="w-[86px]">
-              CPM
-            </MetricHeader>
-            <MetricHeader
-              active={currentSort === 'engagement'}
-              className="w-[118px]"
-            >
-              Engagement
             </MetricHeader>
           </tr>
         </thead>
@@ -197,23 +178,11 @@ function CreatorsTableBody({
                       avatarUrl={creator.avatar_url}
                     />
                   </td>
-                  <td className="px-3 py-3 text-xs font-medium text-muted-foreground">
-                    {creator.country ?? '—'}
-                  </td>
-                  <MetricCell active={currentSort === 'videos'}>
-                    {NUMBER_FMT.format(creator.metrics.videos)}
-                  </MetricCell>
                   <MetricCell active={currentSort === 'views'}>
                     {NUMBER_FMT.format(creator.metrics.views)}
                   </MetricCell>
-                  <td className="px-3 py-3 text-right font-mono text-xs font-semibold text-foreground">
-                    {creator.metrics.spend_display}
-                  </td>
-                  <MetricCell active={currentSort === 'cpm'}>
-                    {formatNumber(creator.metrics.cpm)}
-                  </MetricCell>
-                  <MetricCell active={currentSort === 'engagement'}>
-                    {PERCENT_FMT.format(creator.metrics.engagement_rate)}
+                  <MetricCell active={currentSort === 'videos'}>
+                    {NUMBER_FMT.format(creator.metrics.videos)}
                   </MetricCell>
                 </tr>
               ))}
@@ -297,29 +266,13 @@ function CreatorSkeletonRow() {
         <div className="h-5 w-28 animate-pulse rounded-full bg-muted" />
       </td>
       <td className="px-3 py-3">
-        <div className="h-4 w-8 animate-pulse rounded-full bg-muted" />
+        <div className="ml-auto h-4 w-14 animate-pulse rounded-full bg-muted" />
       </td>
       <td className="px-3 py-3">
         <div className="ml-auto h-4 w-10 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-14 animate-pulse rounded-full bg-muted" />
-      </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-16 animate-pulse rounded-full bg-muted" />
-      </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-12 animate-pulse rounded-full bg-muted" />
-      </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-16 animate-pulse rounded-full bg-muted" />
-      </td>
     </tr>
   )
-}
-
-function formatNumber(value: number | null): string {
-  return value === null ? '-' : NUMBER_FMT.format(value)
 }
 
 function getInitials(value: string): string {

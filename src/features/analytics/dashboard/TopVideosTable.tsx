@@ -28,15 +28,6 @@ interface TopVideosTableProps {
 }
 
 const NUMBER_FMT = new Intl.NumberFormat('es-AR')
-const PERCENT_FMT = new Intl.NumberFormat('es-AR', {
-  style: 'percent',
-  maximumFractionDigits: 1,
-})
-const DATE_FMT = new Intl.DateTimeFormat('es-AR', {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
-})
 
 const SORT_OPTIONS: Array<{
   value: TopVideosTableProps['currentSort']
@@ -159,15 +150,15 @@ function VideosTableBody({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[720px] table-fixed border-collapse">
+      <table className="w-full min-w-[440px] table-fixed border-collapse">
         <caption className="sr-only">Top Videos</caption>
         <thead>
           <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <th scope="col" className="w-[72px] px-5 py-3">
-              <span className="sr-only">Thumbnail</span>
+            <th scope="col" className="px-5 py-3">
+              Video
             </th>
-            <th scope="col" className="w-[172px] px-3 py-3">
-              Creator
+            <th scope="col" className="w-[150px] px-3 py-3">
+              Creador
             </th>
             <th scope="col" className="w-[96px] px-3 py-3">
               Plataforma
@@ -178,18 +169,6 @@ function VideosTableBody({
             >
               Vistas
             </MetricHeader>
-            <MetricHeader active={currentSort === 'cpm'} className="w-[88px]">
-              CPM
-            </MetricHeader>
-            <MetricHeader
-              active={currentSort === 'engagement'}
-              className="w-[118px]"
-            >
-              Engagement
-            </MetricHeader>
-            <th scope="col" className="w-[132px] px-3 py-3">
-              Publicación
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -201,11 +180,16 @@ function VideosTableBody({
                   data-testid="top-video-row"
                   className="border-b border-border last:border-b-0"
                 >
-                  <td className="px-5 py-3">
-                    <Thumbnail
-                      src={video.thumbnail_url}
-                      platform={video.platform}
-                    />
+                  <td className="min-w-0 px-5 py-3">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <Thumbnail
+                        src={video.thumbnail_url}
+                        platform={video.platform}
+                      />
+                      <span className="truncate text-sm text-foreground">
+                        {video.title ?? 'Video'}
+                      </span>
+                    </div>
                   </td>
                   <td className="min-w-0 px-3 py-3">
                     <CreatorCell
@@ -219,15 +203,6 @@ function VideosTableBody({
                   <MetricCell active={currentSort === 'views'}>
                     {NUMBER_FMT.format(video.metrics.views)}
                   </MetricCell>
-                  <MetricCell active={currentSort === 'cpm'}>
-                    {formatNumber(video.metrics.cpm)}
-                  </MetricCell>
-                  <MetricCell active={currentSort === 'engagement'}>
-                    {PERCENT_FMT.format(video.metrics.engagement_rate)}
-                  </MetricCell>
-                  <td className="px-3 py-3 font-mono text-xs text-muted-foreground">
-                    {formatPublishedAt(video.published_at)}
-                  </td>
                 </tr>
               ))}
         </tbody>
@@ -343,7 +318,10 @@ function VideoSkeletonRow() {
       className="border-b border-border last:border-b-0"
     >
       <td className="px-5 py-3">
-        <div className="size-11 animate-pulse rounded-xl bg-muted" />
+        <div className="flex items-center gap-3">
+          <div className="size-11 animate-pulse rounded-xl bg-muted" />
+          <div className="h-4 w-32 animate-pulse rounded-full bg-muted" />
+        </div>
       </td>
       <td className="px-3 py-3">
         <div className="h-5 w-28 animate-pulse rounded-full bg-muted" />
@@ -354,15 +332,6 @@ function VideoSkeletonRow() {
       <td className="px-3 py-3">
         <div className="ml-auto h-4 w-14 animate-pulse rounded-full bg-muted" />
       </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-12 animate-pulse rounded-full bg-muted" />
-      </td>
-      <td className="px-3 py-3">
-        <div className="ml-auto h-4 w-16 animate-pulse rounded-full bg-muted" />
-      </td>
-      <td className="px-3 py-3">
-        <div className="h-4 w-24 animate-pulse rounded-full bg-muted" />
-      </td>
     </tr>
   )
 }
@@ -371,16 +340,6 @@ function getPlatformLabel(platform: DashboardTopVideoPlatform): string {
   if (platform === 'instagram') return 'Instagram'
   if (platform === 'tiktok') return 'TikTok'
   return 'YouTube'
-}
-
-function formatNumber(value: number | null): string {
-  return value === null ? '-' : NUMBER_FMT.format(value)
-}
-
-function formatPublishedAt(value: string): string {
-  // API ISO date parsing is deterministic here; this does not read current time
-  // and does not affect hydration.
-  return DATE_FMT.format(new Date(value)).replace('.', '')
 }
 
 function getInitials(value: string): string {

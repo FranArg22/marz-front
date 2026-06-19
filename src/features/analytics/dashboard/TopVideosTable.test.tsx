@@ -53,7 +53,23 @@ describe('TopVideosTable', () => {
     expect(screen.getByText('Sin datos para estos filtros')).toBeInTheDocument()
   })
 
-  it('marks the active metric header as sorted', () => {
+  it('marks the Vistas header as sorted only when sorting by views', () => {
+    renderTable({
+      data: makeResponse(1),
+      isLoading: false,
+      isError: false,
+      currentSort: 'views',
+    })
+
+    expect(
+      within(screen.getByRole('table', { name: 'Top Videos' })).getByRole(
+        'columnheader',
+        { name: 'Vistas' },
+      ),
+    ).toHaveAttribute('aria-sort', 'descending')
+  })
+
+  it('does not mark Vistas as sorted for other sorts', () => {
     renderTable({
       data: makeResponse(1),
       isLoading: false,
@@ -61,9 +77,6 @@ describe('TopVideosTable', () => {
       currentSort: 'cpm',
     })
 
-    const header = screen.getByRole('columnheader', { name: 'CPM' })
-
-    expect(header).toHaveAttribute('aria-sort', 'descending')
     expect(
       within(screen.getByRole('table', { name: 'Top Videos' })).getByRole(
         'columnheader',
