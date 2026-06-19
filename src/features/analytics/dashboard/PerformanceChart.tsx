@@ -192,8 +192,8 @@ export function PerformanceChart({
           <ComposedChart
             data={rows}
             margin={{ top: 8, right: 4, bottom: 0, left: 4 }}
-            barGap={1}
-            barCategoryGap="12%"
+            barGap={0}
+            barCategoryGap="38%"
             accessibilityLayer
           >
             <CartesianGrid
@@ -246,7 +246,7 @@ export function PerformanceChart({
                   fill={SERIES_COLORS[series]}
                   fillOpacity={0.45}
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={30}
+                  maxBarSize={48}
                   isAnimationActive={false}
                 />
               ))}
