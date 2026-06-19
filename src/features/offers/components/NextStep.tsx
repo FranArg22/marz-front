@@ -139,7 +139,7 @@ function getNextStepMeta(
           icon: Eye,
         }
       : {
-          label: t`El creator está analizando la oferta`,
+          label: t`El creador está analizando la oferta`,
           tone: 'waiting',
           icon: Hourglass,
         }

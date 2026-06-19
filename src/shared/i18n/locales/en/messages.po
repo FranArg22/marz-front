@@ -3142,13 +3142,17 @@ msgstr ""
 msgid "El código de seguridad de tu tarjeta es incorrecto."
 msgstr ""
 
+#: src/features/offers/components/NextStep.tsx:142
+msgid "El creador está analizando la oferta"
+msgstr ""
+
 #: src/features/offers/components/SendOfferSidesheet.tsx:594
 msgid "El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
 msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:142
-msgid "El creator está analizando la oferta"
-msgstr ""
+#~ msgid "El creator está analizando la oferta"
+#~ msgstr ""
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:42
 #~ msgid "El creator sabe cuánto cobra por entrega."
