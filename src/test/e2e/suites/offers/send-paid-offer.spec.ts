@@ -46,7 +46,7 @@ test.describe('Offers: paid offer send flow', () => {
     await expect(summary).toBeVisible()
     await expect(summary).toContainText(PAID_OFFER_EXPECTED_BASE_AMOUNT)
     await expect(summary).toContainText(
-      /El cobro se realiza cuando el creator acepta/i,
+      /El cobro se realiza cuando el creador acepta/i,
     )
     await expect(summary).not.toContainText(/processing fee/i)
     await expect(summary).not.toContainText(/Stripe/i)

@@ -308,7 +308,7 @@ describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
 
     expect(screen.getByText('$0.00 USD (base)')).toBeInTheDocument()
     expect(
-      screen.getByText('El cobro se realiza cuando el creator acepta'),
+      screen.getByText('El cobro se realiza cuando el creador acepta'),
     ).toBeInTheDocument()
   })
 

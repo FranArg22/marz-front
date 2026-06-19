@@ -2834,8 +2834,12 @@ msgid "Día"
 msgstr "Día"
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:538
-msgid "Día ideal para que el creator publique."
-msgstr "Día ideal para que el creator publique."
+msgid "Día ideal para que el creador publique."
+msgstr "Día ideal para que el creador publique."
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:538
+#~ msgid "Día ideal para que el creator publique."
+#~ msgstr "Día ideal para que el creator publique."
 
 #: src/features/chat/utils/groupByDay.ts:31
 #: src/features/chat/workspace/formatRelativeTime.ts:20
@@ -3123,12 +3127,20 @@ msgid "El brand necesita actualizar su tarjeta"
 msgstr "El brand necesita actualizar su tarjeta"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:72
-msgid "El cobro se realiza cuando el creator acepta"
-msgstr "El cobro se realiza cuando el creator acepta"
+msgid "El cobro se realiza cuando el creador acepta"
+msgstr "El cobro se realiza cuando el creador acepta"
+
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#~ msgid "El cobro se realiza cuando el creator acepta"
+#~ msgstr "El cobro se realiza cuando el creator acepta"
 
 #: src/features/offers/components/OfferSendErrorBanner.tsx:33
 msgid "El código de seguridad de tu tarjeta es incorrecto."
 msgstr "El código de seguridad de tu tarjeta es incorrecto."
+
+#: src/features/offers/components/SendOfferSidesheet.tsx:594
+msgid "El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
+msgstr "El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
 
 #: src/features/offers/components/NextStep.tsx:142
 msgid "El creator está analizando la oferta"
@@ -3139,8 +3151,8 @@ msgstr "El creator está analizando la oferta"
 #~ msgstr "El creator sabe cuánto cobra por entrega."
 
 #: src/features/offers/components/SendOfferSidesheet.tsx:594
-msgid "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
-msgstr "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
+#~ msgid "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
+#~ msgstr "El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:931
 msgid "El dato cambió desde otra sesión. Recargá la página para ver la versión actualizada."

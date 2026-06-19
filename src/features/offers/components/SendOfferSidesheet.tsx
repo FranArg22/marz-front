@@ -535,7 +535,7 @@ export function SendOfferSidesheet({
                         />
                       }
                       title={t`Publicación tentativa`}
-                      hint={t`Día ideal para que el creator publique.`}
+                      hint={t`Día ideal para que el creador publique.`}
                       value={field.state.value}
                       onChange={field.handleChange}
                       onBlur={field.handleBlur}
@@ -591,7 +591,7 @@ export function SendOfferSidesheet({
                       />
                     }
                   >
-                    {t`El creator tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente.`}
+                    {t`El creador tiene 72 hs para aceptar. Si expira, la oferta se rechaza automáticamente.`}
                   </RuleRow>
                   <RuleRow
                     icon={
