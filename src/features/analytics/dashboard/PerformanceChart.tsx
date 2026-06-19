@@ -192,8 +192,8 @@ export function PerformanceChart({
           <ComposedChart
             data={rows}
             margin={{ top: 8, right: 4, bottom: 0, left: 4 }}
-            barGap={0}
-            barCategoryGap="38%"
+            barGap={4}
+            barCategoryGap="40%"
             accessibilityLayer
           >
             <CartesianGrid
