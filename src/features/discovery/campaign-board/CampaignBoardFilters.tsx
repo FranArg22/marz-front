@@ -143,7 +143,7 @@ export function CampaignBoardFilters({
             }
           />
           <MultiSelectFilter
-            label={t`Deliverables`}
+            label={t`Entregables`}
             selected={search.deliverables ?? []}
             options={available?.deliverables ?? []}
             onChange={(deliverables) => onSearchChange({ deliverables })}
@@ -282,7 +282,7 @@ function FeeRangeFilter({
           aria-invalid={error !== undefined}
           className="inline-flex h-9 items-center gap-2 rounded-full border border-border bg-card px-4 text-xs font-medium text-foreground shadow-sm aria-invalid:border-destructive"
         >
-          {t`Fee range`}
+          {t`Rango de precios`}
           <ChevronDown className="size-3.5 text-muted-foreground" />
         </button>
       </Popover.Trigger>

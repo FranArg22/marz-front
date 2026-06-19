@@ -10,14 +10,14 @@ export const Route = createFileRoute('/_creator/offers')({
 
 function OffersPlaceholder() {
   const offersTopbarConfig = {
-    breadcrumb: [{ icon: BriefcaseBusiness, label: t`Offers` }],
+    breadcrumb: [{ icon: BriefcaseBusiness, label: t`Ofertas` }],
   }
   useRouteTopbar(offersTopbarConfig)
 
   return (
     <div className="p-6">
       <p className="text-muted-foreground mt-2">
-        <Trans>Coming up when the offers context lands.</Trans>
+        <Trans>Próximamente</Trans>
       </p>
     </div>
   )

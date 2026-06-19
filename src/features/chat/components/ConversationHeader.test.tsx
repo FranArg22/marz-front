@@ -93,7 +93,7 @@ describe('ConversationHeader', () => {
 
     expect(
       screen.getByRole('banner', {
-        name: 'Conversation with Luminal Studio',
+        name: 'Conversación con Luminal Studio',
       }),
     ).toBeInTheDocument()
   })

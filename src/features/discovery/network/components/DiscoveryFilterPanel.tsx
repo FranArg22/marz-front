@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro'
-import { Check, ChevronDown } from 'lucide-react'
-import { Checkbox, Popover } from 'radix-ui'
+import { ChevronDown } from 'lucide-react'
+import { Popover } from 'radix-ui'
 import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
@@ -11,8 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#/components/ui/dialog'
-import { Input } from '#/components/ui/input'
-import { Label } from '#/components/ui/label'
 import { cn } from '#/lib/utils'
 import {
   countActiveFilters,
@@ -20,40 +18,31 @@ import {
 } from '../store/discoveryFiltersStore'
 import type { DiscoveryFilters } from '../store/discoveryFiltersStore'
 import {
-  GetDiscoveryCreatorsAgeBucketsItem,
   GetDiscoveryCreatorsCreatorType,
   GetDiscoveryCreatorsGender,
-  SocialPlatform,
 } from '#/shared/api/generated/model'
 import {
   useListContentTypes,
   useListCountries,
   useListInterests,
 } from '#/shared/api/generated/lookups/lookups'
+import {
+  AGE_OPTIONS,
+  CheckboxOptionList,
+  ENGAGEMENT_OPTIONS,
+  FieldGroup,
+  isInvalidDecimalRange,
+  isInvalidNumberRange,
+  MoneyInput,
+  PillGroup,
+  PillToggle,
+  PLATFORM_OPTIONS,
+} from './filterControls'
 
 interface DiscoveryFilterPanelProps {
   open: boolean
   onClose: () => void
 }
-
-/* eslint-disable lingui/no-unlocalized-strings -- brand names, country names, and static labels */
-const PLATFORM_OPTIONS = [
-  { value: SocialPlatform.instagram, label: 'Instagram' },
-  { value: SocialPlatform.tiktok, label: 'TikTok' },
-  { value: SocialPlatform.youtube, label: 'YouTube' },
-]
-
-/* eslint-enable lingui/no-unlocalized-strings */
-
-const AGE_OPTIONS = [
-  GetDiscoveryCreatorsAgeBucketsItem['18-24'],
-  GetDiscoveryCreatorsAgeBucketsItem['25-34'],
-  GetDiscoveryCreatorsAgeBucketsItem['35-44'],
-  GetDiscoveryCreatorsAgeBucketsItem['45-54'],
-  GetDiscoveryCreatorsAgeBucketsItem['55+'],
-]
-
-const ENGAGEMENT_OPTIONS = [0, 3, 5]
 
 export function DiscoveryFilterPanel({
   open,
@@ -228,7 +217,7 @@ export function DiscoveryFilterPanel({
                 <FieldGroup label={t`Tipo de creador`}>
                   <PillGroup>
                     <PillToggle
-                      label={t`Todas`}
+                      label={t`Todos`}
                       selected={
                         creatorType === GetDiscoveryCreatorsCreatorType.all
                       }
@@ -257,7 +246,7 @@ export function DiscoveryFilterPanel({
                 <FieldGroup label={t`Sexo`}>
                   <PillGroup>
                     <PillToggle
-                      label={t`Todxs`}
+                      label={t`Todos`}
                       selected={genderValue === 'all'}
                       onToggle={() =>
                         updatePendingFilters({ gender: undefined })
@@ -354,19 +343,22 @@ export function DiscoveryFilterPanel({
               <div className="space-y-4">
                 <FieldGroup label={t`Engagement rate`}>
                   <PillGroup>
-                    {ENGAGEMENT_OPTIONS.map((option) => (
-                      <PillToggle
-                        key={option}
-                        label={t`Más del ${option}%`}
-                        selected={engagementValue === option}
-                        onToggle={() =>
-                          updatePendingFilters({
-                            engagement_rate_min:
-                              engagementValue === option ? undefined : option,
-                          })
-                        }
-                      />
-                    ))}
+                    {ENGAGEMENT_OPTIONS.map((option) => {
+                      const value = option / 100
+                      return (
+                        <PillToggle
+                          key={option}
+                          label={t`Mayor a ${option}%`}
+                          selected={engagementValue === value}
+                          onToggle={() =>
+                            updatePendingFilters({
+                              engagement_rate_min:
+                                engagementValue === value ? undefined : value,
+                            })
+                          }
+                        />
+                      )
+                    })}
                   </PillGroup>
                 </FieldGroup>
 
@@ -432,57 +424,6 @@ function FilterSection({
   )
 }
 
-function FieldGroup({
-  label,
-  children,
-}: {
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <div className="space-y-2">
-      <Label className="text-xs font-medium text-muted-foreground">
-        {label}
-      </Label>
-      {children}
-    </div>
-  )
-}
-
-function PillGroup({ children }: { children: ReactNode }) {
-  return <div className="flex flex-wrap gap-2">{children}</div>
-}
-
-function PillToggle({
-  label,
-  selected,
-  disabled,
-  onToggle,
-}: {
-  label: string
-  selected: boolean
-  disabled?: boolean
-  onToggle: () => void
-}) {
-  return (
-    <button
-      type="button"
-      role="checkbox"
-      aria-checked={selected}
-      disabled={disabled}
-      onClick={onToggle}
-      className={cn(
-        'inline-flex h-8 items-center rounded-full px-3 text-xs font-medium transition-colors disabled:pointer-events-none disabled:opacity-50',
-        selected
-          ? 'bg-primary text-primary-foreground'
-          : 'border border-border bg-background text-foreground hover:bg-surface-hover',
-      )}
-    >
-      {label}
-    </button>
-  )
-}
-
 function MultiSelectDropdown<T extends string>({
   placeholder,
   options,
@@ -508,7 +449,7 @@ function MultiSelectDropdown<T extends string>({
       <Popover.Trigger asChild>
         <button
           type="button"
-          className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-input px-3 text-sm shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
         >
           <span
             className={cn(
@@ -527,25 +468,11 @@ function MultiSelectDropdown<T extends string>({
           sideOffset={6}
           className="z-50 w-[var(--radix-popover-trigger-width)] rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-lg"
         >
-          <div className="max-h-60 overflow-y-auto">
-            {options.map((option) => (
-              <label
-                key={option.value}
-                className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-              >
-                <Checkbox.Root
-                  checked={selectedSet.has(option.value)}
-                  onCheckedChange={() => onToggle(option.value)}
-                  className="flex size-4 items-center justify-center rounded border border-border data-[state=checked]:border-primary data-[state=checked]:bg-primary"
-                >
-                  <Checkbox.Indicator>
-                    <Check className="size-3 text-primary-foreground" />
-                  </Checkbox.Indicator>
-                </Checkbox.Root>
-                <span className="truncate">{option.label}</span>
-              </label>
-            ))}
-          </div>
+          <CheckboxOptionList
+            options={options}
+            values={values}
+            onToggle={onToggle}
+          />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
@@ -600,41 +527,6 @@ function RangeField({
   )
 }
 
-function MoneyInput({
-  inputType,
-  moneyPrefix,
-  value,
-  onChange,
-  error,
-  placeholder,
-}: {
-  inputType: 'number' | 'text'
-  moneyPrefix?: boolean
-  value?: number | string
-  onChange: (value: string) => void
-  error: boolean
-  placeholder: string
-}) {
-  return (
-    <div className="relative">
-      {moneyPrefix ? (
-        <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm text-muted-foreground">
-          $
-        </span>
-      ) : null}
-      <Input
-        type={inputType}
-        min={inputType === 'number' ? 0 : undefined}
-        value={value ?? ''}
-        onChange={(event) => onChange(event.target.value)}
-        aria-invalid={error}
-        placeholder={placeholder}
-        className={cn(moneyPrefix && 'pl-6')}
-      />
-    </div>
-  )
-}
-
 function removeEmptyValues(filters: DiscoveryFilters): DiscoveryFilters {
   const nextFilters = { ...filters }
 
@@ -667,23 +559,4 @@ function getValidationErrors(filters: DiscoveryFilters): string[] {
   }
 
   return errors
-}
-
-function isInvalidNumberRange(min?: number, max?: number): boolean {
-  return min !== undefined && max !== undefined && min > max
-}
-
-function isInvalidDecimalRange(min?: string, max?: string): boolean {
-  if (!min || !max) {
-    return false
-  }
-
-  const parsedMin = Number.parseFloat(min)
-  const parsedMax = Number.parseFloat(max)
-
-  return (
-    !Number.isNaN(parsedMin) &&
-    !Number.isNaN(parsedMax) &&
-    parsedMin > parsedMax
-  )
 }

@@ -156,7 +156,7 @@ function renderSystemTimelineMessage({
     const offerCard = (() => {
       switch (message.event_type) {
         case 'OfferSent':
-          return <OfferSentCard message={message} />
+          return <OfferSentCard message={message} sessionKind={sessionKind} />
         case 'OfferAccepted':
           return <OfferAcceptedCard message={message} />
         case 'OfferRejected':

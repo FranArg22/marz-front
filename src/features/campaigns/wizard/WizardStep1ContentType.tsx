@@ -52,7 +52,7 @@ export function WizardStep1ContentType() {
           </span>
           <span className="flex flex-col gap-1">
             <span className="text-base font-semibold text-foreground">
-              <Trans>Influencers Posts</Trans>
+              <Trans>Publicaciones de influencers</Trans>
             </span>
             <span className="text-sm text-muted-foreground">
               <Trans>

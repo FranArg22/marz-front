@@ -11,7 +11,6 @@ import {
   openSendOfferSidesheet,
   PAID_OFFER_BASE_AMOUNT,
   PAID_OFFER_EXPECTED_BASE_AMOUNT,
-  PAID_OFFER_EXPECTED_BONUS_AMOUNT,
   PAID_OFFER_SCA_CARD,
   setupPaidBrand,
   STRIPE_TEST_MODE_ENABLED,
@@ -31,7 +30,7 @@ function buildPaidOfferUserKey(testInfo: {
 }
 
 test.describe('Offers: paid offer send flow', () => {
-  test('offers.paid.send_summary_displays_base_amount_and_bonus', async ({
+  test('offers.paid.send_summary_displays_base_amount', async ({
     chatPairOfferReady,
   }) => {
     test.skip(!STRIPE_TEST_MODE_ENABLED, 'Requires backend with STRIPE_TEST_MODE=1')
@@ -46,9 +45,8 @@ test.describe('Offers: paid offer send flow', () => {
     )
     await expect(summary).toBeVisible()
     await expect(summary).toContainText(PAID_OFFER_EXPECTED_BASE_AMOUNT)
-    await expect(summary).toContainText(PAID_OFFER_EXPECTED_BONUS_AMOUNT)
     await expect(summary).toContainText(
-      /El cobro se realiza cuando el creator acepta/i,
+      /El cobro se realiza cuando el creador acepta/i,
     )
     await expect(summary).not.toContainText(/processing fee/i)
     await expect(summary).not.toContainText(/Stripe/i)

@@ -32,7 +32,7 @@ describe('MonthlyEarningsChart', () => {
     )
 
     expect(
-      screen.getByText(/no earnings yet for this period/i),
+      screen.getByText(/todavía no hay ganancias en este período/i),
     ).toBeInTheDocument()
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
     expect(await axe(container)).toHaveNoViolations()
@@ -49,7 +49,7 @@ describe('MonthlyEarningsChart', () => {
     )
 
     expect(
-      screen.getByRole('img', { name: /earnings by month/i }),
+      screen.getByRole('img', { name: /ganancias por mes/i }),
     ).toBeInTheDocument()
     expect(screen.getAllByText('Jan')).toHaveLength(2)
     expect(screen.getByText('$1,200')).toBeInTheDocument()

@@ -49,7 +49,7 @@ describe('CreatorsPreview', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /todavía no hay creators participantes/i,
+        name: /todavía no hay creadores participantes/i,
       }),
     ).toBeInTheDocument()
     expect(

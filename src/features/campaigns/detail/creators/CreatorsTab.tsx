@@ -103,10 +103,10 @@ export function CreatorsTab({
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Creators`}
+            {t`Creadores`}
           </p>
           <h2 className="mt-1 text-lg font-semibold text-foreground">
-            {t`Active creators in this campaign`}
+            {t`Creadores activos en esta campaña`}
           </h2>
         </div>
         <Button

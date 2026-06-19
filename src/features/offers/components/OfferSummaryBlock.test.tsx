@@ -38,7 +38,7 @@ describe('OfferSummaryBlock', () => {
     render(<OfferSummaryBlock amount={100} plan="free" />)
 
     expect(
-      screen.queryByText('El cobro se realiza cuando el creator acepta'),
+      screen.queryByText('El cobro se realiza cuando el creador acepta'),
     ).not.toBeInTheDocument()
   })
 
@@ -46,7 +46,7 @@ describe('OfferSummaryBlock', () => {
     render(<OfferSummaryBlock amount={100} plan="starter" />)
 
     expect(
-      screen.getByText('El cobro se realiza cuando el creator acepta'),
+      screen.getByText('El cobro se realiza cuando el creador acepta'),
     ).toBeInTheDocument()
   })
 
@@ -54,7 +54,7 @@ describe('OfferSummaryBlock', () => {
     render(<OfferSummaryBlock amount={100} plan="growth" />)
 
     expect(
-      screen.getByText('El cobro se realiza cuando el creator acepta'),
+      screen.getByText('El cobro se realiza cuando el creador acepta'),
     ).toBeInTheDocument()
   })
 })

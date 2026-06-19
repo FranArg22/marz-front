@@ -66,7 +66,7 @@ describe('RecentActivity', () => {
       }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: /ver creators/i }),
+      screen.getByRole('link', { name: /ver creadores/i }),
     ).toBeInTheDocument()
   })
 

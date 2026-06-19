@@ -109,10 +109,10 @@ export function formatDeadline(
   deadline: string | null,
   now: Date = new Date(),
 ) {
-  if (!deadline) return t`Sin deadline`
+  if (!deadline) return t`Sin fecha límite`
 
   const deadlineDate = parseDeadlineDate(deadline)
-  if (Number.isNaN(deadlineDate.getTime())) return t`Sin deadline`
+  if (Number.isNaN(deadlineDate.getTime())) return t`Sin fecha límite`
 
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const deadlineStart = new Date(
@@ -154,7 +154,7 @@ export function CampaignBoardCard({
     t`Brief disponible para revisar antes de postularte.`
   const deadline = getSnapshotString(card.campaign, 'deadline')
   const feeLabel =
-    getSnapshotString(card.economics, 'fee_label') ?? t`Fee a definir`
+    getSnapshotString(card.economics, 'fee_label') ?? t`Monto a definir`
   const deliverables = getCampaignDeliverables(
     card.campaign,
     card.targeting.deliverables,
@@ -253,7 +253,7 @@ export function CampaignBoardCard({
         <div className="space-y-4">
           <div className="border-t border-border pt-3">
             <p className="text-xs font-medium text-muted-foreground">
-              {t`Fee`}
+              {t`Precio`}
             </p>
             <p className="mt-1 text-sm font-semibold text-foreground">
               {feeLabel}

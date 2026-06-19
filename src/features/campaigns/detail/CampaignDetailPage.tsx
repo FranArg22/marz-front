@@ -177,7 +177,7 @@ function CampaignDetailBody({
   if (tab === 'analytics') {
     return (
       <BodyPlaceholder
-        title={t`Analytics`}
+        title={t`Analíticas`}
         description={t`Esta sección todavía no está disponible.`}
       />
     )

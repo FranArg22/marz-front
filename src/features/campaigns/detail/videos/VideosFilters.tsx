@@ -39,14 +39,14 @@ function getStatusOptions(): ReadonlyArray<{
   label: string
 }> {
   return [
-    { value: 'pending', label: t`Pending` },
-    { value: 'draft_submitted', label: t`In review` },
-    { value: 'changes_requested', label: t`Changes requested` },
-    { value: 'draft_approved', label: t`Approved draft` },
-    { value: 'link_submitted', label: t`Link submitted` },
-    { value: 'link_approved', label: t`Link approved` },
-    { value: 'completed', label: t`Completed` },
-    { value: 'paid', label: t`Paid` },
+    { value: 'pending', label: t`Pendiente` },
+    { value: 'draft_submitted', label: t`En revisión` },
+    { value: 'changes_requested', label: t`Cambios solicitados` },
+    { value: 'draft_approved', label: t`Borrador aprobado` },
+    { value: 'link_submitted', label: t`Link enviado` },
+    { value: 'link_approved', label: t`Link aprobado` },
+    { value: 'completed', label: t`Completado` },
+    { value: 'paid', label: t`Pagado` },
   ]
 }
 
@@ -123,8 +123,8 @@ export function VideosFilters({
           <Input
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
-            placeholder={t`Search video`}
-            aria-label={t`Search videos`}
+            placeholder={t`Buscar video`}
+            aria-label={t`Buscar videos`}
             className="rounded-xl bg-background pl-9"
           />
         </div>
@@ -140,12 +140,14 @@ export function VideosFilters({
         >
           <SelectTrigger
             className="h-9 rounded-xl bg-background sm:w-[150px]"
-            aria-label={t`Filter by platform`}
+            aria-label={t`Filtrar por plataforma`}
           >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ALL_PLATFORMS}>{t`All platforms`}</SelectItem>
+            <SelectItem
+              value={ALL_PLATFORMS}
+            >{t`Todas las plataformas`}</SelectItem>
             {platformOptions.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -168,12 +170,14 @@ export function VideosFilters({
         >
           <SelectTrigger
             className="h-9 rounded-xl bg-background sm:w-[180px]"
-            aria-label={t`Filter by creator`}
+            aria-label={t`Filtrar por creador`}
           >
-            <SelectValue placeholder={t`Creator`} />
+            <SelectValue placeholder={t`Creador`} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ALL_CREATORS}>{t`All creators`}</SelectItem>
+            <SelectItem
+              value={ALL_CREATORS}
+            >{t`Todos los creadores`}</SelectItem>
             {creators.map((participant) => (
               <SelectItem
                 key={participant.creator.account_id}
@@ -197,7 +201,7 @@ export function VideosFilters({
           }}
         >
           <X className="size-3.5" aria-hidden />
-          {t`Clear`}
+          {t`Limpiar`}
         </Button>
       </div>
     </div>

@@ -22,7 +22,7 @@ describe('CampaignDetailTabs', () => {
       <CampaignDetailTabs activeTab="overview" onTabChange={onTabChange} />,
     )
 
-    const analytics = screen.getByRole('button', { name: /analytics/i })
+    const analytics = screen.getByRole('button', { name: /analíticas/i })
     expect(analytics).toHaveAttribute('aria-disabled', 'true')
 
     await user.click(analytics)

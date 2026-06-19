@@ -48,7 +48,7 @@ export function DraftApprovedCard({
   return (
     <SystemEventCard
       tone="success"
-      kicker={t`Draft aprobado`}
+      kicker={t`Video borrador aprobado`}
       icon={Check}
       headerVariant="solid"
       side={sessionKind === 'brand' ? 'out' : 'in'}

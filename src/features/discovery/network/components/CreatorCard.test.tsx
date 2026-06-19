@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type {
   DiscoveryCreatePairKindEnum,
   DiscoveryCreatorCard,
+  DiscoveryCreatorPlatformStats,
 } from '#/shared/api/generated/model'
 
 import { CreatorCard } from './CreatorCard'
@@ -25,6 +26,7 @@ vi.mock('@tanstack/react-router', () => ({
 function makeCard(
   kind: DiscoveryCreatePairKindEnum,
   conversationId: string | null = null,
+  platforms: DiscoveryCreatorPlatformStats[] = [],
 ): DiscoveryCreatorCard {
   return {
     account_id: 'acc-1',
@@ -33,7 +35,7 @@ function makeCard(
     country: 'AR',
     age: 28,
     tags: [],
-    platforms: [],
+    platforms,
     pair_state: {
       kind,
       conversation_id: conversationId,
@@ -41,6 +43,20 @@ function makeCard(
     },
   }
 }
+
+const platformStats = (
+  platform: string,
+  minPriceAmount: string,
+): DiscoveryCreatorPlatformStats => ({
+  platform,
+  handle: 'creator',
+  followers: 1000,
+  engagement_rate: 0.05,
+  cpm_amount: '2.5',
+  cpm_currency: 'USD',
+  min_price_amount: minPriceAmount,
+  price_currency: 'USD',
+})
 
 describe('CreatorCard pair-state CTA mapping', () => {
   beforeEach(() => {
@@ -144,5 +160,40 @@ describe('CreatorCard pair-state CTA mapping', () => {
       screen.getByRole('button', { name: /Seleccionar Creator One/ }),
     )
     expect(onToggleSelect).toHaveBeenCalledWith('acc-1')
+  })
+
+  it('selection mode: shows the pair state instead of a checkbox for a non-invitable creator', async () => {
+    const user = userEvent.setup()
+    const onToggleSelect = vi.fn()
+    render(
+      <CreatorCard
+        card={makeCard('connection_pending')}
+        onInvite={vi.fn()}
+        selectionMode
+        onToggleSelect={onToggleSelect}
+      />,
+    )
+
+    expect(screen.getByText('Invitación enviada')).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: /Seleccionar Creator One/ }),
+    )
+    expect(onToggleSelect).not.toHaveBeenCalled()
+  })
+
+  it('shows a dash when a platform has no price', () => {
+    render(
+      <CreatorCard
+        card={makeCard('no_contact', null, [
+          platformStats('instagram', '100'),
+          platformStats('youtube', ''),
+        ])}
+        onInvite={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByText('$100')).toBeInTheDocument()
+    expect(screen.getByText('-')).toBeInTheDocument()
   })
 })

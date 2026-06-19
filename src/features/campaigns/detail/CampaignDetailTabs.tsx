@@ -11,16 +11,16 @@ import { CampaignWorkspaceTabs } from '#/features/campaigns/components/CampaignW
 
 function getCampaignDetailTabs() {
   return [
-    { id: 'overview', label: t`Overview`, icon: LayoutGrid },
+    { id: 'overview', label: t`Resumen`, icon: LayoutGrid },
     { id: 'applications', label: t`Postulaciones`, icon: ClipboardList },
-    { id: 'creators', label: t`Creators`, icon: Users },
+    { id: 'creators', label: t`Creadores`, icon: Users },
     { id: 'videos', label: t`Videos`, icon: Video },
     {
       id: 'analytics',
-      label: t`Analytics`,
+      label: t`Analíticas`,
       icon: BarChart3,
       disabled: true,
-      tooltip: t`Analytics todavía no está disponible para esta campaña.`,
+      tooltip: t`Las analíticas todavía no están disponibles para esta campaña.`,
     },
   ] as const
 }

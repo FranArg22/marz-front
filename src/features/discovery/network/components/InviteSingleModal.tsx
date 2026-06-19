@@ -110,7 +110,7 @@ export function InviteSingleModal({
         ) : null}
 
         <div className="space-y-2">
-          <label htmlFor="invite-note" className="text-sm font-medium">
+          <label htmlFor="invite-note" className="block text-sm font-medium">
             {t`Nota (opcional)`}
           </label>
           <Textarea

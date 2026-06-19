@@ -83,7 +83,7 @@ function renderShell({
 }
 
 describe('AppShell', () => {
-  it('renders the brand sidebar, base topbar, and content outlet', async () => {
+  it('renders the brand sidebar and content outlet without a topbar', async () => {
     renderShell({ accountKind: 'brand', pathname: '/workspace' })
 
     const shell = await screen.findByTestId('app-shell')
@@ -92,7 +92,7 @@ describe('AppShell', () => {
     expect(
       within(sidebar).getByRole('link', { name: 'Workspace' }),
     ).toBeInTheDocument()
-    expect(screen.getByTestId('app-topbar')).toHaveTextContent('Buscar…')
+    expect(screen.queryByTestId('app-topbar')).not.toBeInTheDocument()
     expect(screen.getByLabelText('shell context')).toHaveTextContent(
       'brand:acct_123',
     )
@@ -120,12 +120,9 @@ describe('AppShell', () => {
     )
     expect(screen.getByTestId('app-sidebar')).toHaveAttribute(
       'data-width',
-      '72px',
+      '59px',
     )
-    expect(screen.getByTestId('app-topbar')).toHaveAttribute(
-      'data-height',
-      '56px',
-    )
+    expect(screen.queryByTestId('app-topbar')).not.toBeInTheDocument()
   })
 
   it('does not keep legacy sidebar markup in compatibility shells', () => {
@@ -135,7 +132,6 @@ describe('AppShell', () => {
       const source = readFileSync(resolve(process.cwd(), file), 'utf8')
 
       expect(source).not.toContain('<aside')
-      expect(source).not.toContain('bg-sidebar')
       expect(source).not.toContain('border-sidebar')
       expect(source).not.toContain('text-sidebar')
     }

@@ -88,7 +88,7 @@ export function WizardStep3Brief() {
         </p>
       </div>
 
-      <div className="grid gap-5">
+      <div className="grid gap-5 rounded-xl border border-border bg-card p-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="campaign-name" className="text-sm font-semibold">
             <Trans>Nombre</Trans>
@@ -101,7 +101,7 @@ export function WizardStep3Brief() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label
             htmlFor="campaign-description"
             className="text-sm font-semibold"
@@ -112,7 +112,7 @@ export function WizardStep3Brief() {
             id="campaign-description"
             value={step3.description}
             maxLength={4000}
-            className="min-h-32 resize-y"
+            className="min-h-32 resize-y break-words"
             onChange={(event) => setStep3({ description: event.target.value })}
           />
         </div>
@@ -150,7 +150,7 @@ export function WizardStep3Brief() {
             <Trans>Imagen</Trans>
           </span>
           {step3.imageFile ? (
-            <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card p-4">
+            <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted p-4">
               <span className="min-w-0 truncate text-sm font-medium">
                 {step3.imageFile.name}
               </span>
@@ -164,7 +164,7 @@ export function WizardStep3Brief() {
               <button
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-card p-6 text-center hover:bg-surface-hover"
+                className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted p-6 text-center hover:bg-surface-hover"
               >
                 <ImageUp
                   aria-hidden="true"

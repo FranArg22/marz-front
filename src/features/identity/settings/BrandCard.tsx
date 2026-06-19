@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro'
 
-import { firstErrorMessage  } from '#/shared/ui/form'
-import type {useAppForm} from '#/shared/ui/form';
+import { firstErrorMessage } from '#/shared/ui/form'
+import type { useAppForm } from '#/shared/ui/form'
 
 import { LogoUploader } from './LogoUploader'
 

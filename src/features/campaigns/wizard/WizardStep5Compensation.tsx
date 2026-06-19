@@ -118,47 +118,49 @@ export function WizardStep5Compensation() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <label
-          htmlFor="compensation-notes"
-          className="text-sm font-semibold text-foreground"
-        >
-          <Trans>Notas de compensación</Trans>
-        </label>
-        <Textarea
-          id="compensation-notes"
-          value={step5.compensation_notes}
-          onChange={(event) =>
-            setStep5({ compensation_notes: event.target.value })
-          }
-          placeholder={t`Agregá detalles opcionales sobre pagos, condiciones o aclaraciones.`}
-          className="min-h-28 resize-y"
-        />
-      </div>
-
-      <div className="flex items-start justify-between gap-4 rounded-lg border border-border bg-card p-5">
-        <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-6 rounded-xl border border-border bg-card p-6">
+        <div className="flex flex-col gap-3">
           <label
-            htmlFor="video-reuse-permission-default"
+            htmlFor="compensation-notes"
             className="text-sm font-semibold text-foreground"
           >
-            <Trans>Reutilización de video</Trans>
+            <Trans>Notas de compensación</Trans>
           </label>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            <Trans>
-              Activá este permiso si la marca podrá reutilizar los videos por
-              defecto.
-            </Trans>
-          </p>
+          <Textarea
+            id="compensation-notes"
+            value={step5.compensation_notes}
+            onChange={(event) =>
+              setStep5({ compensation_notes: event.target.value })
+            }
+            placeholder={t`Agregá detalles opcionales sobre pagos, condiciones o aclaraciones.`}
+            className="min-h-28 resize-y"
+          />
         </div>
-        <Switch
-          id="video-reuse-permission-default"
-          aria-label={t`Reutilización de video`}
-          checked={step5.video_reuse_permission_default}
-          onCheckedChange={(video_reuse_permission_default) =>
-            setStep5({ video_reuse_permission_default })
-          }
-        />
+
+        <div className="flex items-start justify-between gap-4 rounded-lg border border-border bg-card p-5">
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="video-reuse-permission-default"
+              className="text-sm font-semibold text-foreground"
+            >
+              <Trans>Reutilización de video</Trans>
+            </label>
+            <p className="max-w-2xl text-sm text-muted-foreground">
+              <Trans>
+                Activá este permiso si la marca podrá reutilizar los videos por
+                defecto.
+              </Trans>
+            </p>
+          </div>
+          <Switch
+            id="video-reuse-permission-default"
+            aria-label={t`Reutilización de video`}
+            checked={step5.video_reuse_permission_default}
+            onCheckedChange={(video_reuse_permission_default) =>
+              setStep5({ video_reuse_permission_default })
+            }
+          />
+        </div>
       </div>
     </section>
   )

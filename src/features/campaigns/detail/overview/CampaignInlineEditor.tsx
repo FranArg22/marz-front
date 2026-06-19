@@ -238,7 +238,7 @@ export function CampaignInlineEditor({
           value={currentCampaign.content_type}
         />
         <ReadonlyField
-          label={t`Pricing model`}
+          label={t`Modelo de precios`}
           value={currentCampaign.pricing_model}
         />
         <ReadonlyField
