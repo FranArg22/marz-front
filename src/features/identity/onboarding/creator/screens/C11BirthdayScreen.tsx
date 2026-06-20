@@ -99,7 +99,7 @@ export function C11BirthdayScreen() {
               <SelectTrigger {...aria} className="w-full">
                 <SelectValue placeholder="—" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent position="popper" className="max-h-[280px]">
                 {Array.from({ length: 31 }, (_, i) => `${i + 1}`).map((d) => (
                   <SelectItem key={d} value={d}>
                     {d}
@@ -115,7 +115,7 @@ export function C11BirthdayScreen() {
               <SelectTrigger {...aria} className="w-full">
                 <SelectValue placeholder="—" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent position="popper" className="max-h-[280px]">
                 {MONTHS().map((name, i) => (
                   <SelectItem key={name} value={`${i + 1}`}>
                     {name}
@@ -131,7 +131,7 @@ export function C11BirthdayScreen() {
               <SelectTrigger {...aria} className="w-full">
                 <SelectValue placeholder="—" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent position="popper" className="max-h-[280px]">
                 {years.map((y) => (
                   <SelectItem key={y} value={y}>
                     {y}

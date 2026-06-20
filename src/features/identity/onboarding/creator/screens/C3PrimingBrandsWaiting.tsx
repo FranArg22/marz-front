@@ -28,11 +28,8 @@ export function C3PrimingBrandsWaiting() {
 
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-3">
         <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
-          {t`Hay ${TOTAL} marcas buscando creadores esta semana.`}
+          {t`En Marz las marcas buscan creadores de todos los nichos`}
         </h1>
-        <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
-          {t`Fintech, SaaS, gaming, lifestyle, beauty — categorías activas.`}
-        </p>
       </div>
 
       <div className="relative flex flex-wrap justify-center gap-4">

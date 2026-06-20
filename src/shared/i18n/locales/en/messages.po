@@ -17,6 +17,10 @@ msgstr ""
 msgid "-20%"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:175
+msgid "— poné tu precio en dólares (USD)"
+msgstr ""
+
 #: src/features/deliverables/components/LinkSubmittedCard.tsx:145
 msgid "¡Recién publicado! Acá va el link."
 msgstr ""
@@ -57,17 +61,25 @@ msgstr ""
 msgid "¿Cuánto pensás invertir por mes?"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:67
+msgid "¿Cuántos seguidores tenés hoy?"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:29
 msgid "¿Desde dónde creás?"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:67
-msgid "¿En qué nivel estás hoy?"
+#: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:33
+msgid "¿En qué nichos te especializás?"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:67
+#~ msgid "¿En qué nivel estás hoy?"
+#~ msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:33
-msgid "¿En qué te especializás?"
-msgstr ""
+#~ msgid "¿En qué te especializás?"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:68
 msgid "¿En qué vertical opera tu marca?"
@@ -126,8 +138,8 @@ msgid "”Claridad sobre el pago y los tiempos, con libertad total para armar el
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:23
-msgid "“Entré con 60K en TikTok. En 4 meses cerré 11 colabs con marcas fintech y pasé a vivir de esto. La diferencia fue el matching, no tener que buscar yo.”"
-msgstr ""
+#~ msgid "“Entré con 60K en TikTok. En 4 meses cerré 11 colabs con marcas fintech y pasé a vivir de esto. La diferencia fue el matching, no tener que buscar yo.”"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:7
 msgid "”Rapidez y eficiencia. Cero vueltas.”"
@@ -135,6 +147,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:23
 msgid "”Toda la info en la plataforma. Podía ver el paso a paso del proceso.”"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:23
+msgid "“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”"
 msgstr ""
 
 #: src/features/chat/components/systemEvents/PaymentMarkedCard.tsx:39
@@ -479,13 +495,17 @@ msgstr ""
 msgid "{weightPct}%"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:36
+msgid "@duende.ba"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:67
 msgid "@lucasromero"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:39
-msgid "@valenmed · 190K TikTok · 3 años en Marz"
-msgstr ""
+#~ msgid "@valenmed · 190K TikTok · 3 años en Marz"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C16ReferralScreen.tsx:34
 msgid "@valenzavacs"
@@ -529,7 +549,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:194
-#: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:51
+#: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:48
 msgid "+{remaining} más"
 msgstr ""
 
@@ -543,6 +563,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:30
 msgid "+40hs"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:89
+msgid "+5000 creadores activos que reciben sus pagos en 24 horas"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:57
@@ -600,8 +624,8 @@ msgid "$50K"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:48
-msgid "0%"
-msgstr ""
+#~ msgid "0%"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferArchiveItem.tsx:124
 msgid "1 bono por velocidad"
@@ -645,12 +669,12 @@ msgid "1M+ followers"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
-msgid "2.340"
-msgstr ""
+#~ msgid "2.340"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:89
-msgid "2.340 creadores activos · 0% take rate · payouts 24h"
-msgstr ""
+#~ msgid "2.340 creadores activos · 0% take rate · payouts 24h"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:49
 msgid "200K–1M followers"
@@ -695,6 +719,10 @@ msgstr ""
 
 #: src/features/payments/settings/PayoutAccountModal.tsx:166
 msgid "9 dígitos"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
+msgid "9.8 / 10"
 msgstr ""
 
 #: src/features/earnings/components/EarningsPeriodControl.tsx:10
@@ -1003,7 +1031,7 @@ msgstr ""
 msgid "Agregar bono"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:517
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:508
 msgid "Agregar canal"
 msgstr ""
 
@@ -1048,7 +1076,7 @@ msgstr ""
 #~ msgid "Agregar señal…"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:321
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:312
 msgid "Agregar tarifa..."
 msgstr ""
 
@@ -1383,7 +1411,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:84
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:276
 msgid "Atrás"
 msgstr ""
 
@@ -1421,7 +1449,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:163
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:153
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1464,8 +1492,16 @@ msgstr ""
 #~ msgid "Banco o proveedor"
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:59
+#~ msgid "Basado en {nichesText} y tu nivel {tierLabel}, podés acceder a campañas que te pagan lo que vale tu trabajo."
+#~ msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:28
-msgid "Basado en tu nicho y alcance, podés acceder a campañas que te pagan lo que vale tu trabajo."
+#~ msgid "Basado en tu nicho y alcance, podés acceder a campañas que te pagan lo que vale tu trabajo."
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:28
+msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
@@ -1502,7 +1538,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:48
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:30
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:94
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:52
 msgid "Belleza"
 msgstr ""
 
@@ -1815,7 +1850,7 @@ msgid "Campañas con creadores, sin agencias ni vueltas."
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:222
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:216
 msgid "Canales"
 msgstr ""
 
@@ -2044,7 +2079,7 @@ msgstr ""
 #~ msgid "CBU, IBAN, email o alias de cuenta"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:43
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:47
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:54
 msgid "Celebridad"
 msgstr ""
@@ -2212,7 +2247,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:40
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:26
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:78
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:54
 msgid "Comida"
 msgstr ""
 
@@ -2351,7 +2385,7 @@ msgstr ""
 #~ msgid "Confirmar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:40
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:44
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:36
 msgid "Consolidado"
 msgstr ""
@@ -2536,7 +2570,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:201
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:191
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:143
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:116
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:106
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr ""
@@ -2569,8 +2603,8 @@ msgid "Creadores activados"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
-msgid "creadores activos"
-msgstr ""
+#~ msgid "creadores activos"
+#~ msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:46
 msgid "Creadores activos"
@@ -2581,8 +2615,12 @@ msgid "Creadores activos en esta campaña"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:25
-msgid "Creadores de tu tier facturan 3x más con Marz."
+msgid "Creadores con tu cantidad de seguidores facturan 3x más con Marz."
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:25
+#~ msgid "Creadores de tu tier facturan 3x más con Marz."
+#~ msgstr ""
 
 #: src/features/campaigns/wizard/MatchLiveBlock.tsx:87
 msgid "Creadores disponibles"
@@ -2591,6 +2629,10 @@ msgstr ""
 #: src/features/campaigns/wizard/MatchLiveBlock.tsx:72
 msgid "Creadores estimados para esta audiencia."
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:56
+#~ msgid "Creadores nivel {tierLabel} facturan 3x más con Marz."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:47
 msgid "Creadores reales hablando de Marz"
@@ -2652,7 +2694,7 @@ msgstr ""
 #~ msgid "Creators publican contenido en sus redes para amplificar tu marca."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:39
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:43
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:30
 msgid "Creciendo"
 msgstr ""
@@ -2799,6 +2841,10 @@ msgstr ""
 #: src/shared/catalog/creatorTaxonomy.ts:48
 #~ msgid "Day in the life"
 #~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:31
+msgid "DB"
+msgstr ""
 
 #: src/features/billing/settings/PlanUsageCard.tsx:104
 #: src/features/billing/settings/PlanUsageCard.tsx:138
@@ -3253,7 +3299,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:37
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:25
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:72
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:60
 msgid "Educación"
 msgstr ""
 
@@ -3551,7 +3596,7 @@ msgstr ""
 #~ msgid "Eliminar señal {signal}"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:216
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:207
 msgid "Eliminar tarifa"
 msgstr ""
 
@@ -3567,7 +3612,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:38
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:24
 msgid "Emergente"
 msgstr ""
@@ -3608,6 +3653,10 @@ msgstr ""
 #~ msgid "En línea"
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:31
+msgid "En Marz las marcas buscan creadores de todos los nichos"
+msgstr ""
+
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:129
 #~ msgid "En plataforma"
 #~ msgstr ""
@@ -3621,7 +3670,6 @@ msgid "En revisión"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:22
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:74
 msgid "En vivo"
 msgstr ""
 
@@ -3843,6 +3891,10 @@ msgstr ""
 #: src/features/deliverables/components/DeliverableListPanel.tsx:41
 #~ msgid "Error loading deliverables"
 #~ msgstr ""
+
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:178
+msgid "Es tu precio base de referencia para mostrarle a las marcas, no el precio por el que tenés que cerrar todas tus ofertas. El precio final de cada colaboración lo definís vos con la marca."
+msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep6Content.tsx:26
 msgid "Escribí las instrucciones que los creadores deberán seguir para producir contenido alineado con la campaña."
@@ -4345,8 +4397,8 @@ msgid "Fintech"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:34
-msgid "Fintech, SaaS, gaming, lifestyle, beauty — categorías activas."
-msgstr ""
+#~ msgid "Fintech, SaaS, gaming, lifestyle, beauty — categorías activas."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:36
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:13
@@ -4404,7 +4456,7 @@ msgstr ""
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:210
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
 msgid "Formatos"
 msgstr ""
 
@@ -4626,16 +4678,16 @@ msgid "Hace {minutes} min"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:284
-msgid "Handle"
-msgstr ""
+#~ msgid "Handle"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C16ReferralScreen.tsx:28
 msgid "Handle o nombre (opcional)"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:61
-msgid "Handle principal"
-msgstr ""
+#~ msgid "Handle principal"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/BriefSummaryView.tsx:124
 #~ msgid "Hard Filters"
@@ -4661,18 +4713,18 @@ msgid "Hasta {maxLabel}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:36
-msgid "Hasta 5 nichos. Matching va a ser más preciso."
-msgstr ""
+#~ msgid "Hasta 5 nichos. Matching va a ser más preciso."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C3PrimingBrandsWaiting.tsx:31
-msgid "Hay {TOTAL} marcas buscando creadores esta semana."
-msgstr ""
+#~ msgid "Hay {TOTAL} marcas buscando creadores esta semana."
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P4Confirm.tsx:112
 #~ msgid "Hay errores de validación. Volvé al paso anterior para corregirlos."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:47
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:53
 msgid "Hay formatos inválidos para la plataforma seleccionada."
 msgstr ""
 
@@ -4761,8 +4813,8 @@ msgid "Hubo un problema con el último cobro. Abrí el portal para actualizar la
 msgstr "There was a problem with the last charge. Open the portal to update your card."
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:69
-msgid "Humor / sketches"
-msgstr ""
+#~ msgid "Humor / sketches"
+#~ msgstr ""
 
 #: src/shared/catalog/creatorTaxonomy.ts:47
 #~ msgid "Humor / Sketches"
@@ -5128,7 +5180,7 @@ msgstr ""
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:295
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:289
 msgid "Ir a mi dashboard"
 msgstr ""
 
@@ -5456,6 +5508,10 @@ msgstr ""
 msgid "Lo que cambia al entrar a Marz"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:60
+msgid "Lo que ganan creadores activos con un perfil como el tuyo."
+msgstr ""
+
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:136
 msgid "Lo que identifica la campaña dentro del equipo."
 msgstr ""
@@ -5527,8 +5583,12 @@ msgstr ""
 #~ msgid "Los bonos sólo están disponibles para un contenido único."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:521
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:512
 msgid "Los creadores con tarifas reciben más ofertas de las marcas."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:50
+msgid "Los encuestamos luego de sus colaboraciones y esto salió."
 msgstr ""
 
 #: src/features/offers/hooks/useOfferActions.ts:81
@@ -5719,7 +5779,7 @@ msgstr ""
 msgid "Masculino"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:46
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:48
 msgid "Masivo"
 msgstr ""
@@ -5771,8 +5831,8 @@ msgid "Matching pre-calculado con tu vertical"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:61
-msgid "Maternidad"
-msgstr ""
+#~ msgid "Maternidad"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:16
 #~ msgid "Máx. seguidores"
@@ -5830,7 +5890,11 @@ msgid "Menor precio"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:60
-msgid "Menos fricción. Más plata. Más tiempo para crear."
+#~ msgid "Menos fricción. Más plata. Más tiempo para crear."
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:60
+msgid "Menos fricción. Más tiempo para crear."
 msgstr ""
 
 #: src/features/chat/components/MessageComposer.tsx:132
@@ -5966,7 +6030,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:51
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:33
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:109
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:53
 msgid "Moda"
 msgstr ""
 
@@ -6084,7 +6147,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:90
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:57
 msgid "Música"
 msgstr ""
 
@@ -6110,7 +6172,6 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:58
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:122
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:59
 msgid "Negocios"
 msgstr ""
 
@@ -6134,7 +6195,7 @@ msgstr ""
 #~ msgid "Next payout"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:203
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:193
 msgid "Nichos"
 msgstr ""
 
@@ -6267,8 +6328,8 @@ msgid "No link submission error."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8PrimingTestimonials.tsx:50
-msgid "No pagamos para que digan esto. Les preguntamos y esto salió."
-msgstr ""
+#~ msgid "No pagamos para que digan esto. Les preguntamos y esto salió."
+#~ msgstr ""
 
 #: src/features/offers/components/OffersArchiveBlock.tsx:51
 #~ msgid "No past offers"
@@ -6527,7 +6588,7 @@ msgstr ""
 msgid "No se puede marcar esta oferta como pagada."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:45
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:51
 msgid "No se puede repetir un formato dentro del mismo canal."
 msgstr ""
 
@@ -6615,6 +6676,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:129
 msgid "Nos ayuda a entender qué funciona."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:36
+msgid "Nos sirve para mostrarte las ofertas que matchean con tu perfil."
 msgstr ""
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:145
@@ -7032,6 +7097,10 @@ msgstr ""
 #~ msgid "Pagos a creators"
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:47
+msgid "Pagos garantizados"
+msgstr ""
+
 #: src/features/payments/components/BrandPaymentsPage.tsx:171
 msgid "Pagos realizados a creadores y análisis de gastos por campaña."
 msgstr ""
@@ -7180,8 +7249,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:47
-msgid "payout promedio"
-msgstr ""
+#~ msgid "payout promedio"
+#~ msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:239
 msgid "PAYOUTS"
@@ -7613,8 +7682,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:280
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:235
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:229
 #: src/features/identity/settings/RatesSection.tsx:206
 msgid "Principal"
 msgstr ""
@@ -7666,7 +7735,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:63
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:113
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:118
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:50
 msgid "Productividad"
 msgstr ""
 
@@ -7760,6 +7828,10 @@ msgstr ""
 #~ msgid "Puede que no exista o que no pertenezca a este workspace."
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
+msgid "Puntaje de satisfacción"
+msgstr ""
+
 #: src/features/offers/components/BundleEditor.tsx:292
 #~ msgid "Quantity"
 #~ msgstr ""
@@ -7822,8 +7894,12 @@ msgid "Rango de precios"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:60
-msgid "Rango histórico de creadores activos con tu nicho y disponibilidad en los últimos 6 meses."
-msgstr ""
+#~ msgid "Rango histórico de creadores activos con tu nicho y disponibilidad en los últimos 6 meses."
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C18PrimingEarnings.tsx:76
+#~ msgid "Rango histórico de creadores activos en {nichesText} con disponibilidad similar en los últimos 6 meses."
+#~ msgstr ""
 
 #: src/features/analytics/dashboard/MetricCard.tsx:150
 msgid "Ratio (likes + comentarios) / vistas, al fin del período."
@@ -7938,7 +8014,7 @@ msgstr ""
 msgid "Reenviar link ({cooldown}s)"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:41
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:45
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:42
 msgid "Referente"
 msgstr ""
@@ -8203,7 +8279,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:42
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:28
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:81
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:62
 msgid "Salud"
 msgstr ""
 
@@ -8357,7 +8432,7 @@ msgstr ""
 msgid "Seleccioná el formato principal de la campaña."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:43
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:49
 msgid "Seleccioná exactamente un canal como principal."
 msgstr ""
 
@@ -8567,6 +8642,10 @@ msgstr ""
 msgid "Si salís ahora, se perderán los datos ingresados."
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:38
+msgid "Si tenés más de una cuenta por red social, creá una cuenta de creador secundaria en Marz con un mail distinto al que usaste acá."
+msgstr ""
+
 #: src/features/identity/components/SignOutButton.tsx:15
 #: src/features/identity/components/SignOutButton.tsx:26
 msgid "Sign out"
@@ -8674,8 +8753,16 @@ msgid "SIN LEER"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:25
-msgid "Sin managers. Sin comisiones. Sin intermediarios."
+msgid "Sin managers, ni agencias, o intermediarios."
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:25
+#~ msgid "Sin managers. Ni agencias, o intermediarios."
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:25
+#~ msgid "Sin managers. Sin comisiones. Sin intermediarios."
+#~ msgstr ""
 
 #: src/features/billing/components/PaymentMethodCard.tsx:25
 #~ msgid "Sin método de pago"
@@ -8849,8 +8936,12 @@ msgid "Solo podés subir un archivo PDF."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:32
-msgid "Solo recibís campañas que calzan con vos. Cero DMs cruzados."
+msgid "Solo recibís campañas que calzan con vos."
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:32
+#~ msgid "Solo recibís campañas que calzan con vos. Cero DMs cruzados."
+#~ msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:166
 msgid "Solo recomendadas para mí"
@@ -9111,8 +9202,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:48
-msgid "take rate"
-msgstr ""
+#~ msgid "take rate"
+#~ msgstr ""
 
 #: src/features/inbox/InboxCreatorBox.tsx:297
 msgid "También esperás algo"
@@ -9242,8 +9333,8 @@ msgid "Tenés una oferta para revisar"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:72
-msgid "Testimoniales"
-msgstr ""
+#~ msgid "Testimoniales"
+#~ msgstr ""
 
 #: src/features/chat/components/MessageComposer.tsx:95
 msgid "Texto recortado al límite de {MAX_LENGTH} caracteres"
@@ -9645,12 +9736,24 @@ msgstr ""
 msgid "Tu marca"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:176
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:33
+#~ msgid "tu nicho"
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:34
+#~ msgid "tu nivel"
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:166
 msgid "Tu nombre"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:42
-msgid "Tu nombre público y tu handle principal."
+#~ msgid "Tu nombre público y tu handle principal."
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:42
+msgid "Tu nombre público y tu usuario principal."
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:53
@@ -9740,7 +9843,7 @@ msgstr ""
 msgid "Tu workspace ya tiene un plan activo"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:297
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:288
 msgid "tu_handle"
 msgstr ""
 
@@ -9757,12 +9860,12 @@ msgid "Tus 3 mejores videos"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:55
-msgid "Tus tarifas son privadas. Las marcas ven rango, nunca tu número exacto."
-msgstr ""
+#~ msgid "Tus tarifas son privadas. Las marcas ven rango, nunca tu número exacto."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:70
-msgid "Tutoriales"
-msgstr ""
+#~ msgid "Tutoriales"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:18
 #~ msgid "Ubicación"
@@ -9914,8 +10017,12 @@ msgid "Usá formato E.164, por ejemplo +5491123456789"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:70
-msgid "Usamos tu nivel para mostrarte ofertas acordes."
+msgid "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:70
+#~ msgid "Usamos tu nivel para mostrarte ofertas acordes."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:54
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
@@ -9951,6 +10058,14 @@ msgstr ""
 msgid "Uso del plan"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:275
+msgid "Usuario"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:61
+msgid "Usuario principal"
+msgstr ""
+
 #: src/features/campaigns/configuration/PricingModelStep.tsx:52
 #~ msgid "Útil para campañas de alcance."
 #~ msgstr ""
@@ -9973,8 +10088,8 @@ msgid "v{version}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:36
-msgid "Valentina Medina"
-msgstr ""
+#~ msgid "Valentina Medina"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:72
 #~ msgid "Valor"
@@ -10057,12 +10172,16 @@ msgstr ""
 msgid "Ver todo el board"
 msgstr ""
 
-#: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:20
-#~ msgid "Verificado"
+#: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:39
+msgid "Verificado"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:32
+#~ msgid "Verificamos followers y engagement. Cargá tu tarifa por formato — las marcas ven rango, no tu precio directo."
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:32
-msgid "Verificamos followers y engagement. Cargá tu tarifa por formato — las marcas ven rango, no tu precio directo."
+msgid "Verificamos followers y engagement. Cargá tu tarifa por formato."
 msgstr ""
 
 #: src/features/identity/auth/components/CallbackScreen.tsx:120
@@ -10103,7 +10222,6 @@ msgstr ""
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:50
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:32
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:103
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:55
 msgid "Viajes"
 msgstr ""
 
@@ -10117,8 +10235,8 @@ msgid "Video {0}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:68
-msgid "Video ads"
-msgstr ""
+#~ msgid "Video ads"
+#~ msgstr ""
 
 #: src/shared/catalog/creatorTaxonomy.ts:43
 #~ msgid "Video Ads"
@@ -10208,8 +10326,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:31
-msgid "VM"
-msgstr ""
+#~ msgid "VM"
+#~ msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P4Confirm.tsx:86
 #~ msgid "Volvé al paso anterior para completar la información."
