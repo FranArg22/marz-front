@@ -1,7 +1,21 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 import { getMaxPayout, OfferSummary } from './OfferSummary'
+
+vi.mock('#/shared/api/generated/offers/offers', () => ({
+  usePreviewOfferFee: () => ({
+    data: {
+      status: 200,
+      data: {
+        base_amount: '1000.00',
+        processing_fee: '30.18',
+        total_amount: '1030.18',
+        currency: 'USD',
+      },
+    },
+  }),
+}))
 
 describe('OfferSummary', () => {
   it('calculates max payout from percentage and fixed bonus windows', () => {
@@ -35,5 +49,12 @@ describe('OfferSummary', () => {
 
     expect(screen.getByText('$1,000.00')).toBeInTheDocument()
     expect(screen.getByText('$1,100.00')).toBeInTheDocument()
+  })
+
+  it('renders the Stripe processing fee and total charged', () => {
+    render(<OfferSummary offerMode="same_content" amount={1000} />)
+
+    expect(screen.getByText('+$30.18')).toBeInTheDocument()
+    expect(screen.getByText('$1,030.18')).toBeInTheDocument()
   })
 })

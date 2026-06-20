@@ -11149,6 +11149,82 @@
           }
         }
       }
+    },
+    "/v1/offers/fee-preview": {
+      "get": {
+        "operationId": "previewOfferFee",
+        "tags": [
+          "offers"
+        ],
+        "summary": "Preview the Stripe processing fee grossed up onto a paid offer.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "description": "Offer base amount as a decimal string (e.g. \"1000.00\").",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferFeePreview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_amount, validation_error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -21201,6 +21277,32 @@
           "source_ref_id": {
             "type": "string",
             "format": "uuid"
+          }
+        }
+      },
+      "OfferFeePreview": {
+        "type": "object",
+        "required": [
+          "base_amount",
+          "processing_fee",
+          "total_amount",
+          "currency"
+        ],
+        "properties": {
+          "base_amount": {
+            "type": "string",
+            "description": "Offer base amount (creator payout), decimal string."
+          },
+          "processing_fee": {
+            "type": "string",
+            "description": "Stripe processing fee added on top of the base, decimal string."
+          },
+          "total_amount": {
+            "type": "string",
+            "description": "Amount charged to the brand (base + processing fee), decimal string."
+          },
+          "currency": {
+            "type": "string"
           }
         }
       }

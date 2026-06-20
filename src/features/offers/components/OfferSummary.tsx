@@ -1,5 +1,7 @@
 import { t } from '@lingui/core/macro'
 
+import { usePreviewOfferFee } from '#/shared/api/generated/offers/offers'
+
 import type { OfferBonusTermsFormValues } from '../schemas/createOffer'
 
 const usdFormatter = new Intl.NumberFormat('en-US', {
@@ -46,6 +48,11 @@ export function OfferSummary({
   bonusTerms,
 }: OfferSummaryProps) {
   const baseAmount = Number.isFinite(amount) ? amount : 0
+  const feeQuery = usePreviewOfferFee(
+    { amount: baseAmount.toFixed(2) },
+    { query: { enabled: baseAmount > 0, staleTime: 60_000 } },
+  )
+  const feeData = feeQuery.data?.status === 200 ? feeQuery.data.data : undefined
   const maxPayout = getMaxPayout(baseAmount, bonusTerms)
   const bonusCeiling = Math.max(maxPayout - baseAmount, 0)
   const bonusRatio = baseAmount > 0 ? bonusCeiling / baseAmount : 0
@@ -84,6 +91,24 @@ export function OfferSummary({
             {formatUsd(maxPayout)}
           </dd>
         </div>
+        {feeData ? (
+          <>
+            <div className="flex items-center justify-between gap-3 border-t border-border/40 pt-3">
+              <dt className="text-accent-foreground/70">
+                {t`Comisión de procesamiento (Stripe)`}
+              </dt>
+              <dd className="font-mono font-medium">
+                +{formatUsd(Number(feeData.processing_fee))}
+              </dd>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <dt className="font-semibold">{t`Total a cobrar a tu tarjeta`}</dt>
+              <dd className="font-mono font-semibold">
+                {formatUsd(Number(feeData.total_amount))}
+              </dd>
+            </div>
+          </>
+        ) : null}
       </dl>
     </section>
   )
