@@ -221,7 +221,7 @@ test.describe('brand settings general', () => {
 
     await openGeneralSettings(page, onboardedBrandUser)
 
-    await expect(page.getByLabel(/^Nombre$/i)).toHaveValue('Carla Méndez')
+    await expect(page.getByLabel(/^Nombre y Apellido$/i)).toHaveValue('Carla Méndez')
     await expect(page.getByLabel(/Email/i)).toHaveValue('carla@brand.com')
     await expect(page.getByLabel(/Email/i)).toBeDisabled()
     await expect(page.getByLabel(/Teléfono/i)).toHaveValue('+5491155512345')
@@ -239,7 +239,7 @@ test.describe('brand settings general', () => {
     await mockGetSettings(page)
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre$/i).fill('Carla M. Pérez')
+    await page.getByLabel(/^Nombre y Apellido$/i).fill('Carla M. Pérez')
 
     await expect(page.getByTestId('settings.general.save_button')).toBeEnabled()
   })
@@ -252,7 +252,7 @@ test.describe('brand settings general', () => {
     await mockGetSettings(page, {}, { times: 1 })
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre$/i).fill('Carla M. Pérez')
+    await page.getByLabel(/^Nombre y Apellido$/i).fill('Carla M. Pérez')
     await page.getByLabel(/Teléfono/i).fill('+5491155599999')
     await page.getByLabel(/Nombre de marca/i).fill('Acme Studio')
     await page.getByLabel(/Sitio web/i).fill('https://acme.studio')
@@ -271,7 +271,7 @@ test.describe('brand settings general', () => {
     await expect(page.getByTestId('settings.general.save_button')).toBeDisabled()
 
     await reloadGeneralSettingsFromBackend(page)
-    await expect(page.getByLabel(/^Nombre$/i)).toHaveValue('Carla M. Pérez')
+    await expect(page.getByLabel(/^Nombre y Apellido$/i)).toHaveValue('Carla M. Pérez')
     await expect(page.getByLabel(/Teléfono/i)).toHaveValue('+5491155599999')
     await expect(page.getByLabel(/Nombre de marca/i)).toHaveValue('Acme Studio')
     await expect(page.getByLabel(/Sitio web/i)).toHaveValue(
@@ -290,10 +290,10 @@ test.describe('brand settings general', () => {
     }))
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre$/i).fill('')
+    await page.getByLabel(/^Nombre y Apellido$/i).fill('')
     await page.getByTestId('settings.general.save_button').click()
 
-    await expectFieldError(page, /^Nombre$/i)
+    await expectFieldError(page, /^Nombre y Apellido$/i)
     await expect(page.getByText('Ajustes guardados')).toHaveCount(0)
   })
 

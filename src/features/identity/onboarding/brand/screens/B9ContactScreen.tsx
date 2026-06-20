@@ -40,13 +40,13 @@ export function B9ContactScreen() {
 
       <div className="flex w-full max-w-[560px] flex-col gap-5">
         <div className="flex w-full gap-4">
-          <FieldRow label={t`Nombre`} className="flex-1">
+          <FieldRow label={t`Nombre y Apellido`} className="flex-1">
             {(aria) => (
               <Input
                 {...aria}
                 value={store.contact_name ?? ''}
                 onChange={(e) => store.setField('contact_name', e.target.value)}
-                placeholder={t`María`}
+                placeholder={t`María Rodríguez`}
                 maxLength={200}
               />
             )}
