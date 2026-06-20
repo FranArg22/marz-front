@@ -139,7 +139,9 @@ export function DiscoveryGrid({
       <div className="-m-3 min-h-0 flex-1 overflow-y-auto p-3">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allCards.map((card) => (
-            <Fragment key={card.account_id}>{renderCard(card)}</Fragment>
+            <Fragment key={card.creator_id || card.account_id}>
+              {renderCard(card)}
+            </Fragment>
           ))}
         </div>
         {query.hasNextPage ? (

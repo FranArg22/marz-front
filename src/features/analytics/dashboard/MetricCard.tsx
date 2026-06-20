@@ -42,6 +42,7 @@ const ICONS: Record<DashboardCardKey, LucideIcon> = {
 
 export function MetricCard({ card }: MetricCardProps) {
   const Icon = ICONS[card.key]
+  const cardLabel = getCardLabel(card.key)
   const deltaDisplay = card.delta.has_comparison ? card.delta.display : '—'
   const deltaTooltip = card.delta.has_comparison
     ? card.delta.tooltip
@@ -58,7 +59,7 @@ export function MetricCard({ card }: MetricCardProps) {
             <Icon className="size-3.5 text-foreground" aria-hidden="true" />
           </span>
           <h3 className="truncate text-[11px] font-semibold leading-none text-muted-foreground">
-            {getCardLabel(card.key)}
+            {cardLabel}
           </h3>
         </div>
 
@@ -67,7 +68,7 @@ export function MetricCard({ card }: MetricCardProps) {
             <button
               type="button"
               className="flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label={t`Definición de ${getCardLabel(card.key)}`}
+              aria-label={t`Definición de ${cardLabel}`}
             >
               <Info className="size-3.5" aria-hidden="true" />
             </button>

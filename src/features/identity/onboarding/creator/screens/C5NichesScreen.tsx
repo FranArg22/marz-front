@@ -30,10 +30,10 @@ export function C5NichesScreen() {
     <div className="flex w-full flex-col items-center gap-8">
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2.5">
         <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-          {t`¿En qué te especializás?`}
+          {t`¿En qué nichos te especializás?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          {t`Hasta 5 nichos. Matching va a ser más preciso.`}
+          {t`Nos sirve para mostrarte las ofertas que matchean con tu perfil.`}
         </p>
       </div>
       <div className="flex max-w-[720px] flex-wrap justify-center gap-2">

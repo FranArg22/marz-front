@@ -23,7 +23,7 @@ export const Route = createFileRoute('/onboarding/creator')({
       queryClient: context.queryClient,
       kind: 'creator',
       routePath: '/onboarding/creator',
-      fallbackPath: '/offers',
+      fallbackPath: '/inbox',
     })
   },
   component: CreatorOnboardingLayout,

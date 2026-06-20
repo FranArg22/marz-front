@@ -20,7 +20,7 @@ export function useCreateConnectionRequestMutation(
 ) {
   const queryClient = useQueryClient()
   const idempotency = useIdempotencyKey<CreateConnectionRequestRequest>(
-    (data) => data.creator_account_id,
+    (data) => data.creator_account_id ?? data.creator_id ?? '',
   )
 
   const mutation = useCreateDiscoveryConnectionRequest<ApiError>({

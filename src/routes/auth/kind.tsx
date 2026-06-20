@@ -97,7 +97,7 @@ function KindPage() {
 
       const destination =
         onboardingStatus === 'onboarded'
-          ? (safeRedirect ?? (kind === 'brand' ? '/campaigns' : '/offers'))
+          ? (safeRedirect ?? (kind === 'brand' ? '/campaigns' : '/inbox'))
           : (safeRedirect ?? '/auth')
 
       track('onboarding_redirect_enforced', {

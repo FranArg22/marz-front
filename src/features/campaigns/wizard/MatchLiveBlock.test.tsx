@@ -84,7 +84,7 @@ describe('MatchLiveBlock', () => {
     )
 
     expect(screen.getByText('1.234')).toBeInTheDocument()
-    expect(screen.getByText('Creators disponibles')).toBeInTheDocument()
+    expect(screen.getByText('Creadores disponibles')).toBeInTheDocument()
     expect(getTrackedEvents()).toEqual([
       expect.objectContaining({
         event: 'campaign_wizard_match_count_seen',

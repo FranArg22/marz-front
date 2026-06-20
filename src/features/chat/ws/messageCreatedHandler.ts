@@ -18,6 +18,7 @@ type MessagesInfiniteData = InfiniteData<
 // Draft/link lifecycle system events that change the deliverable state shown in
 // the context panel. The chat only receives the message; the panel reads the
 // deliverables query, so it must be invalidated when these arrive.
+/* eslint-disable lingui/no-unlocalized-strings -- claves internas de eventos WS, no es UI */
 const DELIVERABLE_EVENT_TYPES = new Set([
   'DraftSubmitted',
   'DraftApproved',
@@ -26,6 +27,7 @@ const DELIVERABLE_EVENT_TYPES = new Set([
   'LinkApproved',
   'LinkChangesRequested',
 ])
+/* eslint-enable lingui/no-unlocalized-strings */
 
 export function handleMessageCreated(
   queryClient: QueryClient,

@@ -16,6 +16,13 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
+vi.mock('#/features/identity/session/BrandSessionContext', () => ({
+  useBrandSession: () => ({
+    account: { id: 'account-1' },
+    brandWorkspace: { id: 'workspace-1', name: 'Workspace' },
+  }),
+}))
+
 const mockNavigate = vi.fn()
 const mockRouter = { navigate: mockNavigate }
 let mockParams: Record<string, string> = {}
@@ -110,33 +117,23 @@ describe('route topbar integration', () => {
     )
   })
 
-  it('declares Offers title in the shell topbar', async () => {
-    await renderRouteComponent(() => import('./_creator/offers'))
-
-    expect(await screen.findByText('Ofertas')).toBeInTheDocument()
-    expect(screen.getByTestId('app-topbar')).toHaveAttribute(
-      'data-height',
-      '56px',
-    )
-  })
-
-  it.skip('resets contextual topbar state when moving through Campaigns, Chats, and Offers', async () => {
+  it.skip('resets contextual topbar state when moving through Campaigns, Chats, and Inbox', async () => {
     setupRouterMock()
     const [
       appTopbarModule,
       topbarContextModule,
       campaignsModule,
-      offersModule,
+      inboxModule,
     ] = await Promise.all([
       import('#/features/identity/app-shell/AppTopbar'),
       import('#/features/identity/app-shell/TopbarContext'),
       import('./_brand/campaigns.index'),
-      import('./_creator/offers'),
+      import('./inbox'),
     ])
     const { AppTopbar } = appTopbarModule
     const { TopbarProvider } = topbarContextModule
     const Campaigns = getRouteComponent(campaignsModule)
-    const Offers = getRouteComponent(offersModule)
+    const Inbox = getRouteComponent(inboxModule)
 
     const queryClient = new QueryClient({
       defaultOptions: {
@@ -174,12 +171,12 @@ describe('route topbar integration', () => {
       <QueryClientProvider client={queryClient}>
         <TopbarProvider>
           <AppTopbar />
-          <Offers />
+          <Inbox />
         </TopbarProvider>
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByText('Ofertas')).toBeInTheDocument()
+    expect(await screen.findByText('Inbox')).toBeInTheDocument()
     expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
   })
 
@@ -187,7 +184,7 @@ describe('route topbar integration', () => {
     const files = [
       'src/routes/_brand/campaigns.index.tsx',
       'src/routes/_brand/campaigns.new.tsx',
-      'src/routes/_creator/offers.tsx',
+      'src/routes/inbox.tsx',
       'src/routes/workspace.tsx',
       'src/routes/workspace.index.tsx',
       'src/routes/workspace.conversations.$conversationId.tsx',

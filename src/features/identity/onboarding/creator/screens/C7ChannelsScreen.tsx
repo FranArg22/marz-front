@@ -29,8 +29,14 @@ export function C7ChannelsScreen() {
           {t`Conectá tus cuentas y qué publicás`}
         </h1>
         <p className="text-center text-sm leading-[1.5] text-muted-foreground">
-          {t`Verificamos followers y engagement. Cargá tu tarifa por formato — las marcas ven rango, no tu precio directo.`}
+          {t`Verificamos followers y engagement. Cargá tu tarifa por formato.`}
         </p>
+      </div>
+      <div className="flex w-full max-w-[560px] items-start gap-1.5 rounded-xl border border-border bg-muted/40 p-3 text-[11px] leading-[1.5] text-muted-foreground">
+        <Info className="mt-0.5 size-3 shrink-0" />
+        <span>
+          {t`Si tenés más de una cuenta por red social, creá una cuenta de creador secundaria en Marz con un mail distinto al que usaste acá.`}
+        </span>
       </div>
       <ChannelEditor channels={channels} onChange={updateChannels} />
       {errors.length > 0 && (
@@ -49,12 +55,6 @@ export function C7ChannelsScreen() {
           {}
         </p>
       )}
-      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-        <Info className="size-3" />
-        <span>
-          {t`Tus tarifas son privadas. Las marcas ven rango, nunca tu número exacto.`}
-        </span>
-      </div>
     </div>
   )
 }

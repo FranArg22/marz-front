@@ -57,7 +57,7 @@ export function C18PrimingEarnings() {
           </span>
         </div>
         <p className="text-center text-sm leading-[1.5] text-muted-foreground">
-          {t`Rango histórico de creadores activos con tu nicho y disponibilidad en los últimos 6 meses.`}
+          {t`Lo que ganan creadores activos con un perfil como el tuyo.`}
         </p>
       </div>
 

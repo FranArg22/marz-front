@@ -34,10 +34,10 @@ test.describe('App shell desktop', () => {
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
-    await page.goto('/offers')
+    await page.goto('/inbox')
     const shell = new AppShell(page)
 
-    await expect(page).toHaveURL(/\/offers/)
+    await expect(page).toHaveURL(/\/inbox/)
     await expect(shell.sidebar).toBeVisible()
     await expect(shell.navLink('Workspace')).toBeVisible()
     await expect(shell.navLink('Inbox')).toBeVisible()

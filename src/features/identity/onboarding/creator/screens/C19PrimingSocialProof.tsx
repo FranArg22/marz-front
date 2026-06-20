@@ -20,7 +20,7 @@ export function C19PrimingSocialProof() {
 
       <div className="relative flex w-full max-w-[640px] flex-col gap-5 rounded-3xl border border-border bg-card p-8">
         <p className="text-base leading-[1.6] text-foreground">
-          {t`“Entré con 60K en TikTok. En 4 meses cerré 11 colabs con marcas fintech y pasé a vivir de esto. La diferencia fue el matching, no tener que buscar yo.”`}
+          {t`“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”`}
         </p>
         <div className="flex items-center gap-2.5">
           <div
@@ -28,24 +28,23 @@ export function C19PrimingSocialProof() {
             style={{ backgroundColor: '#A855F7' }}
           >
             <span className="text-[11px] font-bold text-white">
-              <Trans>VM</Trans>
+              <Trans>DB</Trans>
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-semibold text-foreground">
-              <Trans>Valentina Medina</Trans>
+              <Trans>@duende.ba</Trans>
             </span>
             <span className="text-[10px] text-muted-foreground">
-              {t`@valenmed · 190K TikTok · 3 años en Marz`}
+              {t`Verificado`}
             </span>
           </div>
         </div>
       </div>
 
       <div className="relative flex items-center gap-12">
-        <Stat value={t`2.340`} label={t`creadores activos`} />
-        <Stat value={t`24h`} label={t`payout promedio`} />
-        <Stat value={t`0%`} label={t`take rate`} />
+        <Stat value={t`9.8 / 10`} label={t`Puntaje de satisfacción`} />
+        <Stat value={t`24h`} label={t`Pagos garantizados`} />
       </div>
     </div>
   )

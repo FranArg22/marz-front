@@ -5,7 +5,9 @@ import { DashboardPage } from '#/features/analytics/dashboard/DashboardPage'
 
 const rangePresetSchema = z
   .enum(['7d', '14d', '30d'])
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- código de preset interno, no es UI
   .catch('14d')
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- código de preset interno, no es UI
   .default('14d')
 
 const dashboardSearchSchema = z

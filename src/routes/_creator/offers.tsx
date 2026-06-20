@@ -1,24 +1,7 @@
-import { BriefcaseBusiness } from 'lucide-react'
-import { createFileRoute } from '@tanstack/react-router'
-import { t } from '@lingui/core/macro'
-import { Trans } from '@lingui/react/macro'
-import { useRouteTopbar } from '#/features/identity/app-shell/useRouteTopbar'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_creator/offers')({
-  component: OffersPlaceholder,
+  beforeLoad: () => {
+    throw redirect({ to: '/inbox' })
+  },
 })
-
-function OffersPlaceholder() {
-  const offersTopbarConfig = {
-    breadcrumb: [{ icon: BriefcaseBusiness, label: t`Ofertas` }],
-  }
-  useRouteTopbar(offersTopbarConfig)
-
-  return (
-    <div className="p-6">
-      <p className="text-muted-foreground mt-2">
-        <Trans>Próximamente</Trans>
-      </p>
-    </div>
-  )
-}

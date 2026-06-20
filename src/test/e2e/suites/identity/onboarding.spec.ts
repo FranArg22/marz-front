@@ -36,14 +36,14 @@ test.describe('Onboarding E2E', () => {
     await expect(page).toHaveURL(/\/campaigns/)
   })
 
-  test('creator onboarded es redirigido de /onboarding/creator a /offers', async ({
+  test('creator onboarded es redirigido de /onboarding/creator a /inbox', async ({
     page,
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
     await page.goto('/onboarding/creator')
 
-    await expect(page).toHaveURL(/\/offers/)
+    await expect(page).toHaveURL(/\/inbox/)
   })
 
   test('kind_pending ve el selector de kind', async ({ page, testUser }) => {

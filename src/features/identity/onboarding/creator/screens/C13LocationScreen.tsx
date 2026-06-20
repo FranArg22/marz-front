@@ -47,7 +47,7 @@ export function C13LocationScreen() {
               >
                 <SelectValue placeholder={t`Argentina`} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent position="popper" className="max-h-[280px]">
                 {COUNTRIES.map((c) => (
                   <SelectItem key={c.code} value={c.code}>
                     {c.name}
