@@ -136,7 +136,10 @@ export function InviteBulkModal({
         </p>
 
         <div className="space-y-2">
-          <label htmlFor="bulk-invite-note" className="text-sm font-medium">
+          <label
+            htmlFor="bulk-invite-note"
+            className="block pb-1 text-sm font-medium"
+          >
             {t`Nota (opcional)`}
           </label>
           <Textarea
