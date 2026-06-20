@@ -12,5 +12,5 @@ export type DiscoveryInPlatformInviteRequestMode = typeof DiscoveryInPlatformInv
 
 
 export const DiscoveryInPlatformInviteRequestMode = {
-  in_platform: 'in_platform',
+  DiscoveryInPlatformInviteRequestModeInPlatform: 'in_platform',
 } as const;

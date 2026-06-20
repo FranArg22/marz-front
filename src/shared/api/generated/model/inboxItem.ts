@@ -41,6 +41,6 @@ export interface InboxItem {
   counterpart_avatar_url?: string | null;
   inline_actions: InboxInlineAction[];
   navigation_action: InboxNavigationAction | null;
-  can_mark_read: true;
+  can_mark_read: boolean;
   metadata: InboxItemMetadata;
 }

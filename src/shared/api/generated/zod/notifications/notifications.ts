@@ -36,7 +36,7 @@ export const ListInboxResponse = zod.object({
   "action_items": zod.array(zod.object({
   "id": zod.uuid(),
   "section": zod.enum(['action', 'waiting']),
-  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
+  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
   "status": zod.enum(['pending', 'read', 'resolved', 'closed']),
   "campaign": zod.object({
   "id": zod.uuid(),
@@ -57,11 +57,11 @@ export const ListInboxResponse = zod.object({
   "occurred_at": zod.iso.datetime({}),
   "action_url": zod.string().nullish(),
   "source_ref": zod.object({
-  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'invite', 'match']),
+  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'match']),
   "id": zod.uuid()
 }),
   "secondary_ref": zod.object({
-  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'invite', 'match']),
+  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'match']),
   "id": zod.uuid()
 }).nullish(),
   "counterpart_account_id": zod.uuid().nullish(),
@@ -81,13 +81,13 @@ export const ListInboxResponse = zod.object({
   "label": zod.string(),
   "href": zod.string()
 }).nullable(),
-  "can_mark_read": zod.literal(true),
+  "can_mark_read": zod.boolean(),
   "metadata": zod.record(zod.string(), zod.unknown())
 })).max(listInboxResponseActionItemsMax),
   "waiting_items": zod.array(zod.object({
   "id": zod.uuid(),
   "section": zod.enum(['action', 'waiting']),
-  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'invite_sent_waiting', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
+  "kind": zod.enum(['message_reply', 'offer_received', 'offer_sent_waiting', 'draft_review', 'draft_changes_requested', 'draft_sent_waiting', 'draft_approved_publish_link', 'link_review', 'link_sent_waiting', 'link_changes_requested', 'application_received', 'application_sent_waiting', 'match_suggested', 'refund_delayed', 'connection_request_received', 'connection_request_accepted']),
   "status": zod.enum(['pending', 'read', 'resolved', 'closed']),
   "campaign": zod.object({
   "id": zod.uuid(),
@@ -108,11 +108,11 @@ export const ListInboxResponse = zod.object({
   "occurred_at": zod.iso.datetime({}),
   "action_url": zod.string().nullish(),
   "source_ref": zod.object({
-  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'invite', 'match']),
+  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'match']),
   "id": zod.uuid()
 }),
   "secondary_ref": zod.object({
-  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'invite', 'match']),
+  "type": zod.enum(['conversation', 'offer', 'deliverable', 'link', 'application', 'match']),
   "id": zod.uuid()
 }).nullish(),
   "counterpart_account_id": zod.uuid().nullish(),
@@ -132,7 +132,7 @@ export const ListInboxResponse = zod.object({
   "label": zod.string(),
   "href": zod.string()
 }).nullable(),
-  "can_mark_read": zod.literal(true),
+  "can_mark_read": zod.boolean(),
   "metadata": zod.record(zod.string(), zod.unknown())
 })).max(listInboxResponseWaitingItemsMax),
   "counts": zod.object({

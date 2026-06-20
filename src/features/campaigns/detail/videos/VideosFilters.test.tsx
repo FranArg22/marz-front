@@ -38,7 +38,6 @@ const creator: CampaignParticipantListItem = {
   conversation_id: null,
   actions: {
     open_workspace: false,
-    invite_creator: false,
   },
 }
 

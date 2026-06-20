@@ -10,43 +10,6 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 import * as zod from 'zod';
 
 
-export const listCreatorInvitationsQueryLimitDefault = 24;
-export const listCreatorInvitationsQueryLimitMax = 50;
-
-export const listCreatorInvitationsQuerySearchMax = 100;
-
-
-
-export const ListCreatorInvitationsQueryParams = zod.object({
-  "cursor": zod.string().optional(),
-  "limit": zod.number().min(1).max(listCreatorInvitationsQueryLimitMax).default(listCreatorInvitationsQueryLimitDefault),
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired']).optional(),
-  "search": zod.string().max(listCreatorInvitationsQuerySearchMax).optional()
-})
-
-export const ListCreatorInvitationsResponse = zod.object({
-  "cards": zod.array(zod.object({
-  "invite_id": zod.uuid(),
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "brand": zod.record(zod.string(), zod.unknown()),
-  "campaign": zod.record(zod.string(), zod.unknown()),
-  "commercial": zod.record(zod.string(), zod.unknown()),
-  "expires_at": zod.iso.datetime({}),
-  "created_at": zod.iso.datetime({}),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "mode": zod.enum(['in_platform']),
-  "invited_handle": zod.string().nullable()
-})),
-  "counts": zod.object({
-  "total": zod.number(),
-  "filtered": zod.number()
-}),
-  "next_cursor": zod.string().nullable(),
-  "server_time": zod.iso.datetime({})
-})
-
 export const listCreatorCampaignBoardQueryQMax = 80;
 
 export const listCreatorCampaignBoardQueryNichesMax = 10;
@@ -631,112 +594,12 @@ export const RejectDiscoveryConnectionRequestResponse = zod.object({
   "status": zod.enum(['rejected'])
 })
 
-export const GetCreatorInvitationParams = zod.object({
-  "invite_id": zod.uuid()
+export const AcceptInviteByTokenParams = zod.object({
+  "token": zod.string()
 })
 
-export const GetCreatorInvitationResponse = zod.object({
-  "card": zod.object({
-  "invite_id": zod.uuid(),
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "brand": zod.record(zod.string(), zod.unknown()),
-  "campaign": zod.record(zod.string(), zod.unknown()),
-  "commercial": zod.record(zod.string(), zod.unknown()),
-  "expires_at": zod.iso.datetime({}),
-  "created_at": zod.iso.datetime({}),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "mode": zod.enum(['in_platform']),
-  "invited_handle": zod.string().nullable()
-}),
-  "brand": zod.record(zod.string(), zod.unknown()),
-  "campaign": zod.record(zod.string(), zod.unknown()),
-  "brief": zod.record(zod.string(), zod.unknown()),
-  "commercial": zod.record(zod.string(), zod.unknown()),
-  "decision": zod.object({
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "accepted_conversation_id": zod.uuid().nullable()
-}),
-  "server_time": zod.iso.datetime({})
-})
-
-export const AcceptCreatorInvitationParams = zod.object({
-  "invite_id": zod.uuid()
-})
-
-export const AcceptCreatorInvitationHeader = zod.object({
-  "Idempotency-Key": zod.uuid()
-})
-
-export const AcceptCreatorInvitationResponse = zod.object({
-  "invite": zod.object({
-  "invite_id": zod.uuid(),
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "brand": zod.record(zod.string(), zod.unknown()),
-  "campaign": zod.record(zod.string(), zod.unknown()),
-  "commercial": zod.record(zod.string(), zod.unknown()),
-  "expires_at": zod.iso.datetime({}),
-  "created_at": zod.iso.datetime({}),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "mode": zod.enum(['in_platform']),
-  "invited_handle": zod.string().nullable()
-}),
-  "decision": zod.object({
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "accepted_conversation_id": zod.uuid().nullable()
-}),
-  "conversation": zod.object({
-  "id": zod.uuid(),
-  "reused": zod.boolean()
-}).nullish(),
-  "route": zod.string().optional(),
-  "idempotent_replay": zod.boolean()
-})
-
-export const DeclineCreatorInvitationParams = zod.object({
-  "invite_id": zod.uuid()
-})
-
-export const DeclineCreatorInvitationHeader = zod.object({
-  "Idempotency-Key": zod.uuid()
-})
-
-export const DeclineCreatorInvitationResponse = zod.object({
-  "invite": zod.object({
-  "invite_id": zod.uuid(),
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "brand": zod.record(zod.string(), zod.unknown()),
-  "campaign": zod.record(zod.string(), zod.unknown()),
-  "commercial": zod.record(zod.string(), zod.unknown()),
-  "expires_at": zod.iso.datetime({}),
-  "created_at": zod.iso.datetime({}),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "mode": zod.enum(['in_platform']),
-  "invited_handle": zod.string().nullable()
-}),
-  "decision": zod.object({
-  "status": zod.enum(['active', 'accepted', 'declined', 'expired', 'sent']),
-  "accepted_at": zod.iso.datetime({}).nullable(),
-  "declined_at": zod.iso.datetime({}).nullable(),
-  "expired_at": zod.iso.datetime({}).nullable(),
-  "accepted_conversation_id": zod.uuid().nullable()
-}),
-  "conversation": zod.object({
-  "id": zod.uuid(),
-  "reused": zod.boolean()
-}).nullish(),
-  "route": zod.string().optional(),
-  "idempotent_replay": zod.boolean()
+export const AcceptInviteByTokenResponse = zod.object({
+  "conversation_id": zod.uuid(),
+  "route": zod.string()
 })
 

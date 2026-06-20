@@ -10,5 +10,4 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
 
 export interface CampaignParticipantActions {
   open_workspace: boolean;
-  invite_creator: boolean;
 }

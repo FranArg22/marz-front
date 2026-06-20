@@ -82,7 +82,7 @@ export const GetAnalyticsDashboardOnboardingChecklistResponse = zod.object({
 
 export const getAnalyticsDashboardChartQueryStatusDefault = `active`;
 export const getAnalyticsDashboardChartQueryRangePresetDefault = `14d`;
-export const getAnalyticsDashboardChartQuerySeriesMax = 2;
+export const getAnalyticsDashboardChartQuerySeriesMax = 3;
 
 export const getAnalyticsDashboardChartQueryGroupingDefault = `day`;
 
@@ -95,7 +95,7 @@ export const GetAnalyticsDashboardChartQueryParams = zod.object({
   "range_preset": zod.string().default(getAnalyticsDashboardChartQueryRangePresetDefault),
   "range_start": zod.iso.datetime({}).optional(),
   "range_end": zod.iso.datetime({}).optional(),
-  "series[]": zod.array(zod.enum(['oferta', 'vistas', 'gasto'])).max(getAnalyticsDashboardChartQuerySeriesMax).default([`oferta`, `vistas`]),
+  "series[]": zod.array(zod.enum(['oferta', 'vistas', 'gasto'])).max(getAnalyticsDashboardChartQuerySeriesMax).default([`oferta`, `vistas`, `gasto`]),
   "grouping": zod.enum(['day', 'week', 'month']).default(getAnalyticsDashboardChartQueryGroupingDefault)
 })
 

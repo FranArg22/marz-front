@@ -22,7 +22,7 @@ range_preset?: string;
 range_start?: string;
 range_end?: string;
 /**
- * @maxItems 2
+ * @maxItems 3
  */
 'series[]'?: GetAnalyticsDashboardChartSeriesItem[];
 grouping?: GetAnalyticsDashboardChartGrouping;

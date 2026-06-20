@@ -12,5 +12,5 @@ export type OfferSendRequiresActionStatus = typeof OfferSendRequiresActionStatus
 
 
 export const OfferSendRequiresActionStatus = {
-  requires_action: 'requires_action',
+  OfferSendRequiresActionStatusRequiresAction: 'requires_action',
 } as const;

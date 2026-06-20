@@ -8,4 +8,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export interface InviteBrandSnapshot { [key: string]: unknown }
+export interface AcceptInviteByTokenResponse {
+  conversation_id: string;
+  route: string;
+}
