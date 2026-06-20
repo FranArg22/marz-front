@@ -16,6 +16,10 @@ export const completeBrandOnboardingBodyWebsiteUrlMax = 500;
 
 export const completeBrandOnboardingBodyPrimaryColorHexRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
 export const completeBrandOnboardingBodySecondaryColorHexRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const completeBrandOnboardingBodyMonthlyBudgetUsdMin = 1000;
+export const completeBrandOnboardingBodyMonthlyBudgetUsdMax = 50000;
+export const completeBrandOnboardingBodyMonthlyBudgetUsdMultipleOf = 1000;
+
 export const completeBrandOnboardingBodyAttributionOneReferralTextMax = 2000;
 
 export const completeBrandOnboardingBodyContactNameMax = 200;
@@ -35,7 +39,7 @@ export const CompleteBrandOnboardingBody = zod.object({
   "marketing_objective": zod.enum(['awareness', 'performance', 'launch', 'community']),
   "creator_experience": zod.enum(['never', 'scaling', 'tried_without_results']),
   "creator_sourcing_intent": zod.enum(['already_have', 'discover_in_marz', 'both']),
-  "monthly_budget_range": zod.enum(['under_10k', '10k_to_25k', '25k_to_50k', '50k_plus', 'zero']),
+  "monthly_budget_usd": zod.number().min(completeBrandOnboardingBodyMonthlyBudgetUsdMin).max(completeBrandOnboardingBodyMonthlyBudgetUsdMax).multipleOf(completeBrandOnboardingBodyMonthlyBudgetUsdMultipleOf),
   "timing": zod.enum(['launch_now', 'one_to_two_weeks', 'this_month', 'exploring']),
   "attribution": zod.union([zod.object({
   "source": zod.enum(['referral']),
@@ -46,6 +50,7 @@ export const CompleteBrandOnboardingBody = zod.object({
   "contact_name": zod.string().max(completeBrandOnboardingBodyContactNameMax),
   "contact_title": zod.string().max(completeBrandOnboardingBodyContactTitleMax),
   "contact_whatsapp_e164": zod.string().regex(completeBrandOnboardingBodyContactWhatsappE164RegExp),
+  "logo_s3_key": zod.string().nullish(),
   "billing_intent": zod.object({
   "plan": zod.enum(['starter', 'growth', 'scale']).describe('Paid plan identifier. Free plan has no row in billing_plans.'),
   "interval": zod.enum(['month', 'year']),
@@ -284,5 +289,18 @@ export const PresignCreatorAvatarResponse = zod.object({
   "expires_in": zod.number(),
   "required_headers": zod.record(zod.string(), zod.string()).describe('Headers que el cliente debe incluir en el PUT a S3'),
   "max_bytes": zod.number().describe('Tamaño máximo del archivo en bytes')
+})
+
+export const PresignBrandOnboardingLogoBody = zod.object({
+  "content_type": zod.string(),
+  "content_length": zod.number()
+})
+
+export const PresignBrandOnboardingLogoResponse = zod.object({
+  "upload_url": zod.string(),
+  "s3_key": zod.string(),
+  "expires_in": zod.number(),
+  "required_headers": zod.record(zod.string(), zod.string()),
+  "max_bytes": zod.number()
 })
 
