@@ -32,6 +32,8 @@ const Intl_NumberFormat_pct = new Intl.NumberFormat('es-AR', {
   maximumFractionDigits: 1,
 })
 
+const NIL_UUID = '00000000-0000-0000-0000-000000000000'
+
 /* eslint-disable lingui/no-unlocalized-strings -- platform short codes, not translatable */
 const PLATFORM_CODES: Record<string, string> = {
   instagram: 'IG',
@@ -95,6 +97,7 @@ export function CreatorCard({
   const showReinviteWarning =
     kind === DiscoveryCreatePairKindEnum.connection_rejected ||
     kind === DiscoveryCreatePairKindEnum.connection_expired
+  const hasClaimedAccount = card.account_id !== NIL_UUID
 
   function handleGoToChat() {
     if (conversation_id) {
@@ -109,11 +112,11 @@ export function CreatorCard({
     return (
       <button
         type="button"
-        disabled={!canInvite}
+        disabled={!canInvite || !hasClaimedAccount}
         aria-pressed={selected}
         aria-label={t`Seleccionar ${name}`}
         onClick={() => {
-          if (canInvite) {
+          if (canInvite && hasClaimedAccount) {
             onToggleSelect?.(card.account_id)
           }
         }}

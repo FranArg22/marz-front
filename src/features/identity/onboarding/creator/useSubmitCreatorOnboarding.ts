@@ -83,10 +83,28 @@ export function useSubmitCreatorOnboarding() {
       { data: parsed.data },
       {
         onSuccess: () => {
-          reset()
-          void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
           track('onboarding_completed', { kind: 'creator' })
-          void navigate({ to: '/offers' })
+          void meQuery
+            .refetch()
+            .then((result) => {
+              const redirectTo =
+                result.data?.status === 200
+                  ? result.data.data.redirect_to
+                  : null
+              reset()
+              void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
+              void navigate({
+                to:
+                  redirectTo && !redirectTo.startsWith('/onboarding')
+                    ? redirectTo
+                    : '/inbox',
+              })
+            })
+            .catch(() => {
+              reset()
+              void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
+              void navigate({ to: '/inbox' })
+            })
         },
         onError: (error) => {
           if (!(error instanceof ApiError)) {
@@ -161,7 +179,7 @@ export function useSubmitCreatorOnboarding() {
                 result.data?.status === 200
                   ? result.data.data.redirect_to
                   : null
-              void navigate({ to: redirectTo ?? '/offers' })
+              void navigate({ to: redirectTo ?? '/inbox' })
             })
             return
           }

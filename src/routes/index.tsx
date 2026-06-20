@@ -67,6 +67,6 @@ export const Route = createFileRoute('/')({
       })
     }
 
-    throw redirect({ to: '/offers' })
+    throw redirect({ to: '/inbox' })
   },
 })

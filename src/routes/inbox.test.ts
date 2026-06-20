@@ -20,6 +20,7 @@ const toastMock = vi.hoisted(() =>
     success: vi.fn(),
   }),
 )
+const mockUsePendingInviteClaim = vi.hoisted(() => vi.fn())
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -67,6 +68,10 @@ vi.mock('#/features/identity/app-shell/AppShell', () => ({
   AppShell: ({ children }: { children: React.ReactNode }) => children,
 }))
 
+vi.mock('#/features/discovery/invite/usePendingInviteClaim', () => ({
+  usePendingInviteClaim: mockUsePendingInviteClaim,
+}))
+
 vi.mock('#/features/inbox/InboxPage', () => ({
   InboxPage: () => null,
 }))
@@ -110,6 +115,22 @@ async function renderInboxRoute(search: Record<string, unknown>) {
   routeMocks.useRouteContext.mockReturnValue({
     accountId: 'account_1',
     sessionKind: 'brand',
+  })
+
+  const Component = Route.options.component as React.ComponentType
+  render(React.createElement(Component))
+}
+
+async function renderInboxRouteForKind(
+  sessionKind: 'brand' | 'creator',
+  search: Record<string, unknown> = {},
+) {
+  const { Route } = await import('./inbox')
+
+  routeMocks.useSearch.mockReturnValue(search)
+  routeMocks.useRouteContext.mockReturnValue({
+    accountId: 'account_1',
+    sessionKind,
   })
 
   const Component = Route.options.component as React.ComponentType
@@ -166,6 +187,18 @@ describe('/inbox route', () => {
 
   it('redirects to /auth when not authenticated', async () => {
     await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/auth' }))
+  })
+
+  it('redeems pending invite tokens only for creator sessions', async () => {
+    await renderInboxRouteForKind('creator')
+
+    expect(mockUsePendingInviteClaim).toHaveBeenCalledWith({ enabled: true })
+  })
+
+  it('does not redeem pending invite tokens for brand sessions', async () => {
+    await renderInboxRouteForKind('brand')
+
+    expect(mockUsePendingInviteClaim).toHaveBeenCalledWith({ enabled: false })
   })
 
   it('redirects to redirect_to when onboarding is incomplete', async () => {

@@ -82,6 +82,9 @@ const VALID_STATE = {
 describe('useSubmitCreatorOnboarding', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockRefetch.mockResolvedValue({
+      data: { status: 200, data: { redirect_to: '/inbox' } },
+    })
     useCreatorOnboardingStore.getState().reset()
   })
 
@@ -92,7 +95,7 @@ describe('useSubmitCreatorOnboarding', () => {
     })
   }
 
-  it('happy path: submit → success → reset → invalidate → navigate → track', async () => {
+  it('happy path: submit → success → refetches me → reset → navigate → track', async () => {
     for (const [key, value] of Object.entries(VALID_STATE)) {
       useCreatorOnboardingStore.setState({ [key]: value })
     }
@@ -116,7 +119,10 @@ describe('useSubmitCreatorOnboarding', () => {
     expect(mockTrack).toHaveBeenCalledWith('onboarding_completed', {
       kind: 'creator',
     })
-    expect(mockNavigate).toHaveBeenCalledWith({ to: '/offers' })
+    expect(mockRefetch).toHaveBeenCalled()
+    await vi.waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith({ to: '/inbox' })
+    })
 
     const state = useCreatorOnboardingStore.getState()
     expect(state.handle).toBeUndefined()

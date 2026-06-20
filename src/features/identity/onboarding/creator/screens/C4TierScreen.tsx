@@ -64,10 +64,10 @@ export function C4TierScreen() {
     <div className="flex w-full flex-col items-center gap-9">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
         <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-          {t`¿En qué nivel estás hoy?`}
+          {t`¿Cuántos seguidores tenés hoy?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          {t`Usamos tu nivel para mostrarte ofertas acordes.`}
+          {t`Usamos tu cantidad de seguidores para mostrarte ofertas acordes.`}
         </p>
       </div>
       <div

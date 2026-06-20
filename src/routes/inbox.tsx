@@ -9,6 +9,7 @@ import { t } from '@lingui/core/macro'
 import { toast } from 'sonner'
 
 import { AppShell } from '#/features/identity/app-shell/AppShell'
+import { usePendingInviteClaim } from '#/features/discovery/invite/usePendingInviteClaim'
 import { inboxQueryKey } from '#/features/inbox/api/inbox'
 import { InboxPage } from '#/features/inbox/InboxPage'
 import { inboxSearchSchema } from '#/features/inbox/inboxSearchSchema'
@@ -91,6 +92,8 @@ function InboxRoute() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
+
+  usePendingInviteClaim({ enabled: sessionKind === 'creator' })
 
   useEffect(() => {
     if (!search.send_offer_result) return
