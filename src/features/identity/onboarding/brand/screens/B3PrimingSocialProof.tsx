@@ -1,7 +1,15 @@
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
+import { useBrandOnboardingStore } from '../store'
+import { verticalLabelLower } from '../verticalLabels'
 
 export function B3PrimingSocialProof() {
+  const vertical = useBrandOnboardingStore((s) => s.vertical)
+  const verticalLabel = verticalLabelLower(vertical)
+  const badgeText = verticalLabel
+    ? t`Marcas de ${verticalLabel} ya trabajan con Marz`
+    : t`Marcas líderes ya trabajan con Marz`
+
   return (
     <div className="relative flex w-full flex-col items-center gap-12">
       <div
@@ -16,7 +24,7 @@ export function B3PrimingSocialProof() {
       <div className="relative flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5">
         <span className="size-1.5 rounded-full bg-primary" />
         <span className="text-[11px] font-medium text-primary">
-          {t`Marcas de fintech ya trabajan con Marz`}
+          {badgeText}
         </span>
       </div>
 

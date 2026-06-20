@@ -79,7 +79,7 @@ export const STEPS: BrandOnboardingStep[] = [
       typeof s.contact_title === 'string' &&
       s.contact_title.trim().length > 0 &&
       typeof s.contact_whatsapp_e164 === 'string' &&
-      /^\+[1-9]\d{7,14}$/.test(s.contact_whatsapp_e164),
+      /^\+[1-9]\d{1,14}$/.test(s.contact_whatsapp_e164),
   },
   {
     id: 'priming-projection',

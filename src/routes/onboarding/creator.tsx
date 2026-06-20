@@ -5,7 +5,6 @@ import {
   useParams,
   useRouter,
 } from '@tanstack/react-router'
-import { t } from '@lingui/core/macro'
 
 import { useMe } from '#/shared/api/generated/accounts/accounts'
 import { WizardShell } from '#/shared/ui/wizard'
@@ -69,9 +68,6 @@ function CreatorOnboardingLayout() {
 
   const currentStep = STEPS[currentIndex]!
   const percent = ((currentIndex + 1) / STEPS.length) * 100
-  const currentStepNumber = currentIndex + 1
-  const totalSteps = STEPS.length
-  const stepLabel = t`Paso ${currentStepNumber} de ${totalSteps}`
 
   const validate = currentStep.validate
   const hideFooter = currentStep.id === 'confirmation'
@@ -120,7 +116,6 @@ function CreatorOnboardingLayout() {
 
   return (
     <WizardShell
-      stepLabel={stepLabel}
       percent={percent}
       onBack={currentIndex > 0 ? handleBack : undefined}
       onNext={handleNext}

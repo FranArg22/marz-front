@@ -21,7 +21,7 @@ msgstr "-20%"
 msgid "¡Recién publicado! Acá va el link."
 msgstr "¡Recién publicado! Acá va el link."
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:82
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:126
 msgid "¿Cómo llegaste a Marz?"
 msgstr "¿Cómo llegaste a Marz?"
 
@@ -53,7 +53,7 @@ msgstr "¿Cuándo querés empezar?"
 msgid "¿Cuánto hiciste con marcas?"
 msgstr "¿Cuánto hiciste con marcas?"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:54
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:51
 msgid "¿Cuánto pensás invertir por mes?"
 msgstr "¿Cuánto pensás invertir por mes?"
 
@@ -105,7 +105,7 @@ msgstr "¿Qué tipo de contenido hacés?"
 msgid "¿Quién te invitó?"
 msgstr "¿Quién te invitó?"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:127
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:162
 msgid "¿Quién te recomendó Marz?"
 msgstr "¿Quién te recomendó Marz?"
 
@@ -525,7 +525,7 @@ msgstr "+{erMinPct}% ER"
 msgid "+{remaining} más"
 msgstr "+{remaining} más"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:35
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:43
 msgid "+$1M"
 msgstr "+$1M"
 
@@ -537,7 +537,7 @@ msgstr "+20 campañas · es mi ingreso principal"
 msgid "+40hs"
 msgstr "+40hs"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:49
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:57
 msgid "+500M"
 msgstr "+500M"
 
@@ -673,7 +673,7 @@ msgstr "30/mes"
 msgid "30d"
 msgstr "30d"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:63
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:71
 msgid "5 años"
 msgstr "5 años"
 
@@ -740,7 +740,7 @@ msgstr "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 msgid "Abrir revisión de video de {creatorName}"
 msgstr "Abrir revisión de video de {creatorName}"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:25
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:33
 msgid "Acá no entrás solo."
 msgstr "Acá no entrás solo."
 
@@ -1063,6 +1063,7 @@ msgstr "AI"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:45
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:22
+#: src/features/identity/onboarding/brand/verticalLabels.ts:41
 msgid "AI / tech"
 msgstr "AI / tech"
 
@@ -1289,6 +1290,7 @@ msgstr "Apps"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:43
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:20
+#: src/features/identity/onboarding/brand/verticalLabels.ts:37
 msgid "apps móviles"
 msgstr "apps móviles"
 
@@ -1486,6 +1488,7 @@ msgstr "Bebidas"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:39
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:16
+#: src/features/identity/onboarding/brand/verticalLabels.ts:29
 msgid "belleza"
 msgstr "belleza"
 
@@ -1703,8 +1706,12 @@ msgid "Business"
 msgstr "Business"
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:27
-msgid "Búsqueda"
-msgstr "Búsqueda"
+#~ msgid "Búsqueda"
+#~ msgstr "Búsqueda"
+
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:53
+msgid "Búsqueda en Google o IA"
+msgstr "Búsqueda en Google o IA"
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:94
 msgid "Cabello"
@@ -2050,7 +2057,7 @@ msgid "Cerrar conversaciones"
 msgstr "Cerrar conversaciones"
 
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:53
-#: src/features/identity/settings/BrandGeneralSection.tsx:149
+#: src/features/identity/settings/BrandGeneralSection.tsx:145
 #: src/features/identity/settings/GeneralSection.tsx:296
 msgid "Cerrar sesión"
 msgstr "Cerrar sesión"
@@ -2088,7 +2095,7 @@ msgstr "Checking"
 msgid "Cierre más próximo"
 msgstr "Cierre más próximo"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:28
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:36
 msgid "Cinco años potenciando marcas con creadores de contenido."
 msgstr "Cinco años potenciando marcas con creadores de contenido."
 
@@ -2193,6 +2200,7 @@ msgstr "Comercial"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:35
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:12
+#: src/features/identity/onboarding/brand/verticalLabels.ts:21
 msgid "comida"
 msgstr "comida"
 
@@ -2647,6 +2655,7 @@ msgstr "Cruzamos con tu budget de {budgetLabel}"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:44
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:21
+#: src/features/identity/onboarding/brand/verticalLabels.ts:39
 msgid "crypto"
 msgstr "crypto"
 
@@ -3125,6 +3134,7 @@ msgstr "Zona para soltar"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:33
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:10
+#: src/features/identity/onboarding/brand/verticalLabels.ts:17
 msgid "e-commerce"
 msgstr "e-commerce"
 
@@ -3223,6 +3233,7 @@ msgstr "Editar mi perfil"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:34
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:11
+#: src/features/identity/onboarding/brand/verticalLabels.ts:19
 msgid "educación"
 msgstr "educación"
 
@@ -3669,6 +3680,7 @@ msgstr "Entregables por plataforma"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:38
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:15
+#: src/features/identity/onboarding/brand/verticalLabels.ts:27
 msgid "entretenimiento"
 msgstr "entretenimiento"
 
@@ -4298,6 +4310,7 @@ msgstr "Finanzas"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:31
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:8
+#: src/features/identity/onboarding/brand/verticalLabels.ts:13
 msgid "fintech"
 msgstr "fintech"
 
@@ -4315,6 +4328,7 @@ msgstr "Fintech, SaaS, gaming, lifestyle, beauty — categorías activas."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:36
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:13
+#: src/features/identity/onboarding/brand/verticalLabels.ts:23
 msgid "fitness"
 msgstr "fitness"
 
@@ -4380,7 +4394,7 @@ msgstr "Foto de perfil"
 #~ msgid "Français"
 #~ msgstr "Français"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:93
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:137
 msgid "Fuente"
 msgstr "Fuente"
 
@@ -4390,6 +4404,7 @@ msgstr "El dinero está en camino."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:40
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:17
+#: src/features/identity/onboarding/brand/verticalLabels.ts:31
 msgid "gaming"
 msgstr "gaming"
 
@@ -4531,14 +4546,14 @@ msgstr "Guardá los datos donde querés recibir tus transferencias ACH."
 msgid "Guardando"
 msgstr "Guardando"
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:160
+#: src/features/identity/settings/BrandGeneralSection.tsx:156
 #: src/features/identity/settings/SectionSaveBar.tsx:47
 #: src/features/payments/settings/PayoutAccountModal.tsx:212
 msgid "Guardando..."
 msgstr "Guardando..."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:836
-#: src/features/identity/settings/BrandGeneralSection.tsx:160
+#: src/features/identity/settings/BrandGeneralSection.tsx:156
 msgid "Guardar"
 msgstr "Guardar"
 
@@ -4897,7 +4912,7 @@ msgstr "Ingresá una URL válida que empiece con https://"
 msgid "Inicio de la conversación"
 msgstr "Inicio de la conversación"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:21
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:64
 #: src/features/offers/components/CurrentOfferBlock.tsx:90
 #: src/features/offers/components/SendOfferSidesheet.tsx:95
 #: src/features/offers/utils/formatOffer.ts:15
@@ -5303,7 +5318,7 @@ msgstr "LatAm"
 #~ msgid "Leyendo sitio web"
 #~ msgstr "Leyendo sitio web"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:66
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:74
 msgid "liderando campañas"
 msgstr "liderando campañas"
 
@@ -5384,7 +5399,7 @@ msgstr "Link publicado"
 msgid "Link submitted"
 msgstr "Link enviado"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:34
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:74
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
@@ -5496,8 +5511,12 @@ msgstr "Los fondos reservados expiraron"
 #~ msgstr "Los números son referencias históricas en {0} LatAm. Variables como creador, formato y hook mueven fuerte."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:129
-msgid "Los números son referencias históricas en {verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte."
-msgstr "Los números son referencias históricas en {verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte."
+msgid "Los números son referencias históricas en {verticalLabel} LatAm."
+msgstr "Los números son referencias históricas en {verticalLabel} LatAm."
+
+#: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:129
+#~ msgid "Los números son referencias históricas en {verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte."
+#~ msgstr "Los números son referencias históricas en {verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte."
 
 #: src/features/campaigns/brief-builder/schemas.ts:96
 #~ msgid "Los pesos deben sumar 100 (actual: {currentSum})."
@@ -5586,21 +5605,41 @@ msgstr "Marcar como pagado"
 msgid "Marcar todo como leído"
 msgstr "Marcar todo como leído"
 
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:44
+msgid "Marcas de {verticalLabel} invierten entre $2.000 y $7.000/mes"
+msgstr "Marcas de {verticalLabel} invierten entre $2.000 y $7.000/mes"
+
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:10
+msgid "Marcas de {verticalLabel} ya trabajan con Marz"
+msgstr "Marcas de {verticalLabel} ya trabajan con Marz"
+
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:31
-msgid "Marcas de fintech invierten entre $8K y $15K/mes"
-msgstr "Marcas de fintech invierten entre $8K y $15K/mes"
+#~ msgid "Marcas de fintech invierten entre $8K y $15K/mes"
+#~ msgstr "Marcas de fintech invierten entre $8K y $15K/mes"
 
 #: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:19
-msgid "Marcas de fintech ya trabajan con Marz"
-msgstr "Marcas de fintech ya trabajan con Marz"
+#~ msgid "Marcas de fintech ya trabajan con Marz"
+#~ msgstr "Marcas de fintech ya trabajan con Marz"
+
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:11
+msgid "Marcas líderes ya trabajan con Marz"
+msgstr "Marcas líderes ya trabajan con Marz"
+
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:45
+msgid "Marcas similares invierten entre $2.000 y $7.000/mes"
+msgstr "Marcas similares invierten entre $2.000 y $7.000/mes"
 
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:48
-msgid "Marcas similares invierten entre $8K y $15K/mes"
-msgstr "Marcas similares invierten entre $8K y $15K/mes"
+#~ msgid "Marcas similares invierten entre $8K y $15K/mes"
+#~ msgstr "Marcas similares invierten entre $8K y $15K/mes"
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:49
-msgid "María"
-msgstr "María"
+#~ msgid "María"
+#~ msgstr "María"
+
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:49
+msgid "María Rodríguez"
+msgstr "María Rodríguez"
 
 #: src/features/inbox/InboxToolbar.tsx:154
 #: src/features/inbox/InboxToolbar.tsx:163
@@ -5885,6 +5924,7 @@ msgstr "Mobile games"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:42
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:19
+#: src/features/identity/onboarding/brand/verticalLabels.ts:35
 msgid "moda"
 msgstr "moda"
 
@@ -6487,8 +6527,6 @@ msgstr "No tenés un workspace asociado."
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:171
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:94
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:198
-#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
-#: src/features/identity/settings/ProfileCard.tsx:30
 msgid "Nombre"
 msgstr "Nombre"
 
@@ -6517,7 +6555,7 @@ msgstr "Nombre de marca"
 msgid "Nombre legal o razón social"
 msgstr "Nombre legal o razón social"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:133
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:168
 msgid "Nombre o handle de quien te pasó el dato"
 msgstr "Nombre o handle de quien te pasó el dato"
 
@@ -6525,11 +6563,16 @@ msgstr "Nombre o handle de quien te pasó el dato"
 msgid "Nombre público"
 msgstr "Nombre público"
 
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:43
+#: src/features/identity/settings/ProfileCard.tsx:30
+msgid "Nombre y Apellido"
+msgstr "Nombre y Apellido"
+
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:339
 msgid "None"
 msgstr "None"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:85
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:129
 msgid "Nos ayuda a entender qué funciona."
 msgstr "Nos ayuda a entender qué funciona."
 
@@ -6830,7 +6873,7 @@ msgid "Other"
 msgstr "Other"
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:18
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:30
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:57
 #: src/features/identity/onboarding/brand/screens/B2VerticalScreen.tsx:59
 msgid "Otro"
 msgstr "Otro"
@@ -7037,8 +7080,8 @@ msgstr "Participantes"
 
 #: src/routes/onboarding/brand.tsx:84
 #: src/routes/onboarding/creator.tsx:74
-msgid "Paso {currentStepNumber} de {totalSteps}"
-msgstr "Paso {currentStepNumber} de {totalSteps}"
+#~ msgid "Paso {currentStepNumber} de {totalSteps}"
+#~ msgstr "Paso {currentStepNumber} de {totalSteps}"
 
 #: src/features/campaigns/wizard/WizardStepIndicator.tsx:38
 msgid "Paso {segmentStep}"
@@ -7194,8 +7237,8 @@ msgstr "Perfil"
 #~ msgstr "Perfil de creador ideal (ICP)"
 
 #: src/features/identity/settings/SettingsLayout.tsx:40
-msgid "Perfil de marca y suscripción del workspace."
-msgstr "Perfil de marca y suscripción del workspace."
+#~ msgid "Perfil de marca y suscripción del workspace."
+#~ msgstr "Perfil de marca y suscripción del workspace."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:25
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:39
@@ -7799,7 +7842,7 @@ msgstr "Red"
 msgid "Red de creadores"
 msgstr "Red de creadores"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:37
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:79
 msgid "Reddit"
 msgstr "Reddit"
 
@@ -7843,7 +7886,7 @@ msgstr "Reenviar link ({cooldown}s)"
 msgid "Referente"
 msgstr "Referente"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:24
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:56
 msgid "Referido"
 msgstr "Referido"
 
@@ -8096,6 +8139,7 @@ msgstr "Salir"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:37
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:14
+#: src/features/identity/onboarding/brand/verticalLabels.ts:25
 msgid "salud"
 msgstr "salud"
 
@@ -8190,7 +8234,7 @@ msgstr "Se exportaron las 10k filas más recientes. Para el export completo, con
 #~ msgid "Search videos"
 #~ msgstr "Search videos"
 
-#: src/features/identity/settings/SettingsLayout.tsx:44
+#: src/features/identity/settings/SettingsLayout.tsx:41
 #: src/features/identity/settings/SettingsSidebar.tsx:31
 msgid "Secciones de ajustes"
 msgstr "Secciones de ajustes"
@@ -9052,6 +9096,7 @@ msgstr "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:32
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:9
+#: src/features/identity/onboarding/brand/verticalLabels.ts:15
 msgid "tech"
 msgstr "tech"
 
@@ -9189,7 +9234,7 @@ msgstr "Tier mínimo"
 msgid "Tier mínimo de seguidores"
 msgstr "Tier mínimo de seguidores"
 
-#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:31
+#: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:69
 #: src/features/offers/components/CurrentOfferBlock.tsx:91
 #: src/features/offers/components/SendOfferSidesheet.tsx:96
 #: src/features/offers/utils/formatOffer.ts:16
@@ -9791,7 +9836,7 @@ msgstr "Usá formato E.164, por ejemplo +5491123456789"
 msgid "Usamos tu nivel para mostrarte ofertas acordes."
 msgstr "Usamos tu nivel para mostrarte ofertas acordes."
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:57
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:54
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr "Usamos tu respuesta para recomendarte el mejor plan."
 
@@ -9799,6 +9844,7 @@ msgstr "Usamos tu respuesta para recomendarte el mejor plan."
 msgid "Usar otro email"
 msgstr "Usar otro email"
 
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:63
 #: src/features/payments/settings/PayoutAccountCard.tsx:200
 msgid "USD"
 msgstr "USD"
@@ -9807,7 +9853,7 @@ msgstr "USD"
 msgid "USD / mes"
 msgstr "USD / mes"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:38
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:46
 msgid "USD manejados en campañas"
 msgstr "USD manejados en campañas"
 
@@ -9968,6 +10014,7 @@ msgstr "Versiones enviadas ({draftsCount})"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:41
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:18
+#: src/features/identity/onboarding/brand/verticalLabels.ts:33
 msgid "viajes"
 msgstr "viajes"
 
@@ -10054,7 +10101,7 @@ msgstr "Videos UGC"
 #~ msgid "views"
 #~ msgstr "views"
 
-#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:52
+#: src/features/identity/onboarding/brand/screens/B3PrimingSocialProof.tsx:60
 msgid "views generados"
 msgstr "views generados"
 

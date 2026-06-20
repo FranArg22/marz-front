@@ -24,11 +24,13 @@ beforeEach(() => {
 describe('B11AttributionScreen', () => {
   it('renders the supported attribution options', () => {
     render(<B11AttributionScreen />)
-    expect(screen.getAllByRole('radio').map((radio) => radio.textContent)).toEqual([
-      'Instagram',
+    expect(
+      screen.getAllByRole('radio').map((radio) => radio.textContent),
+    ).toEqual([
+      'Búsqueda en Google o IA',
       'Referido',
-      'Búsqueda',
       'Otro',
+      'Instagram',
       'TikTok',
       'LinkedIn',
       'Reddit',

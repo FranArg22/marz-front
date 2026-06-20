@@ -25,7 +25,7 @@ export function B9ContactScreen() {
 
   const whatsapp = store.contact_whatsapp_e164 ?? ''
   const whatsappValid =
-    whatsapp.length === 0 || /^\+[1-9]\d{7,14}$/.test(whatsapp)
+    whatsapp.length === 0 || /^\+[1-9]\d{1,14}$/.test(whatsapp)
 
   return (
     <div className="flex w-full flex-col items-center gap-9">

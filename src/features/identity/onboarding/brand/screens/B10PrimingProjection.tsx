@@ -126,7 +126,7 @@ export function B10PrimingProjection() {
       </div>
 
       <p className="relative max-w-[720px] text-center text-[11px] leading-[1.5] text-muted-foreground">
-        {t`Los números son referencias históricas en ${verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte.`}
+        {t`Los números son referencias históricas en ${verticalLabel} LatAm.`}
       </p>
     </div>
   )

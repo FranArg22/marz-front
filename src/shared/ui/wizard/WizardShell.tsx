@@ -5,7 +5,7 @@ import { WizardProgress } from './WizardProgress'
 import { WizardFooter } from './WizardFooter'
 
 interface WizardShellProps {
-  stepLabel: string
+  stepLabel?: string
   percent: number
   onBack?: () => void
   onNext: () => void
