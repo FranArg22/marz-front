@@ -23,7 +23,7 @@ export function WizardProgress({
       aria-valuemax={100}
     >
       <div
-        className="h-full bg-primary transition-[width] duration-300 ease-out"
+        className="h-full bg-primary transition-[width] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none"
         style={{ width: `${clamped}%` }}
       />
     </div>

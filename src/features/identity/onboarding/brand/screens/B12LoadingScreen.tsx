@@ -41,7 +41,7 @@ const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
   community: () => t`comunidad`,
 }
 
-const STEP_INTERVAL = 700
+const STEP_INTERVAL = 1200
 
 export function B12LoadingScreen() {
   const navigate = useNavigate()
@@ -92,25 +92,35 @@ export function B12LoadingScreen() {
     <div className="relative flex w-full flex-col items-center gap-12">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-200px] h-[600px] w-[640px] -translate-x-1/2 opacity-70"
+        className="pointer-events-none absolute left-1/2 top-[-200px] h-[600px] w-[640px] -translate-x-1/2 opacity-70 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.33) 0%, rgba(13, 166, 120, 0) 100%)',
         }}
       />
 
-      <div
-        className="relative size-[120px] rounded-full bg-primary"
-        style={{ boxShadow: '0 0 60px 10px rgba(13, 166, 120, 0.4)' }}
-      >
-        <div
-          className="absolute size-[60px] rounded-full bg-background opacity-20"
-          style={{ left: 30, top: 30 }}
+      <div className="relative flex size-[120px] items-center justify-center">
+        <span
+          aria-hidden
+          className="wizard-orb-ping absolute size-[120px] rounded-full bg-primary"
+        />
+        <span
+          aria-hidden
+          className="wizard-orb-ping absolute size-[120px] rounded-full bg-primary [animation-delay:800ms]"
         />
         <div
-          className="absolute size-[30px] rounded-full bg-background opacity-40"
-          style={{ left: 45, top: 45 }}
-        />
+          className="wizard-orb-breathe relative size-[120px] rounded-full bg-primary"
+          style={{ boxShadow: '0 0 60px 10px rgba(13, 166, 120, 0.4)' }}
+        >
+          <div
+            className="absolute size-[60px] rounded-full bg-background opacity-20"
+            style={{ left: 30, top: 30 }}
+          />
+          <div
+            className="absolute size-[30px] rounded-full bg-background opacity-40"
+            style={{ left: 45, top: 45 }}
+          />
+        </div>
       </div>
 
       <div className="relative flex w-full max-w-[640px] flex-col items-center gap-3.5">

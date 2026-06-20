@@ -84,7 +84,7 @@ export function B10PrimingProjection() {
     <div className="relative flex w-full flex-col items-center gap-10">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-120px] h-[500px] w-[680px] -translate-x-1/2 opacity-50"
+        className="pointer-events-none absolute left-1/2 top-[-120px] h-[500px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -126,7 +126,7 @@ export function B10PrimingProjection() {
       </div>
 
       <p className="relative max-w-[720px] text-center text-[11px] leading-[1.5] text-muted-foreground">
-        {t`Los números son referencias históricas en ${verticalLabel} LatAm. Variables como creador, formato y hook mueven fuerte.`}
+        {t`Los números son referencias históricas en ${verticalLabel} LatAm.`}
       </p>
     </div>
   )

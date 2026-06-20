@@ -35,9 +35,9 @@ describe('B12LoadingScreen', () => {
       () => {
         expect(mockNavigate).toHaveBeenCalled()
       },
-      { timeout: 700 * 4 + 500 + 1000 },
+      { timeout: 1200 * 4 + 500 + 1000 },
     )
-  })
+  }, 1200 * 4 + 500 + 2000)
 
   it('has no accessibility violations', async () => {
     const { container } = render(<B12LoadingScreen />)

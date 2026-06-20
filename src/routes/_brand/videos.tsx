@@ -104,12 +104,10 @@ function BrandVideosRoute() {
   return (
     <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
       <div>
-        <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-          {t`Videos`}
-        </p>
-        <h2 className="mt-1 text-lg font-semibold text-foreground">
+        <h1 className="text-2xl font-bold text-foreground">{t`Videos`}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           {t`Todos los videos entregados en tus campañas`}
-        </h2>
+        </p>
       </div>
 
       {/* Creator selector deshabilitado en scope global: no hay endpoint de creators del workspace todavía. */}

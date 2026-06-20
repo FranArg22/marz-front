@@ -3,8 +3,8 @@ import { TrendingUp } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { Slider } from '#/components/ui/slider'
 import { useBrandOnboardingStore } from '../store'
+import { verticalLabelLower } from '../verticalLabels'
 import { MonthlyBudgetRange } from '#/shared/api/generated/model/monthlyBudgetRange'
-import type { Vertical } from '#/shared/api/generated/model/vertical'
 
 const BUDGET_SNAPS = [
   MonthlyBudgetRange.under_10k,
@@ -27,10 +27,6 @@ const TICKS: { value: (typeof BUDGET_SNAPS)[number]; label: () => string }[] = [
   { value: MonthlyBudgetRange['50k_plus'], label: () => t`$100K+` },
 ]
 
-const VERTICAL_HINTS: Partial<Record<Vertical, () => string>> = {
-  fintech: () => t`Marcas de fintech invierten entre $8K y $15K/mes`,
-}
-
 function getIndex(budget: MonthlyBudgetRange | undefined): number {
   if (!budget || budget === MonthlyBudgetRange.zero) return 0
   const idx = BUDGET_SNAPS.indexOf(budget)
@@ -43,9 +39,10 @@ export function B6BudgetScreen() {
   const currentSnap = BUDGET_SNAPS[currentIndex]!
   const bigNumber = BIG_NUMBERS[currentSnap]()
 
-  const hint =
-    (store.vertical && VERTICAL_HINTS[store.vertical]?.()) ??
-    t`Marcas similares invierten entre $8K y $15K/mes`
+  const verticalLabel = verticalLabelLower(store.vertical)
+  const hint = verticalLabel
+    ? t`Marcas de ${verticalLabel} invierten entre $2.000 y $7.000/mes`
+    : t`Marcas similares invierten entre $2.000 y $7.000/mes`
 
   return (
     <div className="flex w-full flex-col items-center gap-12">
@@ -61,6 +58,9 @@ export function B6BudgetScreen() {
       <div className="flex items-end" aria-live="polite">
         <span className="text-[36px] font-semibold tracking-[-0.02em] text-muted-foreground">
           $
+        </span>
+        <span className="self-start pl-0.5 pt-2 text-sm font-semibold text-muted-foreground">
+          {t`USD`}
         </span>
         <span className="text-[80px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
           {bigNumber}

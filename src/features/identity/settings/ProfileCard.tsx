@@ -27,7 +27,7 @@ export function ProfileCard({ form, email }: ProfileCardProps) {
         <form.AppField name="full_name">
           {(field) => (
             <field.TextField
-              label={t`Nombre`}
+              label={t`Nombre y Apellido`}
               required
               autoComplete="name"
               className="bg-background"

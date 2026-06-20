@@ -25,7 +25,7 @@ export function B9ContactScreen() {
 
   const whatsapp = store.contact_whatsapp_e164 ?? ''
   const whatsappValid =
-    whatsapp.length === 0 || /^\+[1-9]\d{7,14}$/.test(whatsapp)
+    whatsapp.length === 0 || /^\+[1-9]\d{1,14}$/.test(whatsapp)
 
   return (
     <div className="flex w-full flex-col items-center gap-9">
@@ -40,13 +40,13 @@ export function B9ContactScreen() {
 
       <div className="flex w-full max-w-[560px] flex-col gap-5">
         <div className="flex w-full gap-4">
-          <FieldRow label={t`Nombre`} className="flex-1">
+          <FieldRow label={t`Nombre y Apellido`} className="flex-1">
             {(aria) => (
               <Input
                 {...aria}
                 value={store.contact_name ?? ''}
                 onChange={(e) => store.setField('contact_name', e.target.value)}
-                placeholder={t`María`}
+                placeholder={t`María Rodríguez`}
                 maxLength={200}
               />
             )}

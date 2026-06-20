@@ -325,3 +325,195 @@ body {
     @apply border-border outline-ring/50;
   }
 }
+
+/* ============================================================
+   Motion — onboarding wizard (refined & fast)
+   Custom easing curves; the built-in CSS easings are too weak
+   to feel intentional. Enter-only animations: each step is a
+   fresh mount, so there is nothing to interrupt in place.
+   ============================================================ */
+:root {
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes wizard-step-in-forward {
+  from {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes wizard-step-in-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-24px, 0, 0) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes wizard-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wizard-step {
+  animation: wizard-step-in-forward 240ms var(--ease-out-quint) both;
+  will-change: transform, opacity;
+}
+
+.wizard-step[data-direction='back'] {
+  animation-name: wizard-step-in-back;
+}
+
+/* Loading-screen orb: a calm "heartbeat" while the shortlist is built.
+   Breathing scale on the orb + radiating ping rings behind it. */
+@keyframes wizard-orb-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes wizard-orb-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.wizard-orb-breathe {
+  animation: wizard-orb-breathe 1800ms ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.wizard-orb-ping {
+  animation: wizard-orb-ping 1600ms var(--ease-out-quint) infinite;
+  will-change: transform, opacity;
+}
+
+/* Confirmation tick: a subtle "all set" heartbeat — a soft double beat
+   followed by a long rest, plus a faint halo that radiates on the beat. */
+@keyframes wizard-tick-beat {
+  0%,
+  35%,
+  100% {
+    transform: scale(1);
+  }
+  8% {
+    transform: scale(1.06);
+  }
+  16% {
+    transform: scale(1.01);
+  }
+  24% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes wizard-tick-halo {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.4;
+  }
+  35% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.wizard-tick-beat {
+  animation: wizard-tick-beat 2000ms ease-in-out infinite;
+  will-change: transform;
+}
+
+.wizard-tick-halo {
+  animation: wizard-tick-halo 2000ms var(--ease-out-quint) infinite;
+  will-change: transform, opacity;
+}
+
+/* Ambient green glow behind onboarding text: a slow, fluid breath.
+   Pulses size + brightness only, so each screen keeps its tuned opacity.
+   Centering is handled by the element's own `translate` (Tailwind
+   `-translate-x-1/2`), so this transform must NOT touch translate — in
+   Tailwind v4 the two would stack and push the glow off-center. */
+@keyframes wizard-glow-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+.wizard-glow-pulse {
+  animation: wizard-glow-pulse 4500ms ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* Channel card entering the list (e.g. "Agregar canal"). */
+@keyframes wizard-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.wizard-card-in {
+  animation: wizard-card-in 260ms var(--ease-out-quint) both;
+}
+
+/* Reduced motion: keep a gentle opacity cue, drop all movement. */
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step,
+  .wizard-step[data-direction='back'] {
+    animation: wizard-fade-in 160ms ease both;
+    will-change: auto;
+  }
+
+  .wizard-orb-breathe,
+  .wizard-orb-ping,
+  .wizard-card-in,
+  .wizard-tick-beat,
+  .wizard-tick-halo,
+  .wizard-glow-pulse {
+    animation: none;
+    will-change: auto;
+  }
+
+  .wizard-orb-ping,
+  .wizard-tick-halo {
+    display: none;
+  }
+}

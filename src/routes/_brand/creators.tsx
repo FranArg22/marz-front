@@ -123,12 +123,10 @@ function BrandCreatorsRoute() {
     <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
-            {t`Creadores`}
-          </p>
-          <h2 className="mt-1 text-lg font-semibold text-foreground">
+          <h1 className="text-2xl font-bold text-foreground">{t`Creadores`}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             {t`Todos los creadores en tus campañas`}
-          </h2>
+          </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Button type="button" variant="outline" size="sm" asChild>

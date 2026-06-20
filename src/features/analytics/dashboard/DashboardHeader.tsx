@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro'
 import { useEffect, useState } from 'react'
 
 interface DashboardHeaderProps {
@@ -8,13 +9,10 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ updatedAt }: DashboardHeaderProps) {
   return (
     <header className="flex items-end justify-between gap-4">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="text-[40px] font-bold leading-none tracking-tight text-foreground">
-          Dashboard
-        </h1>
-        <p className="text-xs text-muted-foreground">
-          Monitoreá campañas, inversión y performance de creadores en un solo
-          lugar.
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">{t`Dashboard`}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t`Monitoreá campañas, inversión y performance de creadores en un solo lugar.`}
         </p>
       </div>
       <UpdatedTimestamp updatedAt={updatedAt} />

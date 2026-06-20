@@ -5,7 +5,7 @@ import { WizardProgress } from './WizardProgress'
 import { WizardFooter } from './WizardFooter'
 
 interface WizardShellProps {
-  stepLabel: string
+  stepLabel?: string
   percent: number
   onBack?: () => void
   onNext: () => void
@@ -65,7 +65,7 @@ export function WizardShell({
       {progressSlot}
       <main
         className={cn(
-          'flex flex-1 flex-col items-center overflow-y-auto px-24 pt-12 pb-24',
+          'flex flex-1 flex-col items-center overflow-y-auto overflow-x-clip px-24 pt-12 pb-24',
           className,
         )}
       >
