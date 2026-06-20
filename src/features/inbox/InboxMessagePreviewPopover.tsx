@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { t } from '@lingui/core/macro'
 import { HoverCard } from 'radix-ui'
 
 import {
@@ -12,59 +11,45 @@ import {
 import { useIsMobile } from '#/features/identity/onboarding/hooks/useIsMobile'
 import { cn } from '#/lib/utils'
 
-interface MessagePreviewEntry {
-  id: string
-  preview: string
-  occurred_at: string
-  author_account_id: string
-}
-
-interface InboxMessagePreviewPopoverProps {
-  previews: MessagePreviewEntry[]
-  selfAccountId: string | null
+interface InboxHistoryPopoverProps {
+  children: ReactNode
+  isEmpty: boolean
+  title: string
   trigger: ReactNode
 }
 
-export function InboxMessagePreviewPopover({
-  previews,
-  selfAccountId,
+export function InboxHistoryPopover({
+  children,
+  isEmpty,
+  title,
   trigger,
-}: InboxMessagePreviewPopoverProps) {
+}: InboxHistoryPopoverProps) {
   const isMobile = useIsMobile()
   const [open, setOpen] = useState(false)
 
-  if (previews.length === 0) {
+  if (isEmpty) {
     return <>{trigger}</>
   }
 
   if (isMobile) {
     return (
       <>
-        <button
-          type="button"
+        <div
           onClick={(event) => {
             event.stopPropagation()
             event.preventDefault()
             setOpen(true)
           }}
-          className="text-left"
+          className="min-w-0 text-left"
         >
           {trigger}
-        </button>
+        </div>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetContent side="bottom" className="max-h-[70vh] overflow-y-auto">
             <SheetHeader>
-              <SheetTitle>{t`Mensajes recientes`}</SheetTitle>
+              <SheetTitle>{title}</SheetTitle>
             </SheetHeader>
-            <ul className="mt-4 flex flex-col gap-3">
-              {previews.map((entry) => (
-                <PreviewRow
-                  key={entry.id}
-                  entry={entry}
-                  isSelf={entry.author_account_id === selfAccountId}
-                />
-              ))}
-            </ul>
+            <div className="mt-4">{children}</div>
           </SheetContent>
         </Sheet>
       </>
@@ -73,19 +58,7 @@ export function InboxMessagePreviewPopover({
 
   return (
     <HoverCard.Root open={open} onOpenChange={setOpen} openDelay={150}>
-      <HoverCard.Trigger asChild>
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation()
-            event.preventDefault()
-            setOpen((value) => !value)
-          }}
-          className="text-left"
-        >
-          {trigger}
-        </button>
-      </HoverCard.Trigger>
+      <HoverCard.Trigger asChild>{trigger}</HoverCard.Trigger>
       <HoverCard.Portal>
         <HoverCard.Content
           side="top"
@@ -98,38 +71,11 @@ export function InboxMessagePreviewPopover({
           )}
         >
           <p className="mb-2 text-xs font-medium text-muted-foreground">
-            {t`Mensajes recientes`}
+            {title}
           </p>
-          <ul className="flex flex-col gap-2">
-            {previews.map((entry) => (
-              <PreviewRow
-                key={entry.id}
-                entry={entry}
-                isSelf={entry.author_account_id === selfAccountId}
-              />
-            ))}
-          </ul>
+          {children}
         </HoverCard.Content>
       </HoverCard.Portal>
     </HoverCard.Root>
-  )
-}
-
-function PreviewRow({
-  entry,
-  isSelf,
-}: {
-  entry: MessagePreviewEntry
-  isSelf: boolean
-}) {
-  return (
-    <li
-      className={cn(
-        'rounded-md px-2 py-1 text-xs',
-        isSelf ? 'bg-primary/10 text-foreground' : 'bg-muted text-foreground',
-      )}
-    >
-      <p className="truncate">{entry.preview}</p>
-    </li>
   )
 }

@@ -23,18 +23,28 @@ interface ConnectionRequestInboxItemProps {
 export function ConnectionRequestInboxItem({
   item,
 }: ConnectionRequestInboxItemProps) {
+  const connectionRequestId = getConnectionRequestId(item)
+
+  if (!connectionRequestId) return null
+
+  return (
+    <li>
+      <article className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4">
+        <ConnectionRequestAvatar item={item} />
+
+        <div className="min-w-0 flex-1">
+          <ConnectionRequestCopy item={item} />
+          <ConnectionRequestInboxActions item={item} />
+        </div>
+      </article>
+    </li>
+  )
+}
+
+export function ConnectionRequestInboxActions({ item }: { item: InboxItem }) {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const connectionRequestId = (
-    item.metadata as { connection_request_id?: string } | undefined
-  )?.connection_request_id
-
-  const detailQuery = useGetDiscoveryConnectionRequest(
-    connectionRequestId ?? '',
-    {
-      query: { enabled: Boolean(connectionRequestId) },
-    },
-  )
+  const connectionRequestId = getConnectionRequestId(item)
 
   const accept = useAcceptDiscoveryConnectionRequest({
     mutation: {
@@ -73,6 +83,73 @@ export function ConnectionRequestInboxItem({
 
   if (!connectionRequestId) return null
 
+  return (
+    <div className="mt-3 flex gap-2">
+      <Button
+        type="button"
+        size="sm"
+        onClick={() => accept.mutate({ id: connectionRequestId })}
+        disabled={isPending}
+      >
+        {accept.isPending ? (
+          <Loader2 className="size-3.5 animate-spin" aria-hidden />
+        ) : (
+          <Check className="size-3.5" aria-hidden />
+        )}
+        {t`Aceptar`}
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={() => reject.mutate({ id: connectionRequestId })}
+        disabled={isPending}
+      >
+        {reject.isPending ? (
+          <Loader2 className="size-3.5 animate-spin" aria-hidden />
+        ) : (
+          <X className="size-3.5" aria-hidden />
+        )}
+        {t`Rechazar`}
+      </Button>
+    </div>
+  )
+}
+
+function ConnectionRequestAvatar({ item }: { item: InboxItem }) {
+  const connectionRequestId = getConnectionRequestId(item)
+  const detailQuery = useGetDiscoveryConnectionRequest(
+    connectionRequestId ?? '',
+    {
+      query: { enabled: Boolean(connectionRequestId) },
+    },
+  )
+  const brandName =
+    detailQuery.data?.status === 200
+      ? detailQuery.data.data.brand_workspace.name
+      : item.meta.primary
+
+  return (
+    <Avatar className="size-10 shrink-0">
+      {detailQuery.data?.status === 200 ? (
+        <AvatarImage
+          src={detailQuery.data.data.brand_workspace.logo_url ?? undefined}
+          alt={brandName}
+        />
+      ) : null}
+      <AvatarFallback>{brandName.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar>
+  )
+}
+
+function ConnectionRequestCopy({ item }: { item: InboxItem }) {
+  const connectionRequestId = getConnectionRequestId(item)
+  const detailQuery = useGetDiscoveryConnectionRequest(
+    connectionRequestId ?? '',
+    {
+      query: { enabled: Boolean(connectionRequestId) },
+    },
+  )
   const brandName =
     detailQuery.data?.status === 200
       ? detailQuery.data.data.brand_workspace.name
@@ -81,59 +158,20 @@ export function ConnectionRequestInboxItem({
     detailQuery.data?.status === 200 ? detailQuery.data.data.note : null
 
   return (
-    <li>
-      <article className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4">
-        <Avatar className="size-10 shrink-0">
-          {detailQuery.data?.status === 200 ? (
-            <AvatarImage
-              src={detailQuery.data.data.brand_workspace.logo_url ?? undefined}
-              alt={brandName}
-            />
-          ) : null}
-          <AvatarFallback>{brandName.charAt(0).toUpperCase()}</AvatarFallback>
-        </Avatar>
-
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-foreground">
-            {t`${brandName} quiere conectar con vos`}
-          </p>
-          {note ? (
-            <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">
-              {note}
-            </p>
-          ) : null}
-
-          <div className="mt-3 flex gap-2">
-            <Button
-              type="button"
-              size="sm"
-              onClick={() => accept.mutate({ id: connectionRequestId })}
-              disabled={isPending}
-            >
-              {accept.isPending ? (
-                <Loader2 className="size-3.5 animate-spin" aria-hidden />
-              ) : (
-                <Check className="size-3.5" aria-hidden />
-              )}
-              {t`Aceptar`}
-            </Button>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() => reject.mutate({ id: connectionRequestId })}
-              disabled={isPending}
-            >
-              {reject.isPending ? (
-                <Loader2 className="size-3.5 animate-spin" aria-hidden />
-              ) : (
-                <X className="size-3.5" aria-hidden />
-              )}
-              {t`Rechazar`}
-            </Button>
-          </div>
-        </div>
-      </article>
-    </li>
+    <>
+      <p className="text-sm font-semibold text-foreground">
+        {t`${brandName} quiere conectar con vos`}
+      </p>
+      {note ? (
+        <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">
+          {note}
+        </p>
+      ) : null}
+    </>
   )
+}
+
+function getConnectionRequestId(item: InboxItem) {
+  return (item.metadata as { connection_request_id?: string } | undefined)
+    ?.connection_request_id
 }
