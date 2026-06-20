@@ -26,6 +26,10 @@ const EXCLUDED_DIRS = new Set([
 const EXCLUDED_PATH_SUFFIX_SET = new Set([
   // El propio mutator define customFetch — no es una llamada.
   'src/shared/api/mutator.ts',
+  // Excepción deliberada: el spec del backend para POST /v1/invites/{token}/accept
+  // está atrás del front (el cliente Orval no tiene este endpoint / contrato
+  // actualizado), así que se mantiene el cliente hecho a mano con customFetch.
+  'src/features/discovery/invite/acceptInviteByToken.ts',
 ])
 
 const EXCLUDED_PATH_INCLUDE_SET = new Set([

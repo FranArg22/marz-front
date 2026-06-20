@@ -318,9 +318,10 @@ export function getCreateCampaignErrorMessage(error: unknown): string {
         ? Object.values(fieldErrors).flat().find(Boolean)
         : null
 
+      const errorMessage = error.message
       return firstFieldError
         ? t`Revisá los datos de la campaña: ${firstFieldError}`
-        : t`Revisá los datos de la campaña: ${error.message}`
+        : t`Revisá los datos de la campaña: ${errorMessage}`
     }
 
     return error.message || t`No pudimos crear la campaña. Intentá de nuevo.`

@@ -32,6 +32,7 @@ const schema = z.object({
   website_url: z
     .string()
     .url()
+    // eslint-disable-next-line lingui/no-unlocalized-strings -- mensaje interno de validación zod, no es UI
     .refine((u) => u.startsWith('https://'), 'Must be https'),
   logo_s3_key: z.string().nullable().optional(),
 })

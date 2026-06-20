@@ -6,7 +6,7 @@ type Status = 'idle' | 'connecting' | 'open' | 'closed'
 
 const SUBSCRIBE_TIMEOUT_MS = 5000
 
-export class SubscribeError extends Error {
+class SubscribeError extends Error {
   constructor(public code: string) {
     super(code)
     this.name = 'SubscribeError'

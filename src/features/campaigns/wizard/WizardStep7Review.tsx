@@ -28,11 +28,13 @@ interface ReviewLookups {
   tiers?: Record<string, string>
 }
 
+/* eslint-disable lingui/no-unlocalized-strings -- nombres de marca */
 const PLATFORM_LABELS: Record<SocialPlatform, string> = {
   tiktok: 'TikTok',
   instagram: 'Instagram',
   youtube: 'YouTube',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
 function buildLabelMap<T extends { label_es: string }>(
   items: T[],

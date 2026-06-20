@@ -21,7 +21,6 @@ type SlotErrors = [string | undefined, string | undefined, string | undefined]
 const EMPTY_SLOTS: SlotsState = ['', '', '']
 const EMPTY_ERRORS: SlotErrors = [undefined, undefined, undefined]
 const SLOT_INDEXES = [0, 1, 2] as const
-const URL_ERROR = 'Ingresá una URL válida que empiece con http:// o https://'
 const httpUrlSchema = z
   .string()
   .url()
@@ -140,6 +139,7 @@ function SampleVideoSlot({
   onRemove: () => void
 }) {
   const inputId = `sample-video-${index}`
+  const videoNumber = index + 1
   const trimmedUrl = url.trim()
   const isFilled = trimmedUrl !== ''
   const showReadOnlyUrl = initiallyFilled && isFilled
@@ -148,7 +148,7 @@ function SampleVideoSlot({
     <div className="px-6 py-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-foreground">
-          {t`Video ${index + 1}`}
+          {t`Video ${videoNumber}`}
         </p>
         <div className="flex items-center gap-2">
           {isFilled ? (
@@ -187,8 +187,9 @@ function SampleVideoSlot({
             value={url}
             placeholder={t`Pegá un link público de TikTok, Instagram, YouTube u otra plataforma`}
             onChange={(event) => onChange(event.target.value)}
-            aria-label={t`URL del video ${index + 1}`}
+            aria-label={t`URL del video ${videoNumber}`}
             aria-invalid={Boolean(error)}
+            // eslint-disable-next-line lingui/no-unlocalized-strings -- id de elemento DOM, no es UI
             aria-describedby={error ? `${inputId}-error` : undefined}
           />
         )}
@@ -218,7 +219,8 @@ function validateSlots(slots: SlotsState): SlotErrors {
     const trimmedUrl = url.trim()
     if (trimmedUrl === '') return
     if (!httpUrlSchema.safeParse(trimmedUrl).success) {
-      errors[index] = URL_ERROR
+      errors[index] =
+        t`Ingresá una URL válida que empiece con http:// o https://`
     }
   })
 

@@ -156,6 +156,7 @@ export function LogoUploader({
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean)
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- inicial de fallback, no es copy traducible
   if (parts.length === 0) return 'M'
   return parts
     .slice(0, 2)

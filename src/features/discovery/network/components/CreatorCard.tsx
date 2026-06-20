@@ -227,6 +227,7 @@ function CardOverlayContent({
   platforms: DiscoveryCreatorPlatformStats[]
   platformsLinkable?: boolean
 }) {
+  const hiddenCount = hiddenTags.length
   return (
     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
       <p className="text-[15px] font-semibold leading-tight text-white">
@@ -244,12 +245,12 @@ function CardOverlayContent({
               {prettifyTag(tag)}
             </span>
           ))}
-          {hiddenTags.length > 0 ? (
+          {hiddenCount > 0 ? (
             <span
               title={hiddenTags.map(prettifyTag).join(', ')}
               className="shrink-0 cursor-default rounded-full bg-white/15 px-1.5 py-0.5 text-[11px] font-medium leading-none text-white"
             >
-              {t`+${hiddenTags.length}`}
+              {t`+${hiddenCount}`}
             </span>
           ) : null}
         </div>
@@ -290,6 +291,7 @@ function PlatformStatsTable({
           ? platformProfileUrl(stats.platform, stats.handle)
           : null
         const priceAmount = stats.min_price_amount.trim()
+        const platformName = platformCode(stats.platform)
         const rowClassName =
           'grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5'
         const cells = (
@@ -330,7 +332,7 @@ function PlatformStatsTable({
               href={profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={t`Ver perfil en ${platformCode(stats.platform)}`}
+              aria-label={t`Ver perfil en ${platformName}`}
               className={cn(
                 rowClassName,
                 'transition-colors hover:bg-[#101010]/75',

@@ -1,7 +1,4 @@
-import {
-  getListCampaignsQueryKey,
-  useListCampaigns,
-} from '#/shared/api/generated/campaigns/campaigns'
+import { useListCampaigns } from '#/shared/api/generated/campaigns/campaigns'
 import { CampaignStatus } from '#/shared/api/generated/model'
 
 export interface ActiveCampaign {
@@ -10,12 +7,6 @@ export interface ActiveCampaign {
   status: 'active'
   budget_currency: string
   budget_remaining: string
-}
-
-export function getActiveCampaignsQueryKey() {
-  return getListCampaignsQueryKey({
-    status: CampaignStatus.active,
-  })
 }
 
 export function useActiveCampaigns(options?: { enabled?: boolean }) {

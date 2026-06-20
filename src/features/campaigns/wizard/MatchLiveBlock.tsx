@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
 import { Users } from 'lucide-react'
 
@@ -57,7 +58,7 @@ export function MatchLiveBlock({
 
   return (
     <aside
-      aria-label="Match en vivo"
+      aria-label={t`Match en vivo`}
       className="flex flex-col gap-4 rounded-lg border border-border bg-card p-5"
     >
       <div className="flex items-center gap-3">

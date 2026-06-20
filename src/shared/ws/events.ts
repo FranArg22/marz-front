@@ -47,13 +47,3 @@ export interface CampaignConfigurationActivatedPayload {
   plan_allows_campaign_board: boolean
   plan_allows_automatic_matching: boolean
 }
-
-export type CampaignConfigurationUpdatedEvent =
-  DomainEventEnvelope<CampaignConfigurationUpdatedPayload> & {
-    event_type: 'campaigns.configuration.updated'
-  }
-
-export type CampaignConfigurationActivatedEvent =
-  DomainEventEnvelope<CampaignConfigurationActivatedPayload> & {
-    event_type: 'campaigns.configuration.activated'
-  }

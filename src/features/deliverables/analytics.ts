@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import type { RefObject } from 'react'
 
+import { ingestAnalyticsEvent } from '#/shared/api/generated/analytics/analytics'
+import type { AnalyticsEventName } from '#/shared/api/generated/model'
 import type { ChangeCategory } from './api/requestChanges'
 import type { OfferMode } from '#/features/offers/types'
 
@@ -118,6 +120,28 @@ function postLegacyDeliverableAnalyticsEvent<
   // no-op until backend analytics endpoint is defined in OpenAPI
 }
 
+type LinkEventName =
+  | 'link_submit_opened'
+  | 'link_preview_resolved'
+  | 'link_card_seen'
+  | 'link_url_clicked'
+
+// Link events are live on the backend analytics endpoint but not yet part of
+// the generated AnalyticsEventName enum, so they are posted directly here.
+// Fire-and-forget: analytics failures must never break the deliverables UX.
+function postLinkAnalyticsEvent<TEvent extends LinkEventName>(
+  name: TEvent,
+  properties: DeliverableEventMap[TEvent],
+): void {
+  void ingestAnalyticsEvent({
+    // Link event names are live on the backend but not yet part of the
+    // generated AnalyticsEventName enum, so the name is cast.
+    name: name as AnalyticsEventName,
+    occurred_at: new Date().toISOString(),
+    properties: properties as Record<string, unknown>,
+  }).catch(() => {})
+}
+
 export function trackUploadStarted(
   payload: DeliverableEventMap['upload_started'],
 ): void {
@@ -208,25 +232,25 @@ export function trackDeliverableTotalRounds(
 export function trackLinkSubmitOpened(
   payload: DeliverableEventMap['link_submit_opened'],
 ): void {
-  postLegacyDeliverableAnalyticsEvent('link_submit_opened', payload)
+  postLinkAnalyticsEvent('link_submit_opened', payload)
 }
 
 export function trackLinkPreviewResolved(
   payload: DeliverableEventMap['link_preview_resolved'],
 ): void {
-  postLegacyDeliverableAnalyticsEvent('link_preview_resolved', payload)
+  postLinkAnalyticsEvent('link_preview_resolved', payload)
 }
 
 export function trackLinkCardSeen(
   payload: DeliverableEventMap['link_card_seen'],
 ): void {
-  postLegacyDeliverableAnalyticsEvent('link_card_seen', payload)
+  postLinkAnalyticsEvent('link_card_seen', payload)
 }
 
 export function trackLinkUrlClicked(
   payload: DeliverableEventMap['link_url_clicked'],
 ): void {
-  postLegacyDeliverableAnalyticsEvent('link_url_clicked', payload)
+  postLinkAnalyticsEvent('link_url_clicked', payload)
 }
 
 export function useTrackOnceVisible(

@@ -1,7 +1,4 @@
-import {
-  getListCampaignsQueryKey,
-  useListCampaigns,
-} from '#/shared/api/generated/campaigns/campaigns'
+import { useListCampaigns } from '#/shared/api/generated/campaigns/campaigns'
 import type { CampaignListItem as GeneratedCampaignListItem } from '#/shared/api/generated/model'
 
 export type CampaignListItem = {
@@ -10,10 +7,6 @@ export type CampaignListItem = {
   status: 'draft' | 'active' | 'paused' | 'completed'
   createdAt: string
   updatedAt: string
-}
-
-export function getCampaignsListQueryKey() {
-  return getListCampaignsQueryKey()
 }
 
 export function useCampaignsList() {

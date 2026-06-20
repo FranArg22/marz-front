@@ -324,11 +324,12 @@ function InterestsPicker({
     () => selectedOptionLabels(options, value),
     [options, value],
   )
+  const selectedCount = value.length
 
   return (
     <SettingsRow
       label={t`Seleccionados`}
-      hint={selectedLabels ?? t`${value.length} de 5 seleccionados`}
+      hint={selectedLabels ?? t`${selectedCount} de 5 seleccionados`}
       align="start"
     >
       <div className="flex flex-wrap gap-2">
@@ -381,11 +382,12 @@ function ContentTypesPicker({
     () => selectedOptionLabels(options, value),
     [options, value],
   )
+  const selectedCount = value.length
 
   return (
     <SettingsRow
       label={t`Seleccionados`}
-      hint={selectedLabels ?? t`${value.length} seleccionados`}
+      hint={selectedLabels ?? t`${selectedCount} seleccionados`}
       align="start"
     >
       <div className="flex flex-wrap gap-2.5">
