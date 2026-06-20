@@ -29,17 +29,6 @@ export const MarketingObjective = {
 export type MarketingObjective =
   (typeof MarketingObjective)[keyof typeof MarketingObjective]
 
-export const MonthlyBudgetRange = {
-  zero: 'zero',
-  under_10k: 'under_10k',
-  '10k_to_25k': '10k_to_25k',
-  '25k_to_50k': '25k_to_50k',
-  '50k_plus': '50k_plus',
-} as const
-
-export type MonthlyBudgetRange =
-  (typeof MonthlyBudgetRange)[keyof typeof MonthlyBudgetRange]
-
 export const AttributionNonReferralSource = {
   instagram: 'instagram',
   search: 'search',
@@ -93,10 +82,11 @@ export interface BrandOnboardingPayload {
   marketing_objective: MarketingObjective
   creator_experience: CreatorExperience
   creator_sourcing_intent: CreatorSourcingIntent
-  monthly_budget_range: MonthlyBudgetRange
+  monthly_budget_usd: number
   timing: Timing
   attribution: Attribution
   contact_name: string
   contact_title: string
   contact_whatsapp_e164: string
+  logo_s3_key?: string | null
 }

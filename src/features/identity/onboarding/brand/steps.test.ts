@@ -106,12 +106,10 @@ describe('validate functions', () => {
     ).toBe(true)
   })
 
-  it('B6 budget: requires non-empty string', () => {
+  it('B6 budget: requires a numeric amount of at least 1000', () => {
     const validate = STEPS[5]!.validate!
     expect(validate(makeState())).toBe(false)
-    expect(validate(makeState({ monthly_budget_range: 'under_10k' }))).toBe(
-      true,
-    )
+    expect(validate(makeState({ monthly_budget_usd: 5000 }))).toBe(true)
   })
 
   it('B7 priming-match: no validation', () => {

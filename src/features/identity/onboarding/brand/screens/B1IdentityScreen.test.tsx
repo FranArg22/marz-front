@@ -7,6 +7,17 @@ import { useBrandOnboardingStore } from '../store'
 
 vi.mock('#/shared/api/generated/onboarding/onboarding', () => ({
   useBrandEnrichment: () => ({ data: null, isLoading: false }),
+  usePresignBrandOnboardingLogo: () => ({
+    isPending: false,
+    mutateAsync: async () => ({ status: 200 }),
+  }),
+}))
+
+vi.mock('#/shared/api/generated/identity/identity', () => ({
+  usePresignBrandLogo: () => ({
+    isPending: false,
+    mutateAsync: async () => ({ status: 200 }),
+  }),
 }))
 
 vi.mock('@lingui/core/macro', () => ({

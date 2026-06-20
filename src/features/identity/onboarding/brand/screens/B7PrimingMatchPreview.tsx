@@ -3,7 +3,7 @@ import { Sparkles } from 'lucide-react'
 import { useBrandOnboardingStore } from '../store'
 import { Vertical } from '#/shared/api/generated/model/vertical'
 import type { MarketingObjective } from '#/shared/api/generated/model/marketingObjective'
-import type { MonthlyBudgetRange } from '#/shared/api/generated/model/monthlyBudgetRange'
+import { formatBudgetShortK } from '../budget'
 
 const TOTAL_CREATORS = 350
 
@@ -42,14 +42,6 @@ const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
   performance: () => t`Performance`,
   launch: () => t`Lanzamiento`,
   community: () => t`Comunidad`,
-}
-
-const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
-  zero: () => t`$0`,
-  under_10k: () => t`$10K`,
-  '10k_to_25k': () => t`$25K`,
-  '25k_to_50k': () => t`$50K`,
-  '50k_plus': () => t`$100K+`,
 }
 
 const VERTICAL_NICHES: Record<Vertical, () => string[]> = {
@@ -131,8 +123,8 @@ export function B7PrimingMatchPreview() {
   const niches = VERTICAL_NICHES[vertical]()
 
   const chips: string[] = [VERTICAL_LABEL[vertical]()]
-  if (store.monthly_budget_range) {
-    const budgetLabel = BUDGET_LABEL[store.monthly_budget_range]()
+  if (store.monthly_budget_usd) {
+    const budgetLabel = formatBudgetShortK(store.monthly_budget_usd)
     chips.push(t`Budget ${budgetLabel}`)
   }
   if (store.marketing_objective) {

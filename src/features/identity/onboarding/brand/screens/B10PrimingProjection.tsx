@@ -2,23 +2,8 @@ import { t } from '@lingui/core/macro'
 import { TrendingUp } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { useBrandOnboardingStore } from '../store'
-import { MarketingObjective, MonthlyBudgetRange, Vertical } from '../types'
-
-const BUDGET_USD: Record<MonthlyBudgetRange, number> = {
-  zero: 0,
-  under_10k: 10_000,
-  '10k_to_25k': 25_000,
-  '25k_to_50k': 50_000,
-  '50k_plus': 100_000,
-}
-
-const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
-  zero: () => t`$0`,
-  under_10k: () => t`$10K`,
-  '10k_to_25k': () => t`$25K`,
-  '25k_to_50k': () => t`$50K`,
-  '50k_plus': () => t`$100K+`,
-}
+import { MarketingObjective, Vertical } from '../types'
+import { BUDGET_DEFAULT_USD, formatBudgetShortK } from '../budget'
 
 const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
   awareness: () => t`awareness`,
@@ -64,8 +49,7 @@ function formatClicks(n: number): string {
 
 export function B10PrimingProjection() {
   const store = useBrandOnboardingStore()
-  const budget = store.monthly_budget_range ?? MonthlyBudgetRange.under_10k
-  const budgetUsd = BUDGET_USD[budget] || 10_000
+  const budgetUsd = store.monthly_budget_usd ?? BUDGET_DEFAULT_USD
   const objective = store.marketing_objective ?? MarketingObjective.performance
   const vertical = store.vertical ?? Vertical.other
 
@@ -76,7 +60,7 @@ export function B10PrimingProjection() {
   const highlight: 'views' | 'clicks' =
     objective === 'performance' ? 'clicks' : 'views'
 
-  const budgetLabel = BUDGET_LABEL[budget]()
+  const budgetLabel = formatBudgetShortK(budgetUsd)
   const objectiveLabel = OBJECTIVE_LABEL[objective]()
   const verticalLabel = VERTICAL_LABEL[vertical]()
 
