@@ -34,6 +34,8 @@ import type {
   BrandOnboardingPayload,
   CreatorOnboardingPayload,
   ErrorResponse,
+  LogoPresignRequest,
+  LogoPresignResponse,
   MeResponse
 } from '../model';
 
@@ -502,4 +504,112 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getPresignCreatorAvatarMutationOptions(options), queryClient);
+    }
+    export type presignBrandOnboardingLogoResponse200 = {
+  data: LogoPresignResponse
+  status: 200
+}
+
+export type presignBrandOnboardingLogoResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type presignBrandOnboardingLogoResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type presignBrandOnboardingLogoResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
+export type presignBrandOnboardingLogoResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type presignBrandOnboardingLogoResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type presignBrandOnboardingLogoResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type presignBrandOnboardingLogoResponseSuccess = (presignBrandOnboardingLogoResponse200) & {
+  headers: Headers;
+};
+export type presignBrandOnboardingLogoResponseError = (presignBrandOnboardingLogoResponse400 | presignBrandOnboardingLogoResponse401 | presignBrandOnboardingLogoResponse403 | presignBrandOnboardingLogoResponse404 | presignBrandOnboardingLogoResponse422 | presignBrandOnboardingLogoResponse500) & {
+  headers: Headers;
+};
+
+export type presignBrandOnboardingLogoResponse = (presignBrandOnboardingLogoResponseSuccess | presignBrandOnboardingLogoResponseError)
+
+export const getPresignBrandOnboardingLogoUrl = () => {
+
+
+
+
+  return `/v1/onboarding/brand/logo:presign`
+}
+
+export const presignBrandOnboardingLogo = async (logoPresignRequest: LogoPresignRequest, options?: RequestInit): Promise<presignBrandOnboardingLogoResponse> => {
+
+  return customFetch<presignBrandOnboardingLogoResponse>(getPresignBrandOnboardingLogoUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      logoPresignRequest,)
+  }
+);}
+
+
+
+
+export const getPresignBrandOnboardingLogoMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof presignBrandOnboardingLogo>>, TError,{data: LogoPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof presignBrandOnboardingLogo>>, TError,{data: LogoPresignRequest}, TContext> => {
+
+const mutationKey = ['presignBrandOnboardingLogo'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof presignBrandOnboardingLogo>>, {data: LogoPresignRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  presignBrandOnboardingLogo(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PresignBrandOnboardingLogoMutationResult = NonNullable<Awaited<ReturnType<typeof presignBrandOnboardingLogo>>>
+    export type PresignBrandOnboardingLogoMutationBody = LogoPresignRequest
+    export type PresignBrandOnboardingLogoMutationError = ErrorResponse
+
+    export const usePresignBrandOnboardingLogo = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof presignBrandOnboardingLogo>>, TError,{data: LogoPresignRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof presignBrandOnboardingLogo>>,
+        TError,
+        {data: LogoPresignRequest},
+        TContext
+      > => {
+      return useMutation(getPresignBrandOnboardingLogoMutationOptions(options), queryClient);
     }

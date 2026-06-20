@@ -1,5 +1,8 @@
 import { useNavigate } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
+
+import { inboxQueryKey } from '#/features/inbox/api/inbox'
 
 import { acceptInviteByToken } from './acceptInviteByToken'
 import {
@@ -8,30 +11,33 @@ import {
 } from './pendingInvite'
 
 // Runs once when an onboarded creator enters the app. If they arrived through a
-// brand invite link, the token was stored on the public landing before signup;
-// here we redeem it (token-based, any email) and drop them into the conversation
-// with the inviting brand.
-export function usePendingInviteClaim(): void {
+// brand invite link, redeem it into a pending inbox item instead of accepting
+// the invite automatically.
+export function usePendingInviteClaim({ enabled = true } = {}): void {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const claimedRef = useRef(false)
 
   useEffect(() => {
+    if (!enabled) return
     if (claimedRef.current) return
     const token = readPendingInviteToken()
     if (!token) return
     claimedRef.current = true
     clearPendingInviteToken()
     acceptInviteByToken(token)
-      .then((result) => {
+      .then(() => {
+        void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
+        window.setTimeout(() => {
+          void queryClient.invalidateQueries({ queryKey: inboxQueryKey })
+        }, 1000)
         void navigate({
-          to: '/workspace/conversations/$conversationId',
-          params: { conversationId: result.conversation_id },
-          search: { filter: 'all', campaign_id: undefined },
+          to: '/inbox',
         })
       })
       .catch(() => {
         // Best-effort: an expired/invalid token or transient error should not
         // surface as an error on app load — the creator stays where they are.
       })
-  }, [navigate])
+  }, [enabled, navigate, queryClient])
 }

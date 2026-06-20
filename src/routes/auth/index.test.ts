@@ -118,7 +118,7 @@ describe('/auth beforeLoad', () => {
     await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inicio' }))
   })
 
-  it('redirects onboarded creator to /offers', async () => {
+  it('redirects onboarded creator to /inbox', async () => {
     mockServerMeResult = {
       ok: true,
       body: {
@@ -128,7 +128,7 @@ describe('/auth beforeLoad', () => {
       },
     }
 
-    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/offers' }))
+    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inbox' }))
   })
 
   it('redirects incomplete onboarding to redirect_to', async () => {

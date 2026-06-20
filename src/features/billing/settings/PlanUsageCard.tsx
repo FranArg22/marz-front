@@ -37,16 +37,19 @@ export function PlanUsageCard({ usage }: PlanUsageCardProps) {
       <CardContent className="flex flex-col gap-5 p-6">
         <div className="grid gap-3 md:grid-cols-3">
           <UsageMiniCard
+            // eslint-disable-next-line lingui/no-unlocalized-strings -- test id, no es UI
             testId="plan-usage.campaigns"
             label={t`Campañas activas`}
             metric={usage.campaigns_active}
           />
           <UsageMiniCard
+            // eslint-disable-next-line lingui/no-unlocalized-strings -- test id, no es UI
             testId="plan-usage.creators"
             label={t`Creadores activos`}
             metric={usage.creators_active}
           />
           <UsageMiniCard
+            // eslint-disable-next-line lingui/no-unlocalized-strings -- test id, no es UI
             testId="plan-usage.invitations"
             label={t`Invitaciones`}
             metric={usage.invitations}

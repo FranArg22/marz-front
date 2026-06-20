@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { t } from '@lingui/core/macro'
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import { Input } from '#/components/ui/input'
 import { FieldRow } from '#/shared/ui/form'
 import { useBrandOnboardingStore } from '../store'
@@ -24,8 +25,7 @@ export function B9ContactScreen() {
   )
 
   const whatsapp = store.contact_whatsapp_e164 ?? ''
-  const whatsappValid =
-    whatsapp.length === 0 || /^\+[1-9]\d{1,14}$/.test(whatsapp)
+  const whatsappValid = whatsapp.length === 0 || isValidPhoneNumber(whatsapp)
 
   return (
     <div className="flex w-full flex-col items-center gap-9">

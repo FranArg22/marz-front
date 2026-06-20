@@ -9,7 +9,8 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 
 export interface CreateConnectionRequestRequest {
-  creator_account_id: string;
+  creator_account_id?: string;
+  creator_id?: string;
   /**
      * @maxLength 1000
      * @nullable

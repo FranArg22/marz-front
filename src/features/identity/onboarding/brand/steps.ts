@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import type { BrandOnboardingState } from './store'
 import {
   B1IdentityScreen,
@@ -58,8 +59,7 @@ export const STEPS: BrandOnboardingStep[] = [
     id: 'budget',
     component: B6BudgetScreen,
     validate: (s) =>
-      typeof s.monthly_budget_range === 'string' &&
-      s.monthly_budget_range.length > 0,
+      typeof s.monthly_budget_usd === 'number' && s.monthly_budget_usd >= 1000,
   },
   {
     id: 'priming-match',
@@ -79,7 +79,7 @@ export const STEPS: BrandOnboardingStep[] = [
       typeof s.contact_title === 'string' &&
       s.contact_title.trim().length > 0 &&
       typeof s.contact_whatsapp_e164 === 'string' &&
-      /^\+[1-9]\d{1,14}$/.test(s.contact_whatsapp_e164),
+      isValidPhoneNumber(s.contact_whatsapp_e164),
   },
   {
     id: 'priming-projection',

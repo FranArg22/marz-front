@@ -1,43 +1,32 @@
+import { useEffect } from 'react'
 import { t } from '@lingui/core/macro'
 import { TrendingUp } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { Slider } from '#/components/ui/slider'
 import { useBrandOnboardingStore } from '../store'
 import { verticalLabelLower } from '../verticalLabels'
-import { MonthlyBudgetRange } from '#/shared/api/generated/model/monthlyBudgetRange'
+import {
+  BUDGET_DEFAULT_USD,
+  BUDGET_MAX_USD,
+  BUDGET_MIN_USD,
+  BUDGET_STEP_USD,
+  formatBudgetFull,
+  formatBudgetShortK,
+} from '../budget'
 
-const BUDGET_SNAPS = [
-  MonthlyBudgetRange.under_10k,
-  MonthlyBudgetRange['10k_to_25k'],
-  MonthlyBudgetRange['25k_to_50k'],
-  MonthlyBudgetRange['50k_plus'],
-] as const
-
-const BIG_NUMBERS: Record<(typeof BUDGET_SNAPS)[number], () => string> = {
-  under_10k: () => t`10.000`,
-  '10k_to_25k': () => t`25.000`,
-  '25k_to_50k': () => t`50.000`,
-  '50k_plus': () => t`100.000+`,
-}
-
-const TICKS: { value: (typeof BUDGET_SNAPS)[number]; label: () => string }[] = [
-  { value: MonthlyBudgetRange.under_10k, label: () => t`$10K` },
-  { value: MonthlyBudgetRange['10k_to_25k'], label: () => t`$25K` },
-  { value: MonthlyBudgetRange['25k_to_50k'], label: () => t`$50K` },
-  { value: MonthlyBudgetRange['50k_plus'], label: () => t`$100K+` },
-]
-
-function getIndex(budget: MonthlyBudgetRange | undefined): number {
-  if (!budget || budget === MonthlyBudgetRange.zero) return 0
-  const idx = BUDGET_SNAPS.indexOf(budget)
-  return idx === -1 ? 0 : idx
-}
+const TICKS = [1000, 10000, 25000, 50000] as const
 
 export function B6BudgetScreen() {
   const store = useBrandOnboardingStore()
-  const currentIndex = getIndex(store.monthly_budget_range)
-  const currentSnap = BUDGET_SNAPS[currentIndex]!
-  const bigNumber = BIG_NUMBERS[currentSnap]()
+  const currentBudget = store.monthly_budget_usd ?? BUDGET_DEFAULT_USD
+  const bigNumber = formatBudgetFull(currentBudget)
+
+  // Commit the default so the step validates without forcing the user to drag.
+  useEffect(() => {
+    if (store.monthly_budget_usd == null) {
+      store.setField('monthly_budget_usd', BUDGET_DEFAULT_USD)
+    }
+  }, [store])
 
   const verticalLabel = verticalLabelLower(store.vertical)
   const hint = verticalLabel
@@ -72,32 +61,29 @@ export function B6BudgetScreen() {
 
       <div className="flex w-full max-w-[640px] flex-col gap-3">
         <Slider
-          min={0}
-          max={BUDGET_SNAPS.length - 1}
-          step={1}
-          value={[currentIndex]}
+          min={BUDGET_MIN_USD}
+          max={BUDGET_MAX_USD}
+          step={BUDGET_STEP_USD}
+          value={[currentBudget]}
           onValueChange={([val]) => {
             if (val != null) {
-              const budget = BUDGET_SNAPS[val]
-              if (budget) {
-                store.setField('monthly_budget_range', budget)
-              }
+              store.setField('monthly_budget_usd', val)
             }
           }}
           aria-label={t`Presupuesto mensual`}
         />
         <div className="flex w-full justify-between">
-          {TICKS.map((tick, i) => (
+          {TICKS.map((tick) => (
             <span
-              key={tick.value}
+              key={tick}
               className={cn(
                 'text-[11px]',
-                i === currentIndex
+                currentBudget === tick
                   ? 'font-semibold text-foreground'
                   : 'font-normal text-muted-foreground',
               )}
             >
-              {tick.label()}
+              {formatBudgetShortK(tick)}
             </span>
           ))}
         </div>

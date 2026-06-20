@@ -1866,6 +1866,101 @@
         }
       }
     },
+    "/v1/onboarding/brand/logo:presign": {
+      "post": {
+        "operationId": "presignBrandOnboardingLogo",
+        "tags": [
+          "onboarding"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoPresignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoPresignResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Possible codes: invalid_body, body_too_large, content_type_required, content_length_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: not_brand. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: account_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: unsupported_content_type, invalid_size. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: presign_failed. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/brand-workspaces/me/logo:presign": {
       "post": {
         "operationId": "presignBrandLogo",
@@ -3167,6 +3262,82 @@
           },
           "422": {
             "description": "Unprocessable Entity. Possible codes: invalid_offer_draft_id, validation_error. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/offers/fee-preview": {
+      "get": {
+        "operationId": "previewOfferFee",
+        "tags": [
+          "offers"
+        ],
+        "summary": "Preview the Stripe processing fee grossed up onto a paid offer.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Brand-Workspace-Id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "required": true,
+            "description": "Offer base amount as a decimal string (e.g. \"1000.00\").",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferFeePreview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Possible codes: invalid_amount, validation_error. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10677,82 +10848,6 @@
           }
         }
       }
-    },
-    "/v1/offers/fee-preview": {
-      "get": {
-        "operationId": "previewOfferFee",
-        "tags": [
-          "offers"
-        ],
-        "summary": "Preview the Stripe processing fee grossed up onto a paid offer.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "amount",
-            "in": "query",
-            "required": true,
-            "description": "Offer base amount as a decimal string (e.g. \"1000.00\").",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OfferFeePreview"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: invalid_amount, validation_error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Possible codes: internal. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -11500,6 +11595,32 @@
           },
           "error": {
             "$ref": "#/components/schemas/OfferSendError"
+          }
+        }
+      },
+      "OfferFeePreview": {
+        "type": "object",
+        "required": [
+          "base_amount",
+          "processing_fee",
+          "total_amount",
+          "currency"
+        ],
+        "properties": {
+          "base_amount": {
+            "type": "string",
+            "description": "Offer base amount (creator payout), decimal string."
+          },
+          "processing_fee": {
+            "type": "string",
+            "description": "Stripe processing fee added on top of the base, decimal string."
+          },
+          "total_amount": {
+            "type": "string",
+            "description": "Amount charged to the brand (base + processing fee), decimal string."
+          },
+          "currency": {
+            "type": "string"
           }
         }
       },
@@ -12839,7 +12960,7 @@
           "marketing_objective",
           "creator_experience",
           "creator_sourcing_intent",
-          "monthly_budget_range",
+          "monthly_budget_usd",
           "timing",
           "attribution",
           "contact_name",
@@ -12882,8 +13003,11 @@
           "creator_sourcing_intent": {
             "$ref": "#/components/schemas/CreatorSourcingIntent"
           },
-          "monthly_budget_range": {
-            "$ref": "#/components/schemas/MonthlyBudgetRange"
+          "monthly_budget_usd": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 50000,
+            "multipleOf": 1000
           },
           "timing": {
             "$ref": "#/components/schemas/Timing"
@@ -12902,6 +13026,10 @@
           "contact_whatsapp_e164": {
             "type": "string",
             "pattern": "^\\+[1-9]\\d{1,14}$"
+          },
+          "logo_s3_key": {
+            "type": "string",
+            "nullable": true
           },
           "billing_intent": {
             "$ref": "#/components/schemas/BrandOnboardingBillingIntent",
@@ -13007,16 +13135,6 @@
           "already_have",
           "discover_in_marz",
           "both"
-        ]
-      },
-      "MonthlyBudgetRange": {
-        "type": "string",
-        "enum": [
-          "under_10k",
-          "10k_to_25k",
-          "25k_to_50k",
-          "50k_plus",
-          "zero"
         ]
       },
       "Timing": {
@@ -20521,32 +20639,6 @@
           "source_ref_id": {
             "type": "string",
             "format": "uuid"
-          }
-        }
-      },
-      "OfferFeePreview": {
-        "type": "object",
-        "required": [
-          "base_amount",
-          "processing_fee",
-          "total_amount",
-          "currency"
-        ],
-        "properties": {
-          "base_amount": {
-            "type": "string",
-            "description": "Offer base amount (creator payout), decimal string."
-          },
-          "processing_fee": {
-            "type": "string",
-            "description": "Stripe processing fee added on top of the base, decimal string."
-          },
-          "total_amount": {
-            "type": "string",
-            "description": "Amount charged to the brand (base + processing fee), decimal string."
-          },
-          "currency": {
-            "type": "string"
           }
         }
       }

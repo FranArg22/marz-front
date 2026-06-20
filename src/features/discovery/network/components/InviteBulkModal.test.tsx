@@ -100,7 +100,7 @@ describe('InviteBulkModal', () => {
     await triggerSuccess(1, 2)
 
     expect(toast.success).toHaveBeenCalledWith(
-      'Se enviaron 2 invitaciones. 1 creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa.',
+      'Se enviaron 2 invitaciones. 1 creadores fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa.',
     )
   })
 

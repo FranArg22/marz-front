@@ -17,7 +17,7 @@ const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
 
 const config = defineConfig({
   server: {
-    allowedHosts: ['marz.test', 'marz-front.test'],
+    allowedHosts: ['marz.test', 'marz-front.test', 'marz-codex.test'],
   },
   resolve: { tsconfigPaths: true },
   plugins: [

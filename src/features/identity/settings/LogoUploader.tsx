@@ -6,6 +6,7 @@ import { t } from '@lingui/core/macro'
 import { Button } from '#/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { usePresignBrandLogo } from '#/shared/api/generated/identity/identity'
+import { usePresignBrandOnboardingLogo } from '#/shared/api/generated/onboarding/onboarding'
 
 const acceptedTypes = ['image/png', 'image/jpeg', 'image/webp']
 
@@ -14,6 +15,8 @@ interface LogoUploaderProps {
   onKeyChange: (key: string | null) => void
   brandName?: string
   error?: string
+  // 'onboarding' presigns against the account (no workspace yet); 'workspace' against the existing brand workspace.
+  variant?: 'workspace' | 'onboarding'
 }
 
 export function LogoUploader({
@@ -21,9 +24,13 @@ export function LogoUploader({
   onKeyChange,
   brandName = '',
   error: serverError,
+  variant = 'workspace',
 }: LogoUploaderProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const presignLogo = usePresignBrandLogo()
+  const workspacePresign = usePresignBrandLogo()
+  const onboardingPresign = usePresignBrandOnboardingLogo()
+  const presignLogo =
+    variant === 'onboarding' ? onboardingPresign : workspacePresign
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentLogoUrl)
   const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null)
   const [uploadError, setUploadError] = useState<string | null>(null)
@@ -117,6 +124,7 @@ export function LogoUploader({
         type="file"
         accept={acceptedTypes.join(',')}
         className="sr-only"
+        aria-label={t`Subir logo`}
         onChange={handleFileChange}
       />
 
@@ -156,6 +164,7 @@ export function LogoUploader({
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean)
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- inicial de fallback, no es copy traducible
   if (parts.length === 0) return 'M'
   return parts
     .slice(0, 2)

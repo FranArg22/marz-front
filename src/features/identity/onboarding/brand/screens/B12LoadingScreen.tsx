@@ -5,7 +5,8 @@ import { useNavigate } from '@tanstack/react-router'
 import { cn } from '#/lib/utils'
 import { useBrandOnboardingStore } from '../store'
 import { STEPS, getStepId } from '../steps'
-import { MarketingObjective, MonthlyBudgetRange, Vertical } from '../types'
+import { MarketingObjective, Vertical } from '../types'
+import { BUDGET_DEFAULT_USD, formatBudgetShortK } from '../budget'
 
 const VERTICAL_LABEL: Record<Vertical, () => string> = {
   fintech: () => t`Fintech`,
@@ -24,14 +25,6 @@ const VERTICAL_LABEL: Record<Vertical, () => string> = {
   crypto: () => t`Crypto`,
   ai_tech: () => t`AI / Tech`,
   other: () => t`tu vertical`,
-}
-
-const BUDGET_LABEL: Record<MonthlyBudgetRange, () => string> = {
-  zero: () => t`$0`,
-  under_10k: () => t`$10K`,
-  '10k_to_25k': () => t`$25K`,
-  '25k_to_50k': () => t`$50K`,
-  '50k_plus': () => t`$100K+`,
 }
 
 const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
@@ -53,11 +46,11 @@ export function B12LoadingScreen() {
   )
 
   const vertical = store.vertical ?? Vertical.other
-  const budget = store.monthly_budget_range ?? MonthlyBudgetRange.under_10k
+  const budgetUsd = store.monthly_budget_usd ?? BUDGET_DEFAULT_USD
   const objective = store.marketing_objective ?? MarketingObjective.performance
 
   const verticalLabel = VERTICAL_LABEL[vertical]()
-  const budgetLabel = BUDGET_LABEL[budget]()
+  const budgetLabel = formatBudgetShortK(budgetUsd)
   const objectiveLabel = OBJECTIVE_LABEL[objective]()
   const steps = [
     t`Filtramos por vertical ${verticalLabel}`,

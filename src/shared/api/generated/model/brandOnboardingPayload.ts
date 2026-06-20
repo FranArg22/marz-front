@@ -13,7 +13,6 @@ import type { BrandOnboardingBillingIntent } from './brandOnboardingBillingInten
 import type { CreatorExperience } from './creatorExperience';
 import type { CreatorSourcingIntent } from './creatorSourcingIntent';
 import type { MarketingObjective } from './marketingObjective';
-import type { MonthlyBudgetRange } from './monthlyBudgetRange';
 import type { Timing } from './timing';
 import type { Vertical } from './vertical';
 
@@ -40,7 +39,11 @@ export interface BrandOnboardingPayload {
   marketing_objective: MarketingObjective;
   creator_experience: CreatorExperience;
   creator_sourcing_intent: CreatorSourcingIntent;
-  monthly_budget_range: MonthlyBudgetRange;
+  /**
+     * @minimum 1000
+     * @maximum 50000
+     */
+  monthly_budget_usd: number;
   timing: Timing;
   attribution: Attribution;
   /** @maxLength 200 */
@@ -49,5 +52,7 @@ export interface BrandOnboardingPayload {
   contact_title: string;
   /** @pattern ^\+[1-9]\d{1,14}$ */
   contact_whatsapp_e164: string;
+  /** @nullable */
+  logo_s3_key?: string | null;
   billing_intent?: BrandOnboardingBillingIntent | null;
 }

@@ -400,7 +400,6 @@ export * from './messageListResponse';
 export * from './messageResponse';
 export * from './messageSendRequest';
 export * from './money';
-export * from './monthlyBudgetRange';
 export * from './monthlyEarningsBucket';
 export * from './offerAcceptError';
 export * from './offerAcceptErrorCode';

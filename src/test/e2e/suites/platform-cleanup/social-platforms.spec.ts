@@ -188,7 +188,7 @@ function validBrandPayload(source: string) {
     marketing_objective: 'awareness',
     creator_experience: 'never',
     creator_sourcing_intent: 'discover_in_marz',
-    monthly_budget_range: 'under_10k',
+    monthly_budget_usd: 5000,
     timing: 'this_month',
     attribution: { source },
     contact_name: 'E2E Brand Contact',
