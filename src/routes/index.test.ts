@@ -4,7 +4,6 @@ import type { ReactNode } from 'react'
 
 let mockServerMeResult: { ok: boolean; body: Record<string, unknown> | null } =
   { ok: false, body: null }
-const mockGetBrandWorkspaceLandingTarget = vi.fn()
 
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
@@ -33,10 +32,6 @@ vi.mock('#/shared/api/generated/accounts/accounts', () => ({
   getMeQueryKey: () => ['/v1/me'],
 }))
 
-vi.mock('#/shared/api/generated/identity/identity', () => ({
-  getBrandWorkspaceLandingTarget: () => mockGetBrandWorkspaceLandingTarget(),
-}))
-
 function makeQueryClient() {
   return {
     getQueryData: vi.fn(() => undefined),
@@ -61,10 +56,6 @@ describe('/ beforeLoad', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockServerMeResult = { ok: false, body: null }
-    mockGetBrandWorkspaceLandingTarget.mockResolvedValue({
-      status: 200,
-      data: { target: 'dashboard' },
-    })
   })
 
   it('redirects to /auth when not authenticated', async () => {
@@ -113,7 +104,7 @@ describe('/ beforeLoad', () => {
     await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/auth' }))
   })
 
-  it('redirects to /inicio for onboarded brand when landing target is dashboard', async () => {
+  it('redirects to /inicio for onboarded brand', async () => {
     mockServerMeResult = {
       ok: true,
       body: {
@@ -122,48 +113,11 @@ describe('/ beforeLoad', () => {
         redirect_to: null,
       },
     }
-    mockGetBrandWorkspaceLandingTarget.mockResolvedValue({
-      status: 200,
-      data: { target: 'dashboard' },
-    })
 
     await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inicio' }))
   })
 
-  it('redirects to /campaigns/new for onboarded brand when landing target is create_campaign', async () => {
-    mockServerMeResult = {
-      ok: true,
-      body: {
-        kind: 'brand',
-        onboarding_status: 'onboarded',
-        redirect_to: null,
-      },
-    }
-    mockGetBrandWorkspaceLandingTarget.mockResolvedValue({
-      status: 200,
-      data: { target: 'create_campaign' },
-    })
-
-    await expect(callBeforeLoad()).rejects.toEqual(
-      redirect({ to: '/campaigns/new' }),
-    )
-  })
-
-  it('defaults to /inicio for onboarded brand when landing target fails', async () => {
-    mockServerMeResult = {
-      ok: true,
-      body: {
-        kind: 'brand',
-        onboarding_status: 'onboarded',
-        redirect_to: null,
-      },
-    }
-    mockGetBrandWorkspaceLandingTarget.mockRejectedValue(new Error('failed'))
-
-    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inicio' }))
-  })
-
-  it('redirects to /offers for onboarded creator', async () => {
+  it('redirects to /discover/campaigns for onboarded creator', async () => {
     mockServerMeResult = {
       ok: true,
       body: {
@@ -172,6 +126,8 @@ describe('/ beforeLoad', () => {
         redirect_to: null,
       },
     }
-    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/offers' }))
+    await expect(callBeforeLoad()).rejects.toEqual(
+      redirect({ to: '/discover/campaigns' }),
+    )
   })
 })
