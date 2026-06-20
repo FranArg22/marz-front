@@ -64,6 +64,23 @@ const discoverySearchSchema = z.object({
 
 export type DiscoverySearch = z.infer<typeof discoverySearchSchema>
 
+// Normalized comparison of two search objects, ignoring undefined values and
+// empty arrays (the URL drops those, so they must not count as a difference).
+function sameSearch(a: DiscoverySearch, b: DiscoverySearch): boolean {
+  const normalize = (search: DiscoverySearch) =>
+    JSON.stringify(
+      Object.entries(search)
+        .filter(([, v]) => {
+          const value: unknown = v
+          if (value === undefined) return false
+          if (Array.isArray(value) && value.length === 0) return false
+          return true
+        })
+        .sort(([k1], [k2]) => k1.localeCompare(k2)),
+    )
+  return normalize(a) === normalize(b)
+}
+
 export const Route = createFileRoute('/_brand/discovery')({
   validateSearch: (search) => discoverySearchSchema.parse(search),
   component: DiscoveryRoute,
@@ -107,14 +124,16 @@ function DiscoveryRoute() {
 
   // store -> URL: mirror applied filters back into the URL, but never before
   // the initial hydration ran, or we would clobber a shared filtered URL with
-  // the empty closure defaults.
+  // the empty closure defaults. Skip the navigate when the URL already reflects
+  // the store: mirroring unconditionally re-issues `navigate({ from:
+  // '/discovery' })` on every sync cycle, which pins the route and prevents
+  // navigating away (you enter Explorar and can't leave).
   useEffect(() => {
     if (!hydrated.current) return
-    void navigate({
-      search: () => ({ ...appliedFilters, sort: activeSort }),
-      replace: true,
-    })
-  }, [appliedFilters, activeSort, navigate])
+    const next = { ...appliedFilters, sort: activeSort }
+    if (sameSearch(search, next)) return
+    void navigate({ search: () => next, replace: true })
+  }, [appliedFilters, activeSort, navigate, search])
 
   // El layout/SSR siembra un me liviano (getServerMe) que NO trae
   // plan_capabilities; al venir de brand_workspace?. queda posiblemente
