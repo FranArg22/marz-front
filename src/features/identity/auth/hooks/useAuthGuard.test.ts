@@ -78,7 +78,7 @@ describe('useAuthGuard', () => {
     })
   })
 
-  it('redirects to /offers for onboarded creator', async () => {
+  it('redirects to /inbox for onboarded creator', async () => {
     mockIsSignedIn = true
     mockMeData = {
       status: 200,
@@ -92,7 +92,7 @@ describe('useAuthGuard', () => {
 
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith(
-        expect.objectContaining({ to: '/offers' }),
+        expect.objectContaining({ to: '/inbox' }),
       )
     })
   })

@@ -115,7 +115,7 @@ describe('CallbackScreen', () => {
     renderScreen()
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith({
-        to: '/offers',
+        to: '/inbox',
       })
     })
   })

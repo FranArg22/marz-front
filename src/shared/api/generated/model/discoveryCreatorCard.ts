@@ -12,6 +12,8 @@ import type { DiscoveryCreatorPlatformStats } from './discoveryCreatorPlatformSt
 
 export interface DiscoveryCreatorCard {
   account_id: string;
+  creator_id: string;
+  email?: string;
   display_name: string;
   avatar_url: string;
   country: string;

@@ -52,7 +52,7 @@ export function CallbackScreen() {
           track('sign_in_succeeded', { onboarding_status, kind })
 
           const destination =
-            redirect_to ?? (kind === 'brand' ? '/campaigns' : '/offers')
+            redirect_to ?? (kind === 'brand' ? '/campaigns' : '/inbox')
 
           void navigate({ to: destination })
         } else {

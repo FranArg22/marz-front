@@ -20,6 +20,8 @@ import { DiscoveryCreatePairKindEnum } from '#/shared/api/generated/model'
 
 import { useCreateConnectionRequestMutation } from '../hooks/useCreateConnectionRequestMutation'
 
+const NIL_UUID = '00000000-0000-0000-0000-000000000000'
+
 interface InviteSingleModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -63,7 +65,9 @@ export function InviteSingleModal({
 
     mutate(
       {
-        creator_account_id: card.account_id,
+        ...(card.account_id && card.account_id !== NIL_UUID
+          ? { creator_account_id: card.account_id }
+          : { creator_id: card.creator_id }),
         note: note.trim() || null,
       },
       {

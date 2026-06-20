@@ -30,6 +30,7 @@ function makeCard(
 ): DiscoveryCreatorCard {
   return {
     account_id: 'acc-1',
+    creator_id: 'profile-1',
     display_name: 'Creator One',
     avatar_url: 'https://example.test/a.png',
     country: 'AR',

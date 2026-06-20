@@ -4,7 +4,7 @@ import { customFetch } from '#/shared/api/mutator'
 // Orval-generated client because the dev backend spec is currently behind the
 // frontend (regenerating the whole client would drop endpoints the app needs).
 export interface AcceptInviteByTokenResult {
-  conversation_id: string
+  connection_request_id: string
   route: string
 }
 
