@@ -56,7 +56,7 @@ export const Route = createFileRoute('/auth/')({
             landingTarget === 'create_campaign' ? '/campaigns/new' : '/inicio',
         })
       }
-      throw redirect({ to: '/offers' })
+      throw redirect({ to: '/inbox' })
     }
     if (me.redirect_to) {
       throw redirect({ to: me.redirect_to })

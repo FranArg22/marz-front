@@ -20,7 +20,7 @@ export function useAuthGuard() {
     const data = me.data
 
     if (data.onboarding_status === 'onboarded') {
-      const home = data.kind === 'brand' ? '/campaigns' : '/offers'
+      const home = data.kind === 'brand' ? '/campaigns' : '/inbox'
       void navigate({ to: home })
     } else if (data.redirect_to) {
       void navigate({ to: data.redirect_to })
