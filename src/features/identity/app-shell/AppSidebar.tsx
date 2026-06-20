@@ -50,7 +50,10 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
 
-  const renderItem = (item: ShellNavigationItem) => {
+  const renderItem = (
+    item: ShellNavigationItem,
+    hasMovingIndicator = false,
+  ) => {
     const Icon = iconByName[item.icon] ?? Inbox
     const disabled = item.disabled === true
 
@@ -68,12 +71,16 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
         active={activeItem?.id === item.id}
         disabled={disabled}
         tooltipLabel={tooltipLabel}
+        hasMovingIndicator={hasMovingIndicator}
       />
     )
   }
 
   const footerItem = items.find((item) => item.id === 'settings')
   const mainItems = items.filter((item) => item.id !== 'settings')
+  const activeMainIndex = mainItems.findIndex(
+    (item) => item.id === activeItem?.id,
+  )
 
   return (
     <TooltipProvider>
@@ -96,8 +103,17 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
           />
         </div>
         <div className="h-px w-7 bg-sidebar-border" />
-        <div className="flex w-full flex-1 flex-col items-center gap-2 py-4">
-          {mainItems.map(renderItem)}
+        <div className="relative flex w-full flex-1 flex-col items-center gap-2 py-4">
+          {activeMainIndex >= 0 ? (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute top-4 left-1/2 size-11 rounded-[20px] bg-sidebar-accent transition-transform duration-200 ease-[var(--ease-out-quint)] motion-reduce:transition-none"
+              style={{
+                transform: `translate(-50%, calc(${activeMainIndex} * 3.25rem))`,
+              }}
+            />
+          ) : null}
+          {mainItems.map((item) => renderItem(item, true))}
           {footerItem ? (
             <div className="mt-auto">{renderItem(footerItem)}</div>
           ) : null}

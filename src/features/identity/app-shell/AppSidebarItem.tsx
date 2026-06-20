@@ -11,6 +11,9 @@ interface AppSidebarItemProps {
   active: boolean
   disabled: boolean
   tooltipLabel: string
+  /** When true, the active background is drawn by the parent's sliding
+   * indicator pill, so the item only contributes the active text color. */
+  hasMovingIndicator?: boolean
 }
 
 export function AppSidebarItem({
@@ -20,13 +23,15 @@ export function AppSidebarItem({
   active,
   disabled,
   tooltipLabel,
+  hasMovingIndicator = false,
 }: AppSidebarItemProps) {
   const itemClassName = cn(
-    'flex size-11 items-center justify-center rounded-[20px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+    'relative z-10 flex size-11 items-center justify-center rounded-[20px] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-quint)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
     active
-      ? 'bg-sidebar-accent text-primary'
+      ? cn('text-primary', !hasMovingIndicator && 'bg-sidebar-accent')
       : 'bg-transparent text-muted-foreground hover:bg-sidebar-accent/70 hover:text-sidebar-foreground',
-    disabled && 'cursor-not-allowed opacity-50 hover:bg-transparent',
+    disabled &&
+      'cursor-not-allowed opacity-50 hover:bg-transparent active:scale-100',
   )
 
   return (
