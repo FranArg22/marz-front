@@ -2158,6 +2158,15 @@
             "type": "string",
             "format": "uuid",
             "nullable": true
+          },
+          "counterpart_account_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "counterpart_display_name": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

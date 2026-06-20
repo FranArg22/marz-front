@@ -1,14 +1,16 @@
 import { t } from '@lingui/core/macro'
 
-import type { InboxItem, InboxResponse } from './api/inbox'
-import { InboxItemRow } from './InboxItemRow'
+import type { InboxResponse } from './api/inbox'
+import { InboxCreatorBox } from './InboxCreatorBox'
+import type { InboxCreatorBoxModel } from './groupInboxItemsByCounterpart'
 
 interface InboxSectionProps {
   accountKind: InboxResponse['account_kind']
   title: string
   description: string
   count: number
-  items: InboxItem[]
+  boxes: InboxCreatorBoxModel[]
+  crossContextCounterpartIds?: ReadonlySet<string>
   tone: 'action' | 'waiting'
 }
 
@@ -17,7 +19,8 @@ export function InboxSection({
   title,
   description,
   count,
-  items,
+  boxes,
+  crossContextCounterpartIds,
   tone,
 }: InboxSectionProps) {
   return (
@@ -43,10 +46,18 @@ export function InboxSection({
         </p>
       </header>
 
-      {items.length > 0 ? (
+      {boxes.length > 0 ? (
         <ul className="flex flex-col gap-2">
-          {items.map((item) => (
-            <InboxItemRow key={item.id} accountKind={accountKind} item={item} />
+          {boxes.map((box) => (
+            <InboxCreatorBox
+              key={box.id}
+              accountKind={accountKind}
+              box={box}
+              hasWaitingContext={
+                tone === 'action' && crossContextCounterpartIds?.has(box.id)
+              }
+              tone={tone}
+            />
           ))}
         </ul>
       ) : (

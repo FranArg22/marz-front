@@ -3,8 +3,12 @@ import { useEffect } from 'react'
 
 import { Button } from '#/components/ui/button'
 
-import type { InboxItem, InboxResponse } from './api/inbox'
+import type { InboxResponse } from './api/inbox'
 import { trackInboxEmptyViewed, trackInboxViewed } from './analytics'
+import {
+  getCounterpartKey,
+  groupInboxItemsByCounterpart,
+} from './groupInboxItemsByCounterpart'
 import { useInboxQuery } from './hooks/useInboxQuery'
 import { InboxEmptyState } from './InboxEmptyState'
 import { InboxSection } from './InboxSection'
@@ -44,8 +48,16 @@ function InboxPageContent({
   data: InboxResponse
   campaignId?: string
 }) {
-  const actionItems = sortByNewest(data.action_items)
-  const waitingItems = sortByNewest(data.waiting_items)
+  const actionBoxes = groupInboxItemsByCounterpart(data.action_items)
+  const waitingBoxes = groupInboxItemsByCounterpart(data.waiting_items)
+  const waitingCounterpartIds = new Set(
+    data.waiting_items.map(getCounterpartKey),
+  )
+  const crossContextCounterpartIds = new Set(
+    data.action_items
+      .map(getCounterpartKey)
+      .filter((key) => waitingCounterpartIds.has(key)),
+  )
   const isEmpty =
     data.counts.action_items === 0 && data.counts.waiting_items === 0
   const copy = getInboxCopy(data.account_kind)
@@ -97,7 +109,8 @@ function InboxPageContent({
                 title={t`Pendientes`}
                 description={t`Más recientes`}
                 count={data.counts.action_items}
-                items={actionItems}
+                boxes={actionBoxes}
+                crossContextCounterpartIds={crossContextCounterpartIds}
                 tone="action"
                 accountKind={data.account_kind}
               />
@@ -107,7 +120,7 @@ function InboxPageContent({
                 title={copy.waitingTitle}
                 description={copy.waitingDescription}
                 count={data.counts.waiting_items}
-                items={waitingItems}
+                boxes={waitingBoxes}
                 tone="waiting"
                 accountKind={data.account_kind}
               />
@@ -173,14 +186,6 @@ function InboxErrorState({ onRetry }: { onRetry: () => void }) {
         </Button>
       </div>
     </main>
-  )
-}
-
-function sortByNewest(items: InboxItem[]) {
-  return items.toSorted(
-    (first, second) =>
-      new Date(second.occurred_at).getTime() -
-      new Date(first.occurred_at).getTime(),
   )
 }
 
