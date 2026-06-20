@@ -1,33 +1,22 @@
 import { t } from '@lingui/core/macro'
 import { useNavigate } from '@tanstack/react-router'
-import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { Button } from '#/components/ui/button'
-import type { CampaignPlanCapabilities } from '#/shared/api/generated/model'
-
 import { CampaignCreatorsTable } from '../CampaignCreatorsTable'
-import { InviteCreatorDialog } from './InviteCreatorDialog'
 import { CreatorsFilters, hasActiveFilters } from './CreatorsFilters'
 import type { CreatorsFilterParams } from './CreatorsFilters'
 import type { CampaignParticipantsParams } from './useCampaignParticipantsQuery'
 
 interface CreatorsTabProps {
   campaignId: string
-  planCapabilities: CampaignPlanCapabilities
   search: CreatorsFilterParams
 }
 
 const PAGE_LIMIT = 24
 
-export function CreatorsTab({
-  campaignId,
-  planCapabilities,
-  search,
-}: CreatorsTabProps) {
+export function CreatorsTab({ campaignId, search }: CreatorsTabProps) {
   const navigate = useNavigate({ from: '/campaigns/$campaignId' })
   const [cursor, setCursor] = useState<string | undefined>(undefined)
-  const [inviteDialogOpen, setInviteDialogOpen] = useState(false)
 
   const filters = useMemo(
     () => ({
@@ -94,8 +83,6 @@ export function CreatorsTab({
     })
   }, [navigate])
 
-  const openInviteCreator = useCallback(() => setInviteDialogOpen(true), [])
-
   const activeFilters = hasActiveFilters(filters)
 
   return (
@@ -109,14 +96,6 @@ export function CreatorsTab({
             {t`Creadores activos en esta campaña`}
           </h2>
         </div>
-        <Button
-          type="button"
-          className="w-fit rounded-xl"
-          onClick={openInviteCreator}
-        >
-          <Plus className="size-4" aria-hidden />
-          {t`Invitar creador`}
-        </Button>
       </div>
 
       <CreatorsFilters params={filters} onParamsChange={updateFilters} />
@@ -125,20 +104,12 @@ export function CreatorsTab({
         scope={{
           type: 'campaign',
           campaignId,
-          allowsInPlatformInvites: planCapabilities.allows_in_platform_invites,
         }}
         params={tableParams}
         onParamsChange={updateTableParams}
         hasActiveFilters={activeFilters}
         onClearFilters={clearFilters}
         onFindCreators={findCreators}
-        onInviteCreator={openInviteCreator}
-      />
-      <InviteCreatorDialog
-        campaignId={campaignId}
-        open={inviteDialogOpen}
-        onOpenChange={setInviteDialogOpen}
-        allowsInPlatformInvites={planCapabilities.allows_in_platform_invites}
       />
     </section>
   )

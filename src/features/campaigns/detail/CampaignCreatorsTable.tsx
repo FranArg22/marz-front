@@ -8,7 +8,6 @@ import {
   Instagram,
   MessageSquare,
   Music,
-  Plus,
   Search,
   UserPlus,
   Youtube,
@@ -32,7 +31,7 @@ import { useCampaignParticipantsQuery } from './creators/useCampaignParticipants
 import type { CampaignParticipantsParams } from './creators/useCampaignParticipantsQuery'
 
 export type CampaignCreatorsTableScope =
-  | { type: 'campaign'; campaignId: string; allowsInPlatformInvites: boolean }
+  | { type: 'campaign'; campaignId: string }
   | { type: 'global' }
 
 interface CampaignCreatorsTableProps {
@@ -42,7 +41,6 @@ interface CampaignCreatorsTableProps {
   hasActiveFilters: boolean
   onClearFilters: () => void
   onFindCreators: () => void
-  onInviteCreator?: () => void
 }
 
 function getStatusLabel(status: ListCreatorsStatus) {
@@ -82,7 +80,6 @@ export function CampaignCreatorsTable({
   hasActiveFilters,
   onClearFilters,
   onFindCreators,
-  onInviteCreator = () => {},
 }: CampaignCreatorsTableProps) {
   const campaignIdForQuery =
     scope.type === 'campaign' ? scope.campaignId : undefined
@@ -135,25 +132,15 @@ export function CampaignCreatorsTable({
                 {t`Limpiar filtros`}
               </Button>
             ) : (
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="rounded-xl"
-                  onClick={onFindCreators}
-                >
-                  <Compass className="size-4" aria-hidden />
-                  {t`Buscar creadores`}
-                </Button>
-                <Button
-                  type="button"
-                  className="rounded-xl"
-                  onClick={onInviteCreator}
-                >
-                  <Plus className="size-4" aria-hidden />
-                  {t`Invitar creador`}
-                </Button>
-              </div>
+              <Button
+                type="button"
+                variant="outline"
+                className="rounded-xl"
+                onClick={onFindCreators}
+              >
+                <Compass className="size-4" aria-hidden />
+                {t`Buscar creadores`}
+              </Button>
             )
           }
         />
@@ -172,7 +159,6 @@ export function CampaignCreatorsTable({
                 key={participant.participant_id}
                 participant={participant}
                 campaignId={campaignIdForQuery}
-                onInviteCreator={onInviteCreator}
               />
             ))}
           </div>
@@ -233,11 +219,9 @@ function HeaderCell({ children }: { children: ReactNode }) {
 function CreatorRow({
   participant,
   campaignId,
-  onInviteCreator,
 }: {
   participant: CampaignParticipantListItem
   campaignId: string | undefined
-  onInviteCreator: () => void
 }) {
   const navigate = useNavigate()
   const primaryPlatform = getPrimaryPlatform(participant)
@@ -279,19 +263,7 @@ function CreatorRow({
             <MessageSquare className="size-3.5" aria-hidden />
           </Button>
         ) : null}
-        {participant.actions.invite_creator ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-xs"
-            aria-label={t`Invitar creador`}
-            onClick={onInviteCreator}
-          >
-            <Plus className="size-3.5" aria-hidden />
-          </Button>
-        ) : null}
-        {!participant.actions.open_workspace &&
-        !participant.actions.invite_creator ? (
+        {!participant.actions.open_workspace ? (
           <Button
             type="button"
             variant="ghost"
