@@ -24,7 +24,7 @@ beforeAll(() => {
 beforeEach(() => {
   useBrandOnboardingStore.setState({
     currentStepIndex: 5,
-    monthly_budget_range: undefined,
+    monthly_budget_usd: undefined,
   })
 })
 
@@ -36,7 +36,7 @@ describe('B6BudgetScreen', () => {
 
   it('renders budget label', () => {
     render(<B6BudgetScreen />)
-    expect(screen.getByText('10.000')).toBeInTheDocument()
+    expect(screen.getByText('1.000')).toBeInTheDocument()
     expect(screen.getByText(/marcas similares invierten/i)).toBeInTheDocument()
   })
 

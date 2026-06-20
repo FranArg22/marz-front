@@ -68,7 +68,7 @@ const VALID_STATE = {
   marketing_objective: 'awareness' as const,
   creator_experience: 'never' as const,
   creator_sourcing_intent: 'already_have' as const,
-  monthly_budget_range: 'under_10k' as const,
+  monthly_budget_usd: 5000,
   timing: 'exploring' as const,
   attribution: { source: 'search' as const },
   contact_name: 'John Doe',

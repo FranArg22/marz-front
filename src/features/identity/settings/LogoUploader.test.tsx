@@ -23,6 +23,13 @@ vi.mock('#/shared/api/generated/identity/identity', () => ({
   }),
 }))
 
+vi.mock('#/shared/api/generated/onboarding/onboarding', () => ({
+  usePresignBrandOnboardingLogo: () => ({
+    mutateAsync: presignMock,
+    isPending: false,
+  }),
+}))
+
 function renderUploader(onKeyChange = vi.fn()) {
   render(
     <LogoUploader

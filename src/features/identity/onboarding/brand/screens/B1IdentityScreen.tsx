@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro'
 import { Input } from '#/components/ui/input'
 import { FieldRow } from '#/shared/ui/form'
 import { WizardSectionTitle } from '#/shared/ui/wizard'
+import { LogoUploader } from '#/features/identity/settings/LogoUploader'
 import { useBrandOnboardingStore } from '../store'
 // Brand enrichment fuera del MVP — se reactiva post-MVP.
 // import { useEffect, useRef } from 'react'
@@ -83,6 +84,15 @@ export function B1IdentityScreen() {
         subtitle={t`Ingresá el nombre y la web de tu marca para comenzar.`}
       />
       <div className="flex w-full max-w-[440px] flex-col gap-6">
+        <div className="flex flex-col items-center">
+          <LogoUploader
+            variant="onboarding"
+            currentLogoUrl={null}
+            brandName={store.name ?? ''}
+            error={store.fieldErrors.logo_s3_key}
+            onKeyChange={(key) => store.setField('logo_s3_key', key)}
+          />
+        </div>
         <FieldRow label={t`Nombre de la marca`} error={store.fieldErrors.name}>
           {(aria) => (
             <Input

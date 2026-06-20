@@ -87,7 +87,7 @@ async function completeStarterCheckoutViaApi(
         marketing_objective: 'awareness',
         creator_experience: 'never',
         creator_sourcing_intent: 'discover_in_marz',
-        monthly_budget_range: 'under_10k',
+        monthly_budget_usd: 5000,
         timing: 'this_month',
         attribution: { source: 'search' },
         contact_name: 'E2E Paid Offer Brand',
