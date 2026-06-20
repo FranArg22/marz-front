@@ -136,7 +136,7 @@ export function C20ConfirmationScreen() {
     <div className="relative flex w-full flex-col items-center gap-10">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-120px] h-[560px] w-[680px] -translate-x-1/2 opacity-50"
+        className="pointer-events-none absolute left-1/2 top-[-120px] h-[560px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.28) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -144,8 +144,12 @@ export function C20ConfirmationScreen() {
       />
 
       <div className="relative flex flex-col items-center gap-5">
-        <div className="flex size-[72px] items-center justify-center rounded-full bg-primary/20">
-          <div className="flex size-11 items-center justify-center rounded-full bg-primary">
+        <div className="relative flex size-[72px] items-center justify-center rounded-full bg-primary/20">
+          <span
+            aria-hidden
+            className="wizard-tick-halo absolute inset-0 rounded-full bg-primary/40"
+          />
+          <div className="wizard-tick-beat flex size-11 items-center justify-center rounded-full bg-primary">
             <Check className="size-6 text-primary-foreground" strokeWidth={3} />
           </div>
         </div>

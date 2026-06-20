@@ -14,7 +14,7 @@ export function B3PrimingSocialProof() {
     <div className="relative flex w-full flex-col items-center gap-12">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-100px] h-[500px] w-[600px] -translate-x-1/2 opacity-50"
+        className="pointer-events-none absolute left-1/2 top-[-100px] h-[500px] w-[600px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.2) 0%, rgba(13, 166, 120, 0) 100%)',

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { t, plural } from '@lingui/core/macro'
 import { ChevronDown, Plus, Trash2 } from 'lucide-react'
+import { cn } from '#/lib/utils'
 import { Input } from '#/components/ui/input'
 import { Button } from '#/components/ui/button'
 import {
@@ -453,7 +454,7 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
         return (
           <div
             key={channel.platform}
-            className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4"
+            className="wizard-card-in flex flex-col rounded-xl border border-border bg-card p-4"
           >
             <ChannelHeader
               platformLabel={platformLabel}
@@ -465,24 +466,43 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
               onRemove={() => removeChannel(ci)}
             />
 
-            {isExpanded && (
-              <ChannelBody
-                channel={channel}
-                usedPlatforms={usedPlatforms}
-                availableFormats={availableFormats}
-                formats={formats}
-                onChangePlatform={(platform) => changePlatform(ci, platform)}
-                onSetPrimary={() => setPrimary(ci)}
-                onUpdateHandle={(handle) =>
-                  updateChannel(ci, { external_handle: handle })
-                }
-                onUpdateRateCard={(cardIndex, patch) =>
-                  updateRateCard(ci, cardIndex, patch)
-                }
-                onRemoveRateCard={(cardIndex) => removeRateCard(ci, cardIndex)}
-                onAddRateCard={(format) => addRateCard(ci, format)}
-              />
-            )}
+            <div
+              className={cn(
+                'grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none',
+                isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+              )}
+            >
+              <div className="overflow-hidden">
+                <div
+                  inert={!isExpanded ? true : undefined}
+                  className={cn(
+                    'flex flex-col gap-4 pt-4 transition-opacity duration-200 ease-out motion-reduce:transition-none',
+                    isExpanded ? 'opacity-100' : 'opacity-0',
+                  )}
+                >
+                  <ChannelBody
+                    channel={channel}
+                    usedPlatforms={usedPlatforms}
+                    availableFormats={availableFormats}
+                    formats={formats}
+                    onChangePlatform={(platform) =>
+                      changePlatform(ci, platform)
+                    }
+                    onSetPrimary={() => setPrimary(ci)}
+                    onUpdateHandle={(handle) =>
+                      updateChannel(ci, { external_handle: handle })
+                    }
+                    onUpdateRateCard={(cardIndex, patch) =>
+                      updateRateCard(ci, cardIndex, patch)
+                    }
+                    onRemoveRateCard={(cardIndex) =>
+                      removeRateCard(ci, cardIndex)
+                    }
+                    onAddRateCard={(format) => addRateCard(ci, format)}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         )
       })}

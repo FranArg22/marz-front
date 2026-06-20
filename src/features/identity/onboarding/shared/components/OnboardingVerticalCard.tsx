@@ -31,7 +31,7 @@ export function OnboardingVerticalCard({
         }
       }}
       className={cn(
-        'flex w-[180px] flex-col justify-between rounded-xl p-5 text-left transition-colors',
+        'flex w-[180px] flex-col justify-between rounded-xl p-5 text-left transition-[transform,background-color,border-color,color] duration-150 ease-out motion-safe:active:scale-[0.98]',
         'h-[clamp(88px,14vh,140px)]',
         'max-[900px]:h-auto max-[900px]:w-full max-[900px]:flex-row max-[900px]:items-center max-[900px]:gap-4 max-[900px]:rounded-full max-[900px]:p-3',
         selected

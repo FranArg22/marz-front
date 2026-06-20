@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-router'
 
 import { useMe } from '#/shared/api/generated/accounts/accounts'
-import { WizardShell } from '#/shared/ui/wizard'
+import { WizardShell, WizardStepTransition } from '#/shared/ui/wizard'
 import { useBrandOnboardingStore } from '#/features/identity/onboarding/brand/store'
 import {
   STEPS,
@@ -130,7 +130,9 @@ function BrandOnboardingLayout() {
       hideFooter={hideFooter}
       onExit={handleExit}
     >
-      <Outlet />
+      <WizardStepTransition stepKey={currentStep.id} index={currentIndex}>
+        <Outlet />
+      </WizardStepTransition>
     </WizardShell>
   )
 }

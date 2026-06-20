@@ -33,7 +33,7 @@ export function OnboardingOptionChip(props: OnboardingOptionChipProps) {
         }
       }}
       className={cn(
-        'inline-flex h-11 items-center gap-2 rounded-full px-5 text-[length:var(--font-size-sm)] font-medium transition-colors',
+        'inline-flex h-11 items-center gap-2 rounded-full px-5 text-[length:var(--font-size-sm)] font-medium transition-[transform,background-color,border-color,color] duration-150 ease-out motion-safe:active:scale-[0.97]',
         selected
           ? 'border-[1.5px] border-primary bg-primary/[0.125] font-semibold text-primary'
           : 'border border-border bg-card text-foreground hover:bg-surface-hover',
