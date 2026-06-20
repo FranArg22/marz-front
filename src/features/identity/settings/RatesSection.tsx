@@ -20,8 +20,6 @@ import type {
 import { SectionSaveBar } from './SectionSaveBar'
 import { SettingsCard, SettingsRow } from './SettingsCard'
 
-const DELETE_RATE_MESSAGE =
-  'No se puede eliminar una tarifa declarada; ingresá un monto válido o dejá el valor anterior'
 const MUST_BE_POSITIVE = 'must_be_positive'
 const FOLLOWERS_FORMATTER = new Intl.NumberFormat()
 
@@ -188,15 +186,15 @@ function ChannelRows({
   onAmountChange: (amount: string) => void
 }) {
   const inputId = `rate-${channel.channel_id}-${format}`
+  const followersLabel =
+    channel.followers === null ? null : formatFollowers(channel.followers)
 
   return (
     <>
       <SettingsRow
         label={platformLabel(channel.platform)}
         hint={
-          channel.followers === null
-            ? undefined
-            : t`${formatFollowers(channel.followers)} seguidores`
+          followersLabel === null ? undefined : t`${followersLabel} seguidores`
         }
       >
         <div className="flex items-center justify-between gap-3">
@@ -216,6 +214,7 @@ function ChannelRows({
             value={amount}
             onChange={(event) => onAmountChange(event.target.value)}
             aria-invalid={Boolean(error)}
+            // eslint-disable-next-line lingui/no-unlocalized-strings -- id de elemento DOM, no es UI
             aria-describedby={error ? `${inputId}-error` : undefined}
             aria-label={formatLabel(format)}
           />
@@ -255,6 +254,7 @@ function UgcRateRow({
           value={amount}
           onChange={(event) => onAmountChange(event.target.value)}
           aria-invalid={Boolean(error)}
+          // eslint-disable-next-line lingui/no-unlocalized-strings -- id de elemento DOM, no es UI
           aria-describedby={error ? `${inputId}-error` : undefined}
           aria-label={t`Tarifa UGC`}
         />
@@ -286,7 +286,9 @@ export function validateRatesForm(
     )
 
     if (amount.trim() === '') {
-      if (original) errors.channelRates[key] = DELETE_RATE_MESSAGE
+      if (original)
+        errors.channelRates[key] =
+          t`No se puede eliminar una tarifa declarada; ingresá un monto válido o dejá el valor anterior`
       continue
     }
 
@@ -381,9 +383,11 @@ function isPositiveDecimal(value: string) {
 }
 
 function platformLabel(platform: CreatorSettingsChannelPlatform) {
+  /* eslint-disable lingui/no-unlocalized-strings -- nombres de marca */
   if (platform === 'instagram') return 'Instagram'
   if (platform === 'tiktok') return 'TikTok'
   return 'YouTube'
+  /* eslint-enable lingui/no-unlocalized-strings */
 }
 
 function formatLabel(format: CreatorSettingsRateFormat) {

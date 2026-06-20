@@ -24,8 +24,11 @@ const platformOptions: Array<{
   label: string
   Icon: typeof Instagram
 }> = [
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- nombre de marca
   { value: 'tiktok', label: 'TikTok', Icon: Music2 },
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- nombre de marca
   { value: 'instagram', label: 'Instagram', Icon: Instagram },
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- nombre de marca
   { value: 'youtube', label: 'YouTube', Icon: Youtube },
 ]
 

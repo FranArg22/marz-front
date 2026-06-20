@@ -176,6 +176,7 @@ function getStatusMeta(status: CampaignListItem['status']): {
     draft: {
       label: t`Borrador`,
       variant: 'outline',
+      // eslint-disable-next-line lingui/no-unlocalized-strings -- clase Tailwind, no es UI
       indicatorClass: 'bg-muted-foreground/35',
     },
     active: {
@@ -186,6 +187,7 @@ function getStatusMeta(status: CampaignListItem['status']): {
     paused: {
       label: t`Pausada`,
       variant: 'secondary',
+      // eslint-disable-next-line lingui/no-unlocalized-strings -- clase Tailwind, no es UI
       indicatorClass: 'bg-muted-foreground/60',
     },
     completed: {

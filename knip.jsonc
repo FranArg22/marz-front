@@ -45,6 +45,10 @@
     "@lingui/swc-plugin",
     "@tanstack/router-plugin",
     "@vitejs/plugin-react",
+    // Loaded at runtime via a /node_modules path string in Flag.tsx, not an import.
+    "@discordapp/twemoji",
+    // Accessibility engine driven through vitest-axe in tests; no direct import.
+    "axe-core",
   ],
 
   // Generated Zod schemas use exported helper types with z.infer in the same file.

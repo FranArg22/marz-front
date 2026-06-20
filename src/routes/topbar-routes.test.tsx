@@ -16,6 +16,13 @@ vi.mock('@lingui/core/macro', () => ({
   ),
 }))
 
+vi.mock('#/features/identity/session/BrandSessionContext', () => ({
+  useBrandSession: () => ({
+    account: { id: 'account-1' },
+    brandWorkspace: { id: 'workspace-1', name: 'Workspace' },
+  }),
+}))
+
 const mockNavigate = vi.fn()
 const mockRouter = { navigate: mockNavigate }
 let mockParams: Record<string, string> = {}

@@ -38,12 +38,15 @@ const ALL_STATUSES = 'all'
 // (`sm:w-48`) para que entre la etiqueta más larga ("Todas las plataformas")
 // sin truncar y queden del mismo tamaño.
 const SELECT_TRIGGER_BASE =
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- clases Tailwind, no es UI
   'h-9 shrink-0 rounded-full border px-3 text-xs font-medium transition-colors sm:w-48'
 const SELECT_TRIGGER_INACTIVE =
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- clases Tailwind, no es UI
   'border-border bg-transparent text-muted-foreground hover:bg-surface-hover hover:text-foreground'
 // Filtrado: chip relleno como en Explorar. El `!` fuerza el color del chevron
 // del Select por sobre su default interno `text-muted-foreground`.
 const SELECT_TRIGGER_ACTIVE =
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- clases Tailwind, no es UI
   'border-transparent bg-secondary text-secondary-foreground [&_svg]:text-secondary-foreground!'
 
 function selectTriggerClass(active: boolean) {

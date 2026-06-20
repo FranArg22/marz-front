@@ -133,8 +133,3 @@ function sumUsd(...amounts: string[]) {
   }, 0)
   return total.toFixed(2)
 }
-
-export const campaignOverviewFormatters = {
-  formatCompactNumber,
-  formatUsd,
-}

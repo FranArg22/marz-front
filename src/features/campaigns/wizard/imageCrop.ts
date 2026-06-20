@@ -2,9 +2,9 @@
 // El spec (US-3) define un modal de crop asistido; como MVP el front recorta
 // solo al centro y sube el resultado. El backend re-valida ratio y mínimos.
 
-export const CAMPAIGN_IMAGE_RATIO = 16 / 9
-export const MIN_CAMPAIGN_IMAGE_WIDTH = 1280
-export const MIN_CAMPAIGN_IMAGE_HEIGHT = 720
+const CAMPAIGN_IMAGE_RATIO = 16 / 9
+const MIN_CAMPAIGN_IMAGE_WIDTH = 1280
+const MIN_CAMPAIGN_IMAGE_HEIGHT = 720
 export const MAX_CAMPAIGN_IMAGE_BYTES = 5 * 1024 * 1024
 
 // Estrictamente más chica que la del backend (image_validator.go: 0.005):
@@ -84,6 +84,7 @@ export async function cropImageTo16x9(file: File): Promise<File> {
     const canvas = document.createElement('canvas')
     canvas.width = crop.width
     canvas.height = crop.height
+    // eslint-disable-next-line lingui/no-unlocalized-strings -- argumento de Canvas API, no es UI
     const context = canvas.getContext('2d')
     if (!context) {
       throw new ImageCropError('decode_failed')
