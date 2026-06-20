@@ -90,12 +90,11 @@ function TableShell({
       data-testid="top-creators"
       className="overflow-hidden rounded-3xl border border-border bg-card text-card-foreground shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]"
     >
-      <div className="flex h-[62px] items-center justify-between gap-4 border-b border-border px-5">
+      <div className="flex h-[62px] items-center justify-between gap-4 border-b border-border px-5 pt-2">
         <div>
           <h2 className="text-[15px] font-semibold leading-none text-foreground">
             Top Creadores
           </h2>
-          <p className="mt-1 text-[11px] text-muted-foreground">Top 5</p>
         </div>
         <Select
           value={currentSort}
