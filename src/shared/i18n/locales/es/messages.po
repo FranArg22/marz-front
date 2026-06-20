@@ -904,7 +904,7 @@ msgstr "Actividad reciente"
 #~ msgstr "Activity"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:39
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:42
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:19
 msgid "Activo"
 msgstr "Activo"
@@ -928,7 +928,7 @@ msgstr "Actualizada"
 
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:20
 #: src/features/discovery/campaign-board/CampaignBoardHeader.tsx:39
-#: src/features/payments/components/BrandPaymentsPage.tsx:200
+#: src/features/payments/components/BrandPaymentsPage.tsx:198
 msgid "Actualizar"
 msgstr "Actualizar"
 
@@ -1299,7 +1299,7 @@ msgid "Apps móviles"
 msgstr "Apps móviles"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:53
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:41
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:44
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:20
 #: src/features/deliverables/components/DraftVersionList.tsx:40
 msgid "Aprobado"
@@ -1565,7 +1565,7 @@ msgid "Borrador"
 msgstr "Borrador"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:45
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:48
 msgid "Borrador aprobado"
 msgstr "Borrador aprobado"
 
@@ -1652,7 +1652,7 @@ msgstr "Buscar conversaciones"
 msgid "Buscar conversaciones…"
 msgstr "Buscar conversaciones…"
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:118
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:93
 msgid "Buscar creador"
 msgstr "Buscar creador"
 
@@ -1661,7 +1661,7 @@ msgid "Buscar creador o campaña"
 msgstr "Buscar creador o campaña"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:146
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:119
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:94
 msgid "Buscar creadores"
 msgstr "Buscar creadores"
 
@@ -1685,13 +1685,13 @@ msgstr "Buscar por marca o campaña"
 msgid "Buscar por marca, campaña o nicho"
 msgstr "Buscar por marca, campaña o nicho"
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:126
-#~ msgid "Buscar video"
-#~ msgstr "Buscar video"
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:101
+msgid "Buscar video"
+msgstr "Buscar video"
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:127
-#~ msgid "Buscar videos"
-#~ msgstr "Buscar videos"
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:102
+msgid "Buscar videos"
+msgstr "Buscar videos"
 
 #: src/features/identity/app-shell/AppTopbar.tsx:36
 msgid "Buscar…"
@@ -1720,7 +1720,7 @@ msgid "Cambiar foto"
 msgstr "Cambiar foto"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:44
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:47
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
 #: src/features/deliverables/components/DeliverableListItem.tsx:367
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:17
@@ -1974,7 +1974,7 @@ msgstr "Cargando link actual"
 msgid "Cargando overview"
 msgstr "Cargando overview"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:351
+#: src/features/payments/components/BrandPaymentsPage.tsx:349
 msgid "Cargando pagos"
 msgstr "Cargando pagos"
 
@@ -2230,7 +2230,7 @@ msgstr "Completada"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:23
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:48
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:51
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:23
 msgid "Completado"
 msgstr "Completado"
@@ -2512,7 +2512,7 @@ msgid "Creada"
 msgstr "Creada"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:215
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:175
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:173
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:143
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:116
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
@@ -2534,7 +2534,7 @@ msgstr "creador@ejemplo.com"
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:37
 #: src/features/identity/app-shell/navigation.ts:53
 #: src/routes/_brand/creators.tsx:43
-#: src/routes/_brand/creators.tsx:113
+#: src/routes/_brand/creators.tsx:112
 msgid "Creadores"
 msgstr "Creadores"
 
@@ -2756,6 +2756,7 @@ msgstr "Dar a conocer la marca"
 msgid "Dark"
 msgstr "Dark"
 
+#: src/features/analytics/dashboard/DashboardHeader.tsx:13
 #: src/features/identity/app-shell/navigation.ts:23
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -2915,7 +2916,7 @@ msgstr "Descubrí creadores UGC e influencers para invitar a tus campañas."
 #~ msgid "Descubrí creators de tu nicho"
 #~ msgstr "Descubrí creators de tu nicho"
 
-#: src/routes/_brand/creators.tsx:123
+#: src/routes/_brand/creators.tsx:121
 msgid "Descubrir creadores"
 msgstr "Descubrir creadores"
 
@@ -3580,8 +3581,8 @@ msgstr "En plataforma"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:40
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:43
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:43
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:46
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:15
 msgid "En revisión"
 msgstr "En revisión"
@@ -3614,12 +3615,12 @@ msgstr "Engagement rate"
 #~ msgstr "English"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:47
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:50
 msgid "Enlace aprobado"
 msgstr "Enlace aprobado"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:46
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:49
 msgid "Enlace enviado"
 msgstr "Enlace enviado"
 
@@ -3962,6 +3963,8 @@ msgid "Estadísticas de campaña"
 msgstr "Estadísticas de campaña"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:217
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:112
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:120
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:176
 #: src/features/offers/components/CurrentOfferBlock.tsx:278
 #: src/routes/_brand/campaigns.index.tsx:94
@@ -4114,7 +4117,7 @@ msgid "Exportando..."
 msgstr "Exportando..."
 
 #: src/features/earnings/components/EarningsSearchExportBar.tsx:150
-#: src/features/payments/components/BrandPaymentsPage.tsx:189
+#: src/features/payments/components/BrandPaymentsPage.tsx:187
 msgid "Exportar CSV"
 msgstr "Exportar CSV"
 
@@ -4243,7 +4246,7 @@ msgstr "Filtrar conversaciones"
 msgid "Filtrar por campaña"
 msgstr "Filtrar por campaña"
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:173
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:171
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
 msgid "Filtrar por creador"
 msgstr "Filtrar por creador"
@@ -4251,6 +4254,11 @@ msgstr "Filtrar por creador"
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
 #~ msgid "Filtrar por creator"
 #~ msgstr "Filtrar por creator"
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:110
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:118
+msgid "Filtrar por estado"
+msgstr "Filtrar por estado"
 
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:135
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:143
@@ -4984,7 +4992,7 @@ msgstr "Invitaciones"
 #~ msgstr "Invitaciones por email"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:38
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:41
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:20
 msgid "Invitado"
 msgstr "Invitado"
@@ -5030,7 +5038,7 @@ msgid "Invitar de nuevo"
 msgstr "Invitar de nuevo"
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:112
-#: src/routes/_brand/creators.tsx:135
+#: src/routes/_brand/creators.tsx:133
 msgid "Invitar por email"
 msgstr "Invitar por email"
 
@@ -5319,8 +5327,8 @@ msgstr "Light"
 msgid "Likes"
 msgstr "Likes"
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:163
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:204
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:160
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:197
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:168
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:153
 msgid "Limpiar"
@@ -5918,6 +5926,10 @@ msgstr "Modelo de pricing"
 msgid "Modo"
 msgstr "Modo"
 
+#: src/features/analytics/dashboard/DashboardHeader.tsx:15
+msgid "Monitoreá campañas, inversión y performance de creadores en un solo lugar."
+msgstr "Monitoreá campañas, inversión y performance de creadores en un solo lugar."
+
 #: src/features/earnings/components/MonthlyEarningsChart.tsx:168
 msgid "Monthly earnings total {total}. Highest month {highestMonth} with {highestAmount}."
 msgstr "Ganancias mensuales totales {total}. Mejor mes {highestMonth} con {highestAmount}."
@@ -6205,7 +6217,7 @@ msgstr "No pudimos cambiar el método de pago, intentá de nuevo"
 msgid "No pudimos cargar el brief"
 msgstr "No pudimos cargar el brief"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:250
+#: src/features/payments/components/BrandPaymentsPage.tsx:248
 msgid "No pudimos cargar el dashboard de pagos."
 msgstr "No pudimos cargar el dashboard de pagos."
 
@@ -6844,7 +6856,7 @@ msgid "Pagada en total"
 msgstr "Pagada en total"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:54
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:42
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:45
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:24
 #: src/features/payments/components/StageSpendDonut.tsx:126
 msgid "Pagado"
@@ -6922,7 +6934,7 @@ msgstr "Pago por publicación"
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:65
 #: src/features/identity/app-shell/navigation.ts:65
 #: src/features/payments/components/BrandPaymentsFilters.tsx:49
-#: src/features/payments/components/BrandPaymentsPage.tsx:170
+#: src/features/payments/components/BrandPaymentsPage.tsx:169
 msgid "Pagos"
 msgstr "Pagos"
 
@@ -6934,7 +6946,7 @@ msgstr "Pagos a creadores"
 #~ msgid "Pagos a creators"
 #~ msgstr "Pagos a creators"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:173
+#: src/features/payments/components/BrandPaymentsPage.tsx:171
 msgid "Pagos realizados a creadores y análisis de gastos por campaña."
 msgstr "Pagos realizados a creadores y análisis de gastos por campaña."
 
@@ -6947,7 +6959,7 @@ msgstr "Pagos realizados a creadores y análisis de gastos por campaña."
 #~ msgstr "Pagos y gastos"
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:49
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:52
 #: src/features/offers/components/ArchivedOffersList.tsx:26
 msgid "Paid"
 msgstr "Paid"
@@ -7129,7 +7141,7 @@ msgstr "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:49
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:197
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:42
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:45
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:107
 #: src/features/identity/settings/PortfolioSection.tsx:160
@@ -8169,12 +8181,12 @@ msgstr "Se exportaron las 10k filas más recientes. Para el export completo, con
 #~ msgstr "Search creators"
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:126
-msgid "Search video"
-msgstr "Search video"
+#~ msgid "Search video"
+#~ msgstr "Search video"
 
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:127
-msgid "Search videos"
-msgstr "Search videos"
+#~ msgid "Search videos"
+#~ msgstr "Search videos"
 
 #: src/features/identity/settings/SettingsLayout.tsx:44
 #: src/features/identity/settings/SettingsSidebar.tsx:31
@@ -9379,19 +9391,24 @@ msgstr "Todo lo de Starter, +:"
 msgid "Todos"
 msgstr "Todos"
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:180
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:176
 msgid "Todos los creadores"
 msgstr "Todos los creadores"
 
-#: src/routes/_brand/creators.tsx:116
+#: src/routes/_brand/creators.tsx:114
 msgid "Todos los creadores en tus campañas"
 msgstr "Todos los creadores en tus campañas"
+
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:115
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:123
+msgid "Todos los estados"
+msgstr "Todos los estados"
 
 #: src/features/payments/components/PaymentKpiGrid.tsx:26
 msgid "Todos los pagos históricos"
 msgstr "Todos los pagos históricos"
 
-#: src/routes/_brand/videos.tsx:111
+#: src/routes/_brand/videos.tsx:109
 msgid "Todos los videos entregados en tus campañas"
 msgstr "Todos los videos entregados en tus campañas"
 
@@ -9998,7 +10015,7 @@ msgstr "Video de TikTok"
 #: src/features/campaigns/detail/videos/VideosTab.tsx:127
 #: src/features/identity/app-shell/navigation.ts:59
 #: src/routes/_brand/videos.tsx:36
-#: src/routes/_brand/videos.tsx:108
+#: src/routes/_brand/videos.tsx:107
 msgid "Videos"
 msgstr "Videos"
 

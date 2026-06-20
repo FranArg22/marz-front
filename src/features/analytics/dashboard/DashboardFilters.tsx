@@ -5,7 +5,6 @@ import {
   Clapperboard,
   MapPin,
   Megaphone,
-  RotateCcw,
   Users,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -92,7 +91,7 @@ export function DashboardFilters() {
     'Activos'
 
   return (
-    <section className="rounded-3xl border border-border bg-card px-3.5 py-3 text-card-foreground shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
+    <section className="rounded-2xl border border-border bg-card px-3 py-2.5 text-card-foreground shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]">
       <div className="flex flex-wrap items-center gap-2">
         <MultiSelectPill
           icon={Megaphone}
@@ -144,9 +143,8 @@ export function DashboardFilters() {
         <button
           type="button"
           onClick={clearFilters}
-          className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[11px] font-semibold text-muted-foreground transition hover:text-foreground"
+          className="shrink-0 px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
-          <RotateCcw className="size-3.5" aria-hidden="true" />
           Limpiar
         </button>
 
@@ -159,7 +157,7 @@ export function DashboardFilters() {
 }
 
 export const PILL_CLASS =
-  'inline-flex h-8 items-center justify-between gap-2 rounded-full border border-border bg-muted px-2.5 text-[11px] font-semibold text-foreground transition hover:bg-muted/70'
+  'inline-flex h-9 items-center justify-between gap-2 rounded-full border border-border bg-transparent px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground'
 
 function MultiSelectPill({
   icon: Icon,

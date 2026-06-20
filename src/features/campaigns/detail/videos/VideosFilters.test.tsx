@@ -79,7 +79,7 @@ describe('VideosFilters', () => {
     expect(onParamsChange).toHaveBeenCalledWith({ search: 'ugc' })
   })
 
-  it('toggles status chips and clears filters', async () => {
+  it('clears status from the Estado select and clears all filters', async () => {
     const user = userEvent.setup({
       advanceTimers: vi.advanceTimersByTime.bind(vi),
     })
@@ -98,7 +98,8 @@ describe('VideosFilters', () => {
       />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'En revisión' }))
+    await user.click(screen.getByRole('combobox', { name: 'Filtrar por estado' }))
+    await user.click(screen.getByRole('option', { name: 'Todos los estados' }))
     expect(onParamsChange).toHaveBeenCalledWith({
       search: 'ugc',
       platform: 'youtube',
@@ -108,6 +109,25 @@ describe('VideosFilters', () => {
 
     await user.click(screen.getByRole('button', { name: 'Limpiar' }))
     expect(onParamsChange).toHaveBeenLastCalledWith({})
+  })
+
+  it('selects a status from the Estado select', async () => {
+    const user = userEvent.setup({
+      advanceTimers: vi.advanceTimersByTime.bind(vi),
+    })
+    const onParamsChange = vi.fn()
+
+    render(
+      <VideosFilters
+        params={{}}
+        creators={[creator]}
+        onParamsChange={onParamsChange}
+      />,
+    )
+
+    await user.click(screen.getByRole('combobox', { name: 'Filtrar por estado' }))
+    await user.click(screen.getByRole('option', { name: 'En revisión' }))
+    expect(onParamsChange).toHaveBeenCalledWith({ status: 'draft_submitted' })
   })
 
   it('shows only supported platform options', async () => {
