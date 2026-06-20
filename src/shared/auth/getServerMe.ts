@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { auth } from '@clerk/tanstack-react-start/server'
 
-import { env } from '#/env'
+import { getApiBaseUrl } from '#/shared/api/baseUrl'
 
 export interface ServerMeBrandWorkspace {
   id: string
@@ -63,7 +63,7 @@ export const getServerMe = createServerFn({ method: 'GET' }).handler(
       return { ok: false, body: null }
     }
 
-    const base = env.VITE_API_URL.replace(/\/$/, '')
+    const base = getApiBaseUrl()
     const res = await fetch(`${base}/v1/me`, {
       headers: {
         Accept: 'application/json',

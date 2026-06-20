@@ -16,6 +16,9 @@ const sentryProject =
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
 
 const config = defineConfig({
+  server: {
+    allowedHosts: ['marz.test', 'marz-front.test'],
+  },
   resolve: { tsconfigPaths: true },
   plugins: [
     tailwindcss(),

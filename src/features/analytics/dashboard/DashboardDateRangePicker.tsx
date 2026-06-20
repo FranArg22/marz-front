@@ -13,7 +13,6 @@ const PRESETS = [
   { value: '7d', label: 'Últimos 7 días' },
   { value: '14d', label: 'Últimos 14 días' },
   { value: '30d', label: 'Últimos 30 días' },
-  { value: 'custom', label: 'Personalizado' },
 ] as const
 
 type DashboardSearchPatch = Partial<DashboardSearch>
@@ -39,36 +38,13 @@ export function DashboardDateRangePicker() {
   function selectPreset(nextPreset: DashboardSearch['range_preset']) {
     updateSearch({
       range_preset: nextPreset,
-      range_start: nextPreset === 'custom' ? search.range_start : undefined,
-      range_end: nextPreset === 'custom' ? search.range_end : undefined,
+      range_start: undefined,
+      range_end: undefined,
     })
   }
 
   return (
     <div className="flex items-center gap-2">
-      {search.range_preset === 'custom' ? (
-        <>
-          <input
-            aria-label="Desde"
-            type="date"
-            className="h-8 rounded-full border border-border bg-muted px-3 text-[11px] font-semibold text-foreground"
-            value={search.range_start ?? ''}
-            onChange={(event) =>
-              updateSearch({ range_start: event.currentTarget.value })
-            }
-          />
-          <input
-            aria-label="Hasta"
-            type="date"
-            className="h-8 rounded-full border border-border bg-muted px-3 text-[11px] font-semibold text-foreground"
-            value={search.range_end ?? ''}
-            onChange={(event) =>
-              updateSearch({ range_end: event.currentTarget.value })
-            }
-          />
-        </>
-      ) : null}
-
       <Popover.Root>
         <Popover.Trigger asChild>
           <button type="button" className={cn(PILL_CLASS, 'min-w-[150px]')}>

@@ -1,6 +1,6 @@
 import { auth } from '@clerk/tanstack-react-start/server'
 
-import { env } from '#/env'
+import { getApiBaseUrl } from '#/shared/api/baseUrl'
 import { ApiError } from '#/shared/api/mutator'
 
 interface ApiErrorPayload {
@@ -26,7 +26,7 @@ export async function brandPaymentsServerFetch(
     throw new ApiError(401, 'unauthorized', 'Unauthorized')
   }
 
-  const base = env.VITE_API_URL.replace(/\/$/, '')
+  const base = getApiBaseUrl()
   const res = await fetch(`${base}${path}`, {
     ...init,
     headers: {

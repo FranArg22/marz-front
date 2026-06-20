@@ -31,7 +31,7 @@ const dashboardSearchSchema = z.object({
   countries: z.array(z.string().length(2)).optional().default([]),
   status: z.enum(['active', 'inactive', 'all']).optional().default('active'),
   range_preset: z
-    .enum(['7d', '14d', '30d', 'custom'])
+    .enum(['7d', '14d', '30d'])
     .optional()
     .default('14d'),
   range_start: z.string().optional(),
@@ -70,7 +70,9 @@ describe('DashboardDateRangePicker', () => {
     expect(
       screen.getByRole('button', { name: 'Últimos 30 días' }),
     ).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Personalizado' })).toBeDisabled()
+    expect(
+      screen.queryByRole('button', { name: 'Personalizado' }),
+    ).not.toBeInTheDocument()
   })
 
   it('updates range_preset when selecting 30d', async () => {
@@ -87,22 +89,37 @@ describe('DashboardDateRangePicker', () => {
     })
   })
 
-  it('shows custom inputs and writes range_start and range_end', async () => {
+  it('does not show custom range inputs', async () => {
     const user = userEvent.setup()
-    const router = await renderPicker()
+    await renderPicker()
 
     await user.click(screen.getByRole('button', { name: /Últimos 14 días/ }))
-    await user.click(screen.getByRole('button', { name: 'Personalizado' }))
-    await user.type(screen.getByLabelText('Desde'), '2026-06-01')
-    await user.type(screen.getByLabelText('Hasta'), '2026-06-14')
+
+    expect(screen.queryByLabelText('Desde')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Hasta')).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Personalizado' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('clears stale date params when selecting a preset', async () => {
+    const user = userEvent.setup()
+    const router = await renderPicker({
+      range_preset: '14d',
+      range_start: '2026-06-01',
+      range_end: '2026-06-14',
+    })
+
+    await user.click(screen.getByRole('button', { name: /Últimos 14 días/ }))
+    await user.click(screen.getByRole('button', { name: 'Últimos 30 días' }))
 
     await waitFor(() => {
       expect(router.state.location.search).toMatchObject({
-        range_preset: 'custom',
-        range_start: '2026-06-01',
-        range_end: '2026-06-14',
+        range_preset: '30d',
       })
     })
+    expect(router.state.location.search).not.toHaveProperty('range_start')
+    expect(router.state.location.search).not.toHaveProperty('range_end')
   })
 })
 

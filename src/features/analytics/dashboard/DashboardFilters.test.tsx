@@ -37,7 +37,7 @@ const dashboardSearchSchema = z.object({
   countries: z.array(z.string().length(2)).optional().default([]),
   status: z.enum(['active', 'inactive', 'all']).optional().default('active'),
   range_preset: z
-    .enum(['7d', '14d', '30d', 'custom'])
+    .enum(['7d', '14d', '30d'])
     .optional()
     .default('14d'),
   range_start: z.string().optional(),

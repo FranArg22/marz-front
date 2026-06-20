@@ -1,4 +1,4 @@
-import { env } from '#/env'
+import { getApiBaseUrl } from '#/shared/api/baseUrl'
 import { generateIdempotencyKey } from '#/shared/api/idempotency'
 
 export interface ApiErrorBody {
@@ -54,7 +54,7 @@ export async function customFetch<T>(
   url: string,
   options?: RequestInit,
 ): Promise<T> {
-  const base = env.VITE_API_URL.replace(/\/$/, '')
+  const base = getApiBaseUrl()
   const fullUrl = `${base}${url}`
 
   const token = await authProvider?.getToken()

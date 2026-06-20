@@ -14,14 +14,16 @@ describe('/_brand/inicio validateSearch', () => {
       countries: [],
       status: 'active',
       range_preset: '14d',
-      chart_series: ['oferta', 'vistas'],
+      range_start: undefined,
+      range_end: undefined,
+      chart_series: ['oferta', 'vistas', 'gasto'],
       chart_grouping: 'day',
       top_videos_sort: 'views',
       top_creators_sort: 'views',
     })
   })
 
-  it('parses custom range params', () => {
+  it('normalizes stale custom range params to 14d', () => {
     expect(
       dashboardSearchSchema.parse({
         range_preset: 'custom',
@@ -34,10 +36,10 @@ describe('/_brand/inicio validateSearch', () => {
       platforms: [],
       countries: [],
       status: 'active',
-      range_preset: 'custom',
-      range_start: '2026-06-01',
-      range_end: '2026-06-14',
-      chart_series: ['oferta', 'vistas'],
+      range_preset: '14d',
+      range_start: undefined,
+      range_end: undefined,
+      chart_series: ['oferta', 'vistas', 'gasto'],
       chart_grouping: 'day',
       top_videos_sort: 'views',
       top_creators_sort: 'views',
