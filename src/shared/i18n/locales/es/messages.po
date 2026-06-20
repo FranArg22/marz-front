@@ -197,7 +197,7 @@ msgstr "{authorDisplayName} a las {time}: {preview}"
 msgid "{brandName} está en Marz. Probando gratis durante 7 días."
 msgstr "{brandName} está en Marz. Probando gratis durante 7 días."
 
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:98
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:163
 msgid "{brandName} quiere conectar con vos"
 msgstr "{brandName} quiere conectar con vos"
 
@@ -837,7 +837,7 @@ msgstr "Aceptado"
 msgid "Aceptando…"
 msgstr "Aceptando…"
 
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:118
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:99
 #: src/features/offers/components/CurrentOfferBlock.tsx:368
 msgid "Aceptar"
 msgstr "Aceptar"
@@ -1140,8 +1140,8 @@ msgstr "Algo salió mal"
 #: src/features/discovery/network/components/InviteBulkModal.tsx:92
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:69
 #: src/features/identity/auth/components/KindSelector.tsx:95
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:55
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:67
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:65
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:77
 #: src/features/offers/components/CancelOfferDialog.tsx:107
 #: src/features/payments/components/MarkAsPaidDialog.tsx:103
 msgid "Algo salió mal. Intentá de nuevo."
@@ -1973,7 +1973,7 @@ msgstr "Cargando cuenta de cobro"
 #~ msgid "Cargando discovery"
 #~ msgstr "Cargando discovery"
 
-#: src/features/inbox/InboxPage.tsx:128
+#: src/features/inbox/InboxPage.tsx:141
 msgid "Cargando inbox"
 msgstr "Cargando inbox"
 
@@ -3969,7 +3969,7 @@ msgstr "Esta conversación no existe o no tenés acceso."
 msgid "Esta invitación ya no está disponible"
 msgstr "Esta invitación ya no está disponible"
 
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:52
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:62
 msgid "Esta invitación ya venció."
 msgstr "Esta invitación ya venció."
 
@@ -3981,8 +3981,8 @@ msgstr "Esta oferta todavía no está lista para marcar como pagada."
 msgid "Esta oferta ya fue marcada como pagada."
 msgstr "Esta oferta ya fue marcada como pagada."
 
+#: src/features/inbox/InboxCreatorBox.tsx:71
 #: src/features/inbox/InboxEmptyState.tsx:89
-#: src/features/inbox/InboxItemRow.tsx:69
 msgid "Esta sección todavía no está disponible."
 msgstr "Esta sección todavía no está disponible."
 
@@ -4040,7 +4040,7 @@ msgstr "Este creador rechazó una invitación anterior. Podés volver a intentar
 msgid "Este handle ya está en uso"
 msgstr "Este handle ya está en uso"
 
-#: src/features/inbox/InboxItemRow.tsx:112
+#: src/features/inbox/InboxCreatorBox.tsx:121
 msgid "Este item ya no requiere acción."
 msgstr "Este item ya no requiere acción."
 
@@ -4819,7 +4819,7 @@ msgstr "Imagen cargada"
 
 #: src/features/identity/app-shell/navigation.ts:35
 #: src/features/identity/app-shell/navigation.ts:79
-#: src/features/inbox/InboxPage.tsx:81
+#: src/features/inbox/InboxPage.tsx:93
 msgid "Inbox"
 msgstr "Inbox"
 
@@ -5125,8 +5125,8 @@ msgid "Ir a mi dashboard"
 msgstr "Ir a mi dashboard"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:173
-#: src/features/inbox/InboxItemRow.tsx:177
-#: src/features/inbox/InboxItemRow.tsx:183
+#: src/features/inbox/InboxCreatorBox.tsx:198
+#: src/features/inbox/InboxCreatorBox.tsx:204
 msgid "Ir al chat"
 msgstr "Ir al chat"
 
@@ -5452,11 +5452,11 @@ msgstr "Lo que cambia al entrar a Marz"
 msgid "Lo que identifica la campaña dentro del equipo."
 msgstr "Lo que identifica la campaña dentro del equipo."
 
-#: src/features/inbox/InboxPage.tsx:190
+#: src/features/inbox/InboxPage.tsx:195
 msgid "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 msgstr "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 
-#: src/features/inbox/InboxPage.tsx:197
+#: src/features/inbox/InboxPage.tsx:202
 msgid "Lo que necesita tu atención y lo que está esperando del otro lado."
 msgstr "Lo que necesita tu atención y lo que está esperando del otro lado."
 
@@ -5610,10 +5610,15 @@ msgstr "Marca sin nombre"
 msgid "Marca y campaña"
 msgstr "Marca y campaña"
 
+#: src/features/inbox/InboxCreatorBox.tsx:217
+#: src/features/inbox/InboxCreatorBox.tsx:227
+msgid "Marcar caja como leída"
+msgstr "Marcar caja como leída"
+
 #: src/features/inbox/InboxItemRow.tsx:195
 #: src/features/inbox/InboxItemRow.tsx:205
-msgid "Marcar como leído"
-msgstr "Marcar como leído"
+#~ msgid "Marcar como leído"
+#~ msgstr "Marcar como leído"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:310
 #: src/features/payments/components/MarkAsPaidDialog.tsx:113
@@ -5697,7 +5702,7 @@ msgstr "Marzo"
 #~ msgstr "Más del {option}%"
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:23
-#: src/features/inbox/InboxPage.tsx:98
+#: src/features/inbox/InboxPage.tsx:110
 msgid "Más recientes"
 msgstr "Más recientes"
 
@@ -5832,8 +5837,8 @@ msgstr "Mensajes clave"
 
 #: src/features/inbox/InboxMessagePreviewPopover.tsx:57
 #: src/features/inbox/InboxMessagePreviewPopover.tsx:101
-msgid "Mensajes recientes"
-msgstr "Mensajes recientes"
+#~ msgid "Mensajes recientes"
+#~ msgstr "Mensajes recientes"
 
 #: src/features/billing/settings/BillingSummary.tsx:44
 msgid "mensual"
@@ -6229,7 +6234,7 @@ msgstr "No hay conversaciones que coincidan"
 #~ msgid "No hay datos disponibles en el brief."
 #~ msgstr "No hay datos disponibles en el brief."
 
-#: src/features/inbox/InboxSection.tsx:54
+#: src/features/inbox/InboxSection.tsx:65
 msgid "No hay items visibles en esta sección."
 msgstr "No hay items visibles en esta sección."
 
@@ -6454,7 +6459,7 @@ msgstr "No se pudieron cargar las conversaciones"
 #~ msgid "No se pudo activar la campaña. Intentá de nuevo."
 #~ msgstr "No se pudo activar la campaña. Intentá de nuevo."
 
-#: src/features/inbox/InboxPage.tsx:166
+#: src/features/inbox/InboxPage.tsx:179
 msgid "No se pudo cargar el inbox"
 msgstr "No se pudo cargar el inbox"
 
@@ -6486,7 +6491,7 @@ msgstr "No se pudo enviar el mensaje: {errorMessage}"
 #~ msgid "No se pudo iniciar la suscripción al análisis."
 #~ msgstr "No se pudo iniciar la suscripción al análisis."
 
-#: src/features/inbox/InboxItemRow.tsx:116
+#: src/features/inbox/InboxCreatorBox.tsx:125
 msgid "No se pudo marcar como leído. Intentá de nuevo."
 msgstr "No se pudo marcar como leído. Intentá de nuevo."
 
@@ -6635,8 +6640,8 @@ msgid "Nueva campaña"
 msgstr "Nueva campaña"
 
 #: src/features/inbox/InboxItemRow.tsx:290
-msgid "nuevos"
-msgstr "nuevos"
+#~ msgid "nuevos"
+#~ msgstr "nuevos"
 
 #: src/features/payments/settings/PayoutAccountCard.tsx:137
 #: src/features/payments/settings/PayoutAccountModal.tsx:139
@@ -7227,9 +7232,13 @@ msgstr "Pendiente de aceptar"
 msgid "Pendiente de revisión"
 msgstr "Pendiente de revisión"
 
-#: src/features/inbox/InboxPage.tsx:97
+#: src/features/inbox/InboxPage.tsx:109
 msgid "Pendientes"
 msgstr "Pendientes"
+
+#: src/features/inbox/InboxCreatorHistoryPopover.tsx:22
+msgid "Pendientes de {counterpartName}"
+msgstr "Pendientes de {counterpartName}"
 
 #: src/features/deliverables/components/LinkItem.tsx:16
 msgid "Pending"
@@ -7837,7 +7846,7 @@ msgstr "Rechazando…"
 
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:144
 #: src/features/deliverables/components/DeliverableListItem.tsx:350
-#: src/features/inbox/ConnectionRequestInboxItem.tsx:132
+#: src/features/inbox/ConnectionRequestInboxItem.tsx:113
 #: src/features/offers/components/CurrentOfferBlock.tsx:383
 msgid "Rechazar"
 msgstr "Rechazar"
@@ -7938,7 +7947,7 @@ msgstr "Reinicio de ciclo"
 msgid "Reintentá en unos minutos."
 msgstr "Reintentá en unos minutos."
 
-#: src/features/inbox/InboxPage.tsx:169
+#: src/features/inbox/InboxPage.tsx:182
 msgid "Reintentá para traer tus items pendientes."
 msgstr "Reintentá para traer tus items pendientes."
 
@@ -7950,7 +7959,7 @@ msgstr "Reintentá para traer tus items pendientes."
 #: src/features/chat/workspace/ConversationRail.tsx:130
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:63
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
-#: src/features/inbox/InboxPage.tsx:172
+#: src/features/inbox/InboxPage.tsx:185
 #: src/features/offers/components/SendOfferSidesheet.tsx:337
 #: src/routes/_brand/campaigns.index.tsx:77
 #: src/routes/_brand/campaigns.new.tsx:379
@@ -8236,6 +8245,11 @@ msgstr "Se exportaron las 10k filas más recientes. Para el export completo, con
 #: src/features/campaigns/brief-builder/hooks/useBriefBuilderWS.ts:338
 #~ msgid "Se perdió la conexión con el servidor."
 #~ msgstr "Se perdió la conexión con el servidor."
+
+#: src/features/inbox/InboxCreatorBox.tsx:235
+#: src/features/inbox/InboxCreatorBox.tsx:240
+msgid "Se resuelve actuando"
+msgstr "Se resuelve actuando"
 
 #: src/features/billing/components/BillingPage.tsx:321
 #~ msgid "Se usa para suscripción y pagos a creators"
@@ -9067,6 +9081,10 @@ msgstr "Suscripción"
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:48
 msgid "take rate"
 msgstr "take rate"
+
+#: src/features/inbox/InboxCreatorBox.tsx:297
+msgid "También esperás algo"
+msgstr "También esperás algo"
 
 #: src/features/billing/components/BillingPage.tsx:327
 #~ msgid "También se usa para pagos a creators"
@@ -10207,11 +10225,11 @@ msgstr "Volviste sin enviar la oferta"
 #~ msgid "Waiting for brand review"
 #~ msgstr "Waiting for brand review"
 
-#: src/features/inbox/InboxPage.tsx:191
+#: src/features/inbox/InboxPage.tsx:196
 msgid "Waiting on brands"
 msgstr "Esperando a las marcas"
 
-#: src/features/inbox/InboxPage.tsx:198
+#: src/features/inbox/InboxPage.tsx:203
 msgid "Waiting on others"
 msgstr "Esperando a los demás"
 
@@ -10245,6 +10263,10 @@ msgstr "Workspace"
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:29
 #~ msgid "Workspace no disponible"
 #~ msgstr "Workspace no disponible"
+
+#: src/features/inbox/groupInboxItemsByCounterpart.ts:112
+msgid "y {softCount} mensajes de {counterpartName}"
+msgstr "y {softCount} mensajes de {counterpartName}"
 
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:54
 msgid "Ya enviaste una invitación a este creator."
@@ -10306,11 +10328,11 @@ msgstr "No podés enviar links en este entregable."
 #~ msgid "You don't have any active campaigns. Create a campaign first to send offers."
 #~ msgstr "You don't have any active campaigns. Create a campaign first to send offers."
 
-#: src/features/inbox/InboxPage.tsx:192
+#: src/features/inbox/InboxPage.tsx:197
 msgid "You sent these · awaiting reply"
 msgstr "Enviaste estas · esperando respuesta"
 
-#: src/features/inbox/InboxPage.tsx:199
+#: src/features/inbox/InboxPage.tsx:204
 msgid "You sent these · they're with the other side"
 msgstr "Enviaste estas · están del otro lado"
 

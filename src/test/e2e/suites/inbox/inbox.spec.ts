@@ -64,6 +64,8 @@ test.describe('Inbox · smoke', () => {
     const workspaceId = me.brand_workspace?.id
     expect(workspaceId).toBeTruthy()
 
+    // Distinct counterpart names so the 3 action / 2 waiting items stay as
+    // separate creator boxes (grouping is by counterpart, keyed by name here).
     const actionItems: BulkSeedInboxItem[] = [
       buildItem({
         recipient_account_id: me.id,
@@ -71,6 +73,7 @@ test.describe('Inbox · smoke', () => {
         section: 'action',
         kind: 'draft_review',
         occurred_at: '2026-05-18T15:00:00Z',
+        counterpart_display_name: 'Creator A',
       }),
       buildItem({
         recipient_account_id: me.id,
@@ -79,6 +82,7 @@ test.describe('Inbox · smoke', () => {
         kind: 'link_review',
         occurred_at: '2026-05-18T15:01:00Z',
         source_ref: { type: 'link', id: newSourceRefId() },
+        counterpart_display_name: 'Creator B',
       }),
       buildItem({
         recipient_account_id: me.id,
@@ -87,6 +91,7 @@ test.describe('Inbox · smoke', () => {
         kind: 'application_received',
         occurred_at: '2026-05-18T15:02:00Z',
         source_ref: { type: 'application', id: newSourceRefId() },
+        counterpart_display_name: 'Creator C',
       }),
     ]
     const waitingItems: BulkSeedInboxItem[] = [
@@ -97,14 +102,16 @@ test.describe('Inbox · smoke', () => {
         kind: 'offer_sent_waiting',
         occurred_at: '2026-05-18T15:03:00Z',
         source_ref: { type: 'offer', id: newSourceRefId() },
+        counterpart_display_name: 'Creator D',
       }),
       buildItem({
         recipient_account_id: me.id,
         brand_workspace_id: workspaceId,
         section: 'waiting',
-        kind: 'invite_sent_waiting',
+        kind: 'application_sent_waiting',
         occurred_at: '2026-05-18T15:04:00Z',
-        source_ref: { type: 'invite', id: newSourceRefId() },
+        source_ref: { type: 'application', id: newSourceRefId() },
+        counterpart_display_name: 'Creator E',
       }),
     ]
 
@@ -114,41 +121,11 @@ test.describe('Inbox · smoke', () => {
       await onboardedBrandUser.signIn(page)
       const inbox = new InboxPage(page)
       await inbox.goto()
-      await inbox.expectActionCount(3)
-      await inbox.expectWaitingCount(2)
+      await inbox.expectActionBadge(3)
+      await inbox.expectActionBoxes(3)
+      await inbox.expectWaitingBadge(2)
+      await inbox.expectWaitingBoxes(2)
     } finally {
-      await resetInbox(workspaceId!)
-    }
-  })
-
-  test('ESC-22: mark as read elimina el item de la lista', async ({
-    page,
-    onboardedBrandUser,
-  }) => {
-    const me = await onboardedBrandUser.onboardFull('brand')
-    const workspaceId = me.brand_workspace?.id
-    expect(workspaceId).toBeTruthy()
-
-    const [itemId] = await seedInboxItems([
-      buildItem({
-        recipient_account_id: me.id,
-        brand_workspace_id: workspaceId,
-        section: 'action',
-        kind: 'draft_review',
-      }),
-    ])
-    expect(itemId).toBeTruthy()
-
-    try {
-      await onboardedBrandUser.signIn(page)
-      const inbox = new InboxPage(page)
-      await inbox.goto()
-      await expect(inbox.actionSection.getByRole('listitem')).toHaveCount(1)
-
-      await inbox.markFirstActionItemRead()
-      await expect(inbox.actionSection.getByRole('listitem')).toHaveCount(0)
-    } finally {
-      if (itemId) await setInboxItemStatus(itemId, 'read').catch(() => {})
       await resetInbox(workspaceId!)
     }
   })
@@ -183,7 +160,7 @@ test.describe('Inbox · smoke', () => {
     try {
       const otherEmail = `other.${Date.now().toString(36)}+clerk_test@example.com`
       const otherCreate = await fetch(
-        `${process.env.API_URL ?? 'http://localhost:8080'}/v1/test/accounts`,
+        `${process.env.API_URL ?? process.env.VITE_API_URL ?? 'http://localhost:8080'}/v1/test/accounts`,
         {
           method: 'POST',
           headers: {
@@ -225,6 +202,159 @@ test.describe('Inbox · smoke', () => {
       await resetInbox(workspaceId!)
       if (otherWorkspaceId) await resetInbox(otherWorkspaceId)
       await otherContext.close()
+    }
+  })
+})
+
+test.describe('Inbox · agrupación por creador', () => {
+  test('agrupa varios items del mismo creador en una sola caja', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    const me = await onboardedBrandUser.onboardFull('brand')
+    const workspaceId = me.brand_workspace?.id
+    expect(workspaceId).toBeTruthy()
+
+    await seedInboxItems([
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'action',
+        kind: 'draft_review',
+        occurred_at: '2026-05-18T15:00:00Z',
+        counterpart_display_name: 'Juan Creador',
+      }),
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'action',
+        kind: 'message_reply',
+        occurred_at: '2026-05-18T15:05:00Z',
+        source_ref: { type: 'conversation', id: newSourceRefId() },
+        counterpart_display_name: 'Juan Creador',
+      }),
+    ])
+
+    try {
+      await onboardedBrandUser.signIn(page)
+      const inbox = new InboxPage(page)
+      await inbox.goto()
+      // 2 items, mismo creador → 1 caja; el badge cuenta items.
+      await inbox.expectActionBadge(2)
+      await inbox.expectActionBoxes(1)
+      // El mensaje (blando) quedó plegado en la caja como resumen.
+      await expect(
+        inbox.actionSection.getByText(/mensajes de Juan Creador/i),
+      ).toBeVisible()
+    } finally {
+      await resetInbox(workspaceId!)
+    }
+  })
+
+  test('caja con item duro no se puede marcar como leída', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    const me = await onboardedBrandUser.onboardFull('brand')
+    const workspaceId = me.brand_workspace?.id
+    expect(workspaceId).toBeTruthy()
+
+    await seedInboxItems([
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'action',
+        kind: 'draft_review',
+        counterpart_display_name: 'Creador Duro',
+      }),
+    ])
+
+    try {
+      await onboardedBrandUser.signIn(page)
+      const inbox = new InboxPage(page)
+      await inbox.goto()
+      await inbox.expectActionBoxes(1)
+      // El duro mantiene la caja: sin botón de mark-read, con hint.
+      await expect(inbox.markBoxReadButton(inbox.actionSection)).toHaveCount(0)
+      await expect(
+        inbox.actionSection.getByLabel(/se resuelve actuando/i),
+      ).toBeVisible()
+    } finally {
+      await resetInbox(workspaceId!)
+    }
+  })
+
+  test('caja de solo mensajes se puede marcar como leída y desaparece', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    const me = await onboardedBrandUser.onboardFull('brand')
+    const workspaceId = me.brand_workspace?.id
+    expect(workspaceId).toBeTruthy()
+
+    const [itemId] = await seedInboxItems([
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'action',
+        kind: 'message_reply',
+        source_ref: { type: 'conversation', id: newSourceRefId() },
+        counterpart_display_name: 'Creador Blando',
+      }),
+    ])
+
+    try {
+      await onboardedBrandUser.signIn(page)
+      const inbox = new InboxPage(page)
+      await inbox.goto()
+      await inbox.expectActionBoxes(1)
+      await expect(inbox.markBoxReadButton(inbox.actionSection)).toBeVisible()
+      await inbox.markFirstActionBoxRead()
+      await inbox.expectActionBoxes(0)
+    } finally {
+      if (itemId) await setInboxItemStatus(itemId, 'read').catch(() => {})
+      await resetInbox(workspaceId!)
+    }
+  })
+
+  test('muestra cross-context hint cuando el creador está en action y waiting', async ({
+    page,
+    onboardedBrandUser,
+  }) => {
+    const me = await onboardedBrandUser.onboardFull('brand')
+    const workspaceId = me.brand_workspace?.id
+    expect(workspaceId).toBeTruthy()
+
+    await seedInboxItems([
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'action',
+        kind: 'message_reply',
+        source_ref: { type: 'conversation', id: newSourceRefId() },
+        counterpart_display_name: 'Creador Doble',
+      }),
+      buildItem({
+        recipient_account_id: me.id,
+        brand_workspace_id: workspaceId,
+        section: 'waiting',
+        kind: 'offer_sent_waiting',
+        source_ref: { type: 'offer', id: newSourceRefId() },
+        counterpart_display_name: 'Creador Doble',
+      }),
+    ])
+
+    try {
+      await onboardedBrandUser.signIn(page)
+      const inbox = new InboxPage(page)
+      await inbox.goto()
+      await inbox.expectActionBoxes(1)
+      await inbox.expectWaitingBoxes(1)
+      await expect(
+        inbox.actionSection.getByText(/también esperás algo/i),
+      ).toBeVisible()
+    } finally {
+      await resetInbox(workspaceId!)
     }
   })
 })
