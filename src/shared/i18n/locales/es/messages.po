@@ -306,15 +306,15 @@ msgstr "{firstName}, ¿cuánto hiciste con marcas?"
 msgid "{followersRange} seguidores"
 msgstr "{followersRange} seguidores"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:49
+#: src/features/offers/components/OfferSummaryBlock.tsx:74
 msgid "{formattedBaseAmount} USD (base)"
 msgstr "{formattedBaseAmount} USD (base)"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:57
+#: src/features/offers/components/OfferSummaryBlock.tsx:82
 msgid "{formattedBonusCeiling} USD (bonus)"
 msgstr "{formattedBonusCeiling} USD (bonus)"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:65
+#: src/features/offers/components/OfferSummaryBlock.tsx:90
 msgid "{formattedMaxPayout} USD (máximo)"
 msgstr "{formattedMaxPayout} USD (máximo)"
 
@@ -1523,8 +1523,7 @@ msgstr "Bonos"
 #~ msgid "Bonos de oferta"
 #~ msgstr "Bonos de oferta"
 
-#: src/features/offers/components/OfferSummary.tsx:79
-#: src/features/offers/components/OfferSummaryBlock.tsx:55
+#: src/features/offers/components/OfferSummaryBlock.tsx:80
 msgid "Bonos máximos"
 msgstr "Bonos máximos"
 
@@ -2206,7 +2205,7 @@ msgstr "Comida"
 #~ msgid "Coming up when the offers context lands."
 #~ msgstr "Coming up when the offers context lands."
 
-#: src/features/offers/components/OfferSummary.tsx:98
+#: src/features/offers/components/OfferSummaryBlock.tsx:101
 msgid "Comisión de procesamiento (Stripe)"
 msgstr "Comisión de procesamiento (Stripe)"
 
@@ -3280,7 +3279,7 @@ msgstr "El bono fijo tiene que ser mayor a 0"
 msgid "El brand necesita actualizar su tarjeta"
 msgstr "El brand necesita actualizar su tarjeta"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#: src/features/offers/components/OfferSummaryBlock.tsx:116
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr "El cobro se realiza cuando el creador acepta"
 
@@ -5866,8 +5865,8 @@ msgstr "Mínimo USD"
 #~ msgstr "Minimum 2 stages"
 
 #: src/features/offers/components/OfferSummary.tsx:60
-msgid "mismo contenido"
-msgstr "mismo contenido"
+#~ msgid "mismo contenido"
+#~ msgstr "mismo contenido"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:75
 msgid "Mismo contenido"
@@ -5942,8 +5941,7 @@ msgstr "Monto"
 msgid "Monto a definir"
 msgstr "Monto a definir"
 
-#: src/features/offers/components/OfferSummary.tsx:75
-#: src/features/offers/components/OfferSummaryBlock.tsx:47
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
 msgid "Monto base"
 msgstr "Monto base"
 
@@ -5959,7 +5957,7 @@ msgstr "Monto fijo"
 #~ msgid "Monto fijo en USD"
 #~ msgstr "Monto fijo en USD"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:63
+#: src/features/offers/components/OfferSummaryBlock.tsx:88
 msgid "Monto máximo"
 msgstr "Monto máximo"
 
@@ -7082,8 +7080,8 @@ msgstr "Payment of {amount} sent"
 #~ msgstr "Payments & Spending"
 
 #: src/features/offers/components/OfferSummary.tsx:88
-msgid "Payout máximo si aplican todos los bonos"
-msgstr "Payout máximo si aplican todos los bonos"
+#~ msgid "Payout máximo si aplican todos los bonos"
+#~ msgstr "Payout máximo si aplican todos los bonos"
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:47
 msgid "payout promedio"
@@ -7342,8 +7340,8 @@ msgid "por colab en tu nicho"
 msgstr "por colab en tu nicho"
 
 #: src/features/offers/components/OfferSummary.tsx:60
-msgid "por plataforma"
-msgstr "por plataforma"
+#~ msgid "por plataforma"
+#~ msgstr "por plataforma"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:47
@@ -7949,8 +7947,7 @@ msgstr "Restaurantes"
 msgid "Resumen"
 msgstr "Resumen"
 
-#: src/features/offers/components/OfferSummary.tsx:66
-#: src/features/offers/components/OfferSummaryBlock.tsx:42
+#: src/features/offers/components/OfferSummaryBlock.tsx:67
 msgid "Resumen de la oferta"
 msgstr "Resumen de la oferta"
 
@@ -9441,7 +9438,7 @@ msgstr "total"
 #~ msgid "Total {total} / 100"
 #~ msgstr "Total {total} / 100"
 
-#: src/features/offers/components/OfferSummary.tsx:105
+#: src/features/offers/components/OfferSummaryBlock.tsx:108
 msgid "Total a cobrar a tu tarjeta"
 msgstr "Total a cobrar a tu tarjeta"
 

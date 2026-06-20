@@ -306,15 +306,15 @@ msgstr ""
 msgid "{followersRange} seguidores"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:49
+#: src/features/offers/components/OfferSummaryBlock.tsx:74
 msgid "{formattedBaseAmount} USD (base)"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:57
+#: src/features/offers/components/OfferSummaryBlock.tsx:82
 msgid "{formattedBonusCeiling} USD (bonus)"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:65
+#: src/features/offers/components/OfferSummaryBlock.tsx:90
 msgid "{formattedMaxPayout} USD (máximo)"
 msgstr ""
 
@@ -1523,8 +1523,7 @@ msgstr ""
 #~ msgid "Bonos de oferta"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummary.tsx:79
-#: src/features/offers/components/OfferSummaryBlock.tsx:55
+#: src/features/offers/components/OfferSummaryBlock.tsx:80
 msgid "Bonos máximos"
 msgstr ""
 
@@ -2206,7 +2205,7 @@ msgstr ""
 #~ msgid "Coming up when the offers context lands."
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummary.tsx:98
+#: src/features/offers/components/OfferSummaryBlock.tsx:101
 msgid "Comisión de procesamiento (Stripe)"
 msgstr ""
 
@@ -3284,7 +3283,7 @@ msgstr ""
 msgid "El brand necesita actualizar su tarjeta"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#: src/features/offers/components/OfferSummaryBlock.tsx:116
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr ""
 
@@ -5874,8 +5873,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:60
-msgid "mismo contenido"
-msgstr ""
+#~ msgid "mismo contenido"
+#~ msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:75
 msgid "Mismo contenido"
@@ -5950,8 +5949,7 @@ msgstr ""
 msgid "Monto a definir"
 msgstr ""
 
-#: src/features/offers/components/OfferSummary.tsx:75
-#: src/features/offers/components/OfferSummaryBlock.tsx:47
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
 msgid "Monto base"
 msgstr ""
 
@@ -5967,7 +5965,7 @@ msgstr ""
 #~ msgid "Monto fijo en USD"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:63
+#: src/features/offers/components/OfferSummaryBlock.tsx:88
 msgid "Monto máximo"
 msgstr ""
 
@@ -7094,8 +7092,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:88
-msgid "Payout máximo si aplican todos los bonos"
-msgstr ""
+#~ msgid "Payout máximo si aplican todos los bonos"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:47
 msgid "payout promedio"
@@ -7358,8 +7356,8 @@ msgid "por colab en tu nicho"
 msgstr ""
 
 #: src/features/offers/components/OfferSummary.tsx:60
-msgid "por plataforma"
-msgstr ""
+#~ msgid "por plataforma"
+#~ msgstr ""
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:47
@@ -7973,8 +7971,7 @@ msgstr ""
 msgid "Resumen"
 msgstr ""
 
-#: src/features/offers/components/OfferSummary.tsx:66
-#: src/features/offers/components/OfferSummaryBlock.tsx:42
+#: src/features/offers/components/OfferSummaryBlock.tsx:67
 msgid "Resumen de la oferta"
 msgstr ""
 
@@ -9473,7 +9470,7 @@ msgstr ""
 #~ msgid "Total {total} / 100"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummary.tsx:105
+#: src/features/offers/components/OfferSummaryBlock.tsx:108
 msgid "Total a cobrar a tu tarjeta"
 msgstr ""
 
