@@ -4,7 +4,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { DashboardChartResponse } from '#/shared/api/generated/model/dashboardChartResponse'
 
-import { ChartTooltipBody, PerformanceChart } from './PerformanceChart'
+import {
+  ChartTooltipBody,
+  formatCountAxis,
+  formatMoneyAxis,
+  getDateTickInterval,
+  getSeriesDomain,
+  PerformanceChart,
+} from './PerformanceChart'
 
 describe('PerformanceChart', () => {
   beforeEach(() => {
@@ -80,6 +87,27 @@ describe('PerformanceChart', () => {
 
     expect(screen.getByText('@ana - Lanzamiento')).toBeInTheDocument()
     expect(screen.getByText('@leo - Always on')).toBeInTheDocument()
+  })
+
+  it('uses the real max as oferta domain for a single offer', () => {
+    expect(getSeriesDomain('oferta', 1)).toEqual([0, 1])
+  })
+
+  it('uses independent padded domains for views and spend', () => {
+    expect(getSeriesDomain('vistas', 20_000_000)).toEqual([0, 23_000_000])
+    expect(getSeriesDomain('gasto', 2_500)).toEqual([0, 2_900])
+  })
+
+  it('formats compact axis labels without trailing zeroes', () => {
+    expect(formatCountAxis(20_000_000)).toBe('20M')
+    expect(formatCountAxis(20_500_000)).toBe('20.5M')
+    expect(formatMoneyAxis(2_000)).toBe('$2k')
+    expect(formatMoneyAxis(2_500)).toBe('$2.5k')
+  })
+
+  it('shows fewer date labels for 30 day ranges', () => {
+    expect(getDateTickInterval('30d')).toBe(1)
+    expect(getDateTickInterval('14d')).toBe(0)
   })
 })
 

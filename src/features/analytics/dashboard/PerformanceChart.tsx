@@ -87,15 +87,51 @@ const AXIS_HIDDEN: Record<ChartSeries, boolean> = {
   gasto: false,
 }
 
-function formatCountAxis(value: number): string {
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`
+export function formatCountAxis(value: number): string {
+  if (value >= 1_000_000) return `${formatCompact(value / 1_000_000)}M`
   if (value >= 1_000) return `${Math.round(value / 1_000)}k`
   return String(Math.round(value))
 }
 
-function formatMoneyAxis(value: number): string {
-  if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}k`
+export function formatMoneyAxis(value: number): string {
+  if (value >= 1_000) return `$${formatCompact(value / 1_000)}k`
   return `$${Math.round(value)}`
+}
+
+function formatCompact(value: number): string {
+  const rounded = Number(value.toFixed(1))
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1)
+}
+
+function getSeriesMax(rows: ChartRow[]): Record<ChartSeries, number> {
+  return SERIES_ORDER.reduce(
+    (acc, series) => {
+      acc[series] = Math.max(0, ...rows.map((row) => row[series] ?? 0))
+      return acc
+    },
+    { oferta: 0, vistas: 0, gasto: 0 } as Record<ChartSeries, number>,
+  )
+}
+
+export function getSeriesDomain(
+  series: ChartSeries,
+  maxValue: number,
+): [number, number] {
+  if (series === 'oferta') return [0, Math.max(1, Math.ceil(maxValue))]
+  return [0, getPaddedDomainMax(maxValue)]
+}
+
+function getPaddedDomainMax(maxValue: number): number {
+  if (maxValue <= 0) return 1
+  const padded = maxValue * 1.12
+  const magnitude = 10 ** Math.max(0, Math.floor(Math.log10(padded)) - 1)
+  return Math.ceil(padded / magnitude) * magnitude
+}
+
+export function getDateTickInterval(
+  rangePreset: DashboardSearch['range_preset'],
+) {
+  return rangePreset === '30d' ? 1 : 0
 }
 
 export function PerformanceChart({
@@ -115,13 +151,24 @@ export function PerformanceChart({
     activeSeries.includes(series),
   )
   const rows = data?.buckets.map(toChartRow) ?? []
+  const seriesMax = getSeriesMax(rows)
 
   if (isLoading) {
     return (
-      <section className="h-[304px] rounded-3xl border border-border bg-card p-5 shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
+      <section className="flex h-[304px] flex-col gap-3 rounded-3xl border border-border bg-card px-5 py-[18px] shadow-[0_12px_28px_-18px_rgba(0,0,0,0.35)]">
+        <div className="flex h-[34px] items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <div className="h-[15px] w-14 animate-pulse rounded-full bg-muted" />
+            <div className="size-[13px] animate-pulse rounded-full bg-muted" />
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-7 w-36 animate-pulse rounded-full bg-muted" />
+            <div className="size-8 animate-pulse rounded-full bg-muted" />
+          </div>
+        </div>
         <div
           data-testid="chart-skeleton"
-          className="h-full animate-pulse rounded-2xl bg-muted"
+          className="min-h-0 flex-1 animate-pulse rounded-2xl bg-muted"
         />
       </section>
     )
@@ -206,7 +253,7 @@ export function PerformanceChart({
               tickLine={false}
               axisLine={false}
               tickMargin={10}
-              interval={0}
+              interval={getDateTickInterval(rangePreset)}
               minTickGap={0}
               tickFormatter={formatDate}
               tick={{ fill: '#A1A1AA', fontSize: 11, fontFamily: 'Geist Mono' }}
@@ -217,7 +264,7 @@ export function PerformanceChart({
                 yAxisId={series}
                 orientation={AXIS_ORIENTATION[series]}
                 hide={AXIS_HIDDEN[series]}
-                domain={[0, 'auto']}
+                domain={getSeriesDomain(series, seriesMax[series])}
                 tickCount={5}
                 width={46}
                 tickLine={false}
@@ -249,7 +296,9 @@ export function PerformanceChart({
                   fillOpacity={0.45}
                   radius={[4, 4, 0, 0]}
                   maxBarSize={36}
-                  isAnimationActive={false}
+                  isAnimationActive
+                  animationDuration={260}
+                  animationEasing="ease-out"
                 />
               ))}
             {visibleSeries.includes(LINE_SERIES) ? (
@@ -268,7 +317,9 @@ export function PerformanceChart({
                   fill: SERIES_COLORS[LINE_SERIES],
                 }}
                 connectNulls
-                isAnimationActive={false}
+                isAnimationActive
+                animationDuration={320}
+                animationEasing="ease-out"
               />
             ) : null}
           </ComposedChart>

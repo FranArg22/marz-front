@@ -1,5 +1,6 @@
 import type { DashboardSearch } from '#/routes/_brand/inicio'
 import { Route } from '#/routes/_brand/inicio'
+import { keepPreviousData } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import {
   useGetAnalyticsDashboardCards,
@@ -58,7 +59,7 @@ export function DashboardPage() {
     query: { staleTime: 60_000 },
   })
   const chartQuery = useGetAnalyticsDashboardChart(chartParams, {
-    query: { staleTime: 300_000 },
+    query: { staleTime: 300_000, placeholderData: keepPreviousData },
   })
   const topVideosQuery = useGetAnalyticsDashboardTopVideos(topVideosParams, {
     query: { staleTime: 300_000 },

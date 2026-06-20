@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { track } from '#/shared/analytics/track'
 import { getMeQueryKey } from '#/shared/api/generated/accounts/accounts'
 import type { meResponse } from '#/shared/api/generated/accounts/accounts'
+import { getServerBrandWorkspaceLandingTarget } from '#/shared/auth/getServerBrandWorkspaceLandingTarget'
 import { getServerMe } from '#/shared/auth/getServerMe'
 import type { ServerMeBody } from '#/shared/auth/getServerMe'
 
@@ -55,9 +56,17 @@ export const Route = createFileRoute('/')({
     }
 
     if (me.kind === 'brand') {
-      throw redirect({ to: '/inicio' })
+      let landingTarget: 'dashboard' | 'create_campaign' = 'dashboard'
+      try {
+        landingTarget = await getServerBrandWorkspaceLandingTarget()
+      } catch {
+        // Default to dashboard if the landing-target server function fails.
+      }
+      throw redirect({
+        to: landingTarget === 'create_campaign' ? '/campaigns/new' : '/inicio',
+      })
     }
 
-    throw redirect({ to: '/discover/campaigns' })
+    throw redirect({ to: '/offers' })
   },
 })

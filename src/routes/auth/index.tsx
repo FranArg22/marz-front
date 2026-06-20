@@ -5,6 +5,7 @@ import { MagicLinkRequestForm } from '#/features/identity/auth/components/MagicL
 import { useAuthGuard } from '#/features/identity/auth/hooks/useAuthGuard'
 import { getMeQueryKey } from '#/shared/api/generated/accounts/accounts'
 import type { meResponse } from '#/shared/api/generated/accounts/accounts'
+import { getServerBrandWorkspaceLandingTarget } from '#/shared/auth/getServerBrandWorkspaceLandingTarget'
 import { getServerMe } from '#/shared/auth/getServerMe'
 import type { ServerMeBody } from '#/shared/auth/getServerMe'
 
@@ -43,7 +44,19 @@ export const Route = createFileRoute('/auth/')({
     if (!me) return
 
     if (me.onboarding_status === 'onboarded') {
-      throw redirect({ to: me.kind === 'brand' ? '/campaigns' : '/offers' })
+      if (me.kind === 'brand') {
+        let landingTarget: 'dashboard' | 'create_campaign' = 'dashboard'
+        try {
+          landingTarget = await getServerBrandWorkspaceLandingTarget()
+        } catch {
+          // Default to dashboard if the landing-target server function fails.
+        }
+        throw redirect({
+          to:
+            landingTarget === 'create_campaign' ? '/campaigns/new' : '/inicio',
+        })
+      }
+      throw redirect({ to: '/offers' })
     }
     if (me.redirect_to) {
       throw redirect({ to: me.redirect_to })

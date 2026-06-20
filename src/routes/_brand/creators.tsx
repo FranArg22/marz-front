@@ -1,7 +1,8 @@
 import { t } from '@lingui/core/macro'
-import { Compass, Mail, Users } from 'lucide-react'
+import { Compass, Link2, Mail, Users } from 'lucide-react'
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useCallback, useMemo, useState } from 'react'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
@@ -99,11 +100,24 @@ function BrandCreatorsRoute() {
   const activeFilters = hasActiveFilters(filters)
   // El backend omite plan_capabilities para brands sin plan pago (y el me
   // liviano del SSR tampoco lo trae), así que el acceso defensivo no es redundante.
-  const planCapabilities =
-    meQuery.data?.status === 200
-      ? meQuery.data.data.brand_workspace?.plan_capabilities
-      : undefined
-  const allowsEmailInvites = Boolean(planCapabilities?.allows_email_invites)
+  const brandWorkspace =
+    meQuery.data?.status === 200 ? meQuery.data.data.brand_workspace : undefined
+  const allowsEmailInvites = Boolean(
+    // El contrato tipa plan_capabilities como requerido, pero el backend lo
+    // omite para brands sin plan pago (y el me liviano del SSR tampoco lo trae),
+    // así que el optional chain es necesario en runtime aunque el tipo no lo exija.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    brandWorkspace?.plan_capabilities?.allows_email_invites,
+  )
+
+  const copyInviteLink = useCallback(() => {
+    if (!brandWorkspace) return
+    const link = `${window.location.origin}/invite/ws_${brandWorkspace.id}`
+    void navigator.clipboard
+      .writeText(link)
+      .then(() => toast(t`Link de invitación copiado`))
+      .catch(() => toast(t`No pudimos copiar el link`))
+  }, [brandWorkspace])
 
   return (
     <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
@@ -121,6 +135,17 @@ function BrandCreatorsRoute() {
               {t`Descubrir creadores`}
             </Link>
           </Button>
+          {brandWorkspace ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={copyInviteLink}
+            >
+              <Link2 className="size-4" aria-hidden />
+              {t`Invitar por link`}
+            </Button>
+          ) : null}
           {allowsEmailInvites ? (
             <>
               <Button

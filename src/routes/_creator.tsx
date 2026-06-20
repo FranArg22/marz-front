@@ -5,6 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 
+import { usePendingInviteClaim } from '#/features/discovery/invite/usePendingInviteClaim'
 import { AppShell } from '#/features/identity/app-shell/AppShell'
 import { getMeQueryKey } from '#/shared/api/generated/accounts/accounts'
 import type { meResponse } from '#/shared/api/generated/accounts/accounts'
@@ -67,6 +68,8 @@ export const Route = createFileRoute('/_creator')({
 function CreatorLayout() {
   const { accountId } = Route.useRouteContext()
   const pathname = useRouterState({ select: (s) => s.location.pathname })
+
+  usePendingInviteClaim()
 
   return (
     <AppShell accountKind="creator" accountId={accountId} pathname={pathname}>
