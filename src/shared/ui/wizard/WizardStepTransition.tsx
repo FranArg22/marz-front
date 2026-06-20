@@ -1,5 +1,5 @@
-import { useRef  } from 'react'
-import type {ReactNode} from 'react';
+import { useRef } from 'react'
+import type { ReactNode } from 'react'
 
 interface WizardStepTransitionProps {
   /** Stable id of the current step. Drives the remount that replays the animation. */

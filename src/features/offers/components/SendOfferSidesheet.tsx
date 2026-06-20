@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useStore } from '@tanstack/react-form'
 import { t } from '@lingui/core/macro'
@@ -135,7 +135,7 @@ export function SendOfferSidesheet({
   const meQuery = useMe()
   const createOfferMutation = useCreateOfferMutation()
   const createOfferSchema = useMemo(() => createCreateOfferSchema(), [])
-  const [offerDraftId] = useState(() => crypto.randomUUID())
+  const [offerDraftId, setOfferDraftId] = useState(() => crypto.randomUUID())
   const [sendError, setSendError] = useState<OfferSendError | null>(null)
   const workspacePlan = getWorkspacePlan(
     meQuery.data?.status === 200
@@ -233,6 +233,20 @@ export function SendOfferSidesheet({
       useSendOfferWizard.getState().reset()
     }
   }, [isOpen])
+
+  // The sidesheet stays mounted, so start each compose fresh when it opens:
+  // a new offer_draft_id (otherwise re-sending reuses the prior PaymentIntent)
+  // and an empty form. Reset on open only — never on close — so the slide-out
+  // animation keeps showing the last content.
+  const wasOpenRef = useRef(isOpen)
+  useEffect(() => {
+    if (isOpen && !wasOpenRef.current) {
+      setOfferDraftId(crypto.randomUUID())
+      setSendError(null)
+      form.reset(createDefaultValues(creatorAccountId, {}, wizard.mode))
+    }
+    wasOpenRef.current = isOpen
+  }, [isOpen, form, creatorAccountId, wizard.mode])
 
   function setMode(nextMode: SendOfferWizardMode) {
     useSendOfferWizard.getState().setMode(nextMode)
