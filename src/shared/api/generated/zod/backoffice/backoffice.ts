@@ -19,7 +19,7 @@ export const getBackofficeEmailMetricsQueryGranularityDefault = `day`;
 export const GetBackofficeEmailMetricsQueryParams = zod.object({
   "from": zod.iso.datetime({}).describe('Inclusive range start.'),
   "to": zod.iso.datetime({}).describe('Exclusive range end. Maximum range is 93 days.'),
-  "email_type": zod.union([zod.enum(['invite_creator_unregistered', 'invite_creator_existing', 'offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),zod.enum(['all'])]).default(getBackofficeEmailMetricsQueryEmailTypeDefault),
+  "email_type": zod.union([zod.enum(['offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),zod.enum(['all'])]).default(getBackofficeEmailMetricsQueryEmailTypeDefault),
   "granularity": zod.enum(['hour', 'day', 'month']).default(getBackofficeEmailMetricsQueryGranularityDefault)
 })
 
@@ -114,7 +114,7 @@ export const GetBackofficeEmailMetricsResponse = zod.object({
   "estimated_cost": zod.string().regex(getBackofficeEmailMetricsResponseTotalsEstimatedCostRegExp)
 }),
   "by_email_type": zod.array(zod.object({
-  "email_type": zod.enum(['invite_creator_unregistered', 'invite_creator_existing', 'offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),
+  "email_type": zod.enum(['offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),
   "sent": zod.number().min(getBackofficeEmailMetricsResponseByEmailTypeItemSentMin),
   "delivered": zod.number().min(getBackofficeEmailMetricsResponseByEmailTypeItemDeliveredMin),
   "bounced": zod.number().min(getBackofficeEmailMetricsResponseByEmailTypeItemBouncedMin),
@@ -127,7 +127,7 @@ export const GetBackofficeEmailMetricsResponse = zod.object({
 })),
   "series": zod.array(zod.object({
   "bucket_start": zod.iso.datetime({}),
-  "email_type": zod.enum(['invite_creator_unregistered', 'invite_creator_existing', 'offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),
+  "email_type": zod.enum(['offer_sent', 'offer_accepted', 'offer_rejected', 'offer_expired', 'message_new', 'draft_submitted', 'changes_requested', 'draft_approved', 'link_approved', 'payment_marked']),
   "sent": zod.number().min(getBackofficeEmailMetricsResponseSeriesItemSentMin),
   "delivered": zod.number().min(getBackofficeEmailMetricsResponseSeriesItemDeliveredMin),
   "bounced": zod.number().min(getBackofficeEmailMetricsResponseSeriesItemBouncedMin),

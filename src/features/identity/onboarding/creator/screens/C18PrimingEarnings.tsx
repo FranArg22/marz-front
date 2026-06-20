@@ -37,7 +37,7 @@ export function C18PrimingEarnings() {
     <div className="relative flex w-full flex-col items-center gap-12">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-180px] h-[560px] w-[720px] -translate-x-1/2 opacity-70"
+        className="pointer-events-none absolute left-1/2 top-[-180px] h-[560px] w-[720px] -translate-x-1/2 opacity-70 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.33) 0%, rgba(13, 166, 120, 0) 100%)',

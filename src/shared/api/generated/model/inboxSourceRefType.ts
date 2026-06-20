@@ -17,6 +17,5 @@ export const InboxSourceRefType = {
   InboxSourceRefTypeDeliverable: 'deliverable',
   InboxSourceRefTypeLink: 'link',
   InboxSourceRefTypeApplication: 'application',
-  InboxSourceRefTypeInvite: 'invite',
   InboxSourceRefTypeMatch: 'match',
 } as const;

@@ -23,7 +23,7 @@ test.describe('Onboarding E2E', () => {
     const wizard = new CreatorOnboardingWizard(page)
     await wizard.goto()
 
-    await expect(page.getByText(/Paso 1 de/)).toBeVisible()
+    await expect(page.getByRole('progressbar')).toBeVisible()
   })
 
   test('brand onboarded es redirigido de /onboarding/brand a /campaigns', async ({

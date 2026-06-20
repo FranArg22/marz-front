@@ -5,10 +5,9 @@ import {
   useParams,
   useRouter,
 } from '@tanstack/react-router'
-import { t } from '@lingui/core/macro'
 
 import { useMe } from '#/shared/api/generated/accounts/accounts'
-import { WizardShell } from '#/shared/ui/wizard'
+import { WizardShell, WizardStepTransition } from '#/shared/ui/wizard'
 import { useBrandOnboardingStore } from '#/features/identity/onboarding/brand/store'
 import {
   STEPS,
@@ -79,9 +78,6 @@ function BrandOnboardingLayout() {
 
   const currentStep = STEPS[currentIndex]!
   const percent = ((currentIndex + 1) / STEPS.length) * 100
-  const currentStepNumber = currentIndex + 1
-  const totalSteps = STEPS.length
-  const stepLabel = t`Paso ${currentStepNumber} de ${totalSteps}`
 
   const validate = currentStep.validate
   const hideFooter =
@@ -127,7 +123,6 @@ function BrandOnboardingLayout() {
 
   return (
     <WizardShell
-      stepLabel={stepLabel}
       percent={percent}
       onBack={currentIndex > 0 ? handleBack : undefined}
       onNext={handleNext}
@@ -135,7 +130,9 @@ function BrandOnboardingLayout() {
       hideFooter={hideFooter}
       onExit={handleExit}
     >
-      <Outlet />
+      <WizardStepTransition stepKey={currentStep.id} index={currentIndex}>
+        <Outlet />
+      </WizardStepTransition>
     </WizardShell>
   )
 }

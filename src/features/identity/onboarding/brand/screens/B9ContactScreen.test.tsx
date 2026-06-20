@@ -26,7 +26,7 @@ beforeEach(() => {
 describe('B9ContactScreen', () => {
   it('renders three contact fields', () => {
     render(<B9ContactScreen />)
-    expect(screen.getByLabelText(/^nombre$/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/nombre y apellido/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/^cargo$/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/^whatsapp$/i)).toBeInTheDocument()
   })
@@ -34,7 +34,7 @@ describe('B9ContactScreen', () => {
   it('updates store on name input', async () => {
     const user = userEvent.setup()
     render(<B9ContactScreen />)
-    await user.type(screen.getByLabelText(/^nombre$/i), 'Juan')
+    await user.type(screen.getByLabelText(/nombre y apellido/i), 'Juan')
     expect(useBrandOnboardingStore.getState().contact_name).toBe('Juan')
   })
 

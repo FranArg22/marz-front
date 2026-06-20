@@ -22,6 +22,7 @@ import { Route as WorkspaceIndexRouteImport } from './routes/workspace.index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as OnboardingCreatorRouteImport } from './routes/onboarding/creator'
 import { Route as OnboardingBrandRouteImport } from './routes/onboarding/brand'
+import { Route as InviteTokenRouteImport } from './routes/invite.$token'
 import { Route as AuthLinkInvalidRouteImport } from './routes/auth/link-invalid'
 import { Route as AuthKindRouteImport } from './routes/auth/kind'
 import { Route as AuthCheckEmailRouteImport } from './routes/auth/check-email'
@@ -114,6 +115,11 @@ const OnboardingCreatorRoute = OnboardingCreatorRouteImport.update({
 const OnboardingBrandRoute = OnboardingBrandRouteImport.update({
   id: '/onboarding/brand',
   path: '/onboarding/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InviteTokenRoute = InviteTokenRouteImport.update({
+  id: '/invite/$token',
+  path: '/invite/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLinkInvalidRoute = AuthLinkInvalidRouteImport.update({
@@ -296,6 +302,7 @@ export interface FileRoutesByFullPath {
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
   '/auth/link-invalid': typeof AuthLinkInvalidRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/onboarding/brand': typeof OnboardingBrandRouteWithChildren
   '/onboarding/creator': typeof OnboardingCreatorRouteWithChildren
   '/auth/': typeof AuthIndexRoute
@@ -336,6 +343,7 @@ export interface FileRoutesByTo {
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
   '/auth/link-invalid': typeof AuthLinkInvalidRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/auth': typeof AuthIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
   '/ajustes/general': typeof BrandAjustesGeneralRoute
@@ -379,6 +387,7 @@ export interface FileRoutesById {
   '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/kind': typeof AuthKindRoute
   '/auth/link-invalid': typeof AuthLinkInvalidRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/onboarding/brand': typeof OnboardingBrandRouteWithChildren
   '/onboarding/creator': typeof OnboardingCreatorRouteWithChildren
   '/auth/': typeof AuthIndexRoute
@@ -424,6 +433,7 @@ export interface FileRouteTypes {
     | '/auth/check-email'
     | '/auth/kind'
     | '/auth/link-invalid'
+    | '/invite/$token'
     | '/onboarding/brand'
     | '/onboarding/creator'
     | '/auth/'
@@ -464,6 +474,7 @@ export interface FileRouteTypes {
     | '/auth/check-email'
     | '/auth/kind'
     | '/auth/link-invalid'
+    | '/invite/$token'
     | '/auth'
     | '/workspace'
     | '/ajustes/general'
@@ -506,6 +517,7 @@ export interface FileRouteTypes {
     | '/auth/check-email'
     | '/auth/kind'
     | '/auth/link-invalid'
+    | '/invite/$token'
     | '/onboarding/brand'
     | '/onboarding/creator'
     | '/auth/'
@@ -540,6 +552,7 @@ export interface RootRouteChildren {
   AuthCheckEmailRoute: typeof AuthCheckEmailRoute
   AuthKindRoute: typeof AuthKindRoute
   AuthLinkInvalidRoute: typeof AuthLinkInvalidRoute
+  InviteTokenRoute: typeof InviteTokenRoute
   OnboardingBrandRoute: typeof OnboardingBrandRouteWithChildren
   OnboardingCreatorRoute: typeof OnboardingCreatorRouteWithChildren
   AuthIndexRoute: typeof AuthIndexRoute
@@ -636,6 +649,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding/brand'
       fullPath: '/onboarding/brand'
       preLoaderRoute: typeof OnboardingBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invite/$token': {
+      id: '/invite/$token'
+      path: '/invite/$token'
+      fullPath: '/invite/$token'
+      preLoaderRoute: typeof InviteTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/link-invalid': {
@@ -998,6 +1018,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthCheckEmailRoute: AuthCheckEmailRoute,
   AuthKindRoute: AuthKindRoute,
   AuthLinkInvalidRoute: AuthLinkInvalidRoute,
+  InviteTokenRoute: InviteTokenRoute,
   OnboardingBrandRoute: OnboardingBrandRouteWithChildren,
   OnboardingCreatorRoute: OnboardingCreatorRouteWithChildren,
   AuthIndexRoute: AuthIndexRoute,

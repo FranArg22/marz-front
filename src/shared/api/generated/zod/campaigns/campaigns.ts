@@ -568,8 +568,7 @@ export const ListCreatorsResponse = zod.object({
   "last_activity_at": zod.iso.datetime({}).nullable(),
   "conversation_id": zod.uuid().nullable(),
   "actions": zod.object({
-  "open_workspace": zod.boolean(),
-  "invite_creator": zod.boolean()
+  "open_workspace": zod.boolean()
 })
 })),
   "next_cursor": zod.string().nullable(),
@@ -722,47 +721,4 @@ export const RejectCampaignDiscoveryApplicationResponse = zod.object({
   "id": zod.uuid()
 }).nullish()
 })
-
-export const CreateCampaignDiscoveryInviteParams = zod.object({
-  "campaign_id": zod.uuid()
-})
-
-export const CreateCampaignDiscoveryInviteHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid(),
-  "Idempotency-Key": zod.uuid()
-})
-
-export const createCampaignDiscoveryInviteBodyOneEmailMax = 320;
-
-export const createCampaignDiscoveryInviteBodyOneExpiresInDaysMax = 365;
-
-export const createCampaignDiscoveryInviteBodyOneCommercialCurrencyMin = 3;
-export const createCampaignDiscoveryInviteBodyOneCommercialCurrencyMax = 3;
-
-export const createCampaignDiscoveryInviteBodyTwoExpiresInDaysMax = 365;
-
-export const createCampaignDiscoveryInviteBodyTwoCommercialCurrencyMin = 3;
-export const createCampaignDiscoveryInviteBodyTwoCommercialCurrencyMax = 3;
-
-
-
-export const CreateCampaignDiscoveryInviteBody = zod.union([zod.object({
-  "mode": zod.enum(['email']),
-  "email": zod.email().max(createCampaignDiscoveryInviteBodyOneEmailMax),
-  "expires_in_days": zod.number().min(1).max(createCampaignDiscoveryInviteBodyOneExpiresInDaysMax).optional(),
-  "commercial": zod.object({
-  "fee_model": zod.enum(['fixed_per_video', 'per_views']).optional(),
-  "amount": zod.string().optional(),
-  "currency": zod.string().min(createCampaignDiscoveryInviteBodyOneCommercialCurrencyMin).max(createCampaignDiscoveryInviteBodyOneCommercialCurrencyMax).optional()
-}).optional()
-}),zod.object({
-  "mode": zod.enum(['in_platform']),
-  "creator_account_id": zod.uuid(),
-  "expires_in_days": zod.number().min(1).max(createCampaignDiscoveryInviteBodyTwoExpiresInDaysMax).optional(),
-  "commercial": zod.object({
-  "fee_model": zod.enum(['fixed_per_video', 'per_views']).optional(),
-  "amount": zod.string().optional(),
-  "currency": zod.string().min(createCampaignDiscoveryInviteBodyTwoCommercialCurrencyMin).max(createCampaignDiscoveryInviteBodyTwoCommercialCurrencyMax).optional()
-}).optional()
-})])
 

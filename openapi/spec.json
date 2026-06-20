@@ -435,10 +435,11 @@
             "required": false,
             "schema": {
               "type": "array",
-              "maxItems": 2,
+              "maxItems": 3,
               "default": [
                 "oferta",
-                "vistas"
+                "vistas",
+                "gasto"
               ],
               "items": {
                 "type": "string",
@@ -7097,249 +7098,6 @@
         }
       }
     },
-    "/v1/campaigns/{campaign_id}/invites": {
-      "post": {
-        "operationId": "createCampaignDiscoveryInvite",
-        "tags": [
-          "campaigns"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "campaign_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Brand-Workspace-Id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCampaignInviteRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateCampaignInviteResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invalid_json, validation_failed, campaign_id_invalid, invalid_idempotency_key, idempotency_key_required. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "402": {
-            "description": "Payment Required. Workspace billing gate blocks the action. Possible codes: billing_blocked_past_due, billing_blocked_free.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: forbidden_role. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: campaign_not_found, creator_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: plan_does_not_allow_in_platform_invite, campaign_not_discoverable, campaign_brief_unconfirmed, invite_duplicate, idempotency_conflict. idempotency_conflict means the Idempotency-Key was reused with a different payload. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: brand_workspace_required, validation_error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/creator/invitations": {
-      "get": {
-        "operationId": "listCreatorInvitations",
-        "tags": [
-          "creator"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "default": 24
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "active",
-                "accepted",
-                "declined",
-                "expired"
-              ]
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "maxLength": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorInvitationListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_creator, onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity. Possible codes: validation_error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/creator/campaign-board": {
       "get": {
         "operationId": "listCreatorCampaignBoard",
@@ -9716,6 +9474,72 @@
         }
       }
     },
+    "/v1/invites/{token}/accept": {
+      "post": {
+        "operationId": "acceptInviteByToken",
+        "tags": [
+          "creator",
+          "discovery"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptInviteByTokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. Possible codes: creator_required. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found. Possible codes: email_invite_not_found. See §4.1.8.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/discovery/creator-count": {
       "get": {
         "operationId": "getDiscoveryCreatorCount",
@@ -9942,302 +9766,6 @@
           },
           "422": {
             "description": "Unprocessable Entity. Possible codes: validation.invalid_brand_workspace_id, validation.invalid_period, validation.invalid_campaign_id, validation.invalid_creator_account_id, validation.invalid_query. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/creator/invitations/{invite_id}": {
-      "get": {
-        "operationId": "getCreatorInvitation",
-        "tags": [
-          "creator"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "invite_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorInvitationDetailResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invite_id_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_creator, onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: invite_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/creator/invitations/{invite_id}:accept": {
-      "post": {
-        "operationId": "acceptCreatorInvitation",
-        "tags": [
-          "creator"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "invite_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AcceptCreatorInvitationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invite_id_invalid, missing_idempotency_key, invalid_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_creator, onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: invite_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: invite_not_actionable, idempotency_conflict. invite_not_actionable is returned for accepted, declined, expired or otherwise expired-at invitations; idempotency_conflict means the Idempotency-Key was reused with a different payload. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/creator/invitations/{invite_id}:decline": {
-      "post": {
-        "operationId": "declineCreatorInvitation",
-        "tags": [
-          "creator"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "invite_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeclineCreatorInvitationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request. Possible codes: invite_id_invalid, missing_idempotency_key, invalid_idempotency_key. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Possible codes: token_invalid. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. Possible codes: not_creator, onboarding_incomplete. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found. Possible codes: invite_not_found. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict. Possible codes: invite_not_actionable, idempotency_conflict. invite_not_actionable is returned for accepted, declined, expired or otherwise expired-at invitations; idempotency_conflict means the Idempotency-Key was reused with a different payload. See §4.1.8.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. See §4.1.8.",
             "content": {
               "application/json": {
                 "schema": {
@@ -12197,7 +11725,6 @@
           "application_received",
           "application_sent_waiting",
           "match_suggested",
-          "invite_sent_waiting",
           "refund_delayed",
           "connection_request_received",
           "connection_request_accepted"
@@ -12216,7 +11743,6 @@
           "InboxItemKindApplicationReceived",
           "InboxItemKindApplicationSentWaiting",
           "InboxItemKindMatchSuggested",
-          "InboxItemKindInviteSentWaiting",
           "InboxItemKindRefundDelayed",
           "InboxItemKindConnectionRequestReceived",
           "InboxItemKindConnectionRequestAccepted"
@@ -12272,7 +11798,6 @@
           "deliverable",
           "link",
           "application",
-          "invite",
           "match"
         ],
         "x-enum-varnames": [
@@ -12281,7 +11806,6 @@
           "InboxSourceRefTypeDeliverable",
           "InboxSourceRefTypeLink",
           "InboxSourceRefTypeApplication",
-          "InboxSourceRefTypeInvite",
           "InboxSourceRefTypeMatch"
         ]
       },
@@ -12525,10 +12049,7 @@
             "nullable": true
           },
           "can_mark_read": {
-            "type": "boolean",
-            "enum": [
-              true
-            ]
+            "type": "boolean"
           },
           "metadata": {
             "type": "object",
@@ -12717,8 +12238,6 @@
       "TransactionalEmailType": {
         "type": "string",
         "enum": [
-          "invite_creator_unregistered",
-          "invite_creator_existing",
           "offer_sent",
           "offer_accepted",
           "offer_rejected",
@@ -17892,6 +17411,22 @@
           }
         }
       },
+      "AcceptInviteByTokenResponse": {
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "route"
+        ],
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "route": {
+            "type": "string"
+          }
+        }
+      },
       "CampaignListItem": {
         "type": "object",
         "required": [
@@ -18730,14 +18265,10 @@
       "CampaignParticipantActions": {
         "type": "object",
         "required": [
-          "open_workspace",
-          "invite_creator"
+          "open_workspace"
         ],
         "properties": {
           "open_workspace": {
-            "type": "boolean"
-          },
-          "invite_creator": {
             "type": "boolean"
           }
         }
@@ -18846,9 +18377,6 @@
           }
         }
       },
-      "DiscoveryInviteRequest": {
-        "$ref": "#/components/schemas/CreateCampaignInviteRequest"
-      },
       "InviteMode": {
         "type": "string",
         "enum": [
@@ -18916,7 +18444,10 @@
             "enum": [
               "in_platform"
             ],
-            "example": "in_platform"
+            "example": "in_platform",
+            "x-enum-varnames": [
+              "DiscoveryInPlatformInviteRequestModeInPlatform"
+            ]
           },
           "creator_account_id": {
             "type": "string",
@@ -18998,9 +18529,6 @@
           "status": "sent",
           "expires_at": "2026-05-21T18:00:00Z"
         }
-      },
-      "DiscoveryInviteResponse": {
-        "$ref": "#/components/schemas/CreateCampaignInviteResponse"
       },
       "DiscoveryContactMatchResponse": {
         "type": "object",
@@ -19606,293 +19134,6 @@
             "format": "date-time"
           }
         }
-      },
-      "CreatorInvitationListResponse": {
-        "type": "object",
-        "required": [
-          "cards",
-          "counts",
-          "next_cursor",
-          "server_time"
-        ],
-        "properties": {
-          "cards": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreatorInvitationCard"
-            }
-          },
-          "counts": {
-            "$ref": "#/components/schemas/CreatorInvitationCounts"
-          },
-          "next_cursor": {
-            "type": "string",
-            "nullable": true
-          },
-          "server_time": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CreatorInvitationDetailResponse": {
-        "type": "object",
-        "required": [
-          "card",
-          "brand",
-          "campaign",
-          "brief",
-          "commercial",
-          "decision",
-          "server_time"
-        ],
-        "properties": {
-          "card": {
-            "$ref": "#/components/schemas/CreatorInvitationCard"
-          },
-          "brand": {
-            "$ref": "#/components/schemas/InviteBrandSnapshot"
-          },
-          "campaign": {
-            "$ref": "#/components/schemas/InviteCampaignSnapshot"
-          },
-          "brief": {
-            "$ref": "#/components/schemas/InviteBriefSnapshot"
-          },
-          "commercial": {
-            "$ref": "#/components/schemas/InviteCommercialSnapshot"
-          },
-          "decision": {
-            "$ref": "#/components/schemas/CreatorInvitationDecision"
-          },
-          "server_time": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AcceptCreatorInvitationResponse": {
-        "type": "object",
-        "required": [
-          "invite",
-          "decision",
-          "idempotent_replay"
-        ],
-        "properties": {
-          "invite": {
-            "$ref": "#/components/schemas/CreatorInvitationCard"
-          },
-          "decision": {
-            "$ref": "#/components/schemas/CreatorInvitationDecision"
-          },
-          "conversation": {
-            "$ref": "#/components/schemas/CreatorInvitationAcceptedConversation",
-            "nullable": true
-          },
-          "route": {
-            "type": "string"
-          },
-          "idempotent_replay": {
-            "type": "boolean"
-          }
-        }
-      },
-      "DeclineCreatorInvitationResponse": {
-        "type": "object",
-        "required": [
-          "invite",
-          "decision",
-          "idempotent_replay"
-        ],
-        "properties": {
-          "invite": {
-            "$ref": "#/components/schemas/CreatorInvitationCard"
-          },
-          "decision": {
-            "$ref": "#/components/schemas/CreatorInvitationDecision"
-          },
-          "conversation": {
-            "$ref": "#/components/schemas/CreatorInvitationAcceptedConversation",
-            "nullable": true
-          },
-          "route": {
-            "type": "string"
-          },
-          "idempotent_replay": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CreatorInvitationDecisionResponse": {
-        "$ref": "#/components/schemas/AcceptCreatorInvitationResponse"
-      },
-      "CreatorInvitationAcceptedConversation": {
-        "type": "object",
-        "required": [
-          "id",
-          "reused"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "reused": {
-            "type": "boolean"
-          }
-        }
-      },
-      "CreatorInvitationCard": {
-        "type": "object",
-        "required": [
-          "invite_id",
-          "status",
-          "brand",
-          "campaign",
-          "commercial",
-          "expires_at",
-          "created_at",
-          "accepted_at",
-          "declined_at",
-          "expired_at",
-          "mode",
-          "invited_handle"
-        ],
-        "properties": {
-          "invite_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "active",
-              "accepted",
-              "declined",
-              "expired",
-              "sent"
-            ]
-          },
-          "brand": {
-            "$ref": "#/components/schemas/InviteBrandSnapshot"
-          },
-          "campaign": {
-            "$ref": "#/components/schemas/InviteCampaignSnapshot"
-          },
-          "commercial": {
-            "$ref": "#/components/schemas/InviteCommercialSnapshot"
-          },
-          "expires_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "accepted_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "declined_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "expired_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "mode": {
-            "type": "string",
-            "enum": [
-              "in_platform"
-            ]
-          },
-          "invited_handle": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "CreatorInvitationCounts": {
-        "type": "object",
-        "required": [
-          "total",
-          "filtered"
-        ],
-        "properties": {
-          "total": {
-            "type": "integer"
-          },
-          "filtered": {
-            "type": "integer"
-          }
-        }
-      },
-      "CreatorInvitationDecision": {
-        "type": "object",
-        "required": [
-          "status",
-          "accepted_at",
-          "declined_at",
-          "expired_at",
-          "accepted_conversation_id"
-        ],
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "active",
-              "accepted",
-              "declined",
-              "expired",
-              "sent"
-            ]
-          },
-          "accepted_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "declined_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "expired_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "accepted_conversation_id": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
-          }
-        }
-      },
-      "InviteCampaignSnapshot": {
-        "type": "object",
-        "additionalProperties": true
-      },
-      "InviteBrandSnapshot": {
-        "type": "object",
-        "additionalProperties": true
-      },
-      "InviteBriefSnapshot": {
-        "type": "object",
-        "additionalProperties": true
-      },
-      "InviteCommercialSnapshot": {
-        "type": "object",
-        "additionalProperties": true
-      },
-      "CreatorInvitationSnapshot": {
-        "type": "object",
-        "additionalProperties": true
       },
       "CampaignMoney": {
         "type": "object",
@@ -20512,6 +19753,9 @@
             "type": "string",
             "enum": [
               "requires_action"
+            ],
+            "x-enum-varnames": [
+              "OfferSendRequiresActionStatusRequiresAction"
             ]
           },
           "offer_draft_id": {

@@ -28,23 +28,19 @@ import type {
 
 import type {
   AcceptConnectionRequestResponse,
-  AcceptCreatorInvitationResponse,
+  AcceptInviteByTokenResponse,
   CreatorCampaignBoardDetailResponse,
   CreatorCampaignBoardResponse,
   CreatorEarningsResponse,
-  CreatorInvitationDetailResponse,
-  CreatorInvitationListResponse,
   CreatorRatesResponse,
   CreatorSettingsCollaboration,
   CreatorSettingsContact,
   CreatorSettingsResponse,
-  DeclineCreatorInvitationResponse,
   ErrorResponse,
   ExportCreatorEarningsCSVParams,
   GetCreatorEarningsParams,
   GetMyPayoutAccount200,
   ListCreatorCampaignBoardParams,
-  ListCreatorInvitationsParams,
   RejectConnectionRequestResponse,
   ReplaceMyCreatorSampleVideos200,
   SetCreatorAvatarRequest,
@@ -63,141 +59,6 @@ import { customFetch } from '../../mutator';
 
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-
-export type listCreatorInvitationsResponse200 = {
-  data: CreatorInvitationListResponse
-  status: 200
-}
-
-export type listCreatorInvitationsResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type listCreatorInvitationsResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type listCreatorInvitationsResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type listCreatorInvitationsResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type listCreatorInvitationsResponseSuccess = (listCreatorInvitationsResponse200) & {
-  headers: Headers;
-};
-export type listCreatorInvitationsResponseError = (listCreatorInvitationsResponse401 | listCreatorInvitationsResponse403 | listCreatorInvitationsResponse422 | listCreatorInvitationsResponse500) & {
-  headers: Headers;
-};
-
-export type listCreatorInvitationsResponse = (listCreatorInvitationsResponseSuccess | listCreatorInvitationsResponseError)
-
-export const getListCreatorInvitationsUrl = (params?: ListCreatorInvitationsParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/creator/invitations?${stringifiedParams}` : `/v1/creator/invitations`
-}
-
-export const listCreatorInvitations = async (params?: ListCreatorInvitationsParams, options?: RequestInit): Promise<listCreatorInvitationsResponse> => {
-
-  return customFetch<listCreatorInvitationsResponse>(getListCreatorInvitationsUrl(params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getListCreatorInvitationsQueryKey = (params?: ListCreatorInvitationsParams,) => {
-    return [
-    `/v1/creator/invitations`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getListCreatorInvitationsQueryOptions = <TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListCreatorInvitationsQueryKey(params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCreatorInvitations>>> = ({ signal }) => listCreatorInvitations(params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListCreatorInvitationsQueryResult = NonNullable<Awaited<ReturnType<typeof listCreatorInvitations>>>
-export type ListCreatorInvitationsQueryError = ErrorResponse
-
-
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
- params: undefined |  ListCreatorInvitationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCreatorInvitations>>,
-          TError,
-          Awaited<ReturnType<typeof listCreatorInvitations>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
- params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listCreatorInvitations>>,
-          TError,
-          Awaited<ReturnType<typeof listCreatorInvitations>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
- params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useListCreatorInvitations<TData = Awaited<ReturnType<typeof listCreatorInvitations>>, TError = ErrorResponse>(
- params?: ListCreatorInvitationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCreatorInvitations>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListCreatorInvitationsQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
 
 
 
@@ -1889,194 +1750,46 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getRejectDiscoveryConnectionRequestMutationOptions(options), queryClient);
     }
-    export type getCreatorInvitationResponse200 = {
-  data: CreatorInvitationDetailResponse
+    export type acceptInviteByTokenResponse200 = {
+  data: AcceptInviteByTokenResponse
   status: 200
 }
 
-export type getCreatorInvitationResponse400 = {
-  data: ErrorResponse
-  status: 400
-}
-
-export type getCreatorInvitationResponse401 = {
+export type acceptInviteByTokenResponse401 = {
   data: ErrorResponse
   status: 401
 }
 
-export type getCreatorInvitationResponse403 = {
+export type acceptInviteByTokenResponse403 = {
   data: ErrorResponse
   status: 403
 }
 
-export type getCreatorInvitationResponse404 = {
+export type acceptInviteByTokenResponse404 = {
   data: ErrorResponse
   status: 404
 }
 
-export type getCreatorInvitationResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type getCreatorInvitationResponseSuccess = (getCreatorInvitationResponse200) & {
+export type acceptInviteByTokenResponseSuccess = (acceptInviteByTokenResponse200) & {
   headers: Headers;
 };
-export type getCreatorInvitationResponseError = (getCreatorInvitationResponse400 | getCreatorInvitationResponse401 | getCreatorInvitationResponse403 | getCreatorInvitationResponse404 | getCreatorInvitationResponse500) & {
+export type acceptInviteByTokenResponseError = (acceptInviteByTokenResponse401 | acceptInviteByTokenResponse403 | acceptInviteByTokenResponse404) & {
   headers: Headers;
 };
 
-export type getCreatorInvitationResponse = (getCreatorInvitationResponseSuccess | getCreatorInvitationResponseError)
+export type acceptInviteByTokenResponse = (acceptInviteByTokenResponseSuccess | acceptInviteByTokenResponseError)
 
-export const getGetCreatorInvitationUrl = (inviteId: string,) => {
-
-
+export const getAcceptInviteByTokenUrl = (token: string,) => {
 
 
-  return `/v1/creator/invitations/${inviteId}`
+
+
+  return `/v1/invites/${token}/accept`
 }
 
-export const getCreatorInvitation = async (inviteId: string, options?: RequestInit): Promise<getCreatorInvitationResponse> => {
+export const acceptInviteByToken = async (token: string, options?: RequestInit): Promise<acceptInviteByTokenResponse> => {
 
-  return customFetch<getCreatorInvitationResponse>(getGetCreatorInvitationUrl(inviteId),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetCreatorInvitationQueryKey = (inviteId: string,) => {
-    return [
-    `/v1/creator/invitations/${inviteId}`
-    ] as const;
-    }
-
-
-export const getGetCreatorInvitationQueryOptions = <TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetCreatorInvitationQueryKey(inviteId);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCreatorInvitation>>> = ({ signal }) => getCreatorInvitation(inviteId, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: !!(inviteId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetCreatorInvitationQueryResult = NonNullable<Awaited<ReturnType<typeof getCreatorInvitation>>>
-export type GetCreatorInvitationQueryError = ErrorResponse
-
-
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
- inviteId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCreatorInvitation>>,
-          TError,
-          Awaited<ReturnType<typeof getCreatorInvitation>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
- inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCreatorInvitation>>,
-          TError,
-          Awaited<ReturnType<typeof getCreatorInvitation>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
- inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useGetCreatorInvitation<TData = Awaited<ReturnType<typeof getCreatorInvitation>>, TError = ErrorResponse>(
- inviteId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCreatorInvitation>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetCreatorInvitationQueryOptions(inviteId,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-export type acceptCreatorInvitationResponse200 = {
-  data: AcceptCreatorInvitationResponse
-  status: 200
-}
-
-export type acceptCreatorInvitationResponse400 = {
-  data: ErrorResponse
-  status: 400
-}
-
-export type acceptCreatorInvitationResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type acceptCreatorInvitationResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type acceptCreatorInvitationResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type acceptCreatorInvitationResponse409 = {
-  data: ErrorResponse
-  status: 409
-}
-
-export type acceptCreatorInvitationResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type acceptCreatorInvitationResponseSuccess = (acceptCreatorInvitationResponse200) & {
-  headers: Headers;
-};
-export type acceptCreatorInvitationResponseError = (acceptCreatorInvitationResponse400 | acceptCreatorInvitationResponse401 | acceptCreatorInvitationResponse403 | acceptCreatorInvitationResponse404 | acceptCreatorInvitationResponse409 | acceptCreatorInvitationResponse500) & {
-  headers: Headers;
-};
-
-export type acceptCreatorInvitationResponse = (acceptCreatorInvitationResponseSuccess | acceptCreatorInvitationResponseError)
-
-export const getAcceptCreatorInvitationUrl = (inviteId: string,) => {
-
-
-
-
-  return `/v1/creator/invitations/${inviteId}:accept`
-}
-
-export const acceptCreatorInvitation = async (inviteId: string, options?: RequestInit): Promise<acceptCreatorInvitationResponse> => {
-
-  return customFetch<acceptCreatorInvitationResponse>(getAcceptCreatorInvitationUrl(inviteId),
+  return customFetch<acceptInviteByTokenResponse>(getAcceptInviteByTokenUrl(token),
   {
     ...options,
     method: 'POST'
@@ -2088,11 +1801,11 @@ export const acceptCreatorInvitation = async (inviteId: string, options?: Reques
 
 
 
-export const getAcceptCreatorInvitationMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext> => {
+export const getAcceptInviteByTokenMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptInviteByToken>>, TError,{token: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof acceptInviteByToken>>, TError,{token: string}, TContext> => {
 
-const mutationKey = ['acceptCreatorInvitation'];
+const mutationKey = ['acceptInviteByToken'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -2102,10 +1815,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof acceptCreatorInvitation>>, {inviteId: string}> = (props) => {
-          const {inviteId} = props ?? {};
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof acceptInviteByToken>>, {token: string}> = (props) => {
+          const {token} = props ?? {};
 
-          return  acceptCreatorInvitation(inviteId,requestOptions)
+          return  acceptInviteByToken(token,requestOptions)
         }
 
 
@@ -2115,124 +1828,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type AcceptCreatorInvitationMutationResult = NonNullable<Awaited<ReturnType<typeof acceptCreatorInvitation>>>
+    export type AcceptInviteByTokenMutationResult = NonNullable<Awaited<ReturnType<typeof acceptInviteByToken>>>
 
-    export type AcceptCreatorInvitationMutationError = ErrorResponse
+    export type AcceptInviteByTokenMutationError = ErrorResponse
 
-    export const useAcceptCreatorInvitation = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+    export const useAcceptInviteByToken = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptInviteByToken>>, TError,{token: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof acceptCreatorInvitation>>,
+        Awaited<ReturnType<typeof acceptInviteByToken>>,
         TError,
-        {inviteId: string},
+        {token: string},
         TContext
       > => {
-      return useMutation(getAcceptCreatorInvitationMutationOptions(options), queryClient);
-    }
-    export type declineCreatorInvitationResponse200 = {
-  data: DeclineCreatorInvitationResponse
-  status: 200
-}
-
-export type declineCreatorInvitationResponse400 = {
-  data: ErrorResponse
-  status: 400
-}
-
-export type declineCreatorInvitationResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type declineCreatorInvitationResponse403 = {
-  data: ErrorResponse
-  status: 403
-}
-
-export type declineCreatorInvitationResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type declineCreatorInvitationResponse409 = {
-  data: ErrorResponse
-  status: 409
-}
-
-export type declineCreatorInvitationResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type declineCreatorInvitationResponseSuccess = (declineCreatorInvitationResponse200) & {
-  headers: Headers;
-};
-export type declineCreatorInvitationResponseError = (declineCreatorInvitationResponse400 | declineCreatorInvitationResponse401 | declineCreatorInvitationResponse403 | declineCreatorInvitationResponse404 | declineCreatorInvitationResponse409 | declineCreatorInvitationResponse500) & {
-  headers: Headers;
-};
-
-export type declineCreatorInvitationResponse = (declineCreatorInvitationResponseSuccess | declineCreatorInvitationResponseError)
-
-export const getDeclineCreatorInvitationUrl = (inviteId: string,) => {
-
-
-
-
-  return `/v1/creator/invitations/${inviteId}:decline`
-}
-
-export const declineCreatorInvitation = async (inviteId: string, options?: RequestInit): Promise<declineCreatorInvitationResponse> => {
-
-  return customFetch<declineCreatorInvitationResponse>(getDeclineCreatorInvitationUrl(inviteId),
-  {
-    ...options,
-    method: 'POST'
-
-
-  }
-);}
-
-
-
-
-export const getDeclineCreatorInvitationMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext> => {
-
-const mutationKey = ['declineCreatorInvitation'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof declineCreatorInvitation>>, {inviteId: string}> = (props) => {
-          const {inviteId} = props ?? {};
-
-          return  declineCreatorInvitation(inviteId,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeclineCreatorInvitationMutationResult = NonNullable<Awaited<ReturnType<typeof declineCreatorInvitation>>>
-
-    export type DeclineCreatorInvitationMutationError = ErrorResponse
-
-    export const useDeclineCreatorInvitation = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof declineCreatorInvitation>>, TError,{inviteId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof declineCreatorInvitation>>,
-        TError,
-        {inviteId: string},
-        TContext
-      > => {
-      return useMutation(getDeclineCreatorInvitationMutationOptions(options), queryClient);
+      return useMutation(getAcceptInviteByTokenMutationOptions(options), queryClient);
     }

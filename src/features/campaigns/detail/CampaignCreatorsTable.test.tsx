@@ -54,7 +54,6 @@ describe('CampaignCreatorsTable', () => {
         scope={{
           type: 'campaign',
           campaignId: 'campaign-1',
-          allowsInPlatformInvites: true,
         }}
         params={{ limit: 24 }}
         onParamsChange={onParamsChange}
@@ -131,27 +130,6 @@ describe('CampaignCreatorsTable', () => {
     expect(onClearFilters).toHaveBeenCalled()
   })
 
-  it('requests invite dialog from row action', async () => {
-    const user = userEvent.setup()
-    const onInviteCreator = vi.fn()
-    useCampaignParticipantsQueryMock.mockReturnValue(
-      queryResult({
-        data: [
-          makeParticipant({
-            actions: { open_workspace: false, invite_creator: true },
-          }),
-        ],
-        total_visible: 1,
-        next_cursor: null,
-      }),
-    )
-
-    renderTable({ onInviteCreator })
-
-    await user.click(screen.getByRole('button', { name: 'Invitar creador' }))
-    expect(onInviteCreator).toHaveBeenCalledTimes(1)
-  })
-
   it('renders relative last activity for participants with recent activity', () => {
     const now = new Date('2026-05-09T12:00:00.000Z')
     vi.useFakeTimers()
@@ -198,7 +176,6 @@ function renderTable(
       scope={{
         type: 'campaign',
         campaignId: 'campaign-1',
-        allowsInPlatformInvites: true,
       }}
       params={{ limit: 24 }}
       onParamsChange={vi.fn()}
@@ -239,7 +216,7 @@ function makeParticipant(
     net_deliverables: { completed: 3, expected: 4 },
     last_activity_at: null,
     conversation_id: null,
-    actions: { open_workspace: true, invite_creator: false },
+    actions: { open_workspace: true },
     ...overrides,
   }
 }

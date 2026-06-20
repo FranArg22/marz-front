@@ -17,7 +17,12 @@ export class BrandOnboardingWizard {
   }
 
   async expectStep(n: number): Promise<void> {
-    await expect(this.page.getByText(`Paso ${n} de 14`)).toBeVisible()
+    // El contador "Paso N de 14" se removió del topbar; el progressbar refleja
+    // el avance con el mismo cálculo que el layout: (n / totalSteps) * 100.
+    await expect(this.page.getByRole('progressbar')).toHaveAttribute(
+      'aria-valuenow',
+      String((n / 14) * 100),
+    )
   }
 
   async continue(): Promise<void> {

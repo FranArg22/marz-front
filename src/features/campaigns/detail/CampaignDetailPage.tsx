@@ -8,7 +8,6 @@ import { Button } from '#/components/ui/button'
 import { ApplicationsTab } from '#/features/discovery/campaign-detail/ApplicationsTab'
 import { ListCreatorsStatus } from '#/shared/api/generated/model'
 import type {
-  CampaignPlanCapabilities,
   DeliverableStatus,
   SocialPlatform,
 } from '#/shared/api/generated/model'
@@ -140,7 +139,6 @@ export function CampaignDetailPage({
         campaignId={campaignId}
         tab={search.tab}
         search={search}
-        planCapabilities={detailQuery.data.plan_capabilities}
       />
       <CampaignConfigurationSheet
         campaign={detailQuery.data}
@@ -177,12 +175,10 @@ function CampaignDetailBody({
   campaignId,
   tab,
   search,
-  planCapabilities,
 }: {
   campaignId: string
   tab: CampaignDetailTabId
   search: CampaignDetailSearch
-  planCapabilities: CampaignPlanCapabilities
 }) {
   if (tab === 'overview') {
     return <OverviewTab campaignId={campaignId} />
@@ -196,7 +192,6 @@ function CampaignDetailBody({
     return (
       <CreatorsTab
         campaignId={campaignId}
-        planCapabilities={planCapabilities}
         search={{
           search: search.q,
           status: isCampaignParticipantStatus(search.status)

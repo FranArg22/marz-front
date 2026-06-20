@@ -12,8 +12,6 @@ export type TransactionalEmailType = typeof TransactionalEmailType[keyof typeof 
 
 
 export const TransactionalEmailType = {
-  invite_creator_unregistered: 'invite_creator_unregistered',
-  invite_creator_existing: 'invite_creator_existing',
   offer_sent: 'offer_sent',
   offer_accepted: 'offer_accepted',
   offer_rejected: 'offer_rejected',

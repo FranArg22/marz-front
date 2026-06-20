@@ -47,6 +47,10 @@ vi.mock('#/shared/api/generated/onboarding/onboarding', () => ({
   }),
 }))
 
+vi.mock('#/features/identity/hooks/useSignOut', () => ({
+  useSignOut: () => vi.fn(),
+}))
+
 beforeEach(() => {
   vi.clearAllMocks()
   mockPresign.mockResolvedValue({
