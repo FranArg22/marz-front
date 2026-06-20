@@ -22,10 +22,10 @@ export function C9PrimingBenchmark2() {
 
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-3">
         <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
-          {t`Creadores de tu tier facturan 3x más con Marz.`}
+          {t`Creadores con tu cantidad de seguidores facturan 3x más con Marz.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
-          {t`Basado en tu nicho y alcance, podés acceder a campañas que te pagan lo que vale tu trabajo.`}
+          {t`Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo.`}
         </p>
       </div>
     </div>

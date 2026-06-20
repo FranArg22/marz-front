@@ -22,14 +22,14 @@ export function C8bPrimingBenchmark() {
       label: t`TU TARIFA, COMPLETA`,
       value: '100',
       unit: '%',
-      description: t`Sin managers. Sin comisiones. Sin intermediarios.`,
+      description: t`Sin managers, ni agencias, o intermediarios.`,
       highlighted: true,
     },
     {
       label: t`TIEMPO RECUPERADO`,
       value: t`+40hs`,
       unit: t`/ mes`,
-      description: t`Solo recibís campañas que calzan con vos. Cero DMs cruzados.`,
+      description: t`Solo recibís campañas que calzan con vos.`,
       highlighted: false,
     },
   ]
@@ -57,7 +57,7 @@ export function C8bPrimingBenchmark() {
           {t`Así es trabajar con Marz.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
-          {t`Menos fricción. Más plata. Más tiempo para crear.`}
+          {t`Menos fricción. Más tiempo para crear.`}
         </p>
       </div>
 

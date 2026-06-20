@@ -13,6 +13,10 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Flag } from '#/shared/ui/Flag'
+import {
+  useListContentTypes,
+  useListInterests,
+} from '#/shared/api/generated/lookups/lookups'
 import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
 import { getStepId, getStepIndex } from '../steps'
@@ -43,37 +47,10 @@ const TIER_LABELS: Record<string, () => string> = {
   celebrity: () => t`Celebridad`,
 }
 
-/* eslint-disable lingui/no-unlocalized-strings */
-const NICHE_LABELS: Record<string, () => string> = {
-  fintech: () => 'Fintech',
-  tech: () => 'Tech',
-  productivity: () => t`Productividad`,
-  fitness: () => 'Fitness',
-  beauty: () => t`Belleza`,
-  fashion: () => t`Moda`,
-  food: () => t`Comida`,
-  travel: () => t`Viajes`,
-  gaming: () => 'Gaming',
-  music: () => t`Música`,
-  lifestyle: () => 'Lifestyle',
-  business: () => t`Negocios`,
-  education: () => t`Educación`,
-  parenting: () => t`Maternidad`,
-  health: () => t`Salud`,
+function humanizeSlug(slug: string): string {
+  const spaced = slug.replace(/_/g, ' ')
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1)
 }
-
-const CONTENT_TYPE_LABELS: Record<string, () => string> = {
-  unboxing: () => 'Unboxing',
-  reviews: () => 'Reviews',
-  video_ads: () => t`Video ads`,
-  humor_sketches: () => t`Humor / sketches`,
-  tutorials: () => t`Tutoriales`,
-  vlogs: () => 'Vlogs',
-  testimonials: () => t`Testimoniales`,
-  podcasts: () => 'Podcasts',
-  live: () => t`En vivo`,
-}
-/* eslint-enable lingui/no-unlocalized-strings */
 
 function PlatformIcon({ platform }: { platform: string }) {
   const cls = 'size-4 text-foreground' // eslint-disable-line lingui/no-unlocalized-strings
@@ -95,7 +72,20 @@ export function C20ConfirmationScreen() {
   const { submit, isPending } = useSubmitCreatorOnboarding()
   const store = useCreatorOnboardingStore()
   const navigate = useNavigate()
+  const interestsQuery = useListInterests()
+  const contentTypesQuery = useListContentTypes()
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+
+  const nicheLabelBySlug =
+    interestsQuery.data?.status === 200
+      ? new Map(interestsQuery.data.data.items.map((i) => [i.slug, i.label_es]))
+      : new Map<string, string>()
+  const contentTypeLabelBySlug =
+    contentTypesQuery.data?.status === 200
+      ? new Map(
+          contentTypesQuery.data.data.items.map((c) => [c.slug, c.label_es]),
+        )
+      : new Map<string, string>()
 
   const goBack = () => {
     const prevIndex = Math.max(0, getStepIndex('confirmation') - 1)
@@ -202,14 +192,18 @@ export function C20ConfirmationScreen() {
             {niches.length > 0 && (
               <Section title={t`Nichos`}>
                 {niches.map((n) => (
-                  <Chip key={n}>{NICHE_LABELS[n]?.() ?? n}</Chip>
+                  <Chip key={n}>
+                    {nicheLabelBySlug.get(n) ?? humanizeSlug(n)}
+                  </Chip>
                 ))}
               </Section>
             )}
             {contentTypes.length > 0 && (
               <Section title={t`Formatos`}>
                 {contentTypes.map((c) => (
-                  <Chip key={c}>{CONTENT_TYPE_LABELS[c]?.() ?? c}</Chip>
+                  <Chip key={c}>
+                    {contentTypeLabelBySlug.get(c) ?? humanizeSlug(c)}
+                  </Chip>
                 ))}
               </Section>
             )}

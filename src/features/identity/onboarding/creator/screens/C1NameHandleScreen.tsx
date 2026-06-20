@@ -39,7 +39,7 @@ export function C1NameHandleScreen() {
           {t`¿Cómo te conocen?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          {t`Tu nombre público y tu handle principal.`}
+          {t`Tu nombre público y tu usuario principal.`}
         </p>
       </div>
 
@@ -58,7 +58,7 @@ export function C1NameHandleScreen() {
             />
           )}
         </FieldRow>
-        <FieldRow label={t`Handle principal`} error={handleError}>
+        <FieldRow label={t`Usuario principal`} error={handleError}>
           {(aria) => (
             <Input
               {...aria}

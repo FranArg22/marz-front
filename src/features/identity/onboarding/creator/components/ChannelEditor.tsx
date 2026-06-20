@@ -171,7 +171,11 @@ function RateCardList({
   return (
     <div className="flex flex-col gap-3">
       <p className="text-[length:var(--font-size-sm)] font-medium text-muted-foreground">
-        {t`Tarifas`}
+        {t`Tarifas`}{' '}
+        <span className="font-normal">{t`— poné tu precio en dólares (USD)`}</span>
+      </p>
+      <p className="text-[length:var(--font-size-xs)] leading-[1.5] text-muted-foreground">
+        {t`Es tu precio base de referencia para mostrarle a las marcas, no el precio por el que tenés que cerrar todas tus ofertas. El precio final de cada colaboración lo definís vos con la marca.`}
       </p>
       {rateCards.map((rc, ri) => {
         const formatLabel =
@@ -193,22 +197,9 @@ function RateCardList({
                 aria-invalid={!hasAmount(rc) || undefined}
               />
             </div>
-            <Select
-              value={rc.rate_currency}
-              onValueChange={(v) => onUpdate(ri, { rate_currency: v })}
-            >
-              <SelectTrigger className="w-[80px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="USD">USD</SelectItem>
-                <SelectItem value="ARS">ARS</SelectItem>
-                <SelectItem value="BRL">BRL</SelectItem>
-                <SelectItem value="MXN">MXN</SelectItem>
-                <SelectItem value="COP">COP</SelectItem>
-                <SelectItem value="EUR">EUR</SelectItem>
-              </SelectContent>
-            </Select>
+            <span className="flex h-9 w-[80px] items-center justify-center rounded-md border border-border bg-muted text-sm text-muted-foreground">
+              {rc.rate_currency}
+            </span>
             <Button
               variant="ghost"
               size="icon-sm"
@@ -281,7 +272,7 @@ function ChannelBody({
         </label>
       </div>
 
-      <FieldRow label={t`Handle`}>
+      <FieldRow label={t`Usuario`}>
         {(aria) => (
           <div className="relative">
             <span

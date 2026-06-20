@@ -47,7 +47,7 @@ export function C8PrimingTestimonials() {
           {t`Creadores reales hablando de Marz`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          {t`No pagamos para que digan esto. Les preguntamos y esto salió.`}
+          {t`Los encuestamos luego de sus colaboraciones y esto salió.`}
         </p>
       </div>
 
@@ -86,7 +86,7 @@ export function C8PrimingTestimonials() {
       <div className="relative flex items-center gap-5">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Users className="size-3.5 text-primary" />
-          <span>{t`2.340 creadores activos · 0% take rate · payouts 24h`}</span>
+          <span>{t`+5000 creadores activos que reciben sus pagos en 24 horas`}</span>
         </div>
       </div>
     </div>
