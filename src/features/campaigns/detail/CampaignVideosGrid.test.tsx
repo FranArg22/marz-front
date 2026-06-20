@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -12,22 +13,6 @@ vi.mock('@lingui/core/macro', () => ({
     (strings: TemplateStringsArray, ...values: unknown[]) =>
       strings.reduce((acc, str, i) => acc + str + (values[i] ?? ''), ''),
     { __lingui: true },
-  ),
-}))
-
-vi.mock('@tanstack/react-router', () => ({
-  Link: ({
-    to,
-    children,
-    ...props
-  }: {
-    to: string
-    children: React.ReactNode
-    [key: string]: unknown
-  }) => (
-    <a href={to} {...props}>
-      {children}
-    </a>
   ),
 }))
 
@@ -95,10 +80,10 @@ describe('CampaignVideosGrid', () => {
     renderGrid()
 
     expect(
-      screen.getByRole('link', {
+      screen.getByRole('button', {
         name: 'Abrir revisión de video de Lumina Studio',
       }),
-    ).toHaveAttribute('href', '/campaigns/campaign-1/deliverables/video-1')
+    ).toBeInTheDocument()
     expect(screen.getByText('Unboxing Reel')).toBeInTheDocument()
     expect(screen.getAllByText('Instagram')).toHaveLength(2)
     expect(screen.getByText('En revisión')).toBeInTheDocument()
@@ -130,16 +115,18 @@ function renderGrid(
   props: Partial<Parameters<typeof CampaignVideosGrid>[0]> = {},
 ) {
   return render(
-    <CampaignVideosGrid
-      scope={{ type: 'campaign', campaignId: 'campaign-1' }}
-      params={{ limit: 24 }}
-      hasActiveFilters={false}
-      hasActiveParticipants={true}
-      onParamsChange={vi.fn()}
-      onClearFilters={vi.fn()}
-      onInviteCreators={vi.fn()}
-      {...props}
-    />,
+    <QueryClientProvider client={new QueryClient()}>
+      <CampaignVideosGrid
+        scope={{ type: 'campaign', campaignId: 'campaign-1' }}
+        params={{ limit: 24 }}
+        hasActiveFilters={false}
+        hasActiveParticipants={true}
+        onParamsChange={vi.fn()}
+        onClearFilters={vi.fn()}
+        onInviteCreators={vi.fn()}
+        {...props}
+      />
+    </QueryClientProvider>,
   )
 }
 
