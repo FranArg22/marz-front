@@ -8,4 +8,9 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export interface InviteCampaignSnapshot { [key: string]: unknown }
+export type PreviewOfferFeeParams = {
+/**
+ * Offer base amount as a decimal string (e.g. "1000.00").
+ */
+amount: string;
+};

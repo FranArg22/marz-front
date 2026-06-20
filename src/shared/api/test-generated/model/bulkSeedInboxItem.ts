@@ -28,4 +28,8 @@ export interface BulkSeedInboxItem {
   campaign_id?: string | null;
   /** @nullable */
   brand_workspace_id?: string | null;
+  /** @nullable */
+  counterpart_account_id?: string | null;
+  /** @nullable */
+  counterpart_display_name?: string | null;
 }

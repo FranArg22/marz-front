@@ -216,7 +216,7 @@ function makeParticipant(
     net_deliverables: { completed: 3, expected: 4 },
     last_activity_at: null,
     conversation_id: null,
-    actions: { open_workspace: true, invite_creator: false },
+    actions: { open_workspace: true },
     ...overrides,
   }
 }

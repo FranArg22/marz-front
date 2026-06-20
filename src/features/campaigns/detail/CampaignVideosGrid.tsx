@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro'
-import { Link } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   AlertCircle,
   ChevronRight,
@@ -13,6 +13,7 @@ import {
   Youtube,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { useRef } from 'react'
 import type { ReactNode } from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
@@ -25,6 +26,7 @@ import type {
   SocialPlatform,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
+import { DraftReviewDialog } from '#/features/deliverables/components/DraftReviewDialog'
 import { formatRelativeTime, initials } from '#/shared/utils/format'
 
 import type { CampaignVideosParams } from './videos/useCampaignVideosQuery'
@@ -197,68 +199,105 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
     t`Pendiente`,
   )
   const creatorName = video.creator.display_name
+  const queryClient = useQueryClient()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Preview the delivered video right in the card: preload="metadata" only
+  // fetches the moov atom + first frame (a byte range), not the whole file, and
+  // we play muted on hover so the still frame "wakes up" without an upfront
+  // thumbnail-generation pipeline.
+  function previewPlay() {
+    void videoRef.current?.play().catch(() => {})
+  }
+  function previewStop() {
+    const el = videoRef.current
+    if (!el) return
+    el.pause()
+    el.currentTime = 0
+  }
 
   return (
-    <Link
-      to={video.reviewer_url}
-      className="group overflow-hidden rounded-[20px] border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-      aria-label={t`Abrir revisión de video de ${creatorName}`}
-    >
-      <div className="relative aspect-video overflow-hidden bg-muted">
-        {video.thumbnail_url ? (
-          <img
-            src={video.thumbnail_url}
-            alt=""
-            className="size-full object-cover transition-transform group-hover:scale-[1.02]"
-            loading="lazy"
-          />
-        ) : (
-          <div className="size-full bg-[linear-gradient(135deg,var(--muted),var(--secondary))]" />
-        )}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          <StatusBadge status={video.status} />
-          <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white">
-            <PlatformIcon className="size-3" aria-hidden />
-            {meta.label}
-          </span>
-        </div>
-        <span className="absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-foreground shadow-sm">
-          <Play className="size-4 fill-current" aria-hidden />
-        </span>
-        {video.duration_sec ? (
-          <span className="absolute right-3 bottom-3 rounded-lg bg-black/70 px-2 py-0.5 font-mono text-[11px] text-white">
-            {formatDuration(video.duration_sec)}
-          </span>
-        ) : null}
-      </div>
-      <div className="space-y-2 p-3">
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-foreground">
-            {video.format}
-          </p>
-          <p className="mt-1 flex items-center gap-1.5 truncate text-xs text-muted-foreground">
-            <Film className="size-3.5 shrink-0" aria-hidden />
-            <span className="truncate">{meta.label}</span>
-          </p>
-        </div>
-        <div className="flex min-w-0 items-center gap-2">
-          <Avatar className="size-6">
-            {video.creator.avatar_url ? (
-              <AvatarImage
-                src={video.creator.avatar_url}
-                alt={video.creator.display_name}
+    <DraftReviewDialog
+      deliverableId={video.deliverable_id}
+      onResolved={() => {
+        void queryClient.invalidateQueries({ queryKey: ['videos'] })
+      }}
+      trigger={
+        <button
+          type="button"
+          className="group block overflow-hidden rounded-[20px] border border-border bg-card text-left transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          aria-label={t`Abrir revisión de video de ${creatorName}`}
+          onMouseEnter={previewPlay}
+          onMouseLeave={previewStop}
+        >
+          <div className="relative aspect-video overflow-hidden bg-muted">
+            {video.playback_url ? (
+              <video
+                ref={videoRef}
+                src={`${video.playback_url}#t=0.1`}
+                poster={video.thumbnail_url ?? undefined}
+                preload="metadata"
+                muted
+                loop
+                playsInline
+                className="pointer-events-none size-full object-cover transition-transform group-hover:scale-[1.02]"
               />
+            ) : video.thumbnail_url ? (
+              <img
+                src={video.thumbnail_url}
+                alt=""
+                className="size-full object-cover transition-transform group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+            ) : (
+              <div className="size-full bg-[linear-gradient(135deg,var(--muted),var(--secondary))]" />
+            )}
+            <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+              <StatusBadge status={video.status} />
+              <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white">
+                <PlatformIcon className="size-3" aria-hidden />
+                {meta.label}
+              </span>
+            </div>
+            <span className="absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-foreground shadow-sm transition-opacity group-hover:opacity-0">
+              <Play className="size-4 fill-current" aria-hidden />
+            </span>
+            {video.duration_sec ? (
+              <span className="absolute right-3 bottom-3 rounded-lg bg-black/70 px-2 py-0.5 font-mono text-[11px] text-white">
+                {formatDuration(video.duration_sec)}
+              </span>
             ) : null}
-            <AvatarFallback className="text-[10px]">
-              {initials(video.creator.display_name)}
-            </AvatarFallback>
-          </Avatar>
-          <p className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
-            {video.creator.display_name} · {submittedAt}
-          </p>
-        </div>
-      </div>
-    </Link>
+          </div>
+          <div className="space-y-2 p-3">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground">
+                {video.format}
+              </p>
+              <p className="mt-1 flex items-center gap-1.5 truncate text-xs text-muted-foreground">
+                <Film className="size-3.5 shrink-0" aria-hidden />
+                <span className="truncate">{meta.label}</span>
+              </p>
+            </div>
+            <div className="flex min-w-0 items-center gap-2">
+              <Avatar className="size-6">
+                {video.creator.avatar_url ? (
+                  <AvatarImage
+                    src={video.creator.avatar_url}
+                    alt={video.creator.display_name}
+                  />
+                ) : null}
+                <AvatarFallback className="text-[10px]">
+                  {initials(video.creator.display_name)}
+                </AvatarFallback>
+              </Avatar>
+              <p className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+                {video.creator.display_name} · {submittedAt}
+              </p>
+            </div>
+          </div>
+        </button>
+      }
+    />
   )
 }
 
