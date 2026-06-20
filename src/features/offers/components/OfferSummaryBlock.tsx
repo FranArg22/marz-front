@@ -42,12 +42,11 @@ export function OfferSummaryBlock({
   plan,
 }: OfferSummaryBlockProps) {
   const baseAmount = Number.isFinite(amount) ? amount : 0
-  const maxPayout = getMaxPayout(baseAmount, bonusTerms)
-  const bonusCeiling = Math.max(maxPayout - baseAmount, 0)
+  const bonusCeiling = Math.max(
+    getMaxPayout(baseAmount, bonusTerms) - baseAmount,
+    0,
+  )
   const isPaidPlan = plan !== 'free'
-  const formattedBaseAmount = formatUsd(baseAmount)
-  const formattedBonusCeiling = formatUsd(bonusCeiling)
-  const formattedMaxPayout = formatUsd(maxPayout)
 
   // Only paid plans place a Stripe hold, so only they are charged the
   // processing fee. The fee is computed on the base amount (what gets
@@ -70,52 +69,42 @@ export function OfferSummaryBlock({
       <dl className="mt-3 space-y-2 text-[length:var(--font-size-sm)]">
         <div className="flex items-center justify-between gap-3">
           <dt className="text-muted-foreground">{t`Monto base`}</dt>
-          <dd className="font-mono font-medium">
-            {t`${formattedBaseAmount} USD (base)`}
-          </dd>
+          <dd className="font-mono font-medium">{formatUsd(baseAmount)}</dd>
         </div>
 
         {bonusCeiling > 0 ? (
           <div className="flex items-center justify-between gap-3">
             <dt className="text-muted-foreground">{t`Bonos máximos`}</dt>
             <dd className="font-mono font-medium">
-              {t`${formattedBonusCeiling} USD (bonus)`}
+              +{formatUsd(bonusCeiling)}
             </dd>
           </div>
         ) : null}
 
-        <div className="flex items-center justify-between gap-3 border-t border-border pt-2">
-          <dt className="font-semibold">{t`Monto máximo`}</dt>
-          <dd className="font-mono font-semibold">
-            {t`${formattedMaxPayout} USD (máximo)`}
-          </dd>
-        </div>
+        {isPaidPlan && feeData ? (
+          <>
+            <div className="flex items-center justify-between gap-3">
+              <dt className="text-muted-foreground">
+                {t`Comisión de procesamiento`}
+              </dt>
+              <dd className="font-mono font-medium">
+                +{formatUsd(Number(feeData.processing_fee))}
+              </dd>
+            </div>
+            <div className="flex items-center justify-between gap-3 border-t border-border pt-2.5">
+              <dt className="font-semibold">{t`Total a cobrar a tu tarjeta`}</dt>
+              <dd className="font-mono font-bold">
+                {formatUsd(Number(feeData.total_amount))}
+              </dd>
+            </div>
+          </>
+        ) : null}
       </dl>
 
       {isPaidPlan ? (
-        <>
-          {feeData ? (
-            <dl className="mt-3 space-y-2 border-t border-border pt-3 text-[length:var(--font-size-sm)]">
-              <div className="flex items-center justify-between gap-3">
-                <dt className="text-muted-foreground">
-                  {t`Comisión de procesamiento (Stripe)`}
-                </dt>
-                <dd className="font-mono font-medium">
-                  +{formatUsd(Number(feeData.processing_fee))}
-                </dd>
-              </div>
-              <div className="flex items-center justify-between gap-3">
-                <dt className="font-semibold">{t`Total a cobrar a tu tarjeta`}</dt>
-                <dd className="font-mono font-semibold">
-                  {formatUsd(Number(feeData.total_amount))}
-                </dd>
-              </div>
-            </dl>
-          ) : null}
-          <p className="mt-3 text-[length:var(--font-size-xs)] text-muted-foreground">
-            {t`El cobro se realiza cuando el creador acepta`}
-          </p>
-        </>
+        <p className="mt-3 text-[length:var(--font-size-xs)] text-muted-foreground">
+          {t`El cobro se realiza cuando el creador acepta`}
+        </p>
       ) : null}
     </section>
   )

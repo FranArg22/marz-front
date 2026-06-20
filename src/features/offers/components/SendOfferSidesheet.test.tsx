@@ -306,7 +306,7 @@ describe('SendOfferSidesheet', { timeout: 15_000 }, () => {
   it('renders the paid offer summary block', () => {
     renderSheet()
 
-    expect(screen.getByText('$0.00 USD (base)')).toBeInTheDocument()
+    expect(screen.getByText('Monto base')).toBeInTheDocument()
     expect(
       screen.getByText('El cobro se realiza cuando el creador acepta'),
     ).toBeInTheDocument()

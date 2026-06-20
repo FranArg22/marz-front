@@ -307,16 +307,16 @@ msgid "{followersRange} seguidores"
 msgstr "{followersRange} seguidores"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:74
-msgid "{formattedBaseAmount} USD (base)"
-msgstr "{formattedBaseAmount} USD (base)"
+#~ msgid "{formattedBaseAmount} USD (base)"
+#~ msgstr "{formattedBaseAmount} USD (base)"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:82
-msgid "{formattedBonusCeiling} USD (bonus)"
-msgstr "{formattedBonusCeiling} USD (bonus)"
+#~ msgid "{formattedBonusCeiling} USD (bonus)"
+#~ msgstr "{formattedBonusCeiling} USD (bonus)"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:90
-msgid "{formattedMaxPayout} USD (máximo)"
-msgstr "{formattedMaxPayout} USD (máximo)"
+#~ msgid "{formattedMaxPayout} USD (máximo)"
+#~ msgstr "{formattedMaxPayout} USD (máximo)"
 
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:47
 msgid "{gb} GB"
@@ -1523,7 +1523,7 @@ msgstr "Bonos"
 #~ msgid "Bonos de oferta"
 #~ msgstr "Bonos de oferta"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:80
+#: src/features/offers/components/OfferSummaryBlock.tsx:77
 msgid "Bonos máximos"
 msgstr "Bonos máximos"
 
@@ -2205,9 +2205,13 @@ msgstr "Comida"
 #~ msgid "Coming up when the offers context lands."
 #~ msgstr "Coming up when the offers context lands."
 
+#: src/features/offers/components/OfferSummaryBlock.tsx:86
+msgid "Comisión de procesamiento"
+msgstr "Comisión de procesamiento"
+
 #: src/features/offers/components/OfferSummaryBlock.tsx:101
-msgid "Comisión de procesamiento (Stripe)"
-msgstr "Comisión de procesamiento (Stripe)"
+#~ msgid "Comisión de procesamiento (Stripe)"
+#~ msgstr "Comisión de procesamiento (Stripe)"
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:252
 msgid "Compensación"
@@ -3279,7 +3283,7 @@ msgstr "El bono fijo tiene que ser mayor a 0"
 msgid "El brand necesita actualizar su tarjeta"
 msgstr "El brand necesita actualizar su tarjeta"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:116
+#: src/features/offers/components/OfferSummaryBlock.tsx:104
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr "El cobro se realiza cuando el creador acepta"
 
@@ -5941,7 +5945,7 @@ msgstr "Monto"
 msgid "Monto a definir"
 msgstr "Monto a definir"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#: src/features/offers/components/OfferSummaryBlock.tsx:71
 msgid "Monto base"
 msgstr "Monto base"
 
@@ -5958,8 +5962,8 @@ msgstr "Monto fijo"
 #~ msgstr "Monto fijo en USD"
 
 #: src/features/offers/components/OfferSummaryBlock.tsx:88
-msgid "Monto máximo"
-msgstr "Monto máximo"
+#~ msgid "Monto máximo"
+#~ msgstr "Monto máximo"
 
 #: src/features/payments/components/MarkAsPaidDialog.tsx:123
 msgid "Monto pagado"
@@ -7947,7 +7951,7 @@ msgstr "Restaurantes"
 msgid "Resumen"
 msgstr "Resumen"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:67
+#: src/features/offers/components/OfferSummaryBlock.tsx:66
 msgid "Resumen de la oferta"
 msgstr "Resumen de la oferta"
 
@@ -9438,7 +9442,7 @@ msgstr "total"
 #~ msgid "Total {total} / 100"
 #~ msgstr "Total {total} / 100"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:108
+#: src/features/offers/components/OfferSummaryBlock.tsx:93
 msgid "Total a cobrar a tu tarjeta"
 msgstr "Total a cobrar a tu tarjeta"
 

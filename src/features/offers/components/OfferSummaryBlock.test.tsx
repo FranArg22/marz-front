@@ -32,7 +32,7 @@ describe('getMaxPayout', () => {
 })
 
 describe('OfferSummaryBlock', () => {
-  it('renders base amount, bonus ceiling, and max payout', () => {
+  it('renders base amount and bonus ceiling', () => {
     render(
       <OfferSummaryBlock
         amount={100}
@@ -49,26 +49,23 @@ describe('OfferSummaryBlock', () => {
       />,
     )
 
-    expect(screen.getByText('$100.00 USD (base)')).toBeInTheDocument()
-    expect(screen.getByText('$10.00 USD (bonus)')).toBeInTheDocument()
-    expect(screen.getByText('$110.00 USD (máximo)')).toBeInTheDocument()
+    expect(screen.getByText('$100.00')).toBeInTheDocument()
+    expect(screen.getByText('+$10.00')).toBeInTheDocument()
   })
 
-  it('renders base and max without a bonus line when bonuses are absent', () => {
+  it('omits the bonus line when there are no bonuses', () => {
     render(<OfferSummaryBlock amount={100} plan="starter" />)
 
-    expect(screen.getByText('$100.00 USD (base)')).toBeInTheDocument()
-    expect(screen.getByText('$100.00 USD (máximo)')).toBeInTheDocument()
-    expect(screen.queryByText('$0.00 USD (bonus)')).not.toBeInTheDocument()
+    expect(screen.getByText('$100.00')).toBeInTheDocument()
+    expect(screen.queryByText('+$0.00')).not.toBeInTheDocument()
   })
 
-  it('renders the Stripe processing fee and total for paid workspaces', () => {
+  it('renders the processing fee and total for paid workspaces', () => {
     render(<OfferSummaryBlock amount={100} plan="starter" />)
 
-    expect(
-      screen.getByText('Comisión de procesamiento (Stripe)'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Comisión de procesamiento')).toBeInTheDocument()
     expect(screen.getByText('+$3.30')).toBeInTheDocument()
+    expect(screen.getByText('Total a cobrar a tu tarjeta')).toBeInTheDocument()
     expect(screen.getByText('$103.30')).toBeInTheDocument()
   })
 
