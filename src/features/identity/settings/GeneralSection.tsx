@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useStore } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
-import { Upload, User } from 'lucide-react'
+import { LogOut, Upload, User } from 'lucide-react'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -19,6 +19,7 @@ import {
   useUpdateMyCreatorProfileContact,
 } from '#/shared/api/generated/creator/creator'
 import { usePresignCreatorAvatar } from '#/shared/api/generated/onboarding/onboarding'
+import { useSignOut } from '#/features/identity/hooks/useSignOut'
 import { useAppForm } from '#/shared/ui/form'
 
 import { SectionSaveBar } from './SectionSaveBar'
@@ -67,6 +68,7 @@ interface GeneralSectionProps {
 
 export function GeneralSection({ data }: GeneralSectionProps) {
   const queryClient = useQueryClient()
+  const signOut = useSignOut()
   const presignAvatar = usePresignCreatorAvatar()
   const setAvatar = useSetMyCreatorAvatar()
   const updateContact = useUpdateMyCreatorProfileContact()
@@ -284,6 +286,16 @@ export function GeneralSection({ data }: GeneralSectionProps) {
           isSubmitting={isSubmitting}
           error={saveError}
           onSave={handleSave}
+          leftSlot={
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => void signOut()}
+            >
+              <LogOut className="size-4" />
+              {t`Cerrar sesión`}
+            </Button>
+          }
         />
       </form>
     </section>

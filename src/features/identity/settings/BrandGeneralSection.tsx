@@ -2,10 +2,12 @@ import { useEffect, useMemo, useRef } from 'react'
 import { t } from '@lingui/core/macro'
 import type { AnyFormApi } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
+import { LogOut } from 'lucide-react'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
+import { useSignOut } from '#/features/identity/hooks/useSignOut'
 import {
   getGetBrandSettingsQueryKey,
   useGetBrandSettings,
@@ -51,6 +53,7 @@ export function BrandGeneralSection() {
   const queryClient = useQueryClient()
   const settingsQuery = useGetBrandSettings()
   const patchSettings = usePatchBrandSettings()
+  const signOut = useSignOut()
   const initialValuesRef = useRef<GeneralFormValues | null>(null)
 
   const settings =
@@ -136,7 +139,11 @@ export function BrandGeneralSection() {
         brandName={brandName}
       />
 
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between">
+        <Button type="button" variant="outline" onClick={() => void signOut()}>
+          <LogOut className="size-4" />
+          {t`Cerrar sesión`}
+        </Button>
         <form.AppForm>
           <form.Subscribe selector={(state) => state.isDirty}>
             {(isDirty) => (

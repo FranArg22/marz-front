@@ -904,7 +904,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:42
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:58
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:19
 msgid "Activo"
 msgstr ""
@@ -1091,7 +1091,7 @@ msgstr ""
 msgid "Ajustes"
 msgstr ""
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:81
+#: src/features/identity/settings/BrandGeneralSection.tsx:84
 msgid "Ajustes guardados"
 msgstr ""
 
@@ -1299,7 +1299,7 @@ msgid "Apps móviles"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:53
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:44
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:60
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:20
 #: src/features/deliverables/components/DraftVersionList.tsx:40
 msgid "Aprobado"
@@ -1565,7 +1565,7 @@ msgid "Borrador"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:48
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:64
 msgid "Borrador aprobado"
 msgstr ""
 
@@ -1652,7 +1652,7 @@ msgstr ""
 msgid "Buscar conversaciones…"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:93
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:109
 msgid "Buscar creador"
 msgstr ""
 
@@ -1661,7 +1661,7 @@ msgid "Buscar creador o campaña"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:146
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:94
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:110
 msgid "Buscar creadores"
 msgstr ""
 
@@ -1685,11 +1685,11 @@ msgstr ""
 msgid "Buscar por marca, campaña o nicho"
 msgstr ""
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:101
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:117
 msgid "Buscar video"
 msgstr ""
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:102
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:118
 msgid "Buscar videos"
 msgstr ""
 
@@ -1715,12 +1715,12 @@ msgid "Calculando tiempo restante..."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
-#: src/features/identity/settings/GeneralSection.tsx:322
+#: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Cambiar foto"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:47
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:63
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
 #: src/features/deliverables/components/DeliverableListItem.tsx:367
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:17
@@ -1841,7 +1841,7 @@ msgstr ""
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:187
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:216
 #: src/features/discovery/network/components/EmailInviteModal.tsx:167
-#: src/features/discovery/network/components/InviteBulkModal.tsx:161
+#: src/features/discovery/network/components/InviteBulkModal.tsx:164
 #: src/features/discovery/network/components/InviteSingleModal.tsx:135
 #: src/features/inbox/InboxInlineActionPopover.tsx:625
 #: src/features/offers/components/SendOfferSidesheet.tsx:625
@@ -1921,7 +1921,7 @@ msgstr ""
 msgid "Cargando ajustes"
 msgstr ""
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:112
+#: src/features/identity/settings/BrandGeneralSection.tsx:115
 msgid "Cargando ajustes..."
 msgstr ""
 
@@ -1946,7 +1946,7 @@ msgid "Cargando conversaciones"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:446
-#: src/features/discovery/network/components/DiscoveryGrid.tsx:171
+#: src/features/discovery/network/components/DiscoveryGrid.tsx:174
 msgid "Cargando creadores"
 msgstr ""
 
@@ -2010,7 +2010,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:195
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:183
 #: src/features/discovery/campaign-detail/ApplicationsTab.tsx:85
-#: src/features/discovery/network/components/DiscoveryGrid.tsx:156
+#: src/features/discovery/network/components/DiscoveryGrid.tsx:159
 #: src/features/earnings/components/PendingBonusPanel.tsx:133
 #: src/features/offers/components/OffersArchiveBlock.tsx:77
 #: src/features/payments/components/BrandPaymentsTable.tsx:118
@@ -2050,6 +2050,8 @@ msgid "Cerrar conversaciones"
 msgstr ""
 
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:53
+#: src/features/identity/settings/BrandGeneralSection.tsx:149
+#: src/features/identity/settings/GeneralSection.tsx:296
 msgid "Cerrar sesión"
 msgstr ""
 
@@ -2095,8 +2097,8 @@ msgid "Cine"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
-#: src/features/identity/settings/GeneralSection.tsx:253
-#: src/features/identity/settings/GeneralSection.tsx:257
+#: src/features/identity/settings/GeneralSection.tsx:255
+#: src/features/identity/settings/GeneralSection.tsx:259
 msgid "Ciudad"
 msgstr ""
 
@@ -2230,7 +2232,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:23
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:51
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:67
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:23
 msgid "Completado"
 msgstr ""
@@ -2264,7 +2266,7 @@ msgstr ""
 msgid "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio en {verticalLabel} LatAm."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:208
+#: src/features/identity/settings/GeneralSection.tsx:210
 msgid "Con código de país."
 msgstr ""
 
@@ -2370,7 +2372,7 @@ msgstr ""
 #~ msgid "Contale por qué querés trabajar con este creator..."
 #~ msgstr ""
 
-#: src/features/discovery/network/components/InviteBulkModal.tsx:147
+#: src/features/discovery/network/components/InviteBulkModal.tsx:150
 msgid "Contale por qué querés trabajar con estos creadores..."
 msgstr ""
 
@@ -2516,7 +2518,7 @@ msgid "Creada"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:215
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:173
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:191
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:143
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:116
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
@@ -2769,7 +2771,7 @@ msgstr ""
 #~ msgid "Date unavailable"
 #~ msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:176
+#: src/features/identity/settings/GeneralSection.tsx:178
 msgid "Datos privados y de contacto del creador."
 msgstr ""
 
@@ -2879,7 +2881,7 @@ msgstr ""
 msgid "Descalificadores"
 msgstr ""
 
-#: src/features/identity/settings/SectionSaveBar.tsx:33
+#: src/features/identity/settings/SectionSaveBar.tsx:38
 msgid "Descartar"
 msgstr ""
 
@@ -3022,8 +3024,8 @@ msgstr ""
 msgid "Dirección del titular de la cuenta"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:265
-#: src/features/identity/settings/GeneralSection.tsx:272
+#: src/features/identity/settings/GeneralSection.tsx:267
+#: src/features/identity/settings/GeneralSection.tsx:274
 msgid "Dirección para envíos"
 msgstr ""
 
@@ -3269,7 +3271,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:50
-#: src/features/identity/settings/GeneralSection.tsx:116
+#: src/features/identity/settings/GeneralSection.tsx:118
 msgid "El archivo supera los 5MB permitidos."
 msgstr ""
 
@@ -3536,8 +3538,8 @@ msgstr ""
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
 #: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
-#: src/features/identity/settings/GeneralSection.tsx:197
-#: src/features/identity/settings/GeneralSection.tsx:204
+#: src/features/identity/settings/GeneralSection.tsx:199
+#: src/features/identity/settings/GeneralSection.tsx:206
 #: src/features/identity/settings/ProfileCard.tsx:38
 msgid "Email"
 msgstr ""
@@ -3589,8 +3591,8 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:43
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:46
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:59
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:62
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:15
 msgid "En revisión"
 msgstr ""
@@ -3623,12 +3625,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:50
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:66
 msgid "Enlace aprobado"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:49
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:65
 msgid "Enlace enviado"
 msgstr ""
 
@@ -3723,7 +3725,7 @@ msgstr ""
 msgid "Enviar invitación"
 msgstr ""
 
-#: src/features/discovery/network/components/InviteBulkModal.tsx:171
+#: src/features/discovery/network/components/InviteBulkModal.tsx:174
 msgid "Enviar invitaciones"
 msgstr ""
 
@@ -3779,20 +3781,20 @@ msgstr ""
 msgid "Error al enviar el mensaje. Intenta nuevamente."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:399
+#: src/features/identity/settings/GeneralSection.tsx:411
 msgid "Error al guardar el avatar. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:416
+#: src/features/identity/settings/GeneralSection.tsx:428
 msgid "Error al guardar los datos de contacto. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:378
+#: src/features/identity/settings/GeneralSection.tsx:390
 msgid "Error al preparar la subida de la imagen."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
-#: src/features/identity/settings/GeneralSection.tsx:391
+#: src/features/identity/settings/GeneralSection.tsx:403
 #: src/features/identity/settings/LogoUploader.tsx:60
 #: src/features/identity/settings/LogoUploader.tsx:71
 #: src/features/identity/settings/LogoUploader.tsx:81
@@ -3971,8 +3973,8 @@ msgid "Estadísticas de campaña"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:217
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:112
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:120
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:128
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:136
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:176
 #: src/features/offers/components/CurrentOfferBlock.tsx:278
 #: src/routes/_brand/campaigns.index.tsx:94
@@ -4164,8 +4166,8 @@ msgstr ""
 msgid "Fecha"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:220
-#: src/features/identity/settings/GeneralSection.tsx:232
+#: src/features/identity/settings/GeneralSection.tsx:222
+#: src/features/identity/settings/GeneralSection.tsx:234
 msgid "Fecha de cumpleaños"
 msgstr ""
 
@@ -4254,7 +4256,7 @@ msgstr ""
 msgid "Filtrar por campaña"
 msgstr ""
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:171
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:189
 #: src/features/payments/components/BrandPaymentsFilters.tsx:84
 msgid "Filtrar por creador"
 msgstr ""
@@ -4263,13 +4265,13 @@ msgstr ""
 #~ msgid "Filtrar por creator"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:110
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:118
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:126
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:134
 msgid "Filtrar por estado"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:135
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:143
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:151
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:159
 msgid "Filtrar por plataforma"
 msgstr ""
 
@@ -4378,7 +4380,7 @@ msgstr ""
 msgid "Formatos"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:178
+#: src/features/identity/settings/GeneralSection.tsx:180
 msgid "Foto de perfil"
 msgstr ""
 
@@ -4461,7 +4463,7 @@ msgid "Gastronomía"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:83
-#: src/features/identity/settings/GeneralSection.tsx:165
+#: src/features/identity/settings/GeneralSection.tsx:167
 #: src/features/identity/settings/SettingsLayout.tsx:11
 #: src/features/identity/settings/SettingsSidebar.tsx:18
 msgid "General"
@@ -4537,19 +4539,19 @@ msgstr ""
 msgid "Guardando"
 msgstr ""
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:149
-#: src/features/identity/settings/SectionSaveBar.tsx:42
+#: src/features/identity/settings/BrandGeneralSection.tsx:160
+#: src/features/identity/settings/SectionSaveBar.tsx:47
 #: src/features/payments/settings/PayoutAccountModal.tsx:212
 msgid "Guardando..."
 msgstr ""
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:836
-#: src/features/identity/settings/BrandGeneralSection.tsx:149
+#: src/features/identity/settings/BrandGeneralSection.tsx:160
 msgid "Guardar"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:272
-#: src/features/identity/settings/SectionSaveBar.tsx:42
+#: src/features/identity/settings/SectionSaveBar.tsx:47
 msgid "Guardar cambios"
 msgstr ""
 
@@ -4839,7 +4841,7 @@ msgstr ""
 msgid "Ingresá montos con hasta dos decimales."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:39
+#: src/features/identity/settings/GeneralSection.tsx:40
 msgid "Ingresá tu nombre completo"
 msgstr ""
 
@@ -5000,7 +5002,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:41
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:57
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:20
 msgid "Invitado"
 msgstr ""
@@ -5117,7 +5119,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
-#: src/features/identity/settings/GeneralSection.tsx:337
+#: src/features/identity/settings/GeneralSection.tsx:349
 msgid "JPEG, PNG o WebP. Máximo 5MB."
 msgstr ""
 
@@ -5335,8 +5337,8 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:160
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:197
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:176
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:215
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:168
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:153
 msgid "Limpiar"
@@ -6273,7 +6275,7 @@ msgstr ""
 msgid "No pudimos cargar las postulaciones. Reintentá en unos minutos."
 msgstr ""
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:120
+#: src/features/identity/settings/BrandGeneralSection.tsx:123
 msgid "No pudimos cargar los ajustes."
 msgstr ""
 
@@ -6347,7 +6349,7 @@ msgid "No pudimos guardar los cambios. Intentá de nuevo."
 msgstr ""
 
 #: src/features/identity/settings/CollaborationSection.tsx:561
-#: src/features/identity/settings/GeneralSection.tsx:515
+#: src/features/identity/settings/GeneralSection.tsx:527
 #: src/features/identity/settings/PortfolioSection.tsx:253
 #: src/features/identity/settings/RatesSection.tsx:410
 msgid "No pudimos guardar los cambios. Intentá nuevamente."
@@ -6361,7 +6363,7 @@ msgstr ""
 #~ msgid "No pudimos iniciar el checkout. Intentá de nuevo."
 #~ msgstr "We couldn't start the checkout. Try again."
 
-#: src/features/identity/settings/GeneralSection.tsx:138
+#: src/features/identity/settings/GeneralSection.tsx:140
 msgid "No pudimos leer la imagen. Intentá de nuevo."
 msgstr ""
 
@@ -6502,8 +6504,8 @@ msgstr ""
 msgid "Nombre"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:185
-#: src/features/identity/settings/GeneralSection.tsx:189
+#: src/features/identity/settings/GeneralSection.tsx:187
+#: src/features/identity/settings/GeneralSection.tsx:191
 msgid "Nombre completo"
 msgstr ""
 
@@ -6544,7 +6546,7 @@ msgid "Nos ayuda a entender qué funciona."
 msgstr ""
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:145
-#: src/features/discovery/network/components/InviteBulkModal.tsx:140
+#: src/features/discovery/network/components/InviteBulkModal.tsx:143
 #: src/features/discovery/network/components/InviteSingleModal.tsx:114
 msgid "Nota (opcional)"
 msgstr ""
@@ -6868,7 +6870,7 @@ msgid "Pagada en total"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:54
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:45
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:61
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:24
 #: src/features/payments/components/StageSpendDonut.tsx:126
 msgid "Pagado"
@@ -6971,7 +6973,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:52
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:68
 #: src/features/offers/components/ArchivedOffersList.tsx:26
 msgid "Paid"
 msgstr ""
@@ -6984,8 +6986,8 @@ msgstr ""
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:77
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:167
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
-#: src/features/identity/settings/GeneralSection.tsx:240
-#: src/features/identity/settings/GeneralSection.tsx:244
+#: src/features/identity/settings/GeneralSection.tsx:242
+#: src/features/identity/settings/GeneralSection.tsx:246
 msgid "País"
 msgstr ""
 
@@ -7025,11 +7027,11 @@ msgstr ""
 msgid "Para equipos que gastan $10K+/mes y necesitan control total."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:198
+#: src/features/identity/settings/GeneralSection.tsx:200
 msgid "Para login y notificaciones."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:266
+#: src/features/identity/settings/GeneralSection.tsx:268
 msgid "Para productos y canjes."
 msgstr ""
 
@@ -7153,7 +7155,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:49
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:197
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:45
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:61
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
 #: src/features/discovery/campaign-detail/ApplicationCard.tsx:107
 #: src/features/identity/settings/PortfolioSection.tsx:160
@@ -7194,7 +7196,7 @@ msgstr ""
 #~ msgid "Per views"
 #~ msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:175
+#: src/features/identity/settings/GeneralSection.tsx:177
 #: src/features/identity/settings/ProfileCard.tsx:20
 msgid "Perfil"
 msgstr ""
@@ -7501,7 +7503,7 @@ msgid "Presupuesto mensual"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:134
-#: src/features/identity/settings/GeneralSection.tsx:307
+#: src/features/identity/settings/GeneralSection.tsx:319
 msgid "Preview de avatar"
 msgstr ""
 
@@ -8307,7 +8309,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:161
-#: src/features/identity/settings/GeneralSection.tsx:52
+#: src/features/identity/settings/GeneralSection.tsx:53
 msgid "Seleccioná un país"
 msgstr ""
 
@@ -8341,7 +8343,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:167
-#: src/features/identity/settings/GeneralSection.tsx:334
+#: src/features/identity/settings/GeneralSection.tsx:346
 msgid "Seleccionar imagen"
 msgstr ""
 
@@ -8484,8 +8486,8 @@ msgstr ""
 msgid "Si salís ahora, se perderán los datos ingresados."
 msgstr ""
 
-#: src/features/identity/components/SignOutButton.tsx:32
-#: src/features/identity/components/SignOutButton.tsx:43
+#: src/features/identity/components/SignOutButton.tsx:15
+#: src/features/identity/components/SignOutButton.tsx:26
 msgid "Sign out"
 msgstr ""
 
@@ -8778,8 +8780,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:55
-#: src/features/identity/settings/GeneralSection.tsx:124
-#: src/features/identity/settings/GeneralSection.tsx:366
+#: src/features/identity/settings/GeneralSection.tsx:126
+#: src/features/identity/settings/GeneralSection.tsx:378
 msgid "Solo se permiten imágenes JPEG, PNG o WebP."
 msgstr ""
 
@@ -8955,7 +8957,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
-#: src/features/identity/settings/GeneralSection.tsx:322
+#: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Subir foto"
 msgstr ""
 
@@ -9099,8 +9101,8 @@ msgstr ""
 msgid "Tech LatAm"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:208
-#: src/features/identity/settings/GeneralSection.tsx:212
+#: src/features/identity/settings/GeneralSection.tsx:210
+#: src/features/identity/settings/GeneralSection.tsx:214
 #: src/features/identity/settings/ProfileCard.tsx:53
 msgid "Teléfono"
 msgstr ""
@@ -9125,7 +9127,7 @@ msgstr ""
 msgid "Tenés que ser mayor de 18 años para usar Marz."
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:226
+#: src/features/identity/settings/GeneralSection.tsx:228
 msgid "Tenés que ser mayor de 18 años."
 msgstr ""
 
@@ -9320,8 +9322,8 @@ msgstr ""
 msgid "Todas las campañas"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:142
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:150
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:158
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:166
 msgid "Todas las plataformas"
 msgstr ""
 
@@ -9423,7 +9425,7 @@ msgstr ""
 msgid "Todos"
 msgstr ""
 
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:176
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:194
 msgid "Todos los creadores"
 msgstr ""
 
@@ -9431,8 +9433,8 @@ msgstr ""
 msgid "Todos los creadores en tus campañas"
 msgstr ""
 
-#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:115
-#: src/features/campaigns/detail/videos/VideosFilters.tsx:123
+#: src/features/campaigns/detail/creators/CreatorsFilters.tsx:131
+#: src/features/campaigns/detail/videos/VideosFilters.tsx:139
 msgid "Todos los estados"
 msgstr ""
 
@@ -9813,7 +9815,7 @@ msgstr ""
 msgid "Usá el formato AAAA-MM-DD"
 msgstr ""
 
-#: src/features/identity/settings/GeneralSection.tsx:45
+#: src/features/identity/settings/GeneralSection.tsx:46
 msgid "Usá formato E.164, por ejemplo +5491123456789"
 msgstr ""
 
