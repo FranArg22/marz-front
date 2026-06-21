@@ -27,10 +27,12 @@ const config = defineConfig({
         routeFileIgnorePattern: '\\.(test|spec)\\.(ts|tsx)$',
       },
     }),
-    // Vercel (prod) detecta TanStack Start y arma su preset Nitro solo.
-    // En self-hosted (NUC, node-server) no hay auto-detección → activar el
-    // plugin explícitamente sólo cuando SELF_HOSTED=1 (lo setea el build Docker).
-    ...(process.env.SELF_HOSTED ? [nitro()] : []),
+    // Nitro genera la salida de servidor y autoelige preset por env:
+    // - Vercel (VERCEL=1) → preset vercel (.vercel/output con la función SSR).
+    // - self-hosted (SELF_HOSTED=1, NUC) → node-server (.output/server).
+    // Sin el plugin no hay build de servidor → Vercel da 404. En `vite dev`
+    // (ninguno de los dos) se omite para no alterar el dev server.
+    ...(process.env.SELF_HOSTED || process.env.VERCEL ? [nitro()] : []),
     viteReact({
       plugins: [['@lingui/swc-plugin', {}]],
     }),
