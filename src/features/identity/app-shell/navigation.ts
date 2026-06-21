@@ -14,8 +14,6 @@ export interface ShellNavigationConfig {
   creator: ShellNavigationItem[]
 }
 
-const DISABLED_REASON = () => t`Próximamente`
-
 export const shellNavigationConfig: ShellNavigationConfig = {
   brand: [
     {
@@ -103,13 +101,6 @@ export const shellNavigationConfig: ShellNavigationConfig = {
       label: () => t`Ajustes`,
       icon: 'settings',
       href: '/settings',
-    },
-    {
-      id: 'analytics',
-      label: () => t`Analytics`,
-      icon: 'bar-chart-3',
-      disabled: true,
-      disabledReason: DISABLED_REASON,
     },
   ],
 }

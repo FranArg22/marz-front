@@ -100,17 +100,6 @@ describe('shellNavigationConfig', () => {
     expect(creatorSettings?.href).toBe('/settings')
   })
 
-  it('keeps disabled items non-navigable', () => {
-    const disabledItems = [...brandItems, ...creatorItems].filter(
-      (item) => item.disabled,
-    )
-
-    expect(disabledItems.length).toBeGreaterThan(0)
-    for (const item of disabledItems) {
-      expect(item.href).toBeUndefined()
-      expect(item.disabledReason?.()).toBe('Próximamente')
-    }
-  })
 })
 
 describe('resolveActiveSidebarItem', () => {
