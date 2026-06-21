@@ -93,7 +93,7 @@ test.describe('creator campaign board', () => {
 
     await expect(page).toHaveURL(/\/campaigns/)
     await expect(
-      page.getByRole('heading', { name: 'Campañas abiertas' }),
+      page.getByRole('heading', { name: 'Campañas activas' }),
     ).toBeHidden()
     await expect(page.getByRole('heading', { name: 'Campaigns' })).toBeVisible()
     await expect(

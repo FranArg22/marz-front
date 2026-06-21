@@ -17,7 +17,7 @@ export function CampaignBoardHeader({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         <div className="space-y-2 sm:max-w-3xl">
           <h1 className="text-2xl font-semibold text-foreground">
-            {t`Campañas abiertas`}
+            {t`Campañas activas`}
           </h1>
           <p className="text-sm text-muted-foreground">
             {t`Postulate a las que matchean con tu perfil. Cuanto más completo tu perfil, mejor el match.`}
