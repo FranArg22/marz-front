@@ -9,6 +9,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 import type { BestVideo } from './bestVideo';
 import type { CreatorChannel } from './creatorChannel';
+import type { CreatorOnboardingPayloadCreatorKindsItem } from './creatorOnboardingPayloadCreatorKindsItem';
 import type { CreatorOnboardingPayloadExperienceLevel } from './creatorOnboardingPayloadExperienceLevel';
 import type { CreatorOnboardingPayloadGender } from './creatorOnboardingPayloadGender';
 import type { CreatorOnboardingPayloadTier } from './creatorOnboardingPayloadTier';
@@ -60,4 +61,16 @@ export interface CreatorOnboardingPayload {
   referral_text?: string | null;
   /** Tier declarado por el creator en paso C4 */
   tier: CreatorOnboardingPayloadTier;
+  /**
+     * Tipos de creador declarados (paso UGC). Si se omite, default influencer.
+     * @minItems 1
+     * @maxItems 2
+     */
+  creator_kinds?: CreatorOnboardingPayloadCreatorKindsItem[];
+  /**
+     * Tarifa UGC declarada (paso UGC), opcional. Moneda USD.
+     * @maxLength 50
+     * @nullable
+     */
+  ugc_rate_amount?: string | null;
 }

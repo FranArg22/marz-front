@@ -13348,6 +13348,26 @@
               "celebrity"
             ],
             "description": "Tier declarado por el creator en paso C4"
+          },
+          "creator_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "influencer",
+                "ugc"
+              ]
+            },
+            "description": "Tipos de creador declarados (paso UGC). Si se omite, default influencer."
+          },
+          "ugc_rate_amount": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true,
+            "description": "Tarifa UGC declarada (paso UGC), opcional. Moneda USD."
           }
         }
       },
@@ -17051,6 +17071,7 @@
         "type": "object",
         "required": [
           "account_id",
+          "creator_id",
           "display_name",
           "avatar_url",
           "country",
@@ -17063,6 +17084,14 @@
           "account_id": {
             "type": "string",
             "format": "uuid"
+          },
+          "creator_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
           },
           "display_name": {
             "type": "string"
@@ -17198,11 +17227,12 @@
       },
       "CreateConnectionRequestRequest": {
         "type": "object",
-        "required": [
-          "creator_account_id"
-        ],
         "properties": {
           "creator_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_id": {
             "type": "string",
             "format": "uuid"
           },
@@ -17532,11 +17562,11 @@
       "AcceptInviteByTokenResponse": {
         "type": "object",
         "required": [
-          "conversation_id",
+          "connection_request_id",
           "route"
         ],
         "properties": {
-          "conversation_id": {
+          "connection_request_id": {
             "type": "string",
             "format": "uuid"
           },
