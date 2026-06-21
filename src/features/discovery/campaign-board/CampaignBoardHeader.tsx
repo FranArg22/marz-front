@@ -14,8 +14,8 @@ export function CampaignBoardHeader({
 }: CampaignBoardHeaderProps) {
   return (
     <header className="space-y-6">
-      <div className="flex items-start justify-between gap-6">
-        <div className="max-w-3xl space-y-2">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+        <div className="space-y-2 sm:max-w-3xl">
           <h1 className="text-2xl font-semibold text-foreground">
             {t`Campañas abiertas`}
           </h1>
@@ -28,7 +28,7 @@ export function CampaignBoardHeader({
           type="button"
           variant="outline"
           size="sm"
-          className="rounded-xl"
+          className="self-start rounded-xl"
           onClick={onRefresh}
           disabled={isRefreshing}
         >

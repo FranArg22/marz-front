@@ -196,7 +196,7 @@ export function InboxCreatorBox({
                       size="icon"
                       onClick={handleOpenConversation}
                       aria-label={t`Ir al chat`}
-                      className="shrink-0 rounded-full"
+                      className="hidden shrink-0 rounded-full sm:inline-flex"
                     >
                       <ArrowUpRight className="size-4" aria-hidden />
                     </Button>
