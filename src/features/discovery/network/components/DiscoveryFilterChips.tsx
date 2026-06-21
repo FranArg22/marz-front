@@ -5,6 +5,7 @@ import {
   GetDiscoveryCreatorsGender,
   SocialPlatform,
 } from '#/shared/api/generated/model'
+import { useListInterests } from '#/shared/api/generated/lookups/lookups'
 
 import {
   countActiveFilters,
@@ -64,7 +65,17 @@ export function DiscoveryFilterChips({
   onOpenFilterPanel,
 }: DiscoveryFilterChipsProps) {
   const { appliedFilters, setPendingFilters } = useDiscoveryFiltersStore()
-  const activeChips = buildFilterChips(appliedFilters)
+  const interestsQuery = useListInterests()
+  const interestLabels =
+    interestsQuery.data?.status === 200
+      ? new Map(
+          interestsQuery.data.data.items.map((interest) => [
+            interest.slug,
+            interest.label_es,
+          ]),
+        )
+      : undefined
+  const activeChips = buildFilterChips(appliedFilters, interestLabels)
   const activeChipByKey = new Map(activeChips.map((chip) => [chip.key, chip]))
   const activeCount = countActiveFilters(appliedFilters)
 
@@ -194,7 +205,10 @@ function FilterChip({
   )
 }
 
-function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
+function buildFilterChips(
+  filters: DiscoveryFilters,
+  interestLabels?: Map<string, string>,
+): FilterChipItem[] {
   const chips: FilterChipItem[] = []
 
   if (filters.platforms?.length) {
@@ -232,7 +246,9 @@ function buildFilterChips(filters: DiscoveryFilters): FilterChipItem[] {
   }
 
   if (filters.interests?.length) {
-    const interestList = filters.interests.join(', ')
+    const interestList = filters.interests
+      .map((slug) => interestLabels?.get(slug) ?? slug)
+      .join(', ')
     chips.push({
       key: 'interests',
       label: interestList,
