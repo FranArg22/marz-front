@@ -50,7 +50,6 @@ describe('shellNavigationConfig', () => {
       'campaigns',
       'earnings',
       'settings',
-      'analytics',
     ])
     expect(enabledItemIds(creatorItems)).toEqual([
       'inbox',

@@ -96,20 +96,6 @@ describe('AppSidebar', () => {
     expect(workspaceLink).toHaveAttribute('href', '/workspace')
   })
 
-  it('renders disabled items as aria-disabled buttons without href and without navigation', async () => {
-    const user = userEvent.setup()
-    const { router } = renderSidebar('/workspace', 'creator')
-
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
-    })
-    await user.click(analyticsButton)
-
-    expect(analyticsButton).toHaveAttribute('aria-disabled', 'true')
-    expect(analyticsButton).not.toHaveAttribute('href')
-    expect(router.state.location.pathname).toBe('/workspace')
-  })
-
   it('marks only the item resolved by resolveActiveSidebarItem as active', async () => {
     renderSidebar('/workspace/conversations/123')
 
@@ -185,29 +171,6 @@ describe('AppSidebar', () => {
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Explorar')
   })
 
-  it('shows Próximamente for disabled item tooltips', async () => {
-    const user = userEvent.setup()
-    renderSidebar('/workspace', 'creator')
-
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
-    })
-
-    await user.hover(analyticsButton)
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
-  })
-
-  it('shows disabled item tooltips when focused by keyboard', async () => {
-    renderSidebar('/workspace', 'creator')
-
-    const analyticsButton = await screen.findByRole('button', {
-      name: 'Analytics',
-    })
-    analyticsButton.focus()
-    expect(analyticsButton).toHaveFocus()
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Próximamente')
-  })
-
   it('gives every brand and creator sidebar item an accessible name without visible labels', async () => {
     const { unmount } = renderSidebar('/workspace', 'brand')
     const brandSidebar = await screen.findByTestId('app-sidebar')
@@ -241,18 +204,9 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'creator')
     const creatorSidebar = await screen.findByTestId('app-sidebar')
 
-    for (const name of [
-      'Workspace',
-      'Inbox',
-      'Campañas',
-      'Ganancias',
-      'Analytics',
-    ]) {
+    for (const name of ['Workspace', 'Inbox', 'Campañas', 'Ganancias']) {
       expect(
-        within(creatorSidebar).getByRole(
-          /Workspace|Inbox|Campañas|Ganancias/.test(name) ? 'link' : 'button',
-          { name },
-        ),
+        within(creatorSidebar).getByRole('link', { name }),
       ).toBeInTheDocument()
     }
     expect(
