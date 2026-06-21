@@ -1,11 +1,18 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 
+import { cn } from '#/lib/utils'
+
 interface WizardStepTransitionProps {
   /** Stable id of the current step. Drives the remount that replays the animation. */
   stepKey: string
   /** Linear index of the current step. Used to derive forward/back direction. */
   index: number
+  /**
+   * Overrides the content wrapper alignment. Defaults to centered, which suits
+   * onboarding's narrow cards. Full-width forms pass `items-stretch`.
+   */
+  contentClassName?: string
   children: ReactNode
 }
 
@@ -20,6 +27,7 @@ interface WizardStepTransitionProps {
 export function WizardStepTransition({
   stepKey,
   index,
+  contentClassName,
   children,
 }: WizardStepTransitionProps) {
   const prevIndex = useRef(index)
@@ -30,7 +38,10 @@ export function WizardStepTransition({
     <div
       key={stepKey}
       data-direction={direction}
-      className="wizard-step flex w-full flex-col items-center"
+      className={cn(
+        'wizard-step flex w-full flex-col items-center',
+        contentClassName,
+      )}
     >
       {children}
     </div>
