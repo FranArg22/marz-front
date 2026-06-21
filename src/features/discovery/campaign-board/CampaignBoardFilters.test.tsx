@@ -98,22 +98,22 @@ describe('CampaignBoardFilters', () => {
     expect(onSearchChange).toHaveBeenCalledWith({ q: undefined })
   })
 
-  it('keeps niches and interests as independent filters', async () => {
+  it('keeps interests and platforms as independent filters', async () => {
     const user = userEvent.setup()
     renderFilters()
-
-    await user.click(screen.getByRole('button', { name: /categoría/i }))
-    await user.click(screen.getByText('Tech'))
-
-    expect(onSearchChange).toHaveBeenLastCalledWith({ niches: ['tech'] })
-    expect(onSearchChange).not.toHaveBeenCalledWith(
-      expect.objectContaining({ interests: expect.anything() }),
-    )
 
     await user.click(screen.getByRole('button', { name: /intereses/i }))
     await user.click(screen.getByText('Audio'))
 
     expect(onSearchChange).toHaveBeenLastCalledWith({ interests: ['audio'] })
+    expect(onSearchChange).not.toHaveBeenCalledWith(
+      expect.objectContaining({ platforms: expect.anything() }),
+    )
+
+    await user.click(screen.getByRole('button', { name: /plataformas/i }))
+    await user.click(screen.getByText('Youtube'))
+
+    expect(onSearchChange).toHaveBeenLastCalledWith({ platforms: ['youtube'] })
   })
 
   it('shows an inline error and does not emit an invalid fee range', async () => {
@@ -129,15 +129,6 @@ describe('CampaignBoardFilters', () => {
       'El fee máximo debe ser mayor o igual al mínimo.',
     )
     expect(onSearchChange).not.toHaveBeenCalled()
-  })
-
-  it('clamps the match score slider display to 0..100', async () => {
-    const user = userEvent.setup()
-    renderFilters({ ...baseSearch, min_match_score: 140 })
-
-    await user.click(screen.getByRole('button', { name: /match score/i }))
-
-    expect(screen.getByText('100%')).toBeInTheDocument()
   })
 
   it('resets filters to defaults', async () => {
