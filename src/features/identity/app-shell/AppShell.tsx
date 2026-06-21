@@ -31,8 +31,8 @@ export function AppShell({
             pathname={pathname}
             className="hidden md:flex"
           />
-          <div className="flex min-w-0 flex-1 flex-col py-2 pr-2 pl-2 md:pl-0">
-            <main className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-border bg-background pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0">
+          <div className="flex min-w-0 flex-1 flex-col md:py-2 md:pr-2 md:pl-0">
+            <main className="min-w-0 flex-1 overflow-hidden bg-background pb-[calc(6rem+env(safe-area-inset-bottom))] md:rounded-2xl md:border md:border-border md:pb-0">
               {children}
             </main>
           </div>
