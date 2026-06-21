@@ -10,11 +10,12 @@ import {
   BUDGET_MAX_USD,
   BUDGET_MIN_USD,
   BUDGET_STEP_USD,
+  budgetPercent,
   formatBudgetFull,
   formatBudgetShortK,
 } from '../budget'
 
-const TICKS = [1000, 10000, 25000, 50000] as const
+const TICKS = [1000, 10000, 20000, 30000, 40000, 50000] as const
 
 export function B6BudgetScreen() {
   const store = useBrandOnboardingStore()
@@ -72,16 +73,22 @@ export function B6BudgetScreen() {
           }}
           aria-label={t`Presupuesto mensual`}
         />
-        <div className="flex w-full justify-between">
-          {TICKS.map((tick) => (
+        <div className="relative h-4 w-full">
+          {TICKS.map((tick, index) => (
             <span
               key={tick}
               className={cn(
-                'text-[11px]',
+                'absolute top-0 text-[11px]',
+                index === 0
+                  ? 'translate-x-0'
+                  : index === TICKS.length - 1
+                    ? '-translate-x-full'
+                    : '-translate-x-1/2',
                 currentBudget === tick
                   ? 'font-semibold text-foreground'
                   : 'font-normal text-muted-foreground',
               )}
+              style={{ left: `${budgetPercent(tick)}%` }}
             >
               {formatBudgetShortK(tick)}
             </span>

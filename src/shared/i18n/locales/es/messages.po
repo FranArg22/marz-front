@@ -57,7 +57,7 @@ msgstr "¿Cuándo querés empezar?"
 msgid "¿Cuánto hiciste con marcas?"
 msgstr "¿Cuánto hiciste con marcas?"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:40
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:41
 msgid "¿Cuánto pensás invertir por mes?"
 msgstr "¿Cuánto pensás invertir por mes?"
 
@@ -156,10 +156,6 @@ msgstr "”Toda la info en la plataforma. Podía ver el paso a paso del proceso.
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:23
 msgid "“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”"
 msgstr "“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”"
-
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:50
-#~ msgid "(opcional)"
-#~ msgstr "(opcional)"
 
 #: src/features/chat/components/systemEvents/PaymentMarkedCard.tsx:39
 #~ msgid "{0} · {declaredDate}"
@@ -532,7 +528,7 @@ msgstr "@valenzavacs"
 msgid "/ mes"
 msgstr "/ mes"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:58
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:59
 msgid "/mes"
 msgstr "/mes"
 
@@ -1411,8 +1407,8 @@ msgstr "Archivo adjunto"
 #~ msgstr "Archivo demasiado grande (>10MB)."
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:48
-msgid "Argentina"
-msgstr "Argentina"
+#~ msgid "Argentina"
+#~ msgstr "Argentina"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:46
 msgid "Armá tu primera campaña y brief"
@@ -3489,10 +3485,6 @@ msgstr "El porcentaje tiene que ser un número entero"
 #~ msgstr "El presupuesto debe ser mayor a 0."
 
 #: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
-#~ msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
-#~ msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
-
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
 msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 
@@ -3888,9 +3880,9 @@ msgstr "Error al preparar la subida de la imagen."
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
 #: src/features/identity/settings/GeneralSection.tsx:403
-#: src/features/identity/settings/LogoUploader.tsx:67
-#: src/features/identity/settings/LogoUploader.tsx:78
-#: src/features/identity/settings/LogoUploader.tsx:88
+#: src/features/identity/settings/LogoUploader.tsx:68
+#: src/features/identity/settings/LogoUploader.tsx:79
+#: src/features/identity/settings/LogoUploader.tsx:89
 msgid "Error al subir la imagen. Intentá de nuevo."
 msgstr "Error al subir la imagen. Intentá de nuevo."
 
@@ -5589,7 +5581,8 @@ msgstr "Cargando..."
 #~ msgid "Locked"
 #~ msgstr "Locked"
 
-#: src/features/identity/settings/LogoUploader.tsx:107
+#: src/features/identity/settings/LogoUploader.tsx:109
+#: src/features/identity/settings/LogoUploader.tsx:191
 msgid "Logo"
 msgstr "Logo"
 
@@ -5597,7 +5590,9 @@ msgstr "Logo"
 #~ msgid "Logo de la marca"
 #~ msgstr "Logo de la marca"
 
-#: src/features/identity/settings/LogoUploader.tsx:113
+#: src/features/identity/settings/LogoUploader.tsx:124
+#: src/features/identity/settings/LogoUploader.tsx:136
+#: src/features/identity/settings/LogoUploader.tsx:197
 msgid "Logo de marca"
 msgstr "Logo de marca"
 
@@ -5730,7 +5725,7 @@ msgstr "Marcar como pagado"
 msgid "Marcar todo como leído"
 msgstr "Marcar todo como leído"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:33
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:34
 msgid "Marcas de {verticalLabel} invierten entre $2.000 y $7.000/mes"
 msgstr "Marcas de {verticalLabel} invierten entre $2.000 y $7.000/mes"
 
@@ -5750,7 +5745,7 @@ msgstr "Marcas de {verticalLabel} ya trabajan con Marz"
 msgid "Marcas líderes ya trabajan con Marz"
 msgstr "Marcas líderes ya trabajan con Marz"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:34
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:35
 msgid "Marcas similares invierten entre $2.000 y $7.000/mes"
 msgstr "Marcas similares invierten entre $2.000 y $7.000/mes"
 
@@ -7508,6 +7503,7 @@ msgstr "Plataformas"
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:446
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:177
+#: src/features/identity/settings/LogoUploader.tsx:139
 msgid "PNG, JPG o WebP"
 msgstr "PNG, JPG o WebP"
 
@@ -7670,7 +7666,7 @@ msgstr "Presupuesto"
 #~ msgid "Presupuesto (USD)"
 #~ msgstr "Presupuesto (USD)"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:73
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:74
 msgid "Presupuesto mensual"
 msgstr "Presupuesto mensual"
 
@@ -7903,7 +7899,8 @@ msgstr "Quitar filtro {label}"
 msgid "Quitar link"
 msgstr "Quitar link"
 
-#: src/features/identity/settings/LogoUploader.tsx:151
+#: src/features/identity/settings/LogoUploader.tsx:160
+#: src/features/identity/settings/LogoUploader.tsx:235
 msgid "Quitar logo"
 msgstr "Quitar logo"
 
@@ -8532,6 +8529,10 @@ msgstr "Seleccionar imagen"
 #~ msgid "Seleccionar intereses..."
 #~ msgstr "Seleccionar intereses..."
 
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:48
+msgid "Seleccionar país"
+msgstr "Seleccionar país"
+
 #: src/features/offers/components/BundleEditor.tsx:198
 #: src/features/offers/components/MultiStageEditor.tsx:168
 #: src/features/offers/components/SingleEditor.tsx:46
@@ -9131,7 +9132,8 @@ msgstr "Subiendo imagen..."
 msgid "Subiendo PDF..."
 msgstr "Subiendo PDF..."
 
-#: src/features/identity/settings/LogoUploader.tsx:140
+#: src/features/identity/settings/LogoUploader.tsx:152
+#: src/features/identity/settings/LogoUploader.tsx:224
 msgid "Subiendo..."
 msgstr "Subiendo..."
 
@@ -9139,7 +9141,8 @@ msgstr "Subiendo..."
 msgid "Subiendo…"
 msgstr "Subiendo…"
 
-#: src/features/identity/settings/LogoUploader.tsx:140
+#: src/features/identity/settings/LogoUploader.tsx:152
+#: src/features/identity/settings/LogoUploader.tsx:224
 msgid "Subir"
 msgstr "Subir"
 
@@ -9158,7 +9161,8 @@ msgstr "Subir"
 msgid "Subir foto"
 msgstr "Subir foto"
 
-#: src/features/identity/settings/LogoUploader.tsx:127
+#: src/features/identity/settings/LogoUploader.tsx:175
+#: src/features/identity/settings/LogoUploader.tsx:211
 msgid "Subir logo"
 msgstr "Subir logo"
 
@@ -10064,7 +10068,7 @@ msgstr "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."
 #~ msgid "Usamos tu nivel para mostrarte ofertas acordes."
 #~ msgstr "Usamos tu nivel para mostrarte ofertas acordes."
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:43
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:44
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr "Usamos tu respuesta para recomendarte el mejor plan."
 
@@ -10072,7 +10076,7 @@ msgstr "Usamos tu respuesta para recomendarte el mejor plan."
 msgid "Usar otro email"
 msgstr "Usar otro email"
 
-#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:52
+#: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:53
 #: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:63
 #: src/features/payments/settings/PayoutAccountCard.tsx:200
 msgid "USD"

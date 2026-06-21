@@ -14,3 +14,7 @@ export function formatBudgetShortK(usd: number): string {
   return `$${Math.round(usd / 1000)}K`
 }
 /* eslint-enable lingui/no-unlocalized-strings */
+
+export function budgetPercent(usd: number): number {
+  return ((usd - BUDGET_MIN_USD) / (BUDGET_MAX_USD - BUDGET_MIN_USD)) * 100
+}
