@@ -156,10 +156,12 @@ export function ConversationRail({
       <>
         {expandButton}
         {railHeader}
-        <ConversationRailEmpty
-          variant={emptyVariant}
-          activeFilter={search.filter}
-        />
+        {compact ? null : (
+          <ConversationRailEmpty
+            variant={emptyVariant}
+            activeFilter={search.filter}
+          />
+        )}
       </>
     )
   }
