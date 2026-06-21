@@ -21,7 +21,7 @@ export function C7bUgcScreen() {
           {t`¿Hacés contenido UGC?`}
         </h1>
         <p className="text-center text-sm leading-[1.5] text-muted-foreground">
-          {t`El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes.`}
+          {t`El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes.`}
         </p>
       </div>
 
@@ -45,10 +45,7 @@ export function C7bUgcScreen() {
       {ugcOn && (
         <div className="flex w-full max-w-[360px] flex-col gap-1.5">
           <span className="text-[length:var(--font-size-sm)] font-medium text-foreground">
-            {t`Tu tarifa por video UGC`}{' '}
-            <span className="font-normal text-muted-foreground">
-              {t`(opcional)`}
-            </span>
+            {t`Tu tarifa por video UGC`}
           </span>
           <div className="flex items-end gap-2">
             <Input

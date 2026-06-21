@@ -158,8 +158,8 @@ msgid "“Toda la información estaba en la plataforma, podía ver el paso a pas
 msgstr "“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”"
 
 #: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:50
-msgid "(opcional)"
-msgstr "(opcional)"
+#~ msgid "(opcional)"
+#~ msgstr "(opcional)"
 
 #: src/features/chat/components/systemEvents/PaymentMarkedCard.tsx:39
 #~ msgid "{0} · {declaredDate}"
@@ -3489,8 +3489,12 @@ msgstr "El porcentaje tiene que ser un número entero"
 #~ msgstr "El presupuesto debe ser mayor a 0."
 
 #: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
-msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
-msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+#~ msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+#~ msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales —no se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
+msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:523
 msgid "El valor inicial no puede ser mayor que el final."
@@ -10069,7 +10073,7 @@ msgid "Usar otro email"
 msgstr "Usar otro email"
 
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:52
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:66
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:63
 #: src/features/payments/settings/PayoutAccountCard.tsx:200
 msgid "USD"
 msgstr "USD"
