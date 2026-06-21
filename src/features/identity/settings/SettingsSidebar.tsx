@@ -5,6 +5,8 @@ import type { LucideIcon } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import type { SettingsSection } from '#/routes/_creator/settings'
 
+import { SettingsMobileNav } from './SettingsMobileNav'
+
 interface SettingsSidebarProps {
   activeSection: SettingsSection
   onSectionChange: (section: SettingsSection) => void
@@ -27,36 +29,47 @@ export function SettingsSidebar({
   onSectionChange,
 }: SettingsSidebarProps) {
   return (
-    <aside
-      aria-label={t`Secciones de ajustes`}
-      className="w-full shrink-0 border-b border-border bg-background md:sticky md:top-0 md:h-full md:w-64 md:border-b-0 md:border-r"
-    >
-      <div className="hidden px-4 pt-6 pb-2 md:block">
-        <h2 className="text-lg font-semibold text-foreground">{t`Ajustes`}</h2>
-      </div>
-      <nav className="flex gap-1 overflow-x-auto p-3 md:flex-col md:overflow-visible md:px-3 md:py-2">
-        {settingsSections.map((section) => {
-          const active = section.id === activeSection
-          const label = section.label()
-          const Icon = section.icon
+    <>
+      <SettingsMobileNav
+        items={settingsSections.map((section) => ({
+          id: section.id,
+          label: section.label(),
+          icon: section.icon,
+        }))}
+        activeId={activeSection}
+        onSelect={(id) => onSectionChange(id as SettingsSection)}
+      />
+      <aside
+        aria-label={t`Secciones de ajustes`}
+        className="hidden shrink-0 border-border bg-background md:sticky md:top-0 md:flex md:h-full md:w-64 md:flex-col md:border-r"
+      >
+        <div className="px-4 pt-6 pb-2">
+          <h2 className="text-lg font-semibold text-foreground">{t`Ajustes`}</h2>
+        </div>
+        <nav className="flex flex-col gap-1 px-3 py-2">
+          {settingsSections.map((section) => {
+            const active = section.id === activeSection
+            const label = section.label()
+            const Icon = section.icon
 
-          return (
-            <button
-              key={section.id}
-              type="button"
-              aria-current={active ? 'page' : undefined}
-              onClick={() => onSectionChange(section.id)}
-              className={cn(
-                'flex h-10 shrink-0 items-center gap-2.5 rounded-md px-3 text-left text-sm font-medium text-muted-foreground transition-colors outline-none hover:bg-surface-hover hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 md:w-full',
-                active && 'bg-primary/10 text-primary hover:bg-primary/10',
-              )}
-            >
-              <Icon className="size-4 shrink-0" aria-hidden="true" />
-              {label}
-            </button>
-          )
-        })}
-      </nav>
-    </aside>
+            return (
+              <button
+                key={section.id}
+                type="button"
+                aria-current={active ? 'page' : undefined}
+                onClick={() => onSectionChange(section.id)}
+                className={cn(
+                  'flex h-10 w-full items-center gap-2.5 rounded-md px-3 text-left text-sm font-medium text-muted-foreground transition-colors outline-none hover:bg-surface-hover hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50',
+                  active && 'bg-primary/10 text-primary hover:bg-primary/10',
+                )}
+              >
+                <Icon className="size-4 shrink-0" aria-hidden="true" />
+                {label}
+              </button>
+            )
+          })}
+        </nav>
+      </aside>
+    </>
   )
 }
