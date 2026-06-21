@@ -141,9 +141,9 @@ describe('B13PaywallScreen', () => {
     expect(screen.getByText(/trial de 7 días/i)).toBeInTheDocument()
   })
 
-  it('renders the -20% badge on the annual toggle', () => {
+  it('renders the discount badge on the annual toggle', () => {
     render(<B13PaywallScreen />)
-    expect(screen.getByText('-20%')).toBeInTheDocument()
+    expect(screen.getByText('· 20% off')).toBeInTheDocument()
   })
 
   it('sets onPlanSelect when a radio is changed', async () => {

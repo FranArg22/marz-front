@@ -78,15 +78,16 @@ describe('PlanCard', () => {
   it('renders stats section', () => {
     renderCard()
     expect(screen.getByText('CAMPAÑAS')).toBeInTheDocument()
-    expect(screen.getByText('HIRES')).toBeInTheDocument()
-    expect(screen.getByText('INVITES')).toBeInTheDocument()
-    expect(screen.getByText('PAYOUTS')).toBeInTheDocument()
+    expect(screen.getByText('CREADORES')).toBeInTheDocument()
+    expect(screen.getByText('INVITACIONES DE CONEXIÓN')).toBeInTheDocument()
   })
 
   it('renders INCLUYE section with feature bullets', () => {
     renderCard()
     expect(screen.getByText('INCLUYE')).toBeInTheDocument()
-    expect(screen.getByText(/Todo lo de Starter/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/Acceso a la red de creadores/i),
+    ).toBeInTheDocument()
   })
 
   it('has no accessibility violations', async () => {

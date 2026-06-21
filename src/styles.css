@@ -457,25 +457,83 @@ body {
 }
 
 /* Ambient green glow behind onboarding text: a slow, fluid breath.
-   Pulses size + brightness only, so each screen keeps its tuned opacity.
+   `filter: opacity()` MULTIPLIES the element's own opacity, so each screen
+   keeps its tuned opacity as the ceiling while the glow visibly breathes —
+   the motion of opacity + size is what reads as "alive" (brightness alone on
+   such a faint glow was imperceptible).
    Centering is handled by the element's own `translate` (Tailwind
    `-translate-x-1/2`), so this transform must NOT touch translate — in
    Tailwind v4 the two would stack and push the glow off-center. */
 @keyframes wizard-glow-pulse {
   0%,
   100% {
-    transform: scale(1);
-    filter: brightness(1);
+    transform: scale(0.98);
+    filter: brightness(1) opacity(0.55);
   }
   50% {
-    transform: scale(1.1);
-    filter: brightness(1.3);
+    transform: scale(1.16);
+    filter: brightness(1.45) opacity(1);
   }
 }
 
 .wizard-glow-pulse {
   animation: wizard-glow-pulse 4500ms ease-in-out infinite;
   will-change: transform, filter;
+}
+
+/* Paywall — recommended plan. A slow primary halo that breathes behind the
+   card to draw the eye without competing with the prices the user is reading
+   (opacity + scale only → GPU). */
+@keyframes wizard-plan-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+.wizard-plan-glow {
+  animation: wizard-plan-glow 3800ms ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+/* Soft "live" heartbeat on the recommended badge dot. */
+@keyframes wizard-dot-beat {
+  0%,
+  55%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.55);
+    opacity: 0.75;
+  }
+}
+
+.wizard-dot-beat {
+  animation: wizard-dot-beat 2000ms ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Recommended plan CTA — a calm "beat" to pull the click (transform only). */
+@keyframes wizard-cta-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+.wizard-cta-beat {
+  animation: wizard-cta-beat 1600ms ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Channel card entering the list (e.g. "Agregar canal"). */
@@ -507,7 +565,10 @@ body {
   .wizard-card-in,
   .wizard-tick-beat,
   .wizard-tick-halo,
-  .wizard-glow-pulse {
+  .wizard-glow-pulse,
+  .wizard-plan-glow,
+  .wizard-dot-beat,
+  .wizard-cta-beat {
     animation: none;
     will-change: auto;
   }
