@@ -165,6 +165,8 @@ export const GetDiscoveryCreatorsHeader = zod.object({
 export const GetDiscoveryCreatorsResponse = zod.object({
   "items": zod.array(zod.object({
   "account_id": zod.uuid(),
+  "creator_id": zod.uuid(),
+  "email": zod.email().optional(),
   "display_name": zod.string(),
   "avatar_url": zod.string(),
   "country": zod.string(),
@@ -200,7 +202,8 @@ export const createDiscoveryConnectionRequestBodyNoteMax = 1000;
 
 
 export const CreateDiscoveryConnectionRequestBody = zod.object({
-  "creator_account_id": zod.uuid(),
+  "creator_account_id": zod.uuid().optional(),
+  "creator_id": zod.uuid().optional(),
   "note": zod.string().max(createDiscoveryConnectionRequestBodyNoteMax).nullish()
 })
 

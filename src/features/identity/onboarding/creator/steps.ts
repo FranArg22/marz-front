@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import type { CreatorOnboardingState } from './store'
 import {
   C1NameHandleScreen,
@@ -7,6 +8,8 @@ import {
   C4TierScreen,
   C5NichesScreen,
   C6ContentTypesScreen,
+  C6bLanguagesScreen,
+  C6cBarterScreen,
   C7ChannelsScreen,
   C8PrimingTestimonials,
   C8bPrimingBenchmark,
@@ -67,6 +70,15 @@ export const STEPS: CreatorOnboardingStep[] = [
       Array.isArray(s.content_types) && s.content_types.length >= 1,
   },
   {
+    id: 'languages',
+    component: C6bLanguagesScreen,
+    validate: (s) => Array.isArray(s.languages) && s.languages.length >= 1,
+  },
+  {
+    id: 'barter',
+    component: C6cBarterScreen,
+  },
+  {
     id: 'channels',
     component: C7ChannelsScreen,
     validate: (s) =>
@@ -121,7 +133,8 @@ export const STEPS: CreatorOnboardingStep[] = [
     component: C15WhatsappScreen,
     validate: (s) =>
       typeof s.whatsapp_e164 === 'string' &&
-      /^\+[1-9]\d{1,14}$/.test(s.whatsapp_e164),
+      s.whatsapp_e164.length > 0 &&
+      isValidPhoneNumber(s.whatsapp_e164),
   },
   {
     id: 'referral',

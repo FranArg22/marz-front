@@ -60,7 +60,9 @@ const VALID_STATE = {
   birthday: '1995-06-15',
   whatsapp_e164: '+5491155555555',
   experience_level: 'none' as const,
-  tier: 'growing' as const,
+  tier: 'micro' as const,
+  languages: ['es'],
+  barter_preference: false,
   channels: [
     {
       platform: 'instagram',

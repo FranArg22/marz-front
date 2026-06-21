@@ -21,6 +21,7 @@ const FIELD_TO_STEP: Record<string, string> = {
   tier: 'tier',
   niches: 'niches',
   content_types: 'content-types',
+  languages: 'languages',
   channels: 'channels',
   best_videos: 'best-videos',
   birthday: 'birthday',
@@ -51,7 +52,10 @@ export function useSubmitCreatorOnboarding() {
       ...fields
     } = state
 
-    const parsed = CreatorOnboardingPayloadSchema.safeParse(fields)
+    const parsed = CreatorOnboardingPayloadSchema.safeParse({
+      ...fields,
+      barter_preference: fields.barter_preference ?? false,
+    })
     if (!parsed.success) {
       const inlineErrors: FieldErrors = {}
       let firstStepId: string | undefined

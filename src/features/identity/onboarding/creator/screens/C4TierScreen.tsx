@@ -1,12 +1,5 @@
 import { t } from '@lingui/core/macro'
-import {
-  User,
-  TrendingUp,
-  Star,
-  BadgeCheck,
-  Megaphone,
-  Crown,
-} from 'lucide-react'
+import { Sprout, TrendingUp, Star, Crown } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { OnboardingTierCard } from '#/features/identity/onboarding/shared/components'
 import { useCreatorOnboardingStore } from '../store'
@@ -20,39 +13,27 @@ const TIER_OPTIONS: {
   icon: LucideIcon
 }[] = [
   {
-    value: CreatorOnboardingPayloadTier.emergent,
-    label: () => t`Emergente`,
-    description: () => t`1K–5K followers`,
-    icon: User,
+    value: CreatorOnboardingPayloadTier.nano,
+    label: () => t`Nano`,
+    description: () => t`1K–10K followers`,
+    icon: Sprout,
   },
   {
-    value: CreatorOnboardingPayloadTier.growing,
-    label: () => t`Creciendo`,
-    description: () => t`5K–20K followers`,
+    value: CreatorOnboardingPayloadTier.micro,
+    label: () => t`Micro`,
+    description: () => t`10K–100K followers`,
     icon: TrendingUp,
   },
   {
-    value: CreatorOnboardingPayloadTier.consolidated,
-    label: () => t`Consolidado`,
-    description: () => t`20K–100K followers`,
+    value: CreatorOnboardingPayloadTier.mid,
+    label: () => t`Mid`,
+    description: () => t`100K–500K followers`,
     icon: Star,
   },
   {
-    value: CreatorOnboardingPayloadTier.reference,
-    label: () => t`Referente`,
-    description: () => t`100K–200K followers`,
-    icon: BadgeCheck,
-  },
-  {
-    value: CreatorOnboardingPayloadTier.massive,
-    label: () => t`Masivo`,
-    description: () => t`200K–1M followers`,
-    icon: Megaphone,
-  },
-  {
-    value: CreatorOnboardingPayloadTier.celebrity,
-    label: () => t`Celebridad`,
-    description: () => t`1M+ followers`,
+    value: CreatorOnboardingPayloadTier.macro,
+    label: () => t`Macro`,
+    description: () => t`500K+ followers`,
     icon: Crown,
   },
 ]

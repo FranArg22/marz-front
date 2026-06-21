@@ -76,6 +76,26 @@ describe('useCreatorOnboardingStore', () => {
       expect(useCreatorOnboardingStore.getState().handle).toBeUndefined()
       expect(useCreatorOnboardingStore.getState().display_name).toBeUndefined()
     })
+
+    it('clears languages and barter_preference', () => {
+      useCreatorOnboardingStore.getState().setField('languages', ['es', 'en'])
+      useCreatorOnboardingStore.getState().setField('barter_preference', true)
+      useCreatorOnboardingStore.getState().reset()
+      expect(useCreatorOnboardingStore.getState().languages).toBeUndefined()
+      expect(
+        useCreatorOnboardingStore.getState().barter_preference,
+      ).toBeUndefined()
+    })
+  })
+
+  describe('languages', () => {
+    it('persists languages selection', () => {
+      useCreatorOnboardingStore.getState().setField('languages', ['es', 'pt'])
+      expect(useCreatorOnboardingStore.getState().languages).toEqual([
+        'es',
+        'pt',
+      ])
+    })
   })
 
   describe('persist to sessionStorage', () => {

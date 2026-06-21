@@ -23,6 +23,8 @@ export interface CreatorProfile {
   tier?: string | null;
   niches?: string[];
   content_types?: string[];
+  languages?: string[];
+  barter_preference?: boolean;
   /** @nullable */
   country?: string | null;
   /**

@@ -11,6 +11,7 @@ import type { BestVideo } from './bestVideo';
 import type { CreatorChannel } from './creatorChannel';
 import type { CreatorOnboardingPayloadExperienceLevel } from './creatorOnboardingPayloadExperienceLevel';
 import type { CreatorOnboardingPayloadGender } from './creatorOnboardingPayloadGender';
+import type { CreatorOnboardingPayloadLanguagesItem } from './creatorOnboardingPayloadLanguagesItem';
 import type { CreatorOnboardingPayloadTier } from './creatorOnboardingPayloadTier';
 
 export interface CreatorOnboardingPayload {
@@ -58,6 +59,9 @@ export interface CreatorOnboardingPayload {
      * @nullable
      */
   referral_text?: string | null;
-  /** Tier declarado por el creator en paso C4 */
+  /** Bracket de seguidores declarado por el creator en paso C4 */
   tier: CreatorOnboardingPayloadTier;
+  /** @minItems 1 */
+  languages: CreatorOnboardingPayloadLanguagesItem[];
+  barter_preference?: boolean;
 }

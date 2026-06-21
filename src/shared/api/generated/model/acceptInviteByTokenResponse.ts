@@ -9,6 +9,6 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 
 export interface AcceptInviteByTokenResponse {
-  conversation_id: string;
+  connection_request_id: string;
   route: string;
 }

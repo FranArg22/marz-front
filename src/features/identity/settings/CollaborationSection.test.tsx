@@ -68,6 +68,7 @@ describe('CollaborationSectionSchema', () => {
       creator_kinds: [],
       niches: ['beauty'],
       content_types: ['unboxing'],
+      languages: ['es'],
       barter_preference: false,
     })
 
@@ -81,6 +82,7 @@ describe('CollaborationSectionSchema', () => {
       creator_kinds: ['influencer'],
       niches: ['beauty', 'fashion', 'fitness', 'food', 'travel', 'tech'],
       content_types: ['unboxing'],
+      languages: ['es'],
       barter_preference: false,
     })
 
@@ -94,6 +96,21 @@ describe('CollaborationSectionSchema', () => {
       creator_kinds: ['influencer'],
       niches: ['beauty'],
       content_types: [],
+      languages: ['es'],
+      barter_preference: false,
+    })
+
+    expect(result.success).toBe(false)
+    if (result.success) throw new Error('expected validation to fail')
+    expect(result.error.issues[0]?.message).toBe('min_1')
+  })
+
+  it('blocks submit with 0 languages and min_1 error', () => {
+    const result = CollaborationSectionSchema.safeParse({
+      creator_kinds: ['influencer'],
+      niches: ['beauty'],
+      content_types: ['unboxing'],
+      languages: [],
       barter_preference: false,
     })
 
@@ -164,6 +181,7 @@ describe('CollaborationSection', () => {
           creator_kinds: ['influencer', 'ugc'],
           niches: ['beauty', 'fashion'],
           content_types: ['unboxing', 'reviews'],
+          languages: ['es'],
           barter_preference: false,
         },
       })
@@ -208,6 +226,7 @@ function creatorSettings(
       creator_kinds: ['influencer'],
       niches: ['beauty'],
       content_types: ['unboxing'],
+      languages: ['es'],
       barter_preference: true,
       ...collaboration,
     },

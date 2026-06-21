@@ -18,8 +18,8 @@ function makeState(
 }
 
 describe('STEPS', () => {
-  it('has 20 steps', () => {
-    expect(STEPS).toHaveLength(20)
+  it('has 22 steps', () => {
+    expect(STEPS).toHaveLength(22)
   })
 
   it('every step has id and component', () => {
@@ -40,7 +40,9 @@ describe('getStepIndex', () => {
   it('returns correct index for valid ids', () => {
     expect(getStepIndex('name-handle')).toBe(0)
     expect(getStepIndex('experience')).toBe(1)
-    expect(getStepIndex('confirmation')).toBe(19)
+    expect(getStepIndex('languages')).toBe(6)
+    expect(getStepIndex('barter')).toBe(7)
+    expect(getStepIndex('confirmation')).toBe(21)
   })
 
   it('returns -1 for unknown id', () => {
@@ -52,7 +54,7 @@ describe('getStepIndex', () => {
 describe('getStepId', () => {
   it('returns correct id for valid indices', () => {
     expect(getStepId(0)).toBe('name-handle')
-    expect(getStepId(19)).toBe('confirmation')
+    expect(getStepId(21)).toBe('confirmation')
   })
 
   it('clamps out-of-range indices', () => {
@@ -89,7 +91,7 @@ describe('validate functions', () => {
   it('C4 tier: requires non-empty tier', () => {
     const validate = STEPS[3]!.validate!
     expect(validate(makeState())).toBe(false)
-    expect(validate(makeState({ tier: 'emergent' }))).toBe(true)
+    expect(validate(makeState({ tier: 'micro' }))).toBe(true)
   })
 
   it('C5 niches: requires 1-5 niches', () => {
@@ -112,8 +114,20 @@ describe('validate functions', () => {
     expect(validate(makeState({ content_types: ['reels'] }))).toBe(true)
   })
 
-  it('C7 channels: requires >= 1 channel with exactly 1 primary', () => {
+  it('C6b languages: requires at least 1', () => {
     const validate = STEPS[6]!.validate!
+    expect(validate(makeState())).toBe(false)
+    expect(validate(makeState({ languages: [] }))).toBe(false)
+    expect(validate(makeState({ languages: ['es'] }))).toBe(true)
+    expect(validate(makeState({ languages: ['es', 'en'] }))).toBe(true)
+  })
+
+  it('C6c barter: no validation (optional)', () => {
+    expect(STEPS[7]!.validate).toBeUndefined()
+  })
+
+  it('C7 channels: requires >= 1 channel with exactly 1 primary', () => {
+    const validate = STEPS[8]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ channels: [] }))).toBe(false)
     const ch = {
@@ -134,17 +148,17 @@ describe('validate functions', () => {
   })
 
   it('C8, C8b, C9 primings: no validation', () => {
-    expect(STEPS[7]!.validate).toBeUndefined()
-    expect(STEPS[8]!.validate).toBeUndefined()
     expect(STEPS[9]!.validate).toBeUndefined()
+    expect(STEPS[10]!.validate).toBeUndefined()
+    expect(STEPS[11]!.validate).toBeUndefined()
   })
 
   it('C10 best-videos: no validation (optional)', () => {
-    expect(STEPS[10]!.validate).toBeUndefined()
+    expect(STEPS[12]!.validate).toBeUndefined()
   })
 
   it('C11 birthday: requires YYYY-MM-DD format and at least 18 years old', () => {
-    const validate = STEPS[11]!.validate!
+    const validate = STEPS[13]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ birthday: '2000-01-01' }))).toBe(true)
     expect(validate(makeState({ birthday: '01/01/2000' }))).toBe(false)
@@ -152,43 +166,44 @@ describe('validate functions', () => {
   })
 
   it('C12 gender: no validation (optional)', () => {
-    expect(STEPS[12]!.validate).toBeUndefined()
+    expect(STEPS[14]!.validate).toBeUndefined()
   })
 
   it('C13 location: requires 2-letter country code', () => {
-    const validate = STEPS[13]!.validate!
+    const validate = STEPS[15]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ country: 'AR' }))).toBe(true)
     expect(validate(makeState({ country: 'arg' }))).toBe(false)
   })
 
-  it('C15 whatsapp: requires E.164 format', () => {
-    const validate = STEPS[14]!.validate!
+  it('C15 whatsapp: requires a valid phone number', () => {
+    const validate = STEPS[16]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ whatsapp_e164: '+5491155550000' }))).toBe(true)
     expect(validate(makeState({ whatsapp_e164: '12345' }))).toBe(false)
+    expect(validate(makeState({ whatsapp_e164: '' }))).toBe(false)
   })
 
   it('C16 referral: no validation (optional)', () => {
-    expect(STEPS[15]!.validate).toBeUndefined()
+    expect(STEPS[17]!.validate).toBeUndefined()
   })
 
   it('C17 avatar: requires non-empty avatar_s3_key', () => {
-    const validate = STEPS[16]!.validate!
+    const validate = STEPS[18]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ avatar_s3_key: '' }))).toBe(false)
     expect(validate(makeState({ avatar_s3_key: 'avatars/123.jpg' }))).toBe(true)
   })
 
   it('C18 priming-earnings: no validation', () => {
-    expect(STEPS[17]!.validate).toBeUndefined()
+    expect(STEPS[19]!.validate).toBeUndefined()
   })
 
   it('C19 priming-social-proof: no validation', () => {
-    expect(STEPS[18]!.validate).toBeUndefined()
+    expect(STEPS[20]!.validate).toBeUndefined()
   })
 
   it('C20 confirmation: no validation', () => {
-    expect(STEPS[19]!.validate).toBeUndefined()
+    expect(STEPS[21]!.validate).toBeUndefined()
   })
 })

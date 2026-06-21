@@ -34,6 +34,7 @@ import {
 import type {
   CreatorSettingsResponse,
   UpdateCreatorCollaborationRequestCreatorKindsItem,
+  UpdateCreatorCollaborationRequestLanguagesItem,
 } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
 import {
@@ -67,6 +68,18 @@ const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
   behind_the_scenes: Clapperboard,
 }
 
+function getLanguageOptions(): Option[] {
+  return [
+    { value: 'es', label: t`Español` },
+    { value: 'en', label: t`Inglés` },
+    { value: 'pt', label: t`Portugués` },
+    { value: 'zh', label: t`Chino` },
+    { value: 'ja', label: t`Japonés` },
+    { value: 'fr', label: t`Francés` },
+    { value: 'it', label: t`Italiano` },
+  ]
+}
+
 export const CollaborationSectionSchema = z.object({
   creator_kinds: z
     .array(z.enum(['influencer', 'ugc']))
@@ -74,6 +87,9 @@ export const CollaborationSectionSchema = z.object({
     .max(2, 'max_2'),
   niches: z.array(z.string()).min(1, 'min_1').max(5, 'max_5'),
   content_types: z.array(z.string()).min(1, 'min_1'),
+  languages: z
+    .array(z.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it']))
+    .min(1, 'min_1'),
   barter_preference: z.boolean(),
 })
 
@@ -110,6 +126,7 @@ export function CollaborationSection({ data }: CollaborationSectionProps) {
             creator_kinds: value.creator_kinds,
             niches: value.niches,
             content_types: value.content_types,
+            languages: value.languages,
             barter_preference: value.barter_preference,
           },
         })
@@ -221,6 +238,19 @@ export function CollaborationSection({ data }: CollaborationSectionProps) {
                 <ContentTypesPicker
                   value={field.state.value}
                   options={contentTypeOptions}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={getFieldError(field)}
+                />
+              )}
+            </form.AppField>
+          </SettingsCard>
+
+          <SettingsCard title={t`Idiomas`}>
+            <form.AppField name="languages">
+              {(field) => (
+                <LanguagesPicker
+                  value={field.state.value}
                   onChange={field.handleChange}
                   onBlur={field.handleBlur}
                   error={getFieldError(field)}
@@ -419,6 +449,57 @@ function ContentTypesPicker({
   )
 }
 
+function LanguagesPicker({
+  value,
+  onChange,
+  onBlur,
+  error,
+}: {
+  value: UpdateCreatorCollaborationRequestLanguagesItem[]
+  onChange: (value: UpdateCreatorCollaborationRequestLanguagesItem[]) => void
+  onBlur: () => void
+  error?: string
+}) {
+  const options = useMemo(() => getLanguageOptions(), [])
+  const selectedLabels = useMemo(
+    () => selectedOptionLabels(options, value),
+    [options, value],
+  )
+
+  return (
+    <SettingsRow
+      label={t`Seleccionados`}
+      hint={selectedLabels ?? t`Marcá al menos uno`}
+      align="start"
+    >
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => {
+          const optionValue =
+            option.value as UpdateCreatorCollaborationRequestLanguagesItem
+          const selected = value.includes(optionValue)
+          const disabled = selected && value.length === 1
+
+          return (
+            <SelectionChip
+              key={option.value}
+              label={option.label}
+              selected={selected}
+              disabled={disabled}
+              title={disabled ? t`Debe seleccionar al menos uno` : undefined}
+              onBlur={onBlur}
+              onToggle={() => {
+                if (disabled) return
+                onChange(toggleValue(value, optionValue))
+              }}
+            />
+          )
+        })}
+      </div>
+      {error ? <p className="mt-2 text-xs text-destructive">{error}</p> : null}
+    </SettingsRow>
+  )
+}
+
 function BarterToggle({
   value,
   onChange,
@@ -525,6 +606,7 @@ function toFormValues(
     creator_kinds: data.collaboration.creator_kinds,
     niches: data.collaboration.niches,
     content_types: data.collaboration.content_types,
+    languages: data.collaboration.languages,
     barter_preference: data.collaboration.barter_preference,
   }
 }
@@ -539,6 +621,7 @@ function hasCollaborationChanges(
     !sameSet(value.creator_kinds, baseline.creator_kinds) ||
     !sameSet(value.niches, baseline.niches) ||
     !sameSet(value.content_types, baseline.content_types) ||
+    !sameSet(value.languages, baseline.languages) ||
     value.barter_preference !== baseline.barter_preference
   )
 }
