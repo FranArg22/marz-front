@@ -148,7 +148,7 @@ export function DiscoveryFilterChips({
         ) : null}
       </button>
 
-      <div className="flex flex-1 items-center gap-2 overflow-x-auto">
+      <div className="hidden flex-1 items-center gap-2 overflow-x-auto md:flex">
         {suggestedFilters.map((item) => {
           const activeChip = activeChipByKey.get(item.key)
           return (
