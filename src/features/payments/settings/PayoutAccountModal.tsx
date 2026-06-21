@@ -92,7 +92,7 @@ function PayoutAccountModalContent({
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
   return (
-    <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-xl">
+    <DialogContent className="sm:max-w-xl">
       <DialogHeader>
         <DialogTitle>
           {account ? t`Editar cuenta de cobro` : t`Agregar cuenta de cobro`}
