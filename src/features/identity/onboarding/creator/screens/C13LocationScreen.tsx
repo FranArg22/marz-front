@@ -45,7 +45,7 @@ export function C13LocationScreen() {
                 aria-invalid={aria['aria-invalid']}
                 className="w-full"
               >
-                <SelectValue placeholder={t`Argentina`} />
+                <SelectValue placeholder={t`Seleccionar país`} />
               </SelectTrigger>
               <SelectContent position="popper" className="max-h-[280px]">
                 {COUNTRIES.map((c) => (
