@@ -23,6 +23,7 @@ import {
 import { Switch } from '#/components/ui/switch'
 import { cn } from '#/lib/utils'
 import { ApiError } from '#/shared/api/mutator'
+import { generateIdempotencyKey } from '#/shared/api/idempotency'
 import { useActiveCampaigns } from '#/shared/api/activeCampaigns'
 import { useMe } from '#/shared/api/generated/accounts/accounts'
 import type { OfferSendError } from '#/shared/api/generated/model'
@@ -135,7 +136,9 @@ export function SendOfferSidesheet({
   const meQuery = useMe()
   const createOfferMutation = useCreateOfferMutation()
   const createOfferSchema = useMemo(() => createCreateOfferSchema(), [])
-  const [offerDraftId, setOfferDraftId] = useState(() => crypto.randomUUID())
+  const [offerDraftId, setOfferDraftId] = useState(() =>
+    generateIdempotencyKey(),
+  )
   const [sendError, setSendError] = useState<OfferSendError | null>(null)
   const workspacePlan = getWorkspacePlan(
     meQuery.data?.status === 200
@@ -241,7 +244,7 @@ export function SendOfferSidesheet({
   const wasOpenRef = useRef(isOpen)
   useEffect(() => {
     if (isOpen && !wasOpenRef.current) {
-      setOfferDraftId(crypto.randomUUID())
+      setOfferDraftId(generateIdempotencyKey())
       setSendError(null)
       form.reset(createDefaultValues(creatorAccountId, {}, wizard.mode))
     }
