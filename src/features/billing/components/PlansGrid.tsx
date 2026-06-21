@@ -6,6 +6,12 @@ import type { BillingPlan } from '#/shared/api/generated/model/billingPlan'
 import type { BillingPlanIdentifier } from '#/shared/api/generated/model/billingPlanIdentifier'
 import { PlanCard } from './PlanCard'
 
+const PLAN_ORDER: Record<BillingPlanIdentifier, number> = {
+  starter: 0,
+  growth: 1,
+  scale: 2,
+}
+
 interface PlansGridProps {
   plans: BillingPlan[]
   selectedPlan?: BillingPlanIdentifier
@@ -25,7 +31,9 @@ export function PlansGrid({
   onPlanCta,
   ctaDisabled = false,
 }: PlansGridProps) {
-  const visiblePlans = plans.filter((p) => p.interval === selectedInterval)
+  const visiblePlans = plans
+    .filter((p) => p.interval === selectedInterval)
+    .sort((a, b) => PLAN_ORDER[a.plan] - PLAN_ORDER[b.plan])
 
   return (
     <div className="flex w-full flex-col items-center gap-6">

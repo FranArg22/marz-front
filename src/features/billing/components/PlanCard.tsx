@@ -105,7 +105,8 @@ export function PlanCard({
   onCta,
   ctaDisabled = false,
 }: PlanCardProps) {
-  const intervalLabel = interval === 'year' ? t`/mo · anual` : t`/mo`
+  const intervalLabel = t`/mes`
+  const displayAmount = interval === 'year' ? amountUsd / 12 : amountUsd
 
   const stats = PLAN_STATS[plan]()
   const features = PLAN_FEATURES[plan]()
@@ -154,15 +155,12 @@ export function PlanCard({
         <div className="flex items-end gap-0.5">
           <span className="text-[18px] font-bold text-foreground">$</span>
           <span className="text-[40px] font-bold leading-none tracking-tight text-foreground">
-            {priceFormatter.format(amountUsd)}
+            {priceFormatter.format(displayAmount)}
           </span>
           <span className="pb-1 text-[12px] font-medium text-muted-foreground">
             {intervalLabel}
           </span>
         </div>
-        <span className="text-[11px] font-medium text-primary">
-          <Trans>Sin take rate</Trans>
-        </span>
       </div>
 
       {/* Description */}

@@ -81,11 +81,6 @@ export function B13PaywallScreen() {
             <Trans>Elegí tu plan.</Trans>
           )}
         </h1>
-        <p className="text-center text-[14px] text-muted-foreground">
-          <Trans>
-            Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth.
-          </Trans>
-        </p>
       </div>
 
       <PlansGrid
