@@ -54,4 +54,6 @@ export interface CreatorOnboardingPayload {
   best_videos: BestVideo[]
   referral_text?: string | null
   tier: string
+  creator_kinds?: string[]
+  ugc_rate_amount?: string | null
 }

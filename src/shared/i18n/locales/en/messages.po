@@ -85,6 +85,10 @@ msgstr ""
 msgid "¿En qué vertical opera tu marca?"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:21
+msgid "¿Hacés contenido UGC?"
+msgstr ""
+
 #: src/features/identity/auth/components/MagicSentScreen.tsx:151
 msgid "¿No lo encontrás? Chequeá en spam o promociones."
 msgstr ""
@@ -1423,7 +1427,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:84
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:276
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:293
 msgid "Atrás"
 msgstr ""
 
@@ -1461,7 +1465,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:153
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:159
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1862,7 +1866,7 @@ msgid "Campañas con creadores, sin agencias ni vueltas."
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:216
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:222
 msgid "Canales"
 msgstr ""
 
@@ -3484,6 +3488,10 @@ msgstr ""
 #~ msgid "El presupuesto debe ser mayor a 0."
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
+msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+msgstr ""
+
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:523
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr ""
@@ -4111,7 +4119,7 @@ msgstr ""
 #~ msgid "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:164
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:166
 msgid "Este handle ya está en uso"
 msgstr ""
 
@@ -4467,11 +4475,15 @@ msgstr ""
 msgid "Formato inválido. Usá formato E.164."
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:276
+msgid "Formato UGC"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:23
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:208
 msgid "Formatos"
 msgstr ""
 
@@ -5199,7 +5211,7 @@ msgstr ""
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:289
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:306
 msgid "Ir a mi dashboard"
 msgstr ""
 
@@ -6218,7 +6230,7 @@ msgstr ""
 #~ msgid "Next payout"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:193
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:199
 msgid "Nichos"
 msgstr ""
 
@@ -6365,6 +6377,10 @@ msgstr ""
 
 #: src/features/identity/settings/PortfolioSection.tsx:59
 msgid "No podés cargar más de 3 videos."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:39
+msgid "No por ahora"
 msgstr ""
 
 #: src/features/billing/components/PaymentMethodsCard.tsx:77
@@ -6804,8 +6820,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:145
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:208
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:111
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:187
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:113
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:189
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
 msgstr ""
 
@@ -7710,7 +7726,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:229
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:235
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr ""
@@ -8680,6 +8696,10 @@ msgstr ""
 msgid "Si tenés más de una cuenta por red social, creá una cuenta de creador secundaria en Marz con un mail distinto al que usaste acá."
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:32
+msgid "Sí, hago UGC"
+msgstr ""
+
 #: src/features/identity/components/SignOutButton.tsx:15
 #: src/features/identity/components/SignOutButton.tsx:26
 msgid "Sign out"
@@ -8870,6 +8890,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:85
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
+msgid "Sin tarifa cargada"
 msgstr ""
 
 #: src/features/billing/components/PaymentMethodsCard.tsx:168
@@ -9109,7 +9133,7 @@ msgstr ""
 msgid "Subí el PDF del brief"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:119
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:121
 msgid "Subí la foto de nuevo"
 msgstr ""
 
@@ -9269,6 +9293,10 @@ msgstr ""
 
 #: src/features/identity/settings/RatesSection.tsx:259
 msgid "Tarifa UGC"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
+msgid "Tarifa: {ugcRateText}"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:174
@@ -9785,7 +9813,7 @@ msgstr ""
 #~ msgid "tu nivel"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:166
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:172
 msgid "Tu nombre"
 msgstr ""
 
@@ -9836,6 +9864,10 @@ msgstr "Your subscription is active"
 #: src/features/billing/components/BillingTopbarPill.tsx:153
 msgid "Tu suscripción está cancelada. Mantenés acceso hasta el {formattedDate}."
 msgstr "Your subscription is canceled. You keep access until {formattedDate}."
+
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:48
+msgid "Tu tarifa por video UGC"
+msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C8bPrimingBenchmark.tsx:22
 msgid "TU TARIFA, COMPLETA"
@@ -10077,6 +10109,7 @@ msgid "Usar otro email"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:53
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:63
 #: src/features/payments/settings/PayoutAccountCard.tsx:200
 msgid "USD"
 msgstr ""

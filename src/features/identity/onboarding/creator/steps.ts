@@ -8,6 +8,7 @@ import {
   C5NichesScreen,
   C6ContentTypesScreen,
   C7ChannelsScreen,
+  C7bUgcScreen,
   C8PrimingTestimonials,
   C8bPrimingBenchmark,
   C9PrimingBenchmark2,
@@ -80,6 +81,10 @@ export const STEPS: CreatorOnboardingStep[] = [
           c.external_handle.trim().length > 0 &&
           c.rate_cards.every((rc) => rc.rate_amount.trim() !== ''),
       ),
+  },
+  {
+    id: 'ugc',
+    component: C7bUgcScreen,
   },
   {
     id: 'priming-testimonials',
