@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: src/features/billing/components/PlansGrid.tsx:113
+#: src/features/billing/components/PlansGrid.tsx:121
 msgid "-20%"
 msgstr "-20%"
 
@@ -524,17 +524,18 @@ msgstr "@valenzavacs"
 msgid "/ mes"
 msgstr "/ mes"
 
+#: src/features/billing/components/PlanCard.tsx:108
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:58
 msgid "/mes"
 msgstr "/mes"
 
 #: src/features/billing/components/PlanCard.tsx:108
-msgid "/mo"
-msgstr "/mo"
+#~ msgid "/mo"
+#~ msgstr "/mo"
 
 #: src/features/billing/components/PlanCard.tsx:108
-msgid "/mo · anual"
-msgstr "/mo · anual"
+#~ msgid "/mo · anual"
+#~ msgstr "/mo · anual"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:249
 #~ msgid "+{0}"
@@ -1148,7 +1149,7 @@ msgstr "Ajustes guardados"
 msgid "Al activarlo, además de las campañas pagas, también podés recibir ofertas por canjes."
 msgstr "Al activarlo, además de las campañas pagas, también podés recibir ofertas por canjes."
 
-#: src/routes/auth/index.tsx:107
+#: src/routes/auth/index.tsx:102
 msgid "Al continuar aceptás los Términos y la Política de privacidad."
 msgstr "Al continuar aceptás los Términos y la Política de privacidad."
 
@@ -1279,7 +1280,7 @@ msgstr "Antes de aceptación"
 msgid "anual"
 msgstr "anual"
 
-#: src/features/billing/components/PlansGrid.tsx:47
+#: src/features/billing/components/PlansGrid.tsx:55
 msgid "Anual"
 msgstr "Anual"
 
@@ -1845,7 +1846,7 @@ msgstr "Campaña sin nombre"
 msgid "Campañas"
 msgstr "Campañas"
 
-#: src/features/billing/components/PlanCard.tsx:198
+#: src/features/billing/components/PlanCard.tsx:196
 msgid "CAMPAÑAS"
 msgstr "CAMPAÑAS"
 
@@ -1858,8 +1859,8 @@ msgid "Campañas activas"
 msgstr "Campañas activas"
 
 #: src/routes/auth/index.tsx:100
-msgid "Campañas con creadores, sin agencias ni vueltas."
-msgstr "Campañas con creadores, sin agencias ni vueltas."
+#~ msgid "Campañas con creadores, sin agencias ni vueltas."
+#~ msgstr "Campañas con creadores, sin agencias ni vueltas."
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:216
@@ -2036,7 +2037,7 @@ msgstr "Cargando overview"
 msgid "Cargando pagos"
 msgstr "Cargando pagos"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:120
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:115
 msgid "Cargando planes"
 msgstr "Cargando planes"
 
@@ -2988,7 +2989,7 @@ msgstr "Descripción"
 msgid "Descubrí creadores de tu nicho"
 msgstr "Descubrí creadores de tu nicho"
 
-#: src/routes/_brand/discovery.tsx:150
+#: src/routes/_brand/discovery.tsx:169
 msgid "Descubrí creadores UGC e influencers para invitar a tus campañas."
 msgstr "Descubrí creadores UGC e influencers para invitar a tus campañas."
 
@@ -3160,6 +3161,10 @@ msgstr "Domain not allowed. Use a YouTube, Instagram or TikTok URL."
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:250
 #~ msgid "Don't"
 #~ msgstr "Don't"
+
+#: src/routes/auth/index.tsx:95
+msgid "Donde las marcas y creadores crecen juntos."
+msgstr "Donde las marcas y creadores crecen juntos."
 
 #: src/features/deliverables/components/StageCard.tsx:42
 msgid "Done"
@@ -3725,7 +3730,7 @@ msgstr "Enlace enviado"
 #~ msgid "Enter an amount"
 #~ msgstr "Enter an amount"
 
-#: src/routes/auth/index.tsx:97
+#: src/routes/auth/index.tsx:92
 msgid "Entrá a Marz"
 msgstr "Entrá a Marz"
 
@@ -4198,8 +4203,8 @@ msgstr "Expirada"
 #~ msgstr "Explorá la red de creators"
 
 #: src/features/identity/app-shell/navigation.ts:29
-#: src/routes/_brand/discovery.tsx:74
-#: src/routes/_brand/discovery.tsx:148
+#: src/routes/_brand/discovery.tsx:91
+#: src/routes/_brand/discovery.tsx:167
 msgid "Explorar"
 msgstr "Explorar"
 
@@ -4759,7 +4764,7 @@ msgstr "Hice 6–20 campañas"
 msgid "HIGH VOLUME"
 msgstr "HIGH VOLUME"
 
-#: src/features/billing/components/PlanCard.tsx:211
+#: src/features/billing/components/PlanCard.tsx:209
 msgid "HIRES"
 msgstr "HIRES"
 
@@ -4890,7 +4895,7 @@ msgstr "Imagen cargada"
 msgid "Inbox"
 msgstr "Inbox"
 
-#: src/features/billing/components/PlanCard.tsx:254
+#: src/features/billing/components/PlanCard.tsx:252
 msgid "INCLUYE"
 msgstr "INCLUYE"
 
@@ -5037,7 +5042,7 @@ msgstr "Intereses"
 #~ msgid "Intereses: {interestList}"
 #~ msgstr "Intereses: {interestList}"
 
-#: src/features/billing/components/PlansGrid.tsx:34
+#: src/features/billing/components/PlansGrid.tsx:42
 msgid "Intervalo de facturación"
 msgstr "Intervalo de facturación"
 
@@ -5171,7 +5176,7 @@ msgstr "Invitar por link"
 #~ msgid "Invited creators"
 #~ msgstr "Invited creators"
 
-#: src/features/billing/components/PlanCard.tsx:226
+#: src/features/billing/components/PlanCard.tsx:224
 msgid "INVITES"
 msgstr "INVITES"
 
@@ -5536,8 +5541,12 @@ msgid "Lo que necesita tu atención y lo que está esperando del otro lado."
 msgstr "Lo que necesita tu atención y lo que está esperando del otro lado."
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:37
-msgid "Lo usamos para coordinar arranque. Nada de spam."
-msgstr "Lo usamos para coordinar arranque. Nada de spam."
+#~ msgid "Lo usamos para coordinar arranque. Nada de spam."
+#~ msgstr "Lo usamos para coordinar arranque. Nada de spam."
+
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:37
+msgid "Lo usaremos solo para soporte, nada de spam."
+msgstr "Lo usaremos solo para soporte, nada de spam."
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:195
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:183
@@ -5928,7 +5937,7 @@ msgstr "Mensajes clave"
 msgid "mensual"
 msgstr "mensual"
 
-#: src/features/billing/components/PlansGrid.tsx:41
+#: src/features/billing/components/PlansGrid.tsx:49
 msgid "Mensual"
 msgstr "Mensual"
 
@@ -6174,7 +6183,7 @@ msgstr "N/A"
 #~ msgid "Nada"
 #~ msgstr "Nada"
 
-#: src/features/identity/app-shell/AppSidebar.tsx:83
+#: src/features/identity/app-shell/AppSidebar.tsx:90
 msgid "Navegación principal"
 msgstr "Navegación principal"
 
@@ -7263,7 +7272,7 @@ msgstr "Pago de {amount} enviado"
 #~ msgid "payout promedio"
 #~ msgstr "payout promedio"
 
-#: src/features/billing/components/PlanCard.tsx:239
+#: src/features/billing/components/PlanCard.tsx:237
 msgid "PAYOUTS"
 msgstr "PAYOUTS"
 
@@ -7441,7 +7450,7 @@ msgstr "plan actual"
 msgid "Plan gratuito"
 msgstr "Plan gratuito"
 
-#: src/features/billing/components/PlansGrid.tsx:54
+#: src/features/billing/components/PlansGrid.tsx:62
 msgid "Planes"
 msgstr "Planes"
 
@@ -7617,7 +7626,7 @@ msgstr "Preferencias comerciales visibles para marcas."
 msgid "Prefiero no decir"
 msgstr "Prefiero no decir"
 
-#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:110
+#: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:105
 msgid "Prefiero seguir sin acceso a la red de creadores →"
 msgstr "Prefiero seguir sin acceso a la red de creadores →"
 
@@ -7711,7 +7720,7 @@ msgstr "Probá con otra búsqueda, estado, plataforma o creador."
 #~ msgid "Probá con otra búsqueda, estado, plataforma o creator."
 #~ msgstr "Probá con otra búsqueda, estado, plataforma o creator."
 
-#: src/features/billing/components/PlanCard.tsx:112
+#: src/features/billing/components/PlanCard.tsx:113
 msgid "Probar 7 días gratis"
 msgstr "Probar 7 días gratis"
 
@@ -7756,7 +7765,7 @@ msgstr "Progreso del wizard"
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:81
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:79
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:106
-#: src/features/identity/app-shell/AppSidebar.tsx:59
+#: src/features/identity/app-shell/AppSidebar.tsx:62
 #: src/features/identity/app-shell/navigation.ts:17
 #: src/features/identity/auth/components/KindSelector.tsx:164
 msgid "Próximamente"
@@ -7957,7 +7966,7 @@ msgstr "Rechazar aplicación"
 msgid "Rechazar oferta"
 msgstr "Rechazar oferta"
 
-#: src/features/billing/components/PlansGrid.tsx:68
+#: src/features/billing/components/PlansGrid.tsx:76
 msgid "Recomendado para vos"
 msgstr "Recomendado para vos"
 
@@ -8828,12 +8837,12 @@ msgid "Sin resultados para esos filtros"
 msgstr "Sin resultados para esos filtros"
 
 #: src/features/billing/components/PlanCard.tsx:164
-msgid "Sin take rate"
-msgstr "Sin take rate"
+#~ msgid "Sin take rate"
+#~ msgstr "Sin take rate"
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:85
-msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
-msgstr "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
+#~ msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
+#~ msgstr "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 
 #: src/features/billing/components/PaymentMethodsCard.tsx:168
 msgid "Sin tarjeta"
