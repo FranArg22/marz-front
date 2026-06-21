@@ -117,6 +117,7 @@ function WorkspaceRoute() {
     >
       <WorkspaceLayout
         sessionKind={sessionKind}
+        hasActiveConversation={Boolean(activeConversationId)}
         railCompact={
           <ConversationRail
             search={search}

@@ -8,11 +8,13 @@ import type { ConversationDetail } from '#/features/chat/types'
 interface ConversationHeaderProps {
   conversation: ConversationDetail
   leadingSlot?: ReactNode
+  trailingSlot?: ReactNode
 }
 
 export function ConversationHeader({
   conversation,
   leadingSlot,
+  trailingSlot,
 }: ConversationHeaderProps) {
   const { counterpart } = conversation
   const fallback = counterpart.display_name.charAt(0).toUpperCase()
@@ -45,6 +47,8 @@ export function ConversationHeader({
             </span>
           ) : null}
         </div>
+
+        {trailingSlot}
       </header>
     </TooltipProvider>
   )

@@ -15,10 +15,11 @@ import {
   estimateLatencyMs,
 } from '#/features/chat/analytics/track'
 
-import { PanelLeft } from 'lucide-react'
+import { ArrowLeft, PanelRight } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
-import { useConversationRailStore } from '#/features/chat/workspace/conversationRailStore'
+import { useOffersPanelStore } from '#/features/chat/workspace/offersPanelStore'
 import { ConversationHeader } from './ConversationHeader'
 import { EmptyConversationFallback } from './EmptyConversationFallback'
 import type { MessageTimelineHandle } from './MessageTimeline'
@@ -150,7 +151,8 @@ export function ConversationView({
     <div className="flex h-full flex-col">
       <ConversationHeader
         conversation={conversation}
-        leadingSlot={<RailToggleButton />}
+        leadingSlot={<BackToListButton />}
+        trailingSlot={<OffersToggleButton />}
       />
 
       <div className="relative flex flex-1 flex-col overflow-hidden">
@@ -181,19 +183,36 @@ export function ConversationView({
   )
 }
 
-function RailToggleButton() {
-  const toggle = useConversationRailStore((s) => s.toggle)
-  const isOpen = useConversationRailStore((s) => s.isOpen)
+function BackToListButton() {
+  const navigate = useNavigate()
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        void navigate({ to: '/workspace', search: (prev) => prev })
+      }
+      aria-label={t`Volver a conversaciones`}
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+      title={t`Volver a conversaciones`}
+    >
+      <ArrowLeft className="size-4" />
+    </button>
+  )
+}
+
+function OffersToggleButton() {
+  const toggle = useOffersPanelStore((s) => s.toggle)
+  const isOpen = useOffersPanelStore((s) => s.isOpen)
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={t`Conversaciones`}
+      aria-label={t`Ofertas`}
       aria-expanded={isOpen}
       className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-      title={t`Conversaciones`}
+      title={t`Ofertas`}
     >
-      <PanelLeft className="size-4" />
+      <PanelRight className="size-4" />
     </button>
   )
 }
