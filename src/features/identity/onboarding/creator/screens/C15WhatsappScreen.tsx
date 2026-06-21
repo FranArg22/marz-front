@@ -1,10 +1,9 @@
 import { useCallback } from 'react'
 import { t } from '@lingui/core/macro'
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import { Input } from '#/components/ui/input'
 import { FieldRow } from '#/shared/ui/form'
 import { useCreatorOnboardingStore } from '../store'
-
-const E164_RE = /^\+[1-9]\d{1,14}$/
 
 export function C15WhatsappScreen() {
   const store = useCreatorOnboardingStore()
@@ -19,7 +18,7 @@ export function C15WhatsappScreen() {
 
   const value = store.whatsapp_e164 ?? ''
   const error =
-    value.length > 0 && !E164_RE.test(value)
+    value.length > 0 && !isValidPhoneNumber(value)
       ? t`Formato: +54911XXXXXXXX`
       : store.fieldErrors.whatsapp_e164
 

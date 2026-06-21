@@ -174,6 +174,24 @@ export const GetOfferDraftStatusResponse = zod.object({
 }).optional()
 })
 
+/**
+ * @summary Preview the Stripe processing fee grossed up onto a paid offer.
+ */
+export const PreviewOfferFeeQueryParams = zod.object({
+  "amount": zod.string().describe('Offer base amount as a decimal string (e.g. \"1000.00\").')
+})
+
+export const PreviewOfferFeeHeader = zod.object({
+  "X-Brand-Workspace-Id": zod.uuid()
+})
+
+export const PreviewOfferFeeResponse = zod.object({
+  "base_amount": zod.string().describe('Offer base amount (creator payout), decimal string.'),
+  "processing_fee": zod.string().describe('Stripe processing fee added on top of the base, decimal string.'),
+  "total_amount": zod.string().describe('Amount charged to the brand (base + processing fee), decimal string.'),
+  "currency": zod.string()
+})
+
 export const GetOfferParams = zod.object({
   "id": zod.uuid()
 })
@@ -884,23 +902,5 @@ export const GetConversationOffersResponse = zod.object({
 })),
   "next_cursor": zod.string().nullish(),
   "has_more": zod.boolean()
-})
-
-/**
- * @summary Preview the Stripe processing fee grossed up onto a paid offer.
- */
-export const PreviewOfferFeeQueryParams = zod.object({
-  "amount": zod.string().describe('Offer base amount as a decimal string (e.g. \"1000.00\").')
-})
-
-export const PreviewOfferFeeHeader = zod.object({
-  "X-Brand-Workspace-Id": zod.uuid()
-})
-
-export const PreviewOfferFeeResponse = zod.object({
-  "base_amount": zod.string().describe('Offer base amount (creator payout), decimal string.'),
-  "processing_fee": zod.string().describe('Stripe processing fee added on top of the base, decimal string.'),
-  "total_amount": zod.string().describe('Amount charged to the brand (base + processing fee), decimal string.'),
-  "currency": zod.string()
 })
 

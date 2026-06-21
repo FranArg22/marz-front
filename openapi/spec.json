@@ -12668,6 +12668,15 @@
               "maxLength": 200
             }
           },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "barter_preference": {
+            "type": "boolean"
+          },
           "country": {
             "type": "string",
             "nullable": true
@@ -13244,7 +13253,8 @@
           "whatsapp_e164",
           "experience_level",
           "channels",
-          "tier"
+          "tier",
+          "languages"
         ],
         "properties": {
           "handle": {
@@ -13340,14 +13350,32 @@
           "tier": {
             "type": "string",
             "enum": [
-              "emergent",
-              "growing",
-              "consolidated",
-              "reference",
-              "massive",
-              "celebrity"
+              "nano",
+              "micro",
+              "mid",
+              "macro"
             ],
-            "description": "Tier declarado por el creator en paso C4"
+            "description": "Bracket de seguidores declarado por el creator en paso C4"
+          },
+          "languages": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "es",
+                "en",
+                "pt",
+                "zh",
+                "ja",
+                "fr",
+                "it"
+              ]
+            }
+          },
+          "barter_preference": {
+            "type": "boolean"
           },
           "creator_kinds": {
             "type": "array",
@@ -13689,6 +13717,7 @@
           "creator_kinds",
           "niches",
           "content_types",
+          "languages",
           "barter_preference"
         ],
         "properties": {
@@ -13712,6 +13741,21 @@
             "type": "array",
             "items": {
               "type": "string"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "es",
+                "en",
+                "pt",
+                "zh",
+                "ja",
+                "fr",
+                "it"
+              ]
             }
           },
           "barter_preference": {
@@ -13749,6 +13793,23 @@
             "minItems": 1,
             "items": {
               "type": "string"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "es",
+                "en",
+                "pt",
+                "zh",
+                "ja",
+                "fr",
+                "it"
+              ]
             }
           },
           "barter_preference": {

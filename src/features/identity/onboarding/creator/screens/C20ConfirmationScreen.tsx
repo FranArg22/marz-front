@@ -39,12 +39,10 @@ const FORMAT_LABELS: Record<string, () => string> = {
 /* eslint-enable lingui/no-unlocalized-strings */
 
 const TIER_LABELS: Record<string, () => string> = {
-  emergent: () => t`Emergente`,
-  growing: () => t`Creciendo`,
-  consolidated: () => t`Consolidado`,
-  reference: () => t`Referente`,
-  massive: () => t`Masivo`,
-  celebrity: () => t`Celebridad`,
+  nano: () => t`Nano`,
+  micro: () => t`Micro`,
+  mid: () => t`Mid`,
+  macro: () => t`Macro`,
 }
 
 function humanizeSlug(slug: string): string {

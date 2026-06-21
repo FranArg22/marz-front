@@ -314,6 +314,142 @@ export function useGetOfferDraftStatus<TData = Awaited<ReturnType<typeof getOffe
 
 
 
+/**
+ * @summary Preview the Stripe processing fee grossed up onto a paid offer.
+ */
+export type previewOfferFeeResponse200 = {
+  data: OfferFeePreview
+  status: 200
+}
+
+export type previewOfferFeeResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type previewOfferFeeResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type previewOfferFeeResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type previewOfferFeeResponseSuccess = (previewOfferFeeResponse200) & {
+  headers: Headers;
+};
+export type previewOfferFeeResponseError = (previewOfferFeeResponse401 | previewOfferFeeResponse422 | previewOfferFeeResponse500) & {
+  headers: Headers;
+};
+
+export type previewOfferFeeResponse = (previewOfferFeeResponseSuccess | previewOfferFeeResponseError)
+
+export const getPreviewOfferFeeUrl = (params: PreviewOfferFeeParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/offers/fee-preview?${stringifiedParams}` : `/v1/offers/fee-preview`
+}
+
+export const previewOfferFee = async (params: PreviewOfferFeeParams, options?: RequestInit): Promise<previewOfferFeeResponse> => {
+
+  return customFetch<previewOfferFeeResponse>(getPreviewOfferFeeUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getPreviewOfferFeeQueryKey = (params?: PreviewOfferFeeParams,) => {
+    return [
+    `/v1/offers/fee-preview`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getPreviewOfferFeeQueryOptions = <TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getPreviewOfferFeeQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof previewOfferFee>>> = ({ signal }) => previewOfferFee(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type PreviewOfferFeeQueryResult = NonNullable<Awaited<ReturnType<typeof previewOfferFee>>>
+export type PreviewOfferFeeQueryError = ErrorResponse
+
+
+export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
+ params: PreviewOfferFeeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof previewOfferFee>>,
+          TError,
+          Awaited<ReturnType<typeof previewOfferFee>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
+ params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof previewOfferFee>>,
+          TError,
+          Awaited<ReturnType<typeof previewOfferFee>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
+ params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Preview the Stripe processing fee grossed up onto a paid offer.
+ */
+
+export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
+ params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getPreviewOfferFeeQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
 export type getOfferResponse200 = {
   data: OfferDTO
   status: 200
@@ -1169,142 +1305,6 @@ export function useGetConversationOffers<TData = Awaited<ReturnType<typeof getCo
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetConversationOffersQueryOptions(conversationId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return { ...query, queryKey: queryOptions.queryKey };
-}
-
-
-
-
-
-
-/**
- * @summary Preview the Stripe processing fee grossed up onto a paid offer.
- */
-export type previewOfferFeeResponse200 = {
-  data: OfferFeePreview
-  status: 200
-}
-
-export type previewOfferFeeResponse401 = {
-  data: ErrorResponse
-  status: 401
-}
-
-export type previewOfferFeeResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type previewOfferFeeResponse500 = {
-  data: ErrorResponse
-  status: 500
-}
-
-export type previewOfferFeeResponseSuccess = (previewOfferFeeResponse200) & {
-  headers: Headers;
-};
-export type previewOfferFeeResponseError = (previewOfferFeeResponse401 | previewOfferFeeResponse422 | previewOfferFeeResponse500) & {
-  headers: Headers;
-};
-
-export type previewOfferFeeResponse = (previewOfferFeeResponseSuccess | previewOfferFeeResponseError)
-
-export const getPreviewOfferFeeUrl = (params: PreviewOfferFeeParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/v1/offers/fee-preview?${stringifiedParams}` : `/v1/offers/fee-preview`
-}
-
-export const previewOfferFee = async (params: PreviewOfferFeeParams, options?: RequestInit): Promise<previewOfferFeeResponse> => {
-
-  return customFetch<previewOfferFeeResponse>(getPreviewOfferFeeUrl(params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getPreviewOfferFeeQueryKey = (params?: PreviewOfferFeeParams,) => {
-    return [
-    `/v1/offers/fee-preview`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getPreviewOfferFeeQueryOptions = <TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getPreviewOfferFeeQueryKey(params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof previewOfferFee>>> = ({ signal }) => previewOfferFee(params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type PreviewOfferFeeQueryResult = NonNullable<Awaited<ReturnType<typeof previewOfferFee>>>
-export type PreviewOfferFeeQueryError = ErrorResponse
-
-
-export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
- params: PreviewOfferFeeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof previewOfferFee>>,
-          TError,
-          Awaited<ReturnType<typeof previewOfferFee>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
- params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof previewOfferFee>>,
-          TError,
-          Awaited<ReturnType<typeof previewOfferFee>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
- params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Preview the Stripe processing fee grossed up onto a paid offer.
- */
-
-export function usePreviewOfferFee<TData = Awaited<ReturnType<typeof previewOfferFee>>, TError = ErrorResponse>(
- params: PreviewOfferFeeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof previewOfferFee>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getPreviewOfferFeeQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

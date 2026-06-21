@@ -91,6 +91,8 @@ export const CompleteBrandOnboardingResponse = zod.object({
   "tier": zod.string().nullish(),
   "niches": zod.array(zod.string().max(completeBrandOnboardingResponseCreatorProfileNichesItemMax)).optional(),
   "content_types": zod.array(zod.string().max(completeBrandOnboardingResponseCreatorProfileContentTypesItemMax)).optional(),
+  "languages": zod.array(zod.string()).optional(),
+  "barter_preference": zod.boolean().optional(),
   "country": zod.string().nullish(),
   "city": zod.string().max(completeBrandOnboardingResponseCreatorProfileCityMax).nullish(),
   "avatar_url": zod.string().nullish(),
@@ -156,6 +158,7 @@ export const completeCreatorOnboardingBodyBestVideosMax = 3;
 
 export const completeCreatorOnboardingBodyReferralTextMax = 2000;
 
+
 export const completeCreatorOnboardingBodyCreatorKindsMax = 2;
 
 export const completeCreatorOnboardingBodyUgcRateAmountMax = 50;
@@ -192,7 +195,9 @@ export const CompleteCreatorOnboardingBody = zod.object({
   "url": zod.url().max(completeCreatorOnboardingBodyBestVideosItemUrlMax)
 })).min(completeCreatorOnboardingBodyBestVideosMin).max(completeCreatorOnboardingBodyBestVideosMax).optional(),
   "referral_text": zod.string().max(completeCreatorOnboardingBodyReferralTextMax).nullish(),
-  "tier": zod.enum(['emergent', 'growing', 'consolidated', 'reference', 'massive', 'celebrity']).describe('Tier declarado por el creator en paso C4'),
+  "tier": zod.enum(['nano', 'micro', 'mid', 'macro']).describe('Bracket de seguidores declarado por el creator en paso C4'),
+  "languages": zod.array(zod.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it'])).min(1),
+  "barter_preference": zod.boolean().optional(),
   "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])).min(1).max(completeCreatorOnboardingBodyCreatorKindsMax).optional().describe('Tipos de creador declarados (paso UGC). Si se omite, default influencer.'),
   "ugc_rate_amount": zod.string().max(completeCreatorOnboardingBodyUgcRateAmountMax).nullish().describe('Tarifa UGC declarada (paso UGC), opcional. Moneda USD.')
 })
@@ -229,6 +234,8 @@ export const CompleteCreatorOnboardingResponse = zod.object({
   "tier": zod.string().nullish(),
   "niches": zod.array(zod.string().max(completeCreatorOnboardingResponseCreatorProfileNichesItemMax)).optional(),
   "content_types": zod.array(zod.string().max(completeCreatorOnboardingResponseCreatorProfileContentTypesItemMax)).optional(),
+  "languages": zod.array(zod.string()).optional(),
+  "barter_preference": zod.boolean().optional(),
   "country": zod.string().nullish(),
   "city": zod.string().max(completeCreatorOnboardingResponseCreatorProfileCityMax).nullish(),
   "avatar_url": zod.string().nullish(),

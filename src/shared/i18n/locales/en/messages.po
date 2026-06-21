@@ -25,6 +25,10 @@ msgstr ""
 msgid "¡Recién publicado! Acá va el link."
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:18
+msgid "¿Aceptás colaboraciones por canje?"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:126
 msgid "¿Cómo llegaste a Marz?"
 msgstr ""
@@ -37,7 +41,7 @@ msgstr ""
 msgid "¿Cómo te conocen?"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:190
+#: src/features/identity/settings/CollaborationSection.tsx:207
 msgid "¿Cómo trabajás con las marcas?"
 msgstr ""
 
@@ -61,12 +65,16 @@ msgstr ""
 msgid "¿Cuánto pensás invertir por mes?"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:67
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:48
 msgid "¿Cuántos seguidores tenés hoy?"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:29
 msgid "¿Desde dónde creás?"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:38
+msgid "¿En qué idiomas creás contenido?"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C5NichesScreen.tsx:33
@@ -89,7 +97,7 @@ msgstr ""
 msgid "¿Hacés contenido UGC?"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:151
+#: src/features/identity/auth/components/MagicSentScreen.tsx:185
 msgid "¿No lo encontrás? Chequeá en spam o promociones."
 msgstr ""
 
@@ -432,6 +440,10 @@ msgstr ""
 msgid "{n} de 5 seleccionados"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:57
+msgid "{n} seleccionados"
+msgstr ""
+
 #: src/features/campaigns/configuration/ReviewStep.tsx:442
 #~ msgid "{objective} — {scoringDimensionsCount} dimensiones de scoring · {hardFiltersCount} hard filters · {disqualifiersCount} descalificadores"
 #~ msgstr ""
@@ -468,11 +480,11 @@ msgstr ""
 #~ msgid "{scorePct}% match"
 #~ msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:332
+#: src/features/identity/settings/CollaborationSection.tsx:362
 msgid "{selectedCount} de 5 seleccionados"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:390
+#: src/features/identity/settings/CollaborationSection.tsx:420
 msgid "{selectedCount} seleccionados"
 msgstr ""
 
@@ -668,7 +680,15 @@ msgid "100/mes"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:43
-msgid "100K–200K followers"
+#~ msgid "100K–200K followers"
+#~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:30
+msgid "100K–500K followers"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:24
+msgid "10K–100K followers"
 msgstr ""
 
 #: src/features/earnings/components/EarningsPeriodControl.tsx:11
@@ -676,13 +696,17 @@ msgstr ""
 msgid "12m"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:25
-msgid "1K–5K followers"
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:18
+msgid "1K–10K followers"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:25
+#~ msgid "1K–5K followers"
+#~ msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:55
-msgid "1M+ followers"
-msgstr ""
+#~ msgid "1M+ followers"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:46
 #~ msgid "2.340"
@@ -693,12 +717,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:49
-msgid "200K–1M followers"
-msgstr ""
+#~ msgid "200K–1M followers"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:37
-msgid "20K–100K followers"
-msgstr ""
+#~ msgid "20K–100K followers"
+#~ msgstr ""
 
 #: src/features/billing/components/PlanCard.tsx:44
 #: src/features/billing/components/PlanCard.tsx:50
@@ -729,9 +753,13 @@ msgstr ""
 #~ msgid "50.000"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:31
-msgid "5K–20K followers"
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:36
+msgid "500K+ followers"
 msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:31
+#~ msgid "5K–20K followers"
+#~ msgstr ""
 
 #: src/features/payments/settings/PayoutAccountModal.tsx:166
 msgid "9 dígitos"
@@ -843,8 +871,8 @@ msgstr ""
 msgid "Account manager dedicado"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:433
-#: src/features/identity/settings/CollaborationSection.tsx:439
+#: src/features/identity/settings/CollaborationSection.tsx:514
+#: src/features/identity/settings/CollaborationSection.tsx:520
 msgid "Acepta colaboraciones únicamente por canje"
 msgstr ""
 
@@ -1148,7 +1176,7 @@ msgstr ""
 msgid "Ajustes guardados"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:434
+#: src/features/identity/settings/CollaborationSection.tsx:515
 msgid "Al activarlo, además de las campañas pagas, también podés recibir ofertas por canjes."
 msgstr ""
 
@@ -1193,6 +1221,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:31
 msgid "Algunas campañas filtran por género de creador. Opcional."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:21
+msgid "Algunas marcas ofrecen producto en lugar de pago. Opcional."
 msgstr ""
 
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:217
@@ -1427,7 +1459,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:84
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:293
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:291
 msgid "Atrás"
 msgstr ""
 
@@ -1465,7 +1497,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:157
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1866,7 +1898,7 @@ msgid "Campañas con creadores, sin agencias ni vueltas."
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:222
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:220
 msgid "Canales"
 msgstr ""
 
@@ -1938,12 +1970,16 @@ msgstr "You canceled your subscription"
 msgid "Cancelled"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:27
+msgid "Canje"
+msgstr ""
+
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:25
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:311
 msgid "Canje de producto"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:233
+#: src/features/identity/settings/CollaborationSection.tsx:263
 msgid "Canjes"
 msgstr ""
 
@@ -2097,8 +2133,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:47
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:54
-msgid "Celebridad"
-msgstr ""
+#~ msgid "Celebridad"
+#~ msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:84
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:104
@@ -2145,6 +2181,11 @@ msgstr ""
 #: src/features/campaigns/configuration/components/CountryMultiSelect.tsx:13
 #~ msgid "Chile"
 #~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:13
+#: src/features/identity/settings/CollaborationSection.tsx:76
+msgid "Chino"
+msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:22
 msgid "Cierre más próximo"
@@ -2202,7 +2243,7 @@ msgstr ""
 msgid "Código de descuento"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:179
+#: src/features/identity/settings/CollaborationSection.tsx:196
 #: src/features/identity/settings/SettingsSidebar.tsx:19
 msgid "Colaboraciones"
 msgstr ""
@@ -2403,8 +2444,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:44
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:36
-msgid "Consolidado"
-msgstr ""
+#~ msgid "Consolidado"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:35
 msgid "Construir base de fans"
@@ -2586,7 +2627,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:201
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:194
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:143
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:106
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:104
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr ""
@@ -2712,8 +2753,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:43
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:30
-msgid "Creciendo"
-msgstr ""
+#~ msgid "Creciendo"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:57
 #~ msgid "Cruzamos con tu budget de {0}"
@@ -2888,10 +2929,11 @@ msgstr ""
 msgid "Deals"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:287
-#: src/features/identity/settings/CollaborationSection.tsx:304
-#: src/features/identity/settings/CollaborationSection.tsx:349
-#: src/features/identity/settings/CollaborationSection.tsx:407
+#: src/features/identity/settings/CollaborationSection.tsx:317
+#: src/features/identity/settings/CollaborationSection.tsx:334
+#: src/features/identity/settings/CollaborationSection.tsx:379
+#: src/features/identity/settings/CollaborationSection.tsx:437
+#: src/features/identity/settings/CollaborationSection.tsx:488
 msgid "Debe seleccionar al menos uno"
 msgstr ""
 
@@ -3422,7 +3464,7 @@ msgstr ""
 msgid "El fee máximo debe ser mayor o igual al mínimo."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:123
+#: src/features/identity/auth/components/MagicSentScreen.tsx:157
 msgid "El link expira en 15 minutos."
 msgstr ""
 
@@ -3637,8 +3679,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:24
-msgid "Emergente"
-msgstr ""
+#~ msgid "Emergente"
+#~ msgstr ""
 
 #: src/features/offers/components/OfferBonusEditor.tsx:128
 msgid "En"
@@ -3952,9 +3994,10 @@ msgstr ""
 #~ msgid "España"
 #~ msgstr ""
 
-#: src/features/campaigns/configuration/TargetingStep.tsx:35
-#~ msgid "Español"
-#~ msgstr ""
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:7
+#: src/features/identity/settings/CollaborationSection.tsx:73
+msgid "Español"
+msgstr ""
 
 #: src/features/offers/components/NextStep.tsx:52
 #~ msgid "Esperando aprobación del draft"
@@ -4119,7 +4162,7 @@ msgstr ""
 #~ msgid "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:166
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:170
 msgid "Este handle ya está en uso"
 msgstr ""
 
@@ -4475,15 +4518,15 @@ msgstr ""
 msgid "Formato inválido. Usá formato E.164."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:276
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:274
 msgid "Formato UGC"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:23
+#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:22
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:208
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:206
 msgid "Formatos"
 msgstr ""
 
@@ -4494,6 +4537,11 @@ msgstr ""
 #: src/features/campaigns/configuration/TargetingStep.tsx:38
 #~ msgid "Français"
 #~ msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:15
+#: src/features/identity/settings/CollaborationSection.tsx:78
+msgid "Francés"
+msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:137
 msgid "Fuente"
@@ -4873,6 +4921,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:66
+#: src/features/identity/settings/CollaborationSection.tsx:249
 msgid "Idiomas"
 msgstr ""
 
@@ -4915,7 +4964,7 @@ msgid "INCLUYE"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:231
-#: src/features/identity/settings/CollaborationSection.tsx:50
+#: src/features/identity/settings/CollaborationSection.tsx:51
 msgid "Influencer"
 msgstr ""
 
@@ -4939,6 +4988,11 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:135
 msgid "Información principal"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:8
+#: src/features/identity/settings/CollaborationSection.tsx:74
+msgid "Inglés"
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:84
@@ -5049,7 +5103,7 @@ msgstr ""
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:130
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:200
-#: src/features/identity/settings/CollaborationSection.tsx:204
+#: src/features/identity/settings/CollaborationSection.tsx:221
 msgid "Intereses"
 msgstr ""
 
@@ -5211,7 +5265,7 @@ msgstr ""
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:306
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:304
 msgid "Ir a mi dashboard"
 msgstr ""
 
@@ -5229,9 +5283,15 @@ msgstr ""
 #~ msgid "Ir al workspace"
 #~ msgstr ""
 
-#: src/features/campaigns/configuration/TargetingStep.tsx:40
-#~ msgid "Italiano"
-#~ msgstr ""
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:16
+#: src/features/identity/settings/CollaborationSection.tsx:79
+msgid "Italiano"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:14
+#: src/features/identity/settings/CollaborationSection.tsx:77
+msgid "Japonés"
+msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
 #: src/features/identity/settings/GeneralSection.tsx:349
@@ -5400,6 +5460,10 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:67
 msgid "Las marcas buscan tipos específicos. Marcá los que te salen bien."
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:41
+msgid "Las marcas filtran por idioma. Marcá todos los que usás."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C11BirthdayScreen.tsx:91
@@ -5669,6 +5733,11 @@ msgstr ""
 msgid "Lujo"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:45
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:35
+msgid "Macro"
+msgstr ""
+
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:86
 msgid "Makeup"
 msgstr ""
@@ -5697,6 +5766,10 @@ msgstr ""
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:146
 #: src/features/identity/settings/BrandCard.tsx:22
 msgid "Marca"
+msgstr ""
+
+#: src/features/identity/settings/CollaborationSection.tsx:472
+msgid "Marcá al menos uno"
 msgstr ""
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:278
@@ -5779,7 +5852,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/auth/components/CallbackScreen.tsx:104
-#: src/features/identity/auth/components/MagicSentScreen.tsx:95
+#: src/features/identity/auth/components/MagicSentScreen.tsx:129
 msgid "Marz"
 msgstr ""
 
@@ -5815,8 +5888,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:46
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:48
-msgid "Masivo"
-msgstr ""
+#~ msgid "Masivo"
+#~ msgstr ""
 
 #: src/features/discovery/campaign-detail/ActiveCollaborationList.tsx:67
 #~ msgid "Match"
@@ -5873,7 +5946,7 @@ msgstr ""
 #~ msgid "Máx. seguidores"
 #~ msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:351
+#: src/features/identity/settings/CollaborationSection.tsx:381
 msgid "Máximo 5 nichos"
 msgstr ""
 
@@ -5993,6 +6066,16 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:102
 msgid "Mi Marca"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:43
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:23
+msgid "Micro"
+msgstr ""
+
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:44
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:29
+msgid "Mid"
 msgstr ""
 
 #: src/features/campaigns/configuration/components/PerformanceBonusRow.tsx:46
@@ -6197,6 +6280,11 @@ msgstr ""
 #~ msgid "Nada"
 #~ msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:42
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:17
+msgid "Nano"
+msgstr ""
+
 #: src/features/identity/app-shell/AppSidebar.tsx:90
 msgid "Navegación principal"
 msgstr ""
@@ -6230,7 +6318,7 @@ msgstr ""
 #~ msgid "Next payout"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:199
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:197
 msgid "Nichos"
 msgstr ""
 
@@ -6240,6 +6328,7 @@ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:267
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:250
+#: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:7
 msgid "No"
 msgstr ""
 
@@ -6517,7 +6606,7 @@ msgstr ""
 msgid "No pudimos guardar los cambios. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:563
+#: src/features/identity/settings/CollaborationSection.tsx:646
 #: src/features/identity/settings/GeneralSection.tsx:527
 #: src/features/identity/settings/PortfolioSection.tsx:255
 #: src/features/identity/settings/RatesSection.tsx:414
@@ -6820,8 +6909,8 @@ msgstr ""
 
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:145
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:208
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:113
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:189
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:117
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:193
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
 msgstr ""
 
@@ -7589,6 +7678,11 @@ msgstr ""
 msgid "Portfolio"
 msgstr ""
 
+#: src/features/identity/onboarding/creator/screens/C6bLanguagesScreen.tsx:11
+#: src/features/identity/settings/CollaborationSection.tsx:75
+msgid "Portugués"
+msgstr ""
+
 #: src/features/campaigns/configuration/TargetingStep.tsx:37
 #~ msgid "Português"
 #~ msgstr ""
@@ -7645,7 +7739,7 @@ msgstr ""
 #~ msgid "Precio: {priceRange}"
 #~ msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:234
+#: src/features/identity/settings/CollaborationSection.tsx:264
 msgid "Preferencias comerciales visibles para marcas."
 msgstr ""
 
@@ -7726,7 +7820,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:235
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:233
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr ""
@@ -8044,23 +8138,23 @@ msgstr ""
 msgid "Reemplazar imagen"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:137
+#: src/features/identity/auth/components/MagicSentScreen.tsx:171
 msgid "Reenviando…"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:84
-#: src/features/identity/auth/components/MagicSentScreen.tsx:138
+#: src/features/identity/auth/components/MagicSentScreen.tsx:172
 msgid "Reenviar link"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:135
+#: src/features/identity/auth/components/MagicSentScreen.tsx:169
 msgid "Reenviar link ({cooldown}s)"
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:45
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:42
-msgid "Referente"
-msgstr ""
+#~ msgid "Referente"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B11AttributionScreen.tsx:56
 msgid "Referido"
@@ -8247,7 +8341,7 @@ msgstr ""
 #~ msgid "Revisá tu brief"
 #~ msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:105
+#: src/features/identity/auth/components/MagicSentScreen.tsx:139
 msgid "Revisá tu email"
 msgstr ""
 
@@ -8527,8 +8621,9 @@ msgstr ""
 msgid "Seleccioná una conversación"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:331
-#: src/features/identity/settings/CollaborationSection.tsx:389
+#: src/features/identity/settings/CollaborationSection.tsx:361
+#: src/features/identity/settings/CollaborationSection.tsx:419
+#: src/features/identity/settings/CollaborationSection.tsx:471
 msgid "Seleccionados"
 msgstr ""
 
@@ -8677,6 +8772,7 @@ msgstr ""
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:267
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:244
+#: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:6
 msgid "Sí"
 msgstr ""
 
@@ -8892,7 +8988,7 @@ msgstr ""
 msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
 msgid "Sin tarifa cargada"
 msgstr ""
 
@@ -8984,7 +9080,7 @@ msgstr ""
 msgid "Solo dígitos"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:33
+#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:32
 msgid "Solo para avisar cuando una marca te acepta. Sin spam."
 msgstr ""
 
@@ -9133,7 +9229,7 @@ msgstr ""
 msgid "Subí el PDF del brief"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:121
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:125
 msgid "Subí la foto de nuevo"
 msgstr ""
 
@@ -9295,7 +9391,7 @@ msgstr ""
 msgid "Tarifa UGC"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
 msgid "Tarifa: {ugcRateText}"
 msgstr ""
 
@@ -9323,7 +9419,7 @@ msgstr ""
 msgid "Te ayudamos con un template base para {verticalLabel}"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:108
+#: src/features/identity/auth/components/MagicSentScreen.tsx:142
 msgid "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 msgstr ""
 
@@ -9447,7 +9543,7 @@ msgid "TIEMPO RECUPERADO"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:194
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:76
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:57
 msgid "Tier"
 msgstr ""
 
@@ -9517,7 +9613,7 @@ msgid "Tipo de contenido"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:217
-#: src/features/identity/settings/CollaborationSection.tsx:189
+#: src/features/identity/settings/CollaborationSection.tsx:206
 msgid "Tipo de creador"
 msgstr ""
 
@@ -9534,7 +9630,7 @@ msgstr ""
 #~ msgid "Tipo de filtro"
 #~ msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:218
+#: src/features/identity/settings/CollaborationSection.tsx:235
 msgid "Tipos de contenido"
 msgstr ""
 
@@ -9813,7 +9909,7 @@ msgstr ""
 #~ msgid "tu nivel"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:172
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:170
 msgid "Tu nombre"
 msgstr ""
 
@@ -9948,7 +10044,7 @@ msgstr ""
 msgid "Ubicación del producto"
 msgstr ""
 
-#: src/features/identity/settings/CollaborationSection.tsx:51
+#: src/features/identity/settings/CollaborationSection.tsx:52
 #: src/features/identity/settings/RatesSection.tsx:246
 msgid "UGC"
 msgstr ""
@@ -9994,7 +10090,7 @@ msgstr ""
 msgid "Un único monto para las plataformas seleccionadas."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:30
+#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:29
 msgid "Un WhatsApp al que llegarte"
 msgstr ""
 
@@ -10092,7 +10188,7 @@ msgstr ""
 msgid "Usá formato E.164, por ejemplo +5491123456789"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:70
+#: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:51
 msgid "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."
 msgstr ""
 
@@ -10104,7 +10200,7 @@ msgstr ""
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:147
+#: src/features/identity/auth/components/MagicSentScreen.tsx:181
 msgid "Usar otro email"
 msgstr ""
 
@@ -10484,7 +10580,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:69
-#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:37
+#: src/features/identity/onboarding/creator/screens/C15WhatsappScreen.tsx:36
 msgid "WhatsApp"
 msgstr ""
 

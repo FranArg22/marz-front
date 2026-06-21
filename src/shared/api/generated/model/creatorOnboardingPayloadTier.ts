@@ -9,16 +9,14 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  */
 
 /**
- * Tier declarado por el creator en paso C4
+ * Bracket de seguidores declarado por el creator en paso C4
  */
 export type CreatorOnboardingPayloadTier = typeof CreatorOnboardingPayloadTier[keyof typeof CreatorOnboardingPayloadTier];
 
 
 export const CreatorOnboardingPayloadTier = {
-  emergent: 'emergent',
-  growing: 'growing',
-  consolidated: 'consolidated',
-  reference: 'reference',
-  massive: 'massive',
-  celebrity: 'celebrity',
+  nano: 'nano',
+  micro: 'micro',
+  mid: 'mid',
+  macro: 'macro',
 } as const;
