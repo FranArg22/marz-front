@@ -13376,6 +13376,26 @@
           },
           "barter_preference": {
             "type": "boolean"
+          },
+          "creator_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "influencer",
+                "ugc"
+              ]
+            },
+            "description": "Tipos de creador declarados (paso UGC). Si se omite, default influencer."
+          },
+          "ugc_rate_amount": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true,
+            "description": "Tarifa UGC declarada (paso UGC), opcional. Moneda USD."
           }
         }
       },

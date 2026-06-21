@@ -23,6 +23,8 @@ const FIELD_TO_STEP: Record<string, string> = {
   content_types: 'content-types',
   languages: 'languages',
   channels: 'channels',
+  creator_kinds: 'ugc',
+  ugc_rate_amount: 'ugc',
   best_videos: 'best-videos',
   birthday: 'birthday',
   gender: 'gender',

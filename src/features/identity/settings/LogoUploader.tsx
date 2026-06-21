@@ -5,6 +5,7 @@ import { t } from '@lingui/core/macro'
 
 import { Button } from '#/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
+import { cn } from '#/lib/utils'
 import { usePresignBrandLogo } from '#/shared/api/generated/identity/identity'
 import { usePresignBrandOnboardingLogo } from '#/shared/api/generated/onboarding/onboarding'
 
@@ -100,6 +101,89 @@ export function LogoUploader({
   }
 
   const visibleError = uploadError ?? serverError
+
+  if (variant === 'onboarding') {
+    return (
+      <div className="flex w-full flex-col gap-2">
+        <span className="text-sm font-medium text-muted-foreground">
+          {t`Logo`}
+        </span>
+        <div
+          className={cn(
+            'flex w-full items-center gap-4 rounded-md border border-border bg-muted p-3 shadow-xs transition-[border-color,box-shadow]',
+            'focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50',
+            visibleError
+              ? 'border-destructive ring-destructive/20 dark:ring-destructive/40'
+              : null,
+          )}
+        >
+          <Avatar className="size-16 rounded-md border border-border bg-background">
+            {previewUrl ? (
+              <AvatarImage
+                src={previewUrl}
+                alt={t`Logo de marca`}
+                className="object-cover"
+              />
+            ) : null}
+            <AvatarFallback className="rounded-md text-base font-semibold">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+
+          <div className="flex min-w-0 flex-1 items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium text-foreground">
+                {t`Logo de marca`}
+              </p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                {t`PNG, JPG o WebP`}
+              </p>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-1.5">
+              <Button
+                type="button"
+                variant={hasLogo ? 'ghost' : 'outline'}
+                size="sm"
+                disabled={presignLogo.isPending}
+                onClick={() => inputRef.current?.click()}
+              >
+                <ImageUp aria-hidden="true" />
+                {presignLogo.isPending ? t`Subiendo...` : t`Subir`}
+              </Button>
+              {hasLogo ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  disabled={presignLogo.isPending}
+                  aria-label={t`Quitar logo`}
+                  onClick={handleRemoveLogo}
+                >
+                  <Trash2 aria-hidden="true" />
+                </Button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <input
+          ref={inputRef}
+          type="file"
+          accept={acceptedTypes.join(',')}
+          className="sr-only"
+          aria-label={t`Subir logo`}
+          onChange={handleFileChange}
+        />
+
+        {visibleError ? (
+          <p role="alert" className="text-xs text-destructive">
+            {visibleError}
+          </p>
+        ) : null}
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-3">

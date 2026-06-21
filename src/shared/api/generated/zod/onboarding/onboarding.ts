@@ -159,6 +159,10 @@ export const completeCreatorOnboardingBodyBestVideosMax = 3;
 export const completeCreatorOnboardingBodyReferralTextMax = 2000;
 
 
+export const completeCreatorOnboardingBodyCreatorKindsMax = 2;
+
+export const completeCreatorOnboardingBodyUgcRateAmountMax = 50;
+
 
 
 export const CompleteCreatorOnboardingBody = zod.object({
@@ -193,7 +197,9 @@ export const CompleteCreatorOnboardingBody = zod.object({
   "referral_text": zod.string().max(completeCreatorOnboardingBodyReferralTextMax).nullish(),
   "tier": zod.enum(['nano', 'micro', 'mid', 'macro']).describe('Bracket de seguidores declarado por el creator en paso C4'),
   "languages": zod.array(zod.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it'])).min(1),
-  "barter_preference": zod.boolean().optional()
+  "barter_preference": zod.boolean().optional(),
+  "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])).min(1).max(completeCreatorOnboardingBodyCreatorKindsMax).optional().describe('Tipos de creador declarados (paso UGC). Si se omite, default influencer.'),
+  "ugc_rate_amount": zod.string().max(completeCreatorOnboardingBodyUgcRateAmountMax).nullish().describe('Tarifa UGC declarada (paso UGC), opcional. Moneda USD.')
 })
 
 export const completeCreatorOnboardingResponseFullNameMax = 200;

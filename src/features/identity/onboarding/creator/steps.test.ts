@@ -18,8 +18,8 @@ function makeState(
 }
 
 describe('STEPS', () => {
-  it('has 22 steps', () => {
-    expect(STEPS).toHaveLength(22)
+  it('has 23 steps', () => {
+    expect(STEPS).toHaveLength(23)
   })
 
   it('every step has id and component', () => {
@@ -42,7 +42,7 @@ describe('getStepIndex', () => {
     expect(getStepIndex('experience')).toBe(1)
     expect(getStepIndex('languages')).toBe(6)
     expect(getStepIndex('barter')).toBe(7)
-    expect(getStepIndex('confirmation')).toBe(21)
+    expect(getStepIndex('confirmation')).toBe(22)
   })
 
   it('returns -1 for unknown id', () => {
@@ -54,7 +54,7 @@ describe('getStepIndex', () => {
 describe('getStepId', () => {
   it('returns correct id for valid indices', () => {
     expect(getStepId(0)).toBe('name-handle')
-    expect(getStepId(21)).toBe('confirmation')
+    expect(getStepId(22)).toBe('confirmation')
   })
 
   it('clamps out-of-range indices', () => {
@@ -147,18 +147,21 @@ describe('validate functions', () => {
     ).toBe(false)
   })
 
-  it('C8, C8b, C9 primings: no validation', () => {
-    expect(STEPS[9]!.validate).toBeUndefined()
-    expect(STEPS[10]!.validate).toBeUndefined()
-    expect(STEPS[11]!.validate).toBeUndefined()
+  it('ugc + primings: no validation', () => {
+    expect(STEPS[getStepIndex('ugc')]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('priming-testimonials')]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('priming-benchmark')]!.validate).toBeUndefined()
+    expect(
+      STEPS[getStepIndex('priming-benchmark-2')]!.validate,
+    ).toBeUndefined()
   })
 
   it('C10 best-videos: no validation (optional)', () => {
-    expect(STEPS[12]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('best-videos')]!.validate).toBeUndefined()
   })
 
   it('C11 birthday: requires YYYY-MM-DD format and at least 18 years old', () => {
-    const validate = STEPS[13]!.validate!
+    const validate = STEPS[getStepIndex('birthday')]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ birthday: '2000-01-01' }))).toBe(true)
     expect(validate(makeState({ birthday: '01/01/2000' }))).toBe(false)
@@ -166,18 +169,18 @@ describe('validate functions', () => {
   })
 
   it('C12 gender: no validation (optional)', () => {
-    expect(STEPS[14]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('gender')]!.validate).toBeUndefined()
   })
 
   it('C13 location: requires 2-letter country code', () => {
-    const validate = STEPS[15]!.validate!
+    const validate = STEPS[getStepIndex('location')]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ country: 'AR' }))).toBe(true)
     expect(validate(makeState({ country: 'arg' }))).toBe(false)
   })
 
   it('C15 whatsapp: requires a valid phone number', () => {
-    const validate = STEPS[16]!.validate!
+    const validate = STEPS[getStepIndex('whatsapp')]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ whatsapp_e164: '+5491155550000' }))).toBe(true)
     expect(validate(makeState({ whatsapp_e164: '12345' }))).toBe(false)
@@ -185,25 +188,27 @@ describe('validate functions', () => {
   })
 
   it('C16 referral: no validation (optional)', () => {
-    expect(STEPS[17]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('referral')]!.validate).toBeUndefined()
   })
 
   it('C17 avatar: requires non-empty avatar_s3_key', () => {
-    const validate = STEPS[18]!.validate!
+    const validate = STEPS[getStepIndex('avatar')]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ avatar_s3_key: '' }))).toBe(false)
     expect(validate(makeState({ avatar_s3_key: 'avatars/123.jpg' }))).toBe(true)
   })
 
   it('C18 priming-earnings: no validation', () => {
-    expect(STEPS[19]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('priming-earnings')]!.validate).toBeUndefined()
   })
 
   it('C19 priming-social-proof: no validation', () => {
-    expect(STEPS[20]!.validate).toBeUndefined()
+    expect(
+      STEPS[getStepIndex('priming-social-proof')]!.validate,
+    ).toBeUndefined()
   })
 
   it('C20 confirmation: no validation', () => {
-    expect(STEPS[21]!.validate).toBeUndefined()
+    expect(STEPS[getStepIndex('confirmation')]!.validate).toBeUndefined()
   })
 })

@@ -54,4 +54,6 @@ export interface CreatorOnboardingPayload {
   tier: string
   languages: string[]
   barter_preference?: boolean
+  creator_kinds?: string[]
+  ugc_rate_amount?: string | null
 }

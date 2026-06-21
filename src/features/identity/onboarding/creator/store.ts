@@ -82,6 +82,8 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
           tier: undefined,
           languages: undefined,
           barter_preference: undefined,
+          creator_kinds: undefined,
+          ugc_rate_amount: undefined,
         })
         if (typeof window !== 'undefined') {
           sessionStorage.removeItem(STORAGE_KEY)

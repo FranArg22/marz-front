@@ -208,6 +208,7 @@ export * from './creatorEarningsPeriod';
 export * from './creatorEarningsResponse';
 export * from './creatorExperience';
 export * from './creatorOnboardingPayload';
+export * from './creatorOnboardingPayloadCreatorKindsItem';
 export * from './creatorOnboardingPayloadExperienceLevel';
 export * from './creatorOnboardingPayloadGender';
 export * from './creatorOnboardingPayloadLanguagesItem';

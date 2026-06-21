@@ -37,6 +37,8 @@ describe('B6BudgetScreen', () => {
   it('renders budget label', () => {
     render(<B6BudgetScreen />)
     expect(screen.getByText('1.000')).toBeInTheDocument()
+    expect(screen.getByText('$1K')).toBeInTheDocument()
+    expect(screen.getByText('$10K')).toBeInTheDocument()
     expect(screen.getByText(/marcas similares invierten/i)).toBeInTheDocument()
   })
 
