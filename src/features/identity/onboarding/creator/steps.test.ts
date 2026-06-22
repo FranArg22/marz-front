@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { STEPS, getStepIndex, getStepId } from './steps'
 import type { CreatorOnboardingState } from './store'
+import type { CreatorChannel } from './types'
 
 function makeState(
   partial: Partial<CreatorOnboardingState> = {},
@@ -133,7 +134,7 @@ describe('validate functions', () => {
     const validate = STEPS[8]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ channels: [] }))).toBe(false)
-    const ch = {
+    const ch: CreatorChannel = {
       platform: 'instagram',
       external_handle: '@test',
       verified: false,
