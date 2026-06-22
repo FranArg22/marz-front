@@ -16,7 +16,7 @@ function getEmptyMessage(
 ): string {
   switch (variant) {
     case 'no_conversations':
-      return t`Las conversaciones aparecen cuando se inicia una colaboración (vía Match, Application, Invite u Offer)`
+      return t`Las conversaciones se inician con invitaciones de conexión`
     case 'no_search_results':
       return t`No hay conversaciones que coincidan`
     case 'no_filter_results':

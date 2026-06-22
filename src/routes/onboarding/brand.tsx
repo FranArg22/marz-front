@@ -129,6 +129,7 @@ function BrandOnboardingLayout() {
       nextDisabled={validate ? !validate(store) : false}
       hideFooter={hideFooter}
       onExit={handleExit}
+      className={currentStep.id === 'paywall' ? 'pt-9 pb-16' : undefined}
     >
       <WizardStepTransition stepKey={currentStep.id} index={currentIndex}>
         <Outlet />

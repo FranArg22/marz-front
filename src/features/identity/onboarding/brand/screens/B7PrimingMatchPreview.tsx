@@ -158,7 +158,6 @@ export function B7PrimingMatchPreview() {
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
           {chips.join(' · ')}
-          {t`. Te los mostramos cuando termines.`}
         </p>
       </div>
 

@@ -176,6 +176,10 @@ export function InboxCreatorBox({
         </div>
 
         <div className="flex shrink-0 items-center gap-1">
+          {box.softCount > 0 ? (
+            <SoftCountBadge softCount={box.softCount} />
+          ) : null}
+
           {item.kind ===
           InboxItemKind.InboxItemKindConnectionRequestReceived ? null : (
             <InboxCreatorHeadlineAction
@@ -196,7 +200,7 @@ export function InboxCreatorBox({
                       size="icon"
                       onClick={handleOpenConversation}
                       aria-label={t`Ir al chat`}
-                      className="shrink-0 rounded-full"
+                      className="hidden shrink-0 rounded-full sm:inline-flex"
                     >
                       <ArrowUpRight className="size-4" aria-hidden />
                     </Button>
@@ -248,6 +252,19 @@ export function InboxCreatorBox({
   )
 }
 
+function SoftCountBadge({ softCount }: { softCount: number }) {
+  const label = t`${softCount} mensajes sin leer`
+
+  return (
+    <span
+      className="inline-flex min-w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 px-1.5 py-0.5 text-xs font-semibold text-primary"
+      aria-label={label}
+    >
+      {softCount}
+    </span>
+  )
+}
+
 function InboxCreatorBoxMainContent({
   box,
   href,
@@ -260,18 +277,13 @@ function InboxCreatorBoxMainContent({
   onNavigationClick: (event: MouseEvent<HTMLAnchorElement>) => void
 }) {
   const item = box.headlineItem
-  const subtitleParts = [
-    box.counterpart.display_name,
-    item.campaign?.name,
-  ].filter(
-    (part): part is string => typeof part === 'string' && part.length > 0,
-  )
+  const campaignName = item.campaign?.name.trim()
 
   const content = (
     <>
       <div className="flex min-w-0 items-baseline gap-2">
         <h3 className="truncate text-sm font-semibold text-foreground">
-          {item.title}
+          {box.counterpart.display_name}
         </h3>
         <time
           className="shrink-0 text-xs text-muted-foreground"
@@ -280,18 +292,13 @@ function InboxCreatorBoxMainContent({
           {item.meta.timestamp}
         </time>
       </div>
-      {subtitleParts.length > 0 ? (
+      {campaignName ? (
         <p className="mt-0.5 truncate text-xs text-muted-foreground">
-          {subtitleParts.join(' · ')}
+          {campaignName}
         </p>
       ) : null}
       <div className="mt-0.5 flex min-w-0 flex-wrap items-center gap-1.5">
         <p className="truncate text-xs text-muted-foreground">{item.preview}</p>
-        {box.softSummary ? (
-          <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-            {box.softSummary}
-          </span>
-        ) : null}
         {hasWaitingContext ? (
           <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
             {t`También esperás algo`}

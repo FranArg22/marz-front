@@ -8,7 +8,7 @@ export class CreatorCampaignBoard {
   readonly heading: Locator
 
   constructor(public readonly page: Page) {
-    this.heading = page.getByRole('heading', { name: 'Campañas abiertas' })
+    this.heading = page.getByRole('heading', { name: 'Campañas activas' })
   }
 
   campaignCard(name: string): Locator {

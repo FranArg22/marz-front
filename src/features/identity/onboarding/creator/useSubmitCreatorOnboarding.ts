@@ -9,6 +9,7 @@ import { ApiError } from '#/shared/api/mutator'
 import { track } from '#/shared/analytics/track'
 
 import { CreatorOnboardingPayloadSchema } from './schema'
+import { normalizeVideoUrl } from './bestVideos'
 
 import type { FieldErrors } from './store'
 import { useCreatorOnboardingStore } from './store'
@@ -54,8 +55,13 @@ export function useSubmitCreatorOnboarding() {
       ...fields
     } = state
 
+    const bestVideos = (fields.best_videos ?? [])
+      .map((v) => ({ url: normalizeVideoUrl(v.url) }))
+      .filter((v) => v.url !== '')
+
     const parsed = CreatorOnboardingPayloadSchema.safeParse({
       ...fields,
+      best_videos: bestVideos,
       barter_preference: fields.barter_preference ?? false,
     })
     if (!parsed.success) {

@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { isValidPhoneNumber } from 'libphonenumber-js'
+import { normalizeVideoUrl, isValidVideoUrl } from './bestVideos'
 import type { CreatorOnboardingState } from './store'
 import {
   C1NameHandleScreen,
@@ -113,6 +114,11 @@ export const STEPS: CreatorOnboardingStep[] = [
   {
     id: 'best-videos',
     component: C10BestVideosScreen,
+    validate: (s) =>
+      (s.best_videos ?? []).every((v) => {
+        const trimmed = v.url.trim()
+        return trimmed === '' || isValidVideoUrl(normalizeVideoUrl(trimmed))
+      }),
   },
   {
     id: 'birthday',

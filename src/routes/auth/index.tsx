@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { Trans } from '@lingui/react/macro'
 
 import { MagicLinkRequestForm } from '#/features/identity/auth/components/MagicLinkRequestForm'
+import { MarzLogo } from '#/shared/ui/MarzLogo'
 import { useAuthGuard } from '#/features/identity/auth/hooks/useAuthGuard'
 import { getMeQueryKey } from '#/shared/api/generated/accounts/accounts'
 import type { meResponse } from '#/shared/api/generated/accounts/accounts'
@@ -84,20 +85,14 @@ function AuthPage() {
 
       <div className="relative flex min-h-screen items-center justify-center p-6">
         <div className="flex w-full max-w-[440px] flex-col items-center gap-7 rounded-2xl border border-border bg-card p-10">
-          <div className="flex items-center gap-2.5">
-            <MarzLogo />
-            {/* eslint-disable-next-line lingui/no-unlocalized-strings -- Product brand name is not translated. */}
-            <span className="text-2xl font-bold tracking-tight text-foreground">
-              Marz
-            </span>
-          </div>
+          <MarzLogo className="gap-2.5" />
 
           <div className="flex w-full flex-col items-center gap-2">
             <h1 className="text-center text-3xl font-semibold tracking-tight text-foreground">
               <Trans>Entrá a Marz</Trans>
             </h1>
             <p className="text-center text-sm leading-relaxed text-muted-foreground">
-              <Trans>Campañas con creadores, sin agencias ni vueltas.</Trans>
+              <Trans>Donde las marcas y creadores crecen juntos.</Trans>
             </p>
           </div>
 
@@ -111,23 +106,5 @@ function AuthPage() {
         </div>
       </div>
     </main>
-  )
-}
-
-function MarzLogo() {
-  return (
-    <div className="flex size-10 items-center justify-center rounded-[10px] bg-foreground">
-      <svg width={24} height={24} viewBox="0 0 40 40" fill="none">
-        <circle cx={8} cy={10} r={2.5} fill="var(--background)" />
-        <circle cx={17.5} cy={10} r={2.5} fill="var(--background)" />
-        <circle cx={27} cy={10} r={2.5} fill="var(--background)" />
-        <rect x={9.5} y={15} width={2} height={10} fill="var(--background)" />
-        <rect x={19} y={15} width={2} height={10} fill="var(--background)" />
-        <rect x={28.5} y={15} width={2} height={10} fill="var(--background)" />
-        <circle cx={8} cy={25} r={2.5} fill="var(--background)" />
-        <circle cx={17.5} cy={25} r={2.5} fill="var(--background)" />
-        <circle cx={27} cy={25} r={2.5} fill="var(--background)" />
-      </svg>
-    </div>
   )
 }

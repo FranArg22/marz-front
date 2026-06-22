@@ -34,7 +34,7 @@ export function B9ContactScreen() {
           {t`Último paso antes del match`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
-          {t`Lo usamos para coordinar arranque. Nada de spam.`}
+          {t`Lo usaremos solo para soporte, nada de spam.`}
         </p>
       </div>
 

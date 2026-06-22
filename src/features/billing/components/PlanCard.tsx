@@ -11,9 +11,9 @@ const priceFormatter = new Intl.NumberFormat('en-US', {
 })
 
 const PLAN_BADGE: Record<BillingPlanIdentifier, () => string> = {
-  starter: () => t`ESSENTIALS`,
-  growth: () => t`FOR GROWTH TEAMS`,
-  scale: () => t`HIGH VOLUME`,
+  starter: () => t`LO ESENCIAL`,
+  growth: () => t`PARA EQUIPOS DE GROWTH`,
+  scale: () => t`ALTO VOLUMEN`,
 }
 
 const PLAN_NAME: Record<BillingPlanIdentifier, () => string> = {
@@ -23,17 +23,15 @@ const PLAN_NAME: Record<BillingPlanIdentifier, () => string> = {
 }
 
 const PLAN_DESCRIPTION: Record<BillingPlanIdentifier, () => string> = {
-  starter: () => t`Accedé a la red de creadores de Marz.`,
-  growth: () =>
-    t`El plan que eligen equipos que miden creadores como canal performance.`,
-  scale: () => t`Para equipos que gastan $10K+/mes y necesitan control total.`,
+  starter: () => t`Accedé a la red de creadores y lanzá tu primera campaña.`,
+  growth: () => t`Para equipos que usan creadores como canal de performance.`,
+  scale: () => t`Para equipos con +$5K/mes en creadores que necesitan volumen.`,
 }
 
 type PlanStats = {
   campaigns: string
   hires: string
   invites: string
-  payouts: string
 }
 
 const PLAN_STATS: Record<BillingPlanIdentifier, () => PlanStats> = {
@@ -41,46 +39,37 @@ const PLAN_STATS: Record<BillingPlanIdentifier, () => PlanStats> = {
     campaigns: '1',
     hires: '5',
     invites: t`30/mes`,
-    payouts: t`24h`,
   }),
   growth: () => ({
     campaigns: '3',
     hires: '15',
     invites: t`100/mes`,
-    payouts: t`24h`,
   }),
   scale: () => ({
-    campaigns: '∞',
-    hires: '∞',
-    invites: '∞',
-    payouts: t`24h`,
+    campaigns: t`Ilimitadas`,
+    hires: t`Ilimitados`,
+    invites: t`Ilimitadas`,
   }),
 }
 
 const PLAN_FEATURES: Record<BillingPlanIdentifier, () => string[]> = {
   starter: () => [
-    t`Red de creadores`,
-    t`AI matching + outreach`,
-    t`Script Lab básico`,
-    t`Payouts automáticos 24h`,
-    t`Métricas 30 días`,
+    t`Acceso a la red de creadores de Marz`,
+    t`Pagos a creadores automáticos`,
+    t`Métricas de los últimos 30 días`,
     t`Soporte por email`,
   ],
   growth: () => [
-    t`Todo lo de Starter, +:`,
-    t`Script Lab completo`,
-    t`A/B testing`,
-    t`Content review workflow`,
-    t`Reasignación automática`,
-    t`Métricas ilimitadas`,
+    t`Acceso a la red de creadores de Marz`,
+    t`Pagos a creadores automáticos`,
+    t`Métricas de los últimos 90 días`,
+    t`Soporte por email y Whatsapp`,
   ],
   scale: () => [
-    t`Todo lo de Growth, +:`,
-    t`Account manager dedicado`,
-    t`Attribution / ROAS`,
-    t`Reportes custom`,
-    t`Soporte 24/7`,
-    t`Acceso API`,
+    t`Acceso a la red de creadores de Marz`,
+    t`Pagos a creadores automáticos`,
+    t`Métricas ilimitadas`,
+    t`Soporte con Account manager`,
   ],
 }
 
@@ -105,162 +94,165 @@ export function PlanCard({
   onCta,
   ctaDisabled = false,
 }: PlanCardProps) {
-  const intervalLabel = interval === 'year' ? t`/mo · anual` : t`/mo`
+  const intervalLabel = t`/mes`
+  const displayAmount = interval === 'year' ? amountUsd / 12 : amountUsd
 
   const stats = PLAN_STATS[plan]()
   const features = PLAN_FEATURES[plan]()
   const ctaLabel = t`Probar 7 días gratis`
+  const isUnlimited = plan === 'scale'
 
   const inputId = `plan-radio-${plan}-${interval}`
+  const isRecommended = Boolean(highlightLabel)
 
   return (
-    <div
-      className={cn(
-        'relative flex w-[260px] flex-col gap-[18px] rounded-[var(--radius-xl)] border bg-card p-6 text-left transition-colors',
-        selected
-          ? 'border-primary'
-          : 'border-border hover:border-foreground/30',
-      )}
-    >
-      <input
-        type="radio"
-        id={inputId}
-        name="billing-plan"
-        value={plan}
-        checked={selected}
-        onChange={onSelect}
-        aria-label={PLAN_NAME[plan]()}
-        className="sr-only"
-      />
-      {highlightLabel ? (
-        <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-full border border-primary bg-background px-3.5 py-1 text-[10px] font-semibold tracking-[0.08em] text-primary whitespace-nowrap">
-          <span className="size-[5px] rounded-full bg-primary" />
-          {highlightLabel}
-        </span>
+    <div className="relative w-[260px]">
+      {isRecommended ? (
+        <span
+          aria-hidden
+          className="wizard-plan-glow pointer-events-none absolute -inset-3 -z-10 rounded-[var(--radius-xl)] bg-primary/25 blur-2xl"
+        />
       ) : null}
-
-      {/* Top: badge + name */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-          {PLAN_BADGE[plan]()}
-        </span>
-        <span className="text-[18px] font-bold leading-none text-foreground">
-          {PLAN_NAME[plan]()}
-        </span>
-      </div>
-
-      {/* Price */}
-      <div className="flex flex-col gap-1">
-        <div className="flex items-end gap-0.5">
-          <span className="text-[18px] font-bold text-foreground">$</span>
-          <span className="text-[40px] font-bold leading-none tracking-tight text-foreground">
-            {priceFormatter.format(amountUsd)}
-          </span>
-          <span className="pb-1 text-[12px] font-medium text-muted-foreground">
-            {intervalLabel}
-          </span>
-        </div>
-        <span className="text-[11px] font-medium text-primary">
-          <Trans>Sin take rate</Trans>
-        </span>
-      </div>
-
-      {/* Description */}
-      <p className="text-[11px] leading-normal text-muted-foreground">
-        {PLAN_DESCRIPTION[plan]()}
-      </p>
-
-      {/* CTA button */}
-      <button
-        type="button"
-        disabled={ctaDisabled}
-        onClick={(e) => {
-          e.stopPropagation()
-          onCta()
-        }}
+      <div
         className={cn(
-          'flex h-10 w-full items-center justify-center rounded-[var(--radius-md)] text-[12px] font-semibold transition-colors',
-          ctaDisabled
-            ? 'cursor-not-allowed opacity-60'
-            : selected
-              ? 'bg-primary text-primary-foreground'
-              : 'border border-[var(--border-strong)] bg-card text-foreground hover:bg-muted',
+          'relative flex w-full flex-col gap-4 rounded-[var(--radius-xl)] border bg-card p-6 text-left transition-colors',
+          selected
+            ? 'border-primary'
+            : 'border-border hover:border-foreground/30',
         )}
       >
-        {ctaLabel}
-      </button>
+        <input
+          type="radio"
+          id={inputId}
+          name="billing-plan"
+          value={plan}
+          checked={selected}
+          onChange={onSelect}
+          aria-label={PLAN_NAME[plan]()}
+          className="sr-only"
+        />
+        {highlightLabel ? (
+          <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-full border border-primary bg-background px-3.5 py-1 text-[10px] font-semibold tracking-[0.08em] text-primary whitespace-nowrap">
+            <span className="wizard-dot-beat size-[5px] rounded-full bg-primary" />
+            {highlightLabel}
+          </span>
+        ) : null}
 
-      {/* Stats 2x2 grid */}
-      <div className="flex flex-col gap-1.5 w-full">
-        <div className="flex gap-1.5">
-          <div className="flex flex-1 flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2.5">
+        {/* Top: badge + name */}
+        <div className="flex flex-col gap-1.5">
+          <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+            {PLAN_BADGE[plan]()}
+          </span>
+          <span className="text-[18px] font-bold leading-none text-foreground">
+            {PLAN_NAME[plan]()}
+          </span>
+        </div>
+
+        {/* Price */}
+        <div className="flex flex-col gap-1">
+          <div className="flex items-end gap-0.5">
+            <span className="text-[18px] font-bold text-foreground">$</span>
+            <span className="text-[36px] font-bold leading-none tracking-tight text-foreground">
+              {priceFormatter.format(displayAmount)}
+            </span>
+            <span className="pb-1 text-[12px] font-medium text-muted-foreground">
+              {intervalLabel}
+            </span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-[11px] leading-normal text-muted-foreground">
+          {PLAN_DESCRIPTION[plan]()}
+        </p>
+
+        {/* CTA button */}
+        <button
+          type="button"
+          disabled={ctaDisabled}
+          onClick={(e) => {
+            e.stopPropagation()
+            onCta()
+          }}
+          className={cn(
+            'flex h-10 w-full items-center justify-center rounded-[var(--radius-md)] text-[12px] font-semibold transition-colors',
+            ctaDisabled
+              ? 'cursor-not-allowed opacity-60'
+              : isRecommended
+                ? 'wizard-cta-beat bg-primary text-primary-foreground hover:bg-primary/90'
+                : selected
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                  : 'bg-foreground text-background hover:bg-foreground/90',
+          )}
+        >
+          {ctaLabel}
+        </button>
+
+        {/* Stats — single column, 3 rows */}
+        <div className="flex w-full flex-col gap-1.5">
+          <div className="flex flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2">
             <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
               <Trans>CAMPAÑAS</Trans>
             </span>
             <span
               className={cn(
-                'text-[14px] font-bold',
-                stats.campaigns === '∞' ? 'text-primary' : 'text-foreground',
+                'text-[14px] font-semibold',
+                isUnlimited ? 'text-primary' : 'text-foreground',
               )}
             >
               {stats.campaigns}
             </span>
           </div>
-          <div className="flex flex-1 flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2.5">
+          <div className="flex flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2">
             <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-              <Trans>HIRES</Trans>
+              <Trans>CREADORES</Trans>
             </span>
-            <span
-              className={cn(
-                'text-[14px] font-bold',
-                stats.hires === '∞' ? 'text-primary' : 'text-foreground',
-              )}
-            >
-              {stats.hires}
-            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span
+                className={cn(
+                  'text-[14px] font-bold',
+                  isUnlimited ? 'text-primary' : 'text-foreground',
+                )}
+              >
+                {stats.hires}
+              </span>
+              <span className="text-[12px] font-medium text-muted-foreground">
+                <Trans>trabajando a la vez</Trans>
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="flex gap-1.5">
-          <div className="flex flex-1 flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2.5">
+          <div className="flex flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2">
             <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-              <Trans>INVITES</Trans>
+              <Trans>INVITACIONES DE CONEXIÓN</Trans>
             </span>
             <span
               className={cn(
-                'text-[14px] font-bold',
-                stats.invites === '∞' ? 'text-primary' : 'text-foreground',
+                'text-[14px] font-semibold',
+                isUnlimited ? 'text-primary' : 'text-foreground',
               )}
             >
               {stats.invites}
             </span>
           </div>
-          <div className="flex flex-1 flex-col gap-0.5 rounded-[var(--radius-sm)] bg-muted p-2.5">
-            <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-              <Trans>PAYOUTS</Trans>
-            </span>
-            <span className="text-[14px] font-bold text-foreground">
-              {stats.payouts}
-            </span>
-          </div>
         </div>
-      </div>
 
-      {/* Divider */}
-      <div className="h-px w-full bg-border" />
+        {/* Divider */}
+        <div className="h-px w-full bg-border" />
 
-      {/* Features list */}
-      <div className="flex flex-col gap-[7px]">
-        <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-          <Trans>INCLUYE</Trans>
-        </span>
-        {features.map((feature) => (
-          <div key={feature} className="flex items-start gap-2">
-            <CheckIcon className="mt-px size-3 shrink-0 text-primary" />
-            <span className="text-[11px] leading-normal text-muted-foreground">
-              {feature}
-            </span>
-          </div>
-        ))}
+        {/* Features list */}
+        <div className="flex flex-col gap-[7px]">
+          <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+            <Trans>INCLUYE</Trans>
+          </span>
+          {features.map((feature) => (
+            <div key={feature} className="flex items-start gap-2">
+              <CheckIcon className="mt-px size-3 shrink-0 text-primary" />
+              <span className="text-[11px] leading-normal text-muted-foreground">
+                {feature}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

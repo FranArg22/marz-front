@@ -93,24 +93,35 @@ describe('ConversationRailItem', () => {
     expect(screen.getByText(/Oferta aceptada/)).toBeInTheDocument()
   })
 
-  it('shows unread indicator when unread_count > 0', () => {
+  it('shows the green unread count badge when unread_count > 0', () => {
     const conv = makeConversation({ unread_count: 3 })
     const { container } = render(<ConversationRailItem conversation={conv} />)
 
-    const dot = container.querySelector(
-      '[aria-hidden="true"].rounded-full.bg-primary',
+    const badge = container.querySelector(
+      '[aria-hidden="true"].rounded-full.bg-success',
     )
-    expect(dot).toBeInTheDocument()
+    expect(badge).toBeInTheDocument()
+    expect(badge).toHaveTextContent('3')
   })
 
-  it('does not show unread indicator when unread_count is 0', () => {
+  it('caps the unread count badge at 99+', () => {
+    const conv = makeConversation({ unread_count: 150 })
+    const { container } = render(<ConversationRailItem conversation={conv} />)
+
+    const badge = container.querySelector(
+      '[aria-hidden="true"].rounded-full.bg-success',
+    )
+    expect(badge).toHaveTextContent('99+')
+  })
+
+  it('does not show the unread count badge when unread_count is 0', () => {
     const conv = makeConversation({ unread_count: 0 })
     const { container } = render(<ConversationRailItem conversation={conv} />)
 
-    const dot = container.querySelector(
-      '[aria-hidden="true"].rounded-full.bg-primary',
+    const badge = container.querySelector(
+      '[aria-hidden="true"].rounded-full.bg-success',
     )
-    expect(dot).not.toBeInTheDocument()
+    expect(badge).not.toBeInTheDocument()
   })
 
   it('calls onClick with conversation id', async () => {

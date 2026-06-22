@@ -1,52 +1,29 @@
-import {
-  BarChart3,
-  Briefcase,
-  BriefcaseBusiness,
-  Compass,
-  DollarSign,
-  Inbox,
-  LayoutDashboard,
-  Megaphone,
-  MessageSquare,
-  Settings,
-  Users,
-  Video,
-  Wallet,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-
 import { t } from '@lingui/core/macro'
 
 import { TooltipProvider } from '#/components/ui/tooltip'
+import { cn } from '#/lib/utils'
 
 import { AppSidebarItem } from './AppSidebarItem'
 import { resolveActiveSidebarItem, shellNavigationConfig } from './navigation'
 import type { ShellNavigationItem } from './navigation'
+import { resolveNavIcon } from './navigationIcons'
 
 type AppSidebarAccountKind = 'brand' | 'creator'
 
 interface AppSidebarProps {
   accountKind: AppSidebarAccountKind
   pathname: string
+  className?: string
+  /** Muestra el puntito de notificación sobre el ícono de inbox. */
+  inboxHasBadge?: boolean
 }
 
-const iconByName: Record<string, LucideIcon> = {
-  'bar-chart-3': BarChart3,
-  briefcase: Briefcase,
-  'briefcase-business': BriefcaseBusiness,
-  compass: Compass,
-  'dollar-sign': DollarSign,
-  inbox: Inbox,
-  'layout-dashboard': LayoutDashboard,
-  megaphone: Megaphone,
-  'message-square': MessageSquare,
-  settings: Settings,
-  users: Users,
-  video: Video,
-  wallet: Wallet,
-}
-
-export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
+export function AppSidebar({
+  accountKind,
+  pathname,
+  className,
+  inboxHasBadge = false,
+}: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
 
@@ -54,7 +31,7 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
     item: ShellNavigationItem,
     hasMovingIndicator = false,
   ) => {
-    const Icon = iconByName[item.icon] ?? Inbox
+    const Icon = resolveNavIcon(item.icon)
     const disabled = item.disabled === true
 
     const label = item.label()
@@ -72,6 +49,7 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
         disabled={disabled}
         tooltipLabel={tooltipLabel}
         hasMovingIndicator={hasMovingIndicator}
+        showBadge={item.id === 'inbox' && inboxHasBadge}
       />
     )
   }
@@ -88,7 +66,10 @@ export function AppSidebar({ accountKind, pathname }: AppSidebarProps) {
         data-testid="app-sidebar"
         data-width="59px"
         aria-label={t`Navegación principal`}
-        className="flex h-full w-[59px] shrink-0 flex-col items-center bg-sidebar"
+        className={cn(
+          'flex h-full w-[59px] shrink-0 flex-col items-center bg-sidebar',
+          className,
+        )}
       >
         <div className="flex h-14 w-full shrink-0 items-center justify-center">
           <img

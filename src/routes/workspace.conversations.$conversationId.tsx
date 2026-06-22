@@ -4,9 +4,11 @@ import { t } from '@lingui/core/macro'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { cn } from '#/lib/utils'
 import { ConversationContextHeader } from '#/features/chat/components/ConversationContextHeader'
 import { ConversationView } from '#/features/chat/components/ConversationView'
 import { useConversationDetailQuery } from '#/features/chat/queries'
+import { useOffersPanelStore } from '#/features/chat/workspace/offersPanelStore'
 import { ConversationOffersPanel } from '#/features/offers/components/ConversationOffersPanel'
 import { SendOfferSidesheet } from '#/features/offers/components/SendOfferSidesheet'
 import { useCanSendOffer } from '#/features/offers/hooks/useCanSendOffer'
@@ -47,6 +49,8 @@ function ConversationRoute() {
   const conversationDetail = useConversationDetailQuery(conversationId)
   const deliverablesQuery = useGetConversationDeliverablesQuery(conversationId)
   const openSheet = useSendOfferWizard((s) => s.open)
+  const offersOpen = useOffersPanelStore((s) => s.isOpen)
+  const closeOffers = useOffersPanelStore((s) => s.close)
 
   const [paymentOffer, setPaymentOffer] = useState<MarkAsPaidOffer | null>(null)
   const [uploadDeliverableId, setUploadDeliverableId] = useState<string | null>(
@@ -131,8 +135,28 @@ function ConversationRoute() {
     setSubmitLinkIsResubmission(false)
   }
 
+  const offersPanel = (
+    <ConversationOffersPanel
+      conversationId={conversationId}
+      sessionKind={sessionKind}
+      onUploadDraft={setUploadDeliverableId}
+      onMarkAsPaid={setPaymentOffer}
+      onSubmitLink={handleSubmitLink}
+      canSendOffer={isBrand ? canSendOffer : undefined}
+      onSendOffer={isBrand ? () => openSheet(conversationId) : undefined}
+      headerSlot={
+        conversationDetail.data ? (
+          <ConversationContextHeader
+            counterpart={conversationDetail.data.counterpart}
+            sessionKind={sessionKind}
+          />
+        ) : null
+      }
+    />
+  )
+
   return (
-    <div className="flex h-full">
+    <div className="relative flex h-full">
       <div className="flex-1 overflow-hidden">
         <ConversationView
           conversationId={conversationId}
@@ -142,23 +166,32 @@ function ConversationRoute() {
           highlightPaymentId={highlightPaymentId}
         />
       </div>
-      <ConversationOffersPanel
-        conversationId={conversationId}
-        sessionKind={sessionKind}
-        onUploadDraft={setUploadDeliverableId}
-        onMarkAsPaid={setPaymentOffer}
-        onSubmitLink={handleSubmitLink}
-        canSendOffer={isBrand ? canSendOffer : undefined}
-        onSendOffer={isBrand ? () => openSheet(conversationId) : undefined}
-        headerSlot={
-          conversationDetail.data ? (
-            <ConversationContextHeader
-              counterpart={conversationDetail.data.counterpart}
-              sessionKind={sessionKind}
-            />
-          ) : null
-        }
+
+      {/* Desktop: panel de ofertas siempre visible */}
+      <div className="hidden md:flex">{offersPanel}</div>
+
+      {/* Mobile: panel de ofertas como sidesheet, cerrado por default */}
+      <button
+        type="button"
+        aria-label={t`Cerrar ofertas`}
+        onClick={closeOffers}
+        aria-hidden={!offersOpen}
+        tabIndex={offersOpen ? 0 : -1}
+        className={cn(
+          'absolute inset-0 z-20 bg-foreground/20 transition-opacity duration-300 ease-out md:hidden',
+          offersOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
+        )}
       />
+      <div
+        aria-hidden={!offersOpen}
+        className={cn(
+          'absolute right-0 top-0 z-30 flex h-full shadow-xl transition-transform duration-300 ease-out md:hidden',
+          offersOpen ? 'translate-x-0' : 'translate-x-full',
+        )}
+      >
+        {offersPanel}
+      </div>
+
       {paymentOffer ? (
         <MarkAsPaidDialog
           open

@@ -172,32 +172,34 @@ export function CampaignBoardCard({
       className="flex min-h-[292px] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
       aria-labelledby={`campaign-${card.campaign_id}`}
     >
-      <header className="flex items-center gap-3 border-b border-border p-4">
-        <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary text-sm font-bold text-primary-foreground">
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt=""
-              className="size-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            brandInitials
-          )}
-        </div>
+      <header className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary text-sm font-bold text-primary-foreground">
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt=""
+                className="size-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              brandInitials
+            )}
+          </div>
 
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-foreground">
-            {brandName}
-          </p>
-          {brandVertical ? (
-            <Badge
-              variant="outline"
-              className="mt-1 max-w-full truncate rounded-full px-2 py-0 text-[11px] text-muted-foreground"
-            >
-              {formatLabel(brandVertical)}
-            </Badge>
-          ) : null}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-foreground">
+              {brandName}
+            </p>
+            {brandVertical ? (
+              <Badge
+                variant="outline"
+                className="mt-1 max-w-full truncate rounded-full px-2 py-0 text-[11px] text-muted-foreground"
+              >
+                {formatLabel(brandVertical)}
+              </Badge>
+            ) : null}
+          </div>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">

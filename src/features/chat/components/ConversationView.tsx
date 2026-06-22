@@ -15,10 +15,12 @@ import {
   estimateLatencyMs,
 } from '#/features/chat/analytics/track'
 
-import { PanelLeft } from 'lucide-react'
+import { ArrowLeft, Banknote } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
-import { useConversationRailStore } from '#/features/chat/workspace/conversationRailStore'
+import { useOffersPanelStore } from '#/features/chat/workspace/offersPanelStore'
+import { useConversationPendingAction } from '#/features/offers/hooks/useConversationPendingAction'
 import { ConversationHeader } from './ConversationHeader'
 import { EmptyConversationFallback } from './EmptyConversationFallback'
 import type { MessageTimelineHandle } from './MessageTimeline'
@@ -150,7 +152,13 @@ export function ConversationView({
     <div className="flex h-full flex-col">
       <ConversationHeader
         conversation={conversation}
-        leadingSlot={<RailToggleButton />}
+        leadingSlot={<BackToListButton />}
+        trailingSlot={
+          <OffersToggleButton
+            conversationId={conversationId}
+            sessionKind={sessionKind}
+          />
+        }
       />
 
       <div className="relative flex flex-1 flex-col overflow-hidden">
@@ -181,19 +189,53 @@ export function ConversationView({
   )
 }
 
-function RailToggleButton() {
-  const toggle = useConversationRailStore((s) => s.toggle)
-  const isOpen = useConversationRailStore((s) => s.isOpen)
+function BackToListButton() {
+  const navigate = useNavigate()
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        void navigate({ to: '/workspace', search: (prev) => prev })
+      }
+      aria-label={t`Volver a conversaciones`}
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+      title={t`Volver a conversaciones`}
+    >
+      <ArrowLeft className="size-4" />
+    </button>
+  )
+}
+
+function OffersToggleButton({
+  conversationId,
+  sessionKind,
+}: {
+  conversationId: string
+  sessionKind: 'brand' | 'creator' | undefined
+}) {
+  const toggle = useOffersPanelStore((s) => s.toggle)
+  const isOpen = useOffersPanelStore((s) => s.isOpen)
+  const hasPendingAction = useConversationPendingAction(
+    conversationId,
+    sessionKind,
+  )
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={t`Conversaciones`}
+      aria-label={t`Ofertas`}
       aria-expanded={isOpen}
-      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-      title={t`Conversaciones`}
+      className="relative inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 md:hidden"
+      title={t`Ofertas`}
     >
-      <PanelLeft className="size-4" />
+      <Banknote className="size-4" />
+      {t`Ofertas`}
+      {hasPendingAction ? (
+        <span
+          aria-hidden
+          className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-red-600"
+        />
+      ) : null}
     </button>
   )
 }

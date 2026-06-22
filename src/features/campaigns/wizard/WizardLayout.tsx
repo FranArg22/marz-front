@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { WizardStepTransition } from '#/shared/ui/wizard'
 import { track } from '#/shared/analytics/track'
 import { CancelWizardModal } from './CancelWizardModal'
 import { WizardStepIndicator } from './WizardStepIndicator'
@@ -70,7 +71,15 @@ export function WizardLayout({
       </header>
 
       <main className="flex-1 overflow-y-auto px-6 py-10">
-        <div className="mx-auto w-full max-w-4xl">{children}</div>
+        <div className="mx-auto w-full max-w-4xl">
+          <WizardStepTransition
+            stepKey={String(step)}
+            index={step}
+            contentClassName="items-stretch"
+          >
+            {children}
+          </WizardStepTransition>
+        </div>
       </main>
 
       <footer className="flex shrink-0 items-center justify-between border-t border-border bg-background px-6 py-4">

@@ -42,7 +42,7 @@ export function CreatorSettingsPage({
         activeSection={activeSection}
         onSectionChange={onSectionChange}
       />
-      <main className="min-w-0 flex-1 overflow-y-auto">
+      <main className="min-w-0 flex-1 overflow-y-auto pb-mobile-nav">
         <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col px-4 py-6 md:px-8 md:py-8">
           {content}
         </div>

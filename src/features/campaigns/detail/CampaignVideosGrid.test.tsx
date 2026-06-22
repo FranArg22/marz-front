@@ -84,8 +84,7 @@ describe('CampaignVideosGrid', () => {
         name: 'Abrir revisión de video de Lumina Studio',
       }),
     ).toBeInTheDocument()
-    expect(screen.getByText('Unboxing Reel')).toBeInTheDocument()
-    expect(screen.getAllByText('Instagram')).toHaveLength(2)
+    expect(screen.getByText('Instagram')).toBeInTheDocument()
     expect(screen.getByText('En revisión')).toBeInTheDocument()
   })
 

@@ -94,9 +94,9 @@ describe('PlansGrid', () => {
     expect(scaleInput).toBeChecked()
   })
 
-  it('shows the -20% badge on the annual tab', () => {
+  it('shows the discount badge on the annual tab', () => {
     setup({ selectedInterval: 'month' })
-    expect(screen.getByText('-20%')).toBeInTheDocument()
+    expect(screen.getByText('· 20% off')).toBeInTheDocument()
   })
 
   it('shows "Recomendado para vos" badge on the growth card', () => {

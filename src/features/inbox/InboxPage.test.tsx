@@ -78,6 +78,13 @@ describe('InboxPage', () => {
               secondary: 'Campaign A',
               timestamp: 'ayer',
             },
+            counterpart: {
+              account_id: 'account-old',
+              display_name: 'Old Creator',
+              avatar_url: null,
+            },
+            counterpart_account_id: 'account-old',
+            counterpart_display_name: 'Old Creator',
           }),
           makeInboxItem({
             id: 'new-action',
@@ -101,6 +108,13 @@ describe('InboxPage', () => {
             section: 'waiting',
             title: 'Waiting item',
             occurred_at: '2026-05-07T10:00:00Z',
+            counterpart: {
+              account_id: 'account-waiting',
+              display_name: 'Waiting Creator',
+              avatar_url: null,
+            },
+            counterpart_account_id: 'account-waiting',
+            counterpart_display_name: 'Waiting Creator',
           }),
         ],
         counts: { action_items: 2, waiting_items: 1, total: 3 },
@@ -124,9 +138,9 @@ describe('InboxPage', () => {
     expect(within(actionSection!).getByText('2')).toBeInTheDocument()
 
     const rows = screen.getAllByRole('listitem')
-    expect(rows[0]).toHaveTextContent('New action')
-    expect(rows[1]).toHaveTextContent('Old action')
-    expect(rows[2]).toHaveTextContent('Waiting item')
+    expect(rows[0]).toHaveTextContent('New Creator')
+    expect(rows[1]).toHaveTextContent('Old Creator')
+    expect(rows[2]).toHaveTextContent('Waiting Creator')
   })
 
   it('renders unified empty state when both counts are zero', async () => {

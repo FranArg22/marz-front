@@ -71,9 +71,11 @@ describe('InboxCreatorBox', () => {
       hasWaitingContext: true,
     })
 
-    expect(await screen.findByText('Ana Creator · Campaign')).toBeInTheDocument()
-    expect(screen.getByText('Decide offer')).toBeInTheDocument()
-    expect(screen.getByText('y 1 mensajes de Ana Creator')).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'Ana Creator' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Campaign')).toBeInTheDocument()
+    expect(screen.getByLabelText('1 mensajes sin leer')).toBeInTheDocument()
     expect(screen.getByText('También esperás algo')).toBeInTheDocument()
     expect(
       screen.queryByRole('button', { name: 'Marcar caja como leída' }),

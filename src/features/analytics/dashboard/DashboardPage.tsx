@@ -108,7 +108,7 @@ export function DashboardPage() {
   )
 
   return (
-    <main className="flex h-full flex-col gap-6 overflow-y-auto bg-background px-6 py-5 text-foreground">
+    <main className="flex h-full flex-col gap-6 overflow-y-auto bg-background px-6 py-5 text-foreground pb-mobile-nav">
       <DashboardHeader updatedAt={cardsQuery.dataUpdatedAt} />
       <DashboardFilters />
 

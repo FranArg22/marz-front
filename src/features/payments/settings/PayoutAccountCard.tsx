@@ -1,5 +1,11 @@
 import { t } from '@lingui/core/macro'
-import { CheckCircle2, CircleAlert, Landmark, Pencil } from 'lucide-react'
+import {
+  CheckCircle2,
+  CircleAlert,
+  FileText,
+  Landmark,
+  Pencil,
+} from 'lucide-react'
 
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
@@ -47,9 +53,6 @@ export function PayoutAccountCard({
                 <p className="text-sm font-medium text-foreground">
                   {t`Todavía no hay una cuenta cargada`}
                 </p>
-                <p className="max-w-xl text-sm text-muted-foreground">
-                  {t`Usá Agregar cuenta para abrir el formulario. Esta vista no muestra saldos ni movimientos.`}
-                </p>
               </div>
             </div>
             <Button type="button" className="shrink-0" onClick={onEdit}>
@@ -77,6 +80,8 @@ export function PayoutAccountCard({
             </div>
           </div>
         </SettingsCard>
+
+        <W8BenCard />
       </div>
     )
   }
@@ -85,7 +90,7 @@ export function PayoutAccountCard({
     <div className="space-y-6">
       <SettingsCard
         title={t`Cuenta de cobro`}
-        description={t`La cuenta cargada se usa para coordinar pagos manuales. Esta vista no muestra saldos ni movimientos.`}
+        description={t`La cuenta cargada se usa para coordinar pagos manuales.`}
       >
         <div className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
@@ -148,7 +153,40 @@ export function PayoutAccountCard({
           <PayoutAccountDetail label={t`Dirección`} value={account.address} />
         </div>
       </section>
+
+      <W8BenCard />
     </div>
+  )
+}
+
+function W8BenCard() {
+  return (
+    <SettingsCard
+      title={t`Impuestos (W-8BEN)`}
+      description={t`Para recibir pagos tenés que completar el formulario W-8BEN una sola vez.`}
+      footer={
+        <Button asChild variant="outline" className="w-full sm:w-auto">
+          <a href="https://pagos.go-marz.com/" target="_blank" rel="noreferrer">
+            {t`Rellenarlo`}
+          </a>
+        </Button>
+      }
+    >
+      <div className="flex items-start gap-3 px-6 py-4">
+        <FileText
+          className="mt-0.5 size-5 shrink-0 text-muted-foreground"
+          aria-hidden
+        />
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-foreground">
+            {t`¿Qué es el W-8BEN?`}
+          </p>
+          <p className="max-w-xl text-sm text-muted-foreground">
+            {t`Es un formulario fiscal de Estados Unidos para personas que no son ciudadanas ni residentes fiscales de EE.UU. Sirve para declarar que sos extranjero y que no corresponde que te deduzcan impuestos de tu pago.`}
+          </p>
+        </div>
+      </div>
+    </SettingsCard>
   )
 }
 

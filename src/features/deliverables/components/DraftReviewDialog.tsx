@@ -77,13 +77,19 @@ export function DraftReviewDialog({
   const draft = initialDraft ?? draftQuery.data ?? null
   const isLoading = !initialDraft && draftQuery.isLoading
   const isError = !initialDraft && draftQuery.isError
-  const aspect: 'landscape' | 'portrait' = 'landscape'
+  const aspect: 'landscape' | 'portrait' = 'portrait'
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent
+        className={
+          step === 'review'
+            ? 'flex h-[100dvh] max-h-[100dvh] max-w-full flex-col justify-center gap-4 rounded-none border-0 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:max-w-md sm:justify-start sm:rounded-lg sm:border'
+            : 'sm:max-w-2xl'
+        }
+      >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {step === 'request_changes' ? (

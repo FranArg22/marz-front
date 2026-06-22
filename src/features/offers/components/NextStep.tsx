@@ -133,7 +133,7 @@ function deriveDeliverableStep(
   }
 }
 
-function getNextStepMeta(
+export function getNextStepMeta(
   offer: OfferDetailDTO,
   sessionKind: 'brand' | 'creator',
   deliverables: DeliverableDTO[],

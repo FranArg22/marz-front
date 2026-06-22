@@ -156,8 +156,22 @@ describe('validate functions', () => {
     ).toBeUndefined()
   })
 
-  it('C10 best-videos: no validation (optional)', () => {
-    expect(STEPS[getStepIndex('best-videos')]!.validate).toBeUndefined()
+  it('C10 best-videos: optional but rejects malformed links', () => {
+    const validate = STEPS[getStepIndex('best-videos')]!.validate!
+    expect(validate(makeState())).toBe(true)
+    expect(
+      validate(
+        makeState({
+          best_videos: [{ url: '' }, { url: '' }, { url: '' }],
+        }),
+      ),
+    ).toBe(true)
+    expect(
+      validate(makeState({ best_videos: [{ url: 'instagram.com/reel/x' }] })),
+    ).toBe(true)
+    expect(
+      validate(makeState({ best_videos: [{ url: 'no es un link' }] })),
+    ).toBe(false)
   })
 
   it('C11 birthday: requires YYYY-MM-DD format and at least 18 years old', () => {

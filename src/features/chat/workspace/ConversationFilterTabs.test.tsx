@@ -86,7 +86,7 @@ describe('ConversationFilterTabs', () => {
     const user = userEvent.setup()
     render(<ConversationFilterTabs value="all" />)
 
-    await user.click(screen.getByRole('tab', { name: 'Por responder' }))
+    await user.click(screen.getByRole('tab', { name: 'Con acciones pendientes' }))
 
     const call = mockNavigate.mock.calls[0]![0] as {
       search: (prev: Record<string, unknown>) => Record<string, unknown>

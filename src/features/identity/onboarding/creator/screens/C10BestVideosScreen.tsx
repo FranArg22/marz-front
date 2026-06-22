@@ -4,6 +4,7 @@ import { Instagram, Youtube, Link2 } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { Input } from '#/components/ui/input'
 import { useCreatorOnboardingStore } from '../store'
+import { normalizeVideoUrl, isValidVideoUrl } from '../bestVideos'
 import type { BestVideo } from '#/shared/api/generated/model/bestVideo'
 
 const DEFAULT_VIDEOS: BestVideo[] = [{ url: '' }, { url: '' }, { url: '' }]
@@ -76,39 +77,50 @@ export function C10BestVideosScreen() {
       <div className="flex w-full max-w-[640px] flex-col gap-3">
         {videos.map((video, i) => {
           const url = video.url.trim()
-          const provider = url.length > 0 ? detectValidProvider(url) : null
+          const normalized = normalizeVideoUrl(url)
+          const provider =
+            url.length > 0 ? detectValidProvider(normalized) : null
+          const invalid = url.length > 0 && !isValidVideoUrl(normalized)
           const slotId = BEST_VIDEO_SLOT_IDS[i] ?? `video-${i + 1}`
           return (
-            <div
-              key={slotId}
-              className={cn(
-                'flex w-full items-center gap-3 rounded-2xl border px-4 py-3 transition-colors',
-                provider
-                  ? 'border-border bg-card'
-                  : 'border-dashed border-border bg-card',
-              )}
-            >
+            <div key={slotId} className="flex w-full flex-col gap-1">
               <div
                 className={cn(
-                  'flex size-10 shrink-0 items-center justify-center rounded-full',
-                  provider
-                    ? 'bg-muted text-foreground'
-                    : 'bg-muted text-muted-foreground',
+                  'flex w-full items-center gap-3 rounded-2xl border px-4 py-3 transition-colors',
+                  invalid
+                    ? 'border-destructive bg-card'
+                    : provider
+                      ? 'border-border bg-card'
+                      : 'border-dashed border-border bg-card',
                 )}
               >
-                {provider ? (
-                  <ProviderIcon provider={provider} />
-                ) : (
-                  <Link2 className="size-4" />
-                )}
+                <div
+                  className={cn(
+                    'flex size-10 shrink-0 items-center justify-center rounded-full',
+                    provider
+                      ? 'bg-muted text-foreground'
+                      : 'bg-muted text-muted-foreground',
+                  )}
+                >
+                  {provider ? (
+                    <ProviderIcon provider={provider} />
+                  ) : (
+                    <Link2 className="size-4" />
+                  )}
+                </div>
+                <Input
+                  value={video.url}
+                  onChange={(e) => updateVideo(i, { url: e.target.value })}
+                  placeholder={t`URL de IG / TikTok / YT`}
+                  maxLength={500}
+                  className="h-9 flex-1 text-sm"
+                />
               </div>
-              <Input
-                value={video.url}
-                onChange={(e) => updateVideo(i, { url: e.target.value })}
-                placeholder={t`URL de IG / TikTok / YT`}
-                maxLength={500}
-                className="h-9 flex-1 text-sm"
-              />
+              {invalid && (
+                <p className="px-1 text-xs text-destructive">
+                  {t`Pegá un link válido.`}
+                </p>
+              )}
             </div>
           )
         })}

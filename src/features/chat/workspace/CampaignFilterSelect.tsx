@@ -60,10 +60,10 @@ export function CampaignFilterSelect({ value }: CampaignFilterSelectProps) {
         className="h-10 w-full cursor-pointer rounded-full border-none bg-muted px-4 text-sm"
       >
         <Megaphone className="size-4 shrink-0 text-muted-foreground" />
-        <SelectValue placeholder={t`Todas las campañas`} />
+        <SelectValue placeholder={t`Campañas`} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value={ALL_CAMPAIGNS}>{t`Todas las campañas`}</SelectItem>
+        <SelectItem value={ALL_CAMPAIGNS}>{t`Campañas`}</SelectItem>
         {campaigns.map((campaign) => (
           <SelectItem key={campaign.id} value={campaign.id}>
             {campaign.name}

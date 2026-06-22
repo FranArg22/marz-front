@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro'
 import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import { FilterSheet } from '#/components/ui/filter-sheet'
 import { Input } from '#/components/ui/input'
 import {
   Select,
@@ -11,6 +12,7 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { cn } from '#/lib/utils'
+import { useIsMobile } from '#/shared/hooks'
 import type {
   ListCreatorsStatus,
   SocialPlatform,
@@ -52,6 +54,11 @@ function selectTriggerClass(active: boolean) {
   )
 }
 
+// Variante a ancho completo para el bottom sheet de mobile.
+const SELECT_TRIGGER_STACK =
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- clases Tailwind, no es UI
+  'w-full rounded-xl border border-border bg-transparent px-3 text-sm font-medium text-foreground'
+
 function getStatusOptions(): ReadonlyArray<{
   value: ListCreatorsStatus
   label: string
@@ -80,6 +87,7 @@ export function CreatorsFilters({
   params,
   onParamsChange,
 }: CreatorsFiltersProps) {
+  const isMobile = useIsMobile()
   const [searchValue, setSearchValue] = useState(params.search ?? '')
 
   useEffect(() => {
@@ -99,9 +107,77 @@ export function CreatorsFilters({
     return () => window.clearTimeout(timeout)
   }, [onParamsChange, params, searchValue])
 
+  const sheetActiveCount =
+    (params.status !== undefined ? 1 : 0) +
+    (params.platform !== undefined ? 1 : 0)
+
+  const statusSelect = (stack: boolean) => (
+    <Select
+      value={params.status ?? ALL_STATUSES}
+      onValueChange={(value) =>
+        onParamsChange({
+          ...params,
+          status: isStatus(value) ? value : undefined,
+        })
+      }
+    >
+      <SelectTrigger
+        className={
+          stack
+            ? SELECT_TRIGGER_STACK
+            : selectTriggerClass(params.status !== undefined)
+        }
+        aria-label={t`Filtrar por estado`}
+      >
+        <SelectValue placeholder={t`Estado`} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value={ALL_STATUSES}>{t`Todos los estados`}</SelectItem>
+        {getStatusOptions().map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  )
+
+  const platformSelect = (stack: boolean) => (
+    <Select
+      value={params.platform ?? ALL_PLATFORMS}
+      onValueChange={(value) =>
+        onParamsChange({
+          ...params,
+          platform: isPlatform(value) ? value : undefined,
+        })
+      }
+    >
+      <SelectTrigger
+        className={
+          stack
+            ? SELECT_TRIGGER_STACK
+            : selectTriggerClass(params.platform !== undefined)
+        }
+        aria-label={t`Filtrar por plataforma`}
+      >
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem
+          value={ALL_PLATFORMS}
+        >{t`Todas las plataformas`}</SelectItem>
+        {platformOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  )
+
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card px-3 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)] sm:flex-row sm:flex-wrap sm:items-center">
-      <div className="relative min-w-0 sm:w-60">
+    <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)] md:gap-3">
+      <div className="relative min-w-0 flex-1 md:w-60 md:flex-initial">
         <Search
           className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
           aria-hidden
@@ -115,69 +191,48 @@ export function CreatorsFilters({
         />
       </div>
 
-      <Select
-        value={params.status ?? ALL_STATUSES}
-        onValueChange={(value) =>
-          onParamsChange({
-            ...params,
-            status: isStatus(value) ? value : undefined,
-          })
-        }
-      >
-        <SelectTrigger
-          className={selectTriggerClass(params.status !== undefined)}
-          aria-label={t`Filtrar por estado`}
+      {isMobile ? (
+        <FilterSheet
+          activeCount={sheetActiveCount}
+          clearDisabled={sheetActiveCount === 0}
+          onClear={() =>
+            onParamsChange({
+              ...params,
+              status: undefined,
+              platform: undefined,
+            })
+          }
         >
-          <SelectValue placeholder={t`Estado`} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL_STATUSES}>{t`Todos los estados`}</SelectItem>
-          {getStatusOptions().map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
-        value={params.platform ?? ALL_PLATFORMS}
-        onValueChange={(value) =>
-          onParamsChange({
-            ...params,
-            platform: isPlatform(value) ? value : undefined,
-          })
-        }
-      >
-        <SelectTrigger
-          className={selectTriggerClass(params.platform !== undefined)}
-          aria-label={t`Filtrar por plataforma`}
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem
-            value={ALL_PLATFORMS}
-          >{t`Todas las plataformas`}</SelectItem>
-          {platformOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <button
-        type="button"
-        className="shrink-0 px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground disabled:pointer-events-none disabled:opacity-40 sm:ml-auto"
-        disabled={!hasActiveFilters(params)}
-        onClick={() => {
-          setSearchValue('')
-          onParamsChange({})
-        }}
-      >
-        {t`Limpiar`}
-      </button>
+          <label className="block space-y-3">
+            <span className="text-xs font-medium text-muted-foreground">
+              {t`Estado`}
+            </span>
+            {statusSelect(true)}
+          </label>
+          <label className="block space-y-3">
+            <span className="text-xs font-medium text-muted-foreground">
+              {t`Plataforma`}
+            </span>
+            {platformSelect(true)}
+          </label>
+        </FilterSheet>
+      ) : (
+        <>
+          {statusSelect(false)}
+          {platformSelect(false)}
+          <button
+            type="button"
+            className="shrink-0 px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground disabled:pointer-events-none disabled:opacity-40 md:ml-auto"
+            disabled={!hasActiveFilters(params)}
+            onClick={() => {
+              setSearchValue('')
+              onParamsChange({})
+            }}
+          >
+            {t`Limpiar`}
+          </button>
+        </>
+      )}
     </div>
   )
 }

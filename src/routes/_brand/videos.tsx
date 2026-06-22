@@ -102,7 +102,7 @@ function BrandVideosRoute() {
   const activeFilters = hasActiveVideoFilters(filters)
 
   return (
-    <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
+    <section className="h-full overflow-y-auto bg-background p-6 pb-mobile-nav [&>*+*]:mt-5">
       <div>
         <h1 className="text-2xl font-bold text-foreground">{t`Videos`}</h1>
         <p className="mt-1 text-sm text-muted-foreground">

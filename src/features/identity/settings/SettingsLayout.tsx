@@ -1,9 +1,16 @@
-import { Link, Outlet, useRouterState } from '@tanstack/react-router'
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useRouterState,
+} from '@tanstack/react-router'
 import { Building2, CreditCard } from 'lucide-react'
 
 import { t } from '@lingui/core/macro'
 
 import { cn } from '#/lib/utils'
+
+import { SettingsMobileNav } from './SettingsMobileNav'
 
 const settingsTabs = [
   {
@@ -24,14 +31,27 @@ const settingsTabs = [
 
 export function SettingsLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const navigate = useNavigate()
   const activeTab =
     settingsTabs.find(
       (tab) => pathname === tab.href || pathname.startsWith(`${tab.href}/`),
     ) ?? settingsTabs[0]
 
   return (
-    <section className="flex h-full min-h-0 overflow-hidden">
-      <aside className="flex w-64 shrink-0 flex-col gap-6 overflow-y-auto border-r border-border px-4 py-6">
+    <section className="flex h-full min-h-0 flex-col overflow-hidden md:flex-row">
+      <SettingsMobileNav
+        items={settingsTabs.map((tab) => ({
+          id: tab.id,
+          label: tab.label(),
+          icon: tab.icon,
+        }))}
+        activeId={activeTab.id}
+        onSelect={(id) => {
+          const tab = settingsTabs.find((candidate) => candidate.id === id)
+          if (tab) void navigate({ to: tab.href })
+        }}
+      />
+      <aside className="hidden w-64 shrink-0 flex-col gap-6 overflow-y-auto border-r border-border px-4 py-6 md:flex">
         <div className="px-2">
           <h1 className="text-base font-semibold text-foreground">
             {t`Ajustes`}
@@ -65,7 +85,7 @@ export function SettingsLayout() {
           })}
         </nav>
       </aside>
-      <div className="min-h-0 flex-1 overflow-y-auto px-8 py-8">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6 pb-mobile-nav md:px-8 md:py-8">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
           <h2 className="text-2xl font-semibold tracking-normal text-foreground">
             {activeTab.label()}

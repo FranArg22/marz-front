@@ -148,8 +148,8 @@ export function CampaignBoardPage() {
   }
 
   return (
-    <main className="min-h-full bg-background">
-      <div className="mx-auto flex w-full max-w-[1368px] flex-col gap-6 p-8">
+    <main className="h-full overflow-y-auto bg-background pb-mobile-nav">
+      <div className="mx-auto flex w-full max-w-[1368px] flex-col gap-6 p-4 sm:p-6 lg:p-8">
         <CampaignBoardHeader
           isRefreshing={boardQuery.isFetching && !boardQuery.isPending}
           onRefresh={() => void boardQuery.refetch()}
@@ -162,7 +162,7 @@ export function CampaignBoardPage() {
           onReset={handleResetSearch}
         />
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <CampaignBoardResultSummary
             totalVisible={
               boardQuery.data?.counts.matching_filters ??

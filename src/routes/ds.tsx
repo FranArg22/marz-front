@@ -641,6 +641,7 @@ function ChatShowcaseGroup() {
             preview="Sure, I'll send the draft tomorrow"
             online
             unread
+            unreadCount={3}
           />
           <ChatRailItem name="Nova Flux" preview="Got it, rendering now" />
           <ChatRailItem

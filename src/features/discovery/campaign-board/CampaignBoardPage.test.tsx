@@ -262,7 +262,7 @@ describe('CampaignBoardPage', () => {
     renderCampaignBoardPage()
 
     expect(
-      screen.getByRole('heading', { name: /campañas abiertas/i }),
+      screen.getByRole('heading', { name: /campañas activas/i }),
     ).toBeInTheDocument()
     expect(screen.getByText('1 campañas')).toBeInTheDocument()
     expect(screen.getByText('12 recomendadas para vos')).toBeInTheDocument()
