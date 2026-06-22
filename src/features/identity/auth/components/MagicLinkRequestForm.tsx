@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { useSignIn, useSignUp } from '@clerk/tanstack-react-start'
+import { useAuth, useSignIn, useSignUp } from '@clerk/tanstack-react-start'
 import { useRouter } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
@@ -42,12 +42,17 @@ function clerkErrorMessage(err: unknown): string {
 export function MagicLinkRequestForm() {
   const { signIn } = useSignIn()
   const { signUp } = useSignUp()
+  const { isLoaded } = useAuth()
   const router = useRouter()
 
   const form = useAppForm({
     defaultValues: { email: '' },
     validators: { onChange: getEmailSchema(), onSubmit: getEmailSchema() },
     onSubmit: async ({ value, formApi }) => {
+      // Clerk (y el dev-browser token en instancias dev) debe estar cargado
+      // antes de tocar la Frontend API; si no, responde "you need to supply an
+      // active session". Sin esto, un submit en el primer paint falla.
+      if (!isLoaded) return
       const email = value.email.trim()
       const verificationUrl = `${window.location.origin}/auth/callback`
 
