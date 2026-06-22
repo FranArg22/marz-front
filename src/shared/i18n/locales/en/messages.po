@@ -69,7 +69,7 @@ msgstr ""
 msgid "¿Cuántos seguidores tenés hoy?"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:29
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
 msgid "¿Desde dónde creás?"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "¿Hacés contenido UGC?"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:151
+#: src/features/identity/auth/components/MagicSentScreen.tsx:153
 msgid "¿No lo encontrás? Chequeá en spam o promociones."
 msgstr ""
 
@@ -1482,7 +1482,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:93
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:291
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:296
 msgid "Atrás"
 msgstr ""
 
@@ -1520,7 +1520,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:157
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:162
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1575,7 +1575,7 @@ msgstr ""
 msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:35
 msgid "Base geográfica. Importa para campañas con foco regional."
 msgstr ""
 
@@ -1638,7 +1638,7 @@ msgstr ""
 #~ msgid "Bonos de oferta"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:77
+#: src/features/offers/components/OfferSummaryBlock.tsx:78
 msgid "Bonos máximos"
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgstr ""
 msgid "Budget {budgetLabel}"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:66
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:69
 msgid "Buenos Aires"
 msgstr ""
 
@@ -1924,7 +1924,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:220
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:225
 msgid "Canales"
 msgstr ""
 
@@ -2233,7 +2233,7 @@ msgstr ""
 msgid "Cine"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:63
 #: src/features/identity/settings/GeneralSection.tsx:255
 #: src/features/identity/settings/GeneralSection.tsx:259
 msgid "Ciudad"
@@ -2567,7 +2567,7 @@ msgstr ""
 msgid "Continuar"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:116
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:121
 msgid "Continuar con email"
 msgstr ""
 
@@ -2620,9 +2620,13 @@ msgstr ""
 #~ msgid "Correo"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:88
-msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
+#: src/features/offers/components/OfferSummaryBlock.tsx:89
+msgid "Costo de procesamiento de pagos"
 msgstr ""
+
+#: src/features/offers/components/OfferSummaryBlock.tsx:88
+#~ msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
+#~ msgstr ""
 
 #: src/features/analytics/dashboard/MetricCard.tsx:153
 msgid "Costo por mil vistas: gasto del período / vistas del período × 1000."
@@ -2668,7 +2672,7 @@ msgstr ""
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:206
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:265
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:145
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:104
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:105
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr ""
@@ -3472,7 +3476,7 @@ msgstr ""
 msgid "El brand necesita actualizar su tarjeta"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:106
+#: src/features/offers/components/OfferSummaryBlock.tsx:110
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr ""
 
@@ -3528,7 +3532,7 @@ msgstr ""
 msgid "El fee máximo debe ser mayor o igual al mínimo."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:123
+#: src/features/identity/auth/components/MagicSentScreen.tsx:125
 msgid "El link expira en 15 minutos."
 msgstr ""
 
@@ -3734,7 +3738,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:111
 #: src/features/identity/settings/GeneralSection.tsx:199
 #: src/features/identity/settings/GeneralSection.tsx:206
 #: src/features/identity/settings/ProfileCard.tsx:38
@@ -3910,7 +3914,7 @@ msgid "Enviando..."
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:194
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:117
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:122
 msgid "Enviando…"
 msgstr ""
 
@@ -4593,7 +4597,7 @@ msgstr ""
 msgid "Formato inválido. Usá formato E.164."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:274
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
 msgid "Formato UGC"
 msgstr ""
 
@@ -4601,7 +4605,7 @@ msgstr ""
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:206
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:211
 msgid "Formatos"
 msgstr ""
 
@@ -5366,7 +5370,7 @@ msgstr ""
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:304
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:309
 msgid "Ir a mi dashboard"
 msgstr ""
 
@@ -6337,7 +6341,7 @@ msgstr ""
 msgid "Monto a definir"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:71
+#: src/features/offers/components/OfferSummaryBlock.tsx:72
 msgid "Monto base"
 msgstr ""
 
@@ -6452,7 +6456,7 @@ msgstr ""
 #~ msgid "Next payout"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:197
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
 msgid "Nichos"
 msgstr ""
 
@@ -7400,7 +7404,7 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:238
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:88
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:169
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:39
 #: src/features/identity/settings/GeneralSection.tsx:242
 #: src/features/identity/settings/GeneralSection.tsx:246
 msgid "País"
@@ -7986,7 +7990,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:233
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:238
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr ""
@@ -8304,16 +8308,16 @@ msgstr ""
 msgid "Reemplazar imagen"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:137
+#: src/features/identity/auth/components/MagicSentScreen.tsx:139
 msgid "Reenviando…"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:84
-#: src/features/identity/auth/components/MagicSentScreen.tsx:138
+#: src/features/identity/auth/components/MagicSentScreen.tsx:140
 msgid "Reenviar link"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:135
+#: src/features/identity/auth/components/MagicSentScreen.tsx:137
 msgid "Reenviar link ({cooldown}s)"
 msgstr ""
 
@@ -8442,7 +8446,7 @@ msgstr ""
 msgid "Resumen"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:66
+#: src/features/offers/components/OfferSummaryBlock.tsx:67
 msgid "Resumen de la oferta"
 msgstr ""
 
@@ -8511,7 +8515,7 @@ msgstr ""
 #~ msgid "Revisá tu brief"
 #~ msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:105
+#: src/features/identity/auth/components/MagicSentScreen.tsx:107
 msgid "Revisá tu email"
 msgstr ""
 
@@ -8819,7 +8823,7 @@ msgstr ""
 #~ msgid "Seleccionar intereses..."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:48
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:51
 msgid "Seleccionar país"
 msgstr ""
 
@@ -9159,7 +9163,7 @@ msgstr ""
 #~ msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Sin tarifa cargada"
 msgstr ""
 
@@ -9389,6 +9393,10 @@ msgstr ""
 msgid "Streetwear"
 msgstr ""
 
+#: src/features/offers/components/OfferSummaryBlock.tsx:91
+msgid "Stripe cobra 2.9% + $0.30 sobre el total cobrado; se suma para que el monto base de la oferta quede cubierto íntegro."
+msgstr ""
+
 #: src/features/billing/components/PaymentMethodsCard.tsx:116
 #: src/features/billing/components/PaymentMethodsCard.tsx:132
 #: src/features/billing/settings/BillingSummary.tsx:319
@@ -9570,7 +9578,7 @@ msgstr ""
 msgid "Tarifa UGC"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Tarifa: {ugcRateText}"
 msgstr ""
 
@@ -9598,7 +9606,7 @@ msgstr ""
 msgid "Te ayudamos con un template base para {verticalLabel}"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:108
+#: src/features/identity/auth/components/MagicSentScreen.tsx:110
 msgid "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 msgstr ""
 
@@ -10012,7 +10020,7 @@ msgstr ""
 #~ msgid "Total {total} / 100"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:95
+#: src/features/offers/components/OfferSummaryBlock.tsx:99
 msgid "Total a cobrar a tu tarjeta"
 msgstr ""
 
@@ -10095,7 +10103,7 @@ msgstr ""
 #~ msgid "tu nivel"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:170
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:175
 msgid "Tu nombre"
 msgstr ""
 
@@ -10202,7 +10210,7 @@ msgstr ""
 msgid "tu_handle"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:107
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:112
 msgid "tu@empresa.com"
 msgstr ""
 
@@ -10386,7 +10394,7 @@ msgstr ""
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:147
+#: src/features/identity/auth/components/MagicSentScreen.tsx:149
 msgid "Usar otro email"
 msgstr ""
 
