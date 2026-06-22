@@ -58,7 +58,7 @@ test.describe('App shell desktop', () => {
   }) => {
     await onboardedBrandUser.signIn(page)
     await expect(page).toHaveURL(/\/campaigns/)
-    await page.goto('/offers')
+    await page.goto('/discover/campaigns')
     await expect(page).toHaveURL(/\/workspace/)
   })
 

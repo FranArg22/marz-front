@@ -62,9 +62,9 @@ describe('MobileRedirectGuard', () => {
     expect(mockNavigate).not.toHaveBeenCalled()
   })
 
-  it('does not redirect on mobile at /_creator/offers', () => {
+  it('does not redirect on mobile at /_creator/discover/campaigns', () => {
     mockIsMobile = true
-    mockPathname = '/_creator/offers'
+    mockPathname = '/_creator/discover/campaigns'
     renderHook(() => MobileRedirectGuard())
     expect(mockNavigate).not.toHaveBeenCalled()
   })

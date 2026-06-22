@@ -123,7 +123,10 @@ describe('useSubmitCreatorOnboarding', () => {
     })
     expect(mockRefetch).toHaveBeenCalled()
     await vi.waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith({ to: '/inbox' })
+      expect(mockNavigate).toHaveBeenCalledWith({
+        to: '/discover/campaigns',
+        search: { recommended_only: false, sort: 'match_score_desc' },
+      })
     })
 
     const state = useCreatorOnboardingStore.getState()
