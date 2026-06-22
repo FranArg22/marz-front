@@ -1,5 +1,3 @@
-import { t } from '@lingui/core/macro'
-
 import { InboxItemKind } from '#/shared/api/generated/model'
 
 import type { InboxItem } from './api/inbox'
@@ -31,7 +29,6 @@ export interface InboxCreatorBoxModel {
   items: InboxItem[]
   newestOccurredAt: string
   softCount: number
-  softSummary: string | null
 }
 
 export function groupInboxItemsByCounterpart(
@@ -57,11 +54,27 @@ export function getCounterpartKey(item: InboxItem): string {
   const accountId = item.counterpart?.account_id ?? item.counterpart_account_id
   if (accountId) return accountId
 
-  const displayName =
-    item.counterpart?.display_name ??
-    item.counterpart_display_name ??
-    item.meta.primary
-  return displayName.trim().toLowerCase()
+  return getCounterpartName(item).toLowerCase()
+}
+
+function getCounterpartName(item: InboxItem): string {
+  return (
+    firstNonEmpty(
+      item.counterpart?.display_name,
+      item.counterpart_display_name,
+      item.meta.primary,
+    ) ?? ''
+  )
+}
+
+function firstNonEmpty(
+  ...values: (string | null | undefined)[]
+): string | null {
+  for (const value of values) {
+    const trimmed = value?.trim()
+    if (trimmed) return trimmed
+  }
+  return null
 }
 
 function createCreatorBox(
@@ -76,10 +89,7 @@ function createCreatorBox(
   const headlineItem = items[0] as InboxItem
   const hardItems = items.filter(isHardInboxItem)
   const softCount = items.length - hardItems.length
-  const counterpartName =
-    headlineItem.counterpart?.display_name ??
-    headlineItem.counterpart_display_name ??
-    headlineItem.meta.primary
+  const counterpartName = getCounterpartName(headlineItem)
   const newestOccurredAt = groupItems.toSorted(
     (first, second) =>
       Date.parse(second.occurred_at) - Date.parse(first.occurred_at),
@@ -97,10 +107,10 @@ function createCreatorBox(
         headlineItem.counterpart_account_id ??
         null,
       display_name: counterpartName,
-      avatar_url:
-        headlineItem.counterpart?.avatar_url ??
-        headlineItem.counterpart_avatar_url ??
-        null,
+      avatar_url: firstNonEmpty(
+        headlineItem.counterpart?.avatar_url,
+        headlineItem.counterpart_avatar_url,
+      ),
     },
     hardItems,
     headlineItem,
@@ -108,8 +118,6 @@ function createCreatorBox(
     items,
     newestOccurredAt,
     softCount,
-    softSummary:
-      softCount > 0 ? t`y ${softCount} mensajes de ${counterpartName}` : null,
   }
 }
 

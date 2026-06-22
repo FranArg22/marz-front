@@ -83,7 +83,6 @@ describe('groupInboxItemsByCounterpart', () => {
 
     expect(box.headlineItem.id).toBe('review')
     expect(box.softCount).toBe(1)
-    expect(box.softSummary).toBe('y 1 mensajes de Ana Creator')
   })
 
   it('marks boxes with only soft items as dismissable', () => {
@@ -106,6 +105,25 @@ describe('groupInboxItemsByCounterpart', () => {
     ])
 
     expect(firstBox(boxes).canDismiss).toBe(false)
+  })
+
+  it('falls back to meta.primary when counterpart name is empty', () => {
+    const boxes = groupInboxItemsByCounterpart([
+      makeInboxItem({
+        counterpart: {
+          account_id: null,
+          display_name: '',
+          avatar_url: '',
+        },
+        counterpart_account_id: null,
+        counterpart_display_name: '',
+        counterpart_avatar_url: '',
+        meta: { primary: 'Marca Real', secondary: 'Campaign', timestamp: '2h' },
+      }),
+    ])
+
+    expect(firstBox(boxes).counterpart.display_name).toBe('Marca Real')
+    expect(firstBox(boxes).counterpart.avatar_url).toBeNull()
   })
 })
 

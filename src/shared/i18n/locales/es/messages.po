@@ -495,6 +495,10 @@ msgstr "{selectedCount} de 5 seleccionados"
 msgid "{selectedCount} seleccionados"
 msgstr "{selectedCount} seleccionados"
 
+#: src/features/inbox/InboxCreatorBox.tsx:256
+msgid "{softCount} mensajes sin leer"
+msgstr "{softCount} mensajes sin leer"
+
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:110
 msgid "{total} creadores encontrados"
 msgstr "{total} creadores encontrados"
@@ -5359,8 +5363,8 @@ msgid "Ir a mi dashboard"
 msgstr "Ir a mi dashboard"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:176
-#: src/features/inbox/InboxCreatorBox.tsx:198
-#: src/features/inbox/InboxCreatorBox.tsx:204
+#: src/features/inbox/InboxCreatorBox.tsx:202
+#: src/features/inbox/InboxCreatorBox.tsx:208
 msgid "Ir al chat"
 msgstr "Ir al chat"
 
@@ -5892,8 +5896,8 @@ msgstr "Marca sin nombre"
 msgid "Marca y campaña"
 msgstr "Marca y campaña"
 
-#: src/features/inbox/InboxCreatorBox.tsx:217
-#: src/features/inbox/InboxCreatorBox.tsx:227
+#: src/features/inbox/InboxCreatorBox.tsx:221
+#: src/features/inbox/InboxCreatorBox.tsx:231
 msgid "Marcar caja como leída"
 msgstr "Marcar caja como leída"
 
@@ -8623,8 +8627,8 @@ msgstr "Se exportaron las 10k filas más recientes. Para el export completo, con
 #~ msgid "Se perdió la conexión con el servidor."
 #~ msgstr "Se perdió la conexión con el servidor."
 
-#: src/features/inbox/InboxCreatorBox.tsx:235
-#: src/features/inbox/InboxCreatorBox.tsx:240
+#: src/features/inbox/InboxCreatorBox.tsx:239
+#: src/features/inbox/InboxCreatorBox.tsx:244
 msgid "Se resuelve actuando"
 msgstr "Se resuelve actuando"
 
@@ -9505,7 +9509,7 @@ msgstr "Suscripción"
 #~ msgid "take rate"
 #~ msgstr "take rate"
 
-#: src/features/inbox/InboxCreatorBox.tsx:297
+#: src/features/inbox/InboxCreatorBox.tsx:304
 msgid "También esperás algo"
 msgstr "También esperás algo"
 
@@ -10745,8 +10749,8 @@ msgstr "Workspace"
 #~ msgstr "Workspace no disponible"
 
 #: src/features/inbox/groupInboxItemsByCounterpart.ts:112
-msgid "y {softCount} mensajes de {counterpartName}"
-msgstr "y {softCount} mensajes de {counterpartName}"
+#~ msgid "y {softCount} mensajes de {counterpartName}"
+#~ msgstr "y {softCount} mensajes de {counterpartName}"
 
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:54
 msgid "Ya enviaste una invitación a este creator."
