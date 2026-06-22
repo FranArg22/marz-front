@@ -1638,7 +1638,7 @@ msgstr ""
 #~ msgid "Bonos de oferta"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:78
+#: src/features/offers/components/OfferSummaryBlock.tsx:77
 msgid "Bonos máximos"
 msgstr ""
 
@@ -2620,13 +2620,9 @@ msgstr ""
 #~ msgid "Correo"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:89
-msgid "Costo de procesamiento de pagos"
-msgstr ""
-
 #: src/features/offers/components/OfferSummaryBlock.tsx:88
-#~ msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
-#~ msgstr ""
+msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
+msgstr ""
 
 #: src/features/analytics/dashboard/MetricCard.tsx:153
 msgid "Costo por mil vistas: gasto del período / vistas del período × 1000."
@@ -3476,7 +3472,7 @@ msgstr ""
 msgid "El brand necesita actualizar su tarjeta"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:110
+#: src/features/offers/components/OfferSummaryBlock.tsx:106
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr ""
 
@@ -6341,7 +6337,7 @@ msgstr ""
 msgid "Monto a definir"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#: src/features/offers/components/OfferSummaryBlock.tsx:71
 msgid "Monto base"
 msgstr ""
 
@@ -8446,7 +8442,7 @@ msgstr ""
 msgid "Resumen"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:67
+#: src/features/offers/components/OfferSummaryBlock.tsx:66
 msgid "Resumen de la oferta"
 msgstr ""
 
@@ -9393,10 +9389,6 @@ msgstr ""
 msgid "Streetwear"
 msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:91
-msgid "Stripe cobra 2.9% + $0.30 sobre el total cobrado; se suma para que el monto base de la oferta quede cubierto íntegro."
-msgstr ""
-
 #: src/features/billing/components/PaymentMethodsCard.tsx:116
 #: src/features/billing/components/PaymentMethodsCard.tsx:132
 #: src/features/billing/settings/BillingSummary.tsx:319
@@ -10020,7 +10012,7 @@ msgstr ""
 #~ msgid "Total {total} / 100"
 #~ msgstr ""
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:99
+#: src/features/offers/components/OfferSummaryBlock.tsx:95
 msgid "Total a cobrar a tu tarjeta"
 msgstr ""
 
