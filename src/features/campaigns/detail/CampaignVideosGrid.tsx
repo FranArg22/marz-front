@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query'
 import {
   AlertCircle,
   ChevronRight,
-  Film,
   Instagram,
   Music,
   Play,
@@ -163,7 +162,7 @@ export function CampaignVideosGrid({
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-3 gap-4 lg:grid-cols-4 xl:grid-cols-5">
         {videos.map((video) => (
           <VideoCard key={video.deliverable_id} video={video} />
         ))}
@@ -230,7 +229,7 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
           onMouseEnter={previewPlay}
           onMouseLeave={previewStop}
         >
-          <div className="relative aspect-video overflow-hidden bg-muted">
+          <div className="relative aspect-[9/16] overflow-hidden bg-muted">
             {video.playback_url ? (
               <video
                 ref={videoRef}
@@ -268,16 +267,7 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
               </span>
             ) : null}
           </div>
-          <div className="space-y-2 p-3">
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-foreground">
-                {video.format}
-              </p>
-              <p className="mt-1 flex items-center gap-1.5 truncate text-xs text-muted-foreground">
-                <Film className="size-3.5 shrink-0" aria-hidden />
-                <span className="truncate">{meta.label}</span>
-              </p>
-            </div>
+          <div className="p-3">
             <div className="flex min-w-0 items-center gap-2">
               <Avatar className="size-6">
                 {video.creator.avatar_url ? (
@@ -368,7 +358,7 @@ function GridSkeleton() {
     <div
       role="status"
       aria-label={t`Loading videos`}
-      className="grid gap-4 p-4 md:grid-cols-2 xl:grid-cols-3"
+      className="grid grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
     >
       {[0, 1, 2, 3, 4, 5].map((item) => (
         <div

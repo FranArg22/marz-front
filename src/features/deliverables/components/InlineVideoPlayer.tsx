@@ -47,8 +47,10 @@ export function InlineVideoPlayer({
   return (
     <div
       className={cn(
-        'relative w-full overflow-hidden rounded-lg bg-muted',
-        aspect === 'portrait' ? 'aspect-[9/16]' : 'aspect-video',
+        'relative overflow-hidden rounded-lg bg-muted',
+        aspect === 'portrait'
+          ? 'mx-auto aspect-[9/16] h-[80dvh] max-h-[80dvh] w-auto max-w-full sm:h-[70vh] sm:max-h-[70vh]'
+          : 'aspect-video w-full',
       )}
     >
       {hasError ? (
@@ -64,7 +66,7 @@ export function InlineVideoPlayer({
           preload="metadata"
           src={playbackUrl}
           poster={thumbnailUrl}
-          className="h-full w-full"
+          className="h-full w-full object-contain"
           onError={() => setHasError(true)}
           onPlay={handlePlay}
           onPause={handlePause}

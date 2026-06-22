@@ -825,7 +825,7 @@ msgstr ""
 msgid "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:229
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:228
 msgid "Abrir revisión de video de {creatorName}"
 msgstr ""
 
@@ -1678,7 +1678,7 @@ msgstr ""
 msgid "Borrador"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:74
 msgid "Borrador aprobado"
 msgstr ""
@@ -1837,7 +1837,7 @@ msgstr ""
 msgid "Cambiar foto"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:73
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
 #: src/features/deliverables/components/DeliverableListItem.tsx:367
@@ -2009,7 +2009,7 @@ msgstr ""
 msgid "Canjes"
 msgstr ""
 
-#: src/features/deliverables/components/InlineVideoPlayer.tsx:57
+#: src/features/deliverables/components/InlineVideoPlayer.tsx:59
 msgid "Cannot play this video"
 msgstr ""
 
@@ -2136,7 +2136,7 @@ msgid "Cargando…"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:181
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:185
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:184
 #: src/features/discovery/campaign-detail/ApplicationsTab.tsx:85
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:161
 #: src/features/earnings/components/PendingBonusPanel.tsx:133
@@ -2371,7 +2371,7 @@ msgstr ""
 msgid "Completada"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:57
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:23
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:77
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:23
@@ -3791,7 +3791,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:69
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:72
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:15
@@ -3824,12 +3824,12 @@ msgstr ""
 #~ msgid "English"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:76
 msgid "Enlace aprobado"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:75
 msgid "Enlace enviado"
 msgstr ""
@@ -5224,7 +5224,7 @@ msgstr ""
 #~ msgid "Invitá a un creator que todavía no está en Marz. Le enviaremos un email con el link de registro."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:133
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:132
 msgid "Invitá creadores para empezar a recibir entregables en esta campaña."
 msgstr ""
 
@@ -5305,7 +5305,7 @@ msgstr ""
 #~ msgid "Invitar creador"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:155
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:154
 msgid "Invitar creadores"
 msgstr ""
 
@@ -5641,7 +5641,7 @@ msgstr ""
 
 #: src/features/analytics/dashboard/EmptyBlockState.tsx:26
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:132
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:143
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:142
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:231
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:389
@@ -5759,7 +5759,7 @@ msgstr ""
 msgid "Loading earnings KPIs"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:370
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:360
 msgid "Loading videos"
 msgstr ""
 
@@ -5836,7 +5836,7 @@ msgstr ""
 msgid "Los traigo yo"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:132
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:131
 msgid "Los videos van a aparecer acá cuando los creadores suban sus borradores y queden en revisión o aprobados."
 msgstr ""
 
@@ -6525,7 +6525,7 @@ msgstr ""
 #~ msgid "No encontramos los creators"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:353
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:343
 msgid "No encontramos los videos"
 msgstr ""
 
@@ -6537,7 +6537,7 @@ msgstr ""
 #~ msgid "No encontramos pagos para los filtros actuales. Probá ajustar la búsqueda, campaña o creator."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:125
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:124
 msgid "No encontramos videos con esos filtros"
 msgstr ""
 
@@ -6635,7 +6635,7 @@ msgstr ""
 msgid "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 msgstr ""
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:113
+#: src/features/deliverables/components/DraftReviewDialog.tsx:119
 msgid "No pudimos cargar el video borrador. Probá refrescar."
 msgstr ""
 
@@ -6679,7 +6679,7 @@ msgstr ""
 msgid "No pudimos cargar los planes. Intentá de nuevo."
 msgstr "We couldn't load the plans. Try again."
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:354
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:344
 msgid "No pudimos cargar los videos"
 msgstr ""
 
@@ -7387,7 +7387,7 @@ msgstr ""
 #~ msgid "Pagos y gastos"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:58
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:57
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:78
 #: src/features/offers/components/ArchivedOffersList.tsx:26
 msgid "Paid"
@@ -7587,8 +7587,8 @@ msgstr ""
 msgid "Pegá un link válido."
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:199
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:198
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
@@ -8003,7 +8003,7 @@ msgstr ""
 msgid "Probá con otra búsqueda, estado o plataforma."
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:130
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:129
 msgid "Probá con otra búsqueda, estado, plataforma o creador."
 msgstr ""
 
@@ -8108,7 +8108,7 @@ msgid "Published URL"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:408
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:358
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:348
 #: src/features/campaigns/detail/OverviewTab.tsx:100
 msgid "Puede que la campaña no exista o que no pertenezca a este espacio de trabajo."
 msgstr ""
@@ -8345,7 +8345,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:409
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:115
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:359
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:349
 #: src/features/campaigns/detail/OverviewTab.tsx:101
 msgid "Reintentá en unos minutos."
 msgstr ""
@@ -8533,7 +8533,7 @@ msgstr ""
 #~ msgid "Revisar draft"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:102
+#: src/features/deliverables/components/DraftReviewDialog.tsx:108
 #: src/features/inbox/InboxDraftReviewPopover.tsx:43
 #: src/features/inbox/InboxDraftReviewPopover.tsx:51
 msgid "Revisar video borrador"
@@ -9201,7 +9201,7 @@ msgstr ""
 #~ msgid "SLA custom"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:132
+#: src/features/deliverables/components/DraftReviewDialog.tsx:138
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:243
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:255
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:275
@@ -9214,8 +9214,8 @@ msgstr ""
 #~ msgid "Solicitar cambios al draft"
 #~ msgstr ""
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:103
-#: src/features/deliverables/components/DraftReviewDialog.tsx:146
+#: src/features/deliverables/components/DraftReviewDialog.tsx:109
+#: src/features/deliverables/components/DraftReviewDialog.tsx:152
 msgid "Solicitar cambios al video borrador"
 msgstr ""
 
@@ -9915,7 +9915,7 @@ msgstr ""
 msgid "Todavía no hay una cuenta cargada"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:126
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:125
 msgid "Todavía no hay videos entregados"
 msgstr ""
 
@@ -10496,7 +10496,7 @@ msgstr ""
 msgid "Ver creadores"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:154
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:153
 msgid "Ver creadores activos"
 msgstr ""
 
@@ -10699,7 +10699,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/chat/components/mobile/MobileChat.tsx:85
-#: src/features/deliverables/components/DraftReviewDialog.tsx:95
+#: src/features/deliverables/components/DraftReviewDialog.tsx:101
 #: src/features/offers/components/CancelOfferDialog.tsx:133
 msgid "Volver"
 msgstr ""
