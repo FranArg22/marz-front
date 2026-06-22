@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useStore } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
-import { CircleCheck } from 'lucide-react'
+import { CircleCheck, TriangleAlert } from 'lucide-react'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
@@ -114,7 +114,7 @@ function PayoutAccountModalContent({
             {(field) => (
               <field.TextField
                 label={t`Nombre de la cuenta`}
-                placeholder={t`Ej. Cuenta principal`}
+                placeholder={t`Ej. Juan Banco Chase`}
                 required
                 maxLength={200}
               />
@@ -137,7 +137,7 @@ function PayoutAccountModalContent({
             {(field) => (
               <field.TextField
                 label={t`Número de cuenta`}
-                placeholder={t`Solo dígitos`}
+                placeholder={t`Hasta 17 dígitos`}
                 required
                 inputMode="numeric"
                 maxLength={17}
@@ -174,11 +174,17 @@ function PayoutAccountModalContent({
           <form.AppField name="address">
             {(field) => (
               <field.TextField
-                label={t`Dirección`}
-                placeholder={t`Dirección del titular de la cuenta`}
+                label={t`Dirección del banco`}
+                placeholder={t`Dirección de la sucursal del banco`}
                 required
                 maxLength={500}
-                autoComplete="street-address"
+                autoComplete="off"
+                hint={
+                  <span className="flex items-center gap-1.5 text-warning">
+                    <TriangleAlert className="size-3.5 shrink-0" aria-hidden />
+                    {t`Es la dirección del banco, no la tuya. Se suelen confundir.`}
+                  </span>
+                }
               />
             )}
           </form.AppField>
