@@ -14,4 +14,5 @@ export type GetDiscoveryCreatorsCreatorType = typeof GetDiscoveryCreatorsCreator
 export const GetDiscoveryCreatorsCreatorType = {
   all: 'all',
   influencer: 'influencer',
+  ugc: 'ugc',
 } as const;

@@ -138,7 +138,7 @@ export const getDiscoveryCreatorsQueryLimitMax = 50;
 
 export const GetDiscoveryCreatorsQueryParams = zod.object({
   "platforms": zod.array(zod.enum(['instagram', 'tiktok', 'youtube'])).optional(),
-  "creator_type": zod.enum(['all', 'influencer']).default(getDiscoveryCreatorsQueryCreatorTypeDefault),
+  "creator_type": zod.enum(['all', 'influencer', 'ugc']).default(getDiscoveryCreatorsQueryCreatorTypeDefault),
   "countries": zod.array(zod.string().min(getDiscoveryCreatorsQueryCountriesItemMin).max(getDiscoveryCreatorsQueryCountriesItemMax)).optional(),
   "gender": zod.enum(['male', 'female', 'non_binary']).optional(),
   "age_buckets": zod.array(zod.enum(['18-24', '25-34', '35-44', '45-54', '55+'])).optional(),

@@ -241,6 +241,17 @@ export function DiscoveryFilterPanel({
                       })
                     }
                   />
+                  <PillToggle
+                    label={t`UGC`}
+                    selected={
+                      creatorType === GetDiscoveryCreatorsCreatorType.ugc
+                    }
+                    onToggle={() =>
+                      updatePendingFilters({
+                        creator_type: GetDiscoveryCreatorsCreatorType.ugc,
+                      })
+                    }
+                  />
                 </PillGroup>
               </FieldGroup>
 

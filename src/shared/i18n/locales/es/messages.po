@@ -209,7 +209,7 @@ msgstr "“Toda la información estaba en la plataforma, podía ver el paso a pa
 #~ msgid "{activeBonusCount} activos"
 #~ msgstr "{activeBonusCount} activos"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:393
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:404
 msgid "{activeCount} filtros activos"
 msgstr "{activeCount} filtros activos"
 
@@ -1346,7 +1346,7 @@ msgstr "Anual"
 #~ msgid "Aplicación"
 #~ msgstr "Aplicación"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:411
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:161
 msgid "Aplicar"
 msgstr "Aplicar"
@@ -3095,7 +3095,7 @@ msgstr "Descubrir creadores"
 #~ msgid "Descubrir creators"
 #~ msgstr "Descubrir creators"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:527
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:538
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:266
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:287
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:309
@@ -3594,7 +3594,7 @@ msgstr "El porcentaje tiene que ser un número entero"
 msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:540
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:551
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr "El valor inicial no puede ser mayor que el final."
 
@@ -3808,7 +3808,7 @@ msgstr "Enero"
 msgid "Engagement"
 msgstr "Engagement"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:341
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:352
 msgid "Engagement rate"
 msgstr "Engagement rate"
 
@@ -4420,7 +4420,7 @@ msgstr "Fee más alto"
 msgid "Feed activo ahora mismo"
 msgstr "Feed activo ahora mismo"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:264
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:10
 msgid "Femenino"
 msgstr "Femenino"
@@ -4835,7 +4835,7 @@ msgstr "Handle o nombre (opcional)"
 #~ msgid "Hard Filters"
 #~ msgstr "Hard Filters"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:535
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:546
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:273
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:295
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:317
@@ -5636,7 +5636,7 @@ msgstr "Limpiar búsqueda"
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:142
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:231
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:389
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
 msgid "Limpiar filtros"
 msgstr "Limpiar filtros"
 
@@ -5992,7 +5992,7 @@ msgstr "Marzo"
 msgid "Más recientes"
 msgstr "Más recientes"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:255
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:266
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:9
 msgid "Masculino"
 msgstr "Masculino"
@@ -6077,7 +6077,7 @@ msgstr "may"
 msgid "Mayo"
 msgstr "Mayo"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:348
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:359
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:244
 msgid "Mayor a {option}%"
 msgstr "Mayor a {option}%"
@@ -7642,7 +7642,7 @@ msgstr "Perfil"
 msgid "performance"
 msgstr "performance"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:293
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:304
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:22
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:42
 msgid "Performance"
@@ -7873,7 +7873,7 @@ msgstr "Postulate a las que matchean con tu perfil. Cuanto más completo tu perf
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:258
 #: src/features/discovery/network/components/CreatorCard.tsx:285
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:94
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:325
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:336
 msgid "Precio"
 msgstr "Precio"
 
@@ -8675,7 +8675,7 @@ msgid "seguidores"
 msgstr "seguidores"
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:91
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:297
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:308
 msgid "Seguidores"
 msgstr "Seguidores"
 
@@ -8735,7 +8735,7 @@ msgstr "Seleccioná países"
 msgid "Seleccioná rangos de edad"
 msgstr "Seleccioná rangos de edad"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:277
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:288
 msgid "Seleccioná tipos de contenido"
 msgstr "Seleccioná tipos de contenido"
 
@@ -8897,7 +8897,7 @@ msgstr "Septiembre"
 #~ msgid "Servicio fully managed"
 #~ msgstr "Servicio fully managed"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:247
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:258
 msgid "Sexo"
 msgstr "Sexo"
 
@@ -9755,7 +9755,7 @@ msgstr "Tipo de compensación"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:238
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:187
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:286
 msgid "Tipo de contenido"
 msgstr "Tipo de contenido"
 
@@ -9909,7 +9909,7 @@ msgstr "Todavía no tenés campañas"
 #~ msgstr "Todo lo de Starter, +:"
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:222
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:250
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:261
 msgid "Todos"
 msgstr "Todos"
 
@@ -10198,6 +10198,7 @@ msgstr "Tus 3 mejores videos"
 msgid "Ubicación del producto"
 msgstr "Ubicación del producto"
 
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:245
 #: src/features/identity/settings/CollaborationSection.tsx:52
 #: src/features/identity/settings/RatesSection.tsx:246
 msgid "UGC"
@@ -10650,7 +10651,7 @@ msgstr "views proyectados / mes"
 msgid "Vistas"
 msgstr "Vistas"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:311
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:322
 msgid "Vistas promedio"
 msgstr "Vistas promedio"
 
