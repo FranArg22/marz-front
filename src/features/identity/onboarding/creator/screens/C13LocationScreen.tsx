@@ -8,12 +8,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
+import { useListCountries } from '#/shared/api/generated/lookups/lookups'
 import { FieldRow } from '#/shared/ui/form'
 import { useCreatorOnboardingStore } from '../store'
-import { COUNTRIES } from '../countries'
 
 export function C13LocationScreen() {
   const store = useCreatorOnboardingStore()
+  const countriesQuery = useListCountries({ active: true })
+  const countries =
+    countriesQuery.data?.status === 200 ? countriesQuery.data.data.items : []
 
   const handleCityChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +51,9 @@ export function C13LocationScreen() {
                 <SelectValue placeholder={t`Seleccionar país`} />
               </SelectTrigger>
               <SelectContent position="popper" className="max-h-[280px]">
-                {COUNTRIES.map((c) => (
+                {countries.map((c) => (
                   <SelectItem key={c.code} value={c.code}>
-                    {c.name}
+                    {c.label_es}
                   </SelectItem>
                 ))}
               </SelectContent>

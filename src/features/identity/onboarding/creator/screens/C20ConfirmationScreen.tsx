@@ -15,12 +15,12 @@ import {
 import { Flag } from '#/shared/ui/Flag'
 import {
   useListContentTypes,
+  useListCountries,
   useListInterests,
 } from '#/shared/api/generated/lookups/lookups'
 import { useSubmitCreatorOnboarding } from '../useSubmitCreatorOnboarding'
 import { useCreatorOnboardingStore } from '../store'
 import { getStepId, getStepIndex } from '../steps'
-import { COUNTRIES } from '../countries'
 
 /* eslint-disable lingui/no-unlocalized-strings */
 const AVATAR_PREVIEW_KEY = 'marz-creator-onboarding-avatar-preview'
@@ -72,6 +72,7 @@ export function C20ConfirmationScreen() {
   const navigate = useNavigate()
   const interestsQuery = useListInterests()
   const contentTypesQuery = useListContentTypes()
+  const countriesQuery = useListCountries({ active: true })
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
 
   const nicheLabelBySlug =
@@ -124,7 +125,11 @@ export function C20ConfirmationScreen() {
       : null
   const city = store.city?.trim()
   const countryCode = store.country ?? ''
-  const countryName = COUNTRIES.find((c) => c.code === countryCode)?.name
+  const countryName =
+    countriesQuery.data?.status === 200
+      ? countriesQuery.data.data.items.find((c) => c.code === countryCode)
+          ?.label_es
+      : undefined
 
   return (
     <div className="relative flex w-full flex-col items-center gap-10">
