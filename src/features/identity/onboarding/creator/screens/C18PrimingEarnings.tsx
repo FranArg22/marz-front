@@ -34,10 +34,10 @@ export function C18PrimingEarnings() {
   const avgPerCollabFormatted = avgPerCollab.toLocaleString('es-AR')
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-12">
+    <div className="relative flex w-full flex-col items-center gap-12 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-180px] h-[560px] w-[720px] -translate-x-1/2 opacity-70 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-220px] h-[700px] w-[900px] -translate-x-1/2 opacity-90 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.33) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -45,14 +45,14 @@ export function C18PrimingEarnings() {
       />
 
       <div className="relative flex w-full flex-col items-center gap-3">
-        <p className="text-center text-lg font-medium text-muted-foreground">
+        <p className="text-center text-lg font-medium text-muted-foreground max-sm:text-base">
           {t`Podés ganar hasta`}
         </p>
-        <div className="flex items-end gap-1.5">
-          <span className="whitespace-nowrap text-[96px] font-bold leading-[1.2] tracking-[-0.02em] text-primary">
+        <div className="flex items-end gap-1.5 max-sm:flex-col max-sm:items-center max-sm:gap-0">
+          <span className="whitespace-nowrap text-[96px] font-bold leading-[1.2] tracking-[-0.02em] text-primary max-sm:text-[34px]">
             {}${low.toLocaleString('es-AR')} – ${high.toLocaleString('es-AR')}
           </span>
-          <span className="whitespace-nowrap pb-6 text-[22px] font-semibold text-muted-foreground">
+          <span className="whitespace-nowrap pb-6 text-[22px] font-semibold text-muted-foreground max-sm:pb-0 max-sm:text-base">
             {t`USD / mes`}
           </span>
         </div>
@@ -65,9 +65,9 @@ export function C18PrimingEarnings() {
         {t`Tu tarifa, tu calendario, tu estilo. Nosotros operamos el resto.`}
       </p>
 
-      <div className="relative flex w-full max-w-[720px] items-center gap-7 rounded-3xl border border-border bg-card p-6">
-        <div className="flex flex-1 flex-col gap-3">
-          <div className="flex items-center justify-between">
+      <div className="relative flex w-full max-w-[720px] items-center gap-7 rounded-3xl border border-border bg-card p-6 max-sm:flex-col max-sm:gap-4 max-sm:p-4">
+        <div className="flex flex-1 flex-col gap-3 max-sm:w-full">
+          <div className="flex items-center justify-between gap-2">
             <span className="text-xs font-semibold text-foreground">
               {t`Colabs al mes`}
             </span>
@@ -113,8 +113,8 @@ export function C18PrimingEarnings() {
             })}
           </div>
         </div>
-        <div className="h-16 w-px bg-border" />
-        <div className="flex w-[240px] flex-col gap-1">
+        <div className="h-16 w-px bg-border max-sm:h-px max-sm:w-full" />
+        <div className="flex w-[240px] flex-col gap-1 max-sm:w-full max-sm:items-center max-sm:text-center">
           <span className="text-xs font-semibold leading-[1.5] text-foreground">
             {t`Cobrás $${avgPerCollabFormatted} promedio`}
           </span>

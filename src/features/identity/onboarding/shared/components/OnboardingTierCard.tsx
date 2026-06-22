@@ -34,6 +34,7 @@ export function OnboardingTierCard({
       }}
       className={cn(
         'flex h-[150px] w-[220px] flex-col justify-between rounded-xl p-5 text-left transition-[transform,background-color,border-color,color] duration-150 ease-out motion-safe:active:scale-[0.98]',
+        'max-sm:h-[112px] max-sm:w-[calc(50%-6px)] max-sm:p-3.5',
         selected
           ? 'border-2 border-primary bg-primary/[0.08]'
           : 'border border-border bg-card hover:bg-surface-hover',

@@ -57,24 +57,24 @@ export function B14ConfirmationScreen() {
   ]
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-9">
+    <div className="relative flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-100px] h-[500px] w-[600px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-140px] h-[640px] w-[780px] -translate-x-1/2 opacity-80 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
         }}
       />
 
-      <div className="relative flex size-[72px] items-center justify-center rounded-full bg-primary/20">
-        <div className="flex size-11 items-center justify-center rounded-full bg-primary">
+      <div className="relative flex size-[72px] items-center justify-center rounded-full bg-primary/20 max-sm:size-14">
+        <div className="flex size-11 items-center justify-center rounded-full bg-primary max-sm:size-10">
           <Check className="size-6 text-primary-foreground" strokeWidth={3} />
         </div>
       </div>
 
       <div className="relative flex w-full max-w-[640px] flex-col items-center gap-3">
-        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[30px]">
           {firstName ? t`Listo, ${firstName}.` : t`Listo.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
@@ -82,7 +82,7 @@ export function B14ConfirmationScreen() {
         </p>
       </div>
 
-      <div className="relative flex w-full max-w-[560px] flex-col gap-[18px] rounded-3xl border border-border bg-card p-7">
+      <div className="relative flex w-full max-w-[560px] flex-col gap-[18px] rounded-3xl border border-border bg-card p-7 max-sm:gap-3 max-sm:p-5">
         <span className="text-sm font-semibold text-foreground">
           {t`Qué sigue ahora`}
         </span>

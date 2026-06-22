@@ -5,6 +5,7 @@ import { useAuth } from '@clerk/tanstack-react-start'
 
 import { readPendingInviteToken } from '#/features/discovery/invite/pendingInvite'
 import { KindSelector } from '#/features/identity/auth/components/KindSelector'
+import { MarzLogo } from '#/shared/ui/MarzLogo'
 import {
   getMeQueryKey,
   useMe,
@@ -117,50 +118,14 @@ function KindPage() {
   return (
     <main className="relative flex min-h-screen flex-col bg-background">
       <div className="flex h-16 items-center justify-between px-8">
-        <div className="flex items-center gap-2">
-          <div className="flex size-7 items-center justify-center rounded-[7px] bg-foreground">
-            <svg width={16} height={16} viewBox="0 0 40 40" fill="none">
-              <circle cx={8} cy={10} r={2.5} fill="var(--background)" />
-              <circle cx={17.5} cy={10} r={2.5} fill="var(--background)" />
-              <circle cx={27} cy={10} r={2.5} fill="var(--background)" />
-              <rect
-                x={9.5}
-                y={15}
-                width={2}
-                height={10}
-                fill="var(--background)"
-              />
-              <rect
-                x={19}
-                y={15}
-                width={2}
-                height={10}
-                fill="var(--background)"
-              />
-              <rect
-                x={28.5}
-                y={15}
-                width={2}
-                height={10}
-                fill="var(--background)"
-              />
-              <circle cx={8} cy={25} r={2.5} fill="var(--background)" />
-              <circle cx={17.5} cy={25} r={2.5} fill="var(--background)" />
-              <circle cx={27} cy={25} r={2.5} fill="var(--background)" />
-            </svg>
-          </div>
-          {/* eslint-disable-next-line lingui/no-unlocalized-strings -- Product brand name is not translated. */}
-          <span className="text-base font-bold tracking-tight text-foreground">
-            Marz
-          </span>
-        </div>
+        <MarzLogo />
       </div>
 
       <div className="h-0.5 w-full bg-border">
         <div className="h-full w-[6%] bg-primary" />
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-6 py-20">
+      <div className="flex flex-1 items-center justify-center px-6 py-20 max-sm:py-8">
         <KindSelector />
       </div>
     </main>

@@ -99,6 +99,27 @@ describe('CreatorOnboardingPayloadSchema', () => {
     }
   })
 
+  it('rejects a channel with no rate cards', () => {
+    const payload = validPayload()
+    payload.channels = [
+      {
+        platform: 'instagram',
+        external_handle: '@ig',
+        verified: false,
+        is_primary: true,
+        rate_cards: [],
+      },
+    ]
+    const result = CreatorOnboardingPayloadSchema.safeParse(payload)
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      const issue = result.error.issues.find(
+        (i: z.ZodIssue) => i.message === 'rate_card_required',
+      )
+      expect(issue).toBeDefined()
+    }
+  })
+
   it('accepts fewer than 3 best_videos (optional)', () => {
     const payload = validPayload()
     payload.best_videos = [

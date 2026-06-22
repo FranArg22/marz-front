@@ -100,14 +100,6 @@ function CreatorOnboardingLayout() {
     }
   }
 
-  const handleExit = () => {
-    track('onboarding_abandoned', {
-      step: currentStep.id,
-      index: currentIndex,
-    })
-    void router.navigate({ to: '/' })
-  }
-
   if (meQuery.isLoading) return null
   if (!me || me.status !== 200) return null
   if (kind !== 'creator' || onboardingStatus !== 'onboarding_pending')
@@ -121,7 +113,8 @@ function CreatorOnboardingLayout() {
       onNext={handleNext}
       nextDisabled={validate ? !validate(store) : false}
       hideFooter={hideFooter}
-      onExit={handleExit}
+      topbar={hideFooter ? null : undefined}
+      progress={hideFooter ? null : undefined}
     >
       <WizardStepTransition stepKey={currentStep.id} index={currentIndex}>
         <Outlet />

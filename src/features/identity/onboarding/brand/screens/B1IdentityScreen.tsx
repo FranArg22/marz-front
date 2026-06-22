@@ -5,6 +5,7 @@ import { FieldRow } from '#/shared/ui/form'
 import { WizardSectionTitle } from '#/shared/ui/wizard'
 import { LogoUploader } from '#/features/identity/settings/LogoUploader'
 import { useBrandOnboardingStore } from '../store'
+import { normalizeWebsiteUrl, isValidWebsiteUrl } from '../website'
 // Brand enrichment fuera del MVP — se reactiva post-MVP.
 // import { useEffect, useRef } from 'react'
 // import { useBrandEnrichment } from '#/shared/api/generated/onboarding/onboarding'
@@ -13,6 +14,11 @@ import { useBrandOnboardingStore } from '../store'
 export function B1IdentityScreen() {
   const store = useBrandOnboardingStore()
   const [urlInput, setUrlInput] = useState(store.website_url ?? '')
+  const [urlTouched, setUrlTouched] = useState(false)
+
+  const trimmedUrl = urlInput.trim()
+  const urlInvalid =
+    trimmedUrl !== '' && !isValidWebsiteUrl(normalizeWebsiteUrl(trimmedUrl))
 
   const handleNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +40,9 @@ export function B1IdentityScreen() {
   )
 
   const handleUrlBlur = useCallback(() => {
-    const trimmed = urlInput.trim()
-    if (!trimmed) return
-    if (/^https?:\/\//i.test(trimmed)) return
-    const normalized = `https://${trimmed}`
+    setUrlTouched(true)
+    const normalized = normalizeWebsiteUrl(urlInput)
+    if (normalized === '' || normalized === urlInput) return
     setUrlInput(normalized)
     store.setField('website_url', normalized)
   }, [urlInput, store])
@@ -78,7 +83,7 @@ export function B1IdentityScreen() {
   // }, [enrichmentData, store])
 
   return (
-    <div className="flex w-full flex-col items-center gap-8">
+    <div className="flex w-full flex-col items-center gap-8 max-sm:gap-5">
       <WizardSectionTitle
         title={t`¿Cómo se llama tu marca?`}
         subtitle={t`Ingresá el nombre y la web de tu marca para comenzar.`}
@@ -104,14 +109,21 @@ export function B1IdentityScreen() {
             />
           )}
         </FieldRow>
-        <FieldRow label={t`Sitio web`} error={store.fieldErrors.website_url}>
+        <FieldRow
+          label={t`Sitio web`}
+          error={
+            urlTouched && urlInvalid
+              ? t`Ingresá una web válida (ej: mimarca.com).`
+              : store.fieldErrors.website_url
+          }
+        >
           {(aria) => (
             <Input
               {...aria}
               value={urlInput}
               onChange={handleUrlChange}
               onBlur={handleUrlBlur}
-              placeholder={t`https://mimarca.com`}
+              placeholder={t`mimarca.com`}
               maxLength={500}
             />
           )}

@@ -24,12 +24,22 @@ describe('normalizeVideoUrl', () => {
 })
 
 describe('isValidVideoUrl', () => {
-  it('accepts valid URLs', () => {
+  it('accepts IG reels, TikToks and YT shorts', () => {
     expect(isValidVideoUrl('https://instagram.com/reel/x')).toBe(true)
+    expect(isValidVideoUrl('https://www.tiktok.com/@user/video/123456')).toBe(
+      true,
+    )
+    expect(isValidVideoUrl('https://youtube.com/shorts/abc123')).toBe(true)
   })
 
   it('rejects non-URL text', () => {
     expect(isValidVideoUrl('no es un link')).toBe(false)
     expect(isValidVideoUrl('')).toBe(false)
+  })
+
+  it('rejects well-formed URLs that are not a supported video link', () => {
+    expect(isValidVideoUrl('https://google.com')).toBe(false)
+    expect(isValidVideoUrl('https://youtube.com/watch?v=abc123')).toBe(false)
+    expect(isValidVideoUrl('https://instagram.com/some.user')).toBe(false)
   })
 })

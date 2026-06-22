@@ -35,9 +35,9 @@ export function B6BudgetScreen() {
     : t`Marcas similares invierten entre $2.000 y $7.000/mes`
 
   return (
-    <div className="flex w-full flex-col items-center gap-12">
+    <div className="flex w-full flex-col items-center gap-12 max-sm:gap-6">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿Cuánto pensás invertir por mes?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -46,13 +46,13 @@ export function B6BudgetScreen() {
       </div>
 
       <div className="flex items-end" aria-live="polite">
-        <span className="text-[36px] font-semibold tracking-[-0.02em] text-muted-foreground">
+        <span className="text-[36px] font-semibold tracking-[-0.02em] text-muted-foreground max-sm:text-[24px]">
           $
         </span>
         <span className="self-start pl-0.5 pt-2 text-sm font-semibold text-muted-foreground">
           {t`USD`}
         </span>
-        <span className="text-[80px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <span className="text-[80px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[48px]">
           {bigNumber}
         </span>
         <span className="pb-3 pl-1 text-lg font-medium text-muted-foreground">

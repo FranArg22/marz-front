@@ -135,10 +135,10 @@ export function B7PrimingMatchPreview() {
   const remaining = TOTAL_CREATORS - niches.length - 1
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-10">
+    <div className="relative flex w-full flex-col items-center gap-10 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-150px] h-[500px] w-[680px] -translate-x-1/2 opacity-60 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-190px] h-[640px] w-[860px] -translate-x-1/2 opacity-85 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -153,7 +153,7 @@ export function B7PrimingMatchPreview() {
       </div>
 
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-3">
-        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[30px]">
           {t`Ya tenemos ${TOTAL_CREATORS} creadores que encajan con tu marca.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
@@ -165,7 +165,7 @@ export function B7PrimingMatchPreview() {
         {niches.map((label, i) => (
           <div
             key={label}
-            className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2.5 rounded-[20px] border border-border bg-card p-4"
+            className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2.5 rounded-[20px] border border-border bg-card p-4 max-sm:h-[124px] max-sm:w-[104px] max-sm:p-3"
           >
             <div
               className="size-14 rounded-full"
@@ -176,7 +176,7 @@ export function B7PrimingMatchPreview() {
             </span>
           </div>
         ))}
-        <div className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2.5 rounded-[20px] border border-border bg-card p-4">
+        <div className="flex h-[150px] w-[120px] flex-col items-center justify-center gap-2.5 rounded-[20px] border border-border bg-card p-4 max-sm:h-[124px] max-sm:w-[104px] max-sm:p-3">
           <div
             className="size-14 rounded-full"
             style={{ backgroundColor: BLOB_COLORS[5], filter: 'blur(8px)' }}

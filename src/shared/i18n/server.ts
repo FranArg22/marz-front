@@ -1,46 +1,24 @@
 import { createServerFn } from '@tanstack/react-start'
-import {
-  getCookie,
-  getRequestHeader,
-  setCookie,
-} from '@tanstack/react-start/server'
+import { getCookie, setCookie } from '@tanstack/react-start/server'
 
 import {
   DEFAULT_LOCALE,
   LOCALE_COOKIE,
   SUPPORTED_LOCALES,
   isLocale,
-  normalizeLocale,
 } from './config'
 import type { Locale } from './config'
 
-function parseAcceptLanguage(header: string | undefined): Locale | null {
-  if (!header) return null
-  const tags: Array<{ tag: string; q: number }> = []
-  for (const part of header.split(',')) {
-    const [tag, qStr] = part.trim().split(';q=')
-    if (!tag) continue
-    const q = qStr ? Number.parseFloat(qStr) : 1
-    tags.push({ tag: tag.toLowerCase(), q: Number.isNaN(q) ? 1 : q })
-  }
-  tags.sort((a, b) => b.q - a.q)
-
-  for (const { tag } of tags) {
-    const normalized = normalizeLocale(tag)
-    if (normalized !== DEFAULT_LOCALE || tag.startsWith(DEFAULT_LOCALE)) {
-      return normalized
-    }
-  }
-  return null
-}
-
+// We intentionally do NOT auto-detect the locale from the browser's
+// Accept-Language header: the product is Spanish-first and the `en` catalog is
+// still largely untranslated, so an English browser would otherwise land on a
+// broken half-English UI. Only an explicit choice (persisted to the cookie via
+// `persistLocale`) overrides the Spanish default.
 export const resolveLocale = createServerFn({ method: 'GET' }).handler(() => {
   const cookieLocale = getCookie(LOCALE_COOKIE)
   if (isLocale(cookieLocale)) return cookieLocale
 
-  const accept = getRequestHeader('accept-language')
-  const detected = parseAcceptLanguage(accept)
-  return detected ?? DEFAULT_LOCALE
+  return DEFAULT_LOCALE
 })
 
 export const persistLocale = createServerFn({ method: 'POST' })

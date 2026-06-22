@@ -65,11 +65,11 @@ export function WizardShell({
       {progressSlot}
       <main
         className={cn(
-          'flex flex-1 flex-col items-center overflow-y-auto overflow-x-clip px-24 pt-12 pb-24',
+          'flex flex-1 flex-col items-center overflow-y-auto overflow-x-clip px-24 pt-12 pb-24 max-sm:px-5 max-sm:pt-6 max-sm:pb-8',
           className,
         )}
       >
-        <div className="my-auto flex w-full flex-col items-center gap-12">
+        <div className="my-auto flex w-full flex-col items-center gap-12 max-sm:gap-7">
           {children}
           {!hideFooter && (
             <WizardFooter

@@ -33,7 +33,7 @@ msgstr "¿Aceptás colaboraciones por canje?"
 msgid "¿Cómo llegaste a Marz?"
 msgstr "¿Cómo llegaste a Marz?"
 
-#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:83
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:88
 msgid "¿Cómo se llama tu marca?"
 msgstr "¿Cómo se llama tu marca?"
 
@@ -125,7 +125,7 @@ msgstr "¿Qué te trae por acá?"
 #~ msgid "¿Qué tipo de campaña vas a correr?"
 #~ msgstr "¿Qué tipo de campaña vas a correr?"
 
-#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:64
+#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:108
 msgid "¿Qué tipo de contenido hacés?"
 msgstr "¿Qué tipo de contenido hacés?"
 
@@ -439,7 +439,7 @@ msgstr "{minutes}m {secondsLabel}s"
 msgid "{missingCount, plural, one {A una tarifa le falta monto} other {A # tarifas les falta monto}}"
 msgstr "{missingCount, plural, one {A una tarifa le falta monto} other {A # tarifas les falta monto}}"
 
-#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:85
+#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:129
 msgid "{n} de {total} seleccionados"
 msgstr "{n} de {total} seleccionados"
 
@@ -1082,6 +1082,10 @@ msgstr "ago"
 msgid "Agosto"
 msgstr "Agosto"
 
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:51
+msgid "Agregá al menos una tarifa por canal."
+msgstr "Agregá al menos una tarifa por canal."
+
 #: src/features/offers/schemas/createOffer.ts:84
 msgid "Agregá al menos una ventana de bono"
 msgstr "Agregá al menos una ventana de bono"
@@ -1572,8 +1576,8 @@ msgstr "Ayer"
 #~ msgstr "Basado en tu nicho y alcance, podés acceder a campañas que te pagan lo que vale tu trabajo."
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:28
-msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
-msgstr "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
+#~ msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
+#~ msgstr "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
 msgid "Base geográfica. Importa para campañas con foco regional."
@@ -2408,8 +2412,8 @@ msgid "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio 
 msgstr "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio en {verticalLabel} LatAm."
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:16
-msgid "Con acciones pendientes"
-msgstr "Con acciones pendientes"
+#~ msgid "Con acciones pendientes"
+#~ msgstr "Con acciones pendientes"
 
 #: src/features/identity/settings/GeneralSection.tsx:210
 msgid "Con código de país."
@@ -2709,8 +2713,8 @@ msgid "Creadores activos en esta campaña"
 msgstr "Creadores activos en esta campaña"
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:25
-msgid "Creadores con tu cantidad de seguidores facturan 3x más con Marz."
-msgstr "Creadores con tu cantidad de seguidores facturan 3x más con Marz."
+#~ msgid "Creadores con tu cantidad de seguidores facturan 3x más con Marz."
+#~ msgstr "Creadores con tu cantidad de seguidores facturan 3x más con Marz."
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:25
 #~ msgid "Creadores de tu tier facturan 3x más con Marz."
@@ -3591,8 +3595,12 @@ msgstr "El porcentaje tiene que ser un número entero"
 #~ msgstr "El presupuesto debe ser mayor a 0."
 
 #: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
-msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
-msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+#~ msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+#~ msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
+
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
+msgid "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
+msgstr "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:540
 msgid "El valor inicial no puede ser mayor que el final."
@@ -4204,8 +4212,12 @@ msgid "Estamos confirmando el pago con Stripe."
 msgstr "Estamos confirmando el pago con Stripe."
 
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:124
-msgid "Estamos cruzando tu perfil con 2.340 creadores activos."
-msgstr "Estamos cruzando tu perfil con 2.340 creadores activos."
+msgid "Estamos cruzando tu perfil con +5000 creadores activos."
+msgstr "Estamos cruzando tu perfil con +5000 creadores activos."
+
+#: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:124
+#~ msgid "Estamos cruzando tu perfil con 2.340 creadores activos."
+#~ msgstr "Estamos cruzando tu perfil con 2.340 creadores activos."
 
 #: src/routes/onboarding/brand.billing-callback.tsx:78
 msgid "Estamos demorando, refrescá en unos minutos"
@@ -4227,7 +4239,7 @@ msgstr "Este creador rechazó una invitación anterior. Podés volver a intentar
 #~ msgid "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 #~ msgstr "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:176
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:173
 msgid "Este handle ya está en uso"
 msgstr "Este handle ya está en uso"
 
@@ -4874,7 +4886,7 @@ msgstr "Hasta 17 dígitos"
 #~ msgid "Hay errores de validación. Volvé al paso anterior para corregirlos."
 #~ msgstr "Hay errores de validación. Volvé al paso anterior para corregirlos."
 
-#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:53
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:55
 msgid "Hay formatos inválidos para la plataforma seleccionada."
 msgstr "Hay formatos inválidos para la plataforma seleccionada."
 
@@ -4951,8 +4963,8 @@ msgstr "Hoy"
 #~ msgstr "hs"
 
 #: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:114
-msgid "https://mimarca.com"
-msgstr "https://mimarca.com"
+#~ msgid "https://mimarca.com"
+#~ msgstr "https://mimarca.com"
 
 #: src/features/deliverables/components/SubmitLinkSidesheet.tsx:176
 msgid "https://www.youtube.com/watch?v=abc123"
@@ -5083,7 +5095,7 @@ msgstr "Información principal"
 msgid "Inglés"
 msgstr "Inglés"
 
-#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:84
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:89
 msgid "Ingresá el nombre y la web de tu marca para comenzar."
 msgstr "Ingresá el nombre y la web de tu marca para comenzar."
 
@@ -5154,6 +5166,10 @@ msgstr "Ingresá una URL válida que empiece con http:// o https://"
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:143
 msgid "Ingresá una URL válida que empiece con https://"
 msgstr "Ingresá una URL válida que empiece con https://"
+
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:116
+msgid "Ingresá una web válida (ej: mimarca.com)."
+msgstr "Ingresá una web válida (ej: mimarca.com)."
 
 #: src/features/chat/components/messageTimelineChrome.tsx:18
 msgid "Inicio de la conversación"
@@ -5559,7 +5575,7 @@ msgstr "Las horas tienen que ser un número entero"
 #~ msgid "Las invitaciones creadas para esta campaña van a aparecer acá."
 #~ msgstr "Las invitaciones creadas para esta campaña van a aparecer acá."
 
-#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:67
+#: src/features/identity/onboarding/creator/screens/C6ContentTypesScreen.tsx:111
 msgid "Las marcas buscan tipos específicos. Marcá los que te salen bien."
 msgstr "Las marcas buscan tipos específicos. Marcá los que te salen bien."
 
@@ -6186,7 +6202,7 @@ msgstr "Métricas ilimitadas"
 #~ msgid "México"
 #~ msgstr "México"
 
-#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:102
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:107
 msgid "Mi Marca"
 msgstr "Mi Marca"
 
@@ -6211,6 +6227,10 @@ msgstr "Mid"
 #: src/features/campaigns/configuration/BonusStep.tsx:391
 #~ msgid "Milestones de Performance"
 #~ msgstr "Milestones de Performance"
+
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:126
+msgid "mimarca.com"
+msgstr "mimarca.com"
 
 #: src/features/campaigns/brief-builder/components/HardFilterForm.tsx:17
 #~ msgid "Mín. engagement %"
@@ -6842,7 +6862,7 @@ msgstr "No se puede enviar mensajes"
 msgid "No se puede marcar esta oferta como pagada."
 msgstr "No se puede marcar esta oferta como pagada."
 
-#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:51
+#: src/features/identity/onboarding/creator/screens/C7ChannelsScreen.tsx:53
 msgid "No se puede repetir un formato dentro del mismo canal."
 msgstr "No se puede repetir un formato dentro del mismo canal."
 
@@ -6899,7 +6919,7 @@ msgstr "Nombre de la cuenta"
 msgid "Nombre de la cuenta, titular, número de cuenta, tipo, routing number y dirección."
 msgstr "Nombre de la cuenta, titular, número de cuenta, tipo, routing number y dirección."
 
-#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:96
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:101
 msgid "Nombre de la marca"
 msgstr "Nombre de la marca"
 
@@ -7031,8 +7051,8 @@ msgstr "Ocultar aviso de exportación truncada"
 
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:145
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:208
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:123
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:199
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:120
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:196
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
 msgstr "Ocurrió un error inesperado. Intentá de nuevo."
 
@@ -7563,7 +7583,7 @@ msgstr "PDF opcional, hasta 10 MB"
 msgid "Pedir nuevo link"
 msgstr "Pedir nuevo link"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:73
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:64
 msgid "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 msgstr "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 
@@ -7571,7 +7591,7 @@ msgstr "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 msgid "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 msgstr "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:121
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:112
 msgid "Pegá un link válido."
 msgstr "Pegá un link válido."
 
@@ -7595,6 +7615,7 @@ msgstr "Pendiente de aceptar"
 msgid "Pendiente de revisión"
 msgstr "Pendiente de revisión"
 
+#: src/features/chat/workspace/ConversationFilterTabs.tsx:16
 #: src/features/inbox/InboxPage.tsx:109
 msgid "Pendientes"
 msgstr "Pendientes"
@@ -9156,7 +9177,7 @@ msgstr "Sin tier"
 #~ msgid "Single"
 #~ msgstr "Single"
 
-#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:107
+#: src/features/identity/onboarding/brand/screens/B1IdentityScreen.tsx:113
 #: src/features/identity/settings/BrandCard.tsx:55
 msgid "Sitio web"
 msgstr "Sitio web"
@@ -9376,7 +9397,7 @@ msgstr "Stripe no responde, intentá de nuevo en un momento."
 msgid "Subí el PDF del brief"
 msgstr "Subí el PDF del brief"
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:131
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:128
 msgid "Subí la foto de nuevo"
 msgstr "Subí la foto de nuevo"
 
@@ -10104,8 +10125,8 @@ msgstr "Tu plan liquida los pagos automáticamente; no hace falta marcar como pa
 #~ msgstr "Tu plan no permite invitaciones in-platform. Usá email o actualizá el plan."
 
 #: src/features/identity/onboarding/creator/screens/C9PrimingBenchmark2.tsx:19
-msgid "Tu potencial según tu perfil"
-msgstr "Tu potencial según tu perfil"
+#~ msgid "Tu potencial según tu perfil"
+#~ msgstr "Tu potencial según tu perfil"
 
 #: src/features/billing/settings/BillingSummary.tsx:140
 msgid "Tu suscripción está activa"
@@ -10178,7 +10199,7 @@ msgstr "tu@empresa.com"
 msgid "Turismo"
 msgstr "Turismo"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:70
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:61
 msgid "Tus 3 mejores videos"
 msgstr "Tus 3 mejores videos"
 
@@ -10302,7 +10323,7 @@ msgstr "Subida en curso. ¿Cancelar?"
 msgid "Upload progress"
 msgstr "Progreso de subida"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:114
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:105
 msgid "URL de IG / TikTok / YT"
 msgstr "URL de IG / TikTok / YT"
 

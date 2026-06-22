@@ -34,6 +34,13 @@ const creatorChannelsRefinement = (
   channels.forEach((channel: CreatorChannel, i: number) => {
     const allowed = FORMATS_BY_PLATFORM[channel.platform]
     const seenFormats = new Set<string>()
+    if (channel.rate_cards.length < 1) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['channels', i, 'rate_cards'],
+        message: 'rate_card_required',
+      })
+    }
     channel.rate_cards.forEach((rc: CreatorRateCard, j: number) => {
       if (allowed && !allowed.includes(rc.format)) {
         ctx.addIssue({
@@ -69,6 +76,9 @@ export function validateChannels(
   channels.forEach((channel: CreatorChannel) => {
     const allowed = FORMATS_BY_PLATFORM[channel.platform]
     const seenFormats = new Set<string>()
+    if (channel.rate_cards.length < 1) {
+      errors.push('rate_card_required')
+    }
     channel.rate_cards.forEach((rc: CreatorRateCard) => {
       if (allowed && !allowed.includes(rc.format)) {
         errors.push('format_not_valid_for_platform')

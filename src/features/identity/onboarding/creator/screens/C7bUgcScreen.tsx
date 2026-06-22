@@ -15,13 +15,13 @@ export function C7bUgcScreen() {
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿Hacés contenido UGC?`}
         </h1>
         <p className="text-center text-sm leading-[1.5] text-muted-foreground">
-          {t`El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes.`}
+          {t`El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos.`}
         </p>
       </div>
 

@@ -28,9 +28,9 @@ export function C2ExperienceScreen() {
   const firstName = store.display_name?.trim().split(/\s+/)[0]
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[560px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {firstName
             ? t`${firstName}, ¿cuánto hiciste con marcas?`
             : t`¿Cuánto hiciste con marcas?`}
@@ -55,7 +55,7 @@ export function C2ExperienceScreen() {
               aria-checked={selected}
               onClick={() => store.setField('experience_level', o.value)}
               className={cn(
-                'flex h-[60px] w-full items-center gap-3.5 rounded-2xl px-5 text-left transition-colors',
+                'flex h-[60px] w-full items-center gap-3.5 rounded-2xl px-5 text-left transition-colors max-sm:h-[52px]',
                 selected
                   ? 'border-2 border-primary bg-primary/10'
                   : 'border border-border bg-card hover:bg-surface-hover',

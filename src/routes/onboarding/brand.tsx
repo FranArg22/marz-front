@@ -113,14 +113,6 @@ function BrandOnboardingLayout() {
     }
   }
 
-  const handleExit = () => {
-    track('onboarding_abandoned', {
-      step: currentStep.id,
-      index: currentIndex,
-    })
-    void router.navigate({ to: '/' })
-  }
-
   return (
     <WizardShell
       percent={percent}
@@ -128,7 +120,6 @@ function BrandOnboardingLayout() {
       onNext={handleNext}
       nextDisabled={validate ? !validate(store) : false}
       hideFooter={hideFooter}
-      onExit={handleExit}
       className={currentStep.id === 'paywall' ? 'pt-9 pb-16' : undefined}
     >
       <WizardStepTransition stepKey={currentStep.id} index={currentIndex}>

@@ -127,18 +127,18 @@ export function C20ConfirmationScreen() {
   const countryName = COUNTRIES.find((c) => c.code === countryCode)?.name
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-10">
+    <div className="relative flex w-full flex-col items-center gap-10 max-sm:gap-5">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-120px] h-[560px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-160px] h-[700px] w-[860px] -translate-x-1/2 opacity-80 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.28) 0%, rgba(13, 166, 120, 0) 100%)',
         }}
       />
 
-      <div className="relative flex flex-col items-center gap-5">
-        <div className="relative flex size-[72px] items-center justify-center rounded-full bg-primary/20">
+      <div className="relative flex flex-col items-center gap-5 max-sm:gap-3">
+        <div className="relative flex size-[72px] items-center justify-center rounded-full bg-primary/20 max-sm:size-14">
           <span
             aria-hidden
             className="wizard-tick-halo absolute inset-0 rounded-full bg-primary/40"

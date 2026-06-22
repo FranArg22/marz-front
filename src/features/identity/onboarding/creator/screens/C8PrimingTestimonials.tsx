@@ -32,7 +32,7 @@ const TESTIMONIALS = () => [
 
 export function C8PrimingTestimonials() {
   return (
-    <div className="relative flex w-full flex-col items-center gap-9">
+    <div className="relative flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[-120px] h-[500px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
@@ -43,7 +43,7 @@ export function C8PrimingTestimonials() {
       />
 
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-3">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`Creadores reales hablando de Marz`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">

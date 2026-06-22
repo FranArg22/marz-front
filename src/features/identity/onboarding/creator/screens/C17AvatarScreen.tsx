@@ -117,9 +117,9 @@ export function C17AvatarScreen() {
   }, [store])
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`Una foto para tu perfil`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -132,7 +132,7 @@ export function C17AvatarScreen() {
             <img
               src={preview}
               alt={t`Preview de avatar`}
-              className="size-[140px] rounded-full object-cover"
+              className="size-[140px] max-sm:size-[104px] rounded-full object-cover"
             />
             <Button
               variant="destructive"
@@ -145,7 +145,7 @@ export function C17AvatarScreen() {
             </Button>
           </div>
         ) : (
-          <div className="flex size-[140px] items-center justify-center rounded-full border border-border bg-card">
+          <div className="flex size-[140px] max-sm:size-[104px] items-center justify-center rounded-full border border-border bg-card">
             <User className="size-8 text-muted-foreground" />
           </div>
         )}
