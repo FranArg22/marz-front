@@ -4227,7 +4227,7 @@ msgstr "Este creador rechazó una invitación anterior. Podés volver a intentar
 #~ msgid "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 #~ msgstr "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:170
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:176
 msgid "Este handle ya está en uso"
 msgstr "Este handle ya está en uso"
 
@@ -7031,8 +7031,8 @@ msgstr "Ocultar aviso de exportación truncada"
 
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:145
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:208
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:117
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:193
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:123
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:199
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
 msgstr "Ocurrió un error inesperado. Intentá de nuevo."
 
@@ -7563,13 +7563,17 @@ msgstr "PDF opcional, hasta 10 MB"
 msgid "Pedir nuevo link"
 msgstr "Pedir nuevo link"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:72
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:73
 msgid "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 msgstr "Pegá links de Reels de Instagram, TikToks o Shorts de YouTube."
 
 #: src/features/identity/settings/PortfolioSection.tsx:188
 msgid "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
 msgstr "Pegá un link público de TikTok, Instagram, YouTube u otra plataforma"
+
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:121
+msgid "Pegá un link válido."
+msgstr "Pegá un link válido."
 
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:199
@@ -9372,7 +9376,7 @@ msgstr "Stripe no responde, intentá de nuevo en un momento."
 msgid "Subí el PDF del brief"
 msgstr "Subí el PDF del brief"
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:125
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:131
 msgid "Subí la foto de nuevo"
 msgstr "Subí la foto de nuevo"
 
@@ -10174,7 +10178,7 @@ msgstr "tu@empresa.com"
 msgid "Turismo"
 msgstr "Turismo"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:69
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:70
 msgid "Tus 3 mejores videos"
 msgstr "Tus 3 mejores videos"
 
@@ -10298,7 +10302,7 @@ msgstr "Subida en curso. ¿Cancelar?"
 msgid "Upload progress"
 msgstr "Progreso de subida"
 
-#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:108
+#: src/features/identity/onboarding/creator/screens/C10BestVideosScreen.tsx:114
 msgid "URL de IG / TikTok / YT"
 msgstr "URL de IG / TikTok / YT"
 
