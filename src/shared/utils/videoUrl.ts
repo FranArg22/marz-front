@@ -1,7 +1,7 @@
 /**
- * Normaliza un link de "mejor video": antepone https:// si el usuario lo pegó
- * sin protocolo (instagram.com/reel/x → https://instagram.com/reel/x) y deja
- * los vacíos como cadena vacía para poder filtrarlos.
+ * Normaliza un link de video: antepone https:// si el usuario lo pegó sin
+ * protocolo (instagram.com/reel/x → https://instagram.com/reel/x) y deja los
+ * vacíos como cadena vacía para poder filtrarlos.
  */
 export function normalizeVideoUrl(raw: string): string {
   const trimmed = raw.trim()
@@ -14,7 +14,7 @@ export type VideoProvider = 'youtube' | 'tiktok' | 'instagram'
 const YT_SHORT_RE = /^https?:\/\/(www\.)?youtube\.com\/shorts\/([\w-]{6,})/i
 const TIKTOK_RE =
   /^https?:\/\/(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+\/video\/\d+|[\w-]{6,})/i
-const IG_REEL_RE = /^https?:\/\/(www\.)?instagram\.com\/(reel|reels)\/[\w-]+/i
+const IG_REEL_RE = /^https?:\/\/(www\.)?instagram\.com\/(reel|reels|p)\/[\w-]+/i
 
 /**
  * Detecta la plataforma de un link de video ya normalizado. Devuelve null si no

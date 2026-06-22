@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { t } from '@lingui/core/macro'
 import { Trash2 } from 'lucide-react'
-import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
+import { isValidVideoUrl, normalizeVideoUrl } from '#/shared/utils/videoUrl'
 import {
   getGetMyCreatorSettingsQueryKey,
   useReplaceMyCreatorSampleVideos,
@@ -21,12 +21,6 @@ type SlotErrors = [string | undefined, string | undefined, string | undefined]
 const EMPTY_SLOTS: SlotsState = ['', '', '']
 const EMPTY_ERRORS: SlotErrors = [undefined, undefined, undefined]
 const SLOT_INDEXES = [0, 1, 2] as const
-const httpUrlSchema = z
-  .string()
-  .url()
-  .refine(
-    (value) => value.startsWith('http://') || value.startsWith('https://'),
-  )
 
 interface PortfolioSectionProps {
   data: CreatorSettingsResponse
@@ -53,7 +47,7 @@ export function PortfolioSection({ data }: PortfolioSectionProps) {
 
     const videos = slots
       .filter((url) => url.trim() !== '')
-      .map((url) => ({ url: url.trim() }))
+      .map((url) => ({ url: normalizeVideoUrl(url) }))
 
     if (videos.length > 3) {
       setSaveError(t`No podés cargar más de 3 videos.`)
@@ -98,7 +92,6 @@ export function PortfolioSection({ data }: PortfolioSectionProps) {
                 index={index}
                 url={slots[index]}
                 error={errors[index]}
-                initiallyFilled={initialSlots[index].trim() !== ''}
                 onChange={(nextUrl) => {
                   setSlots((current) => replaceSlot(current, index, nextUrl))
                   setSaveError(null)
@@ -127,22 +120,18 @@ function SampleVideoSlot({
   index,
   url,
   error,
-  initiallyFilled,
   onChange,
   onRemove,
 }: {
   index: number
   url: string
   error?: string
-  initiallyFilled: boolean
   onChange: (url: string) => void
   onRemove: () => void
 }) {
   const inputId = `sample-video-${index}`
   const videoNumber = index + 1
-  const trimmedUrl = url.trim()
-  const isFilled = trimmedUrl !== ''
-  const showReadOnlyUrl = initiallyFilled && isFilled
+  const isFilled = url.trim() !== ''
 
   return (
     <div className="px-6 py-4">
@@ -175,24 +164,18 @@ function SampleVideoSlot({
       </div>
 
       <div className="mt-3">
-        {showReadOnlyUrl ? (
-          <div className="flex h-9 w-full items-center break-all rounded-md border border-border bg-background px-3 text-sm text-muted-foreground">
-            {trimmedUrl}
-          </div>
-        ) : (
-          <Input
-            id={inputId}
-            type="text"
-            inputMode="url"
-            value={url}
-            placeholder={t`Pegá un link público de TikTok, Instagram, YouTube u otra plataforma`}
-            onChange={(event) => onChange(event.target.value)}
-            aria-label={t`URL del video ${videoNumber}`}
-            aria-invalid={Boolean(error)}
-            // eslint-disable-next-line lingui/no-unlocalized-strings -- id de elemento DOM, no es UI
-            aria-describedby={error ? `${inputId}-error` : undefined}
-          />
-        )}
+        <Input
+          id={inputId}
+          type="text"
+          inputMode="url"
+          value={url}
+          placeholder={t`Pegá un Reel de Instagram, un TikTok o un Short de YouTube`}
+          onChange={(event) => onChange(event.target.value)}
+          aria-label={t`URL del video ${videoNumber}`}
+          aria-invalid={Boolean(error)}
+          // eslint-disable-next-line lingui/no-unlocalized-strings -- id de elemento DOM, no es UI
+          aria-describedby={error ? `${inputId}-error` : undefined}
+        />
 
         {error ? (
           <p id={`${inputId}-error`} className="mt-2 text-sm text-destructive">
@@ -218,9 +201,9 @@ function validateSlots(slots: SlotsState): SlotErrors {
   slots.forEach((url, index) => {
     const trimmedUrl = url.trim()
     if (trimmedUrl === '') return
-    if (!httpUrlSchema.safeParse(trimmedUrl).success) {
+    if (!isValidVideoUrl(normalizeVideoUrl(trimmedUrl))) {
       errors[index] =
-        t`Ingresá una URL válida que empiece con http:// o https://`
+        t`Pegá un link válido de Reel de Instagram, TikTok o Short de YouTube.`
     }
   })
 

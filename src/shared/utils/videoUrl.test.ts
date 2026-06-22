@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { normalizeVideoUrl, isValidVideoUrl } from './bestVideos'
+import { normalizeVideoUrl, isValidVideoUrl } from './videoUrl'
 
 describe('normalizeVideoUrl', () => {
   it('returns empty string for blank input', () => {
@@ -30,6 +30,14 @@ describe('isValidVideoUrl', () => {
       true,
     )
     expect(isValidVideoUrl('https://youtube.com/shorts/abc123')).toBe(true)
+  })
+
+  it('accepts IG /p/ links (reels shared from a post, with query params)', () => {
+    expect(
+      isValidVideoUrl(
+        'https://www.instagram.com/p/DZ5YTjVCPVU/?igsh=MTk2b2J1ZDg0aDhucw%3D%3D',
+      ),
+    ).toBe(true)
   })
 
   it('rejects non-URL text', () => {

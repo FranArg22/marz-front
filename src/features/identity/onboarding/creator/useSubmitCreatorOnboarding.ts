@@ -8,8 +8,9 @@ import { useCompleteCreatorOnboarding } from '#/shared/api/generated/onboarding/
 import { ApiError } from '#/shared/api/mutator'
 import { track } from '#/shared/analytics/track'
 
+import { normalizeVideoUrl } from '#/shared/utils/videoUrl'
+
 import { CreatorOnboardingPayloadSchema } from './schema'
-import { normalizeVideoUrl } from './bestVideos'
 
 import type { FieldErrors } from './store'
 import { useCreatorOnboardingStore } from './store'

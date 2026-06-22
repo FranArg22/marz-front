@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '@tanstack/react-form'
 import { Link as LinkIcon, LoaderCircle, X } from 'lucide-react'
 import { t } from '@lingui/core/macro'
@@ -14,6 +14,7 @@ import {
 import { cn } from '#/lib/utils'
 import { applyBackendFieldErrors, useAppForm } from '#/shared/ui/form'
 import { generateIdempotencyKey } from '#/shared/api/idempotency'
+import { isValidVideoUrl, normalizeVideoUrl } from '#/shared/utils/videoUrl'
 import {
   getSubmitLinkErrorMessage,
   useSubmitLinkMutation,
@@ -24,12 +25,16 @@ import {
 } from '#/features/deliverables/analytics'
 import type { DeliverableDTO } from '#/features/deliverables/types'
 
-const submitLinkSchema = z.object({
-  url: z
-    .string()
-    .url()
-    .regex(/^https?:\/\//),
-})
+function createSubmitLinkSchema() {
+  return z.object({
+    url: z
+      .string()
+      .trim()
+      .refine((value) => isValidVideoUrl(normalizeVideoUrl(value)), {
+        message: t`Paste a valid YouTube Short, Instagram Reel or TikTok link.`,
+      }),
+  })
+}
 
 interface SubmitLinkSidesheetProps {
   open: boolean
@@ -74,6 +79,7 @@ function SubmitLinkSidesheetContent({
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [idempotencyKey, setIdempotencyKey] = useState(generateIdempotencyKey)
   const mutation = useSubmitLinkMutation()
+  const submitLinkSchema = useMemo(() => createSubmitLinkSchema(), [])
 
   const form = useAppForm({
     defaultValues: { url: '' },
@@ -84,7 +90,7 @@ function SubmitLinkSidesheetContent({
       try {
         const response = await mutation.mutateAsync({
           deliverableId,
-          body: { url: value.url.trim() },
+          body: { url: normalizeVideoUrl(value.url) },
           idempotencyKey,
         })
         const preview = response.data.link.preview
@@ -172,8 +178,8 @@ function SubmitLinkSidesheetContent({
                 <field.TextField
                   type="url"
                   label={t`Published URL`}
-                  hint={t`Use a YouTube, Instagram or TikTok URL.`}
-                  placeholder={t`https://www.youtube.com/watch?v=abc123`}
+                  hint={t`Use a YouTube Short, Instagram Reel or TikTok URL.`}
+                  placeholder={t`https://www.youtube.com/shorts/abc123`}
                   autoComplete="url"
                 />
               )}

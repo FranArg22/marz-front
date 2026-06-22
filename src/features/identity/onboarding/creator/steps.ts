@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 import { isValidPhoneNumber } from 'libphonenumber-js'
-import { normalizeVideoUrl, isValidVideoUrl } from './bestVideos'
+import { normalizeVideoUrl, isValidVideoUrl } from '#/shared/utils/videoUrl'
 import type { CreatorOnboardingState } from './store'
 import {
   C1NameHandleScreen,

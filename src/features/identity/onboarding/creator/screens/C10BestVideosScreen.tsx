@@ -8,8 +8,8 @@ import {
   normalizeVideoUrl,
   isValidVideoUrl,
   detectVideoProvider,
-} from '../bestVideos'
-import type { VideoProvider } from '../bestVideos'
+} from '#/shared/utils/videoUrl'
+import type { VideoProvider } from '#/shared/utils/videoUrl'
 import type { BestVideo } from '#/shared/api/generated/model/bestVideo'
 
 const DEFAULT_VIDEOS: BestVideo[] = [{ url: '' }, { url: '' }, { url: '' }]
