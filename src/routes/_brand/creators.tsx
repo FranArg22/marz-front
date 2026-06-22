@@ -120,7 +120,7 @@ function BrandCreatorsRoute() {
   }, [brandWorkspace])
 
   return (
-    <section className="h-full overflow-y-auto bg-background p-6 [&>*+*]:mt-5">
+    <section className="h-full overflow-y-auto bg-background p-6 pb-mobile-nav [&>*+*]:mt-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{t`Creadores`}</h1>

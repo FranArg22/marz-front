@@ -11,6 +11,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Inset inferior para las páginas scrolleables: deja aire al final para que el
+   bottom-nav flotante de mobile no tape el último contenido. En ≥md no hay
+   bottom-nav, así que no agrega nada y no toca el padding de escritorio. */
+@utility pb-mobile-nav {
+  @media (width < 768px) {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}
+
 /* ============================================================
    Marz v2 — design tokens
    Fuente de verdad: marz-design/marzv2.pen (get_variables()).

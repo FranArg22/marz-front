@@ -163,7 +163,7 @@ export function BrandPaymentsPage({
   }
 
   return (
-    <main className="flex h-full min-h-0 flex-col overflow-auto bg-background p-6">
+    <main className="flex h-full min-h-0 flex-col overflow-auto bg-background p-6 pb-mobile-nav">
       <div className="mb-5 flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-bold text-foreground">{t`Pagos`}</h1>

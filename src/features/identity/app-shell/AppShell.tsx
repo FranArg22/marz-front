@@ -10,6 +10,9 @@ interface AppShellProps {
   accountKind: AppShellAccountKind
   accountId: string
   pathname: string
+  /** En mobile oculta la bottom-nav para que el contenido ocupe toda la
+   * pantalla (p. ej. una conversación abierta en workspace). */
+  hideBottomNav?: boolean
   children: ReactNode
 }
 
@@ -17,6 +20,7 @@ export function AppShell({
   accountKind,
   accountId,
   pathname,
+  hideBottomNav = false,
   children,
 }: AppShellProps) {
   return (
@@ -32,11 +36,13 @@ export function AppShell({
             className="hidden md:flex"
           />
           <div className="flex min-w-0 flex-1 flex-col md:py-2 md:pr-2 md:pl-0">
-            <main className="min-w-0 flex-1 overflow-hidden bg-background pb-[calc(6rem+env(safe-area-inset-bottom))] md:rounded-2xl md:border md:border-border md:pb-0">
+            <main className="min-w-0 flex-1 overflow-hidden bg-background md:rounded-2xl md:border md:border-border">
               {children}
             </main>
           </div>
-          <AppBottomNav accountKind={accountKind} pathname={pathname} />
+          {hideBottomNav ? null : (
+            <AppBottomNav accountKind={accountKind} pathname={pathname} />
+          )}
         </div>
       </TopbarProvider>
     </AppShellContextProvider>

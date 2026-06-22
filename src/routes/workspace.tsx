@@ -114,6 +114,7 @@ function WorkspaceRoute() {
       accountKind={sessionKind}
       accountId={accountId}
       pathname={pathname}
+      hideBottomNav={Boolean(activeConversationId)}
     >
       <WorkspaceLayout
         sessionKind={sessionKind}

@@ -191,7 +191,7 @@ export function ConversationRail({
         className={
           compact
             ? 'flex flex-col items-center gap-1.5 overflow-y-auto py-2'
-            : 'flex flex-col gap-0.5 overflow-y-auto px-2 pb-2'
+            : 'flex flex-col gap-0.5 overflow-y-auto px-2 pb-2 pb-mobile-nav'
         }
         role="list"
       >

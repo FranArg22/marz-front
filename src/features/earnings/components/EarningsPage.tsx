@@ -121,7 +121,7 @@ function EarningsPageShell({
   children,
 }: EarningsPageShellProps) {
   return (
-    <div className="h-full overflow-y-auto bg-background p-6 text-foreground sm:p-8">
+    <div className="h-full overflow-y-auto bg-background p-6 text-foreground sm:p-8 pb-mobile-nav">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>

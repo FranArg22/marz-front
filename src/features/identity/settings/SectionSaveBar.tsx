@@ -24,7 +24,7 @@ export function SectionSaveBar({
   const canSave = isDirty && !isSubmitting
 
   return (
-    <div className="sticky bottom-0 mt-8 border-t border-border bg-background/95 px-0 py-4 backdrop-blur">
+    <div className="mt-8 border-t border-border bg-background/95 px-0 py-4 backdrop-blur md:sticky md:bottom-0">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>{leftSlot}</div>
         <div className="flex flex-wrap items-center gap-2">

@@ -164,7 +164,7 @@ function CampaignDetailShell({
     <div className="flex h-full min-h-0 flex-col bg-background">
       {header}
       <CampaignDetailTabs activeTab={tab} onTabChange={onTabChange} />
-      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/30 px-5 py-5 md:px-8 md:py-6">
+      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/30 px-5 py-5 pb-mobile-nav md:px-8 md:py-6">
         {children}
       </main>
     </div>

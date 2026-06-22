@@ -136,7 +136,7 @@ export function DiscoveryGrid({
       {/* -m-3 p-3: aire interno para que el ring de selección (2px) y la sombra
           superior (~12px) de la primera fila no queden recortados por overflow,
           sin desalinear la grilla respecto del header. */}
-      <div className="-m-3 min-h-0 flex-1 overflow-y-auto p-3">
+      <div className="-m-3 min-h-0 flex-1 overflow-y-auto p-3 pb-mobile-nav">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allCards.map((card) => (
             <Fragment key={card.creator_id || card.account_id}>
