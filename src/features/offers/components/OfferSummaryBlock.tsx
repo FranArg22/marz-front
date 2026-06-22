@@ -49,9 +49,8 @@ export function OfferSummaryBlock({
   const isPaidPlan = plan !== 'free'
 
   // Only paid plans place a Stripe hold, so only they are charged the
-  // processing fee. The card is charged Base + fee, where the fee grosses up
-  // Stripe's cut on the total charged so the base amount stays whole; bonuses
-  // are paid out separately.
+  // processing fee. The fee is computed on the base amount (what gets
+  // captured); bonuses are paid out separately.
   const feeQuery = usePreviewOfferFee(
     { amount: baseAmount.toFixed(2) },
     { query: { enabled: isPaidPlan && baseAmount > 0, staleTime: 60_000 } },
@@ -84,14 +83,11 @@ export function OfferSummaryBlock({
 
         {isPaidPlan && feeData ? (
           <>
-            <div className="flex items-start justify-between gap-3">
-              <dt className="flex flex-col gap-0.5 text-muted-foreground">
-                <span>{t`Costo de procesamiento de pagos`}</span>
-                <span className="text-xs text-muted-foreground/70">
-                  {t`Stripe cobra 2.9% + $0.30 sobre el total cobrado; se suma para que el monto base de la oferta quede cubierto íntegro.`}
-                </span>
+            <div className="flex items-center justify-between gap-3">
+              <dt className="text-muted-foreground">
+                {t`Costo de procesamiento de pagos (2.9% + $0.30)`}
               </dt>
-              <dd className="shrink-0 font-mono font-medium">
+              <dd className="font-mono font-medium">
                 +{formatUsd(Number(feeData.processing_fee))}
               </dd>
             </div>

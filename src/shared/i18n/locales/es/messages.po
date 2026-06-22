@@ -1638,7 +1638,7 @@ msgstr "Bonos"
 #~ msgid "Bonos de oferta"
 #~ msgstr "Bonos de oferta"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:78
+#: src/features/offers/components/OfferSummaryBlock.tsx:77
 msgid "Bonos máximos"
 msgstr "Bonos máximos"
 
@@ -2616,13 +2616,9 @@ msgstr "Conversaciones"
 #~ msgid "Correo"
 #~ msgstr "Correo"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:89
-msgid "Costo de procesamiento de pagos"
-msgstr "Costo de procesamiento de pagos"
-
 #: src/features/offers/components/OfferSummaryBlock.tsx:88
-#~ msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
-#~ msgstr "Costo de procesamiento de pagos (2.9% + $0.30)"
+msgid "Costo de procesamiento de pagos (2.9% + $0.30)"
+msgstr "Costo de procesamiento de pagos (2.9% + $0.30)"
 
 #: src/features/analytics/dashboard/MetricCard.tsx:153
 msgid "Costo por mil vistas: gasto del período / vistas del período × 1000."
@@ -3472,7 +3468,7 @@ msgstr "El bono fijo tiene que ser mayor a 0"
 msgid "El brand necesita actualizar su tarjeta"
 msgstr "La marca necesita actualizar su tarjeta"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:110
+#: src/features/offers/components/OfferSummaryBlock.tsx:106
 msgid "El cobro se realiza cuando el creador acepta"
 msgstr "El cobro se realiza cuando el creador acepta"
 
@@ -6333,7 +6329,7 @@ msgstr "Monto"
 msgid "Monto a definir"
 msgstr "Monto a definir"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:72
+#: src/features/offers/components/OfferSummaryBlock.tsx:71
 msgid "Monto base"
 msgstr "Monto base"
 
@@ -8422,7 +8418,7 @@ msgstr "Restaurantes"
 msgid "Resumen"
 msgstr "Resumen"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:67
+#: src/features/offers/components/OfferSummaryBlock.tsx:66
 msgid "Resumen de la oferta"
 msgstr "Resumen de la oferta"
 
@@ -9365,10 +9361,6 @@ msgstr "Streaming"
 msgid "Streetwear"
 msgstr "Streetwear"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:91
-msgid "Stripe cobra 2.9% + $0.30 sobre el total cobrado; se suma para que el monto base de la oferta quede cubierto íntegro."
-msgstr "Stripe cobra 2.9% + $0.30 sobre el total cobrado; se suma para que el monto base de la oferta quede cubierto íntegro."
-
 #: src/features/billing/components/PaymentMethodsCard.tsx:116
 #: src/features/billing/components/PaymentMethodsCard.tsx:132
 #: src/features/billing/settings/BillingSummary.tsx:319
@@ -9988,7 +9980,7 @@ msgstr "total"
 #~ msgid "Total {total} / 100"
 #~ msgstr "Total {total} / 100"
 
-#: src/features/offers/components/OfferSummaryBlock.tsx:99
+#: src/features/offers/components/OfferSummaryBlock.tsx:95
 msgid "Total a cobrar a tu tarjeta"
 msgstr "Total a cobrar a tu tarjeta"
 
