@@ -80,6 +80,10 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
           best_videos: undefined,
           referral_text: undefined,
           tier: undefined,
+          languages: undefined,
+          barter_preference: undefined,
+          creator_kinds: undefined,
+          ugc_rate_amount: undefined,
         })
         if (typeof window !== 'undefined') {
           sessionStorage.removeItem(STORAGE_KEY)

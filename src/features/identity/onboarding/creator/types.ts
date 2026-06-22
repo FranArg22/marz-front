@@ -26,12 +26,10 @@ export type CreatorOnboardingPayloadExperienceLevel =
   (typeof CreatorOnboardingPayloadExperienceLevel)[keyof typeof CreatorOnboardingPayloadExperienceLevel]
 
 const CreatorOnboardingPayloadTier = {
-  emergent: 'emergent',
-  growing: 'growing',
-  consolidated: 'consolidated',
-  reference: 'reference',
-  massive: 'massive',
-  celebrity: 'celebrity',
+  nano: 'nano',
+  micro: 'micro',
+  mid: 'mid',
+  macro: 'macro',
 } as const
 
 export type CreatorOnboardingPayloadTier =
@@ -54,4 +52,8 @@ export interface CreatorOnboardingPayload {
   best_videos: BestVideo[]
   referral_text?: string | null
   tier: string
+  languages: string[]
+  barter_preference?: boolean
+  creator_kinds?: string[]
+  ugc_rate_amount?: string | null
 }

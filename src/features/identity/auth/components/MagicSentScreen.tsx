@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { useSignIn } from '@clerk/tanstack-react-start'
+import { useSignIn, useSignUp } from '@clerk/tanstack-react-start'
 import { MailCheck, RefreshCw, ArrowLeft, Clock3 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
@@ -10,8 +10,21 @@ import { track } from '#/shared/analytics/track'
 
 const COOLDOWN_SECONDS = 60
 
+function clerkErrorCode(err: unknown): string | undefined {
+  if (typeof err !== 'object' || err == null) return undefined
+  const nested = (err as { errors?: Array<{ code?: string }> }).errors?.[0]
+    ?.code
+  if (nested) return nested
+  return (err as { code?: string }).code
+}
+
+function isIdentifierNotFound(err: unknown): boolean {
+  return clerkErrorCode(err) === 'form_identifier_not_found'
+}
+
 export function MagicSentScreen({ email }: { email: string }) {
   const { signIn } = useSignIn()
+  const { signUp } = useSignUp()
   const [cooldown, setCooldown] = useState(0)
   const [resending, setResending] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -40,12 +53,33 @@ export function MagicSentScreen({ email }: { email: string }) {
     if (cooldown > 0 || resending) return
     setResending(true)
 
+    const verificationUrl = `${window.location.origin}/auth/callback`
     try {
-      await signIn.create({ identifier: email })
-      await signIn.emailLink.sendLink({
-        emailAddress: email,
-        verificationUrl: `${window.location.origin}/auth/callback`,
-      })
+      const signInCreate = await signIn.create({ identifier: email })
+      let pendingError: unknown = signInCreate.error
+
+      if (!pendingError) {
+        const sendLink = await signIn.emailLink.sendLink({
+          emailAddress: email,
+          verificationUrl,
+        })
+        pendingError = sendLink.error
+      }
+
+      // New email (no account yet) → fall back to the sign-up link, same as the
+      // initial request form. Without this, resend silently fails for sign-ups.
+      if (pendingError) {
+        if (!isIdentifierNotFound(pendingError)) throw pendingError
+
+        const signUpCreate = await signUp.create({ emailAddress: email })
+        if (signUpCreate.error) throw signUpCreate.error
+
+        const sendLink = await signUp.verifications.sendEmailLink({
+          verificationUrl,
+        })
+        if (sendLink.error) throw sendLink.error
+      }
+
       track('magic_link_requested', { email })
       startCooldown()
     } catch {

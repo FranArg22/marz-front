@@ -414,6 +414,7 @@ export const GetMyCreatorSettingsResponse = zod.object({
   "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])),
   "niches": zod.array(zod.string()),
   "content_types": zod.array(zod.string()),
+  "languages": zod.array(zod.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it'])),
   "barter_preference": zod.boolean()
 }),
   "channels": zod.array(zod.object({
@@ -551,10 +552,12 @@ export const updateMyCreatorProfileCollaborationBodyNichesMax = 5;
 
 
 
+
 export const UpdateMyCreatorProfileCollaborationBody = zod.object({
   "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])).min(1).max(updateMyCreatorProfileCollaborationBodyCreatorKindsMax).optional(),
   "niches": zod.array(zod.string()).min(1).max(updateMyCreatorProfileCollaborationBodyNichesMax).optional(),
   "content_types": zod.array(zod.string()).min(1).optional(),
+  "languages": zod.array(zod.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it'])).min(1).optional(),
   "barter_preference": zod.boolean().optional()
 })
 
@@ -562,6 +565,7 @@ export const UpdateMyCreatorProfileCollaborationResponse = zod.object({
   "creator_kinds": zod.array(zod.enum(['influencer', 'ugc'])),
   "niches": zod.array(zod.string()),
   "content_types": zod.array(zod.string()),
+  "languages": zod.array(zod.enum(['es', 'en', 'pt', 'zh', 'ja', 'fr', 'it'])),
   "barter_preference": zod.boolean()
 })
 
@@ -599,7 +603,7 @@ export const AcceptInviteByTokenParams = zod.object({
 })
 
 export const AcceptInviteByTokenResponse = zod.object({
-  "conversation_id": zod.uuid(),
+  "connection_request_id": zod.uuid(),
   "route": zod.string()
 })
 

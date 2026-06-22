@@ -8,6 +8,7 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import type { UpdateCreatorCollaborationRequestCreatorKindsItem } from './updateCreatorCollaborationRequestCreatorKindsItem';
+import type { UpdateCreatorCollaborationRequestLanguagesItem } from './updateCreatorCollaborationRequestLanguagesItem';
 
 export interface UpdateCreatorCollaborationRequest {
   /**
@@ -22,5 +23,7 @@ export interface UpdateCreatorCollaborationRequest {
   niches?: string[];
   /** @minItems 1 */
   content_types?: string[];
+  /** @minItems 1 */
+  languages?: UpdateCreatorCollaborationRequestLanguagesItem[];
   barter_preference?: boolean;
 }

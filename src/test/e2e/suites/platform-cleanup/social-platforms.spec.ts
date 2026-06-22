@@ -163,7 +163,7 @@ function creatorOnboardingPayload(
       is_primary: i === 0,
       rate_cards: [],
     })),
-    tier: 'emergent',
+    tier: 'nano',
   }
 }
 

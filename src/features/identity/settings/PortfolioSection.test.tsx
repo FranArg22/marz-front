@@ -164,6 +164,7 @@ function creatorSettings(
       creator_kinds: [],
       niches: [],
       content_types: [],
+      languages: [],
       barter_preference: false,
     },
     channels: [],

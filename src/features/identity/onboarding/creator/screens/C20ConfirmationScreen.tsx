@@ -39,12 +39,10 @@ const FORMAT_LABELS: Record<string, () => string> = {
 /* eslint-enable lingui/no-unlocalized-strings */
 
 const TIER_LABELS: Record<string, () => string> = {
-  emergent: () => t`Emergente`,
-  growing: () => t`Creciendo`,
-  consolidated: () => t`Consolidado`,
-  reference: () => t`Referente`,
-  massive: () => t`Masivo`,
-  celebrity: () => t`Celebridad`,
+  nano: () => t`Nano`,
+  micro: () => t`Micro`,
+  mid: () => t`Mid`,
+  macro: () => t`Macro`,
 }
 
 function humanizeSlug(slug: string): string {
@@ -118,6 +116,12 @@ export function C20ConfirmationScreen() {
   const niches = store.niches ?? []
   const contentTypes = store.content_types ?? []
   const channels = store.channels ?? []
+  const ugcOn = (store.creator_kinds ?? []).includes('ugc')
+  const ugcAmount = Number(store.ugc_rate_amount)
+  const ugcRateText =
+    Number.isFinite(ugcAmount) && ugcAmount > 0
+      ? `${ugcAmount.toLocaleString('es-AR')} USD`
+      : null
   const city = store.city?.trim()
   const countryCode = store.country ?? ''
   const countryName = COUNTRIES.find((c) => c.code === countryCode)?.name
@@ -261,6 +265,17 @@ export function C20ConfirmationScreen() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {ugcOn && (
+          <div className="flex flex-col gap-3 border-t border-border px-5 py-4">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              {t`Formato UGC`}
+            </p>
+            <span className="text-[13px] text-foreground">
+              {ugcRateText ? t`Tarifa: ${ugcRateText}` : t`Sin tarifa cargada`}
+            </span>
           </div>
         )}
       </div>

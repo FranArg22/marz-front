@@ -9,6 +9,8 @@ import { resetTrackedEvents, getTrackedEvents } from '#/shared/analytics/track'
 
 const mockCreate = vi.fn()
 const mockSendLink = vi.fn()
+const mockSignUpCreate = vi.fn()
+const mockSignUpSendLink = vi.fn()
 
 vi.mock('@clerk/tanstack-react-start', () => ({
   ClerkProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -19,6 +21,12 @@ vi.mock('@clerk/tanstack-react-start', () => ({
     },
     errors: {},
     fetchStatus: 'idle' as const,
+  }),
+  useSignUp: () => ({
+    signUp: {
+      create: mockSignUpCreate,
+      verifications: { sendEmailLink: mockSignUpSendLink },
+    },
   }),
   useAuth: () => ({
     isLoaded: true,
@@ -78,6 +86,34 @@ describe('MagicSentScreen', () => {
     expect(mockSendLink).toHaveBeenCalledWith(
       expect.objectContaining({ emailAddress: TEST_EMAIL }),
     )
+
+    const events = getTrackedEvents()
+    expect(events.some((e) => e.event === 'magic_link_requested')).toBe(true)
+  })
+
+  it('falls back to sign-up resend when the email has no account yet', async () => {
+    vi.useRealTimers()
+    mockCreate.mockResolvedValue({
+      error: { errors: [{ code: 'form_identifier_not_found' }] },
+    })
+    mockSignUpCreate.mockResolvedValue({ error: null })
+    mockSignUpSendLink.mockResolvedValue({ error: null })
+
+    const user = userEvent.setup()
+    renderScreen()
+
+    const btn = await screen.findByRole('button', { name: /reenviar link/i })
+    await user.click(btn)
+
+    await waitFor(() => {
+      expect(mockSignUpCreate).toHaveBeenCalledWith({ emailAddress: TEST_EMAIL })
+    })
+    expect(mockSignUpSendLink).toHaveBeenCalledWith(
+      expect.objectContaining({
+        verificationUrl: expect.stringContaining('/auth/callback'),
+      }),
+    )
+    expect(mockSendLink).not.toHaveBeenCalled()
 
     const events = getTrackedEvents()
     expect(events.some((e) => e.event === 'magic_link_requested')).toBe(true)

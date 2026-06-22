@@ -8,10 +8,12 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 import type { CreatorSettingsCollaborationCreatorKindsItem } from './creatorSettingsCollaborationCreatorKindsItem';
+import type { CreatorSettingsCollaborationLanguagesItem } from './creatorSettingsCollaborationLanguagesItem';
 
 export interface CreatorSettingsCollaboration {
   creator_kinds: CreatorSettingsCollaborationCreatorKindsItem[];
   niches: string[];
   content_types: string[];
+  languages: CreatorSettingsCollaborationLanguagesItem[];
   barter_preference: boolean;
 }

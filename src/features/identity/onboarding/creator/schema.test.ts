@@ -14,7 +14,9 @@ function validPayload(): CreatorOnboardingPayload {
     birthday: '1995-06-15',
     whatsapp_e164: '+5491155555555',
     experience_level: 'none',
-    tier: 'growing',
+    tier: 'micro',
+    languages: ['es'],
+    barter_preference: false,
     channels: [
       {
         platform: 'instagram',
@@ -161,5 +163,26 @@ describe('CreatorOnboardingPayloadSchema', () => {
     payload.channels = []
     const result = CreatorOnboardingPayloadSchema.safeParse(payload)
     expect(result.success).toBe(false)
+  })
+
+  it('rejects empty languages', () => {
+    const payload = validPayload()
+    payload.languages = []
+    const result = CreatorOnboardingPayloadSchema.safeParse(payload)
+    expect(result.success).toBe(false)
+  })
+
+  it('accepts multiple languages', () => {
+    const payload = validPayload()
+    payload.languages = ['es', 'en', 'pt']
+    const result = CreatorOnboardingPayloadSchema.safeParse(payload)
+    expect(result.success).toBe(true)
+  })
+
+  it('accepts barter_preference omitted (optional)', () => {
+    const payload = validPayload()
+    delete payload.barter_preference
+    const result = CreatorOnboardingPayloadSchema.safeParse(payload)
+    expect(result.success).toBe(true)
   })
 })

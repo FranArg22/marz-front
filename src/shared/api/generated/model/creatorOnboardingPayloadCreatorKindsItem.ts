@@ -8,7 +8,10 @@ Se consume con `oapi-codegen` (server) y `openapi-typescript` + `openapi-fetch` 
  * OpenAPI spec version: 0.1.0
  */
 
-export interface AcceptInviteByTokenResponse {
-  connection_request_id: string;
-  route: string;
-}
+export type CreatorOnboardingPayloadCreatorKindsItem = typeof CreatorOnboardingPayloadCreatorKindsItem[keyof typeof CreatorOnboardingPayloadCreatorKindsItem];
+
+
+export const CreatorOnboardingPayloadCreatorKindsItem = {
+  influencer: 'influencer',
+  ugc: 'ugc',
+} as const;
