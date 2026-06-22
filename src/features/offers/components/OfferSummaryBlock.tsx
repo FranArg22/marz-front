@@ -85,7 +85,7 @@ export function OfferSummaryBlock({
           <>
             <div className="flex items-center justify-between gap-3">
               <dt className="text-muted-foreground">
-                {t`Comisión de procesamiento`}
+                {t`Costo de procesamiento de pagos (2.9% + $0.30)`}
               </dt>
               <dd className="font-mono font-medium">
                 +{formatUsd(Number(feeData.processing_fee))}

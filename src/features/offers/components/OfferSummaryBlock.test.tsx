@@ -63,7 +63,9 @@ describe('OfferSummaryBlock', () => {
   it('renders the processing fee and total for paid workspaces', () => {
     render(<OfferSummaryBlock amount={100} plan="starter" />)
 
-    expect(screen.getByText('Comisión de procesamiento')).toBeInTheDocument()
+    expect(
+      screen.getByText('Costo de procesamiento de pagos (2.9% + $0.30)'),
+    ).toBeInTheDocument()
     expect(screen.getByText('+$3.30')).toBeInTheDocument()
     expect(screen.getByText('Total a cobrar a tu tarjeta')).toBeInTheDocument()
     expect(screen.getByText('$103.30')).toBeInTheDocument()
