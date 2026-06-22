@@ -15,7 +15,7 @@ import {
   estimateLatencyMs,
 } from '#/features/chat/analytics/track'
 
-import { ArrowLeft, PanelRight } from 'lucide-react'
+import { ArrowLeft, Banknote } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
@@ -209,10 +209,11 @@ function OffersToggleButton() {
       onClick={toggle}
       aria-label={t`Ofertas`}
       aria-expanded={isOpen}
-      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 md:hidden"
       title={t`Ofertas`}
     >
-      <PanelRight className="size-4" />
+      <Banknote className="size-4" />
+      {t`Ofertas`}
     </button>
   )
 }
