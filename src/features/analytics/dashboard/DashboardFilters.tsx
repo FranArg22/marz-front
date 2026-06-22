@@ -14,6 +14,7 @@ import { FilterSheet } from '#/components/ui/filter-sheet'
 import { cn } from '#/lib/utils'
 import type { DashboardSearch } from '#/routes/_brand/inicio'
 import { useListCampaigns } from '#/shared/api/generated/campaigns/campaigns'
+import { useListCountries } from '#/shared/api/generated/lookups/lookups'
 import { useIsMobile } from '#/shared/hooks'
 
 import { DashboardDateRangePicker } from './DashboardDateRangePicker'
@@ -22,22 +23,6 @@ const PLATFORM_OPTIONS = [
   { value: 'instagram', label: 'Instagram' },
   { value: 'tiktok', label: 'TikTok' },
   { value: 'youtube', label: 'YouTube' },
-] as const
-
-const COUNTRY_OPTIONS = [
-  { value: 'AR', label: 'Argentina' },
-  { value: 'BO', label: 'Bolivia' },
-  { value: 'BR', label: 'Brasil' },
-  { value: 'CL', label: 'Chile' },
-  { value: 'CO', label: 'Colombia' },
-  { value: 'CR', label: 'Costa Rica' },
-  { value: 'EC', label: 'Ecuador' },
-  { value: 'ES', label: 'España' },
-  { value: 'GT', label: 'Guatemala' },
-  { value: 'MX', label: 'México' },
-  { value: 'PE', label: 'Perú' },
-  { value: 'UY', label: 'Uruguay' },
-  { value: 'VE', label: 'Venezuela' },
 ] as const
 
 const STATUS_OPTIONS = [
@@ -57,6 +42,15 @@ export function DashboardFilters() {
     { limit: 50 },
     { query: { staleTime: 300_000 } },
   )
+  const countriesQuery = useListCountries({ active: true })
+
+  const countryOptions: Option[] =
+    countriesQuery.data?.status === 200
+      ? countriesQuery.data.data.items.map((country) => ({
+          value: country.code,
+          label: country.label_es,
+        }))
+      : []
 
   const campaignOptions: Option[] =
     campaignsQuery.data?.status === 200
@@ -149,7 +143,7 @@ export function DashboardFilters() {
       icon={MapPin}
       emptyLabel="País"
       countLabel="País"
-      options={[...COUNTRY_OPTIONS]}
+      options={countryOptions}
       selected={search.countries ?? []}
       onChange={(value) => updateSearch({ countries: value })}
     />
