@@ -13,7 +13,7 @@ interface ConversationFilterTabsProps {
 const TABS: { value: FilterValue; label: () => string }[] = [
   { value: 'all', label: () => t`Todas` },
   { value: 'unread', label: () => t`Sin leer` },
-  { value: 'needs_reply', label: () => t`Por responder` },
+  { value: 'needs_reply', label: () => t`Con acciones pendientes` },
 ]
 
 export function ConversationFilterTabs({ value }: ConversationFilterTabsProps) {

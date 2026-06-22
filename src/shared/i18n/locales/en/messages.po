@@ -1444,7 +1444,7 @@ msgstr ""
 msgid "Archived offers"
 msgstr ""
 
-#: src/features/chat/workspace/ConversationRailItem.tsx:54
+#: src/features/chat/workspace/ConversationRailItem.tsx:55
 msgid "Archivo adjunto"
 msgstr ""
 
@@ -1889,6 +1889,8 @@ msgstr ""
 msgid "Campaña sin nombre"
 msgstr ""
 
+#: src/features/chat/workspace/CampaignFilterSelect.tsx:63
+#: src/features/chat/workspace/CampaignFilterSelect.tsx:66
 #: src/features/identity/app-shell/navigation.ts:45
 #: src/features/identity/app-shell/navigation.ts:89
 #: src/routes/_brand/campaigns.index.tsx:30
@@ -2393,6 +2395,10 @@ msgstr ""
 msgid "Con {budgetLabel}/mes y foco en {objectiveLabel}, tu primer mes promedio en {verticalLabel} LatAm."
 msgstr ""
 
+#: src/features/chat/workspace/ConversationFilterTabs.tsx:16
+msgid "Con acciones pendientes"
+msgstr ""
+
 #: src/features/identity/settings/GeneralSection.tsx:210
 msgid "Con código de país."
 msgstr ""
@@ -2570,7 +2576,7 @@ msgstr ""
 msgid "Conversación con {counterpartName}"
 msgstr ""
 
-#: src/features/chat/workspace/ConversationRailItem.tsx:50
+#: src/features/chat/workspace/ConversationRailItem.tsx:51
 msgid "Conversación iniciada"
 msgstr ""
 
@@ -6097,7 +6103,7 @@ msgstr "Monthly"
 msgid "Mental"
 msgstr ""
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:128
+#: src/features/identity/app-shell/AppBottomNav.tsx:143
 msgid "Menú"
 msgstr ""
 
@@ -6362,11 +6368,11 @@ msgstr ""
 msgid "Nano"
 msgstr ""
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:108
+#: src/features/identity/app-shell/AppBottomNav.tsx:123
 msgid "Navegación"
 msgstr ""
 
-#: src/features/identity/app-shell/AppSidebar.tsx:64
+#: src/features/identity/app-shell/AppSidebar.tsx:68
 msgid "Navegación principal"
 msgstr ""
 
@@ -7053,8 +7059,9 @@ msgid "Oferta vencida"
 msgstr ""
 
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:66
-#: src/features/chat/components/ConversationView.tsx:210
-#: src/features/chat/components/ConversationView.tsx:213
+#: src/features/chat/components/ConversationView.tsx:226
+#: src/features/chat/components/ConversationView.tsx:229
+#: src/features/chat/components/ConversationView.tsx:232
 msgid "Ofertas"
 msgstr ""
 
@@ -7762,8 +7769,8 @@ msgid "Por qué no aparece como recomendada"
 msgstr ""
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:16
-msgid "Por responder"
-msgstr ""
+#~ msgid "Por responder"
+#~ msgstr ""
 
 #: src/features/chat/workspace/ConversationRail.tsx:173
 msgid "POR RESPONDER"
@@ -7994,7 +8001,7 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:81
 #: src/features/campaigns/wizard/WizardStep2PricingModel.tsx:79
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:106
-#: src/features/identity/app-shell/AppSidebar.tsx:36
+#: src/features/identity/app-shell/AppSidebar.tsx:39
 #: src/features/identity/auth/components/KindSelector.tsx:164
 msgid "Próximamente"
 msgstr ""
@@ -9768,8 +9775,6 @@ msgstr ""
 msgid "Todas"
 msgstr ""
 
-#: src/features/chat/workspace/CampaignFilterSelect.tsx:63
-#: src/features/chat/workspace/CampaignFilterSelect.tsx:66
 #: src/features/inbox/InboxToolbar.tsx:107
 #: src/features/inbox/InboxToolbar.tsx:112
 #: src/features/payments/components/BrandPaymentsFilters.tsx:69
@@ -10645,8 +10650,8 @@ msgstr ""
 msgid "Volver a campañas"
 msgstr ""
 
-#: src/features/chat/components/ConversationView.tsx:194
-#: src/features/chat/components/ConversationView.tsx:196
+#: src/features/chat/components/ConversationView.tsx:200
+#: src/features/chat/components/ConversationView.tsx:202
 msgid "Volver a conversaciones"
 msgstr ""
 
