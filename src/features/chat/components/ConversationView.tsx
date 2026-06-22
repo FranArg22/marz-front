@@ -20,6 +20,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 
 import { useOffersPanelStore } from '#/features/chat/workspace/offersPanelStore'
+import { useConversationPendingAction } from '#/features/offers/hooks/useConversationPendingAction'
 import { ConversationHeader } from './ConversationHeader'
 import { EmptyConversationFallback } from './EmptyConversationFallback'
 import type { MessageTimelineHandle } from './MessageTimeline'
@@ -152,7 +153,12 @@ export function ConversationView({
       <ConversationHeader
         conversation={conversation}
         leadingSlot={<BackToListButton />}
-        trailingSlot={<OffersToggleButton />}
+        trailingSlot={
+          <OffersToggleButton
+            conversationId={conversationId}
+            sessionKind={sessionKind}
+          />
+        }
       />
 
       <div className="relative flex flex-1 flex-col overflow-hidden">
@@ -200,20 +206,36 @@ function BackToListButton() {
   )
 }
 
-function OffersToggleButton() {
+function OffersToggleButton({
+  conversationId,
+  sessionKind,
+}: {
+  conversationId: string
+  sessionKind: 'brand' | 'creator' | undefined
+}) {
   const toggle = useOffersPanelStore((s) => s.toggle)
   const isOpen = useOffersPanelStore((s) => s.isOpen)
+  const hasPendingAction = useConversationPendingAction(
+    conversationId,
+    sessionKind,
+  )
   return (
     <button
       type="button"
       onClick={toggle}
       aria-label={t`Ofertas`}
       aria-expanded={isOpen}
-      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 md:hidden"
+      className="relative inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 md:hidden"
       title={t`Ofertas`}
     >
       <Banknote className="size-4" />
       {t`Ofertas`}
+      {hasPendingAction ? (
+        <span
+          aria-hidden
+          className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-red-600"
+        />
+      ) : null}
     </button>
   )
 }

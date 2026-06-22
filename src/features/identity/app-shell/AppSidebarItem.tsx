@@ -14,6 +14,8 @@ interface AppSidebarItemProps {
   /** When true, the active background is drawn by the parent's sliding
    * indicator pill, so the item only contributes the active text color. */
   hasMovingIndicator?: boolean
+  /** Muestra un puntito de notificación sobre el ícono. */
+  showBadge?: boolean
 }
 
 export function AppSidebarItem({
@@ -24,6 +26,7 @@ export function AppSidebarItem({
   disabled,
   tooltipLabel,
   hasMovingIndicator = false,
+  showBadge = false,
 }: AppSidebarItemProps) {
   const itemClassName = cn(
     'relative z-10 flex size-11 items-center justify-center rounded-[20px] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-quint)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
@@ -33,6 +36,13 @@ export function AppSidebarItem({
     disabled &&
       'cursor-not-allowed opacity-50 hover:bg-transparent active:scale-100',
   )
+
+  const badge = showBadge ? (
+    <span
+      aria-hidden="true"
+      className="absolute right-2 top-2 size-2.5 rounded-full bg-red-600"
+    />
+  ) : null
 
   return (
     <TooltipPrimitive.Root>
@@ -45,6 +55,7 @@ export function AppSidebarItem({
             className={itemClassName}
           >
             <Icon aria-hidden="true" className="size-[22px]" />
+            {badge}
           </button>
         ) : (
           <Link
@@ -54,6 +65,7 @@ export function AppSidebarItem({
             className={itemClassName}
           >
             <Icon aria-hidden="true" className="size-[22px]" />
+            {badge}
           </Link>
         )}
       </TooltipPrimitive.Trigger>

@@ -21,6 +21,8 @@ type AppBottomNavAccountKind = 'brand' | 'creator'
 interface AppBottomNavProps {
   accountKind: AppBottomNavAccountKind
   pathname: string
+  /** Muestra el puntito de notificación sobre el ícono de inbox. */
+  inboxHasBadge?: boolean
 }
 
 /** Máximo de slots visibles en la barra; el último se reserva para "Menú"
@@ -41,7 +43,11 @@ function tabClassName(isActive: boolean, disabled = false) {
  * rutas. Si el ambiente tiene más de `MAX_SLOTS` secciones, las que sobran se
  * agrupan en un popover "Menú". En desktop no se renderiza.
  */
-export function AppBottomNav({ accountKind, pathname }: AppBottomNavProps) {
+export function AppBottomNav({
+  accountKind,
+  pathname,
+  inboxHasBadge = false,
+}: AppBottomNavProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
@@ -67,10 +73,19 @@ export function AppBottomNav({ accountKind, pathname }: AppBottomNavProps) {
     const isActive = activeItem?.id === item.id
     const disabled = item.disabled === true
     const label = item.label()
+    const showBadge = item.id === 'inbox' && inboxHasBadge
 
     const content = (
       <>
-        <Icon aria-hidden="true" className="size-[22px]" />
+        <span className="relative">
+          <Icon aria-hidden="true" className="size-[22px]" />
+          {showBadge ? (
+            <span
+              aria-hidden="true"
+              className="absolute -right-1 -top-0.5 size-2 rounded-full bg-red-600"
+            />
+          ) : null}
+        </span>
         <span className="max-w-full truncate">{label}</span>
       </>
     )

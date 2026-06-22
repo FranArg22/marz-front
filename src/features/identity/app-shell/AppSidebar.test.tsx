@@ -16,10 +16,15 @@ import { AppSidebar } from './AppSidebar'
 function renderSidebar(
   pathname = '/workspace',
   accountKind: 'brand' | 'creator' = 'brand',
+  inboxHasBadge = false,
 ) {
   const rootRoute = createRootRoute({
     component: () => (
-      <AppSidebar accountKind={accountKind} pathname={pathname} />
+      <AppSidebar
+        accountKind={accountKind}
+        pathname={pathname}
+        inboxHasBadge={inboxHasBadge}
+      />
     ),
   })
 
@@ -218,6 +223,21 @@ describe('AppSidebar', () => {
       }),
     ).not.toBeInTheDocument()
     expect(within(creatorSidebar).getAllByRole('img', { name: 'Marz' })).toHaveLength(2)
+  })
+
+  it('shows the inbox notification dot only when inboxHasBadge is true', async () => {
+    const { unmount } = renderSidebar('/workspace', 'brand', true)
+
+    const inboxLink = await screen.findByRole('link', { name: 'Inbox' })
+    expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
+
+    unmount()
+    renderSidebar('/workspace', 'brand', false)
+
+    const inboxLinkNoBadge = await screen.findByRole('link', { name: 'Inbox' })
+    expect(
+      inboxLinkNoBadge.querySelector('.bg-red-600'),
+    ).not.toBeInTheDocument()
   })
 
   it('uses the 59px sidebar rail width', async () => {

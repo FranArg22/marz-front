@@ -31,10 +31,15 @@ const ALL_PATHS = [
 function renderBottomNav(
   accountKind: 'brand' | 'creator' = 'creator',
   pathname = '/inbox',
+  inboxHasBadge = false,
 ) {
   const rootRoute = createRootRoute({
     component: () => (
-      <AppBottomNav accountKind={accountKind} pathname={pathname} />
+      <AppBottomNav
+        accountKind={accountKind}
+        pathname={pathname}
+        inboxHasBadge={inboxHasBadge}
+      />
     ),
   })
 
@@ -158,6 +163,21 @@ describe('AppBottomNav', () => {
       expect(indicator).toHaveStyle({ transform: 'translateX(16rem)' })
       expect(menuButton).toBeInTheDocument()
     })
+  })
+
+  it('shows the inbox notification dot only when inboxHasBadge is true', async () => {
+    const { unmount } = renderBottomNav('creator', '/workspace', true)
+
+    const inboxLink = await screen.findByRole('link', { name: 'Inbox' })
+    expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
+
+    unmount()
+    renderBottomNav('creator', '/workspace', false)
+
+    const inboxLinkNoBadge = await screen.findByRole('link', { name: 'Inbox' })
+    expect(
+      inboxLinkNoBadge.querySelector('.bg-red-600'),
+    ).not.toBeInTheDocument()
   })
 
   it('is hidden from the md breakpoint upward', async () => {

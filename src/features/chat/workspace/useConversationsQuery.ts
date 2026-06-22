@@ -8,6 +8,10 @@ import type {
 
 const DEFAULT_LIMIT = 30
 const GC_TIME = 5 * 60 * 1000
+// El rail no tiene subscripción WS viva (el topic workspace_rail está pendiente
+// en el backend), así que polleamos para reflejar mensajes nuevos / contadores
+// de no leídos sin recargar. Solo mientras la pestaña está visible.
+const RAIL_POLL_INTERVAL = 15 * 1000
 
 interface UseConversationsQueryParams {
   filter?: ListConversationsParams['filter']
@@ -53,5 +57,8 @@ export function useConversationsQuery(params: UseConversationsQueryParams) {
     getNextPageParam: (lastPage) => lastPage.data.next_cursor ?? undefined,
     staleTime: 0,
     gcTime: GC_TIME,
+    refetchInterval: RAIL_POLL_INTERVAL,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   })
 }

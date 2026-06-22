@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 
+import { useInboxActionBadge } from '#/features/inbox/hooks/useInboxActionBadge'
+
 import { AppBottomNav } from './AppBottomNav'
 import { AppSidebar } from './AppSidebar'
 import { AppShellContextProvider } from './AppShellContext'
@@ -23,6 +25,8 @@ export function AppShell({
   hideBottomNav = false,
   children,
 }: AppShellProps) {
+  const inboxHasBadge = useInboxActionBadge()
+
   return (
     <AppShellContextProvider accountKind={accountKind} accountId={accountId}>
       <TopbarProvider>
@@ -34,6 +38,7 @@ export function AppShell({
             accountKind={accountKind}
             pathname={pathname}
             className="hidden md:flex"
+            inboxHasBadge={inboxHasBadge}
           />
           <div className="flex min-w-0 flex-1 flex-col md:py-2 md:pr-2 md:pl-0">
             <main className="min-w-0 flex-1 overflow-hidden bg-background md:rounded-2xl md:border md:border-border">
@@ -41,7 +46,11 @@ export function AppShell({
             </main>
           </div>
           {hideBottomNav ? null : (
-            <AppBottomNav accountKind={accountKind} pathname={pathname} />
+            <AppBottomNav
+              accountKind={accountKind}
+              pathname={pathname}
+              inboxHasBadge={inboxHasBadge}
+            />
           )}
         </div>
       </TopbarProvider>

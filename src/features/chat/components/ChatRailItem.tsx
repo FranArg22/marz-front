@@ -9,6 +9,8 @@ interface ChatRailItemProps {
   online?: boolean
   active?: boolean
   unread?: boolean
+  /** Cantidad de mensajes sin leer; muestra un badge verde con el número. */
+  unreadCount?: number
   variant?: 'full' | 'compact'
   onClick?: () => void
 }
@@ -21,10 +23,12 @@ export function ChatRailItem({
   online = false,
   active = false,
   unread = false,
+  unreadCount = 0,
   variant = 'full',
   onClick,
 }: ChatRailItemProps) {
   const compact = variant === 'compact'
+  const unreadLabel = unreadCount > 99 ? '99+' : String(unreadCount)
   return (
     <button
       type="button"
@@ -49,33 +53,37 @@ export function ChatRailItem({
             className="absolute bottom-0 right-0 size-3 rounded-full border-2 border-card bg-success"
           />
         ) : null}
-        {compact && unread ? (
+        {compact && unreadCount > 0 ? (
           <span
             aria-hidden
-            className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full border-2 border-card bg-primary"
-          />
+            className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full border-2 border-card bg-success px-1 text-[9px] font-semibold leading-none text-success-foreground"
+          >
+            {unreadLabel}
+          </span>
         ) : null}
       </div>
       {compact ? null : (
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
+        <>
+          <div className="min-w-0 flex-1">
             <span
               className={cn(
-                'truncate text-sm',
+                'block truncate text-sm',
                 unread ? 'font-semibold' : 'font-medium',
               )}
             >
               {name}
             </span>
-            {unread ? (
-              <span
-                aria-hidden
-                className="size-2 shrink-0 rounded-full bg-primary"
-              />
-            ) : null}
+            <p className="truncate text-xs text-muted-foreground">{preview}</p>
           </div>
-          <p className="truncate text-xs text-muted-foreground">{preview}</p>
-        </div>
+          {unreadCount > 0 ? (
+            <span
+              aria-hidden
+              className="flex h-5 min-w-5 shrink-0 items-center justify-center rounded-full bg-success px-1.5 text-[11px] font-semibold leading-none text-success-foreground"
+            >
+              {unreadLabel}
+            </span>
+          ) : null}
+        </>
       )}
     </button>
   )

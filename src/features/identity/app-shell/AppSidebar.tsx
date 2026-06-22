@@ -14,12 +14,15 @@ interface AppSidebarProps {
   accountKind: AppSidebarAccountKind
   pathname: string
   className?: string
+  /** Muestra el puntito de notificación sobre el ícono de inbox. */
+  inboxHasBadge?: boolean
 }
 
 export function AppSidebar({
   accountKind,
   pathname,
   className,
+  inboxHasBadge = false,
 }: AppSidebarProps) {
   const items = shellNavigationConfig[accountKind]
   const activeItem = resolveActiveSidebarItem(items, pathname)
@@ -46,6 +49,7 @@ export function AppSidebar({
         disabled={disabled}
         tooltipLabel={tooltipLabel}
         hasMovingIndicator={hasMovingIndicator}
+        showBadge={item.id === 'inbox' && inboxHasBadge}
       />
     )
   }

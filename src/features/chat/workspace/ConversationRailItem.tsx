@@ -34,6 +34,7 @@ export function ConversationRailItem({
         avatarFallback={fallback}
         active={active}
         unread={unread_count > 0}
+        unreadCount={unread_count}
         variant={variant}
         onClick={() => onClick?.(conversation.id)}
       />
