@@ -18,6 +18,15 @@ vi.mock('#/shared/api/generated/campaigns/campaigns', () => ({
   useListCampaigns: vi.fn(),
 }))
 
+vi.mock('#/shared/api/generated/lookups/lookups', () => ({
+  useListCountries: vi.fn(() => ({
+    data: {
+      status: 200,
+      data: { items: [{ code: 'AR', label_es: 'Argentina' }] },
+    },
+  })),
+}))
+
 vi.mock('#/features/identity/session/BrandSessionContext', () => ({
   useBrandSession: () => ({
     account: { id: 'account-1' },

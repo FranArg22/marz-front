@@ -69,7 +69,7 @@ msgstr "¿Cuánto pensás invertir por mes?"
 msgid "¿Cuántos seguidores tenés hoy?"
 msgstr "¿Cuántos seguidores tenés hoy?"
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:29
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
 msgid "¿Desde dónde creás?"
 msgstr "¿Desde dónde creás?"
 
@@ -97,7 +97,7 @@ msgstr "¿En qué vertical opera tu marca?"
 msgid "¿Hacés contenido UGC?"
 msgstr "¿Hacés contenido UGC?"
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:151
+#: src/features/identity/auth/components/MagicSentScreen.tsx:153
 msgid "¿No lo encontrás? Chequeá en spam o promociones."
 msgstr "¿No lo encontrás? Chequeá en spam o promociones."
 
@@ -209,7 +209,7 @@ msgstr "“Toda la información estaba en la plataforma, podía ver el paso a pa
 #~ msgid "{activeBonusCount} activos"
 #~ msgstr "{activeBonusCount} activos"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:393
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:404
 msgid "{activeCount} filtros activos"
 msgstr "{activeCount} filtros activos"
 
@@ -1350,7 +1350,7 @@ msgstr "Anual"
 #~ msgid "Aplicación"
 #~ msgstr "Aplicación"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:411
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:161
 msgid "Aplicar"
 msgstr "Aplicar"
@@ -1486,7 +1486,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr "Así se ve lo que podés alcanzar."
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:93
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:291
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:296
 msgid "Atrás"
 msgstr "Atrás"
 
@@ -1524,7 +1524,7 @@ msgstr "Auto"
 #~ msgid "Avatar"
 #~ msgstr "Avatar"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:157
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:162
 msgid "Avatar del creador"
 msgstr "Avatar del creador"
 
@@ -1579,7 +1579,7 @@ msgstr "Ayer"
 #~ msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 #~ msgstr "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:35
 msgid "Base geográfica. Importa para campañas con foco regional."
 msgstr "Base geográfica. Importa para campañas con foco regional."
 
@@ -1745,7 +1745,7 @@ msgstr "Budget"
 msgid "Budget {budgetLabel}"
 msgstr "Budget {budgetLabel}"
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:66
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:69
 msgid "Buenos Aires"
 msgstr "Buenos Aires"
 
@@ -1928,7 +1928,7 @@ msgstr "Campañas activas"
 #~ msgstr "Campañas con creadores, sin agencias ni vueltas."
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:220
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:225
 msgid "Canales"
 msgstr "Canales"
 
@@ -2237,7 +2237,7 @@ msgstr "Cinco años potenciando marcas con creadores de contenido."
 msgid "Cine"
 msgstr "Cine"
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:63
 #: src/features/identity/settings/GeneralSection.tsx:255
 #: src/features/identity/settings/GeneralSection.tsx:259
 msgid "Ciudad"
@@ -2571,7 +2571,7 @@ msgstr "Content guidelines"
 msgid "Continuar"
 msgstr "Continuar"
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:116
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:121
 msgid "Continuar con email"
 msgstr "Continuar con email"
 
@@ -2668,7 +2668,7 @@ msgstr "Creada"
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:206
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:265
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:145
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:104
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:105
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr "Creador"
@@ -3099,7 +3099,7 @@ msgstr "Descubrir creadores"
 #~ msgid "Descubrir creators"
 #~ msgstr "Descubrir creators"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:527
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:538
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:266
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:287
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:309
@@ -3528,7 +3528,7 @@ msgstr "El export excede el límite. Contactá al administrador (Marz) para obte
 msgid "El fee máximo debe ser mayor o igual al mínimo."
 msgstr "El fee máximo debe ser mayor o igual al mínimo."
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:123
+#: src/features/identity/auth/components/MagicSentScreen.tsx:125
 msgid "El link expira en 15 minutos."
 msgstr "El link expira en 15 minutos."
 
@@ -3602,7 +3602,7 @@ msgstr "El porcentaje tiene que ser un número entero"
 msgid "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 msgstr "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:540
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:551
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr "El valor inicial no puede ser mayor que el final."
 
@@ -3734,7 +3734,7 @@ msgstr "Eliminar tarifa"
 #~ msgstr "Eliminar ventana {itemNumber}"
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:111
 #: src/features/identity/settings/GeneralSection.tsx:199
 #: src/features/identity/settings/GeneralSection.tsx:206
 #: src/features/identity/settings/ProfileCard.tsx:38
@@ -3816,7 +3816,7 @@ msgstr "Enero"
 msgid "Engagement"
 msgstr "Engagement"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:341
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:352
 msgid "Engagement rate"
 msgstr "Engagement rate"
 
@@ -3910,7 +3910,7 @@ msgid "Enviando..."
 msgstr "Enviando..."
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:194
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:117
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:122
 msgid "Enviando…"
 msgstr "Enviando…"
 
@@ -4432,7 +4432,7 @@ msgstr "Fee más alto"
 msgid "Feed activo ahora mismo"
 msgstr "Feed activo ahora mismo"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:264
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:10
 msgid "Femenino"
 msgstr "Femenino"
@@ -4597,7 +4597,7 @@ msgstr "Foodie"
 msgid "Formato inválido. Usá formato E.164."
 msgstr "Formato inválido. Usá formato E.164."
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:274
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
 msgid "Formato UGC"
 msgstr "Formato UGC"
 
@@ -4605,7 +4605,7 @@ msgstr "Formato UGC"
 msgid "Formato: +54911XXXXXXXX"
 msgstr "Formato: +54911XXXXXXXX"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:206
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:211
 msgid "Formatos"
 msgstr "Formatos"
 
@@ -4847,7 +4847,7 @@ msgstr "Handle o nombre (opcional)"
 #~ msgid "Hard Filters"
 #~ msgstr "Hard Filters"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:535
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:546
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:273
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:295
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:317
@@ -5374,7 +5374,7 @@ msgstr "Ir a conversaciones"
 #~ msgid "Ir a Discovery"
 #~ msgstr "Ir a Discovery"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:304
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:309
 msgid "Ir a mi dashboard"
 msgstr "Ir a mi dashboard"
 
@@ -5652,7 +5652,7 @@ msgstr "Limpiar búsqueda"
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:142
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:231
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:389
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
 msgid "Limpiar filtros"
 msgstr "Limpiar filtros"
 
@@ -6008,7 +6008,7 @@ msgstr "Marzo"
 msgid "Más recientes"
 msgstr "Más recientes"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:255
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:266
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:9
 msgid "Masculino"
 msgstr "Masculino"
@@ -6093,7 +6093,7 @@ msgstr "may"
 msgid "Mayo"
 msgstr "Mayo"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:348
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:359
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:244
 msgid "Mayor a {option}%"
 msgstr "Mayor a {option}%"
@@ -6464,7 +6464,7 @@ msgstr "Nueva oferta de campaña"
 #~ msgid "Next payout"
 #~ msgstr "Next payout"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:197
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
 msgid "Nichos"
 msgstr "Nichos"
 
@@ -7408,7 +7408,7 @@ msgstr "Paid"
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:238
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:88
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:169
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:39
 #: src/features/identity/settings/GeneralSection.tsx:242
 #: src/features/identity/settings/GeneralSection.tsx:246
 msgid "País"
@@ -7663,7 +7663,7 @@ msgstr "Perfil"
 msgid "performance"
 msgstr "performance"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:293
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:304
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:22
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:42
 msgid "Performance"
@@ -7894,7 +7894,7 @@ msgstr "Postulate a las que matchean con tu perfil. Cuanto más completo tu perf
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:258
 #: src/features/discovery/network/components/CreatorCard.tsx:285
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:94
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:325
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:336
 msgid "Precio"
 msgstr "Precio"
 
@@ -7987,7 +7987,7 @@ msgstr "Previsualizar video borrador v{previewVersion}"
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:233
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:238
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr "Principal"
@@ -8301,16 +8301,16 @@ msgstr "Reemplazada"
 msgid "Reemplazar imagen"
 msgstr "Reemplazar imagen"
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:137
+#: src/features/identity/auth/components/MagicSentScreen.tsx:139
 msgid "Reenviando…"
 msgstr "Reenviando…"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:84
-#: src/features/identity/auth/components/MagicSentScreen.tsx:138
+#: src/features/identity/auth/components/MagicSentScreen.tsx:140
 msgid "Reenviar link"
 msgstr "Reenviar link"
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:135
+#: src/features/identity/auth/components/MagicSentScreen.tsx:137
 msgid "Reenviar link ({cooldown}s)"
 msgstr "Reenviar link ({cooldown}s)"
 
@@ -8508,7 +8508,7 @@ msgstr "Revisá los datos de la campaña: {firstFieldError}"
 #~ msgid "Revisá tu brief"
 #~ msgstr "Revisá tu brief"
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:105
+#: src/features/identity/auth/components/MagicSentScreen.tsx:107
 msgid "Revisá tu email"
 msgstr "Revisá tu email"
 
@@ -8696,7 +8696,7 @@ msgid "seguidores"
 msgstr "seguidores"
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:91
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:297
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:308
 msgid "Seguidores"
 msgstr "Seguidores"
 
@@ -8756,7 +8756,7 @@ msgstr "Seleccioná países"
 msgid "Seleccioná rangos de edad"
 msgstr "Seleccioná rangos de edad"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:277
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:288
 msgid "Seleccioná tipos de contenido"
 msgstr "Seleccioná tipos de contenido"
 
@@ -8816,7 +8816,7 @@ msgstr "Seleccionar imagen"
 #~ msgid "Seleccionar intereses..."
 #~ msgstr "Seleccionar intereses..."
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:48
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:51
 msgid "Seleccionar país"
 msgstr "Seleccionar país"
 
@@ -8918,7 +8918,7 @@ msgstr "Septiembre"
 #~ msgid "Servicio fully managed"
 #~ msgstr "Servicio fully managed"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:247
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:258
 msgid "Sexo"
 msgstr "Sexo"
 
@@ -9152,7 +9152,7 @@ msgstr "Sin resultados para esos filtros"
 #~ msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 #~ msgstr "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Sin tarifa cargada"
 msgstr "Sin tarifa cargada"
 
@@ -9559,7 +9559,7 @@ msgstr "Tardamos más de lo esperado"
 msgid "Tarifa UGC"
 msgstr "Tarifa UGC"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Tarifa: {ugcRateText}"
 msgstr "Tarifa: {ugcRateText}"
 
@@ -9587,7 +9587,7 @@ msgstr "Tarifas"
 msgid "Te ayudamos con un template base para {verticalLabel}"
 msgstr "Te ayudamos con un template base para {verticalLabel}"
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:108
+#: src/features/identity/auth/components/MagicSentScreen.tsx:110
 msgid "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 msgstr "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 
@@ -9776,7 +9776,7 @@ msgstr "Tipo de compensación"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:238
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:187
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:286
 msgid "Tipo de contenido"
 msgstr "Tipo de contenido"
 
@@ -9930,7 +9930,7 @@ msgstr "Todavía no tenés campañas"
 #~ msgstr "Todo lo de Starter, +:"
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:222
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:250
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:261
 msgid "Todos"
 msgstr "Todos"
 
@@ -10084,7 +10084,7 @@ msgstr "Tu marca"
 #~ msgid "tu nivel"
 #~ msgstr "tu nivel"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:170
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:175
 msgid "Tu nombre"
 msgstr "Tu nombre"
 
@@ -10191,7 +10191,7 @@ msgstr "Tu workspace ya tiene un plan activo"
 msgid "tu_handle"
 msgstr "tu_handle"
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:107
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:112
 msgid "tu@empresa.com"
 msgstr "tu@empresa.com"
 
@@ -10219,6 +10219,7 @@ msgstr "Tus 3 mejores videos"
 msgid "Ubicación del producto"
 msgstr "Ubicación del producto"
 
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:245
 #: src/features/identity/settings/CollaborationSection.tsx:52
 #: src/features/identity/settings/RatesSection.tsx:246
 msgid "UGC"
@@ -10375,7 +10376,7 @@ msgstr "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr "Usamos tu respuesta para recomendarte el mejor plan."
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:147
+#: src/features/identity/auth/components/MagicSentScreen.tsx:149
 msgid "Usar otro email"
 msgstr "Usar otro email"
 
@@ -10671,7 +10672,7 @@ msgstr "views proyectados / mes"
 msgid "Vistas"
 msgstr "Vistas"
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:311
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:322
 msgid "Vistas promedio"
 msgstr "Vistas promedio"
 

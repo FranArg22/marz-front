@@ -8690,7 +8690,8 @@
               "type": "string",
               "enum": [
                 "all",
-                "influencer"
+                "influencer",
+                "ugc"
               ],
               "default": "all"
             }

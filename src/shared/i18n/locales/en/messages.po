@@ -69,7 +69,7 @@ msgstr ""
 msgid "¿Cuántos seguidores tenés hoy?"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:29
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
 msgid "¿Desde dónde creás?"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "¿Hacés contenido UGC?"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:151
+#: src/features/identity/auth/components/MagicSentScreen.tsx:153
 msgid "¿No lo encontrás? Chequeá en spam o promociones."
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 #~ msgid "{activeBonusCount} activos"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:393
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:404
 msgid "{activeCount} filtros activos"
 msgstr ""
 
@@ -1350,7 +1350,7 @@ msgstr "Annual"
 #~ msgid "Aplicación"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:411
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:161
 msgid "Aplicar"
 msgstr ""
@@ -1486,7 +1486,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:93
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:291
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:296
 msgid "Atrás"
 msgstr ""
 
@@ -1524,7 +1524,7 @@ msgstr ""
 #~ msgid "Avatar"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:157
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:162
 msgid "Avatar del creador"
 msgstr ""
 
@@ -1579,7 +1579,7 @@ msgstr ""
 #~ msgid "Basado en tus intereses y seguidores, podés acceder a campañas que te pagan lo que vale tu trabajo."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:32
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:35
 msgid "Base geográfica. Importa para campañas con foco regional."
 msgstr ""
 
@@ -1745,7 +1745,7 @@ msgstr ""
 msgid "Budget {budgetLabel}"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:66
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:69
 msgid "Buenos Aires"
 msgstr ""
 
@@ -1928,7 +1928,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:220
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:225
 msgid "Canales"
 msgstr ""
 
@@ -2237,7 +2237,7 @@ msgstr ""
 msgid "Cine"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:60
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:63
 #: src/features/identity/settings/GeneralSection.tsx:255
 #: src/features/identity/settings/GeneralSection.tsx:259
 msgid "Ciudad"
@@ -2571,7 +2571,7 @@ msgstr ""
 msgid "Continuar"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:116
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:121
 msgid "Continuar con email"
 msgstr ""
 
@@ -2672,7 +2672,7 @@ msgstr ""
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:206
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:265
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:145
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:104
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:105
 #: src/features/payments/components/BrandPaymentsTable.tsx:43
 msgid "Creador"
 msgstr ""
@@ -3103,7 +3103,7 @@ msgstr ""
 #~ msgid "Descubrir creators"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:527
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:538
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:266
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:287
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:309
@@ -3532,7 +3532,7 @@ msgstr ""
 msgid "El fee máximo debe ser mayor o igual al mínimo."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:123
+#: src/features/identity/auth/components/MagicSentScreen.tsx:125
 msgid "El link expira en 15 minutos."
 msgstr ""
 
@@ -3606,7 +3606,7 @@ msgstr ""
 msgid "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:540
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:551
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr ""
 
@@ -3742,7 +3742,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/discovery/network/components/EmailInviteModal.tsx:122
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:106
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:111
 #: src/features/identity/settings/GeneralSection.tsx:199
 #: src/features/identity/settings/GeneralSection.tsx:206
 #: src/features/identity/settings/ProfileCard.tsx:38
@@ -3824,7 +3824,7 @@ msgstr ""
 msgid "Engagement"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:341
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:352
 msgid "Engagement rate"
 msgstr ""
 
@@ -3918,7 +3918,7 @@ msgid "Enviando..."
 msgstr ""
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:194
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:117
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:122
 msgid "Enviando…"
 msgstr ""
 
@@ -4440,7 +4440,7 @@ msgstr ""
 msgid "Feed activo ahora mismo"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:264
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:10
 msgid "Femenino"
 msgstr ""
@@ -4605,7 +4605,7 @@ msgstr ""
 msgid "Formato inválido. Usá formato E.164."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:274
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
 msgid "Formato UGC"
 msgstr ""
 
@@ -4613,7 +4613,7 @@ msgstr ""
 msgid "Formato: +54911XXXXXXXX"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:206
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:211
 msgid "Formatos"
 msgstr ""
 
@@ -4855,7 +4855,7 @@ msgstr ""
 #~ msgid "Hard Filters"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:535
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:546
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:273
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:295
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:317
@@ -5382,7 +5382,7 @@ msgstr ""
 #~ msgid "Ir a Discovery"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:304
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:309
 msgid "Ir a mi dashboard"
 msgstr ""
 
@@ -5660,7 +5660,7 @@ msgstr ""
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:142
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:231
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:389
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
 msgid "Limpiar filtros"
 msgstr ""
 
@@ -6016,7 +6016,7 @@ msgstr ""
 msgid "Más recientes"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:255
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:266
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:9
 msgid "Masculino"
 msgstr ""
@@ -6101,7 +6101,7 @@ msgstr ""
 msgid "Mayo"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:348
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:359
 #: src/features/discovery/network/components/QuickFilterPopover.tsx:244
 msgid "Mayor a {option}%"
 msgstr ""
@@ -6472,7 +6472,7 @@ msgstr ""
 #~ msgid "Next payout"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:197
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
 msgid "Nichos"
 msgstr ""
 
@@ -7420,7 +7420,7 @@ msgstr ""
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:238
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:88
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:169
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:36
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:39
 #: src/features/identity/settings/GeneralSection.tsx:242
 #: src/features/identity/settings/GeneralSection.tsx:246
 msgid "País"
@@ -7675,7 +7675,7 @@ msgstr ""
 msgid "performance"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:293
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:304
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:22
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:42
 msgid "Performance"
@@ -7910,7 +7910,7 @@ msgstr ""
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:258
 #: src/features/discovery/network/components/CreatorCard.tsx:285
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:94
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:325
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:336
 msgid "Precio"
 msgstr ""
 
@@ -8007,7 +8007,7 @@ msgstr ""
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:233
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:238
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr ""
@@ -8325,16 +8325,16 @@ msgstr ""
 msgid "Reemplazar imagen"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:137
+#: src/features/identity/auth/components/MagicSentScreen.tsx:139
 msgid "Reenviando…"
 msgstr ""
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:84
-#: src/features/identity/auth/components/MagicSentScreen.tsx:138
+#: src/features/identity/auth/components/MagicSentScreen.tsx:140
 msgid "Reenviar link"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:135
+#: src/features/identity/auth/components/MagicSentScreen.tsx:137
 msgid "Reenviar link ({cooldown}s)"
 msgstr ""
 
@@ -8532,7 +8532,7 @@ msgstr ""
 #~ msgid "Revisá tu brief"
 #~ msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:105
+#: src/features/identity/auth/components/MagicSentScreen.tsx:107
 msgid "Revisá tu email"
 msgstr ""
 
@@ -8720,7 +8720,7 @@ msgid "seguidores"
 msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:91
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:297
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:308
 msgid "Seguidores"
 msgstr ""
 
@@ -8780,7 +8780,7 @@ msgstr ""
 msgid "Seleccioná rangos de edad"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:277
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:288
 msgid "Seleccioná tipos de contenido"
 msgstr ""
 
@@ -8840,7 +8840,7 @@ msgstr ""
 #~ msgid "Seleccionar intereses..."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:48
+#: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:51
 msgid "Seleccionar país"
 msgstr ""
 
@@ -8942,7 +8942,7 @@ msgstr ""
 #~ msgid "Servicio fully managed"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:247
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:258
 msgid "Sexo"
 msgstr ""
 
@@ -9180,7 +9180,7 @@ msgstr ""
 #~ msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Sin tarifa cargada"
 msgstr ""
 
@@ -9591,7 +9591,7 @@ msgstr ""
 msgid "Tarifa UGC"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:277
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Tarifa: {ugcRateText}"
 msgstr ""
 
@@ -9619,7 +9619,7 @@ msgstr ""
 msgid "Te ayudamos con un template base para {verticalLabel}"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:108
+#: src/features/identity/auth/components/MagicSentScreen.tsx:110
 msgid "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 msgstr ""
 
@@ -9808,7 +9808,7 @@ msgstr ""
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:238
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:187
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:275
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:286
 msgid "Tipo de contenido"
 msgstr ""
 
@@ -9962,7 +9962,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:222
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:250
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:261
 msgid "Todos"
 msgstr ""
 
@@ -10116,7 +10116,7 @@ msgstr ""
 #~ msgid "tu nivel"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:170
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:175
 msgid "Tu nombre"
 msgstr ""
 
@@ -10223,7 +10223,7 @@ msgstr ""
 msgid "tu_handle"
 msgstr ""
 
-#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:107
+#: src/features/identity/auth/components/MagicLinkRequestForm.tsx:112
 msgid "tu@empresa.com"
 msgstr ""
 
@@ -10251,6 +10251,7 @@ msgstr ""
 msgid "Ubicación del producto"
 msgstr ""
 
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:245
 #: src/features/identity/settings/CollaborationSection.tsx:52
 #: src/features/identity/settings/RatesSection.tsx:246
 msgid "UGC"
@@ -10407,7 +10408,7 @@ msgstr ""
 msgid "Usamos tu respuesta para recomendarte el mejor plan."
 msgstr ""
 
-#: src/features/identity/auth/components/MagicSentScreen.tsx:147
+#: src/features/identity/auth/components/MagicSentScreen.tsx:149
 msgid "Usar otro email"
 msgstr ""
 
@@ -10703,7 +10704,7 @@ msgstr ""
 msgid "Vistas"
 msgstr ""
 
-#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:311
+#: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:322
 msgid "Vistas promedio"
 msgstr ""
 

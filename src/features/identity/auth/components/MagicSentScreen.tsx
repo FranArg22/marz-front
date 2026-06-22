@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { useSignIn, useSignUp } from '@clerk/tanstack-react-start'
+import { useAuth, useSignIn, useSignUp } from '@clerk/tanstack-react-start'
 import { MailCheck, RefreshCw, ArrowLeft, Clock3 } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
@@ -26,6 +26,7 @@ function isIdentifierNotFound(err: unknown): boolean {
 export function MagicSentScreen({ email }: { email: string }) {
   const { signIn } = useSignIn()
   const { signUp } = useSignUp()
+  const { isLoaded } = useAuth()
   const [cooldown, setCooldown] = useState(0)
   const [resending, setResending] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -52,6 +53,7 @@ export function MagicSentScreen({ email }: { email: string }) {
 
   async function handleResend() {
     if (cooldown > 0 || resending) return
+    if (!isLoaded) return // esperar a que Clerk cargue (dev-browser token)
     setResending(true)
 
     const verificationUrl = `${window.location.origin}/auth/callback`
