@@ -180,6 +180,7 @@ export function RequestChangesCard({
         kicker={t`Cambios solicitados`}
         icon={AlertCircle}
         headerVariant="solid"
+        size="compact"
         side={isOutgoing ? 'out' : 'in'}
       >
         <div className="space-y-3">

@@ -8,14 +8,14 @@ exports[`LinkChangesRequestedCard > reuses RequestChangesCard with a link previe
     class="flex justify-start"
   >
     <div
-      class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-destructive/60"
+      class="@container w-full overflow-hidden bg-card max-w-[300px] rounded-xl border sm:max-w-[340px] border-destructive/60"
     >
       <div
-        class="flex items-center gap-2 px-4 py-2.5 bg-destructive text-destructive-foreground"
+        class="flex items-center gap-1.5 px-3 py-1.5 bg-destructive text-destructive-foreground"
       >
         <svg
           aria-hidden="true"
-          class="lucide lucide-circle-alert size-4"
+          class="lucide lucide-circle-alert size-3.5"
           fill="none"
           height="24"
           stroke="currentColor"
@@ -45,13 +45,13 @@ exports[`LinkChangesRequestedCard > reuses RequestChangesCard with a link previe
           />
         </svg>
         <span
-          class="text-xs font-semibold uppercase tracking-widest"
+          class="font-semibold uppercase text-[10px] tracking-wide"
         >
           Cambios solicitados
         </span>
       </div>
       <div
-        class="p-4"
+        class="p-3"
       >
         <div
           class="space-y-3"
@@ -72,7 +72,7 @@ exports[`LinkChangesRequestedCard > reuses RequestChangesCard with a link previe
             <span
               class="text-muted-foreground"
             >
-              27 abr 2026, 9:00 a. m.
+              27 abr 2026, 9:00 a. m.
             </span>
           </div>
           <a
