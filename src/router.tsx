@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/tanstackstart-react'
 import { routeTree } from './routeTree.gen'
 import { getContext } from './integrations/tanstack-query/root-provider'
 import { initFaro } from '#/shared/observability/faro'
+import { initPosthog } from '#/shared/analytics/posthog'
 
 function DefaultNotFound() {
   return (
@@ -51,6 +52,7 @@ export function getRouter() {
       })
     }
     initFaro()
+    initPosthog()
   }
 
   setupRouterSsrQueryIntegration({

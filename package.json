@@ -66,6 +66,7 @@
     "clsx": "2.1.1",
     "libphonenumber-js": "^1.13.7",
     "lucide-react": "0.577.0",
+    "posthog-js": "1.391.9",
     "radix-ui": "1.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
