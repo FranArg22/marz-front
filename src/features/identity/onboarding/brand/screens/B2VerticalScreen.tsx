@@ -63,7 +63,7 @@ export function B2VerticalScreen() {
   const store = useBrandOnboardingStore()
 
   return (
-    <div className="flex w-full flex-col items-center gap-8">
+    <div className="flex w-full flex-col items-center gap-8 max-sm:gap-5">
       <WizardSectionTitle
         title={t`¿En qué vertical opera tu marca?`}
         subtitle={t`Elegí la categoría que mejor represente tu industria.`}

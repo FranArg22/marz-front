@@ -16,7 +16,7 @@ interface OnboardingGuardOptions {
   queryClient: QueryClient
   kind: OnboardingKind
   routePath: `/onboarding/${OnboardingKind}`
-  fallbackPath: '/campaigns' | '/inbox'
+  fallbackPath: '/campaigns' | '/discover/campaigns'
 }
 
 export async function enforceOnboardingRoute({

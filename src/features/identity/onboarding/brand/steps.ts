@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 import type { BrandOnboardingState } from './store'
+import { normalizeWebsiteUrl, isValidWebsiteUrl } from './website'
 import {
   B1IdentityScreen,
   B2VerticalScreen,
@@ -28,7 +29,12 @@ export const STEPS: BrandOnboardingStep[] = [
   {
     id: 'identity',
     component: B1IdentityScreen,
-    validate: (s) => typeof s.name === 'string' && s.name.trim().length > 0,
+    validate: (s) =>
+      typeof s.name === 'string' &&
+      s.name.trim().length > 0 &&
+      (s.website_url == null ||
+        s.website_url.trim() === '' ||
+        isValidWebsiteUrl(normalizeWebsiteUrl(s.website_url))),
   },
   {
     id: 'vertical',

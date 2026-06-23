@@ -9,12 +9,12 @@ const BARTER_OPTIONS: { value: boolean; label: () => string }[] = [
 
 export function C6cBarterScreen() {
   const store = useCreatorOnboardingStore()
-  const current = store.barter_preference ?? false
+  const current = store.barter_preference
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿Aceptás colaboraciones por canje?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">

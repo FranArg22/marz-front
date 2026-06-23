@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { STEPS, getStepIndex, getStepId } from './steps'
 import type { CreatorOnboardingState } from './store'
+import type { CreatorChannel } from './types'
 
 function makeState(
   partial: Partial<CreatorOnboardingState> = {},
@@ -18,8 +19,8 @@ function makeState(
 }
 
 describe('STEPS', () => {
-  it('has 23 steps', () => {
-    expect(STEPS).toHaveLength(23)
+  it('has 22 steps', () => {
+    expect(STEPS).toHaveLength(22)
   })
 
   it('every step has id and component', () => {
@@ -42,7 +43,7 @@ describe('getStepIndex', () => {
     expect(getStepIndex('experience')).toBe(1)
     expect(getStepIndex('languages')).toBe(6)
     expect(getStepIndex('barter')).toBe(7)
-    expect(getStepIndex('confirmation')).toBe(22)
+    expect(getStepIndex('confirmation')).toBe(21)
   })
 
   it('returns -1 for unknown id', () => {
@@ -54,7 +55,7 @@ describe('getStepIndex', () => {
 describe('getStepId', () => {
   it('returns correct id for valid indices', () => {
     expect(getStepId(0)).toBe('name-handle')
-    expect(getStepId(22)).toBe('confirmation')
+    expect(getStepId(21)).toBe('confirmation')
   })
 
   it('clamps out-of-range indices', () => {
@@ -122,22 +123,46 @@ describe('validate functions', () => {
     expect(validate(makeState({ languages: ['es', 'en'] }))).toBe(true)
   })
 
-  it('C6c barter: no validation (optional)', () => {
-    expect(STEPS[7]!.validate).toBeUndefined()
+  it('C6c barter: requires an explicit yes/no', () => {
+    const validate = STEPS[getStepIndex('barter')]!.validate!
+    expect(validate(makeState())).toBe(false)
+    expect(validate(makeState({ barter_preference: false }))).toBe(true)
+    expect(validate(makeState({ barter_preference: true }))).toBe(true)
   })
 
   it('C7 channels: requires >= 1 channel with exactly 1 primary', () => {
     const validate = STEPS[8]!.validate!
     expect(validate(makeState())).toBe(false)
     expect(validate(makeState({ channels: [] }))).toBe(false)
-    const ch = {
+    const ch: CreatorChannel = {
       platform: 'instagram',
       external_handle: '@test',
       verified: false,
       is_primary: true,
-      rate_cards: [],
+      rate_cards: [
+        { format: 'ig_reel', rate_amount: '100', rate_currency: 'USD' },
+      ],
     }
     expect(validate(makeState({ channels: [ch] }))).toBe(true)
+    // A channel without any rate card cannot pass.
+    expect(
+      validate(makeState({ channels: [{ ...ch, rate_cards: [] }] })),
+    ).toBe(false)
+    // A rate card without an amount cannot pass.
+    expect(
+      validate(
+        makeState({
+          channels: [
+            {
+              ...ch,
+              rate_cards: [
+                { format: 'ig_reel', rate_amount: '', rate_currency: 'USD' },
+              ],
+            },
+          ],
+        }),
+      ),
+    ).toBe(false)
     expect(
       validate(
         makeState({
@@ -151,9 +176,6 @@ describe('validate functions', () => {
     expect(STEPS[getStepIndex('ugc')]!.validate).toBeUndefined()
     expect(STEPS[getStepIndex('priming-testimonials')]!.validate).toBeUndefined()
     expect(STEPS[getStepIndex('priming-benchmark')]!.validate).toBeUndefined()
-    expect(
-      STEPS[getStepIndex('priming-benchmark-2')]!.validate,
-    ).toBeUndefined()
   })
 
   it('C10 best-videos: optional but rejects malformed links', () => {

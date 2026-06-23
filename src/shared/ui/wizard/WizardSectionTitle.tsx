@@ -15,7 +15,7 @@ export function WizardSectionTitle({
     <div
       className={cn('flex max-w-[560px] flex-col gap-3 text-center', className)}
     >
-      <h1 className="text-[length:var(--font-size-3xl)] font-semibold tracking-tight text-foreground">
+      <h1 className="text-[length:var(--font-size-3xl)] font-semibold tracking-tight text-foreground max-sm:text-[22px]">
         {title}
       </h1>
       {subtitle && (

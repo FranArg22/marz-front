@@ -126,32 +126,34 @@ export function DashboardPage() {
         </div>
       )}
 
-      <PerformanceChart
-        data={
-          chartQuery.data?.status === 200 ? chartQuery.data.data : undefined
-        }
-        isLoading={chartQuery.isPending}
-        isError={chartQuery.isError}
-        activeSeries={search.chart_series}
-        onSeriesChange={(newSeries: ChartSeries[]) => {
-          void navigate({
-            to: '.',
-            search: (prev) => ({ ...prev, chart_series: newSeries }),
-            replace: true,
-          })
-        }}
-        grouping={search.chart_grouping}
-        rangePreset={search.range_preset}
-        onGroupingChange={(newGrouping: ChartGrouping) => {
-          void navigate({
-            to: '.',
-            search: (prev) => ({ ...prev, chart_grouping: newGrouping }),
-            replace: true,
-          })
-        }}
-        onRetry={chartQuery.refetch}
-        onClear={handleClearFilters}
-      />
+      <div className="hidden md:block">
+        <PerformanceChart
+          data={
+            chartQuery.data?.status === 200 ? chartQuery.data.data : undefined
+          }
+          isLoading={chartQuery.isPending}
+          isError={chartQuery.isError}
+          activeSeries={search.chart_series}
+          onSeriesChange={(newSeries: ChartSeries[]) => {
+            void navigate({
+              to: '.',
+              search: (prev) => ({ ...prev, chart_series: newSeries }),
+              replace: true,
+            })
+          }}
+          grouping={search.chart_grouping}
+          rangePreset={search.range_preset}
+          onGroupingChange={(newGrouping: ChartGrouping) => {
+            void navigate({
+              to: '.',
+              search: (prev) => ({ ...prev, chart_grouping: newGrouping }),
+              replace: true,
+            })
+          }}
+          onRetry={chartQuery.refetch}
+          onClear={handleClearFilters}
+        />
+      </div>
       <div className="grid gap-6 xl:grid-cols-2">
         <TopVideosTable
           data={

@@ -4,7 +4,12 @@ import { Instagram, Youtube, Link2 } from 'lucide-react'
 import { cn } from '#/lib/utils'
 import { Input } from '#/components/ui/input'
 import { useCreatorOnboardingStore } from '../store'
-import { normalizeVideoUrl, isValidVideoUrl } from '../bestVideos'
+import {
+  normalizeVideoUrl,
+  isValidVideoUrl,
+  detectVideoProvider,
+} from '#/shared/utils/videoUrl'
+import type { VideoProvider } from '#/shared/utils/videoUrl'
 import type { BestVideo } from '#/shared/api/generated/model/bestVideo'
 
 const DEFAULT_VIDEOS: BestVideo[] = [{ url: '' }, { url: '' }, { url: '' }]
@@ -14,20 +19,6 @@ const BEST_VIDEO_SLOT_IDS = [
   'second-video',
   'third-video',
 ] as const
-
-type Provider = 'youtube' | 'tiktok' | 'instagram'
-
-const YT_SHORT_RE = /^https?:\/\/(www\.)?youtube\.com\/shorts\/([\w-]{6,})/i
-const TIKTOK_RE =
-  /^https?:\/\/(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+\/video\/\d+|[\w-]{6,})/i
-const IG_REEL_RE = /^https?:\/\/(www\.)?instagram\.com\/(reel|reels)\/[\w-]+/i
-
-function detectValidProvider(url: string): Provider | null {
-  if (YT_SHORT_RE.test(url)) return 'youtube'
-  if (TIKTOK_RE.test(url)) return 'tiktok'
-  if (IG_REEL_RE.test(url)) return 'instagram'
-  return null
-}
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -42,7 +33,7 @@ function TikTokIcon({ className }: { className?: string }) {
   )
 }
 
-function ProviderIcon({ provider }: { provider: Provider }) {
+function ProviderIcon({ provider }: { provider: VideoProvider }) {
   if (provider === 'instagram') return <Instagram className="size-5" />
   if (provider === 'youtube') return <Youtube className="size-5" />
   return <TikTokIcon className="size-5" />
@@ -64,9 +55,9 @@ export function C10BestVideosScreen() {
   )
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`Tus 3 mejores videos`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -79,7 +70,7 @@ export function C10BestVideosScreen() {
           const url = video.url.trim()
           const normalized = normalizeVideoUrl(url)
           const provider =
-            url.length > 0 ? detectValidProvider(normalized) : null
+            url.length > 0 ? detectVideoProvider(normalized) : null
           const invalid = url.length > 0 && !isValidVideoUrl(normalized)
           const slotId = BEST_VIDEO_SLOT_IDS[i] ?? `video-${i + 1}`
           return (

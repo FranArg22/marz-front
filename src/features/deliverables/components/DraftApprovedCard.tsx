@@ -51,6 +51,7 @@ export function DraftApprovedCard({
       kicker={t`Video borrador aprobado`}
       icon={Check}
       headerVariant="solid"
+      size="compact"
       side={sessionKind === 'brand' ? 'out' : 'in'}
     >
       <div className="space-y-4">

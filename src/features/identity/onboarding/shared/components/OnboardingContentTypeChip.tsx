@@ -32,6 +32,7 @@ export function OnboardingContentTypeChip({
       }}
       className={cn(
         'inline-flex h-14 w-[178px] items-center gap-2.5 rounded-2xl px-4 text-[length:var(--font-size-sm)] font-medium transition-[transform,background-color,border-color,color] duration-150 ease-out motion-safe:active:scale-[0.97]',
+        'max-sm:h-12 max-sm:w-[calc(50%-5px)] max-sm:gap-2 max-sm:px-3',
         selected
           ? 'border-2 border-primary bg-primary/[0.08] font-semibold'
           : 'border border-border bg-card hover:bg-surface-hover',

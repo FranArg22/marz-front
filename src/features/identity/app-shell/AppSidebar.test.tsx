@@ -52,12 +52,6 @@ function renderSidebar(
     component: () => null,
   })
 
-  const offersRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    path: '/offers',
-    component: () => null,
-  })
-
   const earningsRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: '/earnings',
@@ -70,7 +64,6 @@ function renderSidebar(
       inboxRoute,
       paymentsRoute,
       settingsRoute,
-      offersRoute,
       earningsRoute,
     ]),
     history: createMemoryHistory({ initialEntries: [pathname] }),

@@ -35,10 +35,10 @@ export function C8bPrimingBenchmark() {
   ]
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-10">
+    <div className="relative flex w-full flex-col items-center gap-10 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-150px] h-[500px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-190px] h-[640px] w-[860px] -translate-x-1/2 opacity-80 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -53,7 +53,7 @@ export function C8bPrimingBenchmark() {
       </div>
 
       <div className="relative flex w-full max-w-[780px] flex-col items-center gap-3">
-        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[30px]">
           {t`Así es trabajar con Marz.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
@@ -61,12 +61,12 @@ export function C8bPrimingBenchmark() {
         </p>
       </div>
 
-      <div className="relative flex flex-wrap justify-center gap-5">
+      <div className="relative flex flex-wrap justify-center gap-5 max-sm:gap-3">
         {cards.map((card) => (
           <div
             key={card.label}
             className={cn(
-              'flex h-[180px] w-[300px] flex-col justify-center gap-2.5 rounded-3xl bg-card p-7',
+              'flex h-[180px] w-[300px] flex-col justify-center gap-2.5 rounded-3xl bg-card p-7 max-sm:h-auto max-sm:w-[280px] max-sm:p-5',
               card.highlighted
                 ? 'border border-primary'
                 : 'border border-border',
@@ -83,7 +83,7 @@ export function C8bPrimingBenchmark() {
             <div className="flex items-end gap-1">
               <span
                 className={cn(
-                  'text-[40px] font-bold leading-[1.2] tracking-[-0.02em]',
+                  'text-[40px] font-bold leading-[1.2] tracking-[-0.02em] max-sm:text-[32px]',
                   card.highlighted ? 'text-primary' : 'text-foreground',
                 )}
               >

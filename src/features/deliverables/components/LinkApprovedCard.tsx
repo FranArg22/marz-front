@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useRef } from 'react'
+import { Check } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
-import { EventBubble } from '#/shared/ui/EventBubble'
+import { cn } from '#/lib/utils'
 import { getRecord, getString } from '#/shared/utils/record'
 import {
   trackLinkCardSeen,
@@ -48,20 +49,31 @@ export function LinkApprovedCard({
   return (
     <div
       ref={cardRef}
-      className="flex flex-col items-center gap-2 py-1"
+      className={cn(
+        'flex py-1',
+        direction === 'out' ? 'justify-end' : 'justify-start',
+      )}
       data-testid="link-approved-card"
     >
-      <EventBubble severity="success" direction={direction}>
-        <span>{t`Link approved`}</span>
+      <span
+        className={cn(
+          'inline-flex max-w-[85%] items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium',
+          direction === 'out'
+            ? 'bg-success/10 text-success'
+            : 'bg-success text-success-foreground',
+        )}
+      >
+        <Check className="size-3.5 shrink-0" />
+        <span className="shrink-0">{t`Link approved`}</span>
         <a
           href={snapshot.link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono underline underline-offset-2"
+          className="min-w-0 truncate font-mono underline underline-offset-2"
         >
           {snapshot.link.url}
         </a>
-      </EventBubble>
+      </span>
     </div>
   )
 }

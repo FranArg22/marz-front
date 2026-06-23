@@ -59,7 +59,7 @@ async function submitValidLink() {
   const user = userEvent.setup()
   await user.type(
     screen.getByLabelText(/published url/i),
-    'https://www.youtube.com/watch?v=abc123',
+    'https://www.youtube.com/shorts/abc123',
   )
   await user.click(screen.getByRole('button', { name: /send link/i }))
 }
@@ -109,7 +109,7 @@ describe('SubmitLinkSidesheet', () => {
     )
   })
 
-  it('keeps send button disabled until the URL is valid and uses http or https', async () => {
+  it('keeps send button disabled until the URL is a supported video link', async () => {
     const user = userEvent.setup()
     renderSidesheet()
 
@@ -117,11 +117,11 @@ describe('SubmitLinkSidesheet', () => {
     const input = screen.getByLabelText(/published url/i)
     expect(button).toBeDisabled()
 
-    await user.type(input, 'ftp://youtube.com/watch?v=abc123')
+    await user.type(input, 'https://www.youtube.com/watch?v=abc123')
     expect(button).toBeDisabled()
 
     await user.clear(input)
-    await user.type(input, 'https://www.youtube.com/watch?v=abc123')
+    await user.type(input, 'https://www.youtube.com/shorts/abc123')
     expect(button).toBeEnabled()
   })
 

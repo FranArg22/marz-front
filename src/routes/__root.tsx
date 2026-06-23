@@ -16,6 +16,7 @@ import '../styles.css'
 import { useBrandWorkspaceProvider } from '#/features/identity/hooks/useBrandWorkspaceProvider'
 import { useClerkTokenProvider } from '#/features/identity/hooks/useClerkTokenProvider'
 import { installBeforeUnloadListener } from '#/shared/analytics/beforeunload'
+import { IntercomBridge } from '#/shared/intercom/IntercomBridge'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import { AppI18nProvider } from '#/shared/i18n/provider'
 import { resolveLocale } from '#/shared/i18n/server'
@@ -108,6 +109,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="bg-background text-foreground font-sans antialiased">
         <ClerkProvider>
           <ClerkTokenBridge />
+          <IntercomBridge />
           <AppI18nProvider initialLocale={locale} initialMessages={messages}>
             <TooltipProvider>{children}</TooltipProvider>
           </AppI18nProvider>

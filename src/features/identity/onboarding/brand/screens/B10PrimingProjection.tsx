@@ -65,10 +65,10 @@ export function B10PrimingProjection() {
   const verticalLabel = VERTICAL_LABEL[vertical]()
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-10">
+    <div className="relative flex w-full flex-col items-center gap-10 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-120px] h-[500px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-160px] h-[640px] w-[860px] -translate-x-1/2 opacity-80 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -83,7 +83,7 @@ export function B10PrimingProjection() {
       </div>
 
       <div className="relative flex w-full max-w-[720px] flex-col items-center gap-3">
-        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[30px]">
           {t`Así se ve lo que podés alcanzar.`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
@@ -128,13 +128,13 @@ function StatCard({
   return (
     <div
       className={cn(
-        'flex h-[160px] w-[280px] flex-col items-center justify-center gap-2 rounded-3xl bg-card p-7',
+        'flex h-[160px] w-[280px] flex-col items-center justify-center gap-2 rounded-3xl bg-card p-7 max-sm:h-auto max-sm:w-[280px] max-sm:p-5',
         highlighted ? 'border border-primary' : 'border border-border',
       )}
     >
       <span
         className={cn(
-          'text-[56px] font-bold leading-[1.2] tracking-[-0.02em]',
+          'text-[56px] font-bold leading-[1.2] tracking-[-0.02em] max-sm:text-[40px]',
           highlighted ? 'text-primary' : 'text-foreground',
         )}
       >

@@ -42,9 +42,9 @@ export function C4TierScreen() {
   const store = useCreatorOnboardingStore()
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿Cuántos seguidores tenés hoy?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -52,7 +52,7 @@ export function C4TierScreen() {
         </p>
       </div>
       <div
-        className="flex flex-wrap justify-center gap-3"
+        className="flex w-full max-w-[460px] flex-wrap justify-center gap-3"
         role="radiogroup"
         aria-label={t`Tier`}
       >

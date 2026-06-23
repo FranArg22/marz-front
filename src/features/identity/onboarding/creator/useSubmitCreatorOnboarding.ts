@@ -8,8 +8,9 @@ import { useCompleteCreatorOnboarding } from '#/shared/api/generated/onboarding/
 import { ApiError } from '#/shared/api/mutator'
 import { track } from '#/shared/analytics/track'
 
+import { normalizeVideoUrl } from '#/shared/utils/videoUrl'
+
 import { CreatorOnboardingPayloadSchema } from './schema'
-import { normalizeVideoUrl } from './bestVideos'
 
 import type { FieldErrors } from './store'
 import { useCreatorOnboardingStore } from './store'
@@ -98,24 +99,21 @@ export function useSubmitCreatorOnboarding() {
           track('onboarding_completed', { kind: 'creator' })
           void meQuery
             .refetch()
-            .then((result) => {
-              const redirectTo =
-                result.data?.status === 200
-                  ? result.data.data.redirect_to
-                  : null
+            .then(() => {
               reset()
               void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
               void navigate({
-                to:
-                  redirectTo && !redirectTo.startsWith('/onboarding')
-                    ? redirectTo
-                    : '/inbox',
+                to: '/discover/campaigns',
+                search: { recommended_only: false, sort: 'match_score_desc' },
               })
             })
             .catch(() => {
               reset()
               void queryClient.invalidateQueries({ queryKey: getMeQueryKey() })
-              void navigate({ to: '/inbox' })
+              void navigate({
+                to: '/discover/campaigns',
+                search: { recommended_only: false, sort: 'match_score_desc' },
+              })
             })
         },
         onError: (error) => {
@@ -191,7 +189,7 @@ export function useSubmitCreatorOnboarding() {
                 result.data?.status === 200
                   ? result.data.data.redirect_to
                   : null
-              void navigate({ to: redirectTo ?? '/inbox' })
+              void navigate({ to: redirectTo ?? '/discover/campaigns' })
             })
             return
           }

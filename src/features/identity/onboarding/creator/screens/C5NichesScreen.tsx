@@ -27,16 +27,16 @@ export function C5NichesScreen() {
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-8">
+    <div className="flex w-full flex-col items-center gap-8 max-sm:gap-5">
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿En qué nichos te especializás?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">
           {t`Nos sirve para mostrarte las ofertas que matchean con tu perfil.`}
         </p>
       </div>
-      <div className="flex max-w-[720px] flex-wrap justify-center gap-2">
+      <div className="flex max-w-[720px] flex-wrap justify-center gap-2 max-sm:gap-1.5">
         {options.map((o) => (
           <OnboardingOptionChip
             key={o.value}

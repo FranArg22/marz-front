@@ -34,7 +34,10 @@ export function MetricsGrid({
 
   if (isLoading || !data) {
     return (
-      <section data-testid="metrics-grid" className="grid grid-cols-4 gap-3">
+      <section
+        data-testid="metrics-grid"
+        className="grid grid-cols-2 gap-3 md:grid-cols-4"
+      >
         {CARD_ORDER.map((key) => (
           <MetricCardSkeleton key={key} />
         ))}
@@ -45,7 +48,10 @@ export function MetricsGrid({
   const cardsByKey = new Map(data.cards.map((card) => [card.key, card]))
 
   return (
-    <section data-testid="metrics-grid" className="grid grid-cols-4 gap-3">
+    <section
+      data-testid="metrics-grid"
+      className="grid grid-cols-2 gap-3 md:grid-cols-4"
+    >
       {CARD_ORDER.map((key) => {
         const card = cardsByKey.get(key)
 

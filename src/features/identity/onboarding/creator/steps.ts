@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 import { isValidPhoneNumber } from 'libphonenumber-js'
-import { normalizeVideoUrl, isValidVideoUrl } from './bestVideos'
+import { normalizeVideoUrl, isValidVideoUrl } from '#/shared/utils/videoUrl'
 import type { CreatorOnboardingState } from './store'
 import {
   C1NameHandleScreen,
@@ -15,7 +15,6 @@ import {
   C7bUgcScreen,
   C8PrimingTestimonials,
   C8bPrimingBenchmark,
-  C9PrimingBenchmark2,
   C10BestVideosScreen,
   C11BirthdayScreen,
   C12GenderScreen,
@@ -79,6 +78,7 @@ export const STEPS: CreatorOnboardingStep[] = [
   {
     id: 'barter',
     component: C6cBarterScreen,
+    validate: (s) => typeof s.barter_preference === 'boolean',
   },
   {
     id: 'channels',
@@ -92,6 +92,7 @@ export const STEPS: CreatorOnboardingStep[] = [
         (c) =>
           typeof c.external_handle === 'string' &&
           c.external_handle.trim().length > 0 &&
+          c.rate_cards.length >= 1 &&
           c.rate_cards.every((rc) => rc.rate_amount.trim() !== ''),
       ),
   },
@@ -106,10 +107,6 @@ export const STEPS: CreatorOnboardingStep[] = [
   {
     id: 'priming-benchmark',
     component: C8bPrimingBenchmark,
-  },
-  {
-    id: 'priming-benchmark-2',
-    component: C9PrimingBenchmark2,
   },
   {
     id: 'best-videos',

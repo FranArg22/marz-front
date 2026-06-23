@@ -168,9 +168,10 @@ export function DraftSubmittedCard({
         kicker={t`Video borrador enviado`}
         icon={Upload}
         headerVariant="solid"
+        size="compact"
         side={isBrand ? 'in' : 'out'}
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center gap-2 text-sm">
             <span className="font-medium text-foreground">{submitterName}</span>
             <span className="text-muted-foreground">·</span>

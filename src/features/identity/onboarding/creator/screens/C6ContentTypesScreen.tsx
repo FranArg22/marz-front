@@ -9,9 +9,23 @@ import {
   Scissors,
   GraduationCap,
   Mic,
+  Mic2,
   Laugh,
   Sun,
   Clapperboard,
+  ShoppingBag,
+  Wand2,
+  ArrowLeftRight,
+  ChefHat,
+  Video,
+  Camera,
+  Film,
+  Music,
+  Heart,
+  Flame,
+  Compass,
+  Lightbulb,
+  Smile,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { OnboardingContentTypeChip } from '#/features/identity/onboarding/shared/components'
@@ -31,6 +45,36 @@ const CONTENT_TYPE_ICONS: Record<string, LucideIcon> = {
   humor_sketches: Laugh,
   day_in_the_life: Sun,
   behind_the_scenes: Clapperboard,
+  hauls: ShoppingBag,
+  grwm: Wand2,
+  voice_over: Mic2,
+  before_after: ArrowLeftRight,
+  recipes: ChefHat,
+  vlogs: Video,
+}
+
+// Pool de respaldo para slugs que el backend agregue y todavía no tengan icono
+// propio: un hash estable del slug los reparte en iconos distintos en vez de
+// caer todos en el mismo (se veían repetidos en la grilla).
+const FALLBACK_ICONS: LucideIcon[] = [
+  Camera,
+  Film,
+  Music,
+  Heart,
+  Flame,
+  Compass,
+  Lightbulb,
+  Smile,
+]
+
+function iconForContentType(slug: string): LucideIcon {
+  const mapped = CONTENT_TYPE_ICONS[slug]
+  if (mapped) return mapped
+  let hash = 0
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) >>> 0
+  }
+  return FALLBACK_ICONS[hash % FALLBACK_ICONS.length]!
 }
 
 export function C6ContentTypesScreen() {
@@ -42,7 +86,7 @@ export function C6ContentTypesScreen() {
       ? contentTypesQuery.data.data.items.map((contentType) => ({
           value: contentType.slug,
           label: contentType.label_es,
-          icon: CONTENT_TYPE_ICONS[contentType.slug] ?? Sparkles,
+          icon: iconForContentType(contentType.slug),
         }))
       : []
 
@@ -58,9 +102,9 @@ export function C6ContentTypesScreen() {
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-9">
+    <div className="flex w-full flex-col items-center gap-9 max-sm:gap-6">
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`¿Qué tipo de contenido hacés?`}
         </h1>
         <p className="text-center text-sm text-muted-foreground">

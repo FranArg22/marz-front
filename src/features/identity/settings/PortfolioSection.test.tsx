@@ -33,7 +33,7 @@ describe('PortfolioSection', () => {
   it('renders exactly 3 slots with existing URLs and pending empty slots', () => {
     renderPortfolioSection(
       creatorSettings({
-        sample_videos: [{ url: 'https://videos.example.com/one' }],
+        sample_videos: [{ url: 'https://www.instagram.com/reel/one' }],
       }),
     )
 
@@ -41,10 +41,10 @@ describe('PortfolioSection', () => {
     expect(screen.getByText('Video 2')).toBeInTheDocument()
     expect(screen.getByText('Video 3')).toBeInTheDocument()
     expect(
-      screen.getByText('https://videos.example.com/one'),
+      screen.getByDisplayValue('https://www.instagram.com/reel/one'),
     ).toBeInTheDocument()
     expect(screen.getAllByText('Pendiente')).toHaveLength(2)
-    expect(screen.getAllByLabelText(/^URL del video/)).toHaveLength(2)
+    expect(screen.getAllByLabelText(/^URL del video/)).toHaveLength(3)
     expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
   })
 
@@ -55,7 +55,9 @@ describe('PortfolioSection', () => {
     await user.type(screen.getAllByLabelText(/^URL del video/)[0]!, 'not-a-url')
 
     expect(
-      screen.getByText('Ingresá una URL válida que empiece con http:// o https://'),
+      screen.getByText(
+        'Pegá un link válido de Reel de Instagram, TikTok o Short de YouTube.',
+      ),
     ).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeDisabled()
     await user.keyboard('{Enter}')
@@ -69,13 +71,13 @@ describe('PortfolioSection', () => {
 
     await user.type(
       screen.getAllByLabelText(/^URL del video/)[0]!,
-      'https://videos.example.com/new',
+      'https://www.instagram.com/reel/new',
     )
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     await waitFor(() => {
       expect(mockReplaceSampleVideos).toHaveBeenCalledWith({
-        data: { videos: [{ url: 'https://videos.example.com/new' }] },
+        data: { videos: [{ url: 'https://www.instagram.com/reel/new' }] },
       })
     })
   })
@@ -84,7 +86,7 @@ describe('PortfolioSection', () => {
     const user = userEvent.setup()
     const { queryClient } = renderPortfolioSection(
       creatorSettings({
-        sample_videos: [{ url: 'https://videos.example.com/one' }],
+        sample_videos: [{ url: 'https://www.instagram.com/reel/one' }],
       }),
     )
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
@@ -107,9 +109,9 @@ describe('PortfolioSection', () => {
     renderPortfolioSection(
       creatorSettings({
         sample_videos: [
-          { url: 'https://videos.example.com/zero' },
-          { url: 'https://videos.example.com/one' },
-          { url: 'https://videos.example.com/two' },
+          { url: 'https://www.instagram.com/reel/zero' },
+          { url: 'https://www.instagram.com/reel/one' },
+          { url: 'https://www.instagram.com/reel/two' },
         ],
       }),
     )
@@ -121,8 +123,8 @@ describe('PortfolioSection', () => {
       expect(mockReplaceSampleVideos).toHaveBeenCalledWith({
         data: {
           videos: [
-            { url: 'https://videos.example.com/zero' },
-            { url: 'https://videos.example.com/two' },
+            { url: 'https://www.instagram.com/reel/zero' },
+            { url: 'https://www.instagram.com/reel/two' },
           ],
         },
       })

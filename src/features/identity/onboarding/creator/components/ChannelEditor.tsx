@@ -427,7 +427,7 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
   )
 
   return (
-    <div className="flex w-full max-w-[560px] flex-col gap-6">
+    <div className="flex w-full max-w-[560px] flex-col gap-6 max-sm:gap-4">
       {channels.map((channel, ci) => {
         const formats = FORMATS_BY_PLATFORM[channel.platform] ?? []
         const usedFormats = new Set(

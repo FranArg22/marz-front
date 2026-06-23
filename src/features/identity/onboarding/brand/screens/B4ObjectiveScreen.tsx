@@ -42,9 +42,9 @@ export function B4ObjectiveScreen() {
   const brandName = store.name?.trim()
 
   return (
-    <div className="flex w-full flex-col items-center gap-10">
+    <div className="flex w-full flex-col items-center gap-10 max-sm:gap-6">
       <div className="flex w-full max-w-[640px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {brandName
             ? t`¿Qué objetivo tiene ${brandName} usando Marz?`
             : t`¿Qué objetivo tenés usando Marz?`}
@@ -55,7 +55,7 @@ export function B4ObjectiveScreen() {
       </div>
 
       <div
-        className="flex flex-wrap justify-center gap-4"
+        className="flex w-full max-w-[460px] flex-wrap justify-center gap-4 max-sm:gap-3"
         role="radiogroup"
         aria-label={t`Objetivo principal`}
       >
@@ -70,7 +70,7 @@ export function B4ObjectiveScreen() {
               aria-checked={selected}
               onClick={() => store.setField('marketing_objective', o.value)}
               className={cn(
-                'flex h-[180px] w-[220px] flex-col justify-between rounded-[20px] p-6 text-left transition-colors',
+                'flex h-[180px] w-[220px] flex-col justify-between rounded-[20px] p-6 text-left transition-colors max-sm:h-auto max-sm:w-[calc(50%-6px)] max-sm:gap-3 max-sm:p-4',
                 selected
                   ? 'border-2 border-primary bg-primary/10'
                   : 'border border-border bg-card hover:bg-surface-hover',

@@ -4,10 +4,10 @@ import { Quote } from 'lucide-react'
 
 export function C19PrimingSocialProof() {
   return (
-    <div className="relative flex w-full flex-col items-center gap-10">
+    <div className="relative flex w-full flex-col items-center gap-10 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-150px] h-[500px] w-[680px] -translate-x-1/2 opacity-50 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-190px] h-[640px] w-[860px] -translate-x-1/2 opacity-80 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.24) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -18,7 +18,7 @@ export function C19PrimingSocialProof() {
         <Quote className="size-6 text-primary" />
       </div>
 
-      <div className="relative flex w-full max-w-[640px] flex-col gap-5 rounded-3xl border border-border bg-card p-8">
+      <div className="relative flex w-full max-w-[640px] flex-col gap-5 rounded-3xl border border-border bg-card p-8 max-sm:p-5">
         <p className="text-base leading-[1.6] text-foreground">
           {t`“Toda la información estaba en la plataforma, podía ver el paso a paso del proceso, y el pago llegó a las 24 horas. Da seguridad tener todo por escrito.”`}
         </p>
@@ -42,7 +42,7 @@ export function C19PrimingSocialProof() {
         </div>
       </div>
 
-      <div className="relative flex items-center gap-12">
+      <div className="relative flex items-center gap-12 max-sm:gap-8">
         <Stat value={t`9.8 / 10`} label={t`Puntaje de satisfacción`} />
         <Stat value={t`24h`} label={t`Pagos garantizados`} />
       </div>

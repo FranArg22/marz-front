@@ -43,7 +43,7 @@ function makeQueryClient(): QueryClientMock {
 }
 
 async function callBeforeLoad(
-  pathname = '/_creator/offers',
+  pathname = '/_creator/discover/campaigns',
   queryClient = makeQueryClient(),
 ) {
   const { Route } = await import('./_creator')
@@ -150,7 +150,7 @@ describe('/_creator beforeLoad', () => {
         redirect_to: null,
       },
     }
-    await expect(callBeforeLoad('/_creator/offers')).resolves.toEqual({
+    await expect(callBeforeLoad('/_creator/discover/campaigns')).resolves.toEqual({
       accountId: 'acct_creator_1',
     })
   })
@@ -168,7 +168,7 @@ describe('/_creator beforeLoad', () => {
     })
     qc.getQueryState.mockReturnValue({ dataUpdatedAt: Date.now() })
 
-    await expect(callBeforeLoad('/_creator/offers', qc)).resolves.toEqual({
+    await expect(callBeforeLoad('/_creator/discover/campaigns', qc)).resolves.toEqual({
       accountId: 'acct_creator_cached',
     })
   })
@@ -184,7 +184,7 @@ describe('/_creator beforeLoad', () => {
         redirect_to: null,
       },
     }
-    await callBeforeLoad('/_creator/offers', qc)
+    await callBeforeLoad('/_creator/discover/campaigns', qc)
     expect(qc.setQueryData).toHaveBeenCalledWith(
       ['/v1/me'],
       expect.objectContaining({ status: 200 }),

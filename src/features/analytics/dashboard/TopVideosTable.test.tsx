@@ -37,7 +37,7 @@ describe('TopVideosTable', () => {
       onSortChange,
     })
 
-    await user.click(screen.getByRole('combobox', { name: 'Ordenar top videos' }))
+    await user.click(screen.getByRole('combobox', { name: 'Ordenar top posts' }))
     await user.click(screen.getByRole('option', { name: 'CPM' }))
 
     expect(onSortChange).toHaveBeenCalledWith('cpm')
@@ -62,7 +62,7 @@ describe('TopVideosTable', () => {
     })
 
     expect(
-      within(screen.getByRole('table', { name: 'Top Videos' })).getByRole(
+      within(screen.getByRole('table', { name: 'Top Posts' })).getByRole(
         'columnheader',
         { name: 'Vistas' },
       ),
@@ -78,7 +78,7 @@ describe('TopVideosTable', () => {
     })
 
     expect(
-      within(screen.getByRole('table', { name: 'Top Videos' })).getByRole(
+      within(screen.getByRole('table', { name: 'Top Posts' })).getByRole(
         'columnheader',
         { name: 'Vistas' },
       ),

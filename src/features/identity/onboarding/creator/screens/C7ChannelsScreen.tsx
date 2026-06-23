@@ -23,9 +23,9 @@ export function C7ChannelsScreen() {
   )
 
   return (
-    <div className="flex w-full flex-col items-center gap-6">
+    <div className="flex w-full flex-col items-center gap-6 max-sm:gap-4">
       <div className="flex w-full max-w-[720px] flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-[-0.02em] text-foreground max-sm:text-[22px]">
           {t`Conectá tus cuentas y qué publicás`}
         </h1>
         <p className="text-center text-sm leading-[1.5] text-muted-foreground">
@@ -47,11 +47,13 @@ export function C7ChannelsScreen() {
           {}
           {errors.includes('exactly_one_primary_required')
             ? t`Seleccioná exactamente un canal como principal.`
-            : errors.includes('duplicate_format_in_channel')
-              ? t`No se puede repetir un formato dentro del mismo canal.`
-              : errors.includes('format_not_valid_for_platform')
-                ? t`Hay formatos inválidos para la plataforma seleccionada.`
-                : null}
+            : errors.includes('rate_card_required')
+              ? t`Agregá al menos una tarifa por canal.`
+              : errors.includes('duplicate_format_in_channel')
+                ? t`No se puede repetir un formato dentro del mismo canal.`
+                : errors.includes('format_not_valid_for_platform')
+                  ? t`Hay formatos inválidos para la plataforma seleccionada.`
+                  : null}
           {}
         </p>
       )}

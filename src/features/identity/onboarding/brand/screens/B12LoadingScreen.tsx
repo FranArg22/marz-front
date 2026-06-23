@@ -82,10 +82,10 @@ export function B12LoadingScreen() {
   }, [completedCount, navigate, store, steps.length])
 
   return (
-    <div className="relative flex w-full flex-col items-center gap-12">
+    <div className="relative flex w-full flex-col items-center gap-12 max-sm:gap-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-200px] h-[600px] w-[640px] -translate-x-1/2 opacity-70 wizard-glow-pulse"
+        className="pointer-events-none absolute left-1/2 top-[-240px] h-[740px] w-[820px] -translate-x-1/2 opacity-90 wizard-glow-pulse"
         style={{
           background:
             'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13, 166, 120, 0.33) 0%, rgba(13, 166, 120, 0) 100%)',
@@ -117,11 +117,11 @@ export function B12LoadingScreen() {
       </div>
 
       <div className="relative flex w-full max-w-[640px] flex-col items-center gap-3.5">
-        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
+        <h1 className="text-center text-[44px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground max-sm:text-[30px]">
           {t`Armando tu shortlist…`}
         </h1>
         <p className="text-center text-[15px] leading-[1.5] text-muted-foreground">
-          {t`Estamos cruzando tu perfil con 2.340 creadores activos.`}
+          {t`Estamos cruzando tu perfil con +5000 creadores activos.`}
         </p>
       </div>
 

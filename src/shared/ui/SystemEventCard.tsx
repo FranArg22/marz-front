@@ -42,11 +42,46 @@ const toneHeaderSolid: Record<EventCardTone, string> = {
   neutral: 'bg-foreground text-background',
 }
 
+/**
+ * Tamaño visual de la card. `compact` se usa en el timeline del chat para que
+ * los eventos del sistema (links, borradores, cambios) sean más sutiles y no
+ * ocupen casi todo el ancho en mobile. `default` mantiene la card grande para
+ * usos fuera del chat (p. ej. detalle de oferta).
+ */
+export type EventCardSize = 'default' | 'compact'
+
+const sizeStyles: Record<
+  EventCardSize,
+  {
+    container: string
+    header: string
+    icon: string
+    kicker: string
+    body: string
+  }
+> = {
+  default: {
+    container: 'max-w-[380px] rounded-2xl border-2',
+    header: 'gap-2 px-4 py-2.5',
+    icon: 'size-4',
+    kicker: 'text-xs tracking-widest',
+    body: 'p-4',
+  },
+  compact: {
+    container: 'max-w-[300px] rounded-xl border sm:max-w-[340px]',
+    header: 'gap-1.5 px-3 py-1.5',
+    icon: 'size-3.5',
+    kicker: 'text-[10px] tracking-wide',
+    body: 'p-3',
+  },
+}
+
 interface SystemEventCardProps {
   tone: EventCardTone
   kicker: string
   icon: LucideIcon
   headerVariant?: EventCardHeaderVariant
+  size?: EventCardSize
   /** Lado del mensaje: 'out' (vos lo enviaste) alinea derecha, 'in' alinea izquierda. */
   side?: 'in' | 'out'
   children: ReactNode
@@ -59,6 +94,7 @@ export function SystemEventCard({
   kicker,
   icon: Icon,
   headerVariant = 'tint',
+  size = 'default',
   side,
   children,
   className,
@@ -66,22 +102,24 @@ export function SystemEventCard({
 }: SystemEventCardProps) {
   const header =
     headerVariant === 'solid' ? toneHeaderSolid[tone] : toneHeaderTint[tone]
+  const s = sizeStyles[size]
   const card = (
     <div
       ref={ref}
       className={cn(
-        '@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card',
+        '@container w-full overflow-hidden bg-card',
+        s.container,
         toneBorder[tone],
         className,
       )}
     >
-      <div className={cn('flex items-center gap-2 px-4 py-2.5', header)}>
-        <Icon className="size-4" />
-        <span className="text-xs font-semibold uppercase tracking-widest">
+      <div className={cn('flex items-center', s.header, header)}>
+        <Icon className={s.icon} />
+        <span className={cn('font-semibold uppercase', s.kicker)}>
           {kicker}
         </span>
       </div>
-      <div className="p-4">{children}</div>
+      <div className={s.body}>{children}</div>
     </div>
   )
   if (!side) return card

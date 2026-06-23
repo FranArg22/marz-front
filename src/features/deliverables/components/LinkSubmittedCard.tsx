@@ -138,9 +138,10 @@ export function LinkSubmittedCard({
       tone="success"
       kicker={t`Link publicado`}
       icon={LinkIcon}
+      size="compact"
       side={sessionKind === 'brand' ? 'in' : 'out'}
     >
-      <div className="space-y-4">
+      <div className="space-y-3">
         <p className="text-sm text-foreground">
           {snapshot.message ?? t`¡Recién publicado! Acá va el link.`}
         </p>

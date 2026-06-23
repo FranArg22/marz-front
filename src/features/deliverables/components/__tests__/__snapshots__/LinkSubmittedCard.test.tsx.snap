@@ -5,14 +5,14 @@ exports[`LinkSubmittedCard > hides link actions for brand admin viewers 1`] = `
   class="flex justify-start"
 >
   <div
-    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full overflow-hidden bg-card max-w-[300px] rounded-xl border sm:max-w-[340px] border-success/60"
   >
     <div
-      class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
+      class="flex items-center gap-1.5 px-3 py-1.5 bg-muted text-success"
     >
       <svg
         aria-hidden="true"
-        class="lucide lucide-link size-4"
+        class="lucide lucide-link size-3.5"
         fill="none"
         height="24"
         stroke="currentColor"
@@ -31,16 +31,16 @@ exports[`LinkSubmittedCard > hides link actions for brand admin viewers 1`] = `
         />
       </svg>
       <span
-        class="text-xs font-semibold uppercase tracking-widest"
+        class="font-semibold uppercase text-[10px] tracking-wide"
       >
         Link publicado
       </span>
     </div>
     <div
-      class="p-4"
+      class="p-3"
     >
       <div
-        class="space-y-4"
+        class="space-y-3"
       >
         <p
           class="text-sm text-foreground"
@@ -113,14 +113,14 @@ exports[`LinkSubmittedCard > hides link actions for brand member viewers 1`] = `
   class="flex justify-start"
 >
   <div
-    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full overflow-hidden bg-card max-w-[300px] rounded-xl border sm:max-w-[340px] border-success/60"
   >
     <div
-      class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
+      class="flex items-center gap-1.5 px-3 py-1.5 bg-muted text-success"
     >
       <svg
         aria-hidden="true"
-        class="lucide lucide-link size-4"
+        class="lucide lucide-link size-3.5"
         fill="none"
         height="24"
         stroke="currentColor"
@@ -139,16 +139,16 @@ exports[`LinkSubmittedCard > hides link actions for brand member viewers 1`] = `
         />
       </svg>
       <span
-        class="text-xs font-semibold uppercase tracking-widest"
+        class="font-semibold uppercase text-[10px] tracking-wide"
       >
         Link publicado
       </span>
     </div>
     <div
-      class="p-4"
+      class="p-3"
     >
       <div
-        class="space-y-4"
+        class="space-y-3"
       >
         <p
           class="text-sm text-foreground"
@@ -221,14 +221,14 @@ exports[`LinkSubmittedCard > hides link actions for creator viewers 1`] = `
   class="flex justify-end"
 >
   <div
-    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full overflow-hidden bg-card max-w-[300px] rounded-xl border sm:max-w-[340px] border-success/60"
   >
     <div
-      class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
+      class="flex items-center gap-1.5 px-3 py-1.5 bg-muted text-success"
     >
       <svg
         aria-hidden="true"
-        class="lucide lucide-link size-4"
+        class="lucide lucide-link size-3.5"
         fill="none"
         height="24"
         stroke="currentColor"
@@ -247,16 +247,16 @@ exports[`LinkSubmittedCard > hides link actions for creator viewers 1`] = `
         />
       </svg>
       <span
-        class="text-xs font-semibold uppercase tracking-widest"
+        class="font-semibold uppercase text-[10px] tracking-wide"
       >
         Link publicado
       </span>
     </div>
     <div
-      class="p-4"
+      class="p-3"
     >
       <div
-        class="space-y-4"
+        class="space-y-3"
       >
         <p
           class="text-sm text-foreground"
@@ -329,14 +329,14 @@ exports[`LinkSubmittedCard > shows link actions only for brand owners when the l
   class="flex justify-start"
 >
   <div
-    class="@container w-full max-w-[380px] overflow-hidden rounded-2xl border-2 bg-card border-success/60"
+    class="@container w-full overflow-hidden bg-card max-w-[300px] rounded-xl border sm:max-w-[340px] border-success/60"
   >
     <div
-      class="flex items-center gap-2 px-4 py-2.5 bg-muted text-success"
+      class="flex items-center gap-1.5 px-3 py-1.5 bg-muted text-success"
     >
       <svg
         aria-hidden="true"
-        class="lucide lucide-link size-4"
+        class="lucide lucide-link size-3.5"
         fill="none"
         height="24"
         stroke="currentColor"
@@ -355,16 +355,16 @@ exports[`LinkSubmittedCard > shows link actions only for brand owners when the l
         />
       </svg>
       <span
-        class="text-xs font-semibold uppercase tracking-widest"
+        class="font-semibold uppercase text-[10px] tracking-wide"
       >
         Link publicado
       </span>
     </div>
     <div
-      class="p-4"
+      class="p-3"
     >
       <div
-        class="space-y-4"
+        class="space-y-3"
       >
         <p
           class="text-sm text-foreground"

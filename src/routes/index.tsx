@@ -67,6 +67,9 @@ export const Route = createFileRoute('/')({
       })
     }
 
-    throw redirect({ to: '/inbox' })
+    throw redirect({
+      to: '/discover/campaigns',
+      search: { recommended_only: false, sort: 'match_score_desc' },
+    })
   },
 })

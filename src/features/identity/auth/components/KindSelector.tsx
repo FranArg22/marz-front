@@ -99,9 +99,9 @@ export function KindSelector() {
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-12">
+    <div className="flex w-full flex-col items-center gap-12 max-sm:gap-8">
       <div className="flex flex-col items-center gap-2.5">
-        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-tight text-foreground">
+        <h1 className="text-center text-[28px] font-semibold leading-tight tracking-tight text-foreground max-sm:text-[22px]">
           <Trans>¿Qué te trae por acá?</Trans>
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -112,7 +112,7 @@ export function KindSelector() {
       </div>
 
       <div
-        className="flex flex-wrap justify-center gap-5"
+        className="flex w-full max-w-[820px] flex-wrap justify-center gap-5 max-sm:gap-3"
         role="group"
         aria-label={t`Seleccioná tu rol`}
       >
@@ -134,7 +134,7 @@ export function KindSelector() {
                 }
               }}
               className={[
-                'flex h-[280px] w-[260px] flex-col gap-4 rounded-[20px] border p-6 text-left transition-colors',
+                'flex h-[280px] w-[260px] flex-col gap-4 rounded-[20px] border p-6 text-left transition-colors max-sm:h-auto max-sm:w-full max-sm:p-5',
                 card.disabled
                   ? 'cursor-not-allowed opacity-60'
                   : 'cursor-pointer',
