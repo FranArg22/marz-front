@@ -90,7 +90,7 @@ function InboxPageContent({
     <main className="flex h-full overflow-y-auto px-5 py-8 pb-mobile-nav sm:px-8">
       <div className="mx-auto flex w-full max-w-[880px] flex-col gap-6">
         <header className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-foreground">{t`Inbox`}</h1>
+          <h1 className="text-2xl font-bold text-foreground">{t`Inbox`}</h1>
           <p className="text-sm text-muted-foreground">{copy.description}</p>
         </header>
         <InboxToolbar

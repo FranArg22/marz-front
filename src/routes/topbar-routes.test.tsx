@@ -117,7 +117,7 @@ describe('route topbar integration', () => {
     )
   })
 
-  it.skip('resets contextual topbar state when moving through Campaigns, Chats, and Inbox', async () => {
+  it.skip('resets contextual topbar state when moving through Campaigns, Chat, and Inbox', async () => {
     setupRouterMock()
     const [
       appTopbarModule,

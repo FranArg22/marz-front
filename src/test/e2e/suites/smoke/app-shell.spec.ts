@@ -14,11 +14,11 @@ test.describe('App shell desktop', () => {
 
     await expect(page).toHaveURL(/\/campaigns/)
     await expect(shell.sidebar).toBeVisible()
-    await expect(shell.navLink('Workspace')).toBeVisible()
+    await expect(shell.navLink('Chat')).toBeVisible()
     await expect(shell.navLink('Inbox')).toBeVisible()
     await expect(shell.navLink('Creators')).toBeVisible()
 
-    await shell.clickNavLink('Workspace')
+    await shell.clickNavLink('Chat')
     await expect(page).toHaveURL(/\/workspace/)
 
     await shell.clickNavLink('Inbox')
@@ -39,11 +39,11 @@ test.describe('App shell desktop', () => {
 
     await expect(page).toHaveURL(/\/inbox/)
     await expect(shell.sidebar).toBeVisible()
-    await expect(shell.navLink('Workspace')).toBeVisible()
+    await expect(shell.navLink('Chat')).toBeVisible()
     await expect(shell.navLink('Inbox')).toBeVisible()
     await expect(shell.navLink('Creators')).toHaveCount(0)
 
-    await shell.clickNavLink('Workspace')
+    await shell.clickNavLink('Chat')
     await expect(page).toHaveURL(/\/workspace/)
 
     await shell.clickNavLink('Inbox')
