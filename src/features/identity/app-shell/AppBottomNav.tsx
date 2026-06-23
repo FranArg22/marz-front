@@ -31,7 +31,7 @@ const MAX_SLOTS = 5
 
 function tabClassName(isActive: boolean, disabled = false) {
   return cn(
-    'relative z-10 flex w-16 flex-col items-center gap-1 rounded-full py-1.5 text-[10px] font-medium leading-none transition-colors duration-150 ease-[var(--ease-out-quint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
+    'relative z-10 flex min-w-0 flex-1 flex-col items-center gap-1 rounded-full px-1 py-1.5 text-[10px] font-medium leading-none transition-colors duration-150 ease-[var(--ease-out-quint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
     isActive ? 'text-white' : 'text-white/60',
     disabled && 'cursor-not-allowed opacity-50',
   )
@@ -67,6 +67,7 @@ export function AppBottomNav({
       : isMenuActive
         ? mainItems.length
         : -1
+  const visibleSlotCount = mainItems.length + (hasMenu ? 1 : 0)
 
   const renderTab = (item: ShellNavigationItem) => {
     const Icon = resolveNavIcon(item.icon)
@@ -121,17 +122,18 @@ export function AppBottomNav({
     <nav
       data-testid="app-bottom-nav"
       aria-label={t`Navegación`}
-      className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 flex justify-center px-4 md:hidden"
+      className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 flex justify-center px-1 md:hidden"
     >
-      <div className="relative flex items-center rounded-full border border-white/10 bg-zinc-900/60 px-1.5 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      <div className="relative flex w-[calc(100vw-0.5rem)] max-w-[22rem] items-center rounded-full border border-white/10 bg-zinc-900/60 px-1.5 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
         {activeIndex >= 0 ? (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-1.5 left-1.5 w-16 px-1 transition-transform duration-200 ease-[var(--ease-out-quint)] motion-reduce:transition-none"
-            style={{ transform: `translateX(${activeIndex * 4}rem)` }}
-          >
-            <span className="block size-full rounded-full bg-white/15" />
-          </span>
+            className="pointer-events-none absolute inset-y-1.5 left-1.5 rounded-full bg-white/15 transition-transform duration-200 ease-[var(--ease-out-quint)] motion-reduce:transition-none"
+            style={{
+              width: `calc((100% - 0.75rem) / ${visibleSlotCount})`,
+              transform: `translateX(${activeIndex * 100}%)`,
+            }}
+          />
         ) : null}
         {mainItems.map(renderTab)}
         {hasMenu ? (

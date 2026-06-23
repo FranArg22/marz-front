@@ -160,7 +160,10 @@ describe('AppBottomNav', () => {
 
       // The sliding indicator sits on the Menú slot (last position).
       const indicator = nav.querySelector('[aria-hidden="true"]')
-      expect(indicator).toHaveStyle({ transform: 'translateX(16rem)' })
+      expect(indicator).toHaveStyle({
+        width: 'calc((100% - 0.75rem) / 5)',
+        transform: 'translateX(400%)',
+      })
       expect(menuButton).toBeInTheDocument()
     })
   })
