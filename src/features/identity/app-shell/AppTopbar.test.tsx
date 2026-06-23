@@ -69,7 +69,7 @@ describe('AppTopbar', () => {
 
   it('keeps 56px height in all states', () => {
     renderTopbar({
-      breadcrumb: [{ label: 'Inbox' }],
+      breadcrumb: [{ label: 'Notificaciones' }],
     })
 
     expect(screen.getByTestId('app-topbar')).toHaveAttribute(

@@ -45,7 +45,7 @@ export function WorkspaceLayout({
           - desktop (xl+): rail completo */}
       <aside
         role="region"
-        aria-label={t`Conversaciones`}
+        aria-label={t`Chat`}
         className={cn(
           'shrink-0 overflow-hidden border-r border-border bg-background',
           'w-full md:w-14 xl:w-80',
@@ -76,7 +76,7 @@ export function WorkspaceLayout({
       />
       <aside
         role="region"
-        aria-label={t`Conversaciones`}
+        aria-label={t`Chat`}
         aria-hidden={!isRailOpen}
         className={cn(
           'absolute left-0 top-0 z-30 hidden h-full w-72 flex-col border-r border-border bg-background shadow-xl transition-transform duration-300 ease-out md:flex xl:hidden',

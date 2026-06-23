@@ -30,13 +30,13 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'inbox',
-      label: () => t`Inbox`,
+      label: () => t`Notificaciones`,
       icon: 'inbox',
       href: '/inbox',
     },
     {
       id: 'workspace',
-      label: () => t`Workspace`,
+      label: () => t`Chat`,
       icon: 'message-square',
       href: '/workspace',
     },
@@ -74,13 +74,13 @@ export const shellNavigationConfig: ShellNavigationConfig = {
   creator: [
     {
       id: 'inbox',
-      label: () => t`Inbox`,
+      label: () => t`Notificaciones`,
       icon: 'inbox',
       href: '/inbox',
     },
     {
       id: 'workspace',
-      label: () => t`Workspace`,
+      label: () => t`Chat`,
       icon: 'message-square',
       href: '/workspace',
     },

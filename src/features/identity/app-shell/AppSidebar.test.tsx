@@ -88,7 +88,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace')
 
     const workspaceLink = await screen.findByRole('link', {
-      name: 'Workspace',
+      name: 'Chat',
     })
 
     expect(workspaceLink).toHaveAttribute('href', '/workspace')
@@ -97,19 +97,21 @@ describe('AppSidebar', () => {
   it('marks only the item resolved by resolveActiveSidebarItem as active', async () => {
     renderSidebar('/workspace/conversations/123')
 
-    await screen.findByRole('link', { name: 'Workspace' })
+    await screen.findByRole('link', { name: 'Chat' })
     const currentItems = screen.getAllByRole('link').filter((item) => {
       return item.getAttribute('aria-current') === 'page'
     })
 
     expect(currentItems).toHaveLength(1)
-    expect(currentItems[0]).toHaveAccessibleName('Workspace')
+    expect(currentItems[0]).toHaveAccessibleName('Chat')
   })
 
   it('marks inbox as active on /inbox', async () => {
     renderSidebar('/inbox')
 
-    const inboxLink = await screen.findByRole('link', { name: 'Inbox' })
+    const inboxLink = await screen.findByRole('link', {
+      name: 'Notificaciones',
+    })
 
     expect(inboxLink).toHaveAttribute('aria-current', 'page')
   })
@@ -155,11 +157,11 @@ describe('AppSidebar', () => {
     const { unmount } = renderSidebar('/workspace')
 
     const workspaceLink = await screen.findByRole('link', {
-      name: 'Workspace',
+      name: 'Chat',
     })
 
     await user.hover(workspaceLink)
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Workspace')
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Chat')
 
     unmount()
     renderSidebar('/workspace')
@@ -174,8 +176,8 @@ describe('AppSidebar', () => {
     const brandSidebar = await screen.findByTestId('app-sidebar')
 
     for (const name of [
-      'Workspace',
-      'Inbox',
+      'Chat',
+      'Notificaciones',
       'Pagos',
       'Campañas',
       'Creadores',
@@ -185,7 +187,7 @@ describe('AppSidebar', () => {
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Workspace|Inbox|Pagos|Campañas|Creadores|Videos|Ajustes|Dashboard/.test(
+          /Chat|Notificaciones|Pagos|Campañas|Creadores|Videos|Ajustes|Dashboard/.test(
             name,
           )
             ? 'link'
@@ -202,7 +204,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'creator')
     const creatorSidebar = await screen.findByTestId('app-sidebar')
 
-    for (const name of ['Workspace', 'Inbox', 'Campañas', 'Ganancias']) {
+    for (const name of ['Chat', 'Notificaciones', 'Campañas', 'Ganancias']) {
       expect(
         within(creatorSidebar).getByRole('link', { name }),
       ).toBeInTheDocument()
@@ -221,13 +223,17 @@ describe('AppSidebar', () => {
   it('shows the inbox notification dot only when inboxHasBadge is true', async () => {
     const { unmount } = renderSidebar('/workspace', 'brand', true)
 
-    const inboxLink = await screen.findByRole('link', { name: 'Inbox' })
+    const inboxLink = await screen.findByRole('link', {
+      name: 'Notificaciones',
+    })
     expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
 
     unmount()
     renderSidebar('/workspace', 'brand', false)
 
-    const inboxLinkNoBadge = await screen.findByRole('link', { name: 'Inbox' })
+    const inboxLinkNoBadge = await screen.findByRole('link', {
+      name: 'Notificaciones',
+    })
     expect(
       inboxLinkNoBadge.querySelector('.bg-red-600'),
     ).not.toBeInTheDocument()
@@ -247,7 +253,7 @@ describe('AppSidebar', () => {
     const sidebar = await screen.findByTestId('app-sidebar')
 
     expect(
-      within(sidebar).getByRole('link', { name: 'Workspace' }),
+      within(sidebar).getByRole('link', { name: 'Chat' }),
     ).toBeInTheDocument()
     expect(await axe(container)).toHaveNoViolations()
   })

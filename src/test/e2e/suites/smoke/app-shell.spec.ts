@@ -14,14 +14,14 @@ test.describe('App shell desktop', () => {
 
     await expect(page).toHaveURL(/\/campaigns/)
     await expect(shell.sidebar).toBeVisible()
-    await expect(shell.navLink('Workspace')).toBeVisible()
-    await expect(shell.navLink('Inbox')).toBeVisible()
+    await expect(shell.navLink('Chat')).toBeVisible()
+    await expect(shell.navLink('Notificaciones')).toBeVisible()
     await expect(shell.navLink('Creators')).toBeVisible()
 
-    await shell.clickNavLink('Workspace')
+    await shell.clickNavLink('Chat')
     await expect(page).toHaveURL(/\/workspace/)
 
-    await shell.clickNavLink('Inbox')
+    await shell.clickNavLink('Notificaciones')
     await expect(page).toHaveURL(/\/inbox/)
 
     for (const item of disabledBrandItems) {
@@ -39,14 +39,14 @@ test.describe('App shell desktop', () => {
 
     await expect(page).toHaveURL(/\/inbox/)
     await expect(shell.sidebar).toBeVisible()
-    await expect(shell.navLink('Workspace')).toBeVisible()
-    await expect(shell.navLink('Inbox')).toBeVisible()
+    await expect(shell.navLink('Chat')).toBeVisible()
+    await expect(shell.navLink('Notificaciones')).toBeVisible()
     await expect(shell.navLink('Creators')).toHaveCount(0)
 
-    await shell.clickNavLink('Workspace')
+    await shell.clickNavLink('Chat')
     await expect(page).toHaveURL(/\/workspace/)
 
-    await shell.clickNavLink('Inbox')
+    await shell.clickNavLink('Notificaciones')
     await expect(page).toHaveURL(/\/inbox/)
 
     await shell.expectDisabledItemDoesNotNavigate('Analytics')
@@ -104,7 +104,7 @@ test.describe('App shell desktop', () => {
     await page.goto('/campaigns')
     const shell = new AppShell(page)
     await shell.expectDisabledItemDoesNotNavigate('Analytics')
-    await shell.clickNavLink('Inbox')
+    await shell.clickNavLink('Notificaciones')
     await expect(page).toHaveURL(/\/inbox/)
 
     expect(analyticsEvents).toHaveLength(0)

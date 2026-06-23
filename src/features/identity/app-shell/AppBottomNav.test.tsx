@@ -70,12 +70,11 @@ describe('AppBottomNav', () => {
 
       const nav = await screen.findByTestId('app-bottom-nav')
 
-      expect(within(nav).getByRole('link', { name: 'Inbox' })).toHaveAttribute(
-        'href',
-        '/inbox',
-      )
       expect(
-        within(nav).getByRole('link', { name: 'Workspace' }),
+        within(nav).getByRole('link', { name: 'Notificaciones' }),
+      ).toHaveAttribute('href', '/inbox')
+      expect(
+        within(nav).getByRole('link', { name: 'Chat' }),
       ).toHaveAttribute('href', '/workspace')
       expect(
         within(nav).getByRole('link', { name: 'Campañas' }),
@@ -107,7 +106,7 @@ describe('AppBottomNav', () => {
         within(nav).getByRole('link', { name: 'Ganancias' }),
       ).toHaveAttribute('aria-current', 'page')
       expect(
-        within(nav).getByRole('link', { name: 'Inbox' }),
+        within(nav).getByRole('link', { name: 'Notificaciones' }),
       ).not.toHaveAttribute('aria-current')
     })
   })
@@ -118,7 +117,7 @@ describe('AppBottomNav', () => {
 
       const nav = await screen.findByTestId('app-bottom-nav')
 
-      for (const name of ['Dashboard', 'Explorar', 'Inbox', 'Workspace']) {
+      for (const name of ['Dashboard', 'Explorar', 'Notificaciones', 'Chat']) {
         expect(within(nav).getByRole('link', { name })).toBeInTheDocument()
       }
       expect(
@@ -171,13 +170,17 @@ describe('AppBottomNav', () => {
   it('shows the inbox notification dot only when inboxHasBadge is true', async () => {
     const { unmount } = renderBottomNav('creator', '/workspace', true)
 
-    const inboxLink = await screen.findByRole('link', { name: 'Inbox' })
+    const inboxLink = await screen.findByRole('link', {
+      name: 'Notificaciones',
+    })
     expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
 
     unmount()
     renderBottomNav('creator', '/workspace', false)
 
-    const inboxLinkNoBadge = await screen.findByRole('link', { name: 'Inbox' })
+    const inboxLinkNoBadge = await screen.findByRole('link', {
+      name: 'Notificaciones',
+    })
     expect(
       inboxLinkNoBadge.querySelector('.bg-red-600'),
     ).not.toBeInTheDocument()

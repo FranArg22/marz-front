@@ -21,7 +21,7 @@ msgstr ""
 msgid "— poné tu precio en dólares (USD)"
 msgstr "— poné tu precio en dólares (USD)"
 
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:145
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:146
 msgid "¡Recién publicado! Acá va el link."
 msgstr "¡Recién publicado! Acá va el link."
 
@@ -1033,8 +1033,13 @@ msgstr "Actualizar"
 
 #: src/features/inbox/InboxToolbar.tsx:137
 #: src/features/inbox/InboxToolbar.tsx:146
-msgid "Actualizar Inbox"
-msgstr "Actualizar Inbox"
+#~ msgid "Actualizar Inbox"
+#~ msgstr "Actualizar Inbox"
+
+#: src/features/inbox/InboxToolbar.tsx:137
+#: src/features/inbox/InboxToolbar.tsx:146
+msgid "Actualizar notificaciones"
+msgstr "Actualizar notificaciones"
 
 #: src/features/discovery/network/components/DiscoveryUpsell.tsx:24
 msgid "Actualizar plan"
@@ -1416,11 +1421,11 @@ msgstr "Apps móviles"
 msgid "Aprobado"
 msgstr "Aprobado"
 
-#: src/features/deliverables/components/DraftApprovedCard.tsx:59
+#: src/features/deliverables/components/DraftApprovedCard.tsx:60
 msgid "Aprobado por {approverName}"
 msgstr "Aprobado por {approverName}"
 
-#: src/features/deliverables/components/DraftApprovedCard.tsx:60
+#: src/features/deliverables/components/DraftApprovedCard.tsx:61
 msgid "Aprobado por {approverName} el {approvedDate}"
 msgstr "Aprobado por {approverName} el {approvedDate}"
 
@@ -1432,7 +1437,7 @@ msgstr "Aprobado por {approverName} el {approvedDate}"
 msgid "Aprobar"
 msgstr "Aprobar"
 
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:179
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:180
 msgid "Aprobar link"
 msgstr "Aprobar link"
 
@@ -2095,12 +2100,16 @@ msgstr "Cargando cuenta de cobro"
 #~ msgstr "Cargando discovery"
 
 #: src/features/inbox/InboxPage.tsx:141
-msgid "Cargando inbox"
-msgstr "Cargando inbox"
+#~ msgid "Cargando inbox"
+#~ msgstr "Cargando inbox"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:266
 msgid "Cargando link actual"
 msgstr "Cargando link actual"
+
+#: src/features/inbox/InboxPage.tsx:143
+msgid "Cargando notificaciones"
+msgstr "Cargando notificaciones"
 
 #: src/features/campaigns/detail/OverviewTab.tsx:54
 msgid "Cargando overview"
@@ -2207,7 +2216,11 @@ msgstr "Cambios solicitados"
 #~ msgid "Changing the offer type will discard the entered data. Continue?"
 #~ msgstr "Changing the offer type will discard the entered data. Continue?"
 
+#: src/features/chat/workspace/WorkspaceLayout.tsx:48
+#: src/features/chat/workspace/WorkspaceLayout.tsx:79
 #: src/features/discovery/network/components/CreatorCard.tsx:180
+#: src/features/identity/app-shell/navigation.ts:39
+#: src/features/identity/app-shell/navigation.ts:83
 msgid "Chat"
 msgstr "Chat"
 
@@ -2598,8 +2611,8 @@ msgstr "Conversación no disponible"
 
 #: src/features/chat/workspace/WorkspaceLayout.tsx:48
 #: src/features/chat/workspace/WorkspaceLayout.tsx:79
-msgid "Conversaciones"
-msgstr "Conversaciones"
+#~ msgid "Conversaciones"
+#~ msgstr "Conversaciones"
 
 #: src/features/chat/components/ConversationHeader.tsx:28
 #~ msgid "Conversation with {0}"
@@ -5060,8 +5073,8 @@ msgstr "Impuestos (W-8BEN)"
 #: src/features/identity/app-shell/navigation.ts:33
 #: src/features/identity/app-shell/navigation.ts:77
 #: src/features/inbox/InboxPage.tsx:93
-msgid "Inbox"
-msgstr "Inbox"
+#~ msgid "Inbox"
+#~ msgstr "Inbox"
 
 #: src/features/billing/components/PlanCard.tsx:245
 msgid "INCLUYE"
@@ -5662,7 +5675,7 @@ msgstr "Limpiar filtros"
 
 #: src/features/deliverables/components/DeliverableCard.tsx:126
 #: src/features/deliverables/components/DeliverableCard.tsx:152
-#: src/features/deliverables/components/LinkApprovedCard.tsx:55
+#: src/features/deliverables/components/LinkApprovedCard.tsx:67
 msgid "Link approved"
 msgstr "Link aprobado"
 
@@ -5738,11 +5751,11 @@ msgstr "Lo que ganan creadores activos con un perfil como el tuyo."
 msgid "Lo que identifica la campaña dentro del equipo."
 msgstr "Lo que identifica la campaña dentro del equipo."
 
-#: src/features/inbox/InboxPage.tsx:195
+#: src/features/inbox/InboxPage.tsx:197
 msgid "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 msgstr "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 
-#: src/features/inbox/InboxPage.tsx:202
+#: src/features/inbox/InboxPage.tsx:204
 msgid "Lo que necesita tu atención y lo que está esperando del otro lado."
 msgstr "Lo que necesita tu atención y lo que está esperando del otro lado."
 
@@ -6008,7 +6021,7 @@ msgstr "Marzo"
 #~ msgstr "Más del {option}%"
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:23
-#: src/features/inbox/InboxPage.tsx:110
+#: src/features/inbox/InboxPage.tsx:112
 msgid "Más recientes"
 msgstr "Más recientes"
 
@@ -6162,7 +6175,7 @@ msgstr "Mensual"
 msgid "Mental"
 msgstr "Mental"
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:143
+#: src/features/identity/app-shell/AppBottomNav.tsx:145
 msgid "Menú"
 msgstr "Menú"
 
@@ -6248,7 +6261,7 @@ msgstr "mimarca.com"
 msgid "Mindfulness"
 msgstr "Mindfulness"
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:209
+#: src/features/deliverables/components/RequestChangesCard.tsx:210
 msgid "Miniatura del video borrador"
 msgstr "Miniatura del video borrador"
 
@@ -6431,7 +6444,7 @@ msgstr "N/A"
 msgid "Nano"
 msgstr "Nano"
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:123
+#: src/features/identity/app-shell/AppBottomNav.tsx:124
 msgid "Navegación"
 msgstr "Navegación"
 
@@ -6494,7 +6507,7 @@ msgstr "No"
 #~ msgid "No active offer yet."
 #~ msgstr "No active offer yet."
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:246
+#: src/features/deliverables/components/RequestChangesCard.tsx:247
 msgid "No additional notes"
 msgstr "No additional notes"
 
@@ -6798,6 +6811,10 @@ msgstr "No pudimos subir la imagen. Intentá de nuevo."
 msgid "No se pudieron cargar las conversaciones"
 msgstr "No se pudieron cargar las conversaciones"
 
+#: src/features/inbox/InboxPage.tsx:181
+msgid "No se pudieron cargar las notificaciones"
+msgstr "No se pudieron cargar las notificaciones"
+
 #: src/features/campaigns/configuration/ReviewStep.tsx:195
 #~ msgid "No se pudo activar la campaña."
 #~ msgstr "No se pudo activar la campaña."
@@ -6807,8 +6824,8 @@ msgstr "No se pudieron cargar las conversaciones"
 #~ msgstr "No se pudo activar la campaña. Intentá de nuevo."
 
 #: src/features/inbox/InboxPage.tsx:179
-msgid "No se pudo cargar el inbox"
-msgstr "No se pudo cargar el inbox"
+#~ msgid "No se pudo cargar el inbox"
+#~ msgstr "No se pudo cargar el inbox"
 
 #: src/features/inbox/InboxInlineActionPopover.tsx:105
 msgid "No se pudo completar la acción. Intentá de nuevo."
@@ -6979,6 +6996,12 @@ msgstr "Notas adicionales"
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:127
 msgid "Notas de compensación"
 msgstr "Notas de compensación"
+
+#: src/features/identity/app-shell/navigation.ts:33
+#: src/features/identity/app-shell/navigation.ts:77
+#: src/features/inbox/InboxPage.tsx:94
+msgid "Notificaciones"
+msgstr "Notificaciones"
 
 #: src/features/chat/utils/groupByDay.ts:30
 #: src/features/chat/workspace/formatRelativeTime.ts:19
@@ -7632,7 +7655,7 @@ msgid "Pendiente de revisión"
 msgstr "Pendiente de revisión"
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:16
-#: src/features/inbox/InboxPage.tsx:109
+#: src/features/inbox/InboxPage.tsx:111
 msgid "Pendientes"
 msgstr "Pendientes"
 
@@ -8363,7 +8386,7 @@ msgstr "Reinicio de ciclo"
 msgid "Reintentá en unos minutos."
 msgstr "Reintentá en unos minutos."
 
-#: src/features/inbox/InboxPage.tsx:182
+#: src/features/inbox/InboxPage.tsx:184
 msgid "Reintentá para traer tus items pendientes."
 msgstr "Reintentá para traer tus items pendientes."
 
@@ -8375,7 +8398,7 @@ msgstr "Reintentá para traer tus items pendientes."
 #: src/features/chat/workspace/ConversationRail.tsx:130
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:63
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
-#: src/features/inbox/InboxPage.tsx:185
+#: src/features/inbox/InboxPage.tsx:187
 #: src/features/offers/components/SendOfferSidesheet.tsx:340
 #: src/routes/_brand/campaigns.index.tsx:77
 #: src/routes/_brand/campaigns.new.tsx:380
@@ -8652,7 +8675,7 @@ msgstr "Se enviaron {created_count} invitaciones. {skipped_count} creadores fuer
 #~ msgid "Se enviaron {created_count} invitaciones. {skipped_count} creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa."
 #~ msgstr "Se enviaron {created_count} invitaciones. {skipped_count} creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa."
 
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:250
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:251
 msgid "Se envió una versión más nueva"
 msgstr "Se envió una versión más nueva"
 
@@ -9211,9 +9234,9 @@ msgstr "Skincare"
 #~ msgstr "SLA custom"
 
 #: src/features/deliverables/components/DraftReviewDialog.tsx:138
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:243
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:255
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:275
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:244
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:256
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:276
 #: src/features/deliverables/components/RequestChangesModal.tsx:40
 msgid "Solicitar cambios"
 msgstr "Solicitar cambios"
@@ -9233,9 +9256,9 @@ msgstr "Solicitar cambios al video borrador"
 #~ msgstr "Solicitar cambios en el draft"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:344
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:187
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:191
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:197
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:188
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:192
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:198
 #: src/features/deliverables/components/RequestChangesModal.tsx:38
 msgid "Solicitar cambios en el link"
 msgstr "Solicitar cambios en el link"
@@ -10452,11 +10475,11 @@ msgstr "Usuario principal"
 msgid "v{currentVersion}"
 msgstr "v{currentVersion}"
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:199
+#: src/features/deliverables/components/RequestChangesCard.tsx:200
 msgid "v{draftVersion}"
 msgstr "v{draftVersion}"
 
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:199
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:200
 msgid "v{version}"
 msgstr "v{version}"
 
@@ -10759,11 +10782,11 @@ msgstr "Volviste sin enviar la oferta"
 #~ msgid "Waiting for brand review"
 #~ msgstr "Waiting for brand review"
 
-#: src/features/inbox/InboxPage.tsx:196
+#: src/features/inbox/InboxPage.tsx:198
 msgid "Waiting on brands"
 msgstr "Esperando a las marcas"
 
-#: src/features/inbox/InboxPage.tsx:203
+#: src/features/inbox/InboxPage.tsx:205
 msgid "Waiting on others"
 msgstr "Esperando a los demás"
 
@@ -10791,8 +10814,8 @@ msgstr "WhatsApp"
 
 #: src/features/identity/app-shell/navigation.ts:39
 #: src/features/identity/app-shell/navigation.ts:83
-msgid "Workspace"
-msgstr "Workspace"
+#~ msgid "Workspace"
+#~ msgstr "Workspace"
 
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:29
 #~ msgid "Workspace no disponible"
@@ -10862,11 +10885,11 @@ msgstr "No podés enviar links en este entregable."
 #~ msgid "You don't have any active campaigns. Create a campaign first to send offers."
 #~ msgstr "You don't have any active campaigns. Create a campaign first to send offers."
 
-#: src/features/inbox/InboxPage.tsx:197
+#: src/features/inbox/InboxPage.tsx:199
 msgid "You sent these · awaiting reply"
 msgstr "Enviaste estas · esperando respuesta"
 
-#: src/features/inbox/InboxPage.tsx:204
+#: src/features/inbox/InboxPage.tsx:206
 msgid "You sent these · they're with the other side"
 msgstr "Enviaste estas · están del otro lado"
 
