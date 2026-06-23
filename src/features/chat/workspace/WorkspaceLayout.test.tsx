@@ -40,7 +40,7 @@ describe('WorkspaceLayout', () => {
       { wrapper: createWrapper() },
     )
 
-    const rail = screen.getAllByRole('region', { name: /conversaciones/i })[0]!
+    const rail = screen.getAllByRole('region', { name: /chat/i })[0]!
     expect(rail).toBeInTheDocument()
     expect(screen.getAllByTestId('rail-content').length).toBeGreaterThan(0)
     expect(screen.getByTestId('outlet-content')).toBeInTheDocument()
@@ -54,7 +54,7 @@ describe('WorkspaceLayout', () => {
       { wrapper: createWrapper() },
     )
 
-    const rail = screen.getAllByRole('region', { name: /conversaciones/i })[0]!
+    const rail = screen.getAllByRole('region', { name: /chat/i })[0]!
     expect(rail.className).toContain('shrink-0')
   })
 

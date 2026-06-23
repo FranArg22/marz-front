@@ -21,7 +21,7 @@ msgstr ""
 msgid "— poné tu precio en dólares (USD)"
 msgstr "— poné tu precio en dólares (USD)"
 
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:145
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:146
 msgid "¡Recién publicado! Acá va el link."
 msgstr "¡Recién publicado! Acá va el link."
 
@@ -1416,11 +1416,11 @@ msgstr "Apps móviles"
 msgid "Aprobado"
 msgstr "Aprobado"
 
-#: src/features/deliverables/components/DraftApprovedCard.tsx:59
+#: src/features/deliverables/components/DraftApprovedCard.tsx:60
 msgid "Aprobado por {approverName}"
 msgstr "Aprobado por {approverName}"
 
-#: src/features/deliverables/components/DraftApprovedCard.tsx:60
+#: src/features/deliverables/components/DraftApprovedCard.tsx:61
 msgid "Aprobado por {approverName} el {approvedDate}"
 msgstr "Aprobado por {approverName} el {approvedDate}"
 
@@ -1432,7 +1432,7 @@ msgstr "Aprobado por {approverName} el {approvedDate}"
 msgid "Aprobar"
 msgstr "Aprobar"
 
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:179
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:180
 msgid "Aprobar link"
 msgstr "Aprobar link"
 
@@ -2207,7 +2207,11 @@ msgstr "Cambios solicitados"
 #~ msgid "Changing the offer type will discard the entered data. Continue?"
 #~ msgstr "Changing the offer type will discard the entered data. Continue?"
 
+#: src/features/chat/workspace/WorkspaceLayout.tsx:48
+#: src/features/chat/workspace/WorkspaceLayout.tsx:79
 #: src/features/discovery/network/components/CreatorCard.tsx:180
+#: src/features/identity/app-shell/navigation.ts:39
+#: src/features/identity/app-shell/navigation.ts:83
 msgid "Chat"
 msgstr "Chat"
 
@@ -2598,8 +2602,8 @@ msgstr "Conversación no disponible"
 
 #: src/features/chat/workspace/WorkspaceLayout.tsx:48
 #: src/features/chat/workspace/WorkspaceLayout.tsx:79
-msgid "Conversaciones"
-msgstr "Conversaciones"
+#~ msgid "Conversaciones"
+#~ msgstr "Conversaciones"
 
 #: src/features/chat/components/ConversationHeader.tsx:28
 #~ msgid "Conversation with {0}"
@@ -5662,7 +5666,7 @@ msgstr "Limpiar filtros"
 
 #: src/features/deliverables/components/DeliverableCard.tsx:126
 #: src/features/deliverables/components/DeliverableCard.tsx:152
-#: src/features/deliverables/components/LinkApprovedCard.tsx:55
+#: src/features/deliverables/components/LinkApprovedCard.tsx:67
 msgid "Link approved"
 msgstr "Link aprobado"
 
@@ -6162,7 +6166,7 @@ msgstr "Mensual"
 msgid "Mental"
 msgstr "Mental"
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:143
+#: src/features/identity/app-shell/AppBottomNav.tsx:145
 msgid "Menú"
 msgstr "Menú"
 
@@ -6248,7 +6252,7 @@ msgstr "mimarca.com"
 msgid "Mindfulness"
 msgstr "Mindfulness"
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:209
+#: src/features/deliverables/components/RequestChangesCard.tsx:210
 msgid "Miniatura del video borrador"
 msgstr "Miniatura del video borrador"
 
@@ -6431,7 +6435,7 @@ msgstr "N/A"
 msgid "Nano"
 msgstr "Nano"
 
-#: src/features/identity/app-shell/AppBottomNav.tsx:123
+#: src/features/identity/app-shell/AppBottomNav.tsx:124
 msgid "Navegación"
 msgstr "Navegación"
 
@@ -6494,7 +6498,7 @@ msgstr "No"
 #~ msgid "No active offer yet."
 #~ msgstr "No active offer yet."
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:246
+#: src/features/deliverables/components/RequestChangesCard.tsx:247
 msgid "No additional notes"
 msgstr "No additional notes"
 
@@ -8652,7 +8656,7 @@ msgstr "Se enviaron {created_count} invitaciones. {skipped_count} creadores fuer
 #~ msgid "Se enviaron {created_count} invitaciones. {skipped_count} creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa."
 #~ msgstr "Se enviaron {created_count} invitaciones. {skipped_count} creators fueron omitidos porque ya tienen una invitación pendiente, conversación activa u oferta activa."
 
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:250
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:251
 msgid "Se envió una versión más nueva"
 msgstr "Se envió una versión más nueva"
 
@@ -9211,9 +9215,9 @@ msgstr "Skincare"
 #~ msgstr "SLA custom"
 
 #: src/features/deliverables/components/DraftReviewDialog.tsx:138
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:243
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:255
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:275
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:244
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:256
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:276
 #: src/features/deliverables/components/RequestChangesModal.tsx:40
 msgid "Solicitar cambios"
 msgstr "Solicitar cambios"
@@ -9233,9 +9237,9 @@ msgstr "Solicitar cambios al video borrador"
 #~ msgstr "Solicitar cambios en el draft"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:344
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:187
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:191
-#: src/features/deliverables/components/LinkSubmittedCard.tsx:197
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:188
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:192
+#: src/features/deliverables/components/LinkSubmittedCard.tsx:198
 #: src/features/deliverables/components/RequestChangesModal.tsx:38
 msgid "Solicitar cambios en el link"
 msgstr "Solicitar cambios en el link"
@@ -10452,11 +10456,11 @@ msgstr "Usuario principal"
 msgid "v{currentVersion}"
 msgstr "v{currentVersion}"
 
-#: src/features/deliverables/components/RequestChangesCard.tsx:199
+#: src/features/deliverables/components/RequestChangesCard.tsx:200
 msgid "v{draftVersion}"
 msgstr "v{draftVersion}"
 
-#: src/features/deliverables/components/DraftSubmittedCard.tsx:199
+#: src/features/deliverables/components/DraftSubmittedCard.tsx:200
 msgid "v{version}"
 msgstr "v{version}"
 
@@ -10791,8 +10795,8 @@ msgstr "WhatsApp"
 
 #: src/features/identity/app-shell/navigation.ts:39
 #: src/features/identity/app-shell/navigation.ts:83
-msgid "Workspace"
-msgstr "Workspace"
+#~ msgid "Workspace"
+#~ msgstr "Workspace"
 
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:29
 #~ msgid "Workspace no disponible"

@@ -36,7 +36,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'workspace',
-      label: () => t`Workspace`,
+      label: () => t`Chat`,
       icon: 'message-square',
       href: '/workspace',
     },
@@ -80,7 +80,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'workspace',
-      label: () => t`Workspace`,
+      label: () => t`Chat`,
       icon: 'message-square',
       href: '/workspace',
     },
