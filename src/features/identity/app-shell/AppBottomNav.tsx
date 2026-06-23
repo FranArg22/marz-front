@@ -124,7 +124,7 @@ export function AppBottomNav({
       aria-label={t`Navegación`}
       className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 flex justify-center px-1 md:hidden"
     >
-      <div className="relative flex w-[calc(100vw-0.5rem)] max-w-[22rem] items-center rounded-full border border-white/10 bg-zinc-900/60 px-1.5 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      <div className="relative flex w-[calc(100vw-0.5rem)] max-w-[22rem] items-center rounded-full bg-zinc-900/50 px-1.5 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl">
         {activeIndex >= 0 ? (
           <span
             aria-hidden="true"
