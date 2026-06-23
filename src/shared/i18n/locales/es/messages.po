@@ -9306,6 +9306,10 @@ msgstr "Solo transferencias ACH en USD"
 msgid "Something went wrong. Try again."
 msgstr "Something went wrong. Try again."
 
+#: src/features/identity/app-shell/IntercomMobileTab.tsx:20
+msgid "Soporte"
+msgstr "Soporte"
+
 #: src/features/billing/components/PlanCard.tsx:82
 #~ msgid "Soporte 24/7"
 #~ msgstr "Soporte 24/7"

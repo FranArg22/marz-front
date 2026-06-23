@@ -4,6 +4,7 @@ import { useInboxActionBadge } from '#/features/inbox/hooks/useInboxActionBadge'
 
 import { AppBottomNav } from './AppBottomNav'
 import { AppSidebar } from './AppSidebar'
+import { IntercomMobileTab } from './IntercomMobileTab'
 import { AppShellContextProvider } from './AppShellContext'
 import type { AppShellAccountKind } from './AppShellContext'
 import { TopbarProvider } from './TopbarContext'
@@ -46,11 +47,14 @@ export function AppShell({
             </main>
           </div>
           {hideBottomNav ? null : (
-            <AppBottomNav
-              accountKind={accountKind}
-              pathname={pathname}
-              inboxHasBadge={inboxHasBadge}
-            />
+            <>
+              <AppBottomNav
+                accountKind={accountKind}
+                pathname={pathname}
+                inboxHasBadge={inboxHasBadge}
+              />
+              <IntercomMobileTab />
+            </>
           )}
         </div>
       </TopbarProvider>

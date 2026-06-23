@@ -9334,6 +9334,10 @@ msgstr ""
 msgid "Something went wrong. Try again."
 msgstr ""
 
+#: src/features/identity/app-shell/IntercomMobileTab.tsx:20
+msgid "Soporte"
+msgstr ""
+
 #: src/features/billing/components/PlanCard.tsx:82
 #~ msgid "Soporte 24/7"
 #~ msgstr ""

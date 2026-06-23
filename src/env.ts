@@ -15,6 +15,7 @@ export const env = createEnv({
       .string()
       .regex(/^wss?:\/\//, 'Must start with ws:// or wss://'),
     VITE_APP_TITLE: z.string().min(1).default('Marz'),
+    VITE_INTERCOM_APP_ID: z.string().min(1).default('bwiaajs0'),
   },
   server: {},
   runtimeEnv: import.meta.env,
