@@ -12,6 +12,7 @@ function makeState(
     setField: () => {},
     setFieldErrors: () => {},
     clearFieldErrors: () => {},
+    prefillFrom: () => {},
     goTo: () => {},
     reset: () => {},
     ...partial,

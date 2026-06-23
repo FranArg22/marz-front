@@ -40,6 +40,9 @@ function CreatorOnboardingLayout() {
   const onboardingStatus =
     me?.status === 200 ? me.data.onboarding_status : undefined
   const kind = me?.status === 200 ? me.data.kind : undefined
+  const creatorProfile =
+    me?.status === 200 ? me.data.creator_profile : undefined
+  const prefillFrom = useCreatorOnboardingStore((s) => s.prefillFrom)
 
   useEffect(() => {
     let mounted = true
@@ -58,6 +61,11 @@ function CreatorOnboardingLayout() {
       unsubscribe()
     }
   }, [])
+
+  useEffect(() => {
+    if (!hasHydrated || !creatorProfile) return
+    prefillFrom(creatorProfile)
+  }, [hasHydrated, creatorProfile, prefillFrom])
 
   const params = useParams({ strict: false })
   const stepId = (params as Record<string, string | undefined>).step

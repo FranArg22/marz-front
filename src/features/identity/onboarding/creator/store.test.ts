@@ -142,4 +142,37 @@ describe('useCreatorOnboardingStore', () => {
       expect(useCreatorOnboardingStore.getState().handle).toBeUndefined()
     })
   })
+
+  describe('prefillFrom', () => {
+    beforeEach(() => {
+      useCreatorOnboardingStore.getState().reset()
+    })
+
+    it('seeds present fields and skips null/missing ones', () => {
+      useCreatorOnboardingStore.getState().prefillFrom({
+        handle: 'lucia.fit',
+        display_name: 'Lucía',
+        niches: ['beauty'],
+        country: 'AR',
+        gender: null,
+      })
+
+      const state = useCreatorOnboardingStore.getState()
+      expect(state.handle).toBe('lucia.fit')
+      expect(state.display_name).toBe('Lucía')
+      expect(state.niches).toEqual(['beauty'])
+      expect(state.country).toBe('AR')
+      expect(state.gender).toBeUndefined()
+      expect(state.prefilled).toBe(true)
+    })
+
+    it('does not overwrite the form once prefilled', () => {
+      useCreatorOnboardingStore.getState().prefillFrom({ handle: 'first' })
+      useCreatorOnboardingStore.getState().setField('handle', 'edited')
+
+      useCreatorOnboardingStore.getState().prefillFrom({ handle: 'second' })
+
+      expect(useCreatorOnboardingStore.getState().handle).toBe('edited')
+    })
+  })
 })
