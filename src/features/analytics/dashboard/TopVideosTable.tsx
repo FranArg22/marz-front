@@ -101,7 +101,7 @@ function TableShell({
       <div className="flex h-[62px] items-center justify-between gap-4 border-b border-border px-5 pt-2">
         <div>
           <h2 className="text-[15px] font-semibold leading-none text-foreground">
-            Top Videos
+            Top Posts
           </h2>
         </div>
         <Select
@@ -111,7 +111,7 @@ function TableShell({
           }
         >
           <SelectTrigger
-            aria-label="Ordenar top videos"
+            aria-label="Ordenar top posts"
             className="h-8 rounded-full bg-background px-3 text-xs font-semibold"
           >
             <SelectValue />
@@ -150,7 +150,7 @@ function VideosTableBody({
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[440px] table-fixed border-collapse">
-        <caption className="sr-only">Top Videos</caption>
+        <caption className="sr-only">Top Posts</caption>
         <thead>
           <tr className="bg-muted/50 text-left text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
             <th scope="col" className="px-5 py-2">
