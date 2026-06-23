@@ -196,7 +196,7 @@ describe('InboxPage', () => {
 
     expect(
       await screen.findByRole('heading', {
-        name: 'No se pudieron cargar las notificaciones',
+        name: 'No se pudo cargar el inbox',
       }),
     ).toBeInTheDocument()
     expect(
@@ -258,7 +258,7 @@ describe('InboxPage', () => {
     })
     const { router } = renderInboxPage(`/inbox?campaign_id=${campaignId}`)
 
-    await screen.findByRole('heading', { name: 'Notificaciones' })
+    await screen.findByRole('heading', { name: 'Inbox' })
     expect(useInboxQuery).toHaveBeenLastCalledWith({ campaignId })
 
     await user.click(
@@ -315,7 +315,7 @@ describe('InboxPage', () => {
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries')
 
     await user.click(
-      await screen.findByRole('button', { name: 'Actualizar notificaciones' }),
+      await screen.findByRole('button', { name: 'Actualizar Inbox' }),
     )
 
     expect(invalidateQueriesSpy).toHaveBeenCalledWith({ queryKey: ['inbox'] })

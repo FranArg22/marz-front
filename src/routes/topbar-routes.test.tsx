@@ -117,7 +117,7 @@ describe('route topbar integration', () => {
     )
   })
 
-  it.skip('resets contextual topbar state when moving through Campaigns, Chat, and Notificaciones', async () => {
+  it.skip('resets contextual topbar state when moving through Campaigns, Chat, and Inbox', async () => {
     setupRouterMock()
     const [
       appTopbarModule,
@@ -176,7 +176,7 @@ describe('route topbar integration', () => {
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByText('Notificaciones')).toBeInTheDocument()
+    expect(await screen.findByText('Inbox')).toBeInTheDocument()
     expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
   })
 

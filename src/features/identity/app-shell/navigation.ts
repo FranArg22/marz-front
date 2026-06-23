@@ -30,7 +30,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
     },
     {
       id: 'inbox',
-      label: () => t`Notificaciones`,
+      label: () => t`Inbox`,
       icon: 'inbox',
       href: '/inbox',
     },
@@ -74,7 +74,7 @@ export const shellNavigationConfig: ShellNavigationConfig = {
   creator: [
     {
       id: 'inbox',
-      label: () => t`Notificaciones`,
+      label: () => t`Inbox`,
       icon: 'inbox',
       href: '/inbox',
     },

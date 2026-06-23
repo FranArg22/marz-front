@@ -134,7 +134,7 @@ export function InboxToolbar({
                 size="icon"
                 onClick={handleRefresh}
                 disabled={isRefreshing}
-                aria-label={t`Actualizar notificaciones`}
+                aria-label={t`Actualizar Inbox`}
               >
                 {isRefreshing ? (
                   <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -143,7 +143,7 @@ export function InboxToolbar({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>{t`Actualizar notificaciones`}</TooltipContent>
+            <TooltipContent>{t`Actualizar Inbox`}</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>

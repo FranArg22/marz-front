@@ -104,7 +104,7 @@ describe('AppShell', () => {
     const sidebar = await screen.findByTestId('app-sidebar')
 
     expect(
-      within(sidebar).getByRole('link', { name: 'Notificaciones' }),
+      within(sidebar).getByRole('link', { name: 'Inbox' }),
     ).toHaveAttribute('aria-current', 'page')
     expect(screen.getByLabelText('shell context')).toHaveTextContent(
       'creator:acct_123',

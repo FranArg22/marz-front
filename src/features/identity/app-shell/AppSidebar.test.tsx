@@ -110,7 +110,7 @@ describe('AppSidebar', () => {
     renderSidebar('/inbox')
 
     const inboxLink = await screen.findByRole('link', {
-      name: 'Notificaciones',
+      name: 'Inbox',
     })
 
     expect(inboxLink).toHaveAttribute('aria-current', 'page')
@@ -177,7 +177,7 @@ describe('AppSidebar', () => {
 
     for (const name of [
       'Chat',
-      'Notificaciones',
+      'Inbox',
       'Pagos',
       'Campañas',
       'Creadores',
@@ -187,7 +187,7 @@ describe('AppSidebar', () => {
     ]) {
       expect(
         within(brandSidebar).getByRole(
-          /Chat|Notificaciones|Pagos|Campañas|Creadores|Videos|Ajustes|Dashboard/.test(
+          /Chat|Inbox|Pagos|Campañas|Creadores|Videos|Ajustes|Dashboard/.test(
             name,
           )
             ? 'link'
@@ -204,7 +204,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'creator')
     const creatorSidebar = await screen.findByTestId('app-sidebar')
 
-    for (const name of ['Chat', 'Notificaciones', 'Campañas', 'Ganancias']) {
+    for (const name of ['Chat', 'Inbox', 'Campañas', 'Ganancias']) {
       expect(
         within(creatorSidebar).getByRole('link', { name }),
       ).toBeInTheDocument()
@@ -224,7 +224,7 @@ describe('AppSidebar', () => {
     const { unmount } = renderSidebar('/workspace', 'brand', true)
 
     const inboxLink = await screen.findByRole('link', {
-      name: 'Notificaciones',
+      name: 'Inbox',
     })
     expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
 
@@ -232,7 +232,7 @@ describe('AppSidebar', () => {
     renderSidebar('/workspace', 'brand', false)
 
     const inboxLinkNoBadge = await screen.findByRole('link', {
-      name: 'Notificaciones',
+      name: 'Inbox',
     })
     expect(
       inboxLinkNoBadge.querySelector('.bg-red-600'),

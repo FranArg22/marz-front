@@ -90,9 +90,7 @@ function InboxPageContent({
     <main className="flex h-full overflow-y-auto px-5 py-8 pb-mobile-nav sm:px-8">
       <div className="mx-auto flex w-full max-w-[880px] flex-col gap-6">
         <header className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-foreground">
-            {t`Notificaciones`}
-          </h1>
+          <h1 className="text-2xl font-bold text-foreground">{t`Inbox`}</h1>
           <p className="text-sm text-muted-foreground">{copy.description}</p>
         </header>
         <InboxToolbar
@@ -140,7 +138,7 @@ function InboxPageSkeleton() {
       <div
         className="mx-auto flex w-full max-w-[880px] flex-col gap-6"
         role="status"
-        aria-label={t`Cargando notificaciones`}
+        aria-label={t`Cargando inbox`}
       >
         <div className="flex flex-col gap-2">
           <div className="h-8 w-24 animate-pulse rounded-full bg-muted" />
@@ -178,7 +176,7 @@ function InboxErrorState({ onRetry }: { onRetry: () => void }) {
     <main className="flex h-full items-center justify-center px-5 py-8">
       <div className="flex max-w-sm flex-col items-center gap-3 rounded-3xl border border-border bg-card p-8 text-center">
         <h1 className="text-xl font-semibold text-foreground">
-          {t`No se pudieron cargar las notificaciones`}
+          {t`No se pudo cargar el inbox`}
         </h1>
         <p className="text-sm text-muted-foreground">
           {t`Reintentá para traer tus items pendientes.`}

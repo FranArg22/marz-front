@@ -71,7 +71,7 @@ describe('AppBottomNav', () => {
       const nav = await screen.findByTestId('app-bottom-nav')
 
       expect(
-        within(nav).getByRole('link', { name: 'Notificaciones' }),
+        within(nav).getByRole('link', { name: 'Inbox' }),
       ).toHaveAttribute('href', '/inbox')
       expect(
         within(nav).getByRole('link', { name: 'Chat' }),
@@ -106,7 +106,7 @@ describe('AppBottomNav', () => {
         within(nav).getByRole('link', { name: 'Ganancias' }),
       ).toHaveAttribute('aria-current', 'page')
       expect(
-        within(nav).getByRole('link', { name: 'Notificaciones' }),
+        within(nav).getByRole('link', { name: 'Inbox' }),
       ).not.toHaveAttribute('aria-current')
     })
   })
@@ -117,7 +117,7 @@ describe('AppBottomNav', () => {
 
       const nav = await screen.findByTestId('app-bottom-nav')
 
-      for (const name of ['Dashboard', 'Explorar', 'Notificaciones', 'Chat']) {
+      for (const name of ['Dashboard', 'Explorar', 'Inbox', 'Chat']) {
         expect(within(nav).getByRole('link', { name })).toBeInTheDocument()
       }
       expect(
@@ -171,7 +171,7 @@ describe('AppBottomNav', () => {
     const { unmount } = renderBottomNav('creator', '/workspace', true)
 
     const inboxLink = await screen.findByRole('link', {
-      name: 'Notificaciones',
+      name: 'Inbox',
     })
     expect(inboxLink.querySelector('.bg-red-600')).toBeInTheDocument()
 
@@ -179,7 +179,7 @@ describe('AppBottomNav', () => {
     renderBottomNav('creator', '/workspace', false)
 
     const inboxLinkNoBadge = await screen.findByRole('link', {
-      name: 'Notificaciones',
+      name: 'Inbox',
     })
     expect(
       inboxLinkNoBadge.querySelector('.bg-red-600'),

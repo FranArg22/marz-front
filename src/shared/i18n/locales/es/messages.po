@@ -1033,13 +1033,8 @@ msgstr "Actualizar"
 
 #: src/features/inbox/InboxToolbar.tsx:137
 #: src/features/inbox/InboxToolbar.tsx:146
-#~ msgid "Actualizar Inbox"
-#~ msgstr "Actualizar Inbox"
-
-#: src/features/inbox/InboxToolbar.tsx:137
-#: src/features/inbox/InboxToolbar.tsx:146
-msgid "Actualizar notificaciones"
-msgstr "Actualizar notificaciones"
+msgid "Actualizar Inbox"
+msgstr "Actualizar Inbox"
 
 #: src/features/discovery/network/components/DiscoveryUpsell.tsx:24
 msgid "Actualizar plan"
@@ -2100,16 +2095,12 @@ msgstr "Cargando cuenta de cobro"
 #~ msgstr "Cargando discovery"
 
 #: src/features/inbox/InboxPage.tsx:141
-#~ msgid "Cargando inbox"
-#~ msgstr "Cargando inbox"
+msgid "Cargando inbox"
+msgstr "Cargando inbox"
 
 #: src/features/deliverables/components/DeliverableListItem.tsx:266
 msgid "Cargando link actual"
 msgstr "Cargando link actual"
-
-#: src/features/inbox/InboxPage.tsx:143
-msgid "Cargando notificaciones"
-msgstr "Cargando notificaciones"
 
 #: src/features/campaigns/detail/OverviewTab.tsx:54
 msgid "Cargando overview"
@@ -5073,8 +5064,8 @@ msgstr "Impuestos (W-8BEN)"
 #: src/features/identity/app-shell/navigation.ts:33
 #: src/features/identity/app-shell/navigation.ts:77
 #: src/features/inbox/InboxPage.tsx:93
-#~ msgid "Inbox"
-#~ msgstr "Inbox"
+msgid "Inbox"
+msgstr "Inbox"
 
 #: src/features/billing/components/PlanCard.tsx:245
 msgid "INCLUYE"
@@ -5751,11 +5742,11 @@ msgstr "Lo que ganan creadores activos con un perfil como el tuyo."
 msgid "Lo que identifica la campaña dentro del equipo."
 msgstr "Lo que identifica la campaña dentro del equipo."
 
-#: src/features/inbox/InboxPage.tsx:197
+#: src/features/inbox/InboxPage.tsx:195
 msgid "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 msgstr "Lo que necesita tu atención y lo que está esperando del lado de las marcas."
 
-#: src/features/inbox/InboxPage.tsx:204
+#: src/features/inbox/InboxPage.tsx:202
 msgid "Lo que necesita tu atención y lo que está esperando del otro lado."
 msgstr "Lo que necesita tu atención y lo que está esperando del otro lado."
 
@@ -6021,7 +6012,7 @@ msgstr "Marzo"
 #~ msgstr "Más del {option}%"
 
 #: src/features/discovery/campaign-board/CampaignBoardSort.tsx:23
-#: src/features/inbox/InboxPage.tsx:112
+#: src/features/inbox/InboxPage.tsx:110
 msgid "Más recientes"
 msgstr "Más recientes"
 
@@ -6811,10 +6802,6 @@ msgstr "No pudimos subir la imagen. Intentá de nuevo."
 msgid "No se pudieron cargar las conversaciones"
 msgstr "No se pudieron cargar las conversaciones"
 
-#: src/features/inbox/InboxPage.tsx:181
-msgid "No se pudieron cargar las notificaciones"
-msgstr "No se pudieron cargar las notificaciones"
-
 #: src/features/campaigns/configuration/ReviewStep.tsx:195
 #~ msgid "No se pudo activar la campaña."
 #~ msgstr "No se pudo activar la campaña."
@@ -6824,8 +6811,8 @@ msgstr "No se pudieron cargar las notificaciones"
 #~ msgstr "No se pudo activar la campaña. Intentá de nuevo."
 
 #: src/features/inbox/InboxPage.tsx:179
-#~ msgid "No se pudo cargar el inbox"
-#~ msgstr "No se pudo cargar el inbox"
+msgid "No se pudo cargar el inbox"
+msgstr "No se pudo cargar el inbox"
 
 #: src/features/inbox/InboxInlineActionPopover.tsx:105
 msgid "No se pudo completar la acción. Intentá de nuevo."
@@ -6996,12 +6983,6 @@ msgstr "Notas adicionales"
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:127
 msgid "Notas de compensación"
 msgstr "Notas de compensación"
-
-#: src/features/identity/app-shell/navigation.ts:33
-#: src/features/identity/app-shell/navigation.ts:77
-#: src/features/inbox/InboxPage.tsx:94
-msgid "Notificaciones"
-msgstr "Notificaciones"
 
 #: src/features/chat/utils/groupByDay.ts:30
 #: src/features/chat/workspace/formatRelativeTime.ts:19
@@ -7655,7 +7636,7 @@ msgid "Pendiente de revisión"
 msgstr "Pendiente de revisión"
 
 #: src/features/chat/workspace/ConversationFilterTabs.tsx:16
-#: src/features/inbox/InboxPage.tsx:111
+#: src/features/inbox/InboxPage.tsx:109
 msgid "Pendientes"
 msgstr "Pendientes"
 
@@ -8386,7 +8367,7 @@ msgstr "Reinicio de ciclo"
 msgid "Reintentá en unos minutos."
 msgstr "Reintentá en unos minutos."
 
-#: src/features/inbox/InboxPage.tsx:184
+#: src/features/inbox/InboxPage.tsx:182
 msgid "Reintentá para traer tus items pendientes."
 msgstr "Reintentá para traer tus items pendientes."
 
@@ -8398,7 +8379,7 @@ msgstr "Reintentá para traer tus items pendientes."
 #: src/features/chat/workspace/ConversationRail.tsx:130
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:63
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:66
-#: src/features/inbox/InboxPage.tsx:187
+#: src/features/inbox/InboxPage.tsx:185
 #: src/features/offers/components/SendOfferSidesheet.tsx:340
 #: src/routes/_brand/campaigns.index.tsx:77
 #: src/routes/_brand/campaigns.new.tsx:380
@@ -10782,11 +10763,11 @@ msgstr "Volviste sin enviar la oferta"
 #~ msgid "Waiting for brand review"
 #~ msgstr "Waiting for brand review"
 
-#: src/features/inbox/InboxPage.tsx:198
+#: src/features/inbox/InboxPage.tsx:196
 msgid "Waiting on brands"
 msgstr "Esperando a las marcas"
 
-#: src/features/inbox/InboxPage.tsx:205
+#: src/features/inbox/InboxPage.tsx:203
 msgid "Waiting on others"
 msgstr "Esperando a los demás"
 
@@ -10885,11 +10866,11 @@ msgstr "No podés enviar links en este entregable."
 #~ msgid "You don't have any active campaigns. Create a campaign first to send offers."
 #~ msgstr "You don't have any active campaigns. Create a campaign first to send offers."
 
-#: src/features/inbox/InboxPage.tsx:199
+#: src/features/inbox/InboxPage.tsx:197
 msgid "You sent these · awaiting reply"
 msgstr "Enviaste estas · esperando respuesta"
 
-#: src/features/inbox/InboxPage.tsx:206
+#: src/features/inbox/InboxPage.tsx:204
 msgid "You sent these · they're with the other side"
 msgstr "Enviaste estas · están del otro lado"
 
