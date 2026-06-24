@@ -174,5 +174,29 @@ describe('useCreatorOnboardingStore', () => {
 
       expect(useCreatorOnboardingStore.getState().handle).toBe('edited')
     })
+
+    it('reuses a moved avatar (avatars/ prefix) for submit + preview', () => {
+      useCreatorOnboardingStore.getState().prefillFrom({
+        handle: 'lucia.fit',
+        avatar_url: 'avatars/acct-1/photo.jpg',
+        avatar_display_url: 'https://signed.example/photo.jpg',
+      })
+
+      const state = useCreatorOnboardingStore.getState()
+      expect(state.avatar_s3_key).toBe('avatars/acct-1/photo.jpg')
+      expect(state.avatar_display_url).toBe('https://signed.example/photo.jpg')
+    })
+
+    it('does not reuse a still-unclaimed avatar key', () => {
+      useCreatorOnboardingStore.getState().prefillFrom({
+        handle: 'lucia.fit',
+        avatar_url: 'creators/unclaimed/photo.jpg',
+        avatar_display_url: 'https://signed.example/photo.jpg',
+      })
+
+      const state = useCreatorOnboardingStore.getState()
+      expect(state.avatar_s3_key).toBeUndefined()
+      expect(state.avatar_display_url).toBeUndefined()
+    })
   })
 })

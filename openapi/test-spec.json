@@ -2327,6 +2327,11 @@
             "type": "string",
             "nullable": true
           },
+          "avatar_display_url": {
+            "type": "string",
+            "nullable": true,
+            "description": "Presigned GET URL for the avatar, safe to use directly as an <img> src. avatar_url remains the raw S3 key used for submission."
+          },
           "experience_level": {
             "type": "string",
             "nullable": true

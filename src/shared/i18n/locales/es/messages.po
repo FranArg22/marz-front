@@ -45,7 +45,7 @@ msgstr "¿Cómo te conocen?"
 msgid "¿Cómo trabajás con las marcas?"
 msgstr "¿Cómo trabajás con las marcas?"
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:28
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:24
 msgid "¿Cuál es tu género?"
 msgstr "¿Cuál es tu género?"
 
@@ -1242,7 +1242,7 @@ msgstr "Algo salió mal"
 msgid "Algo salió mal. Intentá de nuevo."
 msgstr "Algo salió mal. Intentá de nuevo."
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:31
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:27
 msgid "Algunas campañas filtran por género de creador. Opcional."
 msgstr "Algunas campañas filtran por género de creador. Opcional."
 
@@ -1836,7 +1836,7 @@ msgstr "Cabello"
 msgid "Calculando tiempo restante..."
 msgstr "Calculando tiempo restante..."
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 #: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Cambiar foto"
 msgstr "Cambiar foto"
@@ -2822,7 +2822,7 @@ msgstr "crypto"
 msgid "Crypto"
 msgstr "Crypto"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:126
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:130
 msgid "Cuadrada, cara visible, sin filtros locos. Usamos la misma que marcas verán."
 msgstr "Cuadrada, cara visible, sin filtros locos. Usamos la misma que marcas verán."
 
@@ -3463,7 +3463,7 @@ msgstr "Ej. Juan Banco Chase"
 #~ msgid "El análisis ya fue procesado, reintentá desde el inicio."
 #~ msgstr "El análisis ya fue procesado, reintentá desde el inicio."
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:50
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:54
 #: src/features/identity/settings/GeneralSection.tsx:118
 msgid "El archivo supera los 5MB permitidos."
 msgstr "El archivo supera los 5MB permitidos."
@@ -3717,7 +3717,7 @@ msgstr "Eliminar canal"
 #~ msgid "Eliminar filtro {filterNumber}"
 #~ msgstr "Eliminar filtro {filterNumber}"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:142
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:146
 msgid "Eliminar foto"
 msgstr "Eliminar foto"
 
@@ -3995,7 +3995,7 @@ msgstr "Error al guardar los datos de contacto. Intentá de nuevo."
 msgid "Error al preparar la subida de la imagen."
 msgstr "Error al preparar la subida de la imagen."
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:100
 #: src/features/identity/settings/GeneralSection.tsx:403
 #: src/features/identity/settings/LogoUploader.tsx:68
 #: src/features/identity/settings/LogoUploader.tsx:79
@@ -4724,7 +4724,7 @@ msgstr "General"
 #~ msgid "Generando tu brief"
 #~ msgstr "Generando tu brief"
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:37
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:33
 msgid "Género"
 msgstr "Género"
 
@@ -5410,7 +5410,7 @@ msgstr "Italiano"
 msgid "Japonés"
 msgstr "Japonés"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:179
 #: src/features/identity/settings/GeneralSection.tsx:349
 msgid "JPEG, PNG o WebP. Máximo 5MB."
 msgstr "JPEG, PNG o WebP. Máximo 5MB."
@@ -7935,8 +7935,8 @@ msgid "Preferencias comerciales visibles para marcas."
 msgstr "Preferencias comerciales visibles para marcas."
 
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:17
-msgid "Prefiero no decir"
-msgstr "Prefiero no decir"
+#~ msgid "Prefiero no decir"
+#~ msgstr "Prefiero no decir"
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:105
 msgid "Prefiero seguir sin acceso a la red de creadores →"
@@ -7971,7 +7971,7 @@ msgstr "Presupuesto"
 msgid "Presupuesto mensual"
 msgstr "Presupuesto mensual"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:134
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:138
 #: src/features/identity/settings/GeneralSection.tsx:319
 msgid "Preview de avatar"
 msgstr "Preview de avatar"
@@ -8827,7 +8827,7 @@ msgstr "Seleccionar {name}"
 #~ msgid "Seleccionar archivo PDF"
 #~ msgstr "Seleccionar archivo PDF"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:167
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:171
 #: src/features/identity/settings/GeneralSection.tsx:346
 msgid "Seleccionar imagen"
 msgstr "Seleccionar imagen"
@@ -9289,7 +9289,7 @@ msgstr "Solo recomendadas para mí"
 #~ msgid "Solo se aceptan archivos PDF."
 #~ msgstr "Solo se aceptan archivos PDF."
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:55
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:59
 #: src/features/identity/settings/GeneralSection.tsx:126
 #: src/features/identity/settings/GeneralSection.tsx:378
 msgid "Solo se permiten imágenes JPEG, PNG o WebP."
@@ -9457,7 +9457,7 @@ msgstr "Subiendo PDF..."
 msgid "Subiendo..."
 msgstr "Subiendo..."
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 msgid "Subiendo…"
 msgstr "Subiendo…"
 
@@ -9476,7 +9476,7 @@ msgstr "Subir"
 #~ msgid "Subir draft v{nextVersion}"
 #~ msgstr "Subir draft v{nextVersion}"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 #: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Subir foto"
 msgstr "Subir foto"
@@ -10294,7 +10294,7 @@ msgstr "Un único monto para las plataformas seleccionadas."
 msgid "Un WhatsApp al que llegarte"
 msgstr "Un WhatsApp al que llegarte"
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:123
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:127
 msgid "Una foto para tu perfil"
 msgstr "Una foto para tu perfil"
 

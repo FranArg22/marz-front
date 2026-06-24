@@ -34,6 +34,11 @@ export interface CreatorProfile {
   city?: string | null;
   /** @nullable */
   avatar_url?: string | null;
+  /**
+     * Presigned GET URL for the avatar, safe to use directly as an <img> src. avatar_url remains the raw S3 key used for submission.
+     * @nullable
+     */
+  avatar_display_url?: string | null;
   /** @nullable */
   experience_level?: string | null;
   /** @nullable */

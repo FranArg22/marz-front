@@ -45,7 +45,7 @@ msgstr ""
 msgid "¿Cómo trabajás con las marcas?"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:28
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:24
 msgid "¿Cuál es tu género?"
 msgstr ""
 
@@ -1242,7 +1242,7 @@ msgstr ""
 msgid "Algo salió mal. Intentá de nuevo."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:31
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:27
 msgid "Algunas campañas filtran por género de creador. Opcional."
 msgstr ""
 
@@ -1836,7 +1836,7 @@ msgstr ""
 msgid "Calculando tiempo restante..."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 #: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Cambiar foto"
 msgstr ""
@@ -2826,7 +2826,7 @@ msgstr ""
 msgid "Crypto"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:126
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:130
 msgid "Cuadrada, cara visible, sin filtros locos. Usamos la misma que marcas verán."
 msgstr ""
 
@@ -3467,7 +3467,7 @@ msgstr ""
 #~ msgid "El análisis ya fue procesado, reintentá desde el inicio."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:50
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:54
 #: src/features/identity/settings/GeneralSection.tsx:118
 msgid "El archivo supera los 5MB permitidos."
 msgstr ""
@@ -3725,7 +3725,7 @@ msgstr ""
 #~ msgid "Eliminar filtro {filterNumber}"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:142
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:146
 msgid "Eliminar foto"
 msgstr ""
 
@@ -4003,7 +4003,7 @@ msgstr ""
 msgid "Error al preparar la subida de la imagen."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:96
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:100
 #: src/features/identity/settings/GeneralSection.tsx:403
 #: src/features/identity/settings/LogoUploader.tsx:68
 #: src/features/identity/settings/LogoUploader.tsx:79
@@ -4732,7 +4732,7 @@ msgstr ""
 #~ msgid "Generando tu brief"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:37
+#: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:33
 msgid "Género"
 msgstr ""
 
@@ -5418,7 +5418,7 @@ msgstr ""
 msgid "Japonés"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:175
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:179
 #: src/features/identity/settings/GeneralSection.tsx:349
 msgid "JPEG, PNG o WebP. Máximo 5MB."
 msgstr ""
@@ -7951,8 +7951,8 @@ msgid "Preferencias comerciales visibles para marcas."
 msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C12GenderScreen.tsx:17
-msgid "Prefiero no decir"
-msgstr ""
+#~ msgid "Prefiero no decir"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:105
 msgid "Prefiero seguir sin acceso a la red de creadores →"
@@ -7991,7 +7991,7 @@ msgstr ""
 msgid "Presupuesto mensual"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:134
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:138
 #: src/features/identity/settings/GeneralSection.tsx:319
 msgid "Preview de avatar"
 msgstr ""
@@ -8851,7 +8851,7 @@ msgstr ""
 #~ msgid "Seleccionar archivo PDF"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:167
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:171
 #: src/features/identity/settings/GeneralSection.tsx:346
 msgid "Seleccionar imagen"
 msgstr ""
@@ -9317,7 +9317,7 @@ msgstr ""
 #~ msgid "Solo se aceptan archivos PDF."
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:55
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:59
 #: src/features/identity/settings/GeneralSection.tsx:126
 #: src/features/identity/settings/GeneralSection.tsx:378
 msgid "Solo se permiten imágenes JPEG, PNG o WebP."
@@ -9489,7 +9489,7 @@ msgstr ""
 msgid "Subiendo..."
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 msgid "Subiendo…"
 msgstr ""
 
@@ -9508,7 +9508,7 @@ msgstr ""
 #~ msgid "Subir draft v{nextVersion}"
 #~ msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:159
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:163
 #: src/features/identity/settings/GeneralSection.tsx:334
 msgid "Subir foto"
 msgstr ""
@@ -10326,7 +10326,7 @@ msgstr ""
 msgid "Un WhatsApp al que llegarte"
 msgstr ""
 
-#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:123
+#: src/features/identity/onboarding/creator/screens/C17AvatarScreen.tsx:127
 msgid "Una foto para tu perfil"
 msgstr ""
 

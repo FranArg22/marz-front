@@ -38,11 +38,15 @@ export function C17AvatarScreen() {
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
-    if (store.avatar_s3_key) {
-      const stored = readStoredPreview()
-      if (stored) setPreview(stored)
+    if (!store.avatar_s3_key) return
+    const stored = readStoredPreview()
+    if (stored) {
+      setPreview(stored)
+      return
     }
-  }, [store.avatar_s3_key])
+    // Prefilled avatar (moved at claim): show the presigned display URL.
+    if (store.avatar_display_url) setPreview(store.avatar_display_url)
+  }, [store.avatar_s3_key, store.avatar_display_url])
 
   const handleFile = useCallback(
     async (file: File) => {

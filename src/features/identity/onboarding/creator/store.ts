@@ -36,6 +36,8 @@ export type CreatorOnboardingState = Partial<CreatorOnboardingPayload> & {
   currentStepIndex: number
   fieldErrors: FieldErrors
   prefilled?: boolean
+  // Presigned display URL for a prefilled avatar (preview only; not submitted).
+  avatar_display_url?: string
   setField: <TKey extends keyof CreatorOnboardingPayload>(
     key: TKey,
     value: CreatorOnboardingPayload[TKey],
@@ -63,11 +65,20 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
         set((state) => {
           // Preloaded creators land here with a profile already attached; seed
           // the form once with what we have so they only fill the gaps. The
-          // flag keeps later edits and reloads from being overwritten. Avatar
-          // is intentionally skipped: onboarding requires a fresh upload under
-          // its own key prefix.
+          // flag keeps later edits and reloads from being overwritten.
           if (state.prefilled) return {}
           const next: Partial<CreatorOnboardingState> = { prefilled: true }
+          // The avatar is reused only when it already lives under the per-account
+          // prefix (moved at claim). A still-unclaimed key would fail onboarding
+          // validation, so we leave it for a fresh upload in that case.
+          if (
+            profile.avatar_url != null &&
+            profile.avatar_url.startsWith('avatars/')
+          ) {
+            next.avatar_s3_key = profile.avatar_url
+            if (profile.avatar_display_url != null)
+              next.avatar_display_url = profile.avatar_display_url
+          }
           if (profile.handle != null) next.handle = profile.handle
           if (profile.display_name != null)
             next.display_name = profile.display_name
@@ -108,6 +119,7 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
           country: undefined,
           city: undefined,
           avatar_s3_key: undefined,
+          avatar_display_url: undefined,
           birthday: undefined,
           whatsapp_e164: undefined,
           gender: undefined,
