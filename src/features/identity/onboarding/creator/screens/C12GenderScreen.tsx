@@ -3,7 +3,7 @@ import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/comp
 import { CreatorOnboardingPayloadGender } from '#/shared/api/generated/model/creatorOnboardingPayloadGender'
 import { useCreatorOnboardingStore } from '../store'
 
-type GenderOption = 'male' | 'female' | 'non_binary' | 'prefer_not_say'
+type GenderOption = 'male' | 'female' | 'non_binary'
 
 const GENDER_OPTIONS: { value: GenderOption; label: () => string }[] = [
   { value: CreatorOnboardingPayloadGender.male, label: () => t`Masculino` },
@@ -11,10 +11,6 @@ const GENDER_OPTIONS: { value: GenderOption; label: () => string }[] = [
   {
     value: CreatorOnboardingPayloadGender.non_binary,
     label: () => t`No binario`,
-  },
-  {
-    value: 'prefer_not_say',
-    label: () => t`Prefiero no decir`,
   },
 ]
 

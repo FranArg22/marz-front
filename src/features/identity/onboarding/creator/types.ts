@@ -8,7 +8,6 @@ const CreatorOnboardingPayloadGender = {
   male: 'male',
   female: 'female',
   non_binary: 'non_binary',
-  prefer_not_say: 'prefer_not_say',
 } as const
 
 export type CreatorOnboardingPayloadGender =
