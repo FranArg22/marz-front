@@ -38,10 +38,7 @@ export const STEPS: CreatorOnboardingStep[] = [
     id: 'name-handle',
     component: C1NameHandleScreen,
     validate: (s) =>
-      typeof s.display_name === 'string' &&
-      s.display_name.trim().length > 0 &&
-      typeof s.handle === 'string' &&
-      /^[a-z0-9_]{3,30}$/.test(s.handle),
+      typeof s.display_name === 'string' && s.display_name.trim().length > 0,
   },
   {
     id: 'experience',

@@ -18,7 +18,6 @@ import { getStepIndex } from './steps'
 
 const FIELD_TO_STEP: Record<string, string> = {
   display_name: 'name-handle',
-  handle: 'name-handle',
   experience_level: 'experience',
   tier: 'tier',
   niches: 'niches',
@@ -171,14 +170,16 @@ export function useSubmitCreatorOnboarding() {
             if (error.code === 'handle_taken') {
               const store = useCreatorOnboardingStore.getState()
               store.setFieldErrors({
-                handle: error.message || t`Este handle ya está en uso`,
+                channels:
+                  error.message ||
+                  t`El usuario de tu canal principal ya está en uso`,
               })
-              const idx = getStepIndex('name-handle')
+              const idx = getStepIndex('channels')
               if (idx >= 0) {
                 store.goTo(idx)
                 void navigate({
                   to: '/onboarding/creator/$step',
-                  params: { step: 'name-handle' },
+                  params: { step: 'channels' },
                 })
               }
               return

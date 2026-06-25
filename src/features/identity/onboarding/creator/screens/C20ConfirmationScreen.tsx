@@ -103,7 +103,10 @@ export function C20ConfirmationScreen() {
 
   const displayName = store.display_name?.trim() ?? ''
   const firstName = displayName.split(/\s+/)[0] ?? t`Creador`
-  const handle = store.handle ? `@${store.handle}` : ''
+  const primaryChannel = (store.channels ?? []).find((c) => c.is_primary)
+  const handle = primaryChannel?.external_handle
+    ? `@${primaryChannel.external_handle}`
+    : ''
   const initials =
     displayName
       .split(/\s+/)

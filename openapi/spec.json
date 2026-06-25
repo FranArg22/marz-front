@@ -13249,7 +13249,6 @@
       "CreatorOnboardingPayload": {
         "type": "object",
         "required": [
-          "handle",
           "display_name",
           "niches",
           "content_types",
@@ -13263,10 +13262,6 @@
           "languages"
         ],
         "properties": {
-          "handle": {
-            "type": "string",
-            "maxLength": 200
-          },
           "display_name": {
             "type": "string",
             "maxLength": 200

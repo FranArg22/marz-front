@@ -37,7 +37,7 @@ msgstr "¿Cómo llegaste a Marz?"
 msgid "¿Cómo se llama tu marca?"
 msgstr "¿Cómo se llama tu marca?"
 
-#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:39
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:21
 msgid "¿Cómo te conocen?"
 msgstr "¿Cómo te conocen?"
 
@@ -536,8 +536,8 @@ msgid "@duende.ba"
 msgstr "@duende.ba"
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:67
-msgid "@lucasromero"
-msgstr "@lucasromero"
+#~ msgid "@lucasromero"
+#~ msgstr "@lucasromero"
 
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:39
 #~ msgid "@valenmed · 190K TikTok · 3 años en Marz"
@@ -1486,7 +1486,7 @@ msgid "Así se ve lo que podés alcanzar."
 msgstr "Así se ve lo que podés alcanzar."
 
 #: src/features/campaigns/wizard/WizardLayout.tsx:93
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:296
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:299
 msgid "Atrás"
 msgstr "Atrás"
 
@@ -1524,7 +1524,7 @@ msgstr "Auto"
 #~ msgid "Avatar"
 #~ msgstr "Avatar"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:162
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:165
 msgid "Avatar del creador"
 msgstr "Avatar del creador"
 
@@ -1928,7 +1928,7 @@ msgstr "Campañas activas"
 #~ msgstr "Campañas con creadores, sin agencias ni vueltas."
 
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:225
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:228
 msgid "Canales"
 msgstr "Canales"
 
@@ -3606,6 +3606,10 @@ msgstr "El porcentaje tiene que ser un número entero"
 msgid "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 msgstr "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:175
+msgid "El usuario de tu canal principal ya está en uso"
+msgstr "El usuario de tu canal principal ya está en uso"
+
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:551
 msgid "El valor inicial no puede ser mayor que el final."
 msgstr "El valor inicial no puede ser mayor que el final."
@@ -3856,8 +3860,8 @@ msgid "Entrá a Marz"
 msgstr "Entrá a Marz"
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:32
-msgid "Entre 3 y 30 caracteres: letras, números y guion bajo."
-msgstr "Entre 3 y 30 caracteres: letras, números y guion bajo."
+#~ msgid "Entre 3 y 30 caracteres: letras, números y guion bajo."
+#~ msgstr "Entre 3 y 30 caracteres: letras, números y guion bajo."
 
 #: src/features/earnings/components/EarningsPaymentsTable.tsx:167
 #: src/features/payments/components/BrandPaymentsTable.tsx:49
@@ -4244,8 +4248,8 @@ msgstr "Este creador rechazó una invitación anterior. Podés volver a intentar
 #~ msgstr "Este creator rechazó una invitación anterior. Podés volver a intentarlo."
 
 #: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:174
-msgid "Este handle ya está en uso"
-msgstr "Este handle ya está en uso"
+#~ msgid "Este handle ya está en uso"
+#~ msgstr "Este handle ya está en uso"
 
 #: src/features/inbox/InboxCreatorBox.tsx:121
 msgid "Este item ya no requiere acción."
@@ -4601,7 +4605,7 @@ msgstr "Foodie"
 msgid "Formato inválido. Usá formato E.164."
 msgstr "Formato inválido. Usá formato E.164."
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:279
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Formato UGC"
 msgstr "Formato UGC"
 
@@ -4609,7 +4613,7 @@ msgstr "Formato UGC"
 msgid "Formato: +54911XXXXXXXX"
 msgstr "Formato: +54911XXXXXXXX"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:211
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:214
 msgid "Formatos"
 msgstr "Formatos"
 
@@ -5382,7 +5386,7 @@ msgstr "Ir a conversaciones"
 #~ msgid "Ir a Discovery"
 #~ msgstr "Ir a Discovery"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:309
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:312
 msgid "Ir a mi dashboard"
 msgstr "Ir a mi dashboard"
 
@@ -5860,7 +5864,7 @@ msgstr "Los videos van a aparecer acá cuando los creadores suban sus borradores
 #~ msgid "Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados."
 #~ msgstr "Los videos van a aparecer acá cuando los creators suban sus drafts y queden en revisión o aprobados."
 
-#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:56
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:38
 msgid "Lucas Romero"
 msgstr "Lucas Romero"
 
@@ -6472,7 +6476,7 @@ msgstr "Nueva oferta de campaña"
 #~ msgid "Next payout"
 #~ msgstr "Next payout"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:202
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:205
 msgid "Nichos"
 msgstr "Nichos"
 
@@ -6943,7 +6947,7 @@ msgstr "Nombre legal o razón social"
 msgid "Nombre o handle de quien te pasó el dato"
 msgstr "Nombre o handle de quien te pasó el dato"
 
-#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:48
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:30
 msgid "Nombre público"
 msgstr "Nombre público"
 
@@ -7059,8 +7063,8 @@ msgstr "Ocultar aviso de exportación truncada"
 
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:145
 #: src/features/identity/onboarding/brand/useSubmitBrandOnboarding.ts:208
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:121
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:197
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:120
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:198
 msgid "Ocurrió un error inesperado. Intentá de nuevo."
 msgstr "Ocurrió un error inesperado. Intentá de nuevo."
 
@@ -8007,7 +8011,7 @@ msgstr "Previsualizar video borrador v{previewVersion}"
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:238
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:241
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
 msgstr "Principal"
@@ -9172,7 +9176,7 @@ msgstr "Sin resultados para esos filtros"
 #~ msgid "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 #~ msgstr "Sin take rate. Sin letra chica. Trial de 7 días en Starter y Growth."
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:285
 msgid "Sin tarifa cargada"
 msgstr "Sin tarifa cargada"
 
@@ -9421,7 +9425,7 @@ msgstr "Stripe no responde, intentá de nuevo en un momento."
 msgid "Subí el PDF del brief"
 msgstr "Subí el PDF del brief"
 
-#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:129
+#: src/features/identity/onboarding/creator/useSubmitCreatorOnboarding.ts:128
 msgid "Subí la foto de nuevo"
 msgstr "Subí la foto de nuevo"
 
@@ -9583,7 +9587,7 @@ msgstr "Tardamos más de lo esperado"
 msgid "Tarifa UGC"
 msgstr "Tarifa UGC"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:285
 msgid "Tarifa: {ugcRateText}"
 msgstr "Tarifa: {ugcRateText}"
 
@@ -10108,7 +10112,7 @@ msgstr "Tu marca"
 #~ msgid "tu nivel"
 #~ msgstr "tu nivel"
 
-#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:175
+#: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:178
 msgid "Tu nombre"
 msgstr "Tu nombre"
 
@@ -10117,8 +10121,12 @@ msgstr "Tu nombre"
 #~ msgstr "Tu nombre público y tu handle principal."
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:42
-msgid "Tu nombre público y tu usuario principal."
-msgstr "Tu nombre público y tu usuario principal."
+#~ msgid "Tu nombre público y tu usuario principal."
+#~ msgstr "Tu nombre público y tu usuario principal."
+
+#: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:24
+msgid "Tu nombre público."
+msgstr "Tu nombre público."
 
 #: src/features/identity/onboarding/brand/screens/B4ObjectiveScreen.tsx:53
 msgid "Tu objetivo define a quién te mostramos y qué scripts te armamos."
@@ -10440,8 +10448,8 @@ msgid "Usuario"
 msgstr "Usuario"
 
 #: src/features/identity/onboarding/creator/screens/C1NameHandleScreen.tsx:61
-msgid "Usuario principal"
-msgstr "Usuario principal"
+#~ msgid "Usuario principal"
+#~ msgstr "Usuario principal"
 
 #: src/features/campaigns/configuration/PricingModelStep.tsx:52
 #~ msgid "Útil para campañas de alcance."

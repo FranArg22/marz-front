@@ -35,7 +35,6 @@ export type CreatorOnboardingPayloadTier =
   (typeof CreatorOnboardingPayloadTier)[keyof typeof CreatorOnboardingPayloadTier]
 
 export interface CreatorOnboardingPayload {
-  handle: string
   display_name: string
   bio?: string | null
   niches: string[]

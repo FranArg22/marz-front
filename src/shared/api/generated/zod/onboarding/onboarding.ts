@@ -122,8 +122,6 @@ export const CompleteBrandOnboardingResponse = zod.object({
 }).nullish().describe('Active brand workspace for the authenticated account. Present only when\nkind=brand and onboarding is complete. The frontend uses `id` to populate\nthe X-Brand-Workspace-Id header on every request.\nMVP assumes 1 brand account = 1 workspace; once multi-workspace lands,\na dedicated \/v1\/brand-workspaces endpoint will replace this embedding.\n')
 })
 
-export const completeCreatorOnboardingBodyHandleMax = 200;
-
 export const completeCreatorOnboardingBodyDisplayNameMax = 200;
 
 export const completeCreatorOnboardingBodyBioMax = 2000;
@@ -167,7 +165,6 @@ export const completeCreatorOnboardingBodyUgcRateAmountMax = 50;
 
 
 export const CompleteCreatorOnboardingBody = zod.object({
-  "handle": zod.string().max(completeCreatorOnboardingBodyHandleMax),
   "display_name": zod.string().max(completeCreatorOnboardingBodyDisplayNameMax),
   "bio": zod.string().max(completeCreatorOnboardingBodyBioMax).nullish(),
   "niches": zod.array(zod.string().max(completeCreatorOnboardingBodyNichesItemMax)).min(1).max(completeCreatorOnboardingBodyNichesMax),

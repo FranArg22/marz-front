@@ -9,7 +9,6 @@ beforeEach(() => {
   useCreatorOnboardingStore.setState({
     currentStepIndex: 0,
     display_name: undefined,
-    handle: undefined,
   })
   sessionStorage.clear()
 })
@@ -27,19 +26,19 @@ describe('useCreatorOnboardingStore', () => {
 
     it('overwrites existing field', () => {
       const { setField } = useCreatorOnboardingStore.getState()
-      setField('handle', 'ana_1')
-      setField('handle', 'ana_2')
-      expect(useCreatorOnboardingStore.getState().handle).toBe('ana_2')
+      setField('display_name', 'Ana')
+      setField('display_name', 'Ana B')
+      expect(useCreatorOnboardingStore.getState().display_name).toBe('Ana B')
     })
 
     it('clears field error on setField', () => {
       useCreatorOnboardingStore
         .getState()
-        .setFieldErrors({ handle: 'required' })
-      useCreatorOnboardingStore.getState().setField('handle', 'test')
-      expect(useCreatorOnboardingStore.getState().fieldErrors.handle).toBe(
-        undefined,
-      )
+        .setFieldErrors({ display_name: 'required' })
+      useCreatorOnboardingStore.getState().setField('display_name', 'test')
+      expect(
+        useCreatorOnboardingStore.getState().fieldErrors.display_name,
+      ).toBe(undefined)
     })
   })
 
@@ -70,11 +69,11 @@ describe('useCreatorOnboardingStore', () => {
     })
 
     it('clears all payload fields', () => {
-      useCreatorOnboardingStore.getState().setField('handle', 'test')
       useCreatorOnboardingStore.getState().setField('display_name', 'Test')
+      useCreatorOnboardingStore.getState().setField('country', 'AR')
       useCreatorOnboardingStore.getState().reset()
-      expect(useCreatorOnboardingStore.getState().handle).toBeUndefined()
       expect(useCreatorOnboardingStore.getState().display_name).toBeUndefined()
+      expect(useCreatorOnboardingStore.getState().country).toBeUndefined()
     })
 
     it('clears languages and barter_preference', () => {
@@ -115,7 +114,7 @@ describe('useCreatorOnboardingStore', () => {
       sessionStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({
-          state: { currentStepIndex: 5, handle: 'persisted' },
+          state: { currentStepIndex: 5, display_name: 'persisted' },
           version: 0,
         }),
       )
@@ -123,14 +122,16 @@ describe('useCreatorOnboardingStore', () => {
       useCreatorOnboardingStore.persist.rehydrate()
 
       expect(useCreatorOnboardingStore.getState().currentStepIndex).toBe(5)
-      expect(useCreatorOnboardingStore.getState().handle).toBe('persisted')
+      expect(useCreatorOnboardingStore.getState().display_name).toBe(
+        'persisted',
+      )
     })
 
     it('purges and ignores legacy sessionStorage', () => {
       sessionStorage.setItem(
         LEGACY_STORAGE_KEY,
         JSON.stringify({
-          state: { currentStepIndex: 5, handle: 'legacy' },
+          state: { currentStepIndex: 5, display_name: 'legacy' },
           version: 0,
         }),
       )
@@ -139,7 +140,7 @@ describe('useCreatorOnboardingStore', () => {
 
       expect(sessionStorage.getItem(LEGACY_STORAGE_KEY)).toBeNull()
       expect(useCreatorOnboardingStore.getState().currentStepIndex).toBe(0)
-      expect(useCreatorOnboardingStore.getState().handle).toBeUndefined()
+      expect(useCreatorOnboardingStore.getState().display_name).toBeUndefined()
     })
   })
 
@@ -150,7 +151,6 @@ describe('useCreatorOnboardingStore', () => {
 
     it('seeds present fields and skips null/missing ones', () => {
       useCreatorOnboardingStore.getState().prefillFrom({
-        handle: 'lucia.fit',
         display_name: 'Lucía',
         niches: ['beauty'],
         country: 'AR',
@@ -158,7 +158,6 @@ describe('useCreatorOnboardingStore', () => {
       })
 
       const state = useCreatorOnboardingStore.getState()
-      expect(state.handle).toBe('lucia.fit')
       expect(state.display_name).toBe('Lucía')
       expect(state.niches).toEqual(['beauty'])
       expect(state.country).toBe('AR')
@@ -167,12 +166,16 @@ describe('useCreatorOnboardingStore', () => {
     })
 
     it('does not overwrite the form once prefilled', () => {
-      useCreatorOnboardingStore.getState().prefillFrom({ handle: 'first' })
-      useCreatorOnboardingStore.getState().setField('handle', 'edited')
+      useCreatorOnboardingStore
+        .getState()
+        .prefillFrom({ display_name: 'first' })
+      useCreatorOnboardingStore.getState().setField('display_name', 'edited')
 
-      useCreatorOnboardingStore.getState().prefillFrom({ handle: 'second' })
+      useCreatorOnboardingStore
+        .getState()
+        .prefillFrom({ display_name: 'second' })
 
-      expect(useCreatorOnboardingStore.getState().handle).toBe('edited')
+      expect(useCreatorOnboardingStore.getState().display_name).toBe('edited')
     })
 
     it('reuses a moved avatar (avatars/ prefix) for submit + preview', () => {
