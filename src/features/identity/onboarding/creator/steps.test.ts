@@ -66,18 +66,12 @@ describe('getStepId', () => {
 })
 
 describe('validate functions', () => {
-  it('C1 name-handle: requires display_name and valid handle', () => {
+  it('C1 name-handle: requires non-empty display_name', () => {
     const validate = STEPS[0]!.validate!
     expect(validate(makeState())).toBe(false)
-    expect(validate(makeState({ display_name: '', handle: 'ok_1' }))).toBe(
-      false,
-    )
-    expect(validate(makeState({ display_name: 'Ana', handle: 'AB' }))).toBe(
-      false,
-    )
-    expect(validate(makeState({ display_name: 'Ana', handle: 'ana_1' }))).toBe(
-      true,
-    )
+    expect(validate(makeState({ display_name: '' }))).toBe(false)
+    expect(validate(makeState({ display_name: '   ' }))).toBe(false)
+    expect(validate(makeState({ display_name: 'Ana' }))).toBe(true)
   })
 
   it('C2 experience: requires non-empty experience_level', () => {

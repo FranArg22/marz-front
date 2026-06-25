@@ -5,7 +5,6 @@ import type { CreatorOnboardingPayload } from './types'
 
 function validPayload(): CreatorOnboardingPayload {
   return {
-    handle: 'test_creator',
     display_name: 'Test Creator',
     niches: ['fashion', 'beauty'],
     content_types: ['short_video'],

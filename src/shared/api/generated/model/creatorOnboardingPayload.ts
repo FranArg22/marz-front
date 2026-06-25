@@ -17,8 +17,6 @@ import type { CreatorOnboardingPayloadTier } from './creatorOnboardingPayloadTie
 
 export interface CreatorOnboardingPayload {
   /** @maxLength 200 */
-  handle: string;
-  /** @maxLength 200 */
   display_name: string;
   /**
      * @maxLength 2000
