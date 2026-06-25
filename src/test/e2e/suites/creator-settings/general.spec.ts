@@ -1,6 +1,7 @@
 import type { Page } from '@playwright/test'
 
 import { test, expect } from '../../support/fixtures'
+import { installCreatorSettingsMock } from './mock'
 
 const pngBytes = Buffer.from(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
@@ -171,6 +172,7 @@ async function gotoGeneralSettings(
   user: { signIn(page: Page): Promise<void> },
 ) {
   await user.signIn(page)
+  await installCreatorSettingsMock(page)
   await page.goto('/settings?section=general')
   await expect(page.getByRole('heading', { name: 'General' })).toBeVisible()
 }

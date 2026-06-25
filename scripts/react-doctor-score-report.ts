@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const SCORE_PATTERN =
   /(?:score|puntuaci[oó]n)\s*[:=]?\s*(\d{1,3})(?:\s*\/\s*100|\s*%)?/i
+const REACT_DOCTOR_SCORE_PATTERN = /\b(\d{1,3})\s*\/\s*100\b/
 
 export interface ReactDoctorScoreReport {
   score: number | null
@@ -28,11 +29,12 @@ export function parseReactDoctorScore(output: string): number | null {
   }
 
   const match = SCORE_PATTERN.exec(output)
-  if (!match?.[1]) {
+  const scoreText = match?.[1] ?? REACT_DOCTOR_SCORE_PATTERN.exec(output)?.[1]
+  if (!scoreText) {
     return null
   }
 
-  const score = Number.parseInt(match[1], 10)
+  const score = Number.parseInt(scoreText, 10)
   return Number.isInteger(score) && score >= 0 && score <= 100 ? score : null
 }
 

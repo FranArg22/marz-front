@@ -69,6 +69,8 @@ test.describe('Creator onboarding — channels screen', () => {
   }) => {
     const wizard = new CreatorOnboardingWizard(page)
     await wizard.addChannel()
+    await wizard.addRateCardAndPickFirstOption()
+    await wizard.firstAmountInput().fill('100')
 
     await expect(wizard.continueButton).toBeDisabled()
 

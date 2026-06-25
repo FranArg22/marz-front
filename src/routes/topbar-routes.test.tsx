@@ -32,6 +32,11 @@ function setupRouterMock() {
     createFileRoute: () => (options: Record<string, unknown>) => ({
       options,
       useParams: () => mockParams,
+      useRouteContext: () => ({
+        accountId: 'account-1',
+        sessionKind: 'brand',
+      }),
+      useSearch: () => ({}),
     }),
     Link: ({ children, to, ...props }: { children: ReactNode; to: string }) => (
       <a href={to} {...props}>
@@ -40,6 +45,7 @@ function setupRouterMock() {
     ),
     useParams: () => mockParams,
     useRouter: () => mockRouter,
+    useRouterState: () => '/inbox',
     useNavigate: () => mockNavigate,
   }))
 }
@@ -117,7 +123,7 @@ describe('route topbar integration', () => {
     )
   })
 
-  it.skip('resets contextual topbar state when moving through Campaigns, Chat, and Inbox', async () => {
+  it('resets contextual topbar state when moving through Campaigns, Chats, and Inbox', async () => {
     setupRouterMock()
     const [
       appTopbarModule,
@@ -151,7 +157,7 @@ describe('route topbar integration', () => {
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByText('Campañas')).toBeInTheDocument()
+    expect(await screen.findAllByText('Campañas')).not.toHaveLength(0)
 
     rerender(
       <QueryClientProvider client={queryClient}>
@@ -163,9 +169,9 @@ describe('route topbar integration', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByText('Marz')).toBeInTheDocument()
+      expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
     })
-    expect(screen.queryByText('Campañas')).not.toBeInTheDocument()
+    expect(screen.getByTestId('app-topbar')).toBeInTheDocument()
 
     rerender(
       <QueryClientProvider client={queryClient}>

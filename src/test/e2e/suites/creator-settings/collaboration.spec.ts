@@ -1,6 +1,7 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { test, expect } from '../../support/fixtures'
+import { installCreatorSettingsMock } from './mock'
 
 test.describe('Creator settings — collaboration', () => {
   test('creator_settings.collaboration.save_creator_kinds', async ({
@@ -151,6 +152,7 @@ async function gotoCollaborationSettings(
   user: { signIn(page: Page): Promise<void> },
 ) {
   await user.signIn(page)
+  await installCreatorSettingsMock(page)
   await page.goto('/settings?section=colaboraciones')
   await expect(
     page.getByRole('heading', { name: 'Colaboraciones' }),

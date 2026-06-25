@@ -54,7 +54,7 @@ describe('PlansGrid', () => {
 
   it('shows year cards when selectedInterval is year', () => {
     setup({ selectedInterval: 'year' })
-    expect(screen.getByText('159')).toBeInTheDocument()
+    expect(screen.getByText('13')).toBeInTheDocument()
     expect(screen.queryByText('199')).not.toBeInTheDocument()
   })
 

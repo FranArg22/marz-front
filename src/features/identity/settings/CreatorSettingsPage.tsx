@@ -21,12 +21,15 @@ export function CreatorSettingsPage({
   activeSection,
   onSectionChange,
 }: CreatorSettingsPageProps) {
-  const settingsQuery = useGetMyCreatorSettings()
+  const canFetchSettings = typeof window !== 'undefined'
+  const settingsQuery = useGetMyCreatorSettings({
+    query: { enabled: canFetchSettings },
+  })
   const settingsResponse = settingsQuery.data
 
   let content: React.ReactNode
 
-  if (settingsQuery.isPending) {
+  if (!canFetchSettings || settingsQuery.isPending) {
     content = <SettingsSkeleton />
   } else if (settingsQuery.isError) {
     content = <SettingsErrorBanner />

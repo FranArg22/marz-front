@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test'
 
-import { API_BASE_URL } from '../../support/env'
-import { test, expect, getClerkSessionToken } from '../../support/fixtures'
+import { test, expect } from '../../support/fixtures'
+import { installCreatorSettingsMock } from './mock'
 
 test.describe('Creator settings — portfolio', () => {
   test('creator_settings.portfolio.manage_sample_videos', async ({
@@ -9,10 +9,6 @@ test.describe('Creator settings — portfolio', () => {
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
-    await seedSampleVideos(page, [
-      'https://videos.example.com/e2e-portfolio-one',
-      'https://videos.example.com/e2e-portfolio-two',
-    ])
     await gotoPortfolioSettings(page)
 
     await expect(videoSlotLabels(page)).toHaveCount(3)
@@ -55,7 +51,6 @@ test.describe('Creator settings — portfolio', () => {
     })
 
     await onboardedCreatorUser.signIn(page)
-    await seedSampleVideos(page, [])
     await gotoPortfolioSettings(page)
 
     await page.getByLabel('URL del video').first().fill('no-es-una-url')
@@ -72,6 +67,7 @@ test.describe('Creator settings — portfolio', () => {
 })
 
 async function gotoPortfolioSettings(page: Page) {
+  await installCreatorSettingsMock(page)
   await page.goto('/settings?section=portfolio')
   await expect(page.getByRole('heading', { name: 'Portfolio' })).toBeVisible()
 }
@@ -87,22 +83,4 @@ function waitForSampleVideosSave(page: Page) {
       response.request().method() === 'PUT' &&
       response.status() === 200,
   )
-}
-
-async function seedSampleVideos(page: Page, urls: string[]) {
-  const token = await getClerkSessionToken(page)
-  const res = await page.request.fetch(
-    `${API_BASE_URL}/v1/creators/me/sample-videos`,
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        videos: urls.map((url) => ({ url })),
-      },
-    },
-  )
-  expect(res.ok()).toBe(true)
 }

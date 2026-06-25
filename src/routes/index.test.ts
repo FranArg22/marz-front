@@ -155,7 +155,7 @@ describe('/ beforeLoad', () => {
     await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inicio' }))
   })
 
-  it('redirects to /inbox for onboarded creator', async () => {
+  it('redirects to recommended discovery for onboarded creator', async () => {
     mockServerMeResult = {
       ok: true,
       body: {
@@ -164,6 +164,11 @@ describe('/ beforeLoad', () => {
         redirect_to: null,
       },
     }
-    await expect(callBeforeLoad()).rejects.toEqual(redirect({ to: '/inbox' }))
+    await expect(callBeforeLoad()).rejects.toEqual(
+      redirect({
+        to: '/discover/campaigns',
+        search: { recommended_only: false, sort: 'match_score_desc' },
+      }),
+    )
   })
 })

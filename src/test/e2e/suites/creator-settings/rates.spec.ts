@@ -1,6 +1,7 @@
 import type { Locator, Page, Route } from '@playwright/test'
 
 import { test, expect } from '../../support/fixtures'
+import { installCreatorSettingsMock } from './mock'
 
 const channelRateLabels = /Reel de Instagram|Video de TikTok|Short de YouTube/
 
@@ -147,6 +148,7 @@ async function gotoRatesSettings(
   user: { signIn(page: Page): Promise<void> },
 ) {
   await user.signIn(page)
+  await installCreatorSettingsMock(page)
   await page.goto('/settings?section=redes-tarifas')
   await expect(
     page.getByRole('heading', { name: 'Redes y tarifas' }),

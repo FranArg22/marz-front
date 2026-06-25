@@ -1,15 +1,22 @@
-import type { Page, Route } from '@playwright/test'
+import type { Page } from '@playwright/test'
 
 import { API_BASE_URL } from '../../support/env'
 import { test, expect, getClerkSessionToken } from '../../support/fixtures'
+import {
+  createCreatorSettingsMockState,
+  installCreatorSettingsMock,
+} from './mock'
 
 test.describe('Creator settings — wallet', () => {
   test('creator_settings.wallet.add_payout_account', async ({
     page,
     onboardedCreatorUser,
   }) => {
-    await mockInitialEmptyPayoutAccount(page)
-    await gotoWalletSettings(page, onboardedCreatorUser)
+    await gotoWalletSettings(
+      page,
+      onboardedCreatorUser,
+      createCreatorSettingsMockState({ payoutAccount: null }),
+    )
 
     await page.getByRole('button', { name: 'Agregar cuenta de cobro' }).click()
 
@@ -82,16 +89,7 @@ test.describe('Creator settings — wallet', () => {
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
-    await seedPayoutAccount(page, {
-      type: 'ach',
-      name: 'Cuenta inicial',
-      account_holder_name: 'E2E Creator Wallet',
-      account_number: '11112222',
-      account_type: 'checking',
-      routing_number: '021000021',
-      address: '1 Main St, New York',
-    })
-
+    await installCreatorSettingsMock(page)
     await page.goto('/settings?section=billetera')
     await expect(page.getByRole('heading', { name: 'Billetera' })).toBeVisible()
     await expect(page.getByText('Activa')).toBeVisible()
@@ -136,8 +134,10 @@ test.describe('Creator settings — wallet', () => {
 async function gotoWalletSettings(
   page: Page,
   user: { signIn(page: Page): Promise<void> },
+  state = createCreatorSettingsMockState(),
 ) {
   await user.signIn(page)
+  await installCreatorSettingsMock(page, state)
   await page.goto('/settings?section=billetera')
   await expect(page.getByRole('heading', { name: 'Billetera' })).toBeVisible()
 }
@@ -178,50 +178,4 @@ function waitForPayoutAccountPut(page: Page) {
       response.request().method() === 'PUT' &&
       response.status() === 200,
   )
-}
-
-async function mockInitialEmptyPayoutAccount(page: Page) {
-  let fulfilledEmptyGet = false
-  const handler = async (route: Route) => {
-    if (route.request().method() === 'GET' && !fulfilledEmptyGet) {
-      fulfilledEmptyGet = true
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ account: null }),
-      })
-      return
-    }
-
-    await route.continue()
-  }
-
-  await page.route('**/v1/creators/me/payout-account', handler)
-}
-
-async function seedPayoutAccount(
-  page: Page,
-  data: {
-    type: 'ach'
-    name: string
-    account_holder_name: string
-    account_number: string
-    account_type: 'checking' | 'savings' | 'business'
-    routing_number: string
-    address: string
-  },
-) {
-  const token = await getClerkSessionToken(page)
-  const res = await page.request.fetch(
-    `${API_BASE_URL}/v1/creators/me/payout-account`,
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data,
-    },
-  )
-  expect(res.status()).toBe(200)
 }

@@ -25,15 +25,24 @@ export function SubscriptionSection() {
       ? meQuery.data.data.brand_workspace?.plan
       : undefined
   const isPaid = plan != null && plan !== 'free'
+  const canFetchWorkspaceScoped = typeof window !== 'undefined' && plan != null
 
-  const usageQuery = useGetPlanUsage({ query: { staleTime: 30_000 } })
+  const usageQuery = useGetPlanUsage({
+    query: { staleTime: 30_000, enabled: canFetchWorkspaceScoped },
+  })
   const subscriptionQuery = useBillingSubscription({
     staleTime: 30_000,
-    enabled: isPaid,
+    enabled: canFetchWorkspaceScoped && isPaid,
   })
-  const paymentMethodsQuery = useOffersPaymentMethods(isPaid)
+  const paymentMethodsQuery = useOffersPaymentMethods(
+    canFetchWorkspaceScoped && isPaid,
+  )
 
-  if (meQuery.isLoading || usageQuery.isLoading) {
+  if (
+    meQuery.isLoading ||
+    (plan != null && !canFetchWorkspaceScoped) ||
+    usageQuery.isLoading
+  ) {
     return <LoadingState />
   }
 

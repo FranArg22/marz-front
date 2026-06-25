@@ -136,9 +136,13 @@ describe('B13PaywallScreen', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Ana')
   })
 
-  it('renders the trial subtitle', () => {
+  it('renders the free continuation option', () => {
     render(<B13PaywallScreen />)
-    expect(screen.getByText(/trial de 7 días/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', {
+        name: /prefiero seguir sin acceso a la red de creadores/i,
+      }),
+    ).toBeInTheDocument()
   })
 
   it('renders the discount badge on the annual toggle', () => {

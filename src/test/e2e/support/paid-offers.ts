@@ -65,7 +65,7 @@ export async function completeStripe3dsAuthentication(
   )
 }
 
-async function completeStarterCheckoutViaApi(
+export async function completeStarterCheckoutViaApi(
   page: Page,
   cardNumber: string,
 ): Promise<void> {
@@ -119,14 +119,21 @@ async function fillStripeCheckoutCard(
   page: Page,
   cardNumber: string,
 ): Promise<void> {
-  await page
-    .getByLabel(/Card number|Numero de tarjeta|Número de tarjeta/i)
-    .fill(cardNumber)
-  await page.getByLabel(/Expiration|Vencimiento|MM \/ AA/i).fill('12 / 34')
-  await page.getByLabel(/CVC|CVV/i).fill('123')
-  await page
-    .getByLabel(/Cardholder name|Nombre del titular/i)
-    .fill('E2E Paid Offer Brand')
+  await checkStripeAgentDisclosure(page)
+  await selectStripeCardPayment(page)
+
+  await fillStripeInput(
+    page,
+    /Card number|Numero de tarjeta|Número de tarjeta/i,
+    cardNumber,
+  )
+  await fillStripeInput(page, /Expiration|Vencimiento|MM \/ AA/i, '12 / 34')
+  await fillStripeInput(page, /CVC|CVV/i, '123')
+  await fillStripeInput(
+    page,
+    /Cardholder name|Nombre del titular/i,
+    'E2E Paid Offer Brand',
+  )
 
   await page
     .getByRole('button', { name: /Subscribe|Pay|Suscribirse|Pagar/i })
@@ -135,6 +142,66 @@ async function fillStripeCheckoutCard(
   if (cardNumber.replace(/\s/g, '') === PAID_OFFER_SCA_CARD.replace(/\s/g, '')) {
     await completeStripe3dsAuthentication(page)
   }
+}
+
+async function checkStripeAgentDisclosure(page: Page): Promise<void> {
+  await page
+    .getByRole('checkbox', { name: /AI agent acting on behalf/i })
+    .check({ force: true, timeout: 2_000 })
+    .catch(async () => {
+      await page
+        .getByText(/I am an AI agent acting on behalf/i)
+        .click({ force: true, timeout: 2_000 })
+        .catch(() => {})
+    })
+}
+
+async function selectStripeCardPayment(page: Page): Promise<void> {
+  const button = page
+    .getByRole('button', { name: /Card payment|Pago con tarjeta/i })
+    .first()
+  if (await button.isVisible({ timeout: 2_000 }).catch(() => false)) {
+    await button.click({ force: true })
+    await page.waitForTimeout(500)
+    return
+  }
+
+  const radio = page.getByRole('radio', { name: /Card|Tarjeta/i }).first()
+  if (await radio.isVisible({ timeout: 2_000 }).catch(() => false)) {
+    await radio.click({ force: true })
+    await page.waitForTimeout(500)
+  }
+}
+
+async function fillStripeInput(
+  page: Page,
+  label: RegExp,
+  value: string,
+): Promise<void> {
+  const deadline = Date.now() + 30_000
+  let lastError: unknown
+
+  while (Date.now() < deadline) {
+    const locators = [
+      page.getByLabel(label).first(),
+      ...page.frames().map((frame) => frame.getByLabel(label).first()),
+    ]
+
+    for (const locator of locators) {
+      try {
+        await locator.fill(value, { timeout: 1_000 })
+        return
+      } catch (error) {
+        lastError = error
+      }
+    }
+
+    await page.waitForTimeout(500)
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error(`Stripe input not found: ${label}`)
 }
 
 export async function cancelStripeHostedCheckout(page: Page): Promise<void> {

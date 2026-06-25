@@ -221,7 +221,7 @@ test.describe('brand settings general', () => {
 
     await openGeneralSettings(page, onboardedBrandUser)
 
-    await expect(page.getByLabel(/^Nombre y Apellido$/i)).toHaveValue('Carla Méndez')
+    await expect(page.getByLabel(/Nombre y Apellido/i)).toHaveValue('Carla Méndez')
     await expect(page.getByLabel(/Email/i)).toHaveValue('carla@brand.com')
     await expect(page.getByLabel(/Email/i)).toBeDisabled()
     await expect(page.getByLabel(/Teléfono/i)).toHaveValue('+5491155512345')
@@ -239,7 +239,7 @@ test.describe('brand settings general', () => {
     await mockGetSettings(page)
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre y Apellido$/i).fill('Carla M. Pérez')
+    await page.getByLabel(/Nombre y Apellido/i).fill('Carla M. Pérez')
 
     await expect(page.getByTestId('settings.general.save_button')).toBeEnabled()
   })
@@ -249,10 +249,48 @@ test.describe('brand settings general', () => {
     onboardedBrandUser,
   }) => {
     const patchBodies = recordSettingsPatches(page)
-    await mockGetSettings(page, {}, { times: 1 })
+    let settings: BrandSettings = BASE_SETTINGS
+    await page.route(/\/v1\/brand-workspaces\/me\/settings$/, async (route) => {
+      if (route.request().method() === 'GET') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(settings),
+        })
+        return
+      }
+
+      if (route.request().method() === 'PATCH') {
+        const body = route.request().postDataJSON() as PatchBody
+        settings = {
+          ...settings,
+          profile: {
+            ...settings.profile,
+            full_name: body.full_name ?? settings.profile.full_name,
+            phone_e164:
+              body.phone_e164 === undefined
+                ? settings.profile.phone_e164
+                : body.phone_e164,
+          },
+          brand: {
+            ...settings.brand,
+            name: body.name ?? settings.brand.name,
+            website_url: body.website_url ?? settings.brand.website_url,
+          },
+        }
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(settings),
+        })
+        return
+      }
+
+      await route.fallback()
+    })
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre y Apellido$/i).fill('Carla M. Pérez')
+    await page.getByLabel(/Nombre y Apellido/i).fill('Carla M. Pérez')
     await page.getByLabel(/Teléfono/i).fill('+5491155599999')
     await page.getByLabel(/Nombre de marca/i).fill('Acme Studio')
     await page.getByLabel(/Sitio web/i).fill('https://acme.studio')
@@ -271,7 +309,7 @@ test.describe('brand settings general', () => {
     await expect(page.getByTestId('settings.general.save_button')).toBeDisabled()
 
     await reloadGeneralSettingsFromBackend(page)
-    await expect(page.getByLabel(/^Nombre y Apellido$/i)).toHaveValue('Carla M. Pérez')
+    await expect(page.getByLabel(/Nombre y Apellido/i)).toHaveValue('Carla M. Pérez')
     await expect(page.getByLabel(/Teléfono/i)).toHaveValue('+5491155599999')
     await expect(page.getByLabel(/Nombre de marca/i)).toHaveValue('Acme Studio')
     await expect(page.getByLabel(/Sitio web/i)).toHaveValue(
@@ -290,10 +328,10 @@ test.describe('brand settings general', () => {
     }))
 
     await openGeneralSettings(page, onboardedBrandUser)
-    await page.getByLabel(/^Nombre y Apellido$/i).fill('')
+    await page.getByLabel(/Nombre y Apellido/i).fill('')
     await page.getByTestId('settings.general.save_button').click()
 
-    await expectFieldError(page, /^Nombre y Apellido$/i)
+    await expectFieldError(page, /Nombre y Apellido/i)
     await expect(page.getByText('Ajustes guardados')).toHaveCount(0)
   })
 
@@ -395,7 +433,9 @@ test.describe('brand settings general', () => {
 
     const emailInput = page.getByLabel(/Email/i)
     await expect(emailInput).toBeDisabled()
-    await emailInput.fill('changed@brand.com').catch(() => undefined)
+    await emailInput
+      .fill('changed@brand.com', { timeout: 1_000 })
+      .catch(() => undefined)
     await expect(emailInput).toHaveValue('carla@brand.com')
   })
 

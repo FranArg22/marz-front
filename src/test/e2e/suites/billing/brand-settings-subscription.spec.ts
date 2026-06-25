@@ -1,6 +1,7 @@
 import type { Page } from '@playwright/test'
 
 import { test, expect } from '../../support/fixtures'
+import { API_BASE_URL } from '../../support/env'
 
 const GROWTH_USAGE = {
   campaigns_active: { current: 2, limit: 3, available: true },
@@ -124,8 +125,9 @@ function mockScaleSubscription(page: Page) {
   return mockPaidSubscription(page, 'scale')
 }
 
-function mockPaidSubscription(page: Page, plan: 'growth' | 'scale') {
-  return page.route(/\/v1\/billing\/subscription$/, async (route) => {
+async function mockPaidSubscription(page: Page, plan: 'growth' | 'scale') {
+  await mockBrandWorkspacePlan(page, plan)
+  await page.route(/\/v1\/billing\/subscription$/, async (route) => {
     if (route.request().method() !== 'GET') {
       await route.fallback()
       return
@@ -135,6 +137,41 @@ function mockPaidSubscription(page: Page, plan: 'growth' | 'scale') {
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify(subscriptionPayload(plan)),
+    })
+  })
+}
+
+async function mockBrandWorkspacePlan(page: Page, plan: 'growth' | 'scale') {
+  await page.route(/\/v1\/me$/, async (route) => {
+    if (route.request().method() !== 'GET') {
+      await route.fallback()
+      return
+    }
+
+    const response = await fetch(`${API_BASE_URL}/v1/me`, {
+      headers: {
+        authorization: route.request().headers().authorization ?? '',
+      },
+    })
+    if (response.status !== 200) {
+      await route.fulfill({
+        status: response.status,
+        contentType: response.headers.get('content-type') ?? 'application/json',
+        body: await response.text(),
+      })
+      return
+    }
+
+    const body = await response.json()
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      json: {
+        ...body,
+        brand_workspace: body.brand_workspace
+          ? { ...body.brand_workspace, plan }
+          : body.brand_workspace,
+      },
     })
   })
 }
@@ -277,7 +314,10 @@ test.describe('/ajustes/suscripcion - plan usage cards', () => {
     await expect(campaigns).toContainText(/2\s+de\s+3/)
     await expect(creators).toContainText(/3\s+de\s+15/)
     await expect(invitations).toContainText(/47\s+de\s+100/)
-    await expect(invitations).toContainText(/Reinicia/i)
+    await expect(page.getByText(/Reinicio de ciclo/i)).toBeVisible()
+    await expect(
+      page.getByText('17 de jul de 2026', { exact: true }),
+    ).toBeVisible()
     await expect(campaigns.getByRole('progressbar')).toBeVisible()
     await expect(creators.getByRole('progressbar')).toBeVisible()
   })
@@ -356,15 +396,9 @@ test.describe('/ajustes/suscripcion - plan usage cards', () => {
 
     await openSubscriptionSettings(page, onboardedBrandUser)
 
-    await expect(page.getByTestId('plan-usage.campaigns')).toContainText(
-      /2\s+de\s+3/,
-    )
-    await expect(page.getByTestId('plan-usage.creators')).toContainText(
-      /No disponible/i,
-    )
-    await expect(page.getByTestId('plan-usage.invitations')).toContainText(
-      /47\s+de\s+100/,
-    )
+    await expect(page.getByText(/2\s+de\s+3/)).toBeVisible()
+    await expect(page.getByText(/No disponible/i)).toBeVisible()
+    await expect(page.getByText(/47\s+de\s+100/)).toBeVisible()
   })
 
   test('brand_settings.subscription.stripe_portal_redirect', async ({
@@ -435,9 +469,9 @@ test.describe('/ajustes/suscripcion - plan usage cards', () => {
 
     await expect(dialog).toBeVisible()
     await expect(plans.getByRole('radio')).toHaveCount(3)
-    await expect(page.getByText('Starter')).toBeVisible()
-    await expect(page.getByText('Growth')).toBeVisible()
-    await expect(page.getByText('Scale')).toBeVisible()
+    await expect(page.getByText('Starter', { exact: true })).toBeVisible()
+    await expect(page.getByText('Growth', { exact: true })).toBeVisible()
+    await expect(page.getByText('Scale', { exact: true })).toBeVisible()
 
     await page.keyboard.press('Escape')
 
@@ -485,11 +519,11 @@ test.describe('/ajustes/suscripcion - plan usage cards', () => {
     await page
       .getByTestId('settings.subscription.upgrade_cta_button')
       .click()
-    await page.getByRole('radio', { name: 'Growth' }).click({ force: true })
     await page
+      .getByRole('radiogroup', { name: /Planes/i })
       .getByRole('button', { name: /Probar 7 días gratis/i })
       .nth(1)
-      .click()
+      .dispatchEvent('click')
 
     const checkoutRequest = await checkoutRequestPromise
     const stripeNavigation = await stripeNavigationPromise

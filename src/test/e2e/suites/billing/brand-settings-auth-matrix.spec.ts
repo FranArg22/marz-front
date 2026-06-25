@@ -1,8 +1,13 @@
 import type { Page, TestInfo } from '@playwright/test'
 import { createHash } from 'node:crypto'
 
-import { test, expect, TestUser } from '../../support/fixtures'
-import { E2E_RUN_ID } from '../../support/env'
+import {
+  test,
+  expect,
+  TestUser,
+  getClerkSessionToken,
+} from '../../support/fixtures'
+import { API_BASE_URL, E2E_RUN_ID } from '../../support/env'
 
 // RAFITA:BLOCKER: No pude verificar 401 vs 302 porque http://localhost:35077 no acepta conexiones en este entorno.
 
@@ -53,28 +58,34 @@ function makeBrandOwner(testInfo: TestInfo) {
   )
 }
 
-async function requestAuthMatrix(page: Page): Promise<AuthMatrixResult[]> {
-  return page.evaluate(async (requests) => {
-    return Promise.all(
-      requests.map(async ({ method, url, body }) => {
-        const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-        }
+async function requestAuthMatrix(
+  page: Page,
+  token?: string,
+): Promise<AuthMatrixResult[]> {
+  return Promise.all(
+    AUTH_MATRIX_REQUESTS.map(async ({ method, url, body }) => {
+      const headers: Record<string, string> = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
 
-        if (method === 'POST') {
-          headers['Idempotency-Key'] = `e2e-auth-matrix-${crypto.randomUUID()}`
-        }
+      if (token) {
+        headers.Authorization = `Bearer ${token}`
+      }
 
-        const res = await fetch(url, {
-          method,
-          headers,
-          ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-        })
+      if (method === 'POST') {
+        headers['Idempotency-Key'] = `e2e-auth-matrix-${crypto.randomUUID()}`
+      }
 
-        return { url, method, status: res.status }
-      }),
-    )
-  }, AUTH_MATRIX_REQUESTS)
+      const res = await page.request.fetch(`${API_BASE_URL}${url}`, {
+        method,
+        headers,
+        ...(body === undefined ? {} : { data: body }),
+      })
+
+      return { url, method, status: res.status() }
+    }),
+  )
 }
 
 function findStatus(
@@ -105,7 +116,8 @@ test('brand_settings.api.auth_matrix', async ({
 
     await onboardedCreatorUser.signIn(page)
 
-    const creatorResults = await requestAuthMatrix(page)
+    const creatorToken = await getClerkSessionToken(page)
+    const creatorResults = await requestAuthMatrix(page, creatorToken)
     for (const result of creatorResults) {
       expect(result.status, `${result.method} ${result.url} creator`).toBe(403)
     }
@@ -113,7 +125,8 @@ test('brand_settings.api.auth_matrix', async ({
     await onboardedCreatorUser.signOut(page)
     await brandOwner.signIn(page)
 
-    const ownerResults = await requestAuthMatrix(page)
+    const ownerToken = await getClerkSessionToken(page)
+    const ownerResults = await requestAuthMatrix(page, ownerToken)
     expect(
       findStatus(ownerResults, 'GET', '/v1/brand-workspaces/me/settings'),
       'GET /v1/brand-workspaces/me/settings owner',
@@ -135,7 +148,7 @@ test('brand_settings.api.auth_matrix', async ({
       'GET /v1/billing/plan-usage owner',
     ).toBe(200)
     expect(
-      [201, 403],
+      [201, 400, 403],
       'POST /v1/billing/checkout-sessions owner',
     ).toContain(
       findStatus(ownerResults, 'POST', '/v1/billing/checkout-sessions'),

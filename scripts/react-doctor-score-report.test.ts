@@ -10,6 +10,10 @@ describe('parseReactDoctorScore', () => {
     expect(parseReactDoctorScore('React Doctor score: 96/100')).toBe(96)
   })
 
+  it('parses the React Doctor score card format', () => {
+    expect(parseReactDoctorScore('  ┌─────┐  79 / 100 Great')).toBe(79)
+  })
+
   it('parses a JSON score', () => {
     expect(parseReactDoctorScore('{"score":97,"issues":[]}')).toBe(97)
   })

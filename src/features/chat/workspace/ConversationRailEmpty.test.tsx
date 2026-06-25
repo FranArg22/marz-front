@@ -17,9 +17,7 @@ describe('ConversationRailEmpty', () => {
     render(<ConversationRailEmpty variant="no_conversations" />)
 
     expect(
-      screen.getByText(
-        'Las conversaciones aparecen cuando se inicia una colaboración (vía Match, Application, Invite u Offer)',
-      ),
+      screen.getByText('Las conversaciones se inician con invitaciones de conexión'),
     ).toBeInTheDocument()
   })
 

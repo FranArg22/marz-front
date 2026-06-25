@@ -2,6 +2,7 @@ import type { Locator, Page } from '@playwright/test'
 
 import { API_BASE_URL } from '../../support/env'
 import { test, expect, getClerkSessionToken } from '../../support/fixtures'
+import type { CreatorSettingsResponse } from '#/shared/api/generated/model'
 
 const sidebarSections = [
   'General',
@@ -49,14 +50,18 @@ const settingsSections = [
     id: 'portfolio',
     heading: 'Portfolio',
     assertPrefilled: async (page: Page) => {
-      await expect(page.getByText(/^https?:\/\//).first()).toBeVisible()
+      await expect(page.getByLabel('URL del video 1')).toHaveValue(
+        /^https?:\/\//,
+      )
     },
   },
   {
     id: 'billetera',
     heading: 'Billetera',
     assertPrefilled: async (page: Page) => {
-      await expectDetailValue(page, 'Titular')
+      await expect(page.getByText('Cuenta cargada', { exact: true })).toBeVisible()
+      await expect(page.getByText('E2E Creator')).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Editar cuenta' })).toBeVisible()
     },
   },
 ]
@@ -67,6 +72,7 @@ test.describe('Creator settings — shell', () => {
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
+    await mockCreatorSettings(page)
     await page.goto('/settings?section=general')
     await expect(page.getByRole('heading', { name: 'General' })).toBeVisible()
 
@@ -80,13 +86,54 @@ test.describe('Creator settings — shell', () => {
     onboardedCreatorUser,
   }) => {
     await onboardedCreatorUser.signIn(page)
-    await seedWalletAndPortfolio(page)
+    await mockCreatorSettings(page, {
+      contact: {
+        full_name: 'E2E Creator',
+        email: 'creator@example.com',
+        phone_e164: '+5491123456789',
+        birthday: '1994-05-12',
+        country: 'AR',
+        city: 'Buenos Aires',
+        shipping_address: 'Avenida Siempre Viva 742',
+      },
+      avatar_url: 'https://images.example.com/avatar.png',
+      collaboration: {
+        creator_kinds: ['influencer', 'ugc'],
+        niches: ['beauty', 'fashion'],
+        content_types: ['reels', 'stories'],
+        languages: ['es', 'en'],
+        barter_preference: true,
+      },
+      channels: [
+        {
+          channel_id: 'ig-1',
+          platform: 'instagram',
+          handle: 'e2e.creator',
+          external_url: 'https://instagram.com/e2e.creator',
+          followers: 12345,
+          rates: [{ format: 'ig_reel', amount: '150.00', currency: 'USD' }],
+        },
+        {
+          channel_id: 'tt-1',
+          platform: 'tiktok',
+          handle: 'e2e.creator.tt',
+          external_url: 'https://tiktok.com/@e2e.creator.tt',
+          followers: 54321,
+          rates: [
+            { format: 'tiktok_video', amount: '175.00', currency: 'USD' },
+          ],
+        },
+      ],
+      ugc_rate: { amount: '200.00', currency: 'USD' },
+      sample_videos: [
+        { url: 'https://videos.example.com/creator-settings-shell-1' },
+        { url: 'https://videos.example.com/creator-settings-shell-2' },
+      ],
+    })
 
     for (const section of settingsSections) {
       await page.goto(`/settings?section=${section.id}`)
-      await expect(
-        page.getByRole('heading', { name: section.heading }),
-      ).toBeVisible()
+      await expect(page.locator('main h1', { hasText: section.heading })).toBeVisible()
       await section.assertPrefilled(page)
     }
   })
@@ -96,11 +143,11 @@ test.describe('Creator settings — shell', () => {
     onboardedBrandUser,
   }) => {
     await onboardedBrandUser.signIn(page)
+    const token = await getClerkSessionToken(page)
     await page.goto('/settings?section=general')
     await expect(page).toHaveURL(/\/workspace/)
     await expect(page).not.toHaveURL(/\/settings/)
 
-    const token = await getClerkSessionToken(page)
     const res = await page.request.fetch(
       `${API_BASE_URL}/v1/creators/me/settings`,
       {
@@ -124,47 +171,89 @@ async function expectAtLeastOneInputHasValue(locators: Locator[]) {
     .toBe(true)
 }
 
-async function expectDetailValue(page: Page, label: string) {
-  const value = page
-    .locator('dt', { hasText: label })
-    .locator('xpath=following-sibling::dd[1]')
-  await expect(value).toContainText(/\S/)
-}
-
-async function seedWalletAndPortfolio(page: Page) {
-  const token = await getClerkSessionToken(page)
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  }
-
-  const payoutRes = await page.request.fetch(
-    `${API_BASE_URL}/v1/creators/me/payout-account`,
-    {
-      method: 'PUT',
-      headers,
-      data: {
-        type: 'ach',
-        name: 'E2E Creator account',
-        account_holder_name: 'E2E Creator',
-        account_number: '12345678',
-        account_type: 'checking',
-        routing_number: '021000021',
-        address: '1 Main St, New York',
-      },
+async function mockCreatorSettings(
+  page: Page,
+  data: CreatorSettingsResponse = {
+    contact: {
+      full_name: 'E2E Creator',
+      email: 'creator@example.com',
+      phone_e164: '+5491123456789',
+      birthday: '1994-05-12',
+      country: 'AR',
+      city: 'Buenos Aires',
+      shipping_address: 'Avenida Siempre Viva 742',
     },
-  )
-  expect(payoutRes.ok()).toBe(true)
-
-  const sampleVideosRes = await page.request.fetch(
-    `${API_BASE_URL}/v1/creators/me/sample-videos`,
-    {
-      method: 'PUT',
-      headers,
-      data: {
-        videos: [{ url: 'https://videos.example.com/creator-settings-shell' }],
-      },
+    avatar_url: 'https://images.example.com/avatar.png',
+    collaboration: {
+      creator_kinds: ['influencer', 'ugc'],
+      niches: ['beauty', 'fashion'],
+      content_types: ['reels', 'stories'],
+      languages: ['es', 'en'],
+      barter_preference: true,
     },
-  )
-  expect(sampleVideosRes.ok()).toBe(true)
+    channels: [
+      {
+        channel_id: 'ig-1',
+        platform: 'instagram',
+        handle: 'e2e.creator',
+        external_url: 'https://instagram.com/e2e.creator',
+        followers: 12345,
+        rates: [{ format: 'ig_reel', amount: '150.00', currency: 'USD' }],
+      },
+      {
+        channel_id: 'tt-1',
+        platform: 'tiktok',
+        handle: 'e2e.creator.tt',
+        external_url: 'https://tiktok.com/@e2e.creator.tt',
+        followers: 54321,
+        rates: [
+          { format: 'tiktok_video', amount: '175.00', currency: 'USD' },
+        ],
+      },
+    ],
+    ugc_rate: { amount: '200.00', currency: 'USD' },
+    sample_videos: [
+      { url: 'https://videos.example.com/creator-settings-shell-1' },
+      { url: 'https://videos.example.com/creator-settings-shell-2' },
+    ],
+  },
+) {
+  await page.route('**/v1/creators/me/settings', async (route) => {
+    if (route.request().method() !== 'GET') {
+      await route.continue()
+      return
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(data),
+    })
+  })
+
+  await page.route('**/v1/creators/me/payout-account', async (route) => {
+    if (route.request().method() !== 'GET') {
+      await route.continue()
+      return
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        account: {
+          id: 'payout-1',
+          type: 'ach',
+          name: 'Cuenta principal',
+          account_holder_name: 'E2E Creator',
+          account_number: '12345678',
+          account_type: 'checking',
+          routing_number: '021000021',
+          address: '1 Main St, New York',
+          status: 'active',
+          updated_at: '2026-01-01T00:00:00.000Z',
+        },
+      }),
+    })
+  })
 }
