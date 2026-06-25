@@ -43,7 +43,7 @@ function createGeneralSectionSchema() {
       .string()
       .regex(
         /^\+[1-9]\d{1,14}$/,
-        t`Usá formato E.164, por ejemplo +5491123456789`,
+        t`Número inválido. Incluí el código de país, por ejemplo +54 11 5555-5555.`,
       )
       .optional()
       .or(z.literal('')),

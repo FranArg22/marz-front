@@ -613,7 +613,7 @@ msgstr ""
 msgid "+500M"
 msgstr ""
 
-#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:79
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:81
 msgid "+54 11 5555-5555"
 msgstr ""
 
@@ -4610,8 +4610,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:71
-msgid "Formato inválido. Usá formato E.164."
-msgstr ""
+#~ msgid "Formato inválido. Usá formato E.164."
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Formato UGC"
@@ -7021,6 +7021,11 @@ msgstr ""
 #: src/features/payments/settings/PayoutAccountCard.tsx:142
 #: src/features/payments/settings/PayoutAccountModal.tsx:139
 msgid "Número de cuenta"
+msgstr ""
+
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:72
+#: src/features/identity/settings/GeneralSection.tsx:46
+msgid "Número inválido. Incluí el código de país, por ejemplo +54 11 5555-5555."
 msgstr ""
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:11
@@ -10425,8 +10430,8 @@ msgid "Usá el formato AAAA-MM-DD"
 msgstr ""
 
 #: src/features/identity/settings/GeneralSection.tsx:46
-msgid "Usá formato E.164, por ejemplo +5491123456789"
-msgstr ""
+#~ msgid "Usá formato E.164, por ejemplo +5491123456789"
+#~ msgstr ""
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:51
 msgid "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."

@@ -51,7 +51,7 @@ describe('B9ContactScreen', () => {
     const user = userEvent.setup()
     render(<B9ContactScreen />)
     await user.type(screen.getByLabelText(/whatsapp/i), '+1')
-    expect(screen.getByText(/formato inválido/i)).toBeInTheDocument()
+    expect(screen.getByText(/número inválido/i)).toBeInTheDocument()
   })
 
   it('has no accessibility violations', async () => {

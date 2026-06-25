@@ -68,7 +68,9 @@ export function B9ContactScreen() {
         <FieldRow
           label={t`WhatsApp`}
           error={
-            !whatsappValid ? t`Formato inválido. Usá formato E.164.` : undefined
+            !whatsappValid
+              ? t`Número inválido. Incluí el código de país, por ejemplo +54 11 5555-5555.`
+              : undefined
           }
         >
           {(aria) => (
