@@ -51,7 +51,6 @@ function createWrapper() {
 }
 
 const VALID_STATE = {
-  handle: 'test_creator',
   display_name: 'Test Creator',
   niches: ['fashion', 'beauty'],
   content_types: ['short_video'],
@@ -115,7 +114,7 @@ describe('useSubmitCreatorOnboarding', () => {
     act(() => result.current.submit())
 
     expect(mockMutate).toHaveBeenCalledWith(
-      { data: expect.objectContaining({ handle: 'test_creator' }) },
+      { data: expect.objectContaining({ display_name: 'Test Creator' }) },
       expect.any(Object),
     )
     expect(mockTrack).toHaveBeenCalledWith('onboarding_completed', {
@@ -130,12 +129,12 @@ describe('useSubmitCreatorOnboarding', () => {
     })
 
     const state = useCreatorOnboardingStore.getState()
-    expect(state.handle).toBeUndefined()
+    expect(state.display_name).toBeUndefined()
     expect(state.currentStepIndex).toBe(0)
   })
 
   it('Zod parse fail: navigates to step with missing field', async () => {
-    useCreatorOnboardingStore.setState({ handle: 'test' })
+    useCreatorOnboardingStore.setState({ display_name: 'test' })
 
     const { result } = await loadAndRender()
     act(() => result.current.submit())
@@ -147,7 +146,7 @@ describe('useSubmitCreatorOnboarding', () => {
     expect(mockNavigate).toHaveBeenCalled()
   })
 
-  it('409 handle_taken: sets handle error and navigates to name-handle step', async () => {
+  it('409 handle_taken: sets channels error and navigates to channels step', async () => {
     for (const [key, value] of Object.entries(VALID_STATE)) {
       useCreatorOnboardingStore.setState({ [key]: value })
     }
@@ -155,7 +154,7 @@ describe('useSubmitCreatorOnboarding', () => {
     const apiError = new ApiError(
       409,
       'handle_taken',
-      'Este handle ya está en uso',
+      'El usuario de tu canal principal ya está en uso',
     )
     mockMutate.mockImplementation(
       (
@@ -170,11 +169,13 @@ describe('useSubmitCreatorOnboarding', () => {
     act(() => result.current.submit())
 
     const state = useCreatorOnboardingStore.getState()
-    expect(state.fieldErrors.handle).toBe('Este handle ya está en uso')
+    expect(state.fieldErrors.channels).toBe(
+      'El usuario de tu canal principal ya está en uso',
+    )
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.objectContaining({
         to: '/onboarding/creator/$step',
-        params: { step: 'name-handle' },
+        params: { step: 'channels' },
       }),
     )
   })

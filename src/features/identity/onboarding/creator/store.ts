@@ -79,7 +79,6 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
             if (profile.avatar_display_url != null)
               next.avatar_display_url = profile.avatar_display_url
           }
-          if (profile.handle != null) next.handle = profile.handle
           if (profile.display_name != null)
             next.display_name = profile.display_name
           if (profile.bio != null) next.bio = profile.bio
@@ -111,7 +110,6 @@ export const useCreatorOnboardingStore = create<CreatorOnboardingState>()(
           currentStepIndex: 0,
           fieldErrors: {},
           prefilled: undefined,
-          handle: undefined,
           display_name: undefined,
           bio: undefined,
           niches: undefined,
