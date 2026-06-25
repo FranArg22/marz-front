@@ -613,7 +613,7 @@ msgstr "+5000 creadores activos que reciben sus pagos en 24 horas"
 msgid "+500M"
 msgstr "+500M"
 
-#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:79
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:81
 msgid "+54 11 5555-5555"
 msgstr "+54 11 5555-5555"
 
@@ -4602,8 +4602,8 @@ msgstr "Foodie"
 #~ msgstr "Formato"
 
 #: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:71
-msgid "Formato inválido. Usá formato E.164."
-msgstr "Formato inválido. Usá formato E.164."
+#~ msgid "Formato inválido. Usá formato E.164."
+#~ msgstr "Formato inválido. Usá formato E.164."
 
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:282
 msgid "Formato UGC"
@@ -7010,6 +7010,11 @@ msgstr "Nueva campaña"
 #: src/features/payments/settings/PayoutAccountModal.tsx:139
 msgid "Número de cuenta"
 msgstr "Número de cuenta"
+
+#: src/features/identity/onboarding/brand/screens/B9ContactScreen.tsx:72
+#: src/features/identity/settings/GeneralSection.tsx:46
+msgid "Número inválido. Incluí el código de país, por ejemplo +54 11 5555-5555."
+msgstr "Número inválido. Incluí el código de país, por ejemplo +54 11 5555-5555."
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:11
 msgid "Nunca lo hice"
@@ -10393,8 +10398,8 @@ msgid "Usá el formato AAAA-MM-DD"
 msgstr "Usá el formato AAAA-MM-DD"
 
 #: src/features/identity/settings/GeneralSection.tsx:46
-msgid "Usá formato E.164, por ejemplo +5491123456789"
-msgstr "Usá formato E.164, por ejemplo +5491123456789"
+#~ msgid "Usá formato E.164, por ejemplo +5491123456789"
+#~ msgstr "Usá formato E.164, por ejemplo +5491123456789"
 
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:51
 msgid "Usamos tu cantidad de seguidores para mostrarte ofertas acordes."

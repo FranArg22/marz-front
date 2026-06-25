@@ -221,7 +221,7 @@ describe('GeneralSection', () => {
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }))
 
     expect(
-      await screen.findByText(/Usá formato E\.164/),
+      await screen.findByText(/Número inválido/),
     ).toBeInTheDocument()
     expect(mockPresign).not.toHaveBeenCalled()
     expect(mockSetAvatar).not.toHaveBeenCalled()
