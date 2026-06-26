@@ -291,6 +291,9 @@ function PlatformStatsTable({
           ? platformProfileUrl(stats.platform, stats.handle)
           : null
         const priceAmount = stats.min_price_amount.trim()
+        // Channels under 1k followers have unreliable metrics that break the
+        // visual order, so their derived stats render as "-".
+        const lowFollowers = stats.followers < 1000
         const platformName = platformCode(stats.platform)
         const rowClassName =
           'grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5'
@@ -303,17 +306,27 @@ function PlatformStatsTable({
               {platformCode(stats.platform)}
             </span>
             <span className="text-center font-medium text-white">
-              {Intl_NumberFormat_compact.format(stats.followers)}
+              {stats.followers > 0
+                ? Intl_NumberFormat_compact.format(stats.followers)
+                : '-'}
             </span>
             <span className="text-center font-medium text-white">
-              {Intl_NumberFormat_pct.format(stats.engagement_rate)}
+              {!lowFollowers && stats.engagement_rate > 0
+                ? Intl_NumberFormat_pct.format(stats.engagement_rate)
+                : '-'}
             </span>
             <span className="text-center font-medium text-white/80">
-              {currencySymbol(stats.cpm_currency)}
-              {stats.cpm_amount}
+              {!lowFollowers && Number(stats.cpm_amount) > 0 ? (
+                <>
+                  {currencySymbol(stats.cpm_currency)}
+                  {stats.cpm_amount}
+                </>
+              ) : (
+                '-'
+              )}
             </span>
             <span className="text-right font-medium text-[#3ECF8E]">
-              {priceAmount ? (
+              {!lowFollowers && priceAmount && Number(priceAmount) > 0 ? (
                 <>
                   {currencySymbol(stats.price_currency)}
                   {priceAmount}
