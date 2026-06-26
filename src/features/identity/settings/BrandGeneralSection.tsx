@@ -131,7 +131,10 @@ export function BrandGeneralSection() {
       data-testid="settings.general.form"
       className="flex flex-col gap-6"
       noValidate
-      action={() => void form.handleSubmit()}
+      onSubmit={(event) => {
+        event.preventDefault()
+        void form.handleSubmit()
+      }}
     >
       <ProfileCard form={form} email={email} />
       <BrandCard
