@@ -176,14 +176,14 @@ export function CampaignInlineEditor({
         />
         <EditableTextareaField
           label={t`Descripción`}
-          value={currentCampaign.description ?? ''}
+          value={currentCampaign.description}
           maxLength={4000}
           disabled={updateCampaign.isPending}
           onSave={(value) => saveField('description', value)}
         />
         <EditableTextField
           label={t`URL objetivo`}
-          value={currentCampaign.target_url ?? ''}
+          value={currentCampaign.target_url}
           maxLength={500}
           placeholder="https://"
           disabled={updateCampaign.isPending}
@@ -215,13 +215,13 @@ export function CampaignInlineEditor({
           }
         />
         <BooleanField
-          value={currentCampaign.video_reuse_permission_default ?? false}
+          value={currentCampaign.video_reuse_permission_default}
           disabled={updateCampaign.isPending}
           onSave={(value) => saveField('video_reuse_permission_default', value)}
         />
         <EditableTextareaField
           label={t`Guías de contenido`}
-          value={currentCampaign.content_guidelines ?? ''}
+          value={currentCampaign.content_guidelines}
           maxLength={4000}
           disabled={updateCampaign.isPending}
           onSave={(value) => saveField('content_guidelines', value)}
