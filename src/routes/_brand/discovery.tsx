@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { z } from 'zod'
 
 import { CreatorCard } from '#/features/discovery/network/components/CreatorCard'
+import { CreatorProfileSidesheet } from '#/features/discovery/network/components/CreatorProfileSidesheet'
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
@@ -97,6 +98,10 @@ function DiscoveryRoute() {
   )
   const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const [bulkModalOpen, setBulkModalOpen] = useState(false)
+  const [profileCard, setProfileCard] = useState<DiscoveryCreatorCard | null>(
+    null,
+  )
+  const [profileOpen, setProfileOpen] = useState(false)
   const {
     appliedFilters,
     activeSort,
@@ -182,11 +187,25 @@ function DiscoveryRoute() {
               setSelectedCard(c)
               setInviteModalOpen(true)
             }}
+            onOpenProfile={(c) => {
+              setProfileCard(c)
+              setProfileOpen(true)
+            }}
             selected={selectedAccountIds.has(card.account_id)}
             selectionMode={selectionMode}
             onToggleSelect={toggleSelect}
           />
         )}
+      />
+      <CreatorProfileSidesheet
+        card={profileCard}
+        open={profileOpen}
+        onOpenChange={setProfileOpen}
+        onInvite={(c) => {
+          setProfileOpen(false)
+          setSelectedCard(c)
+          setInviteModalOpen(true)
+        }}
       />
       <InviteBulkModal
         open={bulkModalOpen}
