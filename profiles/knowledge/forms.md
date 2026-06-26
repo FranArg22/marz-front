@@ -186,15 +186,34 @@ export function ScreenWithStoreInputs() {
 
 Este patrón es la excepción, no la regla. Si tu form tiene un botón "Enviar/Guardar/Continuar" propio, usá `useAppForm`.
 
-## Submit: `onSubmit`, nunca `<form action={fn}>`
+## `defaultValues` tiene que seguir a la data, NO ser constante + `form.reset`
 
-Disparar el submit con `onSubmit` + `preventDefault`:
+Anti-patrón que se vacía solo (bug prod ajustes de marca, 2026-06): crear el form con `defaultValues: emptyValues` (constante) y poblarlo después con `form.reset(realValues)` en un `useEffect`.
 
-```tsx
-<form onSubmit={(e) => { e.preventDefault(); void form.handleSubmit() }}>
+Por qué rompe (verificado en `@tanstack/form-core@1.29` `FormApi`): `useForm` corre `form.update(opts)` en un layout-effect **después de cada render**. En `update()`:
+
+```js
+shouldUpdateValues =
+  options.defaultValues &&
+  !evaluate(options.defaultValues, oldOptions.defaultValues) && // deep-not-equal
+  !this.state.isTouched
+// si true → pisa los values con options.defaultValues
 ```
 
-`<form action={() => form.handleSubmit()}>` parece equivalente pero es un footgun: en React 19 el form action **resetea el form a sus `defaultValues` en cada re-render del árbol**, no solo al submitear. Un re-render disparado desde afuera —p. ej. la rotación periódica del token de Clerk— vacía todos los campos in-place, **sin error en consola** y con la data del query intacta (los valores que se leen del query directo, como un email read-only, no parpadean → despista el diagnóstico). Bug prod: ajustes de marca se vaciaban solos a los ~3-5 min (`BrandGeneralSection`, 2026-06). El form de creador (`GeneralSection`) usaba `onSubmit` y no tenía el bug.
+Y `form.reset(values)` setea internamente `options.defaultValues = values`. Entonces: el effect hace `reset(real)` → `options.defaultValues = real`; el siguiente re-render pasa `defaultValues: emptyValues` (la constante) → `emptyValues ≠ real` y el form no está `touched` → **pisa los values con `emptyValues`** → campos vacíos. El `useEffect` no se re-dispara (deps estables) → quedan vacíos. **Cualquier** re-render externo lo dispara (rotación de token de Clerk, `refetchOnWindowFocus`, etc.), sin error en consola. Los campos `touched` (escritos a mano) sobreviven porque `!isTouched` corta el reset → despista feo. Los valores que se leen del query directo (un email read-only) no parpadean porque no son del form.
+
+Fix: que `defaultValues` sea la misma data real, así `update()` la ve deep-equal y no pisa:
+
+```tsx
+const form = useAppForm({
+  defaultValues: data ? toFormValues(data) : emptyValues,
+  ...
+})
+// el useEffect con form.reset(toFormValues(data)) puede quedar (setea el baseline para el diff);
+// ya no hay conflicto porque update() ve los mismos defaultValues.
+```
+
+(Para el submit: `onSubmit` + `preventDefault`, no `<form action={fn}>` — preferencia del repo, ver `SendOfferSidesheet`. No era la causa de este bug.)
 
 ## Tests
 
@@ -222,4 +241,4 @@ expect(await screen.findByRole('alert')).toHaveTextContent(/inválido/i)
 - No hardcodear strings user-facing en field labels o errors. Todo pasa por `t\`...\``.
 - No componer un form sin `<form.AppField>` (ej. usando `<form.Field>` directo). Sin `AppField` perdés los components tipados.
 - No persistir el state del form en Zustand "por si acaso". Viven en el form mientras la screen está montada.
-- No usar `<form action={fn}>` (form action de React 19): resetea el form en cada re-render. Usar `onSubmit` + `preventDefault` (ver sección "Submit").
+- No crear el form con `defaultValues` constante (`emptyValues`) y poblarlo con `form.reset` en un effect: cualquier re-render vacía los campos pristine (ver sección "`defaultValues` tiene que seguir a la data"). `defaultValues` tiene que ser la data real.

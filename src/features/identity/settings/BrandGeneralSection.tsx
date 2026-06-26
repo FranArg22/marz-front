@@ -61,7 +61,7 @@ export function BrandGeneralSection() {
     settingsQuery.data?.status === 200 ? settingsQuery.data.data : null
 
   const form = useAppForm({
-    defaultValues: emptyValues,
+    defaultValues: settings ? responseToValues(settings) : emptyValues,
     validators: {
       onChange: schema,
       onSubmit: schema,
