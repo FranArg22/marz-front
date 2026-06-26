@@ -218,6 +218,7 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
   return (
     <DraftReviewDialog
       deliverableId={video.deliverable_id}
+      canReview={video.status === 'draft_submitted'}
       onResolved={() => {
         void queryClient.invalidateQueries({ queryKey: ['videos'] })
       }}

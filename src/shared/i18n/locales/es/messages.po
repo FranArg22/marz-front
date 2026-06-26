@@ -225,7 +225,7 @@ msgstr "{activeCount} filtros activos"
 msgid "{authorDisplayName} a las {time}: {preview}"
 msgstr "{authorDisplayName} a las {time}: {preview}"
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:81
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:50
 msgid "{brandName} está en Marz. Probando gratis durante 7 días."
 msgstr "{brandName} está en Marz. Probando gratis durante 7 días."
 
@@ -825,7 +825,7 @@ msgstr "Abrir conversación"
 msgid "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 msgstr "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:228
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:229
 msgid "Abrir revisión de video de {creatorName}"
 msgstr "Abrir revisión de video de {creatorName}"
 
@@ -1165,7 +1165,6 @@ msgid "AI"
 msgstr "AI"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:30
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:22
 #: src/features/identity/onboarding/brand/verticalLabels.ts:41
 msgid "AI / tech"
 msgstr "AI / tech"
@@ -1398,7 +1397,6 @@ msgid "Apps"
 msgstr "Apps"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:28
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:20
 #: src/features/identity/onboarding/brand/verticalLabels.ts:37
 msgid "apps móviles"
 msgstr "apps móviles"
@@ -1470,8 +1468,8 @@ msgstr "Archivo adjunto"
 #~ msgstr "Argentina"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:46
-msgid "Armá tu primera campaña y brief"
-msgstr "Armá tu primera campaña y brief"
+#~ msgid "Armá tu primera campaña y brief"
+#~ msgstr "Armá tu primera campaña y brief"
 
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:121
 msgid "Armando tu shortlist…"
@@ -1542,7 +1540,6 @@ msgstr "Awaiting response"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:9
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:31
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:27
 msgid "awareness"
 msgstr "awareness"
 
@@ -1604,7 +1601,6 @@ msgstr "Bebidas"
 #~ msgstr "Behind the scenes"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:24
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:16
 #: src/features/identity/onboarding/brand/verticalLabels.ts:29
 msgid "belleza"
 msgstr "belleza"
@@ -2337,7 +2333,6 @@ msgid "Comercial"
 msgstr "Comercial"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:20
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:12
 #: src/features/identity/onboarding/brand/verticalLabels.ts:21
 msgid "comida"
 msgstr "comida"
@@ -2373,6 +2368,10 @@ msgstr "Completá la información principal que verán los creadores antes de ap
 msgid "Completá los datos requeridos antes de crear la campaña."
 msgstr "Completá los datos requeridos antes de crear la campaña."
 
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:15
+msgid "Completá tu perfil de marca"
+msgstr "Completá tu perfil de marca"
+
 #: src/features/campaigns/components/CampaignMiniCard.tsx:35
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:30
 #: src/routes/_brand/campaigns.index.tsx:194
@@ -2398,7 +2397,6 @@ msgstr "Comprometido"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:12
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:34
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:30
 msgid "comunidad"
 msgstr "comunidad"
 
@@ -2655,6 +2653,10 @@ msgstr "CPM (por 1000 vistas)"
 #~ msgid "CPM: {cpmRange}"
 #~ msgstr "CPM: {cpmRange}"
 
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:19
+msgid "Creá tu primera campaña"
+msgstr "Creá tu primera campaña"
+
 #: src/routes/_brand/campaigns.index.tsx:266
 msgid "Creá tu primera campaña para empezar a conectar con creadores y lanzar tu estrategia de influencer marketing."
 msgstr "Creá tu primera campaña para empezar a conectar con creadores y lanzar tu estrategia de influencer marketing."
@@ -2810,7 +2812,6 @@ msgid "Cruzamos con tu budget de {budgetLabel}"
 msgstr "Cruzamos con tu budget de {budgetLabel}"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:29
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:21
 #: src/features/identity/onboarding/brand/verticalLabels.ts:39
 msgid "crypto"
 msgstr "crypto"
@@ -2997,6 +2998,10 @@ msgstr "DeFi"
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:201
 msgid "Define si los videos quedan reutilizables por defecto."
 msgstr "Define si los videos quedan reutilizables por defecto."
+
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:20
+msgid "Definí brief, presupuesto y objetivo"
+msgstr "Definí brief, presupuesto y objetivo"
 
 #: src/features/campaigns/configuration/CampaignConfigurationWizard.tsx:37
 #~ msgid "Definí cómo creators van a entregar el contenido para tu marca."
@@ -3316,7 +3321,6 @@ msgid "Drop zone"
 msgstr "Zona para soltar"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:18
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:10
 #: src/features/identity/onboarding/brand/verticalLabels.ts:17
 msgid "e-commerce"
 msgstr "e-commerce"
@@ -3415,7 +3419,6 @@ msgid "Editar mi perfil"
 msgstr "Editar mi perfil"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:19
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:11
 #: src/features/identity/onboarding/brand/verticalLabels.ts:19
 msgid "educación"
 msgstr "educación"
@@ -3658,6 +3661,10 @@ msgstr "Elegí los filtros para encontrar creadores compatibles."
 #~ msgid "Elegí los filtros para encontrar creators compatibles."
 #~ msgstr "Elegí los filtros para encontrar creators compatibles."
 
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:24
+msgid "Elegí perfiles y mandales tu propuesta"
+msgstr "Elegí perfiles y mandales tu propuesta"
+
 #: src/features/identity/onboarding/brand/screens/B13PaywallScreen.tsx:79
 msgid "Elegí tu plan, {firstName}."
 msgstr "Elegí tu plan, {firstName}."
@@ -3883,7 +3890,6 @@ msgid "Entregables por plataforma"
 msgstr "Entregables por plataforma"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:23
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:15
 #: src/features/identity/onboarding/brand/verticalLabels.ts:27
 msgid "entretenimiento"
 msgstr "entretenimiento"
@@ -3901,8 +3907,8 @@ msgstr "Entretenimiento"
 #~ msgstr "Entrevistas"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:54
-msgid "Enviá tus primeros invites (100 este mes)"
-msgstr "Enviá tus primeros invites (100 este mes)"
+#~ msgid "Enviá tus primeros invites (100 este mes)"
+#~ msgstr "Enviá tus primeros invites (100 este mes)"
 
 #: src/features/offers/components/CurrentOfferBlock.tsx:41
 #: src/features/offers/components/OfferArchiveItem.tsx:225
@@ -4464,8 +4470,8 @@ msgstr "El archivo es demasiado grande (máx. 2 GB)."
 #~ msgstr "Filtrados por {0} LatAm + {1}"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:51
-msgid "Filtrados por {verticalLabel} LatAm + {objectiveLabel}"
-msgstr "Filtrados por {verticalLabel} LatAm + {objectiveLabel}"
+#~ msgid "Filtrados por {verticalLabel} LatAm + {objectiveLabel}"
+#~ msgstr "Filtrados por {verticalLabel} LatAm + {objectiveLabel}"
 
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:56
 #~ msgid "Filtramos por vertical {0}"
@@ -4536,7 +4542,6 @@ msgstr "Finanzas"
 #~ msgstr "Find creators"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:16
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:8
 #: src/features/identity/onboarding/brand/verticalLabels.ts:13
 msgid "fintech"
 msgstr "fintech"
@@ -4554,7 +4559,6 @@ msgstr "Fintech"
 #~ msgstr "Fintech, SaaS, gaming, lifestyle, beauty — categorías activas."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:21
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:13
 #: src/features/identity/onboarding/brand/verticalLabels.ts:23
 msgid "fitness"
 msgstr "fitness"
@@ -4639,7 +4643,6 @@ msgid "Funds are on the way."
 msgstr "El dinero está en camino."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:25
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:17
 #: src/features/identity/onboarding/brand/verticalLabels.ts:31
 msgid "gaming"
 msgstr "gaming"
@@ -5248,6 +5251,10 @@ msgstr "Invitá a un creador que todavía no está en Marz. Le enviaremos un ema
 #~ msgid "Invitá a un creator que todavía no está en Marz. Le enviaremos un email con el link de registro."
 #~ msgstr "Invitá a un creator que todavía no está en Marz. Le enviaremos un email con el link de registro."
 
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:23
+msgid "Invitá creadores a conectar"
+msgstr "Invitá creadores a conectar"
+
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:132
 msgid "Invitá creadores para empezar a recibir entregables en esta campaña."
 msgstr "Invitá creadores para empezar a recibir entregables en esta campaña."
@@ -5400,7 +5407,7 @@ msgstr "Ir a mi dashboard"
 msgid "Ir al chat"
 msgstr "Ir al chat"
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:119
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:88
 msgid "Ir al dashboard"
 msgstr "Ir al dashboard"
 
@@ -5554,7 +5561,6 @@ msgstr "La tarjeta con la que se cobra tu plan."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:11
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:33
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:29
 msgid "lanzamiento"
 msgstr "lanzamiento"
 
@@ -5718,11 +5724,11 @@ msgstr "LinkedIn"
 msgid "Listo"
 msgstr "Listo"
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:78
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:47
 msgid "Listo, {firstName}."
 msgstr "Listo, {firstName}."
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:78
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:47
 msgid "Listo."
 msgstr "Listo."
 
@@ -5783,7 +5789,7 @@ msgstr "Lo usaremos solo para soporte, nada de spam."
 msgid "Loading earnings KPIs"
 msgstr "Cargando KPIs de ganancias"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:360
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:361
 msgid "Loading videos"
 msgstr "Cargando videos"
 
@@ -5853,8 +5859,8 @@ msgstr "Los números son referencias históricas en {verticalLabel} LatAm."
 #~ msgstr "Los pesos deben sumar 100 (actual: {currentSum})."
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:55
-msgid "Los que no responden en 72h vuelven a tu cuota"
-msgstr "Los que no responden en 72h vuelven a tu cuota"
+#~ msgid "Los que no responden en 72h vuelven a tu cuota"
+#~ msgstr "Los que no responden en 72h vuelven a tu cuota"
 
 #: src/features/identity/onboarding/brand/screens/B5ExperienceScreen.tsx:30
 msgid "Los traigo yo"
@@ -6297,7 +6303,6 @@ msgid "Mobile games"
 msgstr "Mobile games"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:27
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:19
 #: src/features/identity/onboarding/brand/verticalLabels.ts:35
 msgid "moda"
 msgstr "moda"
@@ -6553,7 +6558,7 @@ msgstr "No encontramos los creadores"
 #~ msgid "No encontramos los creators"
 #~ msgstr "No encontramos los creators"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:343
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:344
 msgid "No encontramos los videos"
 msgstr "No encontramos los videos"
 
@@ -6663,7 +6668,7 @@ msgstr "No pudimos cargar el overview"
 msgid "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 msgstr "No pudimos cargar el uso de tu plan. Recargá la página o probá más tarde."
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:119
+#: src/features/deliverables/components/DraftReviewDialog.tsx:129
 msgid "No pudimos cargar el video borrador. Probá refrescar."
 msgstr "No pudimos cargar el video borrador. Probá refrescar."
 
@@ -6707,7 +6712,7 @@ msgstr "No pudimos cargar los creadores"
 msgid "No pudimos cargar los planes. Intentá de nuevo."
 msgstr "No pudimos cargar los planes. Intentá de nuevo."
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:344
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:345
 msgid "No pudimos cargar los videos"
 msgstr "No pudimos cargar los videos"
 
@@ -7692,7 +7697,6 @@ msgstr "Perfil"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:10
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:32
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:28
 msgid "performance"
 msgstr "performance"
 
@@ -8142,7 +8146,7 @@ msgid "Published URL"
 msgstr "URL publicada"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:408
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:348
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:349
 #: src/features/campaigns/detail/OverviewTab.tsx:100
 msgid "Puede que la campaña no exista o que no pertenezca a este espacio de trabajo."
 msgstr "Puede que la campaña no exista o que no pertenezca a este espacio de trabajo."
@@ -8183,7 +8187,7 @@ msgstr "Qué datos puede cargar"
 msgid "Qué hacer / Qué evitar"
 msgstr "Qué hacer / Qué evitar"
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:87
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:56
 msgid "Qué sigue ahora"
 msgstr "Qué sigue ahora"
 
@@ -8375,7 +8379,7 @@ msgstr "Reinicio de ciclo"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:409
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:115
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:349
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:350
 #: src/features/campaigns/detail/OverviewTab.tsx:101
 msgid "Reintentá en unos minutos."
 msgstr "Reintentá en unos minutos."
@@ -8546,8 +8550,8 @@ msgid "Revisá tu email"
 msgstr "Revisá tu email"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:50
-msgid "Revisá tus matchs de creadores"
-msgstr "Revisá tus matchs de creadores"
+#~ msgid "Revisá tus matchs de creadores"
+#~ msgstr "Revisá tus matchs de creadores"
 
 #: src/features/campaigns/configuration/CampaignConfigurationWizard.tsx:60
 #~ msgid "Revisá y activá la campaña"
@@ -8563,7 +8567,7 @@ msgstr "Revisar borrador"
 #~ msgid "Revisar draft"
 #~ msgstr "Revisar draft"
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:108
+#: src/features/deliverables/components/DraftReviewDialog.tsx:117
 #: src/features/inbox/InboxDraftReviewPopover.tsx:43
 #: src/features/inbox/InboxDraftReviewPopover.tsx:51
 msgid "Revisar video borrador"
@@ -8610,7 +8614,6 @@ msgid "Salir"
 msgstr "Salir"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:22
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:14
 #: src/features/identity/onboarding/brand/verticalLabels.ts:25
 msgid "salud"
 msgstr "salud"
@@ -9227,7 +9230,7 @@ msgstr "Skincare"
 #~ msgid "SLA custom"
 #~ msgstr "SLA custom"
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:138
+#: src/features/deliverables/components/DraftReviewDialog.tsx:149
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:244
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:256
 #: src/features/deliverables/components/DraftSubmittedCard.tsx:276
@@ -9240,8 +9243,8 @@ msgstr "Solicitar cambios"
 #~ msgid "Solicitar cambios al draft"
 #~ msgstr "Solicitar cambios al draft"
 
-#: src/features/deliverables/components/DraftReviewDialog.tsx:109
-#: src/features/deliverables/components/DraftReviewDialog.tsx:152
+#: src/features/deliverables/components/DraftReviewDialog.tsx:119
+#: src/features/deliverables/components/DraftReviewDialog.tsx:164
 msgid "Solicitar cambios al video borrador"
 msgstr "Solicitar cambios al video borrador"
 
@@ -9558,6 +9561,10 @@ msgstr "Suma de vistas acumuladas de todos los videos al fin del período."
 #~ msgid "Sumá incentivos por velocidad o performance si aplican."
 #~ msgstr "Sumá incentivos por velocidad o performance si aplican."
 
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:16
+msgid "Sumá tu logo y datos para generar confianza"
+msgstr "Sumá tu logo y datos para generar confianza"
+
 #: src/features/billing/components/PaymentMethodsCard.tsx:159
 #: src/features/identity/settings/SettingsLayout.tsx:25
 msgid "Suscripción"
@@ -9621,15 +9628,14 @@ msgstr "Tarifas"
 #~ msgstr "Te ayudamos con un template base para {0}"
 
 #: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:47
-msgid "Te ayudamos con un template base para {verticalLabel}"
-msgstr "Te ayudamos con un template base para {verticalLabel}"
+#~ msgid "Te ayudamos con un template base para {verticalLabel}"
+#~ msgstr "Te ayudamos con un template base para {verticalLabel}"
 
 #: src/features/identity/auth/components/MagicSentScreen.tsx:110
 msgid "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 msgstr "Te mandamos un link a <0>{email}</0>. Clické el link para entrar a Marz."
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:17
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:9
 #: src/features/identity/onboarding/brand/verticalLabels.ts:15
 msgid "tech"
 msgstr "tech"
@@ -10109,7 +10115,7 @@ msgstr "Tu experiencia con creadores"
 msgid "TU EXPERIENCIA CON CREADORES"
 msgstr "TU EXPERIENCIA CON CREADORES"
 
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:38
+#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:11
 msgid "Tu marca"
 msgstr "Tu marca"
 
@@ -10212,7 +10218,6 @@ msgstr "Tu último cobro falló"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:31
 #: src/features/identity/onboarding/brand/screens/B12LoadingScreen.tsx:27
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:23
 msgid "tu vertical"
 msgstr "tu vertical"
 
@@ -10569,6 +10574,10 @@ msgstr "Ver postulaciones"
 msgid "Ver todo el board"
 msgstr "Ver todo el board"
 
+#: src/features/deliverables/components/DraftReviewDialog.tsx:118
+msgid "Ver video borrador"
+msgstr "Ver video borrador"
+
 #: src/features/identity/onboarding/creator/screens/C19PrimingSocialProof.tsx:39
 msgid "Verificado"
 msgstr "Verificado"
@@ -10610,7 +10619,6 @@ msgid "Versiones enviadas ({draftsCount})"
 msgstr "Versiones enviadas ({draftsCount})"
 
 #: src/features/identity/onboarding/brand/screens/B10PrimingProjection.tsx:26
-#: src/features/identity/onboarding/brand/screens/B14ConfirmationScreen.tsx:18
 #: src/features/identity/onboarding/brand/verticalLabels.ts:33
 msgid "viajes"
 msgstr "viajes"
@@ -10734,7 +10742,7 @@ msgstr "Vistas promedio"
 #~ msgstr "Volvé al paso anterior para completar la información."
 
 #: src/features/chat/components/mobile/MobileChat.tsx:85
-#: src/features/deliverables/components/DraftReviewDialog.tsx:101
+#: src/features/deliverables/components/DraftReviewDialog.tsx:109
 #: src/features/offers/components/CancelOfferDialog.tsx:133
 msgid "Volver"
 msgstr "Volver"
