@@ -84,12 +84,6 @@ export class CreatorOnboardingWizard {
     await expect(header).toHaveAttribute('aria-expanded', 'true')
   }
 
-  async addRateCardAndPickFirstOption(): Promise<void> {
-    await this.page.getByText('Agregar tarifa...').first().click()
-    await this.page.keyboard.press('ArrowDown')
-    await this.page.getByRole('option').first().click()
-  }
-
   firstHandleInput(): Locator {
     return this.page.getByPlaceholder('tu_handle')
   }
