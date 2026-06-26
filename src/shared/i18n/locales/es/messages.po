@@ -17,7 +17,7 @@ msgstr ""
 #~ msgid "-20%"
 #~ msgstr "-20%"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:175
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:177
 msgid "— poné tu precio en dólares (USD)"
 msgstr "— poné tu precio en dólares (USD)"
 
@@ -93,7 +93,7 @@ msgstr "¿En qué nichos te especializás?"
 msgid "¿En qué vertical opera tu marca?"
 msgstr "¿En qué vertical opera tu marca?"
 
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:21
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:23
 msgid "¿Hacés contenido UGC?"
 msgstr "¿Hacés contenido UGC?"
 
@@ -249,7 +249,7 @@ msgstr "{brandName} te invitó a Marz"
 msgid "{bytes} B"
 msgstr "{bytes} B"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:93
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:101
 msgid "{cardCount} tarifas"
 msgstr "{cardCount} tarifas"
 
@@ -435,7 +435,7 @@ msgstr "{minutes}m {secondsLabel}s"
 #~ msgid "{minutes}m left"
 #~ msgstr "{minutes}m left"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:85
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:93
 msgid "{missingCount, plural, one {A una tarifa le falta monto} other {A # tarifas les falta monto}}"
 msgstr "{missingCount, plural, one {A una tarifa le falta monto} other {A # tarifas les falta monto}}"
 
@@ -787,7 +787,7 @@ msgstr "90d"
 #~ msgid "A la tarifa {0} le falta monto"
 #~ msgstr "A la tarifa {0} le falta monto"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:70
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:78
 msgid "A la tarifa {formatLabel} le falta monto"
 msgstr "A la tarifa {formatLabel} le falta monto"
 
@@ -1027,7 +1027,7 @@ msgstr "Actualizada"
 
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:20
 #: src/features/discovery/campaign-board/CampaignBoardHeader.tsx:39
-#: src/features/payments/components/BrandPaymentsPage.tsx:198
+#: src/features/payments/components/BrandPaymentsPage.tsx:199
 msgid "Actualizar"
 msgstr "Actualizar"
 
@@ -1098,7 +1098,7 @@ msgstr "Agregá detalles opcionales sobre pagos, condiciones o aclaraciones."
 msgid "Agregar bono"
 msgstr "Agregar bono"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:508
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:448
 msgid "Agregar canal"
 msgstr "Agregar canal"
 
@@ -1144,8 +1144,8 @@ msgstr "Agregar otra tarjeta"
 #~ msgstr "Agregar señal…"
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:312
-msgid "Agregar tarifa..."
-msgstr "Agregar tarifa..."
+#~ msgid "Agregar tarifa..."
+#~ msgstr "Agregar tarifa..."
 
 #: src/features/campaigns/configuration/BonusStep.tsx:340
 #~ msgid "Agregar ventana"
@@ -1498,7 +1498,7 @@ msgstr "Atrás"
 #~ msgid "Audience"
 #~ msgstr "Audience"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:241
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:227
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:178
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:193
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:204
@@ -1959,7 +1959,7 @@ msgstr "Cancelada tras aceptación"
 msgid "Cancelando…"
 msgstr "Cancelando…"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:264
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:250
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:857
 #: src/features/campaigns/wizard/WizardLayout.tsx:63
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:187
@@ -2106,7 +2106,7 @@ msgstr "Cargando link actual"
 msgid "Cargando overview"
 msgstr "Cargando overview"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:349
+#: src/features/payments/components/BrandPaymentsPage.tsx:351
 msgid "Cargando pagos"
 msgstr "Cargando pagos"
 
@@ -2186,7 +2186,7 @@ msgid "Cerrar ofertas"
 msgstr "Cerrar ofertas"
 
 #: src/features/identity/app-shell/MissingWorkspaceFallback.tsx:53
-#: src/features/identity/settings/BrandGeneralSection.tsx:146
+#: src/features/identity/settings/BrandGeneralSection.tsx:149
 #: src/features/identity/settings/GeneralSection.tsx:296
 msgid "Cerrar sesión"
 msgstr "Cerrar sesión"
@@ -2451,7 +2451,7 @@ msgstr "Configurá cómo se compensará a los creadores de esta campaña."
 #~ msgid "Configurá los bonos"
 #~ msgstr "Configurá los bonos"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:117
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:103
 msgid "Configuración de campaña"
 msgstr "Configuración de campaña"
 
@@ -2537,7 +2537,7 @@ msgstr "Contale por qué querés trabajar con estos creadores..."
 msgid "Contanos cómo venís con creadores"
 msgstr "Contanos cómo venís con creadores"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:247
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:233
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:272
 msgid "Contenido"
 msgstr "Contenido"
@@ -2546,7 +2546,7 @@ msgstr "Contenido"
 msgid "Contenido para uso de marca, sin publicación en tu feed."
 msgstr "Contenido para uso de marca, sin publicación en tu feed."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:180
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:166
 msgid "Contenido y compensación"
 msgstr "Contenido y compensación"
 
@@ -2637,7 +2637,7 @@ msgid "CPC estimado"
 msgstr "CPC estimado"
 
 #: src/features/analytics/dashboard/MetricCard.tsx:132
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:369
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:354
 #: src/features/discovery/network/components/CreatorCard.tsx:282
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:92
 msgid "CPM"
@@ -2994,7 +2994,7 @@ msgstr "Debe seleccionar al menos uno"
 msgid "DeFi"
 msgstr "DeFi"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:215
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:201
 msgid "Define si los videos quedan reutilizables por defecto."
 msgstr "Define si los videos quedan reutilizables por defecto."
 
@@ -3066,7 +3066,7 @@ msgstr "Descartar"
 #~ msgid "Describí tu campaña, público objetivo, objetivos…"
 #~ msgstr "Describí tu campaña, público objetivo, objetivos…"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:150
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:136
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:178
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:109
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:202
@@ -3389,7 +3389,7 @@ msgstr "Edad"
 msgid "Edición de campaña"
 msgstr "Edición de campaña"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:119
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:105
 msgid "Editá la información principal y los lineamientos que usan los creadores."
 msgstr "Editá la información principal y los lineamientos que usan los creadores."
 
@@ -3602,7 +3602,7 @@ msgstr "El porcentaje tiene que ser un número entero"
 #~ msgid "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 #~ msgstr "El UGC es contenido que creás para que la marca lo publique en sus propios canales. No se sube a tus redes. Si lo ofrecés, podés cobrar una tarifa aparte de tus redes."
 
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:24
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:26
 msgid "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 msgstr "El UGC es contenido que creás para que la marca lo use en sus propias redes. No se sube a tus redes, es requisito crear buenos videos."
 
@@ -3701,7 +3701,7 @@ msgstr "Eliminar"
 msgid "Eliminar bono"
 msgstr "Eliminar bono"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:149
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:157
 msgid "Eliminar canal"
 msgstr "Eliminar canal"
 
@@ -3734,8 +3734,8 @@ msgstr "Eliminar foto"
 #~ msgstr "Eliminar señal {signal}"
 
 #: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:207
-msgid "Eliminar tarifa"
-msgstr "Eliminar tarifa"
+#~ msgid "Eliminar tarifa"
+#~ msgstr "Eliminar tarifa"
 
 #: src/features/campaigns/configuration/components/SpeedBonusRow.tsx:102
 #~ msgid "Eliminar ventana {itemNumber}"
@@ -4032,7 +4032,7 @@ msgstr "Error inesperado. Intentá de nuevo."
 msgid "Es la dirección del banco, no la tuya. Se suelen confundir."
 msgstr "Es la dirección del banco, no la tuya. Se suelen confundir."
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:178
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:180
 msgid "Es tu precio base de referencia para mostrarle a las marcas, no el precio por el que tenés que cerrar todas tus ofertas. El precio final de cada colaboración lo definís vos con la marca."
 msgstr "Es tu precio base de referencia para mostrarle a las marcas, no el precio por el que tenés que cerrar todas tus ofertas. El precio final de cada colaboración lo definís vos con la marca."
 
@@ -4279,7 +4279,7 @@ msgstr "Esto nos ayuda a matchearte con marcas del nivel correcto."
 #~ msgid "Esto puede tardar unos segundos."
 #~ msgstr "Esto puede tardar unos segundos."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:233
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:219
 msgid "Estos datos salen de la definición comercial de la campaña."
 msgstr "Estos datos salen de la definición comercial de la campaña."
 
@@ -4356,7 +4356,7 @@ msgid "Exportando..."
 msgstr "Exportando..."
 
 #: src/features/earnings/components/EarningsSearchExportBar.tsx:150
-#: src/features/payments/components/BrandPaymentsPage.tsx:187
+#: src/features/payments/components/BrandPaymentsPage.tsx:188
 msgid "Exportar CSV"
 msgstr "Exportar CSV"
 
@@ -4778,22 +4778,22 @@ msgstr "Guardá los datos donde querés recibir tus transferencias ACH."
 #~ msgid "Guardá los datos donde querés recibir tus transferencias."
 #~ msgstr "Guardá los datos donde querés recibir tus transferencias."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:272
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:258
 msgid "Guardando"
 msgstr "Guardando"
 
-#: src/features/identity/settings/BrandGeneralSection.tsx:157
+#: src/features/identity/settings/BrandGeneralSection.tsx:160
 #: src/features/identity/settings/SectionSaveBar.tsx:47
 #: src/features/payments/settings/PayoutAccountModal.tsx:218
 msgid "Guardando..."
 msgstr "Guardando..."
 
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:836
-#: src/features/identity/settings/BrandGeneralSection.tsx:157
+#: src/features/identity/settings/BrandGeneralSection.tsx:160
 msgid "Guardar"
 msgstr "Guardar"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:272
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:258
 #: src/features/identity/settings/SectionSaveBar.tsx:47
 msgid "Guardar cambios"
 msgstr "Guardar cambios"
@@ -4802,7 +4802,7 @@ msgstr "Guardar cambios"
 msgid "Guardar cuenta"
 msgstr "Guardar cuenta"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:196
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:182
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:223
 msgid "Guías de contenido"
 msgstr "Guías de contenido"
@@ -5098,7 +5098,7 @@ msgstr "Información de conversación"
 #~ msgid "Información insuficiente para este campo"
 #~ msgstr "Información insuficiente para este campo"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:135
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:121
 msgid "Información principal"
 msgstr "Información principal"
 
@@ -5118,6 +5118,10 @@ msgstr "Ingresá montos con hasta dos decimales."
 #: src/features/identity/settings/GeneralSection.tsx:40
 msgid "Ingresá tu nombre completo"
 msgstr "Ingresá tu nombre completo"
+
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:73
+msgid "Ingresá tu tarifa por video UGC para continuar."
+msgstr "Ingresá tu tarifa por video UGC para continuar."
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:33
 #~ msgid "Ingresá un correo válido"
@@ -5194,7 +5198,7 @@ msgstr "Inicio de la conversación"
 msgid "Instagram"
 msgstr "Instagram"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:181
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:167
 msgid "Instrucciones operativas para propuestas y entregables."
 msgstr "Instrucciones operativas para propuestas y entregables."
 
@@ -5437,7 +5441,7 @@ msgstr "jun"
 msgid "Junio"
 msgstr "Junio"
 
-#: src/features/payments/components/PaymentKpiGrid.tsx:53
+#: src/features/payments/components/PaymentKpiGrid.tsx:54
 msgid "KPIs de pagos"
 msgstr "KPIs de pagos"
 
@@ -5742,7 +5746,7 @@ msgstr "Lo que cambia al entrar a Marz"
 msgid "Lo que ganan creadores activos con un perfil como el tuyo."
 msgstr "Lo que ganan creadores activos con un perfil como el tuyo."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:136
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:122
 msgid "Lo que identifica la campaña dentro del equipo."
 msgstr "Lo que identifica la campaña dentro del equipo."
 
@@ -5820,7 +5824,7 @@ msgstr "Los bonos sólo están disponibles para un contenido único"
 #~ msgid "Los bonos sólo están disponibles para un contenido único."
 #~ msgstr "Los bonos sólo están disponibles para un contenido único."
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:512
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:452
 msgid "Los creadores con tarifas reciben más ofertas de las marcas."
 msgstr "Los creadores con tarifas reciben más ofertas de las marcas."
 
@@ -6626,7 +6630,7 @@ msgstr "No permitido por defecto"
 msgid "No podés cargar más de 3 videos."
 msgstr "No podés cargar más de 3 videos."
 
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:39
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:41
 msgid "No por ahora"
 msgstr "No por ahora"
 
@@ -6639,7 +6643,7 @@ msgstr "No pudimos cambiar el método de pago, intentá de nuevo"
 msgid "No pudimos cargar el brief"
 msgstr "No pudimos cargar el brief"
 
-#: src/features/payments/components/BrandPaymentsPage.tsx:248
+#: src/features/payments/components/BrandPaymentsPage.tsx:250
 msgid "No pudimos cargar el dashboard de pagos."
 msgstr "No pudimos cargar el dashboard de pagos."
 
@@ -6755,7 +6759,7 @@ msgstr "No pudimos exportar el CSV. Intentá de nuevo."
 msgid "No pudimos exportar los pagos. Intentá de nuevo."
 msgstr "No pudimos exportar los pagos. Intentá de nuevo."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:109
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:95
 msgid "No pudimos guardar la configuración. Intentá de nuevo."
 msgstr "No pudimos guardar la configuración. Intentá de nuevo."
 
@@ -6911,7 +6915,7 @@ msgstr "No tenés permisos para editar esta campaña"
 msgid "No tenés un workspace asociado."
 msgstr "No tenés un workspace asociado."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:138
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:124
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:171
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:94
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:200
@@ -6982,7 +6986,7 @@ msgstr "Notas"
 msgid "Notas adicionales"
 msgstr "Notas adicionales"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:183
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:169
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:208
 #: src/features/campaigns/wizard/WizardStep5Compensation.tsx:127
 msgid "Notas de compensación"
@@ -7330,7 +7334,7 @@ msgstr "Pagás según el volumen de vistas alcanzado."
 msgid "Pagás un monto fijo por cada publicación aprobada."
 msgstr "Pagás un monto fijo por cada publicación aprobada."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:251
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:237
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:220
 msgid "Pago"
 msgstr "Pago"
@@ -7371,7 +7375,7 @@ msgstr "Pago parcial ({paidCount}/{total})"
 msgid "Pago pendiente"
 msgstr "Pago pendiente"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:368
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:353
 msgid "Pago por publicación"
 msgstr "Pago por publicación"
 
@@ -7726,7 +7730,7 @@ msgstr "Permiso de reutilización"
 msgid "Permitido por defecto"
 msgstr "Permitido por defecto"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:212
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:198
 msgid "Permitir reutilización de videos"
 msgstr "Permitir reutilización de videos"
 
@@ -7773,7 +7777,7 @@ msgstr "Planes"
 msgid "Plataforma"
 msgstr "Plataforma"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:237
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:223
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:246
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:86
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:90
@@ -8014,8 +8018,8 @@ msgstr "Previsualizar video borrador v{previewVersion}"
 #~ msgid "Pricing model"
 #~ msgstr "Pricing model"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:131
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:271
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:139
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:259
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:241
 #: src/features/identity/settings/RatesSection.tsx:204
 msgid "Principal"
@@ -8118,7 +8122,7 @@ msgstr "Publicación tentativa"
 msgid "Publicaciones creadas por influencers en sus canales."
 msgstr "Publicaciones creadas por influencers en sus canales."
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:363
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:348
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:170
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:55
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:294
@@ -8476,7 +8480,7 @@ msgstr "Resumen de la oferta"
 #~ msgid "Resumen del brief"
 #~ msgstr "Resumen del brief"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:232
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:218
 msgid "Resumen no editable"
 msgstr "Resumen no editable"
 
@@ -8989,7 +8993,7 @@ msgstr "Si salís ahora, se perderán los datos ingresados."
 msgid "Si tenés más de una cuenta por red social, creá una cuenta de creador secundaria en Marz con un mail distinto al que usaste acá."
 msgstr "Si tenés más de una cuenta por red social, creá una cuenta de creador secundaria en Marz con un mail distinto al que usaste acá."
 
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:32
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:34
 msgid "Sí, hago UGC"
 msgstr "Sí, hago UGC"
 
@@ -9002,7 +9006,7 @@ msgstr "Sign out"
 msgid "Siguiente página"
 msgstr "Siguiente página"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:243
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:229
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:178
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:188
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:200
@@ -9115,11 +9119,11 @@ msgstr "Sin managers, ni agencias, o intermediarios."
 #~ msgid "Sin método de pago"
 #~ msgstr "Sin método de pago"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:370
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:355
 msgid "Sin modelo de pago definido"
 msgstr "Sin modelo de pago definido"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:364
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:349
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:171
 msgid "Sin modelo definido"
 msgstr "Sin modelo definido"
@@ -9149,7 +9153,7 @@ msgstr "Sin PDF"
 msgid "Sin plataforma"
 msgstr "Sin plataforma"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:357
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:342
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:118
 msgid "Sin plataformas"
 msgstr "Sin plataformas"
@@ -9596,7 +9600,7 @@ msgstr "Tarifa UGC"
 msgid "Tarifa: {ugcRateText}"
 msgstr "Tarifa: {ugcRateText}"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:174
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:176
 msgid "Tarifas"
 msgstr "Tarifas"
 
@@ -10173,7 +10177,7 @@ msgstr "Tu suscripción está activa"
 msgid "Tu suscripción está cancelada. Mantenés acceso hasta el {formattedDate}."
 msgstr "Tu suscripción está cancelada. Mantenés acceso hasta el {formattedDate}."
 
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:48
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:50
 msgid "Tu tarifa por video UGC"
 msgstr "Tu tarifa por video UGC"
 
@@ -10224,7 +10228,7 @@ msgstr "Tu workspace está en el plan free: sin invitaciones, 1 campaña activa 
 msgid "Tu workspace ya tiene un plan activo"
 msgstr "Tu workspace ya tiene un plan activo"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:288
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:276
 msgid "tu_handle"
 msgstr "tu_handle"
 
@@ -10377,7 +10381,7 @@ msgstr "URL de IG / TikTok / YT"
 msgid "URL del video {videoNumber}"
 msgstr "URL del video {videoNumber}"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:163
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:149
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:185
 #: src/features/campaigns/wizard/WizardStep3Brief.tsx:125
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:206
@@ -10418,7 +10422,7 @@ msgid "Usar otro email"
 msgstr "Usar otro email"
 
 #: src/features/identity/onboarding/brand/screens/B6BudgetScreen.tsx:53
-#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:63
+#: src/features/identity/onboarding/creator/screens/C7bUgcScreen.tsx:65
 #: src/features/payments/settings/PayoutAccountCard.tsx:238
 msgid "USD"
 msgstr "USD"
@@ -10448,7 +10452,7 @@ msgstr "Use a YouTube Short, Instagram Reel or TikTok URL."
 msgid "Uso del plan"
 msgstr "Uso del plan"
 
-#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:275
+#: src/features/identity/onboarding/creator/components/ChannelEditor.tsx:263
 msgid "Usuario"
 msgstr "Usuario"
 
@@ -10683,7 +10687,7 @@ msgstr "Videos generados por creadores para reutilización de marca."
 msgid "Videos publicados"
 msgstr "Videos publicados"
 
-#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:362
+#: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:347
 #: src/features/campaigns/detail/CampaignDetailHeader.tsx:169
 msgid "Videos UGC"
 msgstr "Videos UGC"
