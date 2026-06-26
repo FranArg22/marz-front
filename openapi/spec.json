@@ -18017,7 +18017,12 @@
           "action_flags",
           "plan_capabilities",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "description",
+          "target_url",
+          "compensation_notes",
+          "content_guidelines",
+          "video_reuse_permission_default"
         ],
         "properties": {
           "campaign_id": {
@@ -18033,6 +18038,25 @@
           },
           "objective": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "target_url": {
+            "type": "string"
+          },
+          "compensation_notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "content_guidelines": {
+            "type": "string"
+          },
+          "video_reuse_permission_default": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
           },
           "status": {
             "type": "string"

@@ -33,16 +33,6 @@ interface CampaignConfigurationSheetProps {
   onOpenChange: (open: boolean) => void
 }
 
-type EditableCampaignDetail = CampaignDetailResponse &
-  Partial<{
-    description: string | null
-    target_url: string | null
-    compensation_notes: string | null
-    content_guidelines: string | null
-    video_reuse_permission_default: boolean | null
-    version: number
-  }>
-
 interface FormState {
   name: string
   description: string
@@ -57,13 +47,9 @@ export function CampaignConfigurationSheet({
   open,
   onOpenChange,
 }: CampaignConfigurationSheetProps) {
-  const editableCampaign = campaign as EditableCampaignDetail
   const queryClient = useQueryClient()
   const updateCampaign = useUpdateCampaignMutation()
-  const initialState = useMemo(
-    () => makeInitialState(editableCampaign),
-    [editableCampaign],
-  )
+  const initialState = useMemo(() => makeInitialState(campaign), [campaign])
   const [form, setForm] = useState<FormState>(initialState)
   const [error, setError] = useState<string | null>(null)
 
@@ -80,7 +66,7 @@ export function CampaignConfigurationSheet({
 
   const handleSave = async () => {
     setError(null)
-    const version = editableCampaign.version
+    const version = campaign.version
     const ifMatch = typeof version === 'number' ? String(version) : '*'
 
     try {
@@ -312,15 +298,14 @@ function ReadonlyItem({ label, value }: { label: string; value: string }) {
   )
 }
 
-function makeInitialState(campaign: EditableCampaignDetail): FormState {
+function makeInitialState(campaign: CampaignDetailResponse): FormState {
   return {
     name: campaign.name,
-    description: campaign.description ?? '',
-    targetUrl: campaign.target_url ?? '',
+    description: campaign.description,
+    targetUrl: campaign.target_url,
     compensationNotes: campaign.compensation_notes ?? '',
-    contentGuidelines: campaign.content_guidelines ?? '',
-    videoReusePermissionDefault:
-      campaign.video_reuse_permission_default ?? false,
+    contentGuidelines: campaign.content_guidelines,
+    videoReusePermissionDefault: campaign.video_reuse_permission_default,
   }
 }
 

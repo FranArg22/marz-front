@@ -19,6 +19,13 @@ export interface CampaignDetailResponse {
   brand_workspace_id: string;
   name: string;
   objective: string;
+  description: string;
+  target_url: string;
+  /** @nullable */
+  compensation_notes: string | null;
+  content_guidelines: string;
+  video_reuse_permission_default: boolean;
+  version?: number;
   status: string;
   budget: CampaignMoney;
   /** @nullable */

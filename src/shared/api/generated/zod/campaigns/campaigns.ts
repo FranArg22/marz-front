@@ -327,6 +327,12 @@ export const GetCampaignDetailResponse = zod.object({
   "brand_workspace_id": zod.uuid(),
   "name": zod.string(),
   "objective": zod.string(),
+  "description": zod.string(),
+  "target_url": zod.string(),
+  "compensation_notes": zod.string().nullable(),
+  "content_guidelines": zod.string(),
+  "video_reuse_permission_default": zod.boolean(),
+  "version": zod.number().optional(),
   "status": zod.string(),
   "budget": zod.object({
   "amount": zod.string(),
