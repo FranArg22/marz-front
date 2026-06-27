@@ -213,7 +213,7 @@ msgstr "“Toda la información estaba en la plataforma, podía ver el paso a pa
 msgid "{activeCount} filtros activos"
 msgstr "{activeCount} filtros activos"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:260
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:263
 msgid "{age} años"
 msgstr "{age} años"
 
@@ -257,7 +257,7 @@ msgstr "{cardCount} tarifas"
 #~ msgid "{collaborationsCount} creators are active"
 #~ msgstr "{collaborationsCount} creators are active"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:358
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:375
 msgid "{completed} de {expected} entregados"
 msgstr "{completed} de {expected} entregados"
 
@@ -495,7 +495,7 @@ msgstr "{selectedCount} de 5 seleccionados"
 msgid "{selectedCount} seleccionados"
 msgstr "{selectedCount} seleccionados"
 
-#: src/features/inbox/InboxCreatorBox.tsx:256
+#: src/features/inbox/InboxCreatorBox.tsx:291
 msgid "{softCount} mensajes sin leer"
 msgstr "{softCount} mensajes sin leer"
 
@@ -825,7 +825,7 @@ msgstr "Abril"
 msgid "Abrir"
 msgstr "Abrir"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:247
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:248
 msgid "Abrir conversación"
 msgstr "Abrir conversación"
 
@@ -833,7 +833,7 @@ msgstr "Abrir conversación"
 msgid "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 msgstr "Abrir conversación de {brand}, {campaign}, {deliverableLabel}"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:229
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:244
 msgid "Abrir revisión de video de {creatorName}"
 msgstr "Abrir revisión de video de {creatorName}"
 
@@ -849,7 +849,7 @@ msgstr "Acá no entrás solo."
 msgid "Accedé a la red de creadores y lanzá tu primera campaña."
 msgstr "Accedé a la red de creadores y lanzá tu primera campaña."
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:98
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:115
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -885,12 +885,12 @@ msgstr "Acceso a la red de creadores de Marz"
 msgid "Acción"
 msgstr "Acción"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:206
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:207
 #: src/features/inbox/InboxInlineActionPopover.tsx:662
 msgid "Acciones"
 msgstr "Acciones"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:271
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:272
 msgid "Acciones del creador"
 msgstr "Acciones del creador"
 
@@ -898,8 +898,8 @@ msgstr "Acciones del creador"
 #~ msgid "Account manager dedicado"
 #~ msgstr "Account manager dedicado"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:358
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:420
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:361
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:423
 msgid "Acepta colaboraciones"
 msgstr "Acepta colaboraciones"
 
@@ -917,7 +917,7 @@ msgid "Aceptación y cancelación"
 msgstr "Aceptación y cancelación"
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:136
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:108
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:125
 #: src/features/offers/components/CurrentOfferBlock.tsx:42
 #: src/features/offers/components/OfferArchiveItem.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:111
@@ -1015,7 +1015,7 @@ msgstr "Actividad reciente"
 #~ msgid "Activity"
 #~ msgstr "Activity"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:49
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:68
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:19
 msgid "Activo"
@@ -1224,7 +1224,7 @@ msgstr "Al continuar aceptás los Términos y la Política de privacidad."
 #~ msgstr "Alc"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:291
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:456
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:459
 msgid "Alcance"
 msgstr "Alcance"
 
@@ -1421,7 +1421,7 @@ msgstr "apps móviles"
 msgid "Apps móviles"
 msgstr "Apps móviles"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:70
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:20
 #: src/features/deliverables/components/DraftVersionList.tsx:40
@@ -1692,7 +1692,7 @@ msgstr "Bonus por rapidez"
 msgid "Borrador"
 msgstr "Borrador"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:74
 msgid "Borrador aprobado"
 msgstr "Borrador aprobado"
@@ -1788,7 +1788,7 @@ msgstr "Buscar creador"
 msgid "Buscar creador o campaña"
 msgstr "Buscar creador o campaña"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:142
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:143
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:189
 msgid "Buscar creadores"
 msgstr "Buscar creadores"
@@ -1851,7 +1851,7 @@ msgstr "Calculando tiempo restante..."
 msgid "Cambiar foto"
 msgstr "Cambiar foto"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:53
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:73
 #: src/features/chat/components/mobile/MobileSystemCards.tsx:281
 #: src/features/deliverables/components/DeliverableListItem.tsx:367
@@ -2087,7 +2087,7 @@ msgstr "Cargando campañas..."
 msgid "Cargando conversaciones"
 msgstr "Cargando conversaciones"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:418
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:435
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:176
 msgid "Cargando creadores"
 msgstr "Cargando creadores"
@@ -2149,8 +2149,8 @@ msgstr "Cargando..."
 msgid "Cargando…"
 msgstr "Cargando…"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:181
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:184
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:182
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:185
 #: src/features/discovery/campaign-detail/ApplicationsTab.tsx:85
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:161
 #: src/features/earnings/components/PendingBonusPanel.tsx:133
@@ -2182,8 +2182,8 @@ msgstr "Carrera"
 
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:84
 #: src/features/discovery/campaign-board/CampaignBriefSheet.tsx:104
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:176
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:194
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:179
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:197
 #: src/features/offers/components/SendOfferSidesheet.tsx:323
 #: src/features/offers/components/SendOfferSidesheet.tsx:349
 msgid "Cerrar"
@@ -2253,7 +2253,7 @@ msgstr "Cinco años potenciando marcas con creadores de contenido."
 msgid "Cine"
 msgstr "Cine"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:346
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:349
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:63
 #: src/features/identity/settings/GeneralSection.tsx:255
 #: src/features/identity/settings/GeneralSection.tsx:259
@@ -2395,7 +2395,7 @@ msgstr "Completá tu perfil de marca"
 msgid "Completada"
 msgstr "Completada"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:57
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:23
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:77
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:23
@@ -2654,7 +2654,7 @@ msgstr "CPC estimado"
 #: src/features/analytics/dashboard/MetricCard.tsx:132
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:354
 #: src/features/discovery/network/components/CreatorCard.tsx:293
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:462
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:465
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:92
 msgid "CPM"
 msgstr "CPM"
@@ -2688,7 +2688,7 @@ msgstr "Creá tu primera campaña para empezar a conectar con creadores y lanzar
 msgid "Creada"
 msgstr "Creada"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:201
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:202
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:206
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:265
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:145
@@ -2879,7 +2879,7 @@ msgstr "Cuando declares pagos a creadores, el historial y el análisis van a apa
 msgid "Cuando haya acciones de participantes, ofertas o entregables van a aparecer acá."
 msgstr "Cuando haya acciones de participantes, ofertas o entregables van a aparecer acá."
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:122
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:123
 msgid "Cuando invites creadores desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables."
 msgstr "Cuando invites creadores desde Discovery o agregues uno manualmente, aparecerán acá con su estado y entregables."
 
@@ -3823,8 +3823,8 @@ msgstr "En Marz las marcas buscan creadores de todos los nichos"
 #~ msgid "En plataforma"
 #~ msgstr "En plataforma"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:50
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:51
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:52
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:69
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:72
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:15
@@ -3846,7 +3846,7 @@ msgstr "Enero"
 
 #: src/features/analytics/dashboard/MetricCard.tsx:131
 #: src/features/discovery/network/components/CreatorCard.tsx:292
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:459
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:462
 msgid "Engagement"
 msgstr "Engagement"
 
@@ -3858,12 +3858,12 @@ msgstr "Engagement rate"
 #~ msgid "English"
 #~ msgstr "English"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:56
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:76
 msgid "Enlace aprobado"
 msgstr "Enlace aprobado"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:54
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:55
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:75
 msgid "Enlace enviado"
 msgstr "Enlace enviado"
@@ -3898,7 +3898,7 @@ msgstr "Entregable"
 msgid "Entregable completado"
 msgstr "Entregable completado"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:204
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:205
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:485
 #: src/features/offers/components/OfferDeliverablesList.tsx:36
 msgid "Entregables"
@@ -4211,7 +4211,7 @@ msgstr "Esta oferta todavía no está lista para marcar como pagada."
 msgid "Esta oferta ya fue marcada como pagada."
 msgstr "Esta oferta ya fue marcada como pagada."
 
-#: src/features/inbox/InboxCreatorBox.tsx:71
+#: src/features/inbox/InboxCreatorBox.tsx:78
 #: src/features/inbox/InboxEmptyState.tsx:89
 msgid "Esta sección todavía no está disponible."
 msgstr "Esta sección todavía no está disponible."
@@ -4220,7 +4220,7 @@ msgstr "Esta sección todavía no está disponible."
 msgid "Estadísticas de campaña"
 msgstr "Estadísticas de campaña"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:203
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:204
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:132
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:208
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:141
@@ -4276,7 +4276,7 @@ msgstr "Este creador rechazó una invitación anterior. Podés volver a intentar
 #~ msgid "Este handle ya está en uso"
 #~ msgstr "Este handle ya está en uso"
 
-#: src/features/inbox/InboxCreatorBox.tsx:121
+#: src/features/inbox/InboxCreatorBox.tsx:128
 msgid "Este item ya no requiere acción."
 msgstr "Este item ya no requiere acción."
 
@@ -4348,7 +4348,7 @@ msgstr "Expandir oferta"
 msgid "Expandir conversaciones"
 msgstr "Expandir conversaciones"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:355
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:358
 msgid "Experiencia en campañas"
 msgstr "Experiencia en campañas"
 
@@ -5049,7 +5049,7 @@ msgstr "Identidad pública de tu marca en Marz."
 #~ msgid "Idioma del contenido"
 #~ msgstr "Idioma del contenido"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:333
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:336
 #: src/features/identity/onboarding/brand/screens/B7PrimingMatchPreview.tsx:66
 #: src/features/identity/settings/CollaborationSection.tsx:249
 msgid "Idiomas"
@@ -5126,7 +5126,7 @@ msgstr "Influencer"
 msgid "Información de conversación"
 msgstr "Información de conversación"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:165
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:168
 msgid "Información del creador disponible en Marz."
 msgstr "Información del creador disponible en Marz."
 
@@ -5259,7 +5259,7 @@ msgstr "Interés"
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:110
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:214
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:454
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:327
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:330
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:202
 #: src/features/identity/settings/CollaborationSection.tsx:221
 msgid "Intereses"
@@ -5289,7 +5289,7 @@ msgstr "Invitá a un creador que todavía no está en Marz. Le enviaremos un ema
 msgid "Invitá creadores a conectar"
 msgstr "Invitá creadores a conectar"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:132
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:133
 msgid "Invitá creadores para empezar a recibir entregables en esta campaña."
 msgstr "Invitá creadores para empezar a recibir entregables en esta campaña."
 
@@ -5304,7 +5304,7 @@ msgstr "Invitá creadores para empezar a recibir entregables en esta campaña."
 
 #: src/features/discovery/network/components/CreatorCard.tsx:412
 #: src/features/discovery/network/components/CreatorCard.tsx:445
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:244
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:247
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:46
 msgid "Invitación enviada"
 msgstr "Invitación enviada"
@@ -5333,7 +5333,7 @@ msgstr "INVITACIONES DE CONEXIÓN"
 #~ msgid "Invitaciones por email"
 #~ msgstr "Invitaciones por email"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:48
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:49
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:67
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:20
 msgid "Invitado"
@@ -5344,7 +5344,7 @@ msgstr "Invitado"
 #~ msgstr "Invitados"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:443
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:252
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:255
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:103
 msgid "Invitar"
 msgstr "Invitar"
@@ -5372,7 +5372,7 @@ msgstr "Invitar a {name}"
 #~ msgid "Invitar creador"
 #~ msgstr "Invitar creador"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:154
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:155
 msgid "Invitar creadores"
 msgstr "Invitar creadores"
 
@@ -5438,9 +5438,9 @@ msgid "Ir a mi dashboard"
 msgstr "Ir a mi dashboard"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:187
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:236
-#: src/features/inbox/InboxCreatorBox.tsx:202
-#: src/features/inbox/InboxCreatorBox.tsx:208
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:239
+#: src/features/inbox/InboxCreatorBox.tsx:237
+#: src/features/inbox/InboxCreatorBox.tsx:243
 msgid "Ir al chat"
 msgstr "Ir al chat"
 
@@ -5707,8 +5707,8 @@ msgid "Limpiar búsqueda"
 msgstr "Limpiar búsqueda"
 
 #: src/features/analytics/dashboard/EmptyBlockState.tsx:26
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:132
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:142
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:133
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:143
 #: src/features/discovery/campaign-board/CampaignBoardEmptyState.tsx:30
 #: src/features/discovery/campaign-board/CampaignBoardFilters.tsx:231
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:400
@@ -5826,7 +5826,7 @@ msgstr "Lo usaremos solo para soporte, nada de spam."
 msgid "Loading earnings KPIs"
 msgstr "Cargando KPIs de ganancias"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:361
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:394
 msgid "Loading videos"
 msgstr "Cargando videos"
 
@@ -5903,7 +5903,7 @@ msgstr "Los números son referencias históricas en {verticalLabel} LatAm."
 msgid "Los traigo yo"
 msgstr "Los traigo yo"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:131
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:132
 msgid "Los videos van a aparecer acá cuando los creadores suban sus borradores y queden en revisión o aprobados."
 msgstr "Los videos van a aparecer acá cuando los creadores suban sus borradores y queden en revisión o aprobados."
 
@@ -5971,8 +5971,8 @@ msgstr "Marca sin nombre"
 msgid "Marca y campaña"
 msgstr "Marca y campaña"
 
-#: src/features/inbox/InboxCreatorBox.tsx:221
-#: src/features/inbox/InboxCreatorBox.tsx:231
+#: src/features/inbox/InboxCreatorBox.tsx:256
+#: src/features/inbox/InboxCreatorBox.tsx:266
 msgid "Marcar caja como leída"
 msgstr "Marcar caja como leída"
 
@@ -6261,7 +6261,7 @@ msgstr "Métricas de los últimos 90 días"
 msgid "Métricas ilimitadas"
 msgstr "Métricas ilimitadas"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:311
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:314
 msgid "Métricas y precios"
 msgstr "Métricas y precios"
 
@@ -6544,7 +6544,7 @@ msgstr "Nivel de experiencia"
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:267
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:250
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:363
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:366
 #: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:7
 msgid "No"
 msgstr "No"
@@ -6570,7 +6570,7 @@ msgstr "No additional notes"
 msgid "No binario"
 msgstr "No binario"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:420
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:423
 msgid "No colabora"
 msgstr "No colabora"
 
@@ -6587,7 +6587,7 @@ msgstr "No disponible en este momento"
 #~ msgid "No earnings yet for this period. When payments are marked as paid, they will appear here."
 #~ msgstr "No earnings yet for this period. When payments are marked as paid, they will appear here."
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:116
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:117
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:74
 msgid "No encontramos creadores con esos filtros"
 msgstr "No encontramos creadores con esos filtros"
@@ -6605,7 +6605,7 @@ msgstr "No encontramos el overview"
 msgid "No encontramos esta campaña"
 msgstr "No encontramos esta campaña"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:403
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:420
 msgid "No encontramos los creadores"
 msgstr "No encontramos los creadores"
 
@@ -6613,7 +6613,7 @@ msgstr "No encontramos los creadores"
 #~ msgid "No encontramos los creators"
 #~ msgstr "No encontramos los creators"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:344
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:377
 msgid "No encontramos los videos"
 msgstr "No encontramos los videos"
 
@@ -6625,7 +6625,7 @@ msgstr "No encontramos pagos para los filtros actuales. Probá ajustar la búsqu
 #~ msgid "No encontramos pagos para los filtros actuales. Probá ajustar la búsqueda, campaña o creator."
 #~ msgstr "No encontramos pagos para los filtros actuales. Probá ajustar la búsqueda, campaña o creator."
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:124
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:125
 msgid "No encontramos videos con esos filtros"
 msgstr "No encontramos videos con esos filtros"
 
@@ -6755,7 +6755,7 @@ msgstr "No pudimos cargar las postulaciones. Reintentá en unos minutos."
 msgid "No pudimos cargar los ajustes."
 msgstr "No pudimos cargar los ajustes."
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:404
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:421
 msgid "No pudimos cargar los creadores"
 msgstr "No pudimos cargar los creadores"
 
@@ -6767,7 +6767,7 @@ msgstr "No pudimos cargar los creadores"
 msgid "No pudimos cargar los planes. Intentá de nuevo."
 msgstr "No pudimos cargar los planes. Intentá de nuevo."
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:345
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:378
 msgid "No pudimos cargar los videos"
 msgstr "No pudimos cargar los videos"
 
@@ -6910,7 +6910,7 @@ msgstr "No se pudo enviar el mensaje: {errorMessage}"
 #~ msgid "No se pudo iniciar la suscripción al análisis."
 #~ msgstr "No se pudo iniciar la suscripción al análisis."
 
-#: src/features/inbox/InboxCreatorBox.tsx:125
+#: src/features/inbox/InboxCreatorBox.tsx:132
 msgid "No se pudo marcar como leído. Intentá de nuevo."
 msgstr "No se pudo marcar como leído. Intentá de nuevo."
 
@@ -7020,7 +7020,7 @@ msgstr "Nombre público"
 msgid "Nombre y Apellido"
 msgstr "Nombre y Apellido"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:311
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:328
 msgid "None"
 msgstr "None"
 
@@ -7363,7 +7363,7 @@ msgstr "Pagada"
 msgid "Pagada en total"
 msgstr "Pagada en total"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:52
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:53
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:24
 #: src/features/payments/components/StageSpendDonut.tsx:126
@@ -7476,7 +7476,7 @@ msgstr "Pagos realizados a creadores y análisis de gastos por campaña."
 #~ msgid "Pagos y gastos"
 #~ msgstr "Pagos y gastos"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:57
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:58
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:78
 #: src/features/offers/components/ArchivedOffersList.tsx:26
 msgid "Paid"
@@ -7487,7 +7487,7 @@ msgstr "Paid"
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:152
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:161
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:238
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:336
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:339
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:88
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:169
 #: src/features/identity/onboarding/creator/screens/C13LocationScreen.tsx:39
@@ -7689,12 +7689,12 @@ msgstr "Pegá un link válido."
 msgid "Pegá un Reel de Instagram, un TikTok o un Short de YouTube"
 msgstr "Pegá un Reel de Instagram, un TikTok o un Short de YouTube"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:50
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:198
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:51
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:199
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:107
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:124
 #: src/features/identity/settings/PortfolioSection.tsx:149
 #: src/features/offers/components/OfferArchiveItem.tsx:73
 #: src/features/offers/components/OfferArchiveItem.tsx:109
@@ -7743,7 +7743,7 @@ msgstr "Pending"
 msgid "Perfil"
 msgstr "Perfil"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:162
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:165
 msgid "Perfil de {creatorName}"
 msgstr "Perfil de {creatorName}"
 
@@ -7755,8 +7755,8 @@ msgstr "Perfil de {creatorName}"
 #~ msgid "Perfil de marca y suscripción del workspace."
 #~ msgstr "Perfil de marca y suscripción del workspace."
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:162
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:170
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:165
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:173
 msgid "Perfil del creador"
 msgstr "Perfil del creador"
 
@@ -7839,7 +7839,7 @@ msgstr "Plan gratuito"
 msgid "Planes"
 msgstr "Planes"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:202
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:203
 #: src/features/campaigns/detail/creators/CreatorsFilters.tsx:214
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:259
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:87
@@ -7995,7 +7995,7 @@ msgstr "Postulate a las que matchean con tu perfil. Cuanto más completo tu perf
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:258
 #: src/features/discovery/network/components/CreatorCard.tsx:296
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:467
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:470
 #: src/features/discovery/network/components/DiscoveryFilterChips.tsx:94
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:336
 msgid "Precio"
@@ -8103,11 +8103,11 @@ msgstr "Probá ajustar la búsqueda o limpiar filtros para volver a ver campaña
 msgid "Probá ajustar o limpiar los filtros."
 msgstr "Probá ajustar o limpiar los filtros."
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:121
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:122
 msgid "Probá con otra búsqueda, estado o plataforma."
 msgstr "Probá con otra búsqueda, estado o plataforma."
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:129
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:130
 msgid "Probá con otra búsqueda, estado, plataforma o creador."
 msgstr "Probá con otra búsqueda, estado, plataforma o creador."
 
@@ -8211,8 +8211,8 @@ msgstr "Publicá en las próximas {windowHours} para ganar un bono por rapidez d
 msgid "Published URL"
 msgstr "URL publicada"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:408
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:349
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:425
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:382
 #: src/features/campaigns/detail/OverviewTab.tsx:100
 msgid "Puede que la campaña no exista o que no pertenezca a este espacio de trabajo."
 msgstr "Puede que la campaña no exista o que no pertenezca a este espacio de trabajo."
@@ -8330,7 +8330,7 @@ msgid "Recetas"
 msgstr "Recetas"
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:137
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:109
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:126
 #: src/features/offers/components/CurrentOfferBlock.tsx:43
 #: src/features/offers/components/OfferArchiveItem.tsx:79
 #: src/features/offers/components/OfferArchiveItem.tsx:113
@@ -8371,7 +8371,7 @@ msgstr "Recomendado para vos"
 #~ msgstr "RECOMENDADO PARA VOS"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:290
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:453
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:456
 msgid "Red"
 msgstr "Red"
 
@@ -8383,7 +8383,7 @@ msgstr "Red"
 msgid "Reddit"
 msgstr "Reddit"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:320
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:323
 msgid "Redes"
 msgstr "Redes"
 
@@ -8448,9 +8448,9 @@ msgstr "Refrescar"
 msgid "Reinicio de ciclo"
 msgstr "Reinicio de ciclo"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:409
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:426
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:115
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:350
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:383
 #: src/features/campaigns/detail/OverviewTab.tsx:101
 msgid "Reintentá en unos minutos."
 msgstr "Reintentá en unos minutos."
@@ -8475,7 +8475,7 @@ msgstr "Reintentá para traer tus items pendientes."
 msgid "Reintentar"
 msgstr "Reintentar"
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:81
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:98
 #: src/features/offers/components/OfferCard.tsx:90
 msgid "Reject"
 msgstr "Reject"
@@ -8535,7 +8535,7 @@ msgstr "Resolviendo vista previa..."
 msgid "Responder"
 msgstr "Responder"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:238
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:239
 msgid "Respuesta pendiente"
 msgstr "Respuesta pendiente"
 
@@ -8759,8 +8759,8 @@ msgstr "Se exportaron las 10k filas más recientes. Para el export completo, con
 #~ msgid "Se perdió la conexión con el servidor."
 #~ msgstr "Se perdió la conexión con el servidor."
 
-#: src/features/inbox/InboxCreatorBox.tsx:239
-#: src/features/inbox/InboxCreatorBox.tsx:244
+#: src/features/inbox/InboxCreatorBox.tsx:274
+#: src/features/inbox/InboxCreatorBox.tsx:279
 msgid "Se resuelve actuando"
 msgstr "Se resuelve actuando"
 
@@ -9047,7 +9047,7 @@ msgstr "Short de YouTube"
 
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:267
 #: src/features/discovery/campaign-board/CampaignBriefContent.tsx:244
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:362
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:365
 #: src/features/identity/onboarding/creator/screens/C6cBarterScreen.tsx:6
 msgid "Sí"
 msgstr "Sí"
@@ -9306,7 +9306,7 @@ msgstr "Skincare"
 #~ msgid "SLA custom"
 #~ msgstr "SLA custom"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:325
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:328
 msgid "Sobre el creador"
 msgstr "Sobre el creador"
 
@@ -9658,7 +9658,7 @@ msgstr "Suscripción"
 #~ msgid "take rate"
 #~ msgstr "take rate"
 
-#: src/features/inbox/InboxCreatorBox.tsx:304
+#: src/features/inbox/InboxCreatorBox.tsx:339
 msgid "También esperás algo"
 msgstr "También esperás algo"
 
@@ -9679,7 +9679,7 @@ msgstr "Tardamos más de lo esperado"
 #~ msgid "Targeting"
 #~ msgstr "Targeting"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:352
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:355
 #: src/features/identity/settings/RatesSection.tsx:259
 msgid "Tarifa UGC"
 msgstr "Tarifa UGC"
@@ -9900,12 +9900,12 @@ msgstr "Tipo de compensación"
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:238
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:187
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:330
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:333
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:286
 msgid "Tipo de contenido"
 msgstr "Tipo de contenido"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:347
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:350
 #: src/features/discovery/network/components/DiscoveryFilterPanel.tsx:219
 #: src/features/identity/settings/CollaborationSection.tsx:206
 msgid "Tipo de creador"
@@ -9982,7 +9982,7 @@ msgstr "Todavía no hay campañas abiertas que matcheen con vos. Te avisamos cua
 #~ msgid "Todavía no hay colaboraciones activas"
 #~ msgstr "Todavía no hay colaboraciones activas"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:117
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:118
 msgid "Todavía no hay creadores en esta campaña"
 msgstr "Todavía no hay creadores en esta campaña"
 
@@ -10030,7 +10030,7 @@ msgstr "Todavía no hay postulaciones"
 msgid "Todavía no hay una cuenta cargada"
 msgstr "Todavía no hay una cuenta cargada"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:125
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:126
 msgid "Todavía no hay videos entregados"
 msgstr "Todavía no hay videos entregados"
 
@@ -10106,7 +10106,7 @@ msgstr "Mostrar/ocultar etapa"
 msgid "Tono"
 msgstr "Tono"
 
-#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:369
+#: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:372
 msgid "Top videos del portfolio"
 msgstr "Top videos del portfolio"
 
@@ -10375,7 +10375,7 @@ msgstr "UGC Videos"
 msgid "Última"
 msgstr "Última"
 
-#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:205
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:206
 msgid "Última actividad"
 msgstr "Última actividad"
 
@@ -10624,7 +10624,7 @@ msgstr "Ver brief"
 msgid "Ver creadores"
 msgstr "Ver creadores"
 
-#: src/features/campaigns/detail/CampaignVideosGrid.tsx:153
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:154
 msgid "Ver creadores activos"
 msgstr "Ver creadores activos"
 
@@ -10639,8 +10639,15 @@ msgstr "Ver oferta"
 
 #: src/features/chat/components/ConversationContextHeader.tsx:69
 #: src/features/chat/components/ConversationHeader.tsx:62
+#: src/features/inbox/InboxCreatorBox.tsx:166
 msgid "Ver perfil de {counterpartName}"
 msgstr "Ver perfil de {counterpartName}"
+
+#: src/features/campaigns/detail/CampaignCreatorsTable.tsx:305
+#: src/features/campaigns/detail/CampaignVideosGrid.tsx:291
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:54
+msgid "Ver perfil de {creatorName}"
+msgstr "Ver perfil de {creatorName}"
 
 #: src/features/discovery/network/components/CreatorCard.tsx:167
 msgid "Ver perfil de {name}"

@@ -18,6 +18,7 @@ import type { ReactNode } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { useCreatorProfileSheet } from '#/features/discovery/network/components/CreatorProfileSheetProvider'
 import { cn } from '#/lib/utils'
 import type {
   CampaignVideoCard,
@@ -197,9 +198,23 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
     video.submitted_at ?? video.updated_at,
     t`Pendiente`,
   )
-  const creatorName = video.creator.display_name
+  const creator = video.creator
+  const creatorName = creator.display_name
+  const openCreatorProfile = useCreatorProfileSheet()
   const queryClient = useQueryClient()
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  function openProfile() {
+    openCreatorProfile({
+      creatorId: creator.account_id,
+      accountId: creator.account_id,
+      displayName: creator.display_name,
+      avatarUrl: creator.avatar_url,
+      handle: creator.handle,
+      country: creator.country ?? undefined,
+      interests: creator.niches,
+    })
+  }
 
   // Preview the delivered video right in the card: preload="metadata" only
   // fetches the moov atom + first frame (a byte range), not the whole file, and
@@ -270,20 +285,38 @@ function VideoCard({ video }: { video: CampaignVideoCard }) {
           </div>
           <div className="p-3">
             <div className="flex min-w-0 items-center gap-2">
-              <Avatar className="size-6">
-                {video.creator.avatar_url ? (
-                  <AvatarImage
-                    src={video.creator.avatar_url}
-                    alt={video.creator.display_name}
-                  />
-                ) : null}
-                <AvatarFallback className="text-[10px]">
-                  {initials(video.creator.display_name)}
-                </AvatarFallback>
-              </Avatar>
-              <p className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
-                {video.creator.display_name} · {submittedAt}
-              </p>
+              <span
+                role="button"
+                tabIndex={0}
+                aria-label={t`Ver perfil de ${creatorName}`}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  openProfile()
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    openProfile()
+                  }
+                }}
+                className="-m-1 flex min-w-0 items-center gap-2 rounded-lg p-1 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <Avatar className="size-6">
+                  {creator.avatar_url ? (
+                    <AvatarImage
+                      src={creator.avatar_url}
+                      alt={creator.display_name}
+                    />
+                  ) : null}
+                  <AvatarFallback className="text-[10px]">
+                    {initials(creator.display_name)}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+                  {creator.display_name} · {submittedAt}
+                </span>
+              </span>
             </div>
           </div>
         </button>
