@@ -57,7 +57,7 @@ export function CampaignDetailHeader({
         <div className="flex min-w-0">
           <div className="min-w-0 space-y-3">
             <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
-              <h1 className="truncate text-[22px] font-semibold text-foreground">
+              <h1 className="min-w-0 truncate text-[22px] font-semibold text-foreground">
                 {detail.name}
               </h1>
               <StatusPill status={detail.status} />
@@ -67,7 +67,7 @@ export function CampaignDetailHeader({
         </div>
 
         <TooltipProvider>
-          <div className="ml-auto flex shrink-0 items-center justify-end gap-2 whitespace-nowrap">
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 whitespace-nowrap lg:ml-auto">
             <Button asChild variant="outline" size="sm">
               <Link
                 to="/workspace"

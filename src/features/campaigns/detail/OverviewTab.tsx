@@ -33,7 +33,7 @@ function OverviewContent({ overview }: { overview: CampaignOverviewResponse }) {
   return (
     <div className="space-y-5">
       <StatsBlock overview={overview} />
-      <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="space-y-4">
           <CreatorsPreview
             campaignId={overview.campaign.campaign_id}
@@ -52,8 +52,8 @@ function OverviewContent({ overview }: { overview: CampaignOverviewResponse }) {
 function OverviewSkeleton() {
   return (
     <div className="space-y-5" role="status" aria-label={t`Cargando overview`}>
-      <div className="grid grid-cols-3 gap-3">
-        {[0, 1, 2].map((item) => (
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {[0, 1, 2, 3].map((item) => (
           <div
             key={item}
             className="h-[116px] rounded-2xl border border-border bg-card p-4"
@@ -64,7 +64,7 @@ function OverviewSkeleton() {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="space-y-4">
           <div className="h-64 rounded-2xl border border-border bg-card" />
         </div>
