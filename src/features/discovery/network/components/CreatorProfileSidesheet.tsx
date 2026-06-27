@@ -156,7 +156,7 @@ export function CreatorProfileSidesheet({
       <SheetContent
         side="right"
         showCloseButton={false}
-        className="w-full gap-0 overflow-hidden border-border bg-card p-0 sm:max-w-[560px]"
+        className="w-full gap-0 overflow-hidden border-border bg-card p-0 sm:max-w-[560px] sm:rounded-l-2xl"
       >
         <SheetTitle className="sr-only">
           {creatorName ? t`Perfil de ${creatorName}` : t`Perfil del creador`}
