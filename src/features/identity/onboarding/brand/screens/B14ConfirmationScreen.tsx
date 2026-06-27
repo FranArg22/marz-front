@@ -2,33 +2,6 @@ import { t } from '@lingui/core/macro'
 import { Check, ArrowRight, Loader2 } from 'lucide-react'
 import { useBrandOnboardingStore } from '../store'
 import { useSubmitBrandOnboarding } from '#/features/identity/onboarding/brand/useSubmitBrandOnboarding'
-import { MarketingObjective, Vertical } from '../types'
-
-const VERTICAL_LABEL: Record<Vertical, () => string> = {
-  fintech: () => t`fintech`,
-  tech: () => t`tech`,
-  ecommerce: () => t`e-commerce`,
-  education: () => t`educación`,
-  food: () => t`comida`,
-  fitness: () => t`fitness`,
-  health: () => t`salud`,
-  entertainment: () => t`entretenimiento`,
-  beauty: () => t`belleza`,
-  gaming: () => t`gaming`,
-  travel: () => t`viajes`,
-  fashion: () => t`moda`,
-  mobile_apps: () => t`apps móviles`,
-  crypto: () => t`crypto`,
-  ai_tech: () => t`AI / tech`,
-  other: () => t`tu vertical`,
-}
-
-const OBJECTIVE_LABEL: Record<MarketingObjective, () => string> = {
-  awareness: () => t`awareness`,
-  performance: () => t`performance`,
-  launch: () => t`lanzamiento`,
-  community: () => t`comunidad`,
-}
 
 export function B14ConfirmationScreen() {
   const { submit, isPending } = useSubmitBrandOnboarding()
@@ -36,23 +9,19 @@ export function B14ConfirmationScreen() {
 
   const firstName = store.contact_name?.trim().split(/\s+/)[0]
   const brandName = store.name?.trim() ?? t`Tu marca`
-  const vertical = store.vertical ?? Vertical.other
-  const objective = store.marketing_objective ?? MarketingObjective.performance
-  const verticalLabel = VERTICAL_LABEL[vertical]()
-  const objectiveLabel = OBJECTIVE_LABEL[objective]()
 
   const steps = [
     {
-      title: t`Armá tu primera campaña y brief`,
-      sublabel: t`Te ayudamos con un template base para ${verticalLabel}`,
+      title: t`Completá tu perfil de marca`,
+      sublabel: t`Sumá tu logo y datos para generar confianza`,
     },
     {
-      title: t`Revisá tus matchs de creadores`,
-      sublabel: t`Filtrados por ${verticalLabel} LatAm + ${objectiveLabel}`,
+      title: t`Creá tu primera campaña`,
+      sublabel: t`Definí brief, presupuesto y objetivo`,
     },
     {
-      title: t`Enviá tus primeros invites (100 este mes)`,
-      sublabel: t`Los que no responden en 72h vuelven a tu cuota`,
+      title: t`Invitá creadores a conectar`,
+      sublabel: t`Elegí perfiles y mandales tu propuesta`,
     },
   ]
 

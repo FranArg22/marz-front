@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '#/components/ui/tooltip'
+import { useCreatorProfileSheet } from '#/features/discovery/network/components/CreatorProfileSheetProvider'
 import { cn } from '#/lib/utils'
 import { InboxItemKind } from '#/shared/api/generated/model'
 import { ApiError } from '#/shared/api/mutator'
@@ -47,7 +48,13 @@ export function InboxCreatorBox({
   const item = box.headlineItem
   const router = useRouter()
   const markRead = useMarkInboxItemReadMutation()
+  const openCreatorProfile = useCreatorProfileSheet()
   const isWaiting = tone === 'waiting'
+  const counterpartAccountId = box.counterpart.account_id
+  const counterpartName = box.counterpart.display_name
+  // Solo abrimos perfil de creador cuando la marca mira un creador.
+  const canOpenProfile =
+    accountKind === 'brand' && Boolean(counterpartAccountId)
   const analyticsPayload = createInboxItemAnalyticsPayload({
     accountKind,
     item,
@@ -145,17 +152,45 @@ export function InboxCreatorBox({
           )}
         />
 
-        <Avatar size="lg">
-          {box.counterpart.avatar_url ? (
-            <AvatarImage
-              src={box.counterpart.avatar_url}
-              alt={box.counterpart.display_name}
-            />
-          ) : null}
-          <AvatarFallback>
-            {getInitials(box.counterpart.display_name)}
-          </AvatarFallback>
-        </Avatar>
+        {canOpenProfile && counterpartAccountId ? (
+          <button
+            type="button"
+            onClick={() =>
+              openCreatorProfile({
+                creatorId: counterpartAccountId,
+                accountId: counterpartAccountId,
+                displayName: box.counterpart.display_name,
+                avatarUrl: box.counterpart.avatar_url,
+              })
+            }
+            aria-label={t`Ver perfil de ${counterpartName}`}
+            className="shrink-0 rounded-full transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <Avatar size="lg">
+              {box.counterpart.avatar_url ? (
+                <AvatarImage
+                  src={box.counterpart.avatar_url}
+                  alt={box.counterpart.display_name}
+                />
+              ) : null}
+              <AvatarFallback>
+                {getInitials(box.counterpart.display_name)}
+              </AvatarFallback>
+            </Avatar>
+          </button>
+        ) : (
+          <Avatar size="lg">
+            {box.counterpart.avatar_url ? (
+              <AvatarImage
+                src={box.counterpart.avatar_url}
+                alt={box.counterpart.display_name}
+              />
+            ) : null}
+            <AvatarFallback>
+              {getInitials(box.counterpart.display_name)}
+            </AvatarFallback>
+          </Avatar>
+        )}
 
         <div className="min-w-0 flex-1">
           <InboxCreatorHistoryPopover

@@ -18,6 +18,7 @@ import type { ReactNode } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { useCreatorProfileSheet } from '#/features/discovery/network/components/CreatorProfileSheetProvider'
 import { cn } from '#/lib/utils'
 import type {
   CampaignParticipantListItem,
@@ -151,7 +152,7 @@ export function CampaignCreatorsTable({
   return (
     <TableFrame>
       <div className="overflow-x-auto">
-        <div className="min-w-[900px]">
+        <div className="w-max min-w-full">
           <HeaderRow />
           <div className="divide-y divide-border">
             {participants.map((participant) => (
@@ -285,9 +286,25 @@ function CreatorCell({
   participant: CampaignParticipantListItem
 }) {
   const creator = participant.creator
+  const openCreatorProfile = useCreatorProfileSheet()
+  const creatorName = creator.display_name
 
   return (
-    <div className="flex min-w-0 items-center gap-3">
+    <button
+      type="button"
+      onClick={() =>
+        openCreatorProfile({
+          creatorId: creator.account_id,
+          accountId: creator.account_id,
+          displayName: creator.display_name,
+          avatarUrl: creator.avatar_url,
+          handle: creator.handle,
+          interests: creator.niche ? [creator.niche] : undefined,
+        })
+      }
+      aria-label={t`Ver perfil de ${creatorName}`}
+      className="-mx-1.5 flex min-w-0 items-center gap-3 rounded-xl px-1.5 py-1 text-left transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
       <Avatar className="size-10">
         {creator.avatar_url ? (
           <AvatarImage src={creator.avatar_url} alt={creator.display_name} />
@@ -302,7 +319,7 @@ function CreatorCell({
           @{creator.handle}
         </p>
       </div>
-    </div>
+    </button>
   )
 }
 

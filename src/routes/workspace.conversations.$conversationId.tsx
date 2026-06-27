@@ -7,6 +7,8 @@ import { z } from 'zod'
 import { cn } from '#/lib/utils'
 import { ConversationContextHeader } from '#/features/chat/components/ConversationContextHeader'
 import { ConversationView } from '#/features/chat/components/ConversationView'
+import { CreatorProfileSidesheet } from '#/features/discovery/network/components/CreatorProfileSidesheet'
+import { buildMockCreatorDetailProfile } from '#/features/discovery/network/mocks/creatorDetailProfile'
 import { useConversationDetailQuery } from '#/features/chat/queries'
 import { useOffersPanelStore } from '#/features/chat/workspace/offersPanelStore'
 import { ConversationOffersPanel } from '#/features/offers/components/ConversationOffersPanel'
@@ -61,6 +63,7 @@ function ConversationRoute() {
   >(null)
   const [submitLinkIsResubmission, setSubmitLinkIsResubmission] =
     useState(false)
+  const [creatorProfileOpen, setCreatorProfileOpen] = useState(false)
 
   useEffect(() => {
     if (!search.send_offer_result) return
@@ -85,7 +88,21 @@ function ConversationRoute() {
   }, [search.send_offer_result, navigate])
 
   const isBrand = sessionKind === 'brand'
-  const creatorName = conversationDetail.data?.counterpart.display_name ?? ''
+  const counterpart = conversationDetail.data?.counterpart
+  const creatorName = counterpart?.display_name ?? ''
+
+  const creatorProfile =
+    isBrand && counterpart
+      ? buildMockCreatorDetailProfile({
+          creatorId: counterpart.id,
+          accountId: counterpart.id,
+          displayName: counterpart.display_name,
+          avatarUrl: counterpart.avatar_url ?? null,
+          handle: counterpart.handle,
+        })
+      : null
+  const openCreatorProfile =
+    isBrand && counterpart ? () => setCreatorProfileOpen(true) : undefined
 
   const deliverablesData = deliverablesQuery.data
   const uploadDeliverable =
@@ -149,6 +166,7 @@ function ConversationRoute() {
           <ConversationContextHeader
             counterpart={conversationDetail.data.counterpart}
             sessionKind={sessionKind}
+            onOpenProfile={openCreatorProfile}
           />
         ) : null
       }
@@ -164,6 +182,7 @@ function ConversationRoute() {
           sessionKind={sessionKind}
           onUploadDraft={setUploadDeliverableId}
           highlightPaymentId={highlightPaymentId}
+          onOpenCounterpartProfile={openCreatorProfile}
         />
       </div>
 
@@ -232,6 +251,13 @@ function ConversationRoute() {
           creatorName={creatorName}
           creatorAccountId={conversationDetail.data.counterpart.id}
           conversationId={conversationId}
+        />
+      ) : null}
+      {isBrand ? (
+        <CreatorProfileSidesheet
+          profile={creatorProfile}
+          open={creatorProfileOpen}
+          onOpenChange={setCreatorProfileOpen}
         />
       ) : null}
     </div>

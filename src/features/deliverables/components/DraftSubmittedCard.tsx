@@ -221,8 +221,8 @@ export function DraftSubmittedCard({
           ) : null}
 
           {isBrand && deliverableStatus === 'draft_submitted' && (
-            <div className="flex gap-2">
-              <div className="flex-1">
+            <div className="flex flex-col gap-2">
+              <div className="w-full">
                 <ApproveDraftButton
                   deliverableId={snapshot.deliverable_id}
                   conversationId={conversationId}
@@ -232,7 +232,7 @@ export function DraftSubmittedCard({
                 />
               </div>
               {showRequestChangesButton && (
-                <div className="relative flex-1">
+                <div className="relative w-full">
                   {isStale ? (
                     <>
                       <Button

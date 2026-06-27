@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
+import { useCreatorProfileSheet } from '#/features/discovery/network/components/CreatorProfileSheetProvider'
 import { cn } from '#/lib/utils'
 import type { DashboardTopCreatorsResponse } from '#/shared/api/generated/model/dashboardTopCreatorsResponse'
 
@@ -172,10 +173,7 @@ function CreatorsTableBody({
                   className="border-b border-border last:border-b-0"
                 >
                   <td className="min-w-0 px-5 py-2">
-                    <CreatorCell
-                      handle={creator.handle}
-                      avatarUrl={creator.avatar_url}
-                    />
+                    <CreatorCell creator={creator} />
                   </td>
                   <MetricCell active={currentSort === 'views'}>
                     {NUMBER_FMT.format(creator.metrics.views)}
@@ -235,14 +233,28 @@ function MetricCell({
 }
 
 function CreatorCell({
-  handle,
-  avatarUrl,
+  creator,
 }: {
-  handle: string
-  avatarUrl: string | null
+  creator: DashboardTopCreatorsResponse['creators'][number]
 }) {
+  const openCreatorProfile = useCreatorProfileSheet()
+  const { handle, avatar_url: avatarUrl, account_id: accountId } = creator
+
   return (
-    <div className="flex min-w-0 items-center gap-2.5">
+    <button
+      type="button"
+      onClick={() =>
+        openCreatorProfile({
+          creatorId: accountId,
+          accountId,
+          displayName: handle,
+          avatarUrl,
+          handle,
+        })
+      }
+      aria-label={`Ver perfil de ${handle}`}
+      className="-mx-1.5 flex min-w-0 items-center gap-2.5 rounded-lg px-1.5 py-1 text-left transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
       <Avatar size="sm">
         {avatarUrl ? <AvatarImage src={avatarUrl} alt="" /> : null}
         <AvatarFallback>{getInitials(handle)}</AvatarFallback>
@@ -250,7 +262,7 @@ function CreatorCell({
       <span className="truncate text-sm font-medium text-foreground">
         {handle}
       </span>
-    </div>
+    </button>
   )
 }
 

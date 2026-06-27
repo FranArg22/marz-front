@@ -5,6 +5,11 @@ import { useEffect, useRef, useState } from 'react'
 import { z } from 'zod'
 
 import { CreatorCard } from '#/features/discovery/network/components/CreatorCard'
+import {
+  CreatorProfileInviteFooter,
+  CreatorProfileSidesheet,
+} from '#/features/discovery/network/components/CreatorProfileSidesheet'
+import { buildMockCreatorDetailProfile } from '#/features/discovery/network/mocks/creatorDetailProfile'
 import { DiscoveryFilterChips } from '#/features/discovery/network/components/DiscoveryFilterChips'
 import { DiscoveryFilterPanel } from '#/features/discovery/network/components/DiscoveryFilterPanel'
 import { DiscoveryGrid } from '#/features/discovery/network/components/DiscoveryGrid'
@@ -97,6 +102,10 @@ function DiscoveryRoute() {
   )
   const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const [bulkModalOpen, setBulkModalOpen] = useState(false)
+  const [profileCard, setProfileCard] = useState<DiscoveryCreatorCard | null>(
+    null,
+  )
+  const [profileOpen, setProfileOpen] = useState(false)
   const {
     appliedFilters,
     activeSort,
@@ -182,11 +191,46 @@ function DiscoveryRoute() {
               setSelectedCard(c)
               setInviteModalOpen(true)
             }}
+            onOpenProfile={(c) => {
+              setProfileCard(c)
+              setProfileOpen(true)
+            }}
             selected={selectedAccountIds.has(card.account_id)}
             selectionMode={selectionMode}
             onToggleSelect={toggleSelect}
           />
         )}
+      />
+      <CreatorProfileSidesheet
+        profile={
+          profileCard
+            ? buildMockCreatorDetailProfile({
+                creatorId: profileCard.creator_id,
+                accountId: profileCard.account_id,
+                displayName: profileCard.display_name,
+                avatarUrl: profileCard.avatar_url,
+                handle: profileCard.platforms[0]?.handle,
+                country: profileCard.country,
+                age: profileCard.age,
+                interests: profileCard.tags,
+                platforms: profileCard.platforms,
+              })
+            : null
+        }
+        open={profileOpen}
+        onOpenChange={setProfileOpen}
+        footerAction={
+          profileCard ? (
+            <CreatorProfileInviteFooter
+              card={profileCard}
+              onInvite={() => {
+                setProfileOpen(false)
+                setSelectedCard(profileCard)
+                setInviteModalOpen(true)
+              }}
+            />
+          ) : null
+        }
       />
       <InviteBulkModal
         open={bulkModalOpen}

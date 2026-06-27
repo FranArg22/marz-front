@@ -26,6 +26,8 @@ export interface IntercomBootSettings {
   /** Epoch en segundos (no milisegundos). */
   created_at?: number
   hide_default_launcher?: boolean
+  /** Separación en px del launcher respecto al borde inferior (default 20). */
+  vertical_padding?: number
 }
 
 export function bootIntercom(settings: IntercomBootSettings): void {

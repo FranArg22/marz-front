@@ -164,39 +164,41 @@ export function BrandPaymentsPage({
 
   return (
     <main className="flex h-full min-h-0 flex-col overflow-auto bg-background p-6 pb-mobile-nav">
-      <div className="mb-5 flex items-center gap-3">
+      <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-bold text-foreground">{t`Pagos`}</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 hidden text-sm text-muted-foreground md:block">
             {t`Pagos realizados a creadores y análisis de gastos por campaña.`}
           </p>
         </div>
-        <PaymentsPeriodSegmentedControl
-          value={filters.period}
-          onChange={handlePeriodChange}
-        />
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={handleExportCsv}
-          disabled={exportCsvMutation.isPending}
-          className="rounded-full"
-        >
-          <Download className="size-4" aria-hidden />
-          {t`Exportar CSV`}
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={handleRefresh}
-          disabled={spendingQuery.isFetching}
-          className="rounded-full"
-        >
-          <RefreshCw className="size-4" aria-hidden />
-          {t`Actualizar`}
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <PaymentsPeriodSegmentedControl
+            value={filters.period}
+            onChange={handlePeriodChange}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleExportCsv}
+            disabled={exportCsvMutation.isPending}
+            className="rounded-full"
+          >
+            <Download className="size-4" aria-hidden />
+            {t`Exportar CSV`}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleRefresh}
+            disabled={spendingQuery.isFetching}
+            className="rounded-full"
+          >
+            <RefreshCw className="size-4" aria-hidden />
+            {t`Actualizar`}
+          </Button>
+        </div>
       </div>
 
       {spendingQuery.isPending && !visibleResponse ? (
@@ -210,7 +212,7 @@ export function BrandPaymentsPage({
             stageBreakdown={visibleResponse.stage_breakdown}
           />
 
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 md:flex-row">
             <MonthlySpendBarChart data={visibleResponse.monthly_spend} />
             <StageSpendDonut data={visibleResponse.stage_breakdown} />
           </div>
@@ -347,7 +349,7 @@ const BRAND_PAYMENTS_SKELETON_CARDS = [
 function BrandPaymentsPageSkeleton() {
   return (
     <div aria-label={t`Cargando pagos`} className="flex flex-col gap-5">
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {BRAND_PAYMENTS_SKELETON_CARDS.map((card) => (
           <div
             key={card}
@@ -355,9 +357,9 @@ function BrandPaymentsPageSkeleton() {
           />
         ))}
       </div>
-      <div className="flex gap-4">
-        <div className="h-[300px] flex-1 animate-pulse rounded-lg border border-border bg-card" />
-        <div className="h-[300px] w-[480px] animate-pulse rounded-lg border border-border bg-card" />
+      <div className="flex flex-col gap-4 md:flex-row">
+        <div className="h-[300px] animate-pulse rounded-lg border border-border bg-card md:flex-1" />
+        <div className="h-[300px] w-full animate-pulse rounded-lg border border-border bg-card md:w-[480px]" />
       </div>
       <div className="h-[340px] animate-pulse rounded-lg border border-border bg-card" />
     </div>
