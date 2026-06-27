@@ -82,7 +82,7 @@ export function WizardLayout({
         </div>
       </main>
 
-      <footer className="flex shrink-0 items-center justify-between border-t border-border bg-background px-6 py-4">
+      <footer className="flex shrink-0 items-center justify-between border-t border-border bg-background px-6 pt-4 pb-4 max-sm:pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
         <Button
           variant="outline"
           onClick={onBack}

@@ -47,6 +47,9 @@ export function IntercomBridge() {
       name,
       created_at: createdAt,
       hide_default_launcher: isMobile,
+      // En desktop subimos el launcher para que no tape botones clave
+      // (p. ej. "Continuar"). En mobile el launcher nativo está oculto.
+      vertical_padding: isMobile ? undefined : 88,
     })
     onUnreadCountChange(setUnreadCount)
   }, [enabled, userId, email, name, createdAt, isMobile, setUnreadCount])
