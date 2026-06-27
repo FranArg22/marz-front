@@ -197,4 +197,51 @@ describe('CreatorCard pair-state CTA mapping', () => {
     expect(screen.getByText('$100')).toBeInTheDocument()
     expect(screen.getByText('-')).toBeInTheDocument()
   })
+
+  it('keeps the follower count but dashes the metrics for a sub-1k channel', () => {
+    render(
+      <CreatorCard
+        card={makeCard('no_contact', null, [
+          {
+            platform: 'instagram',
+            handle: 'creator',
+            followers: 500,
+            engagement_rate: 0.05,
+            cpm_amount: '2.5',
+            cpm_currency: 'USD',
+            min_price_amount: '100',
+            price_currency: 'USD',
+          },
+        ])}
+        onInvite={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByText('500')).toBeInTheDocument()
+    // engagement, cpm and price all collapse to "-"
+    expect(screen.getAllByText('-')).toHaveLength(3)
+    expect(screen.queryByText('$100')).not.toBeInTheDocument()
+  })
+
+  it('dashes zero-valued metrics while keeping the follower count', () => {
+    render(
+      <CreatorCard
+        card={makeCard('no_contact', null, [
+          {
+            platform: 'instagram',
+            handle: 'creator',
+            followers: 5000,
+            engagement_rate: 0,
+            cpm_amount: '0',
+            cpm_currency: 'USD',
+            min_price_amount: '0',
+            price_currency: 'USD',
+          },
+        ])}
+        onInvite={vi.fn()}
+      />,
+    )
+
+    expect(screen.getAllByText('-')).toHaveLength(3)
+  })
 })
