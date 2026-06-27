@@ -964,7 +964,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:33
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:28
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:37
 #: src/features/payments/settings/PayoutAccountCard.tsx:133
 #: src/routes/_brand/campaigns.index.tsx:183
 msgid "Activa"
@@ -1511,10 +1511,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:227
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:178
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:193
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:204
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:208
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:190
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:218
 msgid "Audiencia"
 msgstr ""
@@ -1687,7 +1684,7 @@ msgid "Bonus por rapidez"
 msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:32
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:27
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:36
 #: src/routes/_brand/campaigns.index.tsx:177
 msgid "Borrador"
 msgstr ""
@@ -1937,7 +1934,7 @@ msgstr ""
 #~ msgid "Campañas con creadores, sin agencias ni vueltas."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:117
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:126
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:228
 msgid "Canales"
 msgstr ""
@@ -2303,8 +2300,8 @@ msgstr ""
 msgid "Colaboraciones"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:432
-#: src/features/discovery/network/components/CreatorCard.tsx:452
+#: src/features/discovery/network/components/CreatorCard.tsx:445
+#: src/features/discovery/network/components/CreatorCard.tsx:465
 msgid "Colaborando"
 msgstr ""
 
@@ -2390,7 +2387,7 @@ msgid "Completá tu perfil de marca"
 msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:35
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:30
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:39
 #: src/routes/_brand/campaigns.index.tsx:194
 msgid "Completada"
 msgstr ""
@@ -2602,8 +2599,8 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:427
-#: src/features/discovery/network/components/CreatorCard.tsx:450
+#: src/features/discovery/network/components/CreatorCard.tsx:440
+#: src/features/discovery/network/components/CreatorCard.tsx:463
 msgid "Conversación abierta"
 msgstr ""
 
@@ -3423,7 +3420,7 @@ msgstr ""
 #~ msgid "Editá lo que necesites antes de confirmar la campaña."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:50
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:59
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:111
 msgid "Editar"
 msgstr ""
@@ -5310,8 +5307,8 @@ msgstr ""
 #~ msgid "Invitación"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:412
-#: src/features/discovery/network/components/CreatorCard.tsx:445
+#: src/features/discovery/network/components/CreatorCard.tsx:425
+#: src/features/discovery/network/components/CreatorCard.tsx:458
 #: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:247
 #: src/features/discovery/network/hooks/useCreateConnectionRequestMutation.ts:46
 msgid "Invitación enviada"
@@ -5321,11 +5318,11 @@ msgstr ""
 msgid "Invitación enviada a {invitedEmail}"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:417
+#: src/features/discovery/network/components/CreatorCard.tsx:430
 msgid "Invitación rechazada"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:422
+#: src/features/discovery/network/components/CreatorCard.tsx:435
 msgid "Invitación vencida"
 msgstr ""
 
@@ -5351,7 +5348,7 @@ msgstr ""
 #~ msgid "Invitados"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:443
+#: src/features/discovery/network/components/CreatorCard.tsx:456
 #: src/features/discovery/network/components/CreatorProfileSidesheet.tsx:255
 #: src/features/discovery/network/components/DiscoveryGrid.tsx:103
 msgid "Invitar"
@@ -5384,7 +5381,7 @@ msgstr ""
 msgid "Invitar creadores"
 msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:448
+#: src/features/discovery/network/components/CreatorCard.tsx:461
 msgid "Invitar de nuevo"
 msgstr ""
 
@@ -5433,7 +5430,7 @@ msgstr ""
 #~ msgid "Invites por email"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:80
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:89
 msgid "Ir a conversaciones"
 msgstr ""
 
@@ -6608,7 +6605,7 @@ msgstr ""
 msgid "No encontramos el overview"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:247
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:270
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:109
 msgid "No encontramos esta campaña"
 msgstr ""
@@ -6979,7 +6976,7 @@ msgstr ""
 #~ msgid "No tenés permisos para configurar esta campaña."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:40
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:49
 msgid "No tenés permisos para editar esta campaña"
 msgstr ""
 
@@ -7494,8 +7491,7 @@ msgstr ""
 msgid "Paid"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:192
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:203
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:182
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:152
 #: src/features/campaigns/wizard/WizardStep4Audience.tsx:161
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:238
@@ -7614,7 +7610,7 @@ msgid "Paste the final published URL for this deliverable."
 msgstr ""
 
 #: src/features/campaigns/components/CampaignMiniCard.tsx:34
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:29
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:38
 #: src/routes/_brand/campaigns.index.tsx:188
 msgid "Pausada"
 msgstr ""
@@ -8213,7 +8209,7 @@ msgid "Publicaciones creadas por influencers en sus canales."
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:348
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:170
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:176
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:55
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:294
 msgid "Publicaciones de influencers"
@@ -8243,7 +8239,7 @@ msgstr ""
 #~ msgid "Puede que la campaña no exista o que no pertenezca a este workspace."
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:250
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:273
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:114
 msgid "Puede que no exista o que no pertenezca a este espacio de trabajo."
 msgstr ""
@@ -9106,9 +9102,9 @@ msgid "Siguiente página"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:229
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:178
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:188
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:200
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:208
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:218
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:226
 msgid "Sin audiencia definida"
 msgstr ""
 
@@ -9227,7 +9223,7 @@ msgid "Sin modelo de pago definido"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:349
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:171
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:177
 msgid "Sin modelo definido"
 msgstr ""
 
@@ -9257,7 +9253,7 @@ msgid "Sin plataforma"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:342
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:118
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:127
 msgid "Sin plataformas"
 msgstr ""
 
@@ -9304,7 +9300,7 @@ msgstr ""
 #~ msgid "Sin tarjeta cargada"
 #~ msgstr "No card on file"
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:189
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:219
 msgid "Sin tier"
 msgstr ""
 
@@ -9866,7 +9862,7 @@ msgstr ""
 msgid "TIEMPO RECUPERADO"
 msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:194
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:198
 #: src/features/identity/onboarding/creator/screens/C4TierScreen.tsx:57
 msgid "Tier"
 msgstr ""
@@ -9928,7 +9924,7 @@ msgstr ""
 #~ msgid "tipo de contenido"
 #~ msgstr ""
 
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:112
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:121
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:238
 #: src/features/campaigns/wizard/WizardStep1ContentType.tsx:28
 #: src/features/campaigns/wizard/WizardStep7Review.tsx:187
@@ -10689,7 +10685,7 @@ msgstr ""
 #~ msgid "Ver perfil en {0}"
 #~ msgstr ""
 
-#: src/features/discovery/network/components/CreatorCard.tsx:346
+#: src/features/discovery/network/components/CreatorCard.tsx:359
 msgid "Ver perfil en {platformName}"
 msgstr ""
 
@@ -10832,7 +10828,7 @@ msgid "Videos publicados"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:347
-#: src/features/campaigns/detail/CampaignDetailHeader.tsx:169
+#: src/features/campaigns/detail/CampaignDetailHeader.tsx:175
 msgid "Videos UGC"
 msgstr ""
 
