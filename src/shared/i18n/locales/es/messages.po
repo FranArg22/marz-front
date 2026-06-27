@@ -129,6 +129,10 @@ msgstr "¿Qué te trae por acá?"
 msgid "¿Qué tipo de contenido hacés?"
 msgstr "¿Qué tipo de contenido hacés?"
 
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:91
+msgid "¿Querés ayuda para armar tu campaña?"
+msgstr "¿Querés ayuda para armar tu campaña?"
+
 #: src/features/identity/onboarding/creator/screens/C16ReferralScreen.tsx:21
 msgid "¿Quién te invitó?"
 msgstr "¿Quién te invitó?"
@@ -1237,7 +1241,7 @@ msgid "Alcanzaste el límite de tu plan ({planName}). Para crear más campañas,
 msgstr "Alcanzaste el límite de tu plan ({planName}). Para crear más campañas, revisá los planes en suscripción."
 
 #: src/features/analytics/dashboard/ErrorBlockState.tsx:20
-#: src/routes/_brand/campaigns.new.tsx:373
+#: src/routes/_brand/campaigns.new.tsx:375
 msgid "Algo salió mal"
 msgstr "Algo salió mal"
 
@@ -1497,7 +1501,7 @@ msgstr "Así es trabajar con Marz."
 msgid "Así se ve lo que podés alcanzar."
 msgstr "Así se ve lo que podés alcanzar."
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:93
+#: src/features/campaigns/wizard/WizardLayout.tsx:98
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:299
 msgid "Atrás"
 msgstr "Atrás"
@@ -1562,6 +1566,14 @@ msgstr "Awareness"
 #: src/features/chat/utils/groupByDay.ts:46
 msgid "Ayer"
 msgstr "Ayer"
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:75
+msgid "Ayuda con IA"
+msgstr "Ayuda con IA"
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:71
+msgid "Ayuda con IA para armar tu campaña"
+msgstr "Ayuda con IA para armar tu campaña"
 
 #: src/features/payments/settings/PayoutAccountModal.tsx:120
 #~ msgid "Banco"
@@ -1968,7 +1980,7 @@ msgstr "Cancelando…"
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:250
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:857
-#: src/features/campaigns/wizard/WizardLayout.tsx:63
+#: src/features/campaigns/wizard/WizardLayout.tsx:67
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:187
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:216
 #: src/features/discovery/network/components/EmailInviteModal.tsx:167
@@ -2378,7 +2390,7 @@ msgstr "Completá la información principal que verán los creadores antes de ap
 #~ msgid "Completá la información principal que verán los creators antes de aplicar."
 #~ msgstr "Completá la información principal que verán los creators antes de aplicar."
 
-#: src/routes/_brand/campaigns.new.tsx:282
+#: src/routes/_brand/campaigns.new.tsx:284
 msgid "Completá los datos requeridos antes de crear la campaña."
 msgstr "Completá los datos requeridos antes de crear la campaña."
 
@@ -2582,7 +2594,7 @@ msgstr "Content guidelines"
 #~ msgid "Content review workflow"
 #~ msgstr "Flujo de revisión de contenido"
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:96
+#: src/features/campaigns/wizard/WizardLayout.tsx:101
 #: src/features/identity/auth/components/KindSelector.tsx:191
 msgid "Continuar"
 msgstr "Continuar"
@@ -2630,6 +2642,26 @@ msgstr "Conversación no disponible"
 #: src/features/campaigns/configuration/ReviewStep.tsx:67
 #~ msgid "Conversión"
 #~ msgstr "Conversión"
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
+#~ msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
+#~ msgstr "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
+msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y darte los campos exactos para crear tu campaña en Marz."
+msgstr "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y darte los campos exactos para crear tu campaña en Marz."
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:80
+msgid "Copiá un prompt para que tu IA te ayude a completar la campaña"
+msgstr "Copiá un prompt para que tu IA te ayude a completar la campaña"
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:118
+msgid "Copiado"
+msgstr "Copiado"
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:123
+msgid "Copiar prompt"
+msgstr "Copiar prompt"
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:122
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:143
@@ -2762,7 +2794,7 @@ msgstr "Creadores reales hablando de Marz"
 #~ msgstr "Creando tu campaña…"
 
 #: src/routes/_brand/campaigns.index.tsx:274
-#: src/routes/_brand/campaigns.new.tsx:248
+#: src/routes/_brand/campaigns.new.tsx:249
 msgid "Crear campaña"
 msgstr "Crear campaña"
 
@@ -4038,7 +4070,7 @@ msgstr "Error al subir la imagen. Intentá de nuevo."
 #~ msgid "Error en el análisis"
 #~ msgstr "Error en el análisis"
 
-#: src/routes/_brand/campaigns.new.tsx:376
+#: src/routes/_brand/campaigns.new.tsx:378
 msgid "Error inesperado"
 msgstr "Error inesperado"
 
@@ -6798,8 +6830,8 @@ msgstr "No pudimos confirmar la postulación. Intentá enviarla de nuevo."
 msgid "No pudimos copiar el link"
 msgstr "No pudimos copiar el link"
 
-#: src/routes/_brand/campaigns.new.tsx:327
-#: src/routes/_brand/campaigns.new.tsx:346
+#: src/routes/_brand/campaigns.new.tsx:329
+#: src/routes/_brand/campaigns.new.tsx:348
 msgid "No pudimos crear la campaña. Intentá de nuevo."
 msgstr "No pudimos crear la campaña. Intentá de nuevo."
 
@@ -7573,7 +7605,7 @@ msgstr "Participantes"
 msgid "Paso {segmentStep}"
 msgstr "Paso {segmentStep}"
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:57
+#: src/features/campaigns/wizard/WizardLayout.tsx:59
 msgid "Paso {step} de {totalSteps}"
 msgstr "Paso {step} de {totalSteps}"
 
@@ -8466,7 +8498,7 @@ msgstr "Reintentá para traer tus items pendientes."
 #: src/features/inbox/InboxPage.tsx:185
 #: src/features/offers/components/SendOfferSidesheet.tsx:340
 #: src/routes/_brand/campaigns.index.tsx:77
-#: src/routes/_brand/campaigns.new.tsx:380
+#: src/routes/_brand/campaigns.new.tsx:382
 #: src/routes/_brand/checkout-return.tsx:132
 msgid "Reintentar"
 msgstr "Reintentar"
@@ -8596,11 +8628,11 @@ msgstr "Revisá las postulaciones entrantes para sumar participantes a esta camp
 #~ msgid "Revisá los datos de la campaña: {0}"
 #~ msgstr "Revisá los datos de la campaña: {0}"
 
-#: src/routes/_brand/campaigns.new.tsx:324
+#: src/routes/_brand/campaigns.new.tsx:326
 msgid "Revisá los datos de la campaña: {errorMessage}"
 msgstr "Revisá los datos de la campaña: {errorMessage}"
 
-#: src/routes/_brand/campaigns.new.tsx:323
+#: src/routes/_brand/campaigns.new.tsx:325
 msgid "Revisá los datos de la campaña: {firstFieldError}"
 msgstr "Revisá los datos de la campaña: {firstFieldError}"
 
@@ -10848,7 +10880,7 @@ msgid "Volver"
 msgstr "Volver"
 
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:119
-#: src/routes/_brand/campaigns.new.tsx:386
+#: src/routes/_brand/campaigns.new.tsx:388
 msgid "Volver a campañas"
 msgstr "Volver a campañas"
 

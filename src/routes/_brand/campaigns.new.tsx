@@ -6,6 +6,7 @@ import { Trans } from '@lingui/react/macro'
 import { z } from 'zod'
 
 import { Button } from '#/components/ui/button'
+import { CampaignPromptHelp } from '#/features/campaigns/wizard/CampaignPromptHelp'
 import { WizardLayout } from '#/features/campaigns/wizard/WizardLayout'
 import { WizardStep1ContentType } from '#/features/campaigns/wizard/WizardStep1ContentType'
 import { WizardStep2PricingModel } from '#/features/campaigns/wizard/WizardStep2PricingModel'
@@ -246,6 +247,7 @@ function CampaignsNewLayout() {
       onNext={handleNext}
       nextDisabled={nextDisabled}
       nextLabel={step === 7 ? <Trans>Crear campaña</Trans> : undefined}
+      headerActions={<CampaignPromptHelp />}
     >
       {step === 1 ? <WizardStep1ContentType /> : null}
       {step === 2 ? <WizardStep2PricingModel /> : null}

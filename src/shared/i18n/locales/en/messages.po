@@ -129,6 +129,10 @@ msgstr ""
 msgid "¿Qué tipo de contenido hacés?"
 msgstr ""
 
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:91
+msgid "¿Querés ayuda para armar tu campaña?"
+msgstr ""
+
 #: src/features/identity/onboarding/creator/screens/C16ReferralScreen.tsx:21
 msgid "¿Quién te invitó?"
 msgstr ""
@@ -1237,7 +1241,7 @@ msgid "Alcanzaste el límite de tu plan ({planName}). Para crear más campañas,
 msgstr ""
 
 #: src/features/analytics/dashboard/ErrorBlockState.tsx:20
-#: src/routes/_brand/campaigns.new.tsx:373
+#: src/routes/_brand/campaigns.new.tsx:375
 msgid "Algo salió mal"
 msgstr ""
 
@@ -1497,7 +1501,7 @@ msgstr ""
 msgid "Así se ve lo que podés alcanzar."
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:93
+#: src/features/campaigns/wizard/WizardLayout.tsx:98
 #: src/features/identity/onboarding/creator/screens/C20ConfirmationScreen.tsx:299
 msgid "Atrás"
 msgstr ""
@@ -1561,6 +1565,14 @@ msgstr ""
 
 #: src/features/chat/utils/groupByDay.ts:46
 msgid "Ayer"
+msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:75
+msgid "Ayuda con IA"
+msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:71
+msgid "Ayuda con IA para armar tu campaña"
 msgstr ""
 
 #: src/features/payments/settings/PayoutAccountModal.tsx:120
@@ -1968,7 +1980,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignConfigurationSheet.tsx:250
 #: src/features/campaigns/detail/overview/CampaignInlineEditor.tsx:857
-#: src/features/campaigns/wizard/WizardLayout.tsx:63
+#: src/features/campaigns/wizard/WizardLayout.tsx:67
 #: src/features/deliverables/components/RequestChangesModalBody.tsx:187
 #: src/features/discovery/campaign-board/ApplicationDialog.tsx:216
 #: src/features/discovery/network/components/EmailInviteModal.tsx:167
@@ -2378,7 +2390,7 @@ msgstr ""
 #~ msgid "Completá la información principal que verán los creators antes de aplicar."
 #~ msgstr ""
 
-#: src/routes/_brand/campaigns.new.tsx:282
+#: src/routes/_brand/campaigns.new.tsx:284
 msgid "Completá los datos requeridos antes de crear la campaña."
 msgstr ""
 
@@ -2582,7 +2594,7 @@ msgstr ""
 #~ msgid "Content review workflow"
 #~ msgstr ""
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:96
+#: src/features/campaigns/wizard/WizardLayout.tsx:101
 #: src/features/identity/auth/components/KindSelector.tsx:191
 msgid "Continuar"
 msgstr ""
@@ -2634,6 +2646,26 @@ msgstr ""
 #: src/features/campaigns/configuration/ReviewStep.tsx:67
 #~ msgid "Conversión"
 #~ msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
+#~ msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
+#~ msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
+msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y darte los campos exactos para crear tu campaña en Marz."
+msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:80
+msgid "Copiá un prompt para que tu IA te ayude a completar la campaña"
+msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:118
+msgid "Copiado"
+msgstr ""
+
+#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:123
+msgid "Copiar prompt"
+msgstr ""
 
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:122
 #: src/features/campaigns/detail/creators/InviteCreatorDialog.tsx:143
@@ -2766,7 +2798,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/routes/_brand/campaigns.index.tsx:274
-#: src/routes/_brand/campaigns.new.tsx:248
+#: src/routes/_brand/campaigns.new.tsx:249
 msgid "Crear campaña"
 msgstr ""
 
@@ -4046,7 +4078,7 @@ msgstr ""
 #~ msgid "Error en el análisis"
 #~ msgstr ""
 
-#: src/routes/_brand/campaigns.new.tsx:376
+#: src/routes/_brand/campaigns.new.tsx:378
 msgid "Error inesperado"
 msgstr ""
 
@@ -6806,8 +6838,8 @@ msgstr ""
 msgid "No pudimos copiar el link"
 msgstr ""
 
-#: src/routes/_brand/campaigns.new.tsx:327
-#: src/routes/_brand/campaigns.new.tsx:346
+#: src/routes/_brand/campaigns.new.tsx:329
+#: src/routes/_brand/campaigns.new.tsx:348
 msgid "No pudimos crear la campaña. Intentá de nuevo."
 msgstr ""
 
@@ -7585,7 +7617,7 @@ msgstr ""
 msgid "Paso {segmentStep}"
 msgstr ""
 
-#: src/features/campaigns/wizard/WizardLayout.tsx:57
+#: src/features/campaigns/wizard/WizardLayout.tsx:59
 msgid "Paso {step} de {totalSteps}"
 msgstr ""
 
@@ -8490,7 +8522,7 @@ msgstr ""
 #: src/features/inbox/InboxPage.tsx:185
 #: src/features/offers/components/SendOfferSidesheet.tsx:340
 #: src/routes/_brand/campaigns.index.tsx:77
-#: src/routes/_brand/campaigns.new.tsx:380
+#: src/routes/_brand/campaigns.new.tsx:382
 #: src/routes/_brand/checkout-return.tsx:132
 msgid "Reintentar"
 msgstr ""
@@ -8620,11 +8652,11 @@ msgstr ""
 #~ msgid "Revisá los datos de la campaña: {0}"
 #~ msgstr ""
 
-#: src/routes/_brand/campaigns.new.tsx:324
+#: src/routes/_brand/campaigns.new.tsx:326
 msgid "Revisá los datos de la campaña: {errorMessage}"
 msgstr ""
 
-#: src/routes/_brand/campaigns.new.tsx:323
+#: src/routes/_brand/campaigns.new.tsx:325
 msgid "Revisá los datos de la campaña: {firstFieldError}"
 msgstr ""
 
@@ -10880,7 +10912,7 @@ msgid "Volver"
 msgstr ""
 
 #: src/features/campaigns/detail/CampaignDetailPage.tsx:119
-#: src/routes/_brand/campaigns.new.tsx:386
+#: src/routes/_brand/campaigns.new.tsx:388
 msgid "Volver a campañas"
 msgstr ""
 
