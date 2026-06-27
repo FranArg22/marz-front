@@ -34,7 +34,6 @@ import {
   DiscoveryCreatePairKindEnum,
 } from '#/shared/api/generated/model'
 
-import { buildMockCreatorDetailProfile } from '../mocks/creatorDetailProfile'
 import type { CreatorDetailProfile } from '../mocks/creatorDetailProfile'
 
 const Intl_NumberFormat_compact = new Intl.NumberFormat('es-AR', {
@@ -136,19 +135,20 @@ function experienceLabel(
 }
 
 interface CreatorProfileSidesheetProps {
-  card: DiscoveryCreatorCard | null
+  /** Perfil ya construido por el caller (`buildMockCreatorDetailProfile`). */
+  profile: CreatorDetailProfile | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onInvite: (card: DiscoveryCreatorCard) => void
+  /** Acción extra del footer (ej. invitar/ir al chat). A la derecha de "Cerrar". */
+  footerAction?: React.ReactNode
 }
 
 export function CreatorProfileSidesheet({
-  card,
+  profile,
   open,
   onOpenChange,
-  onInvite,
+  footerAction,
 }: CreatorProfileSidesheetProps) {
-  const profile = card ? buildMockCreatorDetailProfile(card) : null
   const creatorName = profile?.displayName
 
   return (
@@ -181,36 +181,83 @@ export function CreatorProfileSidesheet({
           </Button>
         </header>
 
-        {profile && card ? (
-          <ProfileBody
-            profile={profile}
-            card={card}
-            onInvite={() => onInvite(card)}
-            onClose={() => onOpenChange(false)}
-          />
+        {profile ? (
+          <div className="flex min-h-0 flex-1 flex-col">
+            <ProfileBody profile={profile} />
+            <footer className="flex justify-end gap-2 border-t border-border p-5">
+              <Button
+                type="button"
+                variant="outline"
+                className="rounded-xl"
+                onClick={() => onOpenChange(false)}
+              >
+                {t`Cerrar`}
+              </Button>
+              {footerAction}
+            </footer>
+          </div>
         ) : null}
       </SheetContent>
     </Sheet>
   )
 }
 
-function ProfileBody({
-  profile,
+/**
+ * Footer de invitación para Explorar: muestra "Invitar" / "Invitación enviada"
+ * / "Ir al chat" según el estado del par marca-creador.
+ */
+export function CreatorProfileInviteFooter({
   card,
   onInvite,
-  onClose,
 }: {
-  profile: CreatorDetailProfile
   card: DiscoveryCreatorCard
   onInvite: () => void
-  onClose: () => void
 }) {
   const navigate = useNavigate()
   const { kind, conversation_id } = card.pair_state
 
+  if (
+    conversation_id &&
+    (kind === DiscoveryCreatePairKindEnum.open_conversation ||
+      kind === DiscoveryCreatePairKindEnum.active_collaboration)
+  ) {
+    return (
+      <Button
+        type="button"
+        className="rounded-xl"
+        onClick={() => {
+          void navigate({
+            to: '/workspace/conversations/$conversationId',
+            params: { conversationId: conversation_id },
+          })
+        }}
+      >
+        <MessageCircle className="size-4" aria-hidden />
+        {t`Ir al chat`}
+      </Button>
+    )
+  }
+
+  if (kind === DiscoveryCreatePairKindEnum.connection_pending) {
+    return (
+      <Button type="button" className="rounded-xl" disabled>
+        {t`Invitación enviada`}
+      </Button>
+    )
+  }
+
+  return (
+    <Button type="button" className="rounded-xl" onClick={onInvite}>
+      <Send className="size-4" aria-hidden />
+      {t`Invitar`}
+    </Button>
+  )
+}
+
+function ProfileBody({ profile }: { profile: CreatorDetailProfile }) {
   const age = profile.age
   const identityFacts = [
-    t`${age} años`,
+    age === null ? null : t`${age} años`,
     genderLabel(profile.gender),
     profile.city,
   ].filter((value): value is string => Boolean(value))
@@ -220,165 +267,134 @@ function ProfileBody({
       ? `${currencySymbol(profile.ugcRateCurrency)}${profile.ugcRateAmount} ${profile.ugcRateCurrency}`
       : DASH
 
+  const avatarFallback = profile.displayName.charAt(0).toUpperCase()
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
-        {/* Hero */}
-        <section className="flex items-start gap-4">
+    <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
+      {/* Hero */}
+      <section className="flex items-start gap-4">
+        {profile.avatarUrl ? (
           <img
             src={profile.avatarUrl}
             alt={profile.displayName}
             className="size-20 shrink-0 rounded-2xl object-cover ring-1 ring-border"
             loading="lazy"
           />
-          <div className="min-w-0 space-y-1.5">
-            <h3 className="text-[length:var(--font-size-xl)] font-semibold leading-tight tracking-tight text-card-foreground">
-              {profile.displayName}{' '}
-              <Flag country={profile.country} className="rounded-[2px]" />
-            </h3>
-            <p className="text-[length:var(--font-size-sm)] text-muted-foreground">
-              {identityFacts.length > 0 ? identityFacts.join(' · ') : DASH}
-            </p>
-            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-              {profile.creatorKinds.map((creatorKind) => (
-                <span
-                  key={creatorKind}
-                  className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 text-[length:var(--font-size-xs)] font-medium text-primary-foreground"
-                >
-                  {kindLabel(creatorKind)}
-                </span>
-              ))}
-              <CollaborationBadge accepts={profile.acceptsCollaborations} />
-            </div>
-          </div>
-        </section>
-
-        {/* Métricas y precios */}
-        <SheetSection title={t`Métricas y precios`}>
-          {profile.platforms.length > 0 ? (
-            <MetricsTable platforms={profile.platforms} />
-          ) : (
-            <EmptyValue />
-          )}
-        </SheetSection>
-
-        {/* Redes */}
-        <SheetSection title={t`Redes`}>
-          <SocialLinks platforms={profile.platforms} />
-        </SheetSection>
-
-        {/* Datos del creador */}
-        <SheetSection title={t`Sobre el creador`}>
-          <dl className="divide-y divide-border">
-            <InfoRow label={t`Intereses`}>
-              <ChipList items={profile.interests} />
-            </InfoRow>
-            <InfoRow label={t`Tipo de contenido`}>
-              <ChipList items={profile.contentTypes} />
-            </InfoRow>
-            <InfoRow label={t`Idiomas`}>
-              {textOrDash(profile.languages.join(', '))}
-            </InfoRow>
-            <InfoRow label={t`País`}>
-              {profile.country ? (
-                <span className="inline-flex items-center gap-1.5">
-                  <Flag country={profile.country} className="rounded-[2px]" />
-                  {profile.country}
-                </span>
-              ) : (
-                DASH
-              )}
-            </InfoRow>
-            <InfoRow label={t`Ciudad`}>{textOrDash(profile.city)}</InfoRow>
-            <InfoRow label={t`Tipo de creador`}>
-              {textOrDash(
-                profile.creatorKinds.map(kindLabel).join(' · ') || null,
-              )}
-            </InfoRow>
-            <InfoRow label={t`Tarifa UGC`}>
-              <span className="font-mono tabular-nums">{ugcRate}</span>
-            </InfoRow>
-            <InfoRow label={t`Experiencia en campañas`}>
-              {textOrDash(experienceLabel(profile.experienceLevel))}
-            </InfoRow>
-            <InfoRow label={t`Acepta colaboraciones`}>
-              {profile.acceptsCollaborations === null
-                ? DASH
-                : profile.acceptsCollaborations
-                  ? t`Sí`
-                  : t`No`}
-            </InfoRow>
-          </dl>
-        </SheetSection>
-
-        {/* Top videos */}
-        <SheetSection title={t`Top videos del portfolio`}>
-          {profile.bestVideoUrls.length > 0 ? (
-            <ul className="space-y-2">
-              {profile.bestVideoUrls.map((url, index) => (
-                <li key={url}>
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-xl border border-border bg-background px-3 py-2.5 text-[length:var(--font-size-sm)] text-foreground transition-colors hover:bg-muted"
-                  >
-                    <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-lg bg-muted text-[length:var(--font-size-xs)] font-semibold text-muted-foreground">
-                      {index + 1}
-                    </span>
-                    <span className="min-w-0 flex-1 truncate font-mono text-[length:var(--font-size-xs)] text-muted-foreground">
-                      {url}
-                    </span>
-                    <ExternalLink
-                      className="size-4 shrink-0 text-muted-foreground"
-                      aria-hidden
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <EmptyValue />
-          )}
-        </SheetSection>
-      </div>
-
-      <footer className="flex justify-end gap-2 border-t border-border p-5">
-        <Button
-          type="button"
-          variant="outline"
-          className="rounded-xl"
-          onClick={onClose}
-        >
-          {t`Cerrar`}
-        </Button>
-        {conversation_id &&
-        (kind === DiscoveryCreatePairKindEnum.open_conversation ||
-          kind === DiscoveryCreatePairKindEnum.active_collaboration) ? (
-          <Button
-            type="button"
-            className="rounded-xl"
-            onClick={() => {
-              void navigate({
-                to: '/workspace/conversations/$conversationId',
-                params: { conversationId: conversation_id },
-              })
-            }}
-          >
-            <MessageCircle className="size-4" aria-hidden />
-            {t`Ir al chat`}
-          </Button>
-        ) : kind === DiscoveryCreatePairKindEnum.connection_pending ? (
-          <Button type="button" className="rounded-xl" disabled>
-            {t`Invitación enviada`}
-          </Button>
         ) : (
-          <Button type="button" className="rounded-xl" onClick={onInvite}>
-            <Send className="size-4" aria-hidden />
-            {t`Invitar`}
-          </Button>
+          <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-primary text-[length:var(--font-size-2xl)] font-semibold text-primary-foreground ring-1 ring-border">
+            {avatarFallback}
+          </div>
         )}
-      </footer>
+        <div className="min-w-0 space-y-1.5">
+          <h3 className="text-[length:var(--font-size-xl)] font-semibold leading-tight tracking-tight text-card-foreground">
+            {profile.displayName}{' '}
+            <Flag country={profile.country} className="rounded-[2px]" />
+          </h3>
+          <p className="text-[length:var(--font-size-sm)] text-muted-foreground">
+            {identityFacts.length > 0 ? identityFacts.join(' · ') : DASH}
+          </p>
+          <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+            {profile.creatorKinds.map((creatorKind) => (
+              <span
+                key={creatorKind}
+                className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 text-[length:var(--font-size-xs)] font-medium text-primary-foreground"
+              >
+                {kindLabel(creatorKind)}
+              </span>
+            ))}
+            <CollaborationBadge accepts={profile.acceptsCollaborations} />
+          </div>
+        </div>
+      </section>
+
+      {/* Métricas y precios */}
+      <SheetSection title={t`Métricas y precios`}>
+        {profile.platforms.length > 0 ? (
+          <MetricsTable platforms={profile.platforms} />
+        ) : (
+          <EmptyValue />
+        )}
+      </SheetSection>
+
+      {/* Redes */}
+      <SheetSection title={t`Redes`}>
+        <SocialLinks platforms={profile.platforms} />
+      </SheetSection>
+
+      {/* Datos del creador */}
+      <SheetSection title={t`Sobre el creador`}>
+        <dl className="divide-y divide-border">
+          <InfoRow label={t`Intereses`}>
+            <ChipList items={profile.interests} />
+          </InfoRow>
+          <InfoRow label={t`Tipo de contenido`}>
+            <ChipList items={profile.contentTypes} />
+          </InfoRow>
+          <InfoRow label={t`Idiomas`}>
+            {textOrDash(profile.languages.join(', '))}
+          </InfoRow>
+          <InfoRow label={t`País`}>
+            {profile.country ? (
+              <span className="inline-flex items-center gap-1.5">
+                <Flag country={profile.country} className="rounded-[2px]" />
+                {profile.country}
+              </span>
+            ) : (
+              DASH
+            )}
+          </InfoRow>
+          <InfoRow label={t`Ciudad`}>{textOrDash(profile.city)}</InfoRow>
+          <InfoRow label={t`Tipo de creador`}>
+            {textOrDash(
+              profile.creatorKinds.map(kindLabel).join(' · ') || null,
+            )}
+          </InfoRow>
+          <InfoRow label={t`Tarifa UGC`}>
+            <span className="font-mono tabular-nums">{ugcRate}</span>
+          </InfoRow>
+          <InfoRow label={t`Experiencia en campañas`}>
+            {textOrDash(experienceLabel(profile.experienceLevel))}
+          </InfoRow>
+          <InfoRow label={t`Acepta colaboraciones`}>
+            {profile.acceptsCollaborations === null
+              ? DASH
+              : profile.acceptsCollaborations
+                ? t`Sí`
+                : t`No`}
+          </InfoRow>
+        </dl>
+      </SheetSection>
+
+      {/* Top videos */}
+      <SheetSection title={t`Top videos del portfolio`}>
+        {profile.bestVideoUrls.length > 0 ? (
+          <ul className="space-y-2">
+            {profile.bestVideoUrls.map((url, index) => (
+              <li key={url}>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-xl border border-border bg-background px-3 py-2.5 text-[length:var(--font-size-sm)] text-foreground transition-colors hover:bg-muted"
+                >
+                  <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-lg bg-muted text-[length:var(--font-size-xs)] font-semibold text-muted-foreground">
+                    {index + 1}
+                  </span>
+                  <span className="min-w-0 flex-1 truncate font-mono text-[length:var(--font-size-xs)] text-muted-foreground">
+                    {url}
+                  </span>
+                  <ExternalLink
+                    className="size-4 shrink-0 text-muted-foreground"
+                    aria-hidden
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <EmptyValue />
+        )}
+      </SheetSection>
     </div>
   )
 }

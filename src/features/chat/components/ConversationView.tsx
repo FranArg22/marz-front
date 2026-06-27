@@ -35,6 +35,8 @@ interface ConversationViewProps {
   sessionKind: 'brand' | 'creator' | undefined
   onUploadDraft?: (deliverableId: string) => void
   highlightPaymentId?: string
+  /** Si se provee, el header abre el perfil del creador. */
+  onOpenCounterpartProfile?: () => void
 }
 
 export function ConversationView({
@@ -43,6 +45,7 @@ export function ConversationView({
   sessionKind,
   onUploadDraft,
   highlightPaymentId,
+  onOpenCounterpartProfile,
 }: ConversationViewProps) {
   const queryClient = useQueryClient()
   const detailQuery = useConversationDetailQuery(conversationId)
@@ -153,6 +156,7 @@ export function ConversationView({
       <ConversationHeader
         conversation={conversation}
         leadingSlot={<BackToListButton />}
+        onOpenProfile={onOpenCounterpartProfile}
         trailingSlot={
           <OffersToggleButton
             conversationId={conversationId}
