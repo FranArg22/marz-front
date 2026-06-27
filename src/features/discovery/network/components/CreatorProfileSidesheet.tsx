@@ -156,7 +156,10 @@ export function CreatorProfileSidesheet({
       <SheetContent
         side="right"
         showCloseButton={false}
-        className="w-full gap-0 overflow-hidden border-border bg-card p-0 sm:max-w-[560px] sm:rounded-l-2xl"
+        // Curva drawer iOS (ease-out fuerte) + enter más corto que el default
+        // del Sheet (500ms ease-in-out): entra snappy y sale rápido. El override
+        // vive acá para que viaje con el componente donde sea que se reutilice.
+        className="w-full gap-0 overflow-hidden border-border bg-card p-0 ease-[cubic-bezier(0.32,0.72,0,1)] data-[state=closed]:duration-[250ms] data-[state=open]:duration-[380ms] sm:max-w-[560px] sm:rounded-l-2xl"
       >
         <SheetTitle className="sr-only">
           {creatorName ? t`Perfil de ${creatorName}` : t`Perfil del creador`}
