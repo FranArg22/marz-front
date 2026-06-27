@@ -152,7 +152,7 @@ export function CampaignCreatorsTable({
   return (
     <TableFrame>
       <div className="overflow-x-auto">
-        <div className="min-w-[900px]">
+        <div className="w-max min-w-full">
           <HeaderRow />
           <div className="divide-y divide-border">
             {participants.map((participant) => (
