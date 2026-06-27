@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { useUser } from '@clerk/tanstack-react-start'
+import { useRouterState } from '@tanstack/react-router'
 
 import { env } from '#/env'
 import { useIsMobile } from '#/shared/hooks/useIsMobile'
@@ -22,6 +23,11 @@ export function IntercomBridge() {
   const { isLoaded, isSignedIn, user } = useUser()
   const isMobile = useIsMobile()
   const setUnreadCount = useIntercomStore((s) => s.setUnreadCount)
+  // Solo en la creación de campaña subimos el launcher de desktop para que no
+  // tape los botones "Atrás"/"Continuar". En el resto de la app queda donde va.
+  const onCampaignCreation = useRouterState({
+    select: (s) => s.location.pathname.startsWith('/campaigns/new'),
+  })
 
   // No cargamos el widget externo durante los tests e2e (evita flakiness).
   const enabled = isLoaded && isSignedIn && !import.meta.env.VITE_E2E
@@ -47,12 +53,22 @@ export function IntercomBridge() {
       name,
       created_at: createdAt,
       hide_default_launcher: isMobile,
-      // En desktop subimos el launcher para que no tape botones clave
-      // (p. ej. "Continuar"). En mobile el launcher nativo está oculto.
-      vertical_padding: isMobile ? undefined : 88,
+      // En desktop, dentro de la creación de campaña, subimos el launcher para
+      // que no tape "Continuar". En el resto de la app vuelve al default de
+      // Intercom (20) — lo seteamos explícito para que el update lo resetee.
+      vertical_padding: !isMobile && onCampaignCreation ? 88 : 20,
     })
     onUnreadCountChange(setUnreadCount)
-  }, [enabled, userId, email, name, createdAt, isMobile, setUnreadCount])
+  }, [
+    enabled,
+    userId,
+    email,
+    name,
+    createdAt,
+    isMobile,
+    onCampaignCreation,
+    setUnreadCount,
+  ])
 
   // Cierra la sesión de Intercom al desloguear o desmontar.
   useEffect(() => {
