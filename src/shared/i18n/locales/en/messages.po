@@ -853,7 +853,7 @@ msgstr ""
 msgid "Accedé a la red de creadores y lanzá tu primera campaña."
 msgstr ""
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:112
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:121
 msgid "Accept"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgid "Aceptación y cancelación"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:136
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:123
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:132
 #: src/features/offers/components/CurrentOfferBlock.tsx:42
 #: src/features/offers/components/OfferArchiveItem.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:111
@@ -2645,10 +2645,6 @@ msgstr ""
 #: src/features/campaigns/brief-builder/screens/P3Review.tsx:48
 #: src/features/campaigns/configuration/ReviewStep.tsx:67
 #~ msgid "Conversión"
-#~ msgstr ""
-
-#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
-#~ msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
 #~ msgstr ""
 
 #: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
@@ -7734,7 +7730,7 @@ msgstr ""
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:122
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:131
 #: src/features/identity/settings/PortfolioSection.tsx:149
 #: src/features/offers/components/OfferArchiveItem.tsx:73
 #: src/features/offers/components/OfferArchiveItem.tsx:109
@@ -8378,7 +8374,7 @@ msgid "Recetas"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:137
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:124
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:133
 #: src/features/offers/components/CurrentOfferBlock.tsx:43
 #: src/features/offers/components/OfferArchiveItem.tsx:79
 #: src/features/offers/components/OfferArchiveItem.tsx:113
@@ -8527,7 +8523,7 @@ msgstr ""
 msgid "Reintentar"
 msgstr ""
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:95
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:104
 #: src/features/offers/components/OfferCard.tsx:90
 msgid "Reject"
 msgstr ""
@@ -10679,7 +10675,7 @@ msgstr ""
 msgid "Ver brief"
 msgstr ""
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:75
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:84
 msgid "Ver creador"
 msgstr ""
 
@@ -10709,7 +10705,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:305
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:291
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:46
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:55
 msgid "Ver perfil de {creatorName}"
 msgstr ""
 

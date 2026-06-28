@@ -853,7 +853,7 @@ msgstr "Acá no entrás solo."
 msgid "Accedé a la red de creadores y lanzá tu primera campaña."
 msgstr "Accedé a la red de creadores y lanzá tu primera campaña."
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:112
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:121
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -921,7 +921,7 @@ msgid "Aceptación y cancelación"
 msgstr "Aceptación y cancelación"
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:136
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:123
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:132
 #: src/features/offers/components/CurrentOfferBlock.tsx:42
 #: src/features/offers/components/OfferArchiveItem.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:111
@@ -2642,10 +2642,6 @@ msgstr "Conversación no disponible"
 #: src/features/campaigns/configuration/ReviewStep.tsx:67
 #~ msgid "Conversión"
 #~ msgstr "Conversión"
-
-#: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
-#~ msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
-#~ msgstr "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y completar los datos de tu campaña en Marz."
 
 #: src/features/campaigns/wizard/CampaignPromptHelp.tsx:94
 msgid "Copiá este prompt y pegalo en tu IA preferida (ChatGPT, Claude, etc.). Te va a hacer unas preguntas y darte los campos exactos para crear tu campaña en Marz."
@@ -7722,7 +7718,7 @@ msgstr "Pegá un Reel de Instagram, un TikTok o un Short de YouTube"
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:122
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:131
 #: src/features/identity/settings/PortfolioSection.tsx:149
 #: src/features/offers/components/OfferArchiveItem.tsx:73
 #: src/features/offers/components/OfferArchiveItem.tsx:109
@@ -8358,7 +8354,7 @@ msgid "Recetas"
 msgstr "Recetas"
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:137
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:124
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:133
 #: src/features/offers/components/CurrentOfferBlock.tsx:43
 #: src/features/offers/components/OfferArchiveItem.tsx:79
 #: src/features/offers/components/OfferArchiveItem.tsx:113
@@ -8503,7 +8499,7 @@ msgstr "Reintentá para traer tus items pendientes."
 msgid "Reintentar"
 msgstr "Reintentar"
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:95
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:104
 #: src/features/offers/components/OfferCard.tsx:90
 msgid "Reject"
 msgstr "Reject"
@@ -10647,7 +10643,7 @@ msgstr "Ventana de bono {windowNumber}"
 msgid "Ver brief"
 msgstr "Ver brief"
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:75
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:84
 msgid "Ver creador"
 msgstr "Ver creador"
 
@@ -10677,7 +10673,7 @@ msgstr "Ver perfil de {counterpartName}"
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:305
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:291
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:46
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:55
 msgid "Ver perfil de {creatorName}"
 msgstr "Ver perfil de {creatorName}"
 
