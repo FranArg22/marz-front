@@ -853,7 +853,7 @@ msgstr ""
 msgid "Accedé a la red de creadores y lanzá tu primera campaña."
 msgstr ""
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:115
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:112
 msgid "Accept"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgid "Aceptación y cancelación"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:136
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:125
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:123
 #: src/features/offers/components/CurrentOfferBlock.tsx:42
 #: src/features/offers/components/OfferArchiveItem.tsx:75
 #: src/features/offers/components/OfferArchiveItem.tsx:111
@@ -7734,7 +7734,7 @@ msgstr ""
 #: src/features/campaigns/detail/overview/StatsBlock.tsx:59
 #: src/features/campaigns/detail/videos/VideosFilters.tsx:71
 #: src/features/deliverables/components/DeliverableStatusBadge.tsx:14
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:124
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:122
 #: src/features/identity/settings/PortfolioSection.tsx:149
 #: src/features/offers/components/OfferArchiveItem.tsx:73
 #: src/features/offers/components/OfferArchiveItem.tsx:109
@@ -8378,7 +8378,7 @@ msgid "Recetas"
 msgstr ""
 
 #: src/features/discovery/campaign-board/CampaignBoardCard.tsx:137
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:126
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:124
 #: src/features/offers/components/CurrentOfferBlock.tsx:43
 #: src/features/offers/components/OfferArchiveItem.tsx:79
 #: src/features/offers/components/OfferArchiveItem.tsx:113
@@ -8527,7 +8527,7 @@ msgstr ""
 msgid "Reintentar"
 msgstr ""
 
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:98
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:95
 #: src/features/offers/components/OfferCard.tsx:90
 msgid "Reject"
 msgstr ""
@@ -10679,6 +10679,10 @@ msgstr ""
 msgid "Ver brief"
 msgstr ""
 
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:75
+msgid "Ver creador"
+msgstr ""
+
 #: src/features/campaigns/detail/overview/CreatorsPreview.tsx:49
 #: src/features/campaigns/detail/overview/RecentActivity.tsx:114
 msgid "Ver creadores"
@@ -10705,7 +10709,7 @@ msgstr ""
 
 #: src/features/campaigns/detail/CampaignCreatorsTable.tsx:305
 #: src/features/campaigns/detail/CampaignVideosGrid.tsx:291
-#: src/features/discovery/campaign-detail/ApplicationCard.tsx:54
+#: src/features/discovery/campaign-detail/ApplicationCard.tsx:46
 msgid "Ver perfil de {creatorName}"
 msgstr ""
 
