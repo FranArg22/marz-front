@@ -19,6 +19,7 @@ interface WizardLayoutProps {
   onNext: () => void
   nextDisabled?: boolean
   nextLabel?: ReactNode
+  headerActions?: ReactNode
   children: ReactNode
 }
 
@@ -31,6 +32,7 @@ export function WizardLayout({
   onNext,
   nextDisabled = false,
   nextLabel,
+  headerActions,
   children,
 }: WizardLayoutProps) {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
@@ -58,10 +60,13 @@ export function WizardLayout({
               Paso {step} de {totalSteps}
             </Trans>
           </span>
-          <Button variant="outline" size="sm" onClick={handleCancelClick}>
-            <X aria-hidden="true" />
-            <Trans>Cancelar</Trans>
-          </Button>
+          <div className="flex items-center gap-2">
+            {headerActions}
+            <Button variant="outline" size="sm" onClick={handleCancelClick}>
+              <X aria-hidden="true" />
+              <Trans>Cancelar</Trans>
+            </Button>
+          </div>
         </div>
         <WizardStepIndicator
           step={step}
