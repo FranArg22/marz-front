@@ -57,7 +57,6 @@ test.describe('Creator onboarding — channels screen', () => {
 
     await wizard.addChannel()
     await wizard.expandChannel(/Instagram/)
-    await wizard.addRateCardAndPickFirstOption()
 
     const amount = wizard.firstAmountInput()
     await expect(amount).toBeVisible()
@@ -83,7 +82,6 @@ test.describe('Creator onboarding — channels screen', () => {
     await wizard.addChannel()
 
     await wizard.firstHandleInput().fill('mi_handle')
-    await wizard.addRateCardAndPickFirstOption()
 
     await expect(wizard.continueButton).toBeDisabled()
 

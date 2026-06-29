@@ -33,13 +33,13 @@ export function StageSpendDonut({ data }: StageSpendDonutProps) {
   return (
     <section
       aria-label={t`Distribución de gasto por etapa en USD`}
-      className="flex h-[300px] w-[480px] shrink-0 flex-col rounded-lg border border-border bg-card p-5"
+      className="flex h-[300px] w-full shrink-0 flex-col rounded-lg border border-border bg-card p-5 md:w-[480px]"
     >
       <div>
         <h2 className="text-sm font-semibold text-foreground">
           {t`Gasto por etapa`}
         </h2>
-        <p className="text-xs text-muted-foreground">
+        <p className="hidden text-xs text-muted-foreground md:block">
           {t`Distribución del gasto según la etapa de cada oferta`}
         </p>
       </div>

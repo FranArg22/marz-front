@@ -32,6 +32,18 @@ const FORMATS_BY_PLATFORM: Record<string, FormatOption[]> = {
 }
 /* eslint-enable lingui/no-unlocalized-strings */
 
+function emptyRateCard(format: RateCardFormat): CreatorRateCard {
+  return { format, rate_amount: '', rate_currency: 'USD' }
+}
+
+// Each platform has exactly one format, so the channel's single rate card is
+// created up front instead of behind a format picker.
+function rateCardsFor(platform: string): CreatorRateCard[] {
+  return (FORMATS_BY_PLATFORM[platform] ?? []).map((f) =>
+    emptyRateCard(f.value),
+  )
+}
+
 function emptyChannel(platform: string): CreatorChannel {
   return {
     platform,
@@ -40,12 +52,8 @@ function emptyChannel(platform: string): CreatorChannel {
     followers: null,
     verified: false,
     is_primary: false,
-    rate_cards: [],
+    rate_cards: rateCardsFor(platform),
   }
-}
-
-function emptyRateCard(format: RateCardFormat): CreatorRateCard {
-  return { format, rate_amount: '', rate_currency: 'USD' }
 }
 
 function hasAmount(rc: CreatorRateCard): boolean {
@@ -159,15 +167,9 @@ interface RateCardListProps {
   rateCards: CreatorRateCard[]
   formats: FormatOption[]
   onUpdate: (cardIndex: number, patch: Partial<CreatorRateCard>) => void
-  onRemove: (cardIndex: number) => void
 }
 
-function RateCardList({
-  rateCards,
-  formats,
-  onUpdate,
-  onRemove,
-}: RateCardListProps) {
+function RateCardList({ rateCards, formats, onUpdate }: RateCardListProps) {
   return (
     <div className="flex flex-col gap-3">
       <p className="text-[length:var(--font-size-sm)] font-medium text-muted-foreground">
@@ -200,14 +202,6 @@ function RateCardList({
             <span className="flex h-9 w-[80px] items-center justify-center rounded-md border border-border bg-muted text-sm text-muted-foreground">
               {rc.rate_currency}
             </span>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => onRemove(ri)}
-              aria-label={t`Eliminar tarifa`}
-            >
-              <Trash2 className="size-4" />
-            </Button>
           </div>
         )
       })}
@@ -218,27 +212,21 @@ function RateCardList({
 interface ChannelBodyProps {
   channel: CreatorChannel
   usedPlatforms: Set<string>
-  availableFormats: FormatOption[]
   formats: FormatOption[]
   onChangePlatform: (platform: string) => void
   onSetPrimary: () => void
   onUpdateHandle: (handle: string) => void
   onUpdateRateCard: (cardIndex: number, patch: Partial<CreatorRateCard>) => void
-  onRemoveRateCard: (cardIndex: number) => void
-  onAddRateCard: (format: RateCardFormat) => void
 }
 
 function ChannelBody({
   channel,
   usedPlatforms,
-  availableFormats,
   formats,
   onChangePlatform,
   onSetPrimary,
   onUpdateHandle,
   onUpdateRateCard,
-  onRemoveRateCard,
-  onAddRateCard,
 }: ChannelBodyProps) {
   return (
     <>
@@ -299,26 +287,7 @@ function ChannelBody({
           rateCards={channel.rate_cards}
           formats={formats}
           onUpdate={onUpdateRateCard}
-          onRemove={onRemoveRateCard}
         />
-      )}
-
-      {availableFormats.length > 0 && (
-        <Select
-          value=""
-          onValueChange={(value) => onAddRateCard(value as RateCardFormat)}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={t`Agregar tarifa...`} />
-          </SelectTrigger>
-          <SelectContent>
-            {availableFormats.map((f) => (
-              <SelectItem key={f.value} value={f.value}>
-                {f.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       )}
     </>
   )
@@ -384,31 +353,13 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
     (index: number, platform: string) => {
       onChange(
         channels.map((c, i) =>
-          i === index ? { ...c, platform, rate_cards: [] } : c,
+          i === index
+            ? { ...c, platform, rate_cards: rateCardsFor(platform) }
+            : c,
         ),
       )
     },
     [channels, onChange],
-  )
-
-  const addRateCard = useCallback(
-    (channelIndex: number, format: RateCardFormat) => {
-      const channel = channels[channelIndex]!
-      const next = [...channel.rate_cards, emptyRateCard(format)]
-      updateChannel(channelIndex, { rate_cards: next })
-    },
-    [channels, updateChannel],
-  )
-
-  const removeRateCard = useCallback(
-    (channelIndex: number, cardIndex: number) => {
-      const channel = channels[channelIndex]!
-      const next = channel.rate_cards.filter(
-        (_: CreatorRateCard, i: number) => i !== cardIndex,
-      )
-      updateChannel(channelIndex, { rate_cards: next })
-    },
-    [channels, updateChannel],
   )
 
   const updateRateCard = useCallback(
@@ -430,12 +381,6 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
     <div className="flex w-full max-w-[560px] flex-col gap-6 max-sm:gap-4">
       {channels.map((channel, ci) => {
         const formats = FORMATS_BY_PLATFORM[channel.platform] ?? []
-        const usedFormats = new Set(
-          channel.rate_cards.map((rc: CreatorRateCard) => rc.format),
-        )
-        const availableFormats = formats.filter(
-          (f) => !usedFormats.has(f.value),
-        )
         const platformLabel =
           PLATFORMS.find((p) => p.value === channel.platform)?.label ??
           channel.platform
@@ -474,7 +419,6 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
                   <ChannelBody
                     channel={channel}
                     usedPlatforms={usedPlatforms}
-                    availableFormats={availableFormats}
                     formats={formats}
                     onChangePlatform={(platform) =>
                       changePlatform(ci, platform)
@@ -486,10 +430,6 @@ export function ChannelEditor({ channels, onChange }: ChannelEditorProps) {
                     onUpdateRateCard={(cardIndex, patch) =>
                       updateRateCard(ci, cardIndex, patch)
                     }
-                    onRemoveRateCard={(cardIndex) =>
-                      removeRateCard(ci, cardIndex)
-                    }
-                    onAddRateCard={(format) => addRateCard(ci, format)}
                   />
                 </div>
               </div>

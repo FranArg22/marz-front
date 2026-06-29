@@ -27,6 +27,13 @@ interface DraftReviewDialogProps {
   initialDraft?: DraftDTO | null
   /** Used for the chat invalidation in ApproveDraftButton; "" works when not consumed. */
   conversationId?: string
+  /**
+   * Whether the approve / request-changes actions are available. Only true
+   * while the draft is pending review (`draft_submitted`). When false the
+   * dialog is a read-only player. Defaults to true so callers that already
+   * mount the dialog exclusively for pending drafts stay unchanged.
+   */
+  canReview?: boolean
 }
 
 type Step = 'review' | 'request_changes'
@@ -51,6 +58,7 @@ export function DraftReviewDialog({
   onResolved,
   initialDraft,
   conversationId = '',
+  canReview = true,
 }: DraftReviewDialogProps) {
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState<Step>('review')
@@ -105,7 +113,9 @@ export function DraftReviewDialog({
               </Button>
             ) : null}
             {step === 'review'
-              ? t`Revisar video borrador`
+              ? canReview
+                ? t`Revisar video borrador`
+                : t`Ver video borrador`
               : t`Solicitar cambios al video borrador`}
           </DialogTitle>
         </DialogHeader>
@@ -129,23 +139,25 @@ export function DraftReviewDialog({
               draftId={draft.id}
             />
 
-            <div className="flex items-center justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setStep('request_changes')}
-              >
-                {t`Solicitar cambios`}
-              </Button>
-              <ApproveDraftButton
-                deliverableId={deliverableId}
-                conversationId={conversationId}
-                version={draft.version}
-                currentVersion={draft.version}
-                draftId={draft.id}
-                onApproved={handleResolved}
-              />
-            </div>
+            {canReview ? (
+              <div className="flex items-center justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep('request_changes')}
+                >
+                  {t`Solicitar cambios`}
+                </Button>
+                <ApproveDraftButton
+                  deliverableId={deliverableId}
+                  conversationId={conversationId}
+                  version={draft.version}
+                  currentVersion={draft.version}
+                  draftId={draft.id}
+                  onApproved={handleResolved}
+                />
+              </div>
+            ) : null}
           </div>
         ) : (
           <RequestChangesModal

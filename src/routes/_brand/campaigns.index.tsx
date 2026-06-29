@@ -43,7 +43,7 @@ export function CampaignsPage() {
     !quotaQuery.isError
 
   return (
-    <div className="p-6">
+    <div className="h-full overflow-y-auto bg-background p-6 pb-mobile-nav">
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div>
           <h1 className="text-2xl font-semibold">

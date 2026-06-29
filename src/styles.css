@@ -561,10 +561,46 @@ body {
   animation: wizard-card-in 260ms var(--ease-out-quint) both;
 }
 
+/* Campaign detail — switching between sections (Resumen / Postulaciones /
+   Creadores / Videos). A subtle slide+fade that follows the tab order,
+   replayed on each change via remount. */
+@keyframes campaign-tab-in-forward {
+  from {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes campaign-tab-in-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.campaign-tab-panel {
+  animation: campaign-tab-in-forward 220ms var(--ease-out-quint) both;
+  will-change: transform, opacity;
+}
+
+.campaign-tab-panel[data-direction='back'] {
+  animation-name: campaign-tab-in-back;
+}
+
 /* Reduced motion: keep a gentle opacity cue, drop all movement. */
 @media (prefers-reduced-motion: reduce) {
   .wizard-step,
-  .wizard-step[data-direction='back'] {
+  .wizard-step[data-direction='back'],
+  .campaign-tab-panel,
+  .campaign-tab-panel[data-direction='back'] {
     animation: wizard-fade-in 160ms ease both;
     will-change: auto;
   }
