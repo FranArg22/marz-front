@@ -126,7 +126,7 @@ function DiscoveryRoute() {
     useDiscoveryFiltersStore.setState({
       appliedFilters: filters,
       pendingFilters: filters,
-      activeSort: sort && sort !== 'recommended' ? sort : 'er_desc',
+      activeSort: sort && sort !== 'recommended' ? sort : 'reach_desc',
     })
     hydrated.current = true
   }, [search])
