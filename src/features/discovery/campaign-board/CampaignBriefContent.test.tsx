@@ -37,17 +37,10 @@ function makeCard(): CreatorCampaignBoardCard {
     campaign: {
       name: 'Lanzamiento auriculares M-Pro 2',
       objective: 'brand_awareness',
-      description_preview: 'Preview',
+      description: 'Buscamos creators tech para presentar nuevos auriculares.',
+      target_url: 'https://example.com/lanzamiento',
+      image_url: 'https://cdn.test/campaign.jpg',
       deadline: '2026-05-12',
-      platforms: [{ platform: 'youtube', format: 'long_form' }],
-      deliverables: [
-        {
-          platform: 'youtube',
-          format: 'long_form',
-          quantity: 1,
-          description: 'Review honesto con prueba de audio.',
-        },
-      ],
       content_type: 'ugc_videos',
     },
     economics: {
@@ -86,58 +79,26 @@ function makeCard(): CreatorCampaignBoardCard {
 
 function makeBrief(): CampaignBoardBriefSnapshot {
   return {
-    description: 'Buscamos creators tech para presentar nuevos auriculares.',
-    tone: 'Cercano, experto y honesto.',
-    key_messages: ['Batería de 48 horas', 'Cancelación activa de ruido'],
-    do_list: ['Mostrar el producto en uso'],
-    dont_list: ['No prometer resultados médicos'],
-    reference_links: ['https://example.com'],
-    icp: {
-      description: 'Personas interesadas en gadgets y productividad.',
-      age_min: 22,
-      age_max: 35,
-      genders: ['all'],
-      countries: ['AR', 'UY'],
-      platforms: ['youtube'],
-      interests: ['audio', 'productivity'],
-    },
-    scoring_dimensions: [
-      {
-        name: 'Afinidad tech',
-        description: 'Historial de contenido técnico.',
-        weight_pct: 60,
-        positive_signals: ['Reviews detalladas'],
-        negative_signals: ['Contenido solo lifestyle'],
-      },
-    ],
-    hard_filters: [],
-    disqualifiers: ['Contenido de apuestas'],
+    content_guidelines: 'Mostrá el producto en uso real, sin guion rígido.',
+    brief_pdf_url: 'https://cdn.test/brief.pdf',
   }
 }
 
 function makeTargeting(): CampaignBoardTargetingSnapshot {
   return {
-    countries: ['AR'],
-    tiers: ['micro'],
-    follower_min: 10000,
-    follower_max: 50000,
-    genders: ['all'],
-    age_min: 22,
-    age_max: 35,
+    platforms: ['youtube'],
     interests: ['audio'],
-    content_languages: ['es'],
-    source: 'brief',
-    adjusted_from_brief: false,
+    creator_country: 'AR',
+    min_creator_tier_slug: 'nano',
+    content_type: 'ugc_videos',
   }
 }
 
 function makeCommercial(): CampaignBoardCommercialSnapshot {
   return {
-    fee_model: 'fixed_per_video',
-    fee_min_amount: '250',
-    fee_max_amount: '500',
-    fee_label: 'USD 250 - 500',
-    pricing_notes: 'Pago contra aprobación del contenido.',
+    compensation_type: 'payment',
+    compensation_notes: 'Pago contra aprobación del contenido.',
+    video_reuse_permission_default: true,
   }
 }
 
@@ -152,32 +113,60 @@ function renderContent() {
   )
 }
 
+const deadlineFormatter = new Intl.DateTimeFormat('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
 describe('CampaignBriefContent', () => {
-  it('renders the read-only campaign brief sections', () => {
+  it('renders the campaign data grouped by creation steps', () => {
     renderContent()
 
-    expect(screen.getByText('Descripción')).toBeInTheDocument()
+    expect(screen.getByText('Resumen')).toBeInTheDocument()
     expect(
       screen.getByText(
         'Buscamos creators tech para presentar nuevos auriculares.',
       ),
     ).toBeInTheDocument()
-    expect(screen.getByText('Cercano, experto y honesto.')).toBeInTheDocument()
-    expect(screen.getByText('Batería de 48 horas')).toBeInTheDocument()
-    expect(screen.getByText('Mostrar el producto en uso')).toBeInTheDocument()
     expect(
-      screen.getByText('No prometer resultados médicos'),
-    ).toBeInTheDocument()
+      screen.getByRole('link', { name: /example\.com\/lanzamiento/ }),
+    ).toHaveAttribute('href', 'https://example.com/lanzamiento')
     expect(
-      screen.getByText('Personas interesadas en gadgets y productividad.'),
+      screen.getByText(deadlineFormatter.format(new Date('2026-05-12'))),
     ).toBeInTheDocument()
-    expect(screen.getByText('Afinidad tech')).toBeInTheDocument()
-    expect(screen.getByText('Contenido de apuestas')).toBeInTheDocument()
-    expect(screen.getByText('1x Youtube · Long Form')).toBeInTheDocument()
+
+    expect(screen.getByText('Audiencia')).toBeInTheDocument()
+    expect(screen.getByText('Youtube')).toBeInTheDocument()
+    expect(screen.getByText('Audio')).toBeInTheDocument()
+    expect(screen.getByText('Nano')).toBeInTheDocument()
+
+    expect(screen.getByText('Compensación')).toBeInTheDocument()
+    expect(screen.getByText('Pago monetario')).toBeInTheDocument()
     expect(screen.getByText('USD 250 - 500')).toBeInTheDocument()
     expect(
-      screen.getByText('Tu audiencia principal no está en YouTube'),
+      screen.getByText('Pago contra aprobación del contenido.'),
     ).toBeInTheDocument()
+
+    expect(screen.getByText('Contenido')).toBeInTheDocument()
+    expect(
+      screen.getByText('Mostrá el producto en uso real, sin guion rígido.'),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Sí')).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /Descargar PDF del brief/ }),
+    ).toHaveAttribute('href', 'https://cdn.test/brief.pdf')
+  })
+
+  it('does not render removed AI-brief sections', () => {
+    renderContent()
+
+    expect(screen.queryByText('Tono')).not.toBeInTheDocument()
+    expect(screen.queryByText('Mensajes clave')).not.toBeInTheDocument()
+    expect(screen.queryByText('Dimensiones de scoring')).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('Qué hacer / Qué evitar'),
+    ).not.toBeInTheDocument()
   })
 
   it('does not render application or invite actions', () => {
