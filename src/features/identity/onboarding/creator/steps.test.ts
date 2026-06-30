@@ -167,8 +167,40 @@ describe('validate functions', () => {
     ).toBe(false)
   })
 
-  it('ugc + primings: no validation', () => {
-    expect(STEPS[getStepIndex('ugc')]!.validate).toBeUndefined()
+  it('C7b ugc: requires a positive rate only when UGC is selected', () => {
+    const validate = STEPS[getStepIndex('ugc')]!.validate!
+    // Not answered / not doing UGC: always valid.
+    expect(validate(makeState())).toBe(true)
+    expect(validate(makeState({ creator_kinds: ['influencer'] }))).toBe(true)
+    // Says yes to UGC but no rate: blocked.
+    expect(
+      validate(makeState({ creator_kinds: ['influencer', 'ugc'] })),
+    ).toBe(false)
+    expect(
+      validate(
+        makeState({ creator_kinds: ['influencer', 'ugc'], ugc_rate_amount: '' }),
+      ),
+    ).toBe(false)
+    expect(
+      validate(
+        makeState({
+          creator_kinds: ['influencer', 'ugc'],
+          ugc_rate_amount: '0',
+        }),
+      ),
+    ).toBe(false)
+    // Says yes with a positive rate: valid.
+    expect(
+      validate(
+        makeState({
+          creator_kinds: ['influencer', 'ugc'],
+          ugc_rate_amount: '50',
+        }),
+      ),
+    ).toBe(true)
+  })
+
+  it('primings: no validation', () => {
     expect(STEPS[getStepIndex('priming-testimonials')]!.validate).toBeUndefined()
     expect(STEPS[getStepIndex('priming-benchmark')]!.validate).toBeUndefined()
   })

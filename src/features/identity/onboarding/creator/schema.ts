@@ -61,6 +61,14 @@ const creatorChannelsRefinement = (
   })
 }
 
+export function isUgcRateAmountValid(
+  amount: string | null | undefined,
+): boolean {
+  if (typeof amount !== 'string' || amount.trim() === '') return false
+  const value = Number(amount)
+  return Number.isFinite(value) && value > 0
+}
+
 export function validateChannels(
   channels: CreatorOnboardingPayload['channels'],
 ): string[] {

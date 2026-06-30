@@ -50,7 +50,10 @@ export function PaymentKpiGrid({
   ]
 
   return (
-    <section aria-label={t`KPIs de pagos`} className="grid grid-cols-4 gap-4">
+    <section
+      aria-label={t`KPIs de pagos`}
+      className="grid grid-cols-2 gap-4 md:grid-cols-4"
+    >
       {kpis.map(({ key, label, value, detail, Icon }) => (
         <article
           key={key}

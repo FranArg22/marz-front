@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro'
 import { Input } from '#/components/ui/input'
 import { OnboardingOptionChip } from '#/features/identity/onboarding/shared/components'
+import { isUgcRateAmountValid } from '../schema'
 import { useCreatorOnboardingStore } from '../store'
 
 export function C7bUgcScreen() {
@@ -8,6 +9,7 @@ export function C7bUgcScreen() {
   const kinds = store.creator_kinds ?? []
   const ugcOn = kinds.includes('ugc')
   const answered = store.creator_kinds !== undefined
+  const rateInvalid = ugcOn && !isUgcRateAmountValid(store.ugc_rate_amount)
 
   const setUgc = (on: boolean) => {
     store.setField('creator_kinds', on ? ['influencer', 'ugc'] : ['influencer'])
@@ -63,6 +65,14 @@ export function C7bUgcScreen() {
               {t`USD`}
             </span>
           </div>
+          {rateInvalid && (
+            <p
+              className="text-[length:var(--font-size-sm)] text-destructive"
+              role="alert"
+            >
+              {t`Ingresá tu tarifa por video UGC para continuar.`}
+            </p>
+          )}
         </div>
       )}
     </div>

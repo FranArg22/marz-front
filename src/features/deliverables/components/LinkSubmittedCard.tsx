@@ -171,9 +171,9 @@ export function LinkSubmittedCard({
         )}
 
         {showActions ? (
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2">
             <Button
-              className="flex-1"
+              className="w-full"
               disabled={approveLink.isPending}
               onClick={handleApproveLink}
             >
@@ -182,7 +182,7 @@ export function LinkSubmittedCard({
             {onRequestChangesOnLink ? (
               <Button
                 variant="outline"
-                className="flex-1"
+                className="w-full"
                 onClick={() => onRequestChangesOnLink(snapshot)}
               >
                 {t`Solicitar cambios en el link`}
@@ -194,7 +194,7 @@ export function LinkSubmittedCard({
                 deliverableId={snapshot.deliverable_id}
                 linkId={snapshot.link.id}
                 trigger={
-                  <Button variant="outline" className="flex-1">
+                  <Button variant="outline" className="w-full">
                     {t`Solicitar cambios en el link`}
                   </Button>
                 }

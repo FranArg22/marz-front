@@ -1,6 +1,15 @@
 import { t } from '@lingui/core/macro'
 import { Link } from '@tanstack/react-router'
-import { CheckCircle2, Film, Globe2, MessageSquare, Pencil } from 'lucide-react'
+import {
+  Award,
+  CheckCircle2,
+  Film,
+  Globe2,
+  MessageSquare,
+  Pencil,
+  Share2,
+  Users,
+} from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import {
@@ -57,7 +66,7 @@ export function CampaignDetailHeader({
         <div className="flex min-w-0">
           <div className="min-w-0 space-y-3">
             <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
-              <h1 className="truncate text-[22px] font-semibold text-foreground">
+              <h1 className="min-w-0 truncate text-[22px] font-semibold text-foreground">
                 {detail.name}
               </h1>
               <StatusPill status={detail.status} />
@@ -67,7 +76,7 @@ export function CampaignDetailHeader({
         </div>
 
         <TooltipProvider>
-          <div className="ml-auto flex shrink-0 items-center justify-end gap-2 whitespace-nowrap">
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 whitespace-nowrap lg:ml-auto">
             <Button asChild variant="outline" size="sm">
               <Link
                 to="/workspace"
@@ -116,12 +125,9 @@ function CampaignHeaderSummary({ detail }: CampaignDetailHeaderProps) {
     {
       label: t`Canales`,
       value: formatList(detail.platforms, t`Sin plataformas`),
-      icon: <Globe2 className="size-3.5" aria-hidden="true" />,
+      icon: <Share2 className="size-3.5" aria-hidden="true" />,
     },
-    ...formatAudienceItems(detail.audience.description).map((item) => ({
-      ...item,
-      icon: <Globe2 className="size-3.5" aria-hidden="true" />,
-    })),
+    ...formatAudienceItems(detail.audience.description),
   ]
 
   return (
@@ -171,11 +177,35 @@ function formatContentModel(value: string | null) {
   return value ?? t`Sin modelo definido`
 }
 
+function countryItem(value: string) {
+  return {
+    label: t`País`,
+    value,
+    icon: <Globe2 className="size-3.5" aria-hidden="true" />,
+  }
+}
+
+function audienceItem(value: string) {
+  return {
+    label: t`Audiencia`,
+    value,
+    icon: <Users className="size-3.5" aria-hidden="true" />,
+  }
+}
+
+function tierItem(value: string) {
+  return {
+    label: t`Tier`,
+    value,
+    icon: <Award className="size-3.5" aria-hidden="true" />,
+  }
+}
+
 function formatAudienceItems(
   description: string | null,
-): Array<{ label: string; value: string }> {
+): Array<{ label: string; value: string; icon: ReactNode }> {
   if (!description) {
-    return [{ label: t`Audiencia`, value: t`Sin audiencia definida` }]
+    return [audienceItem(t`Sin audiencia definida`)]
   }
 
   const parts = description
@@ -188,24 +218,17 @@ function formatAudienceItems(
     const audience = parts.slice(1, -1).join(' - ') || t`Sin audiencia definida`
     const tier = parts.at(-1) ?? t`Sin tier`
 
-    return [
-      { label: t`País`, value: country },
-      { label: t`Audiencia`, value: audience },
-      { label: t`Tier`, value: tier },
-    ]
+    return [countryItem(country), audienceItem(audience), tierItem(tier)]
   }
 
   if (parts.length === 2) {
     const country = parts[0] ?? description
     const audience = parts[1] ?? t`Sin audiencia definida`
 
-    return [
-      { label: t`País`, value: country },
-      { label: t`Audiencia`, value: audience },
-    ]
+    return [countryItem(country), audienceItem(audience)]
   }
 
-  return [{ label: t`Audiencia`, value: description }]
+  return [audienceItem(description)]
 }
 
 export function CampaignDetailHeaderSkeleton() {

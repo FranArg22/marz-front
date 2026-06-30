@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { CreatorProfileSheetProvider } from '#/features/discovery/network/components/CreatorProfileSheetProvider'
 import { useInboxActionBadge } from '#/features/inbox/hooks/useInboxActionBadge'
 
 import { AppBottomNav } from './AppBottomNav'
@@ -43,7 +44,9 @@ export function AppShell({
           />
           <div className="flex min-w-0 flex-1 flex-col md:py-2 md:pr-2 md:pl-0">
             <main className="min-w-0 flex-1 overflow-hidden bg-background md:rounded-2xl md:border md:border-border">
-              {children}
+              <CreatorProfileSheetProvider>
+                {children}
+              </CreatorProfileSheetProvider>
             </main>
           </div>
           {hideBottomNav ? null : (

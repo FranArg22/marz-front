@@ -20,14 +20,14 @@ export function MonthlySpendBarChart({ data }: MonthlySpendBarChartProps) {
   return (
     <section
       aria-label={t`Gasto mensual en USD`}
-      className="flex h-[300px] min-w-0 flex-1 flex-col rounded-lg border border-border bg-card p-5"
+      className="flex h-[300px] min-w-0 flex-col rounded-lg border border-border bg-card p-5 md:flex-1"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-sm font-semibold text-foreground">
             {t`Gasto por mes`}
           </h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="hidden text-xs text-muted-foreground md:block">
             {t`Montos mensuales en USD`}
           </p>
         </div>

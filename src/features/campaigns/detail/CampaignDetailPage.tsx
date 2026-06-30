@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { AlertCircle, ClipboardList } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 import { Button } from '#/components/ui/button'
@@ -135,11 +135,13 @@ export function CampaignDetailPage({
       tab={search.tab}
       onTabChange={handleTabChange}
     >
-      <CampaignDetailBody
-        campaignId={campaignId}
-        tab={search.tab}
-        search={search}
-      />
+      <AnimatedTabPanel tab={search.tab}>
+        <CampaignDetailBody
+          campaignId={campaignId}
+          tab={search.tab}
+          search={search}
+        />
+      </AnimatedTabPanel>
       <CampaignConfigurationSheet
         campaign={detailQuery.data}
         open={configurationOpen}
@@ -164,9 +166,42 @@ function CampaignDetailShell({
     <div className="flex h-full min-h-0 flex-col bg-background">
       {header}
       <CampaignDetailTabs activeTab={tab} onTabChange={onTabChange} />
-      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/30 px-5 py-5 pb-mobile-nav md:px-8 md:py-6">
+      <main className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-muted/30 px-5 py-5 pb-mobile-nav md:px-8 md:py-6">
         {children}
       </main>
+    </div>
+  )
+}
+
+const TAB_ORDER: CampaignDetailTabId[] = [
+  'overview',
+  'applications',
+  'creators',
+  'videos',
+]
+
+/**
+ * Replays a subtle slide+fade whenever the active section changes. The wrapper
+ * stays mounted so the previous-index ref survives; the inner keyed element
+ * remounts on each tab change, replaying the CSS animation. Direction follows
+ * the tab order (forward slides from the right, back from the left). Reduced
+ * motion collapses to a plain fade (handled in CSS).
+ */
+function AnimatedTabPanel({
+  tab,
+  children,
+}: {
+  tab: CampaignDetailTabId
+  children: ReactNode
+}) {
+  const index = TAB_ORDER.indexOf(tab)
+  const prevIndex = useRef(index)
+  const direction = index < prevIndex.current ? 'back' : 'forward'
+  prevIndex.current = index
+
+  return (
+    <div key={tab} data-direction={direction} className="campaign-tab-panel">
+      {children}
     </div>
   )
 }

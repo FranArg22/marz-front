@@ -1,17 +1,22 @@
 import { ChevronDown } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 import type { ConversationDetailCounterpart } from '#/features/chat/types'
 
 interface ConversationContextHeaderProps {
   counterpart: ConversationDetailCounterpart
   sessionKind: 'brand' | 'creator'
+  /** Si se provee (solo brand), abre el perfil del creador al clickear. */
+  onOpenProfile?: () => void
 }
 
 export function ConversationContextHeader({
   counterpart,
   sessionKind,
+  onOpenProfile,
 }: ConversationContextHeaderProps) {
   const fallback = counterpart.display_name.charAt(0).toUpperCase()
+  const counterpartName = counterpart.display_name
 
   if (sessionKind === 'creator') {
     return (
@@ -31,15 +36,15 @@ export function ConversationContextHeader({
     )
   }
 
-  return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
+  const content = (
+    <>
       <CounterpartAvatar
         src={counterpart.avatar_url}
         name={counterpart.display_name}
         fallback={fallback}
         size="md"
       />
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
         <span className="truncate text-sm font-semibold text-foreground">
           {counterpart.display_name}
         </span>
@@ -53,6 +58,25 @@ export function ConversationContextHeader({
         aria-hidden="true"
         className="size-4 shrink-0 text-muted-foreground"
       />
+    </>
+  )
+
+  if (onOpenProfile) {
+    return (
+      <button
+        type="button"
+        onClick={onOpenProfile}
+        aria-label={t`Ver perfil de ${counterpartName}`}
+        className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-3 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        {content}
+      </button>
+    )
+  }
+
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
+      {content}
     </div>
   )
 }

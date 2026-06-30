@@ -68,6 +68,7 @@ function platformProfileUrl(platform: string, handle: string): string | null {
 interface CreatorCardProps {
   card: DiscoveryCreatorCard
   onInvite: (card: DiscoveryCreatorCard) => void
+  onOpenProfile?: (card: DiscoveryCreatorCard) => void
   selected?: boolean
   selectionMode?: boolean
   onToggleSelect?: (accountId: string) => void
@@ -76,6 +77,7 @@ interface CreatorCardProps {
 export function CreatorCard({
   card,
   onInvite,
+  onOpenProfile,
   selected = false,
   selectionMode = false,
   onToggleSelect,
@@ -159,6 +161,15 @@ export function CreatorCard({
     <div className="relative aspect-[316/286] w-full overflow-hidden rounded-2xl ring-1 ring-border shadow-[0_18px_36px_-12px_rgba(0,0,0,0.22)]">
       <CardMedia card={card} />
 
+      {onOpenProfile ? (
+        <button
+          type="button"
+          aria-label={t`Ver perfil de ${name}`}
+          onClick={() => onOpenProfile(card)}
+          className="absolute inset-0 cursor-pointer rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        />
+      ) : null}
+
       {canInvite ? (
         <InvitePill
           label={inviteLabel}
@@ -174,7 +185,7 @@ export function CreatorCard({
           type="button"
           onClick={handleGoToChat}
           aria-label={t`Ir al chat`}
-          className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-black/60"
+          className="absolute top-3 left-3 z-10 flex items-center gap-1 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-black/60"
         >
           <MessageCircle className="size-3.5" aria-hidden />
           {t`Chat`}
@@ -229,7 +240,7 @@ function CardOverlayContent({
 }) {
   const hiddenCount = hiddenTags.length
   return (
-    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-4">
       <p className="text-[15px] font-semibold leading-tight text-white">
         {name} <Flag country={country} className="rounded-[2px]" />{' '}
         <span aria-hidden>·</span> {age}
@@ -291,6 +302,9 @@ function PlatformStatsTable({
           ? platformProfileUrl(stats.platform, stats.handle)
           : null
         const priceAmount = stats.min_price_amount.trim()
+        // Channels under 1k followers have unreliable metrics that break the
+        // visual order, so their derived stats render as "-".
+        const lowFollowers = stats.followers < 1000
         const platformName = platformCode(stats.platform)
         const rowClassName =
           'grid grid-cols-5 items-center rounded-sm bg-[#101010]/45 px-2.5 py-0.5'
@@ -303,17 +317,27 @@ function PlatformStatsTable({
               {platformCode(stats.platform)}
             </span>
             <span className="text-center font-medium text-white">
-              {Intl_NumberFormat_compact.format(stats.followers)}
+              {stats.followers > 0
+                ? Intl_NumberFormat_compact.format(stats.followers)
+                : '-'}
             </span>
             <span className="text-center font-medium text-white">
-              {Intl_NumberFormat_pct.format(stats.engagement_rate)}
+              {!lowFollowers && stats.engagement_rate > 0
+                ? Intl_NumberFormat_pct.format(stats.engagement_rate)
+                : '-'}
             </span>
             <span className="text-center font-medium text-white/80">
-              {currencySymbol(stats.cpm_currency)}
-              {stats.cpm_amount}
+              {!lowFollowers && Number(stats.cpm_amount) > 0 ? (
+                <>
+                  {currencySymbol(stats.cpm_currency)}
+                  {stats.cpm_amount}
+                </>
+              ) : (
+                '-'
+              )}
             </span>
             <span className="text-right font-medium text-[#3ECF8E]">
-              {priceAmount ? (
+              {!lowFollowers && priceAmount && Number(priceAmount) > 0 ? (
                 <>
                   {currencySymbol(stats.price_currency)}
                   {priceAmount}
@@ -335,7 +359,7 @@ function PlatformStatsTable({
               aria-label={t`Ver perfil en ${platformName}`}
               className={cn(
                 rowClassName,
-                'transition-colors hover:bg-[#101010]/75',
+                'pointer-events-auto transition-colors hover:bg-[#101010]/75',
               )}
             >
               {cells}
@@ -365,7 +389,7 @@ function InvitePill({
     <button
       type="button"
       onClick={onClick}
-      className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-[750] text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
+      className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-[750] text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
     >
       {showWarning ? (
         <AlertTriangle className="size-3.5" aria-hidden />
@@ -384,7 +408,7 @@ function PairStateBadge({ kind }: { kind: DiscoveryCreatePairKindEnum }) {
   }
 
   return (
-    <span className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
+    <span className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
       <span
         className={cn('size-2 rounded-full', state.dotClassName)}
         aria-hidden

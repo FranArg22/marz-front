@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 import { normalizeVideoUrl, isValidVideoUrl } from '#/shared/utils/videoUrl'
+import { isUgcRateAmountValid } from './schema'
 import type { CreatorOnboardingState } from './store'
 import {
   C1NameHandleScreen,
@@ -96,6 +97,9 @@ export const STEPS: CreatorOnboardingStep[] = [
   {
     id: 'ugc',
     component: C7bUgcScreen,
+    validate: (s) =>
+      !(s.creator_kinds ?? []).includes('ugc') ||
+      isUgcRateAmountValid(s.ugc_rate_amount),
   },
   {
     id: 'priming-testimonials',
