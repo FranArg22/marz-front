@@ -149,6 +149,7 @@ export function CampaignBoardCard({
   const brandVertical = getSnapshotString(card.brand, 'vertical')
   const logoUrl = getSnapshotString(card.brand, 'logo_url')
   const campaignName = getSnapshotString(card.campaign, 'name') ?? t`Campaña`
+  const campaignImageUrl = getSnapshotString(card.campaign, 'image_url')
   const description =
     getSnapshotString(card.campaign, 'description_preview') ??
     t`Brief disponible para revisar antes de postularte.`
@@ -172,6 +173,15 @@ export function CampaignBoardCard({
       className="flex min-h-[292px] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
       aria-labelledby={`campaign-${card.campaign_id}`}
     >
+      {campaignImageUrl ? (
+        <img
+          src={campaignImageUrl}
+          alt=""
+          className="aspect-[16/9] w-full object-cover"
+          loading="lazy"
+        />
+      ) : null}
+
       <header className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary text-sm font-bold text-primary-foreground">
