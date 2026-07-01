@@ -34,16 +34,12 @@ export class CreatorCampaignBoard {
 
   async openBrief(card: Locator): Promise<void> {
     await card.getByRole('button', { name: 'Ver brief' }).click()
-    await expect(
-      this.page.getByRole('dialog', { name: 'Brief de campaña' }),
-    ).toBeVisible()
+    await expect(this.page.getByRole('dialog')).toBeVisible()
   }
 
   async closeBrief(): Promise<void> {
     await this.page.keyboard.press('Escape')
-    await expect(
-      this.page.getByRole('dialog', { name: 'Brief de campaña' }),
-    ).toBeHidden()
+    await expect(this.page.getByRole('dialog')).toBeHidden()
   }
 
   async apply(card: Locator, message: string): Promise<void> {

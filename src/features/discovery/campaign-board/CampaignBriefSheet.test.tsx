@@ -43,10 +43,10 @@ function makeCard(): CreatorCampaignBoardCard {
     campaign: {
       name: 'Lanzamiento auriculares M-Pro 2',
       objective: 'brand_awareness',
-      description_preview: 'Preview',
+      description: 'Brief completo',
+      target_url: 'https://example.com/lanzamiento',
+      image_url: 'https://cdn.test/campaign.jpg',
       deadline: '2026-05-12',
-      platforms: [],
-      deliverables: [],
       content_type: 'ugc_videos',
     },
     economics: {
@@ -89,17 +89,20 @@ function makeDetailResponse(): CreatorCampaignBoardDetailResponse {
   return {
     card,
     brief: {
-      description: 'Brief completo',
-      tone: 'Honesto',
-      key_messages: ['Mensaje principal'],
-      do_list: [],
-      dont_list: [],
-      icp: {},
-      scoring_dimensions: [],
+      content_guidelines: 'Mostrá el producto en uso real.',
+      brief_pdf_url: 'https://cdn.test/brief.pdf',
     },
-    targeting: {},
+    targeting: {
+      platforms: ['youtube'],
+      interests: ['audio'],
+      creator_country: 'AR',
+      min_creator_tier_slug: 'nano',
+      content_type: 'ugc_videos',
+    },
     commercial: {
-      fee_label: 'USD 250 - 500',
+      compensation_type: 'payment',
+      compensation_notes: 'Pago contra aprobación.',
+      video_reuse_permission_default: true,
     },
     application: card.application,
     generated_at: '2026-05-09T08:00:00.000Z',
@@ -172,10 +175,12 @@ describe('CampaignBriefSheet', () => {
     )
 
     expect(
-      screen.getByRole('dialog', { name: 'Brief de campaña' }),
+      screen.getByRole('dialog', { name: 'Lanzamiento auriculares M-Pro 2' }),
     ).toBeInTheDocument()
     expect(screen.getByText('Brief completo')).toBeInTheDocument()
-    expect(screen.getByText('Mensaje principal')).toBeInTheDocument()
+    expect(
+      screen.getByText('Mostrá el producto en uso real.'),
+    ).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Postularme' })).toBeEnabled()
   })
 

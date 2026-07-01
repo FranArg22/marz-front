@@ -11,7 +11,10 @@ import {
 import { ApiError } from '#/shared/api/mutator'
 import type { CreatorCampaignBoardCard } from '#/shared/api/generated/model'
 
-import { CampaignBriefContent } from './CampaignBriefContent'
+import {
+  CampaignBriefContent,
+  CampaignBriefHeader,
+} from './CampaignBriefContent'
 import { useCampaignBoardDetailQuery } from './hooks/useCampaignBoardDetailQuery'
 
 const SHEET_SKELETON_SECTIONS = [
@@ -124,12 +127,21 @@ export function CampaignBriefSheet({
         side="right"
         className="w-full gap-0 overflow-hidden p-0 sm:max-w-2xl"
       >
-        <SheetHeader className="border-b border-border p-6 pr-12">
-          <SheetTitle>{t`Brief de campaña`}</SheetTitle>
-          <SheetDescription>
-            {t`Detalles para revisar antes de postularte`}
-          </SheetDescription>
-        </SheetHeader>
+        {detailQuery.isSuccess ? (
+          <SheetHeader className="border-b border-border p-6 pr-12">
+            <CampaignBriefHeader
+              card={detailQuery.data.card}
+              targeting={detailQuery.data.targeting}
+            />
+          </SheetHeader>
+        ) : (
+          <SheetHeader className="border-b border-border p-6 pr-12">
+            <SheetTitle>{t`Brief de campaña`}</SheetTitle>
+            <SheetDescription>
+              {t`Detalles para revisar antes de postularte`}
+            </SheetDescription>
+          </SheetHeader>
+        )}
 
         {detailQuery.isPending ? <SheetSkeleton /> : null}
 
