@@ -13,6 +13,7 @@ import { MonthlyEarningsChart } from './MonthlyEarningsChart'
 import { EarningsPaymentsTable } from './EarningsPaymentsTable'
 import { PendingBonusPanel } from './PendingBonusPanel'
 import { WithdrawButton } from './WithdrawButton'
+import { WithdrawalModal } from './WithdrawalModal'
 
 const EARNINGS_KPI_SKELETON_IDS = [
   'total',
@@ -42,7 +43,7 @@ export function EarningsPage({
     limit: 25,
   })
   const walletQuery = useWalletQuery()
-  const [_withdrawOpen, setWithdrawOpen] = useState(false)
+  const [withdrawOpen, setWithdrawOpen] = useState(false)
 
   useEffect(() => {
     if (hasTrackedView.current) {
@@ -102,6 +103,14 @@ export function EarningsPage({
         q={q}
         payments={earningsQuery.data.payments}
       />
+      {withdrawOpen && walletQuery.data && (
+        <WithdrawalModal
+          open
+          wallet={walletQuery.data}
+          onOpenChange={setWithdrawOpen}
+          onSuccess={() => {}}
+        />
+      )}
     </EarningsPageShell>
   )
 }

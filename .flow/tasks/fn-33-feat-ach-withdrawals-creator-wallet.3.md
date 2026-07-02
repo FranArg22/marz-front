@@ -224,8 +224,7 @@ Task 5 lo completará con el hook completo.
 - [ ] `pnpm quality-gates` en verde
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.3; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
