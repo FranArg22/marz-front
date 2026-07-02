@@ -222,8 +222,7 @@ Añadir `WithdrawalsHistory` después de `EarningsPaymentsTable`:
 - [ ] `pnpm quality-gates` en verde
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.5; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

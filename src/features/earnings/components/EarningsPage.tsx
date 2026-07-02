@@ -14,6 +14,7 @@ import { EarningsPaymentsTable } from './EarningsPaymentsTable'
 import { PendingBonusPanel } from './PendingBonusPanel'
 import { WithdrawButton } from './WithdrawButton'
 import { WithdrawalModal } from './WithdrawalModal'
+import { WithdrawalsHistory } from './WithdrawalsHistory'
 
 const EARNINGS_KPI_SKELETON_IDS = [
   'total',
@@ -103,6 +104,7 @@ export function EarningsPage({
         q={q}
         payments={earningsQuery.data.payments}
       />
+      <WithdrawalsHistory />
       {withdrawOpen && walletQuery.data && (
         <WithdrawalModal
           open

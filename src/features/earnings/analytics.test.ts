@@ -80,6 +80,11 @@ vi.mock('./components/PendingBonusPanel', () => ({
     createElement('section', { 'aria-label': 'Pending bonuses' }),
 }))
 
+vi.mock('./components/WithdrawalsHistory', () => ({
+  WithdrawalsHistory: () =>
+    createElement('section', { 'aria-label': 'Withdrawals history' }),
+}))
+
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
     (strings: TemplateStringsArray, ...values: unknown[]) =>

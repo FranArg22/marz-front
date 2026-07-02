@@ -22,6 +22,10 @@ vi.mock('./EarningsPaymentsTable', () => ({
   EarningsPaymentsTable: () => <section aria-label="Payments table" />,
 }))
 
+vi.mock('./WithdrawalsHistory', () => ({
+  WithdrawalsHistory: () => <section aria-label="Withdrawals history" />,
+}))
+
 vi.mock('@lingui/core/macro', () => ({
   t: Object.assign(
     (strings: TemplateStringsArray, ...values: unknown[]) =>
