@@ -1,0 +1,16 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-07-02T04:52:36.531396Z",
+  "depends_on": [
+    "fn-33-feat-ach-withdrawals-creator-wallet.1"
+  ],
+  "epic": "fn-33-feat-ach-withdrawals-creator-wallet",
+  "id": "fn-33-feat-ach-withdrawals-creator-wallet.5",
+  "priority": 50,
+  "spec_path": ".flow/tasks/fn-33-feat-ach-withdrawals-creator-wallet.5.md",
+  "status": "todo",
+  "title": "WithdrawalsHistory: lista + detalle/comprobante",
+  "updated_at": "2026-07-02T04:52:56.109841Z"
+}

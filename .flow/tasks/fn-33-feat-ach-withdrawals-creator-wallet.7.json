@@ -1,0 +1,18 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-07-02T04:52:36.936351Z",
+  "depends_on": [
+    "fn-33-feat-ach-withdrawals-creator-wallet.2",
+    "fn-33-feat-ach-withdrawals-creator-wallet.3",
+    "fn-33-feat-ach-withdrawals-creator-wallet.5"
+  ],
+  "epic": "fn-33-feat-ach-withdrawals-creator-wallet",
+  "id": "fn-33-feat-ach-withdrawals-creator-wallet.7",
+  "priority": 70,
+  "spec_path": ".flow/tasks/fn-33-feat-ach-withdrawals-creator-wallet.7.md",
+  "status": "todo",
+  "title": "Analytics: eventos de retiro y W-8BEN",
+  "updated_at": "2026-07-02T04:52:56.527840Z"
+}

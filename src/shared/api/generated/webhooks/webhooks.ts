@@ -21,6 +21,10 @@ import type {
   ClerkWebhook200,
   ClerkWebhookBody,
   ErrorResponse,
+  MercuryWebhook200,
+  MercuryWebhookBody,
+  PagosW8benWebhook200,
+  PagosW8benWebhookBody,
   SESWebhookResponse,
   SNSSignedWebhookRequest
 } from '../model';
@@ -227,4 +231,156 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getSesWebhookMutationOptions(options), queryClient);
+    }
+    export type mercuryWebhookResponse200 = {
+  data: MercuryWebhook200
+  status: 200
+}
+
+export type mercuryWebhookResponseSuccess = (mercuryWebhookResponse200) & {
+  headers: Headers;
+};
+;
+
+export type mercuryWebhookResponse = (mercuryWebhookResponseSuccess)
+
+export const getMercuryWebhookUrl = () => {
+
+
+
+
+  return `/v1/webhooks/mercury`
+}
+
+export const mercuryWebhook = async (mercuryWebhookBody: MercuryWebhookBody, options?: RequestInit): Promise<mercuryWebhookResponse> => {
+
+  return customFetch<mercuryWebhookResponse>(getMercuryWebhookUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      mercuryWebhookBody,)
+  }
+);}
+
+
+
+
+export const getMercuryWebhookMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof mercuryWebhook>>, TError,{data: MercuryWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof mercuryWebhook>>, TError,{data: MercuryWebhookBody}, TContext> => {
+
+const mutationKey = ['mercuryWebhook'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof mercuryWebhook>>, {data: MercuryWebhookBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  mercuryWebhook(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type MercuryWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof mercuryWebhook>>>
+    export type MercuryWebhookMutationBody = MercuryWebhookBody
+    export type MercuryWebhookMutationError = unknown
+
+    export const useMercuryWebhook = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof mercuryWebhook>>, TError,{data: MercuryWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof mercuryWebhook>>,
+        TError,
+        {data: MercuryWebhookBody},
+        TContext
+      > => {
+      return useMutation(getMercuryWebhookMutationOptions(options), queryClient);
+    }
+    export type pagosW8benWebhookResponse200 = {
+  data: PagosW8benWebhook200
+  status: 200
+}
+
+export type pagosW8benWebhookResponseSuccess = (pagosW8benWebhookResponse200) & {
+  headers: Headers;
+};
+;
+
+export type pagosW8benWebhookResponse = (pagosW8benWebhookResponseSuccess)
+
+export const getPagosW8benWebhookUrl = () => {
+
+
+
+
+  return `/v1/integrations/pagos/w8ben`
+}
+
+export const pagosW8benWebhook = async (pagosW8benWebhookBody: PagosW8benWebhookBody, options?: RequestInit): Promise<pagosW8benWebhookResponse> => {
+
+  return customFetch<pagosW8benWebhookResponse>(getPagosW8benWebhookUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      pagosW8benWebhookBody,)
+  }
+);}
+
+
+
+
+export const getPagosW8benWebhookMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof pagosW8benWebhook>>, TError,{data: PagosW8benWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof pagosW8benWebhook>>, TError,{data: PagosW8benWebhookBody}, TContext> => {
+
+const mutationKey = ['pagosW8benWebhook'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof pagosW8benWebhook>>, {data: PagosW8benWebhookBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  pagosW8benWebhook(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PagosW8benWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof pagosW8benWebhook>>>
+    export type PagosW8benWebhookMutationBody = PagosW8benWebhookBody
+    export type PagosW8benWebhookMutationError = unknown
+
+    export const usePagosW8benWebhook = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof pagosW8benWebhook>>, TError,{data: PagosW8benWebhookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof pagosW8benWebhook>>,
+        TError,
+        {data: PagosW8benWebhookBody},
+        TContext
+      > => {
+      return useMutation(getPagosW8benWebhookMutationOptions(options), queryClient);
     }

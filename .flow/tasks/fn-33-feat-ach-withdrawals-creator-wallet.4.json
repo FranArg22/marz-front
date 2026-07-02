@@ -1,0 +1,14 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-07-02T04:52:36.326879Z",
+  "depends_on": [],
+  "epic": "fn-33-feat-ach-withdrawals-creator-wallet",
+  "id": "fn-33-feat-ach-withdrawals-creator-wallet.4",
+  "priority": 40,
+  "spec_path": ".flow/tasks/fn-33-feat-ach-withdrawals-creator-wallet.4.md",
+  "status": "todo",
+  "title": "PayoutAccountModal: ABA checksum client-side + invalidar wallet",
+  "updated_at": "2026-07-02T04:52:36.326901Z"
+}

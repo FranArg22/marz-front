@@ -1,0 +1,17 @@
+{
+  "assignee": null,
+  "claim_note": "",
+  "claimed_at": null,
+  "created_at": "2026-07-02T04:52:36.735759Z",
+  "depends_on": [
+    "fn-33-feat-ach-withdrawals-creator-wallet.3",
+    "fn-33-feat-ach-withdrawals-creator-wallet.5"
+  ],
+  "epic": "fn-33-feat-ach-withdrawals-creator-wallet",
+  "id": "fn-33-feat-ach-withdrawals-creator-wallet.6",
+  "priority": 60,
+  "spec_path": ".flow/tasks/fn-33-feat-ach-withdrawals-creator-wallet.6.md",
+  "status": "todo",
+  "title": "WS withdrawal.updated: handler + hook + invalidaci\u00f3n",
+  "updated_at": "2026-07-02T04:52:56.321876Z"
+}

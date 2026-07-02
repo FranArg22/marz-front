@@ -38,3 +38,19 @@ export const SesWebhookResponse = zod.object({
   "duplicate": zod.boolean().default(sesWebhookResponseDuplicateDefault)
 })
 
+export const MercuryWebhookBody = zod.looseObject({
+
+})
+
+export const MercuryWebhookResponse = zod.object({
+  "received": zod.boolean().optional()
+})
+
+export const PagosW8benWebhookBody = zod.looseObject({
+
+})
+
+export const PagosW8benWebhookResponse = zod.object({
+  "received": zod.boolean().optional()
+})
+

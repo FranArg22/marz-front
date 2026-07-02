@@ -1,0 +1,13 @@
+{
+  "branch_name": "epic/marz-back-front-e2e-task-loop",
+  "created_at": "2026-07-02T04:52:19.760966Z",
+  "depends_on_epics": [],
+  "id": "fn-33-feat-ach-withdrawals-creator-wallet",
+  "next_task": 1,
+  "plan_review_status": "unknown",
+  "plan_reviewed_at": null,
+  "spec_path": ".flow/specs/fn-33-feat-ach-withdrawals-creator-wallet.md",
+  "status": "open",
+  "title": "FEAT-ACH-WITHDRAWALS: Creator Wallet & Withdrawals UI \u2014 Frontend",
+  "updated_at": "2026-07-02T04:58:50.345992Z"
+}

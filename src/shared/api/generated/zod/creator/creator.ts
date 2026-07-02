@@ -383,6 +383,117 @@ export const UpsertMyPayoutAccountResponse = zod.object({
 }).describe('ACH payout account. Wire transfers are not supported.')
 })
 
+export const getMyWalletResponseBalanceAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getMyWalletResponseMinWithdrawalAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+
+
+export const GetMyWalletResponse = zod.object({
+  "balance": zod.object({
+  "amount": zod.string().regex(getMyWalletResponseBalanceAmountRegExp),
+  "currency": zod.string()
+}),
+  "withdrawal_fee_pct": zod.string(),
+  "min_withdrawal": zod.object({
+  "amount": zod.string().regex(getMyWalletResponseMinWithdrawalAmountRegExp),
+  "currency": zod.string()
+}),
+  "can_withdraw": zod.boolean(),
+  "eligibility": zod.object({
+  "requires_w8ben": zod.boolean(),
+  "w8ben_redirect_url": zod.string().nullable(),
+  "has_payout_account": zod.boolean(),
+  "has_inflight_withdrawal": zod.boolean()
+})
+})
+
+export const CreateWithdrawalHeader = zod.object({
+  "Idempotency-Key": zod.uuid()
+})
+
+export const createWithdrawalBodyGrossAmountAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+
+
+export const CreateWithdrawalBody = zod.object({
+  "gross_amount": zod.object({
+  "amount": zod.string().regex(createWithdrawalBodyGrossAmountAmountRegExp),
+  "currency": zod.string()
+})
+})
+
+export const listMyWithdrawalsQueryPageDefault = 1;
+
+export const listMyWithdrawalsQueryPerPageDefault = 20;
+export const listMyWithdrawalsQueryPerPageMax = 100;
+
+
+
+export const ListMyWithdrawalsQueryParams = zod.object({
+  "page": zod.number().min(1).default(listMyWithdrawalsQueryPageDefault),
+  "per_page": zod.number().min(1).max(listMyWithdrawalsQueryPerPageMax).default(listMyWithdrawalsQueryPerPageDefault)
+})
+
+export const listMyWithdrawalsResponseItemsItemNetAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+
+
+export const ListMyWithdrawalsResponse = zod.object({
+  "items": zod.array(zod.object({
+  "id": zod.uuid(),
+  "status": zod.string(),
+  "net": zod.object({
+  "amount": zod.string().regex(listMyWithdrawalsResponseItemsItemNetAmountRegExp),
+  "currency": zod.string()
+}),
+  "requested_at": zod.iso.datetime({}),
+  "sent_at": zod.iso.datetime({}).nullish(),
+  "failed_at": zod.iso.datetime({}).nullish()
+})),
+  "total": zod.number(),
+  "page": zod.number(),
+  "per_page": zod.number()
+})
+
+export const GetMyWithdrawalParams = zod.object({
+  "id": zod.uuid()
+})
+
+export const getMyWithdrawalResponseGrossAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getMyWithdrawalResponseFeeAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+export const getMyWithdrawalResponseNetAmountRegExp = new RegExp('^\\d+\\.\\d{2}$');
+
+
+export const GetMyWithdrawalResponse = zod.object({
+  "id": zod.uuid(),
+  "status": zod.string(),
+  "gross": zod.object({
+  "amount": zod.string().regex(getMyWithdrawalResponseGrossAmountRegExp),
+  "currency": zod.string()
+}),
+  "fee": zod.object({
+  "amount": zod.string().regex(getMyWithdrawalResponseFeeAmountRegExp),
+  "currency": zod.string()
+}),
+  "net": zod.object({
+  "amount": zod.string().regex(getMyWithdrawalResponseNetAmountRegExp),
+  "currency": zod.string()
+}),
+  "mercury_transaction_id": zod.string().nullish(),
+  "failure_reason": zod.string().nullish(),
+  "failure_category": zod.string().nullish(),
+  "requested_at": zod.iso.datetime({}),
+  "sent_at": zod.iso.datetime({}).nullish(),
+  "failed_at": zod.iso.datetime({}).nullish(),
+  "cancelled_at": zod.iso.datetime({}).nullish()
+})
+
+export const CancelMyWithdrawalParams = zod.object({
+  "id": zod.uuid()
+})
+
+export const CancelMyWithdrawalResponse = zod.object({
+  "id": zod.uuid(),
+  "status": zod.enum(['cancelled'])
+})
+
 export const getMyCreatorSettingsResponseContactCountryMin = 2;
 export const getMyCreatorSettingsResponseContactCountryMax = 2;
 
