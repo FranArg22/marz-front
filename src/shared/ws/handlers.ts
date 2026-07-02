@@ -11,6 +11,11 @@ import {
   trackTimeToResolveRound,
 } from '#/features/deliverables/analytics'
 import { getDeliverableLinksQueryKey } from '#/features/deliverables/hooks/useDeliverableLinks'
+import {
+  getGetMyWalletQueryKey,
+  getListMyWithdrawalsQueryKey,
+  getGetMyWithdrawalQueryKey,
+} from '#/shared/api/generated/creator/creator'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
 import type { DomainEventEnvelope, EventHandler } from './events'
@@ -148,6 +153,26 @@ export function createWsHandlers(
     'deliverables.item.changed': handleDeliverableUpdated,
 
     'deliverables.item.updated': handleDeliverableUpdated,
+
+    'withdrawal.updated': (envelope) => {
+      const payload = (
+        envelope as DomainEventEnvelope<{
+          id: string
+          status: string
+          net: { amount: string; currency: string }
+        }>
+      ).payload
+
+      void queryClient.invalidateQueries({
+        queryKey: getGetMyWalletQueryKey(),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getListMyWithdrawalsQueryKey({}),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: getGetMyWithdrawalQueryKey(payload.id),
+      })
+    },
   }
 }
 

@@ -9,6 +9,11 @@ import type {
 
 import { createWsHandlers } from './handlers'
 import { getDeliverableLinksQueryKey } from '#/features/deliverables/hooks/useDeliverableLinks'
+import {
+  getGetMyWalletQueryKey,
+  getGetMyWithdrawalQueryKey,
+  getListMyWithdrawalsQueryKey,
+} from '#/shared/api/generated/creator/creator'
 import type { DomainEventEnvelope } from './events'
 import type {
   ChangesRequestedWSPayload,
@@ -537,6 +542,34 @@ describe('createWsHandlers', () => {
       expect(inserted?.id).toBe('msg-cr-1')
       expect(inserted?.event_type).toBe('ChangesRequested')
       expect(inserted?.payload).toEqual({ snapshot: payload.snapshot })
+    })
+  })
+
+  describe('withdrawal.updated handler', () => {
+    it('invalidates wallet, withdrawals list and withdrawal detail queries', () => {
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
+
+      handlers['withdrawal.updated']!(
+        makeEnvelope('withdrawal.updated', {
+          id: 'w-1',
+          status: 'sent',
+          net: { amount: '97.50', currency: 'USD' },
+        }),
+      )
+
+      expect(invalidateSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ queryKey: getGetMyWalletQueryKey() }),
+      )
+      expect(invalidateSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          queryKey: getListMyWithdrawalsQueryKey({}),
+        }),
+      )
+      expect(invalidateSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          queryKey: getGetMyWithdrawalQueryKey('w-1'),
+        }),
+      )
     })
   })
 

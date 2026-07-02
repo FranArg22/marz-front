@@ -133,8 +133,7 @@ describe('withdrawal.updated handler', () => {
 - [ ] `pnpm quality-gates` en verde
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.6; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

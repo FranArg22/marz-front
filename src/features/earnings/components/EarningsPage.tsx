@@ -7,6 +7,7 @@ import type { CreatorEarningsPeriod } from '#/shared/api/generated/model'
 import { trackEarningsViewed } from '../analytics'
 import { useCreatorEarningsQuery } from '../hooks/useCreatorEarnings'
 import { useWalletQuery } from '../hooks/useWalletQuery'
+import { useWithdrawalWsListener } from '../hooks/useWithdrawalWsListener'
 import { EarningsKpiGrid } from './EarningsKpiGrid'
 import { EarningsPeriodControl } from './EarningsPeriodControl'
 import { MonthlyEarningsChart } from './MonthlyEarningsChart'
@@ -36,6 +37,7 @@ export function EarningsPage({
   cursor,
   onPeriodChange,
 }: EarningsPageProps) {
+  useWithdrawalWsListener()
   const hasTrackedView = useRef(false)
   const earningsQuery = useCreatorEarningsQuery({
     period,
