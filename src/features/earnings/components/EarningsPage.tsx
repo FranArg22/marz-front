@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
@@ -12,6 +12,7 @@ import { EarningsPeriodControl } from './EarningsPeriodControl'
 import { MonthlyEarningsChart } from './MonthlyEarningsChart'
 import { EarningsPaymentsTable } from './EarningsPaymentsTable'
 import { PendingBonusPanel } from './PendingBonusPanel'
+import { WithdrawButton } from './WithdrawButton'
 
 const EARNINGS_KPI_SKELETON_IDS = [
   'total',
@@ -41,6 +42,7 @@ export function EarningsPage({
     limit: 25,
   })
   const walletQuery = useWalletQuery()
+  const [_withdrawOpen, setWithdrawOpen] = useState(false)
 
   useEffect(() => {
     if (hasTrackedView.current) {
@@ -75,6 +77,12 @@ export function EarningsPage({
       <EarningsKpiGrid
         kpis={earningsQuery.data.kpis}
         wallet={walletQuery.data}
+        withdrawButton={
+          <WithdrawButton
+            wallet={walletQuery.data}
+            onWithdraw={() => setWithdrawOpen(true)}
+          />
+        }
       />
       <div className="flex flex-col gap-6 xl:flex-row">
         <div className="min-w-0 flex-1">
