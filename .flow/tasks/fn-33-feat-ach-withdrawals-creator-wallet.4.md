@@ -111,8 +111,7 @@ El form actual expone `checking`, `savings`, `business`. Según la spec, en la U
 - [ ] `pnpm quality-gates` en verde
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.4; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

@@ -90,4 +90,42 @@ describe('PayoutAccountSchema', () => {
       }).success,
     ).toBe(false)
   })
+
+  describe('routing_number ABA checksum', () => {
+    it('accepts valid ABA 021000021', () => {
+      expect(
+        PayoutAccountSchema.safeParse({
+          ...validAccount,
+          routing_number: '021000021',
+        }).success,
+      ).toBe(true)
+    })
+
+    it('accepts valid ABA 011000138', () => {
+      expect(
+        PayoutAccountSchema.safeParse({
+          ...validAccount,
+          routing_number: '011000138',
+        }).success,
+      ).toBe(true)
+    })
+
+    it('rejects invalid checksum 021000022', () => {
+      expect(
+        PayoutAccountSchema.safeParse({
+          ...validAccount,
+          routing_number: '021000022',
+        }).success,
+      ).toBe(false)
+    })
+
+    it('still rejects non-9-digit strings', () => {
+      expect(
+        PayoutAccountSchema.safeParse({
+          ...validAccount,
+          routing_number: '12345',
+        }).success,
+      ).toBe(false)
+    })
+  })
 })

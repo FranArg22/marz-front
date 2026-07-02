@@ -16,6 +16,7 @@ import {
 } from '#/components/ui/dialog'
 import {
   getGetMyPayoutAccountQueryKey,
+  getGetMyWalletQueryKey,
   useUpsertMyPayoutAccount,
 } from '#/shared/api/generated/creator/creator'
 import type {
@@ -30,12 +31,25 @@ const ACCOUNT_TYPE_OPTIONS = [
   { value: 'business', label: () => t`Business` },
 ] as const
 
+function isValidAbaChecksum(routing: string): boolean {
+  if (!/^\d{9}$/.test(routing)) return false
+  const d = routing.split('').map(Number)
+  const sum =
+    3 * (d[0]! + d[3]! + d[6]!) +
+    7 * (d[1]! + d[4]! + d[7]!) +
+    1 * (d[2]! + d[5]! + d[8]!)
+  return sum % 10 === 0
+}
+
 export const PayoutAccountSchema = z.object({
   name: z.string().min(1).max(200),
   account_holder_name: z.string().min(1).max(200),
   account_number: z.string().regex(/^\d{1,17}$/),
   account_type: z.enum(['checking', 'savings', 'business']),
-  routing_number: z.string().regex(/^\d{9}$/),
+  routing_number: z
+    .string()
+    .regex(/^\d{9}$/, 'Debe tener exactamente 9 dígitos')
+    .refine(isValidAbaChecksum, 'Routing number inválido (checksum ABA)'),
   address: z.string().min(1).max(500),
 })
 
@@ -84,6 +98,9 @@ function PayoutAccountModalContent({
       })
       await queryClient.invalidateQueries({
         queryKey: getGetMyPayoutAccountQueryKey(),
+      })
+      await queryClient.invalidateQueries({
+        queryKey: getGetMyWalletQueryKey(),
       })
       onOpenChange(false)
     },
