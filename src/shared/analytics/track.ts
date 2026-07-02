@@ -64,6 +64,10 @@ type AnalyticsEvent =
   | 'discovery_match_contacted'
   | 'discovery_application_decided'
   | 'discovery_invite_created'
+  | 'withdrawal_requested'
+  | 'withdrawal_cancelled'
+  | 'withdrawal_state_changed'
+  | 'w8ben_redirect_clicked'
 
 interface TrackedEvent {
   event: AnalyticsEvent

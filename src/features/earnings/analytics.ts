@@ -64,3 +64,41 @@ export function trackEarningsPaymentOpened(
 ): void {
   track('earnings_payment_opened', payload)
 }
+
+export type WithdrawalRequestedPayload = Record<string, unknown> & {
+  gross_amount: string
+  fee_amount: string
+  net_amount: string
+  currency: string
+}
+
+export type WithdrawalStateChangedPayload = Record<string, unknown> & {
+  withdrawal_id: string
+  new_status: string
+}
+
+export type WithdrawalCancelledPayload = Record<string, unknown> & {
+  withdrawal_id: string
+}
+
+export function trackWithdrawalRequested(
+  payload: WithdrawalRequestedPayload,
+): void {
+  track('withdrawal_requested', payload)
+}
+
+export function trackWithdrawalStateChanged(
+  payload: WithdrawalStateChangedPayload,
+): void {
+  track('withdrawal_state_changed', payload)
+}
+
+export function trackWithdrawalCancelled(
+  payload: WithdrawalCancelledPayload,
+): void {
+  track('withdrawal_cancelled', payload)
+}
+
+export function trackW8benRedirectClicked(): void {
+  track('w8ben_redirect_clicked')
+}

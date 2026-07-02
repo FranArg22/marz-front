@@ -144,8 +144,7 @@ Ver el patrón de test del archivo existente para saber cómo capturar eventos (
 - [ ] `pnpm quality-gates` en verde (incluyendo `check:i18n-standards` para verificar que no quedan strings sin traducir en los nuevos componentes)
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.7; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:

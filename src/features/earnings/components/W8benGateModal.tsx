@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
 
 import { Button } from '#/components/ui/button'
+import { trackW8benRedirectClicked } from '../analytics'
 import {
   Dialog,
   DialogContent,
@@ -44,6 +45,7 @@ export function W8benGateModal({
           <Button
             disabled={!redirectUrl}
             onClick={() => {
+              trackW8benRedirectClicked()
               if (redirectUrl) {
                 window.open(redirectUrl, '_blank')
               }

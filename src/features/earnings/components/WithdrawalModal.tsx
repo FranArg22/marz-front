@@ -18,6 +18,7 @@ import { generateIdempotencyKey } from '#/shared/api/idempotency'
 import { ApiError } from '#/shared/api/mutator'
 import { useCreateWithdrawalMutation } from '../hooks/useCreateWithdrawalMutation'
 import { getWalletQueryKey } from '../hooks/useWalletQuery'
+import { trackWithdrawalRequested } from '../analytics'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -81,6 +82,12 @@ export function WithdrawalModal({
         data: {
           gross_amount: { amount: grossNum.toFixed(2), currency: 'USD' },
         },
+      })
+      trackWithdrawalRequested({
+        gross_amount: grossNum.toFixed(2),
+        fee_amount: fee.toFixed(2),
+        net_amount: net.toFixed(2),
+        currency: 'USD',
       })
       setStep('success')
     } catch (error) {

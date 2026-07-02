@@ -18,6 +18,7 @@ import {
 } from '#/shared/api/generated/creator/creator'
 import { getConversationDeliverablesQueryKey } from '#/shared/queries/deliverables'
 import { getMessagesQueryKey } from '#/shared/queries/messages'
+import { track } from '#/shared/analytics/track'
 import type { DomainEventEnvelope, EventHandler } from './events'
 import type {
   ChangesRequestedWSPayload,
@@ -162,6 +163,11 @@ export function createWsHandlers(
           net: { amount: string; currency: string }
         }>
       ).payload
+
+      track('withdrawal_state_changed', {
+        withdrawal_id: payload.id,
+        new_status: payload.status,
+      })
 
       void queryClient.invalidateQueries({
         queryKey: getGetMyWalletQueryKey(),

@@ -9,6 +9,12 @@ import type {
   CreatorEarningsResponse,
 } from '#/shared/api/generated/model'
 import { getTrackedEvents, resetTrackedEvents } from '#/shared/analytics/track'
+import {
+  trackW8benRedirectClicked,
+  trackWithdrawalCancelled,
+  trackWithdrawalRequested,
+  trackWithdrawalStateChanged,
+} from './analytics'
 import { EarningsPage } from './components/EarningsPage'
 import { EarningsPaymentsTable } from './components/EarningsPaymentsTable'
 import { EarningsPeriodControl } from './components/EarningsPeriodControl'
@@ -366,5 +372,67 @@ describe('earnings analytics', () => {
         },
       }),
     ])
+  })
+})
+
+describe('withdrawal analytics', () => {
+  it('trackWithdrawalRequested calls track with correct event and payload', () => {
+    trackWithdrawalRequested({
+      gross_amount: '100.00',
+      fee_amount: '2.50',
+      net_amount: '97.50',
+      currency: 'USD',
+    })
+
+    expect(getTrackedEvents()).toContainEqual(
+      expect.objectContaining({
+        event: 'withdrawal_requested',
+        payload: {
+          gross_amount: '100.00',
+          fee_amount: '2.50',
+          net_amount: '97.50',
+          currency: 'USD',
+        },
+      }),
+    )
+  })
+
+  it('trackWithdrawalStateChanged calls track with correct event and payload', () => {
+    trackWithdrawalStateChanged({
+      withdrawal_id: 'wd-1',
+      new_status: 'sent',
+    })
+
+    expect(getTrackedEvents()).toContainEqual(
+      expect.objectContaining({
+        event: 'withdrawal_state_changed',
+        payload: {
+          withdrawal_id: 'wd-1',
+          new_status: 'sent',
+        },
+      }),
+    )
+  })
+
+  it('trackWithdrawalCancelled calls track with correct event and payload', () => {
+    trackWithdrawalCancelled({ withdrawal_id: 'wd-2' })
+
+    expect(getTrackedEvents()).toContainEqual(
+      expect.objectContaining({
+        event: 'withdrawal_cancelled',
+        payload: { withdrawal_id: 'wd-2' },
+      }),
+    )
+  })
+
+  it('trackW8benRedirectClicked calls track with correct event name', () => {
+    trackW8benRedirectClicked()
+
+    expect(getTrackedEvents()).toContainEqual(
+      expect.objectContaining({
+        event: 'w8ben_redirect_clicked',
+        payload: undefined,
+      }),
+    )
   })
 })
