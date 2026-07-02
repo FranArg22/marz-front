@@ -171,8 +171,7 @@ async function gotoEarnings(page: Page, user: ...) { ... }
 - [ ] `pnpm quality-gates` en verde completo
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.8; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
