@@ -21,6 +21,7 @@ const {
   mockUseCreatorEarningsQuery,
   mockUseExportCreatorEarningsMutation,
   mockUseNavigate,
+  mockUseWalletQuery,
 } = vi.hoisted(() => ({
   mockNavigate: vi.fn(),
   mockMutate: vi.fn(),
@@ -30,6 +31,7 @@ const {
     void options
     return vi.fn()
   }),
+  mockUseWalletQuery: vi.fn(),
 }))
 
 vi.mock('@tanstack/react-router', () => ({
@@ -58,6 +60,10 @@ vi.mock('@tanstack/react-router', () => ({
 
 vi.mock('./hooks/useCreatorEarnings', () => ({
   useCreatorEarningsQuery: mockUseCreatorEarningsQuery,
+}))
+
+vi.mock('./hooks/useWalletQuery', () => ({
+  useWalletQuery: mockUseWalletQuery,
 }))
 
 vi.mock('./hooks/useExportCreatorEarnings', () => ({
@@ -178,6 +184,7 @@ beforeEach(() => {
   mockMutate.mockReset()
   mockUseNavigate.mockReset()
   mockUseNavigate.mockReturnValue(mockNavigate)
+  mockUseWalletQuery.mockReturnValue({ data: undefined })
   mockUseCreatorEarningsQuery.mockReturnValue({
     isLoading: false,
     isError: false,

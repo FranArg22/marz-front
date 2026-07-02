@@ -5,12 +5,17 @@ import { render, screen } from '@testing-library/react'
 import type { CreatorEarningsResponse } from '#/shared/api/generated/model'
 import { EarningsPage } from './EarningsPage'
 
-const { mockUseCreatorEarningsQuery } = vi.hoisted(() => ({
+const { mockUseCreatorEarningsQuery, mockUseWalletQuery } = vi.hoisted(() => ({
   mockUseCreatorEarningsQuery: vi.fn(),
+  mockUseWalletQuery: vi.fn(),
 }))
 
 vi.mock('../hooks/useCreatorEarnings', () => ({
   useCreatorEarningsQuery: mockUseCreatorEarningsQuery,
+}))
+
+vi.mock('../hooks/useWalletQuery', () => ({
+  useWalletQuery: mockUseWalletQuery,
 }))
 
 vi.mock('./EarningsPaymentsTable', () => ({
@@ -69,6 +74,7 @@ const earningsResponse: CreatorEarningsResponse = {
 
 describe('EarningsPage', () => {
   it('queries the selected period and renders dashboard summary', () => {
+    mockUseWalletQuery.mockReturnValue({ data: undefined })
     mockUseCreatorEarningsQuery.mockReturnValue({
       isLoading: false,
       isError: false,

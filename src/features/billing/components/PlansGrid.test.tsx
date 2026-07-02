@@ -21,9 +21,9 @@ const ALL_PLANS: BillingPlan[] = [
   { plan: 'starter', interval: 'month', amount_usd: '199.00', stripe_price_id: 'price_starter_m' },
   { plan: 'growth', interval: 'month', amount_usd: '299.00', stripe_price_id: 'price_growth_m' },
   { plan: 'scale', interval: 'month', amount_usd: '999.00', stripe_price_id: 'price_scale_m' },
-  { plan: 'starter', interval: 'year', amount_usd: '159.00', stripe_price_id: 'price_starter_y' },
-  { plan: 'growth', interval: 'year', amount_usd: '239.00', stripe_price_id: 'price_growth_y' },
-  { plan: 'scale', interval: 'year', amount_usd: '799.00', stripe_price_id: 'price_scale_y' },
+  { plan: 'starter', interval: 'year', amount_usd: '1908.00', stripe_price_id: 'price_starter_y' },
+  { plan: 'growth', interval: 'year', amount_usd: '2868.00', stripe_price_id: 'price_growth_y' },
+  { plan: 'scale', interval: 'year', amount_usd: '9588.00', stripe_price_id: 'price_scale_y' },
 ]
 
 function setup(overrides: Partial<Parameters<typeof PlansGrid>[0]> = {}) {

@@ -6,6 +6,7 @@ import { Trans } from '@lingui/react/macro'
 import type { CreatorEarningsPeriod } from '#/shared/api/generated/model'
 import { trackEarningsViewed } from '../analytics'
 import { useCreatorEarningsQuery } from '../hooks/useCreatorEarnings'
+import { useWalletQuery } from '../hooks/useWalletQuery'
 import { EarningsKpiGrid } from './EarningsKpiGrid'
 import { EarningsPeriodControl } from './EarningsPeriodControl'
 import { MonthlyEarningsChart } from './MonthlyEarningsChart'
@@ -13,10 +14,10 @@ import { EarningsPaymentsTable } from './EarningsPaymentsTable'
 import { PendingBonusPanel } from './PendingBonusPanel'
 
 const EARNINGS_KPI_SKELETON_IDS = [
-  'available',
-  'pending',
-  'paid',
-  'bonuses',
+  'total',
+  'period',
+  'balance',
+  'withdraw',
 ] as const
 
 interface EarningsPageProps {
@@ -39,6 +40,7 @@ export function EarningsPage({
     cursor,
     limit: 25,
   })
+  const walletQuery = useWalletQuery()
 
   useEffect(() => {
     if (hasTrackedView.current) {
@@ -70,7 +72,10 @@ export function EarningsPage({
 
   return (
     <EarningsPageShell period={period} onPeriodChange={onPeriodChange}>
-      <EarningsKpiGrid kpis={earningsQuery.data.kpis} />
+      <EarningsKpiGrid
+        kpis={earningsQuery.data.kpis}
+        wallet={walletQuery.data}
+      />
       <div className="flex flex-col gap-6 xl:flex-row">
         <div className="min-w-0 flex-1">
           <MonthlyEarningsChart buckets={earningsQuery.data.monthly_earnings} />

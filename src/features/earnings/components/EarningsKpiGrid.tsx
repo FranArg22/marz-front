@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react'
 import { t } from '@lingui/core/macro'
-import { CalendarDays, Hourglass, TrendingUp, Wallet } from 'lucide-react'
+import { Trans } from '@lingui/react/macro'
+import { Hourglass, TrendingUp, Wallet as WalletIcon } from 'lucide-react'
 
-import type { CreatorEarningsKPI } from '#/shared/api/generated/model'
+import type { CreatorEarningsKPI, Wallet } from '#/shared/api/generated/model'
 
 interface EarningsKpiGridProps {
   kpis: CreatorEarningsKPI
+  wallet: Wallet | undefined
+  withdrawButton?: ReactNode
 }
 
 const moneyFormatter = new Intl.NumberFormat('en-US', {
@@ -14,49 +17,62 @@ const moneyFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-})
-
-export function EarningsKpiGrid({ kpis }: EarningsKpiGridProps) {
-  const nextPayoutSupportingText = formatNextPayoutSupportingText(kpis)
+export function EarningsKpiGrid({
+  kpis,
+  wallet,
+  withdrawButton,
+}: EarningsKpiGridProps) {
+  const pendingAmount = totalPendingNonWithdrawable(kpis)
 
   return (
-    <section
-      aria-label={t`Earnings KPIs`}
-      className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
-    >
-      <KpiCard
-        icon={<Wallet className="size-3.5" aria-hidden="true" />}
-        label={t`Total ganado`}
-        value={formatMoney(kpis.total_earned.amount)}
-        supportingText={t`Histórico`}
-      />
-      <KpiCard
-        icon={<TrendingUp className="size-3.5" aria-hidden="true" />}
-        label={t`Ganado en el período`}
-        value={formatMoney(kpis.earned_in_period.amount)}
-        supportingText={t`Período actual`}
-      />
-      <KpiCard
-        icon={
-          <Hourglass className="size-3.5 text-warning" aria-hidden="true" />
-        }
-        label={t`Pago pendiente`}
-        value={formatMoney(kpis.pending_payout.amount)}
-        supportingText={t`En espera de pago`}
-      />
-      <KpiCard
-        highlighted
-        icon={
-          <CalendarDays className="size-3.5 text-primary" aria-hidden="true" />
-        }
-        label={t`Próximo pago`}
-        value={formatMoney(kpis.next_payout.amount)}
-        supportingText={nextPayoutSupportingText}
-      />
-    </section>
+    <div className="flex flex-col gap-3">
+      <section
+        aria-label={t`Earnings KPIs`}
+        className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+      >
+        <KpiCard
+          icon={<WalletIcon className="size-3.5" aria-hidden="true" />}
+          label={t`Total ganado`}
+          value={formatMoney(kpis.total_earned.amount)}
+          supportingText={t`Histórico`}
+        />
+        <KpiCard
+          icon={<TrendingUp className="size-3.5" aria-hidden="true" />}
+          label={t`Ganado en el período`}
+          value={formatMoney(kpis.earned_in_period.amount)}
+          supportingText={t`Período actual`}
+        />
+        {wallet ? (
+          <KpiCard
+            highlighted
+            icon={
+              <WalletIcon
+                className="size-3.5 text-primary"
+                aria-hidden="true"
+              />
+            }
+            label={t`Balance disponible`}
+            value={formatMoney(wallet.balance.amount)}
+            supportingText={t`Disponible para retiro`}
+          />
+        ) : (
+          <div className="h-[118px] animate-pulse rounded-2xl border border-border bg-card" />
+        )}
+        {withdrawButton}
+      </section>
+
+      {pendingAmount > 0 && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Hourglass className="size-3.5 shrink-0 text-warning" aria-hidden />
+          <span>
+            <Trans>Pendiente (no retirable):</Trans>{' '}
+            <span className="font-medium text-foreground">
+              {moneyFormatter.format(pendingAmount)}
+            </span>
+          </span>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -106,10 +122,6 @@ function formatMoney(amount: string) {
   return moneyFormatter.format(Number(amount))
 }
 
-function formatNextPayoutSupportingText(kpis: CreatorEarningsKPI) {
-  if (!kpis.next_payout.date_available || !kpis.next_payout.estimated_date) {
-    return t`Fecha no disponible`
-  }
-
-  return dateFormatter.format(new Date(kpis.next_payout.estimated_date))
+function totalPendingNonWithdrawable(kpis: CreatorEarningsKPI) {
+  return Number(kpis.pending_payout.amount) + Number(kpis.next_payout.amount)
 }

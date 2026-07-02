@@ -122,8 +122,7 @@ Crear `src/features/earnings/components/__tests__/EarningsKpiGrid.test.tsx` (o a
 - [ ] `pnpm quality-gates` en verde
 
 ## Done summary
-TBD
-
+Implemented fn-33-feat-ach-withdrawals-creator-wallet.1; derive, quality gates and task review passed.
 ## Evidence
 - Commits:
 - Tests:
